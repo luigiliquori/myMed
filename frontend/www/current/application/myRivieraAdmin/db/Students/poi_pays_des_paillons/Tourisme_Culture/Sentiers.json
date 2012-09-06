@@ -1,0 +1,15 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "Sous Type": "Sentier", "Nom": "Sentier Crête du Mont-Macaron ", "Description": "Admirez au sein d'un écosystème\nRemarquable, la flore méditerranéenne mais également une faune diversifiée composée d'espèce d'intérêt patrimonial tel que le circaète Jean le blanc, grand rapace diurne. ", "Adresse": "Route des Chevaliers de Malte                      06390 Châteauneuf-Villevieille ", "E-mail": "", "Link": "", "IdMedia": "Crete-Mont-Macaron.jpg Crete-Mont-Macaron-2.jpg", "ComUrbaine": "Pays des Paillons", "Latitude": "43.79966", "Longitude": "7.29274", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "Sous Type": "Sentier", "Nom": "Sentier découverte du Mont-Macaron", "Description": "Admirez au sein d'un écosystème remarquable, la flore méditerranéenne mais également une faune diversifiée composée d'espèce d'intérêt patrimonial tel que le circaète Jean le blanc, grand rapace diurne. ", "Adresse": "Route  des Chevaliers de Malte DFCI          Mont Macaron \n06390 Châteauneuf-Villevieille ", "E-mail": "", "Link": "", "IdMedia": "Sentier-Découverte-Mont-Macaron.jpg   ", "ComUrbaine": "Pays des Paillons", "Latitude": "43.79431", "Longitude": "7.29803", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "Sous Type": "Sentier", "Nom": "Parcours Aventure Peira Cava", "Description": "Parcours acrobatique pour tous dans la forêt au sein d'un parc de 30 hectares. Des tables sont à votre disposition pour pique-niquer. Participez à l’activité  \"parcours aventure\", vous y éprouverez émotion, plaisir et sensation.", "Adresse": "Les granges du Lac  06440 Lucéram          Contact: 04 93 91 36 25                      ", "E-mail": "lecoureurdesbois@wanadoo.fr", "Link": "www.peira-cava-aventure.com", "IdMedia": "Peira-Cava-Aventure-Luceram.jpg", "ComUrbaine": "Pays des Paillons", "Latitude": "43.93916", "Longitude": "7.36491", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "Sous Type": "Sentier", "Nom": "Via Ferrata de Peille ", "Description": "La Via Ferrata se compose d'un parcours de plusieurs sections. Avec prés de 600 mètres d'équipements elle rivalise avec les plus belles réalisations. Renseignements Billetterie et location de matériel au bar l’Absinthe \/ Billetterie Point Info Tourisme.  ", "Adresse": "Place du Serre 06440 Peille village       Contact: 04 93 79 95 75                                     ", "E-mail": "", "Link": "www.viaferratapeille.fr", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.80292", "Longitude": "7.40393", "Altitude": "625 m." }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "Sous Type": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+
+]
+}

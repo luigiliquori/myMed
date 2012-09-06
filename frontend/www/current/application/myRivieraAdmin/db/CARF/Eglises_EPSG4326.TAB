@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ogr:FeatureCollection
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://ogr.maptools.org/ Eglises_EPSG4326.xsd"
+     xmlns:ogr="http://ogr.maptools.org/"
+     xmlns:gml2="http://www.opengis.net/gml">
+  <gml2:boundedBy>
+    <gml2:Box>
+      <gml2:coord><gml2:X>7.40089</gml2:X><gml2:Y>43.74458</gml2:Y></gml2:coord>
+      <gml2:coord><gml2:X>7.52026</gml2:X><gml2:Y>43.941556</gml2:Y></gml2:coord>
+    </gml2:Box>
+  </gml2:boundedBy>                                                                
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F0">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.494861,43.773302</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise du Sacré Coeur</ogr:Nom>
+      <ogr:Description>Messes à 18H</ogr:Description>
+      <ogr:Adresse>15 av. Edouard VII, 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MENTON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F1">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.50566,43.776358000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>La Méséricorde</ogr:Nom>
+      <ogr:Description>Messes à 17H30; 18H en été</ogr:Description>
+      <ogr:Adresse>Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MENTON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F2">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.506532,43.777133999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Immaculée Conception</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MENTON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F3">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.507104,43.777023</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Basilique Saint-Michel</ogr:Nom>
+      <ogr:Description>Messes à 10H30</ogr:Description>
+      <ogr:Adresse>Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MENTON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F4">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.52026,43.785130000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle Saint-Laurent</ogr:Nom>
+      <ogr:Description>Messes à 9h30</ogr:Description>
+      <ogr:Adresse>Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MENTON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F5">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.461882,43.800812</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise Notre Dame des Neiges</ogr:Nom>
+      <ogr:Description>Messes à 16H; été:19H</ogr:Description>
+      <ogr:Adresse>Sainte-Agnès</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>SAINTE-AGNES</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F6">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.40089,43.744579999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise Saint-Michel</ogr:Nom>
+      <ogr:Description>Messes à 9h30 le Dimanche</ogr:Description>
+      <ogr:Adresse>Eglise Saint-Michel La Turbie</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>LA TURBIE</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F7">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.413035,43.941555999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise Saint-Antoine</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Eglise Saint-Antoine Moulinet</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MOULINET</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F8">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.446608,43.876961999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Cathédrale Saint Michel</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Cathédrale Saint Michel Sospel</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>SOSPEL</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F9">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.447398,43.87686</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise de Sospel 2</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Eglise de Sospel 2 Sospel</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>SOSPEL</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F10">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.44725,43.876741000000003</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise de Sospel 3</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Eglise de Sospel 3 Sospel</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>SOSPEL</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F11">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.471871,43.832979000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise de Castillon</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Eglise de Castillon Castillon</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>CASTILLON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F12">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.50961,43.782207</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Chapelle 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MENTON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F13">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.508588,43.781171999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Chapelle 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MENTON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F14">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.487613,43.766446000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle</ogr:Nom>
+      <ogr:Description>Messes à 18H</ogr:Description>
+      <ogr:Adresse>Chapelle 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MENTON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F15">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.445184,43.78649</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise ST BARTHELEMY</ogr:Nom>
+      <ogr:Description>Messes à 11H</ogr:Description>
+      <ogr:Adresse>Eglise ST BARTHELEMY 06500 Gorbio</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>GORBIO</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F16">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.496722,43.804904</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise Baroque Saint-Pierre</ogr:Nom>
+      <ogr:Description>Messes à 9h30</ogr:Description>
+      <ogr:Adresse>Eglise Baroque Saint-Pierre 06500 Castellar</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>CASTELLAR</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F17">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.49869,43.806725</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle Saint-Sébastien</ogr:Nom>
+      <ogr:Description>Pas de messes</ogr:Description>
+      <ogr:Adresse>Chapelle Saint-Sébastien 06500 Castellar</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>CASTELLAR</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F18">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.445027,43.789949999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle Saint Lazare</ogr:Nom>
+      <ogr:Description>Pas de messes</ogr:Description>
+      <ogr:Adresse>Chapelle Saint Lazare 06500 GORBIO</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>GORBIO</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F19">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.401278,43.745288000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Eglise Saint Jean Baptiste</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse></ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>LA TURBIE</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F20">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.411995,43.749260999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle St Roch</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse></ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>LA TURBIE</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F21">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.450197,43.878641000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle Sainte Croix</ogr:Nom>
+      <ogr:Description>Pas de messes</ogr:Description>
+      <ogr:Adresse>Chapelle Saine Croix 06500 GORBIO</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>GORBIO</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F22">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.412427,43.939906999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>St Sébastien</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse></ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MOULINET</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F23">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.409956,43.941389999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle Saint Michel</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse></ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MOULINET</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F24">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.411958,43.921942</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Madone de la Menour</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse></ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>MOULINET</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F25">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.460035,43.764817999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle Sainte Marguerite</ogr:Nom>
+      <ogr:Description>Messes à 10h30</ogr:Description>
+      <ogr:Adresse>Chapelle Sainte Marguerite 06190 ROQUEBRUNE-CAP-MARTIN</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>ROQUEBRUNE-CAP-MARTIN</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F26">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.464386,43.763596</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle St Roch</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Chapelle St Roch 06190 ROQUEBRUNE-CAP-MARTIN</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>ROQUEBRUNE-CAP-MARTIN</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F27">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.466487,43.763899000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle La Pausa</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Chapelle La Pausa 06190 ROQUEBRUNE-CAP-MARTIN</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>ROQUEBRUNE-CAP-MARTIN</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F28">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.46214,43.799715999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle Saint Sébastien</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse></ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>SAINTE-AGNES</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F29">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.476829,43.831297999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Ruines de la chapelle Saint Antonin</ogr:Nom>
+      <ogr:Description>Pas de messes</ogr:Description>
+      <ogr:Adresse></ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>CASTILLON</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F30">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.44246,43.785640999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle Saint-Roch</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse></ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>GORBIO</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F31">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.444899,43.786574999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle des Pénitents Blancs</ogr:Nom>
+      <ogr:Description></ogr:Description>
+      <ogr:Adresse>Chapelle des Pénitents Blancs 06500 GORBIO</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville>GORBIO</ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F32">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.500862,43.774475000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Chapelle Saint-Roch</ogr:Nom>
+      <ogr:Description>Messes à 10h30</ogr:Description>
+      <ogr:Adresse>Place Saint-Roch 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville></ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:Eglises_EPSG4326 fid="F33">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.489372,43.784739999999999</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Type>Eglises_EPSG4326</ogr:Type>
+      <ogr:Nom>Monastère de l'Annonciade</ogr:Nom>
+      <ogr:Description>Messes à 11H15</ogr:Description>
+      <ogr:Adresse>2135 Corniche André Tardieu - 06500 Menton</ogr:Adresse>
+      <ogr:Id_media>0</ogr:Id_media>
+      <ogr:Ville></ogr:Ville>
+    </ogr:Eglises_EPSG4326>
+  </gml2:featureMember>
+</ogr:FeatureCollection>

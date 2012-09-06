@@ -13,7 +13,7 @@
 		</fieldset>
 		<br />
 		<div style="text-align: center;" >
-			<a href="index.php?action=main#profile" type="button" data-inline="true" data-ajax="false"><?= _("Envoyer") ?></a>
+			<a href="index.php?action=main" type="button" data-inline="true" rel="external"><?= _("Envoyer") ?></a>
 		</div>
 	</div>
 </div>

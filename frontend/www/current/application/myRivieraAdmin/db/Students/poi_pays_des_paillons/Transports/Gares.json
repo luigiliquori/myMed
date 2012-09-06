@@ -1,0 +1,19 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Gares", "Nom": "Gare Drap-Cantaron", "Description": "Futur pôle multimodal. Les aménagements porteront sur la modernisation des infrastructures, le mobilier urbain et la création d'un parking à vélos.\nLe Conseil de Développement a réalisé un guide des transports, disponible dans les gares.", "Adresse": "Place de la Gare 06340 Cantaron", "E-mail": "", "Link": "http:\/\/www.pays-des-paillons.fr\/", "IdMedia": "Drap-Cantaron-Gare.jpg", "ComUrbaine": "Pays des Paillons", "Latitude": "43.75994", "Longitude": "7.33814", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Gares", "Nom": "Gare de L'Escarène ", "Description": "Futur pôle multimodal. Les aménagements \nporteront  sur  la  modernisation des infrastructures,  le mobilier urbain et la création d'un parking à vélos. \nLe Conseil de Développement a réalisé un guide des transports, disponible dans les gares.", "Adresse": "Place de la Gare 064440 L'Escarène", "E-mail": "", "Link": "http:\/\/www.pays-des-paillons.fr\/", "IdMedia": "Gare-Escarene.jpg", "ComUrbaine": "Pays des Paillons", "Latitude": "43.83971", "Longitude": "7.35132", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Gares", "Nom": "Gare de Peillon-Sainte-Thècle ", "Description": "Halte ferroviaire de la ligne Nice-Breil, desservie par des trains TER PACA. Un  parking pour les véhicules est aménagé. Pas de guichet.\nLe Conseil de Développement a réalisé un guide des transports, disponible dans les gares. ", "Adresse": "Avenue de la Gare 06440 Peille ", "E-mail": "", "Link": "http:\/\/www.pays-des-paillons.fr\/", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.767851", "Longitude": "7.366837", "Altitude": "180 m." }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Gares", "Nom": "Gare de Peille La Grave de Peille", "Description": "Halte ferroviaire implantée sur la ligne Nice-Breil, desservie par des trains TER PACA. Un parking pour véhicules est aménagé.   ", "Adresse": "Chemin du Nougairet La Grave de Peille 06440 Peille ", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.791931", "Longitude": "7.379851", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Gares", "Nom": "Gare de Touët de L'Escarène", "Description": "Halte ferroviaire implantée sur la ligne Nice-Breil, desservie par des trains TER PACA. Un parking pour véhicules est aménagé. Pas de guichet. Le Conseil de Développement a réalisé un guide des transports, disponible dans les gares.", "Adresse": "Avenue de la Gare 06440 Touët de L'Escarène", "E-mail": "", "Link": "http:\/\/www.pays-des-paillons.fr\/", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.847078", "Longitude": "7.364269", "Altitude": "370 m." }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+
+]
+}
