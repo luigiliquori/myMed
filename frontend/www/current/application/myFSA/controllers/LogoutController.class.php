@@ -1,5 +1,6 @@
 <?php
 
+// TODO: Should be a common controller in /system/controllers/
 class LogoutController extends AbstractController {
 
 	/**
@@ -8,7 +9,7 @@ class LogoutController extends AbstractController {
 	 */
 	public /*void*/ function handleRequest() {
 	
-			//debug("Logout !");
+			debug("Logout !");
 		
 			// DELETE BACKEND SESSION
 			$request = new Request("SessionRequestHandler", DELETE);

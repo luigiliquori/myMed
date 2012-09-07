@@ -1,5 +1,6 @@
 <?php
 
+// TODO: Should be a common controller in /system/controllers/
 class LoginController extends AbstractController {
 
 	/**
@@ -29,10 +30,10 @@ class LoginController extends AbstractController {
 					
 			// Building the Authentication request
 			$request = new Request("AuthenticationRequestHandler", READ);
-			$request->addArgument("login", $login);
+			$request->addArgument("login", trim(strtolower($login)));
 			$request->addArgument("password", $pass);
 			
-			// argument code filled by Request
+			// Argument code filled by Request
 			
 			// Sending request
 			$responsejSon = $request->send();
@@ -57,7 +58,7 @@ class LoginController extends AbstractController {
 				// Set user into $_SESSION
 				$this->getUserFromSession();
 				
-				//debug("success");
+				debug("success");
 				
 				// Redirect to main page
 				$this->redirectTo("main");
