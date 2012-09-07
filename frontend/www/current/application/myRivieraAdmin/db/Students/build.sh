@@ -9,6 +9,12 @@ do
 	xls2csv $f > ${f//.xls/}.csv
 done;
 
+# remove the jSon files
+for f in $(find . -name '*.json')
+do
+	rm $f
+done;
+
 # convert to json
 tmp=$(pwd);
 for d in $(find *)
@@ -27,3 +33,18 @@ do
 		cd $tmp;
 	fi
 done;
+
+# concat the json
+touch tmp.json
+echo "[" >> tmp.json
+for f in $(find . -name '*.json')
+do
+	if [ "$f" != "./tmp.json" ] 
+	then
+		cat $f >> tmp.json
+		echo "," >> tmp.json
+	fi
+done
+sed '$s/.$//' tmp.json > result.json
+echo "]" >> result.json
+rm tmp.json

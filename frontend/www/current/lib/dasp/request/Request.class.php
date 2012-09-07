@@ -121,7 +121,7 @@ class Request {
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
 
-// 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments);
+// 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments) . "<br /><br />";
 		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!

@@ -37,7 +37,7 @@
 		<div data-role="collapsible" data-theme="b" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			<h3>Ajouter points d'interêts</h3>
 			
-			<form action="#" method="post" name="TestForm3" id="TestForm3" enctype="multipart/form-data">
+			<form action="#" method="post" name="addSinglePOI" id="addSinglePOI" enctype="multipart/form-data">
 				<input name="addPOI" type="hidden" value="1" />
 				<input name="action" type="hidden" value="main" />
 			 	Titre: <input name="title" type="text" value="" data-inline="true" /><br />
@@ -45,63 +45,16 @@
 			    Latitude: <input name="latitude" type="text" value="" data-inline="true" /><br />
 			    Type: <input name="type" type="text" value="" data-inline="true" /><br />
 			    Description: <textarea name="description" rows="" cols=""></textarea><br />
-				<center><a href="#" data-role="button" onclick="document.TestForm3.submit()" rel="external" data-theme="g" data-inline="true">Publier</a></center>
+				<center><a href="#" data-role="button" onclick="document.addSinglePOI.submit()" rel="external" data-theme="g" data-inline="true">Publier</a></center>
 			</form>
 			
 			<div data-role="collapsible" data-theme="d" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			    <h3>Avancé</h3>
-			    <div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left; color: gray;">
-			   		<h3>Example CARF:</h3>
-					[<br/>
-					{<br/>
-					"type": "FeatureCollection",<br/>
-					"features": [<br/>
-					{ "type": "Feature", "properties": { "Type": "ADAPEI_EPSG4326", "Nom": "ADAPEI", "Description": "04 93 28 46 12", "Adresse": "20 rue des Soeurs Munet 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.492455, 43.774314 ] } }
-					
-					]<br/>
-					}<br/>
-					,<br/>
-					{<br/>
-					"type": "FeatureCollection",<br/>
-					"features": [<br/>
-					{ "type": "Feature", "properties": { "Type": "ADERF_EPSG4326", "Nom": "ADERF", "Description": "Cette association mise en place le 06 août 2001 a pour vocation le développement économique du territoire de la Communauté d’Agglomération de la Riviera Française", "Adresse": "8 val de Menton 06500 Menton", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.501797, 43.776644 ] } }
-					
-					]<br/>
-					}<br/>
-					,<br/>
-					{<br/>
-					"type": "FeatureCollection",<br/>
-					"features": [<br/>
-					{ "type": "Feature", "properties": { "Type": "ASSEDIC_EPSG4326", "Nom": "ASSEDIC", "Description": "Les ASSEDIC sont ouverts le lundi, de 9h00 à 15h15, le mardi de 9h00 à 14h00, et du mercredi au vendredi  de 9h00 à 15h15", "Adresse": "8 rue Guyau 06500 MENTON", "Id_media": 0 }, "geometry": { "type": "Point", "coordinates": [ 7.504539, 43.776494 ] } }
-					
-					]<br/>
-					}<br/>
-					]<br/>
-			   </div>
-			   <div data-role="collapsible" data-theme="a" data-content-theme="c" data-collapsed="true" Style="text-align: left; color: gray;">
-			   		<h3>Example Pays Paillons:</h3>
-					[<br/>
-						<span Style="position: relative; left: 20px;">{<br /></span>
-							<span Style="position: relative; left: 50px;">"Type":"Adresses_Utiles_ Services",<br /></span>
-							<span Style="position: relative; left: 50px;">"SousType":"Eglises",<br /></span>
-							<span Style="position: relative; left: 50px;">"Nom":"Eglise Saint Laurent",<br /></span>
-							<span Style="position: relative; left: 50px;">"Description":"L'église de style baroque a été entièrement remaniée en 1804. On peut y admirer de magnifiques statues de la Vierge à l’Enfant datant du XVème siècle ainsi qu'une statue en bois de Saint Sébastien datant de 1620. Sur le même parvis, se trouve la chapelle Sainte-Croix des Pénitents Blancs.",<br /></span>
-							<span Style="position: relative; left: 50px;">"Adresse":"Rue de l'Eglise 06390 Berre les Alpes",<br /></span>
-							<span Style="position: relative; left: 50px;">"E-mail":null,<br /></span>
-							<span Style="position: relative; left: 50px;">"Link":null,<br /></span>
-							<span Style="position: relative; left: 50px;">"IdMedia":null,<br /></span>
-							<span Style="position: relative; left: 50px;">"ComUrbaine":"Pays des Paillons",<br /></span>
-							<span Style="position: relative; left: 50px;">"Latitude":43.830392,<br /></span>
-							<span Style="position: relative; left: 50px;">"Longitude":7.329479,<br /></span>
-							<span Style="position: relative; left: 50px;">"Altitude":null<br /></span>
-							<span Style="position: relative; left: 50px;">},<br /></span>
-							<span Style="position: relative; left: 50px;">...<br /></span>
-			   		]<br/>
-			   </div>
-				<form action="#" method="post" name="TestForm3_Bis" id="TestForm3_Bis" enctype="multipart/form-data">
+				<form action="#" method="post" name="addMultiPOIs" id="addMultiPOIs" enctype="multipart/form-data">
 					<input type="hidden" name="addPOI" value="1" />
+					<input name="action" type="hidden" value="main" />
 					<textarea name="data" rows="" cols=""></textarea>
-					 <center><a href="#" data-role="button" onclick="document.TestForm3_Bis.submit()" rel="external" data-theme="g" data-inline="true">Publier</a></center>
+					 <center><a href="#" data-role="button" onclick="document.addMultiPOIs.submit()" rel="external" data-theme="g" data-inline="true">Publier</a></center>
 				</form>
 			</div>
 		</div>
