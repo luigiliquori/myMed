@@ -9,12 +9,12 @@
 			<div data-role="collapsible" data-mini="true" data-theme="a" data-content-theme="c" data-collapsed="false">
 				<h3><?= $_REQUEST["applicationStore"] ?></h3>
 				<img alt="<?= $_REQUEST["applicationStore"] ?>" src="../../application/<?= $_REQUEST["applicationStore"] ?>/img/icon.png" Style="position: absolute; width: 50px;">
-				<div Style="position: absolute; left: 80px;">
+				<div Style="position: absolute; left: 100px;">
 					<p>Version: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/version") ?></i><br />
 					Mise à jour: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i></p>
 				</div>
 				
-				<div Style="position: absolute; right: 10px;">
+				<div Style="position: absolute; right: 20px;">
 					<select id="flip-<?= $_REQUEST["applicationStore"] ?>" name="flip-<?= $_REQUEST["applicationStore"] ?>"
 						id="flip-<?= $_REQUEST["applicationStore"] ?>" data-role="slider" data-mini="true"
 						onChange="SetApplicationStatus('<?= $_REQUEST["applicationStore"] ?>', $('#flip-<?= $_REQUEST["applicationStore"] ?>').val());">
@@ -36,8 +36,8 @@
 					<img id="screenshot3" alt="<?= $_REQUEST["applicationStore"] ?>" src="<?= APP_ROOT . "/../" . $_REQUEST["applicationStore"] . "/doc/screenshot3.png" ?>" class="myScreenshot" />
 					<br /><br />
 					<div data-role="controlgroup" data-type="horizontal">
-						<a href="#" onclick="prevScreenshot()" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-inline="true">left</a>
-						<a href="#" onclick="nextScreenshot()" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-inline="true">right</a>
+						<a href="#" onclick="prevScreenshot()" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-inline="true"></a>
+						<a href="#" onclick="nextScreenshot()" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-inline="true"></a>
 					</div>
 				</center>
 				

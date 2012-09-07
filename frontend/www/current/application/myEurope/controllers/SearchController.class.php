@@ -2,60 +2,83 @@
 
 //require_once dirname(__FILE__) . '/../../../lib/dasp/beans/DataBeanv2.php';
 
-class SearchController extends AuthenticatedController {
+class SearchController extends ExtendedProfileRequired {
 	
 	public $index;
-	
+
 	public function handleRequest() {
 		
 		parent::handleRequest();
 		
 		$this->index=array();
-
-		$themes = array();
-		$regs = array();
 		
+		$this->themes = array();
+		$this->places = array();
+		$this->roles = array();
+		
+		debug_r($_GET);
 		foreach( $_GET as $i=>$v ){
 			if ($v == "on"){
-				if ( strpos($i, "theme") === 0){
-					array_push($themes, substr($i, strlen("theme")));
-				} else if  ( strpos($i, "reg") === 0){
-					array_push($regs, substr($i, strlen("reg")));
+				if ( in_array($i, $this->thems)){
+					array_push($this->themes, $i);
+				} else if ( in_array($i, $this->cats)){
+					array_push($this->roles, $i);
+				} else {
+					array_push($this->places, $i);
 				}
 			}
 		}
-		if (count($themes)){
-			array_push($this->index, new DataBeanv2("theme", ENUM, $themes));
-		}
 		
-		if (count($regs)){
-			array_push($this->index, new DataBeanv2("reg", ENUM, $regs));
-		}
-		$tags = preg_split('/[ +]/', $_GET['q'], NULL, PREG_SPLIT_NO_EMPTY);
-		$p = array_unique(array_map('strtolower', $tags));
-		if (count($p)){
-			array_push($this->index, new DataBeanv2("tags", ENUM, $p));
-		}
+		array_push($this->index, new DataBeanv2("themes", ENUM, join("|",$this->themes)));
 		
-		debug("search on.. ".$_GET['namespace']);
-		$find = new FindRequestv2($this, $_GET['namespace'], $this->index);
-			
-		try{
-			$result = $find->send();
-		}
-		catch(Exception $e){
-			//return null;
-		}
+		array_push($this->index, new DataBeanv2("places", ENUM, join("|",$this->places)));
+		
+		array_push($this->index, new DataBeanv2("roles", ENUM, join("|",$this->roles)));
+		
+		if ($_GET['call']!="")
+			array_push($this->index, new DataBeanv2("call", ENUM, $_GET['call']));
 
+		$p = preg_split('/[ ,+:-]/', $_GET['keywords'], NULL, PREG_SPLIT_NO_EMPTY);
+		$p = array_map('strtolower', $p);
+		$p = array_filter($p, array($this, "smallWords"));
+		$this->p = array_unique($p);
+		array_push($this->index, new DataBeanv2("keyword", ENUM, join("|",$this->p)));
+		
+		
+			
+
+		debug("search on.. ".$_GET['namespace']);
+		
+		$find = new RequestJson($this,
+				array("application"=>APPLICATION_NAME.":".$_GET['namespace'], "predicates"=>$this->index));
+		
+		try{
+			$res = $find->send();
+		}
+		catch(Exception $e){}
+		$this->result = array();
 		$this->success = "";
-		// Give this to the view
-		$this->result = $result;
+
+		if (isset($res->results))
+			$this->result = (array) $res->results;
+		
 		$this->suggestions = array();
+		function addvaluelashes($o){
+			return addslashes($o->value);
+		}
+		
+		$this->index = array_map("addvaluelashes", $this->index); //for ajax subscribe
 		
 		// Render the view			
 		$this->renderView("Results");
 		
 
 	}
+	
+	function smallWords($w){
+		return strlen($w) > 2;
+	}
+	
+	
 }
 ?>

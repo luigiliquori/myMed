@@ -4,13 +4,15 @@
 	
 	<div data-role="content" class="content" Style="text-align: left;">
 		<form action="?action=updateProfile" method="post" data-ajax="false">
+		
+			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
 			
 			<label for="prenom">Prénom / Activité commerciale : </label>
-			<input type="text" name="prenom" value="<?= $_SESSION['user']->firstName ?>" />
+			<input type="text" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
 			<br />
 			
 			<label for="nom">Nom : </label>
-			<input type="text" name="nom" value="<?= $_SESSION['user']->lastName ?>" />
+			<input type="text" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			<br />
 			
 			<label for="email" >eMail : </label>
@@ -34,7 +36,7 @@
 			<br />
 			
 			<label for="thumbnail" >Photo du profil (url): </label>
-			<input type="text" name="thumbnail" value="<?= $_SESSION['user']->profilePicture ?>" />
+			<input type="text" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			<br />
 			
 			<center>

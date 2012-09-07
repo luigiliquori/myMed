@@ -41,8 +41,8 @@ class FindRequest extends Request {
 	 * Constructor
 	 */
 	public function __construct(
-		/*IRequestHandler*/ $handler, 
-		/* DDataBean[] */ $predicateList,
+		/** IRequestHandler */ $handler, 
+		/* MDataBean[] */ $predicateList,
 	    /* String*/ $user,
 		/* String*/ $namespace = null) 
 	{

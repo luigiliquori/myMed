@@ -2,23 +2,32 @@
 
 <div data-role="page" id="association" >	
 
-	<? include("header-bar.php") ?>
-	
+
+	<? if ($this->getUserType() == USER_NICE_BENEVOLAT): ?>
+		<? header_bar(array(
+			_("Associations") => url("listAssociations"),
+			_("Nouvelle association") => null)) ?>
+	<? else: ?>
+		<? header_bar(array(
+			_("Création de profil association") => null)) ?>
+	<? endif ?>
+			
 	<form data-role="content" method="post" data-ajax="false" 
 		action="<?= url("extendedProfile:doCreate", array("type" => ASSOCIATION)) ?>" >
 				
 		<p>
-			<? if (!isset($this->extendedProfile)) :?>
-			Vous avez déjà un compte association ?
-			<a href="<?= url("login") ?>">connectez vous</a><br/>
+			<? if ($this->getUserType() == USER_GUEST) :?>
+			    <?= _("Vous avez déjà un compte association ?") ?>
+			    <a href="<?= url("login") ?>">
+                    <?= _("connectez vous") ?>
+                </a><br/>
 			<? endif ?>
-			Merci de remplir la fiche de l'association.
+			<?= _("Merci de remplir la fiche de l'association.") ?>
 		</p>
 		
 		<? include('ProfileAssociationForm.php') ?>
 		
-		<input type=submit name="submit" data-role="button" data-theme="g" 
-			value="Créer le profil" />
+		<? wizard_footbar(_("Créer le profil")) ?>
 
 	</form>
 

@@ -1,10 +1,9 @@
 <?php
 class CategoriesSituation {
- 	static $values = array(
- 		"actif" => "Actif",
- 		"sans_emploi" => "Sans emploi",
-		"retraite" => "Retraité",
-		"etudiant" => "Etudiant"
- 	);
+ 	static $values = array();
 }
+CategoriesSituation::$values["actif" ]=_("Actif");
+CategoriesSituation::$values["sans_emploi" ]=_("Sans emploi");
+CategoriesSituation::$values["retraite" ]=_("Retraité");
+CategoriesSituation::$values["etudiant" ]=_("Etudiant");
 ?>

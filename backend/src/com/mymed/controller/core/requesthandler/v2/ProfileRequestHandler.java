@@ -29,7 +29,7 @@ import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.user.MUserBean;
 
 /**
@@ -79,7 +79,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -127,7 +127,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -159,10 +159,10 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                 case UPDATE :
                     message.setMethod(JSON_CODE_UPDATE);
                     try {
-                        MUserBean userBean = gson.fromJson(user, MUserBean.class);
-                        LOGGER.info("Trying to update user:\n {}", userBean.toString());
-                        userBean = profileManager.update(userBean);
-                        message.addDataObject(JSON_PROFILE, userBean);
+                        Map<String, String> userFields = gson.fromJson(user, dataType);
+                        LOGGER.info("Trying to update user:\n {}", userFields);
+                        profileManager.update(userFields.get("id"), userFields);
+                        //message.addDataObject(JSON_PROFILE, userBean);
                         message.setDescription("User updated!");
                         LOGGER.info("User updated!");
                     } catch (final JsonSyntaxException e) {

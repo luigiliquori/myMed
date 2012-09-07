@@ -1,55 +1,47 @@
 <? include("header.php"); ?>
-<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
-<script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.min.js"></script>
-<script type="text/javascript" src="../../lib/jquery/CLEeditor/startCLE.js"> </script>
+
 <?
 function tab_bar_white($activeTab) {
 	tabs_white(array(
-			"share" => array("Partagez", "plus"),
-			"home" => array("myEurope", "myEurope"),
-			"rep" => array("Reputation Area", "star"),
-			"profile" => array("Profil", "profile"),
+			//"share" => array(_('Share'), "plus"),
+			"about" => array(_("About"), "info"),
+			"home" => array(APPLICATION_NAME, "myEurope"),
+			"admin" => array(_('Admin'), "gear"),
+			"profile" => array(_('Profile'), "profile"),
 		),
 		$activeTab);
 } 
 ?>
-
+		
 <div data-role="page" id="home">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar_white("home") ?>
-	</div>
-	<div data-role="footer" data-theme="c" data-position="fixed">
-		<div data-role="navbar" data-theme="c" data-iconpos="left">
-			<ul>
-				<li><a href="#admin" data-icon="gear">Admin</a></li>
-			</ul>
-		</div>
+		<? include("notifications.php"); ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
-		<h3 class="ui-link">Partenariats:</h3>
-		<div data-role="controlgroup"  data-type="horizontal">
-			<a href="#search" type="button" data-theme="e" style="width:50%;"><br />Rechercher une offre<br />&nbsp;</a>
-			<a href="#post" type="button" data-theme="e" style="width:49%;" rel="external"><br />Déposer une offre<br />&nbsp;</a>
+		
+		<div data-role="fieldcontain" style="padding-top: 5%;padding-bottom: 5%;">
+			<a href="#search" id="searchButton" type="button" class="ui-btn-active ui-state-persist" style="width:45%;min-width:250px;" data-inline="true"><?= _('Search a partnership offer') ?></a>
+			<a href="#post" id="postButton" type="button" class="ui-btn-active" style="width:45%;min-width:250px;" data-inline="true"><?= _('Insert a partnership offer') ?></a>
+		</div>
+
+		<div data-role="fieldcontain" >
+			<a href="#infos" style="width:30%;min-width:250px;" class="wrap"
+			type="button" data-inline="true" data-theme="d"><?= _('About European programs') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
+			<a href="?action=Blog&blog=Alcotra" style="width:30%;min-width:250px;" class="wrap"
+			type="button"  data-theme="d" data-inline="true"><?= _('Alcotra Blog') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
+			<a href="?action=Blog&blog=myEurope" rel="external" style="width:30%;min-width:250px;" class="wrap"
+			type="button" data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
 		</div>
 		
-		<h3 class="ui-link">Informations:</h3>
-		
-			<a href="#infos" style="width:30%;min-width:180px;" class="wrap"
-			type="button" data-inline="true" data-theme="d">S'informer<span style="font-weight: lighter;"> sur les programmes 2014-2020</span></a>
-			<a href="#blogAlcotra"  style="width:30%;min-width:180px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true">Alcotra Blog<span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="#blogTest"  style="width:30%;min-width:180px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true">Beta testers Blog</a>
-		
-		<br /><br />
-		<select data-theme="c" data-mini="true" name="slider" id="flip-d" data-role="slider"
-			onchange="if ($(this).val()==1){$('#AboutContent').fadeOut('slow');} else {$('#AboutContent').fadeIn('slow')};">
-			<option value="1"><?= _("A propos") ?></option>
-			<option value="0"><?= _("A propos") ?></option>
-		</select>
-		<div id="AboutContent" style="display:none;">
-			<?= _(about()) ?>
+		<div id="spacer">
 		</div>
+		<div class="social logos">
+			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
+			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
+			<img alt="myMed" src="../../system/img/logos/mymed" />
+		</div>
+
 	</div>
 </div>
 
@@ -58,21 +50,10 @@ function tab_bar_white($activeTab) {
 		<? tab_bar_white("profile") ?>
 	</div>
 
-	<div data-role="content" >
-		<br />
-		Rôle: <?= $_SESSION['myEuropeProfile']->role ?><br />
-		activité: <?= $_SESSION['myEuropeProfile']->activity ?><br />
-		Email: <?= $_SESSION['myEuropeProfile']->email ?><br />
-		Adresse: <?= $_SESSION['myEuropeProfile']->address ?><br />
-		<br />
-		<a type="button" data-mini="true" href="?action=ExtendedProfile&edit=false" data-inline="true" data-theme="c" data-icon="gear">Modifer</a>
-	
-		<br />
-		
-		<br />
-		
-		<span> Langue: </span>&nbsp;&nbsp;
-		<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
+	<div data-role="content" style="text-align:center;">
+		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
+
+		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
 			<label for="radio-view-a"><?= _('French') ?></label>
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
@@ -80,6 +61,30 @@ function tab_bar_white($activeTab) {
 			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
 			<label for="radio-view-e"><?= _('English') ?></label>
 		</fieldset>
+		<br />
+		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
+			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="grid" style="text-align: left;"><?= _('Edit my profile') ?></a>
+		</fieldset>
+		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
+			<a data-role="button" href="?action=logout" rel="external" data-icon="delete" style="text-align: left;"><?= _('Log Out') ?></a>
+		</fieldset>
+		
+	</div>
+</div>
+
+<div data-role="page" id="about">
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tab_bar_white("about") ?>
+	</div>
+	<div data-role="content">
+		<br />
+		<div style="text-align: center;">
+			<a href="https://plus.google.com/u/0/101253244628163302593/posts" target="_blank" style="padding-left:10px;"><img src="../../system/img/social/googleplus_32" alt="myEurope on Google+"></a>
+			<a href="http://www.facebook.com/pages/myEurope/274577279309326" target="_blank" style="padding-left:20px;"><img src="../../system/img/social/facebook_32" alt="myEurope on Facebook"></a>
+			<a href="https://twitter.com/my_europe" target="_blank" style="padding-left:20px;"><img src="../../system/img/social/twitter_32" alt="myEurope on Twitter"></a>
+		</div>
+		<br />
+		<?= about() ?>
 	</div>
 </div>
 
@@ -90,85 +95,21 @@ function tab_bar_white($activeTab) {
 	<div data-role="content">
 		<br />
 		<div style="text-align:center;">
-			<span><?= _('Restricted page for admins') ?>Page réservée aux utilisateurs Admin</span><br />
-			<? if ($_SESSION['myEuropeProfile']->permission<=1) {?>
-				<a href="#home" type="button" data-inline="true" data-theme="r" data-icon="back"><?= _('Back') ?><?= _("Back") ?></a>
+			<span><?= _('Restricted page for admins') ?></span><br />
+			<? if ($_SESSION['myEurope']->permission<=1) {?>
+				<a data-rel="back" data-icon="back" type="button" data-inline="true" data-theme="e"><?= _('Back') ?></a>
 			<? } else { ?>
-				<a href="./?action=Admin" data-ajax="false" type="button" data-inline="true" data-theme="g"><?= _('Access') ?>Accéder</a>
+				<a href="./?action=Admin" type="button" data-inline="true" data-theme="g"><?= _('Access') ?></a>
 			<? } ?>
 		</div>
 	</div>
 </div>
 
-<div data-role="page" id="share">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("share") ?>
-	</div>
-	<div data-role="content" style="text-align:center;">
-		
-			Partagez <?= APPLICATION_NAME ?>:<br /><br />
-			<div class="addthis_toolbox addthis_floating_style addthis_32x32_style" style="position:relative; margin: auto; background: transparent;">
-				
-				<a class="addthis_button_google_plusone_share"></a>
-				<a class="addthis_button_preferred_1"></a>
-				<a class="addthis_button_preferred_2"></a>
-				<a class="addthis_button_preferred_3"></a>
-				<a class="addthis_button_compact"></a>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div data-role="page" id="rep">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("rep") ?>
-	</div>
-	<div data-role="content">
-
-
-		<fieldset data-role="controlgroup" id="themecheckboxes">
-			<legend><b>Selectionnez parmi les offres de partenaires vus:</b></legend>
-	
-
-			<input type="checkbox" name="pr1" id="checkbox-5a" />
-			<label for="checkbox-5a">Offre1 <a href="">100%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
-			
-			<input type="checkbox" name="pr2" id="checkbox-6a" />
-			<label for="checkbox-6a">Offre4 <a href="">90%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
-			
-			<input type="checkbox" name="pr3" id="checkbox-7a"/>
-			<label for="checkbox-7a">Offre3 <a href="">80%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a><span></label>
-	
-			<input type="checkbox" name="pr4" id="checkbox-8a" />
-			<label for="checkbox-8a">Offre2 <a href="">75%</a><a style="float:right;" href="./?action=details&id=21">Lien vers l'offre</a></label>
-		</fieldset>
-		
-	    <a type="button" data-mini="true" data-inline="true" id="clearRepButton">Effacer</a><br /><br />
-        <b>Notez-les:</b>&nbsp;&nbsp;
-        
-        <a data-role="button" data-iconpos="top" data-mini="true" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"
-			id="rep0">0</a>
-		<a data-role="button" data-iconpos="top" data-mini="true" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"
-			id="rep25">25</a>
-		<a data-role="button" data-iconpos="top" data-mini="true" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"
-			id="rep50">50</a>
-		<a data-role="button" data-iconpos="top" data-mini="true" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"
-			id="rep75">75</a>
-		<a data-role="button" data-iconpos="top" data-mini="true" data-icon="star" data-inline="true" style="margin-right:1px; margin-left:1px;"
-			id="rep100">100</a>
-			
-		<br /><br />
-		<a type="button" data-ajax="false" data-mini="true" data-inline="true" href="?action=search&namespace=part">Voir les offres les mieux notées</a><br /><br />
-
-	</div>
-</div>
-
-
 <div data-role="page" id="search">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_2click(
-				"Chercher un partenaire",
+				_('Search a partner'),
 				"$('#searchForm').submit();",
 				"search") ?>
 	</div>
@@ -179,57 +120,180 @@ function tab_bar_white($activeTab) {
 			<input type="hidden" name="action" value="Search" />
 			<input type="hidden" name="namespace" value="part" />
 			
-	
+			<br />
+			
+			<div data-role="fieldcontain">
 		 	<fieldset data-role="controlgroup" id="themecheckboxes">
-				<legend><b>Thèmes:</b></legend>
+				<legend><?= _('Offer Themes') ?>:</legend>
 				
 				<input type="checkbox" id="checkbox-all" />
-				<label for="checkbox-all">Tous</label>
+				<label for="checkbox-all"><?= _('All') ?></label>
 				
-				<input type="checkbox" name="themeedu" id="checkbox-1a"/>
-				<label for="checkbox-1a">Education, culture & sport</label>
+				<input type="checkbox" name="education" id="checkbox-1a"/>
+				<label for="checkbox-1a"><?= _("Education, culture and sport") ?></label>
 
-				<input type="checkbox" name="themeemp" id="checkbox-2a"/>
-				<label for="checkbox-2a">Emploi, affaires sociales & égalité des chances</label>
+				<input type="checkbox" name="travail" id="checkbox-2a"/>
+				<label for="checkbox-2a"><?= _("Work and training") ?></label>
 				
-				<input type="checkbox" name="themeent" id="checkbox-3a"/>
-				<label for="checkbox-3a">Entreprises & innovation</label>
+				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
+				<label for="checkbox-3a"><?= _("Enterprises, Research and Innovation") ?></label>
+				
+				<input type="checkbox" name="environnement" id="checkbox-4a"/>
+				<label for="checkbox-4a"><?= _("Environment, Energies and Risk") ?></label>
+				
+				<input type="checkbox" name="recherche" id="checkbox-7a"/>
+				<label for="checkbox-7a"><?= _("Transport, Facilities and Zoning") ?></label>
 
-				<input type="checkbox" name="themeenv" id="checkbox-4a"/>
-				<label for="checkbox-4a">Environnement, énergie & transports</label>
+				<input type="checkbox" name="santé" id="checkbox-8a" />
+				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
 				
-				<input type="checkbox" name="themeagr" id="checkbox-5a" />
-				<label for="checkbox-5a">Agriculture</label>
+				<input type="checkbox" name="social" id="checkbox-9a" />
+				<label for="checkbox-9a"><?= _("Social Affairs") ?></label>
+				
+				<input type="checkbox" name="agriculture" id="checkbox-5a" />
+				<label for="checkbox-5a"><?= _("Agriculture") ?></label>
 
-				<input type="checkbox" name="themepec" id="checkbox-6a" />
-				<label for="checkbox-6a">Pêche</label>
-				
-				<input type="checkbox" name="themesoc" id="checkbox-7a"/>
-				<label for="checkbox-7a">Cohésion économique et sociale</label>
+				<input type="checkbox" name="peche" id="checkbox-6a" />
+				<label for="checkbox-6a"><?= _("Fishing") ?></label>			
 
-				<input type="checkbox" name="themerec" id="checkbox-8a" />
-				<label for="checkbox-8a">Recherche</label>
-				
-				<input type="checkbox" name="themesan" id="checkbox-9a" />
-				<label for="checkbox-9a">Santé & protection des consommateurs</label>
 				
 		    </fieldset>
-			<br />
+		    </div>
+			<div data-role="fieldcontain">
 		 	<fieldset data-role="controlgroup">
-				<legend><b>Pays:</b></legend>
-				<input type="checkbox" name="regfr" id="checkbox-1a" checked="checked"/>
-				<label for="checkbox-1a">France</label>
+				<legend><?= _('Areas') ?>:</legend>
 
-				<input type="checkbox" name="regit" id="checkbox-2a"/>
-				<label for="checkbox-2a">Italie</label>
+				<div data-role="collapsible-set">
+				
+				
+					<div data-role="collapsible">
+						<h3><?= _("France") ?></h3>
+						<input type="checkbox" id="checkbox-all2" />
+						<label for="checkbox-all2"><?= _('All') ?></label>
+						
+						<input type="checkbox" name="Ain" id="checkbox-10b"/>
+						<label for="checkbox-10b">Ain</label>
+						
+						<input type="checkbox" name="Alpes-Maritimes" id="checkbox-1b" />
+						<label for="checkbox-1b">Alpes-Maritimes</label>
+						
+						<input type="checkbox" name="Alpes de Haute-Provence" id="checkbox-5b" />
+						<label for="checkbox-5b">Alpes de Haute-Provence</label>
+						
+						<input type="checkbox" name="Bouches du Rhône" id="checkbox-3b"/>
+						<label for="checkbox-3b">Bouches du Rhône</label>
+						
+						<input type="checkbox" name="Drôme" id="checkbox-12b"/>
+						<label for="checkbox-12b">Drôme</label>
+						
+						<input type="checkbox" name="Hautes-Alpes" id="checkbox-6b" />
+						<label for="checkbox-6b">Hautes-Alpes</label>
+						
+						<input type="checkbox" name="Haute-Savoie" id="checkbox-9b"/>
+						<label for="checkbox-9b">Haute-Savoie</label>
+						
+						<input type="checkbox" name="Isère" id="checkbox-11b"/>
+						<label for="checkbox-11b">Isère</label>
+						
+						<input type="checkbox" name="Rhône" id="checkbox-7b"/>
+						<label for="checkbox-7b">Rhône</label>
+						
+						<input type="checkbox" name="Savoie" id="checkbox-8b" />
+						<label for="checkbox-8b">Savoie</label>
+						
+						<input type="checkbox" name="Var" id="checkbox-2b"/>
+						<label for="checkbox-2b">Var</label>
+
+						<input type="checkbox" name="Vaucluse" id="checkbox-4b" />
+						<label for="checkbox-4b">Vaucluse</label>
+
+						
+					</div>
+					<div data-role="collapsible">
+						<h3><?= _("Italy") ?></h3>
+						<input type="checkbox" id="checkbox-all2" />
+						<label for="checkbox-all2"><?= _('All') ?></label>
+						
+						<input type="checkbox" name="Alessandria" id="checkbox-21b"/>
+						<label for="checkbox-21b">Alessandria</label>
+						
+						<input type="checkbox" name="Aosta" id="checkbox-13b"/>
+						<label for="checkbox-13b">Aosta</label>
+						
+						<input type="checkbox" name="Asti" id="checkbox-20b"/>
+						<label for="checkbox-20b">Asti</label>
+						
+						<input type="checkbox" name="Biella" id="checkbox-18b"/>
+						<label for="checkbox-18b">Biella</label>
+						
+						<input type="checkbox" name="Cuneo" id="checkbox-14b"/>
+						<label for="checkbox-14b">Cuneo</label>
+						
+						<input type="checkbox" name="Genova" id="checkbox-17b"/>
+						<label for="checkbox-17b">Genova</label>
+						
+						<input type="checkbox" name="Imperia" id="checkbox-16b"/>
+						<label for="checkbox-16b">Imperia</label>
+						
+						<input type="checkbox" name="Savona" id="checkbox-22b"/>
+						<label for="checkbox-22b">Savona</label>
+						
+						<input type="checkbox" name="Torino" id="checkbox-15b"/>
+						<label for="checkbox-15b">Torino</label>
+						
+						<input type="checkbox" name="Vercelli" id="checkbox-19b"/>
+						<label for="checkbox-19b">Vercelli</label>
+						
+					</div>
+					<div data-role="collapsible">
+						<h3><?= _("Other") ?></h3>
+					
+						<input type="checkbox" name="Monaco" id="checkbox-23b"/>
+						<label for="checkbox-23b">Monaco</label>
+						
+						<input type="checkbox" name="Suisse" id="checkbox-24b"/>
+						<label for="checkbox-24b">Suisse</label>
+						
+						<input type="checkbox" name="Corse" id="checkbox-25b"/>
+						<label for="checkbox-25b">Corse</label>
+						
+					</div>
+				
+				
+				</div>
 				
 		    </fieldset>
+		    </div>
+			<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup">
+				<legend><?= _('Category of searched partners') ?>:</legend>
+				<? foreach($this->cats as $i=>$item) :?>
+					<input type="checkbox" name="<?= $item ?>" id="checkbox-c<?= $item ?>"/>
+					<label for="checkbox-c<?= $item ?>"><?= $i ?></label>
+				<? endforeach ?>
+		    </fieldset>
+		    </div>
+		      <div data-role="fieldcontain">
+				<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
+				<select name="call" id="call">
+					<option value=""><?= _("proposition libre") ?></option>
+					<option value="Alcotra">Alcotra</option>
+					<option value="Med">Med</option>
+					<option value="Alpin"><?= _("Alpin Space") ?></option>
+					<option value="IEVP">IEVP CT MED</option>
+					<option value="Interreg">Interreg IV C</option>
+					<option value="Maritime"><?= _("Italy-France Maritime") ?></option>
+				</select>
+			</div>
+		    <div data-role="fieldcontain">
+				<label for="textinputs1"><?= _('keywords') ?>: </label>
+				<input id="textinputs1" name="keywords" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
+			</div>
+
 			<br />
-			<label for="search"><b>ou Mots clés:</b></label>
-			<input type="search" name="q" id="search" value="projet test" />
-			<br />
+
 			<div style="text-align: center;" >
-				<input type="submit" data-theme="b" data-icon="search" data-inline="true" value="Chercher"/>
+				<input type="submit" class="ui-btn-active ui-state-persist" data-icon="search" data-inline="true" value="<?=_('Search') ?>"/>
 			</div>
 		</form>
 	</div>
@@ -239,142 +303,186 @@ function tab_bar_white($activeTab) {
 	
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_2click(
-				"Insérer une offre",
+				_('Insert an offer'),
 				"$('#publishForm').submit();",
-				"gear") ?>
+				"check") ?>
 	</div>
 
 	<div data-role="content">
-		<form action="./" method="post" id="publishForm" data-ajax="false">
+		<form action="./" method="post" id="publishForm">
 				
 			<input type="hidden" name="action" value="Publish" />
 			<input type="hidden" name="namespace" value="part" />
+			<?= debug_r($this->cats[$_SESSION['myEuropeProfile']->role]); ?>
+			<input type="hidden" name="cat" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
 			
-		 	<fieldset data-role="controlgroup">
-				<legend><b>Thèmes:</b></legend>
-				<input type="checkbox" name="themeedu" id="checkbox-1a"/>
-				<label for="checkbox-1a">Education, culture & sport</label>
+			<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup">
+				<legend><?= _('Themes') ?>:</legend>
+								
+				<input type="checkbox" name="education" id="checkbox-1a"/>
+				<label for="checkbox-1a"><?= _("Education, culture and sport") ?></label>
 
-				<input type="checkbox" name="themeemp" id="checkbox-2a"/>
-				<label for="checkbox-2a">Emploi, affaires sociales & égalité des chances</label>
+				<input type="checkbox" name="travail" id="checkbox-2a"/>
+				<label for="checkbox-2a"><?= _("Work and training") ?></label>
 				
-				<input type="checkbox" name="themeent" id="checkbox-3a"/>
-				<label for="checkbox-3a">Entreprises & innovation</label>
+				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
+				<label for="checkbox-3a"><?= _("Enterprises, Research and Innovation") ?></label>
+				
+				<input type="checkbox" name="environnement" id="checkbox-4a"/>
+				<label for="checkbox-4a"><?= _("Environment, Energies and Risk") ?></label>
+				
+				<input type="checkbox" name="recherche" id="checkbox-7a"/>
+				<label for="checkbox-7a"><?= _("Transport, Facilities and Zoning") ?></label>
 
-				<input type="checkbox" name="themeenv" id="checkbox-4a"/>
-				<label for="checkbox-4a">Environnement, énergie & transports</label>
+				<input type="checkbox" name="santé" id="checkbox-8a" />
+				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
 				
-				<input type="checkbox" name="themeagr" id="checkbox-5a" />
-				<label for="checkbox-5a">Agriculture</label>
+				<input type="checkbox" name="social" id="checkbox-9a" />
+				<label for="checkbox-9a"><?= _("Social Affairs") ?></label>
+				
+				<input type="checkbox" name="agriculture" id="checkbox-5a" />
+				<label for="checkbox-5a"><?= _("Agriculture") ?></label>
 
-				<input type="checkbox" name="themepec" id="checkbox-6a" />
-				<label for="checkbox-6a">Pêche</label>
-				
-				<input type="checkbox" name="themesoc" id="checkbox-7a"/>
-				<label for="checkbox-7a">Cohésion économique et sociale</label>
-
-				<input type="checkbox" name="themerec" id="checkbox-8a" />
-				<label for="checkbox-8a">Recherche</label>
-				
-				<input type="checkbox" name="themesan" id="checkbox-9a" />
-				<label for="checkbox-9a">Santé & protection des consommateurs</label>
-				
-		    </fieldset>
-			<br />
-		 	<fieldset data-role="controlgroup">
-				<legend><b>Pays:</b></legend>
-				<input type="checkbox" name="regfr" id="checkbox-1a" checked="checked"/>
-				<label for="checkbox-1a">France</label>
-
-				<input type="checkbox" name="regit" id="checkbox-2a"/>
-				<label for="checkbox-2a">Italie</label>
+				<input type="checkbox" name="peche" id="checkbox-6a" />
+				<label for="checkbox-6a"><?= _("Fishing") ?></label>	
 				
 		    </fieldset>
-			<br />
-			<label for="search"><b>ou Mots clés:</b></label>
-			<input type="search" name="q" id="search" value="projet test" />
+		    </div>
+		    
+			<div data-role="fieldcontain">
+		 	<fieldset data-role="controlgroup">
+				<legend><?= _('Areas') ?>:</legend>
+				
+				<div data-role="collapsible-set">
+				
+				
+					<div data-role="collapsible">
+						<h3><?= _("France") ?></h3>
+						
+						<input type="checkbox" name="Ain" id="checkbox-10b"/>
+						<label for="checkbox-10b">Ain</label>
+						
+						<input type="checkbox" name="Alpes-Maritimes" id="checkbox-1b" />
+						<label for="checkbox-1b">Alpes-Maritimes</label>
+						
+						<input type="checkbox" name="Alpes de Haute-Provence" id="checkbox-5b" />
+						<label for="checkbox-5b">Alpes de Haute-Provence</label>
+						
+						<input type="checkbox" name="Bouches du Rhône" id="checkbox-3b"/>
+						<label for="checkbox-3b">Bouches du Rhône</label>
+						
+						<input type="checkbox" name="Drôme" id="checkbox-12b"/>
+						<label for="checkbox-12b">Drôme</label>
+						
+						<input type="checkbox" name="Hautes-Alpes" id="checkbox-6b" />
+						<label for="checkbox-6b">Hautes-Alpes</label>
+						
+						<input type="checkbox" name="Haute-Savoie" id="checkbox-9b"/>
+						<label for="checkbox-9b">Haute-Savoie</label>
+						
+						<input type="checkbox" name="Isère" id="checkbox-11b"/>
+						<label for="checkbox-11b">Isère</label>
+						
+						<input type="checkbox" name="Rhône" id="checkbox-7b"/>
+						<label for="checkbox-7b">Rhône</label>
+						
+						<input type="checkbox" name="Savoie" id="checkbox-8b" />
+						<label for="checkbox-8b">Savoie</label>
+						
+						<input type="checkbox" name="Var" id="checkbox-2b"/>
+						<label for="checkbox-2b">Var</label>
 
-			<label for="textContent"><b>Contenu:</b></label>
+						<input type="checkbox" name="Vaucluse" id="checkbox-4b" />
+						<label for="checkbox-4b">Vaucluse</label>
+
+						
+					</div>
+					<div data-role="collapsible">
+						<h3><?= _("Italy") ?></h3>
+						
+						<input type="checkbox" name="Alessandria" id="checkbox-21b"/>
+						<label for="checkbox-21b">Alessandria</label>
+						
+						<input type="checkbox" name="Aosta" id="checkbox-13b"/>
+						<label for="checkbox-13b">Aosta</label>
+						
+						<input type="checkbox" name="Asti" id="checkbox-20b"/>
+						<label for="checkbox-20b">Asti</label>
+						
+						<input type="checkbox" name="Biella" id="checkbox-18b"/>
+						<label for="checkbox-18b">Biella</label>
+						
+						<input type="checkbox" name="Cuneo" id="checkbox-14b"/>
+						<label for="checkbox-14b">Cuneo</label>
+						
+						<input type="checkbox" name="Genova" id="checkbox-17b"/>
+						<label for="checkbox-17b">Genova</label>
+						
+						<input type="checkbox" name="Imperia" id="checkbox-16b"/>
+						<label for="checkbox-16b">Imperia</label>
+						
+						<input type="checkbox" name="Savona" id="checkbox-22b"/>
+						<label for="checkbox-22b">Savona</label>
+						
+						<input type="checkbox" name="Torino" id="checkbox-15b"/>
+						<label for="checkbox-15b">Torino</label>
+						
+						<input type="checkbox" name="Vercelli" id="checkbox-19b"/>
+						<label for="checkbox-19b">Vercelli</label>
+						
+					</div>
+					<div data-role="collapsible">
+						<h3><?= _("Other") ?></h3>
+					
+						<input type="checkbox" name="Monaco" id="checkbox-23b"/>
+						<label for="checkbox-23b">Monaco</label>
+						
+						<input type="checkbox" name="Suisse" id="checkbox-24b"/>
+						<label for="checkbox-24b">Suisse</label>
+						
+						<input type="checkbox" name="Corse" id="checkbox-25b"/>
+						<label for="checkbox-25b">Corse</label>
+					</div>
+				
+				
+				</div>
+		    </fieldset>
+		    </div>
+		    <div data-role="fieldcontain">
+				<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
+				<select name="call" id="call">
+					<option value=""><?= _("proposition libre") ?></option>
+					<option value="Alcotra">Alcotra</option>
+					<option value="Med">Med</option>
+					<option value="Alpin"><?= _("Alpin Space") ?></option>
+					<option value="IEVP">IEVP CT MED</option>
+					<option value="Interreg">Interreg IV C</option>
+					<option value="Maritime"><?= _("Italy-France Maritime") ?></option>
+				</select>
+			</div>
+		    
+			<div data-role="fieldcontain">
+				<label for="textinputp1"><?= _('Keywords') ?>: </label>
+				<input id="textinputp1" name="keywords" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="textinputp2"><?= _('Date of expiration') ?>: </label>
+				<input id="textinputp2" name="date" placeholder="<?= _('date in format year-month-day') ?>" value='' type="date" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="textinputp3"><?= _('Title') ?>: </label>
+				<input id="textinputp3" name="title" placeholder="<?= _("partnership or project name") ?>" value='' type="text" />
+			</div>
 			<textarea id="CLEeditor" id="textContent" name="text"></textarea>
 
 			<div style="text-align: center;" >
-				<input type="submit" data-theme="b"  data-inline="true" value="Insérer" />
+				<input type="submit" class="ui-btn-active ui-state-persist"  data-inline="true" data-icon="check" value="<?=_('Insert') ?>" />
 			</div>
 		</form>
 	</div>
 </div>
 
-<div data-role="page" id="blogAlcotra">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-	      	<ul>
-	      		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
-	      		<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
-	      	</ul>
-      	</div>
-	</div>
-	
-	<div data-role="content">
-		<h3 class="ui-link" style="text-align: center;">Blog Alcotra</h3>
-		<ul data-role="listview" data-theme="d" data-inset="true">
-			<li>
-				<h3>myEurope Team</h3>
-				<p><strong>Bienvenue à tous</strong></p>
-				<p>Blog porte sur les orientations du programme Alcotra 2014-2020 <br />
-				voir <a href="#alcotra">#alcotra</a> pour les infos détaillées</p>
-				<p class="ui-li-aside"><strong>8:24</strong> 25/7/2012</p>
-			</li>
-			<li>
-				<h3>Stephen Weber</h3>
-				<p><strong>Demo Planning</strong></p>
-				<p>..............................................................<br />
-				Preum's</p>
-				<p class="ui-li-aside"><strong>19:18</strong> 25/7/2012</p>
-			</li>
-		</ul>
-
-		
-		<br />
-		Répondre:<textarea></textarea>
-		<input type="submit" data-theme="b"  data-mini="true" data-inline="true" value="Publier" />
-	</div>
-</div>
-
-<div data-role="page" id="blogTest">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-	      	<ul>
-	      		<li><a href="./" data-icon="back"><?= _("Back") ?></a></li>
-	      		<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
-	      	</ul>
-      	</div>
-	</div>
-	
-	<div data-role="content">
-		<h3 class="ui-link" style="text-align: center;">Blog bétas testeurs</h3>
-		<ul data-role="listview" data-theme="d" data-inset="true">
-			<li>
-				<h3>myEurope Team</h3>
-				<p><strong>Bienvenue à tous</strong></p>
-				<p>Ce blog est destiné à collecter diverses remarques, et BUGs dans l'application myEurope</p>
-				<p class="ui-li-aside"><strong>8:24</strong> 25/7/2012</p>
-			</li>
-			<li>
-				<h3>Stephen Weber</h3>
-				<p><strong>Demo Planning</strong></p>
-				<p>..............................................................<br />
-				Preum's</p>
-				<p class="ui-li-aside"><strong>19:18</strong> 25/7/2012</p>
-			</li>
-		</ul>
-
-		
-		<br />
-		Répondre:<textarea></textarea>
-		<input type="submit" data-theme="b"  data-mini="true" data-inline="true" value="Publier" />
-		
-	</div>
-</div>
 
 <? include("infos.php"); ?>
 

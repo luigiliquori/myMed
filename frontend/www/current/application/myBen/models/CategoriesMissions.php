@@ -1,9 +1,8 @@
 <?php
 class CategoriesMissions {
-	static $values = array(
-			"ponctuel" => "Ponctuel",
-			"regulier" => "Régulier",
-			"urgence" => "Urgence"
-	);
+	static $values = array();
 }
+CategoriesMissions::$values["ponctuel" ]=_("Ponctuel");
+CategoriesMissions::$values["regulier" ]=_("Régulier");
+CategoriesMissions::$values["urgence" ]=_("Urgence");
 ?>

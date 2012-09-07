@@ -17,12 +17,12 @@ package com.mymed.tests.unit.handler.utils;
 
 import java.util.EnumSet;
 
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 
 /**
  * This is the enum class that stores all the fields of a normal JSON response.
  * <p>
- * The fields in here are the ones of a general JSON response as created by the {@link JsonMessage} class.
+ * The fields in here are the ones of a general JSON response as created by the {@link JsonMessageOut} class.
  * <p>
  * The format of the JSON message should be:<br>
  * <code>

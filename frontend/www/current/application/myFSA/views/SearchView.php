@@ -16,9 +16,10 @@
 					<h4>No result found</h4>
 				</li>
 				<? endif ?>
+				<?// $_SESSION['publication'] = $this->result; ?>
 				<? foreach($this->result as $item) : ?>
 				<li><a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">			
-					<!--  <b>Publisher ID</b> : --><?= $item->publisherID ?>,
+					<!--<b>Publisher ID</b> : --><?= $item->publisherID ?>,
 					<!--<b>Pred1</b>: --><?//= $item->pred1 ?>
 					<!--<b>Pred2</b>: --><?= $item->pred2 ?>,
 					<!--<b>Pred3</b>: --><?= $item->pred3 ?>,

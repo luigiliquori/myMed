@@ -10,6 +10,12 @@
 	/** define minimum width of desktop design */
 	define('MOBILESWITCH_WIDTH', 737);
 	
+	/** define Rest methods codes */
+	define('CREATE'		, 0);
+	define('READ'		, 1);
+	define('UPDATE'		, 2);
+	define('DELETE'		, 3);
+	
 	/** define the backend's URL'*/
 	define('MOBILE_PARAMETER_SEPARATOR', '::');
 	define('BACKEND_URL', '@backendurl@');

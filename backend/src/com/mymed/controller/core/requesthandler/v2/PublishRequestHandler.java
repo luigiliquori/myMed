@@ -15,297 +15,306 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
-
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MatchMaking.makePrefix;
-import static com.mymed.utils.MatchMaking.parseInt;
+import static com.mymed.utils.MatchMakingv2.prefix;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.mailtemplates.MailDispatcher;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.application.IndexBean;
+import com.mymed.controller.core.manager.publish.PublishManager;
+import com.mymed.controller.core.requesthandler.message.JsonMessageIn;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.user.MUserBean;
-import com.mymed.utils.MatchMaking;
-import com.mymed.utils.MatchMaking.IndexRow;
-
+import com.mymed.utils.CombiLine;
+import com.mymed.utils.HashFunction;
+import com.mymed.utils.MatchMakingv2;
+import com.mymed.utils.MiscUtils;
 
 /**
- * Servlet implementation class PubSubRequestHandler
+ * Servlet implementation class PublishRequestHandler
  */
-@MultipartConfig
+
 @WebServlet("/v2/PublishRequestHandler")
 public class PublishRequestHandler extends AbstractRequestHandler {
 
-    /**
-     * Generated serial ID.
-     */
-    private static final long serialVersionUID = 7612306539244045439L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2988915549079597L;
 
-    protected PubSubManager pubsubManager;
-    protected ProfileManager profileManager;
+	/**
+	 * JSON 'results' attribute.
+	 */
+	protected static final String JSON_RESULTS = JSON.get("json.results");
 
-    /**
-     * JSON 'predicate' attribute.
-     */
-    
-    private static final String JSON_DETAILS = JSON.get("json.details");
+	// private int INDEX_ONLY = 1; // to delete only indexes, not data
 
-    public PublishRequestHandler() throws InternalBackEndException {
-        super();
-        profileManager = new ProfileManager();
-        pubsubManager = new PubSubManager();
-    }
+	protected PublishManager dataManager;
+	protected ProfileManager profileManager;
 
+	private final int MAIL_EXECUTOR_SIZE = 10;
+	private ExecutorService mail_executor;
 
+	/**
+	 * JSON 'predicate' attribute.
+	 */
 
-    /*
-     * (non-Javadoc)
-     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
-     * (javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    @Override
-    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+	protected static final String JSON_DETAILS = JSON.get("json.details");
 
-        try {
-            final Map<String, String> parameters = getParameters(request);
-            // Check the access token
-            checkToken(parameters);
+	public PublishRequestHandler() throws InternalBackEndException {
+		super();
+		profileManager = new ProfileManager();
+		dataManager = new PublishManager();
+		mail_executor = Executors.newFixedThreadPool(MAIL_EXECUTOR_SIZE);
+	}
 
-            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, dataId, namespace = parameters.get(JSON_NAMESPACE);
-            
-            if ((application = parameters.get(JSON_APPLICATION)) == null)
-                throw new InternalBackEndException("missing application argument!");
-            else if ((dataId = parameters.get("id")) == null )
-				throw new InternalBackEndException("missing id argument!");
-            
-            String prefix = makePrefix(application, namespace);
-            
-			switch (code) {
-			case READ:
-				message.setMethod(JSON_CODE_READ);
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException, JsonSyntaxException, JsonParseException, IOException {
+		final JsonMessageOut<Object> out = new JsonMessageOut<Object>(200, this
+				.getClass().getName());
 
+		JsonMessageIn in = gson.fromJson(request.getReader(), JsonMessageIn.class);
+		
+		validateToken(in.getAccessToken());
+		
+		final RequestCode code = REQUEST_CODE_MAP.get(in.getCode());
+
+		// some vars
+		LinkedHashMap<String, List<String>> keywords; // predicates once formatted
+		List<String> rows; //corresponding  rows ^
+		MUserBean publisher = null; // publishing user in case it exists
+		
+		String id = in.getId();
+			
+		switch (code) {
+
+		case CREATE:
+			out.setMethod(JSON_CODE_CREATE);
+
+			in.init();
+			LOGGER.info("predicates: {} ", in.getPredicates());
+			/* generate the ROWS to search */
+			keywords = MatchMakingv2.format(in.getPredicates());
+			
+			LOGGER.info("keywords: {} ", keywords);
+
+			rows = new CombiLine(keywords, in.getLengthMax()).expand();
+			MatchMakingv2.prefix(in.getApplication(), rows);
+
+			/* make sure to put an id pointer */
+			if (id == null) {
+				final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
+				id = h.SHA1ToString(System.currentTimeMillis() + in.getMetadata().toString());
+			}
+			in.getMetadata().put("id", id);
+
+			LOGGER.info("in " + id + "." + in.getData().size() + "."
+					+ keywords.size());
+			
+			dataManager.create(rows, id, in.getMetadata());
+
+			in.getData().put("keywords", gson.toJson(keywords));
+
+			/* creates data */
+			dataManager.create(in.getApplication() + id, in.getData());
+			
+			if ("noNotification".equals(in.getUser())){ // don't use subscriptions
+				LOGGER.info(">>>>>>>>>  no Notification ");
+				break;
+			} else if (in.getUser() != null){ // look if the content is signed
+				in.getData().put("user", in.getUser());
+				publisher = profileManager.read(in.getUser());
+			}
+			
+			in.getData().put("id", id); // just for having publication link in mails
+			mail_executor.execute(new MailDispatcher(
+					in.getApplication(),
+					rows,
+					in.getData(),
+					publisher));
+
+			break;
+			
+		case READ:
+			out.setMethod(JSON_CODE_READ);
+			
+			if (id != null) {
 				// Get DATA (details)
-				final Map<String, String> details = pubsubManager.read(prefix, dataId);
-				if (details.isEmpty()) {
-					throw new IOBackEndException("no results found!", 404);
-				}
-				message.setDescription("Details found for Application: "
-						+ application + " Predicate: " + dataId);
-				LOGGER.info("Details found for Application: " + application
-						+ " Predicate: " + dataId);
+				if (id.startsWith("[")){ //we've a list of ids coming
+					List<String> ids = gson.fromJson(id, listType);
+					ids = prefix(in.getApplication(), ids);
+					final Map<String, Map<String, String>> details = dataManager.read(ids); 
+					
+					out.setDescription("Details found for predicate: " + id);
+					LOGGER.info("Details found for predicate: " + id);
 
-				message.addDataObject(JSON_DETAILS, details);
-				break;
+					out.addDataObject(JSON_DETAILS, details);
+					
+				} else { //read a simple row id
+					final Map<String, String> details = dataManager.read(in.getApplication() + id);
+					if (details.isEmpty()){
+						out.setStatus(404);
+						out.setDescription("No results found!");
+						break;
+					}
+					out.setDescription("Details found for predicate: " + id);
+					LOGGER.info("Details found for predicate: " + id);
+
+					out.addDataObject(JSON_DETAILS, details);
+				}
+
+			} else if (in.getPredicates() != null) {
+
+				/* generate the ROWS to search */
+				keywords = MatchMakingv2.format(in.getPredicates());
+
+				LOGGER.info("keywords: {} ", keywords);
 				
-			case DELETE:
-
-				message.setMethod(JSON_CODE_DELETE);
-				LOGGER.info("deleting " + dataId);
-				String index = pubsubManager.read(prefix, dataId, "_index");
+				rows = new CombiLine(keywords).expand();
+				prefix(in.getApplication(), rows);
 				
-				LOGGER.info(" trying to delete  " + dataId + "." + index);
-				List<IndexBean> indexList = new ArrayList<IndexBean>();
-				try {
-					indexList = gson.fromJson(index,
-							new TypeToken<List<IndexBean>>() {}.getType());
-					LOGGER.info(" get _index : {} ", indexList);
-				} catch (final JsonSyntaxException e) {
-					LOGGER.debug("Error in Json format", e);
-					throw new InternalBackEndException(
-							"jSon format is not valid");
-				} catch (final JsonParseException e) {
-					LOGGER.debug("Error in parsing Json", e);
-					throw new InternalBackEndException(e.getMessage());
+				Map<String, Map<String, String>> resMap;
+
+				resMap = dataManager.read(rows, "", "");
+
+				if (resMap.isEmpty()) {
+					out.setStatus(404);
+					out.setDescription("No results found for predicate:"+ in.getPredicates());
+					break;
 				}
 				
-				if (indexList == null){
-					LOGGER.info(" indexes not found or null ", indexList);
-					indexList = new ArrayList<IndexBean>();
-				}
+				out.setDescription("Results found for predicate: " + in.getPredicates());
+				LOGGER.info("Results found predicate: " + in.getPredicates());
 
-				Collections.sort(indexList);
+				out.addDataObject(JSON_RESULTS, resMap.values());
 
-				LOGGER.info(" deleting  " + dataId + "." + indexList.size());
-
-				LinkedHashMap<String, List<String>> indexes = MatchMaking
-						.formatIndexes(indexList);
-
-				List<IndexRow> combi = MatchMaking.getPredicate(indexes, 0,
-						indexList.size());
-				for (IndexRow i : combi) {
-					pubsubManager.delete(makePrefix(application, namespace),
-							i.toString(), dataId, null);
-				}
-
-				/* deletes data */
-				pubsubManager
-						.delete(makePrefix(application, namespace), dataId);
-
-				break;
-			default:
-				throw new InternalBackEndException("PublishRequestHandler("
-						+ code + ") not exist!");
+			} else {
+				throw new InternalBackEndException(
+						"missing id or index argument!");
 			}
 
-        } catch (final AbstractMymedException e) {
-            LOGGER.debug("Error in doGet operation", e);
-            message.setStatus(e.getStatus());
-            message.setDescription(e.getMessage());
-        }
+			break;
 
-        printJSonResponse(message, response);
-    }
+		
+		case UPDATE:
+			out.setMethod(JSON_CODE_UPDATE);
 
-    /*
-     * (non-Javadoc)
-     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
-     * (javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    @Override
-    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
-
-        try {
-            final Map<String, String> parameters = getParameters(request);
-            // Check the access token
-            checkToken(parameters);
-
-            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String 
-            	application = parameters.get(JSON_APPLICATION), 
-            	data = parameters.get(JSON_DATA),
-            	metadata = parameters.get("metadata"),
-            	index = parameters.get("index"),
-            	dataId = parameters.get("id"),
-            	namespace = parameters.get(JSON_NAMESPACE),
-            	min = parameters.get("min"),
-            	max = parameters.get("max");
-            
-            List<IndexBean> indexList = new ArrayList<IndexBean>();
-            Map<String, String> mdataMap = new HashMap<String, String>();
-			Map<String, String> dataMap = new HashMap<String, String>();
+			in.init();
+			LOGGER.info("predicates: {} ", in.getPredicates());
 			
-            if (application == null)
-                throw new InternalBackEndException("missing application argument!");
-            else if (dataId == null)
-                throw new InternalBackEndException("missing id argument!");
-            
-            try {
-            	if (data != null)
-	                dataMap = gson.fromJson(data, dataType);
-            	if (metadata != null)
-	                mdataMap = gson.fromJson(metadata, dataType);
-            	if (index != null)
-            		indexList = gson.fromJson(index, indexType);
-            } catch (final JsonSyntaxException e) {
-                LOGGER.debug("Error in Json format", e);
-                throw new InternalBackEndException("jSon format is not valid");
-            } catch (final JsonParseException e) {
-                LOGGER.debug("Error in parsing Json", e);
-                throw new InternalBackEndException(e.getMessage());
-            }
-            
-            Collections.sort(indexList);
-           
-            LOGGER.info("in "+dataId+"."+dataMap.size()+"."+indexList.size());
-            
-            LinkedHashMap<String, List<String>> indexes = MatchMaking.formatIndexes(indexList);
+			if (id == null)
+				throw new InternalBackEndException("missing id argument!");
 			
-			List<IndexRow> combi = MatchMaking.getPredicate(
-					indexes, 
-					min!=null?parseInt(min):0,
-					max!=null?parseInt(max):indexList.size());
-        	
-        	LOGGER.info("ext find rows: "+combi.size()+" initial: "+combi.get(0));
-        	
-        	String prefix = makePrefix(application, namespace);
-        	
-			/* make sure to put dataId pointer */
-			mdataMap.put("id", dataId);
-			
-			switch (code) {
+			if (in.getMetadata().size()>0){
+				/* generate the ROWS to search */
+				keywords = MatchMakingv2.format(in.getPredicates());
 
-			case CREATE:
-				message.setMethod(JSON_CODE_CREATE);
-
-				/*
-				 * construct all composite indexes* under level length: *->all subsets of predicateList
-				 * 
-				 * @see PubSub.getIndex
-				 */
+				LOGGER.info("keywords: {} ", keywords);
+	
+				rows = new CombiLine(keywords).expand();
+				MatchMakingv2.prefix(in.getApplication(), rows);
+				LOGGER.info("in " + id + "." + in.getMetadata().size() + "."
+					+ keywords.size()+ "." + rows);
 				
-				// look if the content is signed
-		        MUserBean publisher = null;
-		        if (dataMap.containsKey("user")){
-		        	publisher = profileManager.read(dataMap.get("user"));
-		        } else if (mdataMap.containsKey("user")){
-		        	publisher = profileManager.read(mdataMap.get("user"));
-		        }
-				
-				for (IndexRow i : combi) {
-					
-					pubsubManager.create(prefix, i.toString(), dataId, mdataMap);
-					
-					pubsubManager.sendEmailsToSubscribers(prefix, i.toString(), dataMap, publisher);
-				}
-
-				/*
-				 * add indexes as a data, the only way to remove all the indexes
-				 * later if necessary
-				 */
-				dataMap.put("_index", gson.toJson(indexList));
-				
-				/* creates data */
-				pubsubManager.create(prefix, dataId, dataMap);
-
-				break;
-				
-			case UPDATE:
-				message.setMethod(JSON_CODE_UPDATE);
-
-				LOGGER.info("updating data " + dataId + " size " + dataMap.size());
-				for (IndexRow i : combi) {
-					pubsubManager.create(prefix, i.toString(), dataId, mdataMap);
-				}
-
-				/* creates data */
-				pubsubManager.create(prefix, dataId, dataMap);
-				
-				break;
-
-			default:
-				throw new InternalBackEndException("PublishRequestHandler("
-						+ code + ") not exist!");
+				dataManager.create(rows, id, in.getMetadata());
 			}
 			
-            
-        } catch (final AbstractMymedException e) {
-            LOGGER.debug("Error in doPost operation", e);
-            message.setStatus(e.getStatus());
-            message.setDescription(e.getMessage());
-        }
+	
+			LOGGER.info("updating data " + id + " size "
+					+ in.getData().size());
 
-        printJSonResponse(message, response);    
-    }
+			/* creates data */
+			dataManager.create(in.getApplication() + id, in.getData());
+			
+			
+			if ("noNotification".equals(in.getUser())){ // don't use subscriptions
+				LOGGER.info(">>>>>>>>>  no Notification ");
+				break;
+			} else if (in.getUser() != null) // look if the content is signed
+				publisher = profileManager.read(in.getUser());
+
+			LOGGER.info(">>>>>>>>>  notifying subscribers ");
+				
+			mail_executor.execute(new MailDispatcher(
+				in.getApplication(),
+				MiscUtils.singleton(in.getApplication() + id),
+				in.getData(),
+				publisher));
+			
+			break;
+			
+		case DELETE:
+
+			out.setMethod(JSON_CODE_DELETE);
+			// final String mode = parameters.get("mode");
+
+			if (id == null)
+				throw new InternalBackEndException("missing id argument!");
+
+			
+			LOGGER.info("deleting " + in.getApplication() + id);
+			
+			if (in.getField() != null){
+				dataManager.delete(in.getApplication() + id, in.getField());
+				break;
+			}
+			
+			String keywordsStr = "[]";
+			try{
+				keywordsStr = dataManager.read(in.getApplication() + id, "keywords");
+			}catch(IOBackEndException e){}
+			
+
+			LOGGER.info(" trying to delete  " + id + "." + keywordsStr);
+
+			keywords = new LinkedHashMap<String, List<String>>();
+
+			if (keywordsStr != null) {
+				keywords = gson.fromJson(keywordsStr, xType);
+				LOGGER.info(" get index : {} ", keywords);
+			}
+			
+			LOGGER.info(" deleting  " + id + "." + keywords.size());
+
+			rows = new CombiLine(keywords).expand();
+			prefix(in.getApplication(), rows);
+
+			for (String i : rows) {
+				dataManager.delete("", i, id);
+			}
+
+			/* deletes data */
+			dataManager.delete(in.getApplication() + id);
+
+			break;
+
+		default:
+			throw new InternalBackEndException("PublishRequestHandler("
+					+ code + ") not exist!");
+		}
+
+
+		printJSonResponse(out, response);
+	}
+	
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException {
+		throw new InternalBackEndException("PublishRequestHandler.doGet() not exist!");
+	}
 }

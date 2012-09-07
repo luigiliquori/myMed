@@ -1,10 +1,10 @@
 <? 
 
-/** Constroller with actions that should be called duiretly 
+/** 
+ * Conctroller with actions that should be called duiretly 
  * (by entering URL manually in the navigator),
  * To init NiceBenevolat account :
  * http://<host>:<port>/application/myBen/index.php?action=NiceBenevolatAdmin&method=init
- * 
  */
 class NiceBenevolatAdminController extends ProfileNiceBenevolatRequired {
 	
@@ -26,8 +26,8 @@ class NiceBenevolatAdminController extends ProfileNiceBenevolatRequired {
 		//$req->promue = "false";
 		//$req->subscribe();
 		
-		//
-		$this->success = "Compte NiceBenevolat correctement activé";
+		// Success message
+		$this->success = _("Compte NiceBenevolat correctement activé");
 		$this->forwardTo("main");
 		
 	}	

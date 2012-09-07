@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ogr:FeatureCollection
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://ogr.maptools.org/ MuseesEPSG4326.xsd"
+     xmlns:ogr="http://ogr.maptools.org/"
+     xmlns:gml2="http://www.opengis.net/gml">
+  <gml2:boundedBy>
+    <gml2:Box>
+      <gml2:coord><gml2:X>7.402232</gml2:X><gml2:Y>43.744872</gml2:Y></gml2:coord>
+      <gml2:coord><gml2:X>7.508494</gml2:X><gml2:Y>43.804715</gml2:Y></gml2:coord>
+    </gml2:Box>
+  </gml2:boundedBy>                                                             
+  <gml2:featureMember>
+    <ogr:MuseesEPSG4326 fid="F0">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.508494,43.774763999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Date_Saisie>2007/05/01</ogr:Date_Saisie>
+      <ogr:Source>01</ogr:Source>
+      <ogr:Remarque>Ouvert tous les jours sauf le mardi, 10h-12h et 14h-18h</ogr:Remarque>
+      <ogr:TelBureau></ogr:TelBureau>
+      <ogr:Nom_commune>MENTON</ogr:Nom_commune>
+      <ogr:Adresse>Esplanade Palmero</ogr:Adresse>
+      <ogr:Nom>Musée Cocteau</ogr:Nom>
+      <ogr:idnum>0</ogr:idnum>
+      <ogr:ident></ogr:ident>
+    </ogr:MuseesEPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MuseesEPSG4326 fid="F1">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.48892,43.767080999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Date_Saisie>2007/05/01</ogr:Date_Saisie>
+      <ogr:Source>01</ogr:Source>
+      <ogr:Remarque>Ouvert tous les jours sauf le mardi, 10h-12h et 14h-18h</ogr:Remarque>
+      <ogr:TelBureau>0493354971</ogr:TelBureau>
+      <ogr:Nom_commune>MENTON</ogr:Nom_commune>
+      <ogr:Adresse>Musée des Beaux Arts du Palais C</ogr:Adresse>
+      <ogr:Nom>Musée des Beaux Arts</ogr:Nom>
+      <ogr:idnum>0</ogr:idnum>
+      <ogr:ident></ogr:ident>
+    </ogr:MuseesEPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MuseesEPSG4326 fid="F2">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.503085,43.775719000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Date_Saisie>2007/05/01</ogr:Date_Saisie>
+      <ogr:Source>01</ogr:Source>
+      <ogr:Remarque>Ouvert tous les jours sauf le mardi, 10h-12h et 14h-18h, expositions permanentes (-objets de fouilles recueillis sur les sites préhistor</ogr:Remarque>
+      <ogr:TelBureau>0493572991</ogr:TelBureau>
+      <ogr:Nom_commune>ME</ogr:Nom_commune>
+      <ogr:Adresse>Mairie de Menton - Place Ardoïno</ogr:Adresse>
+      <ogr:Nom>Salle des Mariages Jean Cocteau</ogr:Nom>
+      <ogr:idnum>0</ogr:idnum>
+      <ogr:ident></ogr:ident>
+    </ogr:MuseesEPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MuseesEPSG4326 fid="F3">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.402232,43.744872</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Date_Saisie>2007/05/01</ogr:Date_Saisie>
+      <ogr:Source>01</ogr:Source>
+      <ogr:Remarque>Propriété de l'Etat</ogr:Remarque>
+      <ogr:TelBureau>0493412084</ogr:TelBureau>
+      <ogr:Nom_commune>LA TURBIE</ogr:Nom_commune>
+      <ogr:Adresse>Cours Albert 1er 06320 LA TURBIE</ogr:Adresse>
+      <ogr:Nom>Musée et Trophée d'Auguste</ogr:Nom>
+      <ogr:idnum>0</ogr:idnum>
+      <ogr:ident></ogr:ident>
+    </ogr:MuseesEPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MuseesEPSG4326 fid="F4">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.503428,43.777057999999997</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Date_Saisie>2009/03/02</ogr:Date_Saisie>
+      <ogr:Source>CA</ogr:Source>
+      <ogr:Remarque>Entrée libre</ogr:Remarque>
+      <ogr:TelBureau></ogr:TelBureau>
+      <ogr:Nom_commune>MENTON</ogr:Nom_commune>
+      <ogr:Adresse>Rue Loredan-Larchey</ogr:Adresse>
+      <ogr:Nom>Musée de Préhistoire Régional</ogr:Nom>
+      <ogr:idnum>0</ogr:idnum>
+      <ogr:ident></ogr:ident>
+    </ogr:MuseesEPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MuseesEPSG4326 fid="F5">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.497596,43.774341</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Date_Saisie>0000/00/00</ogr:Date_Saisie>
+      <ogr:Source></ogr:Source>
+      <ogr:Remarque></ogr:Remarque>
+      <ogr:TelBureau>0 4 92 41 76 66</ogr:TelBureau>
+      <ogr:Nom_commune>MENTON</ogr:Nom_commune>
+      <ogr:Adresse>8, avenue Boyer</ogr:Adresse>
+      <ogr:Nom>Galerie d’Art Contemporain</ogr:Nom>
+      <ogr:idnum>0</ogr:idnum>
+      <ogr:ident></ogr:ident>
+    </ogr:MuseesEPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MuseesEPSG4326 fid="F6">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.487965,43.766638999999998</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Date_Saisie>2009/03/02</ogr:Date_Saisie>
+      <ogr:Source>CA</ogr:Source>
+      <ogr:Remarque>Entrée Libre</ogr:Remarque>
+      <ogr:TelBureau></ogr:TelBureau>
+      <ogr:Nom_commune>MENTON</ogr:Nom_commune>
+      <ogr:Adresse>3, avenue de la Madone</ogr:Adresse>
+      <ogr:Nom>Musée des Beaux-Arts, Palais Car</ogr:Nom>
+      <ogr:idnum>0</ogr:idnum>
+      <ogr:ident></ogr:ident>
+    </ogr:MuseesEPSG4326>
+  </gml2:featureMember>
+  <gml2:featureMember>
+    <ogr:MuseesEPSG4326 fid="F7">
+      <ogr:geometryProperty><gml2:Point><gml2:coordinates>7.497041,43.804715000000002</gml2:coordinates></gml2:Point></ogr:geometryProperty>
+      <ogr:Date_Saisie>2010/06/09</ogr:Date_Saisie>
+      <ogr:Source>CC</ogr:Source>
+      <ogr:Remarque></ogr:Remarque>
+      <ogr:TelBureau></ogr:TelBureau>
+      <ogr:Nom_commune>CASTELLAR</ogr:Nom_commune>
+      <ogr:Adresse>06500 CASTELLAR</ogr:Adresse>
+      <ogr:Nom>Palais des Lascaris</ogr:Nom>
+      <ogr:idnum>0</ogr:idnum>
+      <ogr:ident></ogr:ident>
+    </ogr:MuseesEPSG4326>
+  </gml2:featureMember>
+</ogr:FeatureCollection>

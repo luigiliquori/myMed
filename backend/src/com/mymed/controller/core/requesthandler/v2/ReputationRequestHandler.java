@@ -15,6 +15,10 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+import static com.mymed.utils.GsonUtils.gson;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -22,13 +26,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
-import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
-import com.mymed.controller.core.manager.reputation.api.recommendation_manager.ReputationManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.reputation.MReputationBean;
+import com.mymed.controller.core.manager.reputation.ReputationManager;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
+import com.mymed.model.data.reputation.MReputationEntity;
 /**
  * Servlet implementation class ReputationRequestHandler
  */
@@ -45,14 +49,10 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
     private static final String JSON_REPUTATION = JSON.get("json.reputation");
 
     /**
-     * The JSON 'consumer' attribute.
-     */
-    //private static final String JSON_CONSUMER = JSON.get("json.consumer");
-
-    /**
      * The JSON 'producer' attribute.
      */
     private static final String JSON_PRODUCER = JSON.get("json.producer");
+    private static final String JSON_CONSUMER = JSON.get("json.consumer");
 
     private final ReputationManager reputationManager;
 
@@ -70,7 +70,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
@@ -78,21 +78,46 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String 
-            	application = parameters.get(JSON_APPLICATION), 
-            	producer = parameters.get(JSON_PRODUCER)/*, 
-            	consumer = parameters.get(JSON_CONSUMER)*/;
+            	id = parameters.get("id"), 
+            	producer = parameters.get(JSON_PRODUCER),
+            	ids = parameters.get("ids"),//many ids
+            	consumer = parameters.get(JSON_CONSUMER);
 
             switch (code) {
                 case READ :
-                    if (application == null)
-                        throw new InternalBackEndException("missing application argument!");
-                    else if (producer == null)
-                        throw new InternalBackEndException("missing producer argument!");
-                    
-                    final MymedAppUserId user = new MymedAppUserId(application, producer, ReputationRole.Producer);
-                    final MReputationBean reputation = reputationManager.read(user);
+//                    if (producer == null)
+//                        throw new InternalBackEndException("missing producer argument!");
 
-                    message.addDataObject(JSON_REPUTATION, reputation);
+                    if(id != null){
+                    	
+                        final MReputationEntity reputation = reputationManager.read(id, producer, consumer);
+
+                        message.addDataObject(JSON_REPUTATION, reputation);
+                    	
+                    } else if(ids != null){
+                    	List<String> prods = new ArrayList<String>();
+                    	try {
+                    		prods = gson.fromJson(ids, listType);
+            			} catch (final JsonSyntaxException e) {
+            				LOGGER.debug("Error in Json format", e);
+            				throw new InternalBackEndException("jSon format is not valid");
+            			} catch (final JsonParseException e) {
+            				LOGGER.debug("Error in parsing Json", e);
+            				throw new InternalBackEndException(e.getMessage());
+            			}
+                    	
+                        final Map<String, MReputationEntity> reputationMap = reputationManager.read(prods, producer, consumer);
+
+                        message.addDataObject(JSON_REPUTATION, reputationMap);
+                    	
+                    } else {
+                    	
+                    	final MReputationEntity reputation = reputationManager.read(producer, consumer);
+
+                        message.addDataObject(JSON_REPUTATION, reputation);
+                    }
+                        
+
                     break;
                 case DELETE :
                     break;
@@ -117,7 +142,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);

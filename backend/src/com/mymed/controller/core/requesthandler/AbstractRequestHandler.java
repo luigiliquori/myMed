@@ -33,11 +33,13 @@ import javax.servlet.http.Part;
 
 import ch.qos.logback.classic.Logger;
 
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.session.SessionManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.properties.IProperties;
 import com.mymed.properties.PropType;
 import com.mymed.properties.PropertiesManager;
@@ -227,7 +229,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      */
     @Override
     protected abstract void doPost(final HttpServletRequest request, final HttpServletResponse response)
-                    throws ServletException;
+                    throws ServletException, JsonSyntaxException, JsonParseException, IOException;
 
     /**
      * @return the parameters of an HttpServletRequest
@@ -291,7 +293,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * @param message
      * @param response
      */
-    protected void printJSonResponse(final JsonMessage<Object> message, final HttpServletResponse response) {
+    protected void printJSonResponse(final JsonMessageOut<Object> message, final HttpServletResponse response) {
         response.setStatus(message.getStatus());
         responseText = message.toString();
         printResponse(response);
@@ -301,7 +303,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * Prints JsonP response,
      *  should be implemented on sinle handler carefully (security)
      */
-    protected void printJSonResponse(final JsonMessage<Object> message, final HttpServletResponse response, final String callback) {
+    protected void printJSonResponse(final JsonMessageOut<Object> message, final HttpServletResponse response, final String callback) {
         response.setStatus(message.getStatus());
 		responseText = callback + "(" + message.toString() + ");";
         printResponse(response);
@@ -331,7 +333,7 @@ public abstract class AbstractRequestHandler extends HttpServlet {
      * @throws InternalBackEndException
      * @throws IOBackEndException
      */
-    private void validateToken(final String accessToken) throws InternalBackEndException, IOBackEndException {
+    protected void validateToken(final String accessToken) throws InternalBackEndException, IOBackEndException {
         new SessionManager().read(accessToken);
     }
 

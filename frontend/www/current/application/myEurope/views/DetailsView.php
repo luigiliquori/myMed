@@ -3,30 +3,45 @@
 <div data-role="page">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3empty("Détails de l'offre ".$this->id) ?>
+		<? tabs_3empty($this->details->title) ?>
+		<? include("notifications.php"); ?>
 	</div>
 
 	<div data-role="content" >
-		<br />
-		<?= $this->details->text ?>
-		 
-		 
-		<? if (isset($this->details->user)) :?>
-			<br />
-		 	<br />
-		 	<a href="?action=extendedProfile&id=<?= $this->details->user ?>" rel="external" type="button" data-inline="true" data-mini="true"> Profil de l'auteur </a>
+	
+		<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
+			<a data-role="button" style="color:gray;" data-icon="minus" onclick="rate($(this), '<?= $this->id ?>',  '<?= $this->details->partner ?>', 0);"><?= $this->reputation['down'] ?></a>
+			<a data-role="button" style="color:blue;" data-icon="plus" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->partner ?>', 1);"><?= $this->reputation['up'] ?></a>
+		</div>
 		
+		<?= $this->details->text ?>
+		
+			
+			 
+		<? if (isset($this->details->user)) :?>
+			<br /><br />
+			<b style="font-size:14px;"><?= _('Partners') ?>:</b>
+			<? if (isset($this->details->userProfile)) :?>
+				<?= printProfile($this->details->userProfile,
+						 $this->id) ?>
+			<? endif ?>
+			<? foreach($this->partnersProfiles as $item) : ?>
+				<?= printProfile($item, $this->id) ?>
+			<? endforeach ?>
+			<br />
 			<? if ($this->details->user == $_SESSION['user']->id) :?>
-				<br />
-				<br />
-				<a href="?action=Details&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" rel="external" type="button" data-inline="true" data-mini="true"> Editer mon offre </a>
-				<br />
-				<br />
-				<a href="?action=Details&rm=&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" rel="external" type="button" data-inline="true" data-mini="true"> Supprimer mon offre </a>
-			<? endif ?>		
+				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
+			<? else :?>
+				<a href="?action=Details&partnerRequest=&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" type="button" data-inline="true" data-mini="true" data-icon="check"> <?= _("Partnership request") ?> </a>
+			<? endif ?>
 		<? endif ?>
 		
-		 
+		 <div data-role="popup" id="deletePopup" class="ui-content" data-overlay-theme="e" data-theme="d">
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<?= _('Sure?') ?><br />
+			<a href="?action=Details&rm=&id=<?= urlencode($this->id) ?>&namespace=<?= $_GET['namespace'] ?>" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Yes</a>
+		</div>
+		
 	</div>
 </div>
 
