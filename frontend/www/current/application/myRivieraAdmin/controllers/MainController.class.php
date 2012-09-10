@@ -43,72 +43,59 @@ class MainController extends AuthenticatedController {
 			$subscribe = new Subscribe($this);
 			$subscribe->send();
 
+		// ADD GROUP OF POIs
 		} else if(isset($_POST['addPOI'])){
 				
-			// ADD GROUP OF POIs
 			if(isset($_POST['data'])) {
-				
-				echo $_POST['data'] . "<br />";
 				
 				$pois = json_decode($_POST['data']);
 				
-				echo "pois = " . $pois . "<br />";
-				
 				foreach($pois as $poi){
 					
-					echo $poi . "<br />";
-
 					$request = new Request("POIRequestHandler", CREATE);
 					$request->addArgument("application", APPLICATION_NAME);
 					$request->addArgument("user", $_SESSION["user"]->id);
 					$request->addArgument("accessToken", $_SESSION["accessToken"]);
 
-					// CARF POI
 					if(isset($poi->features)) {
 						foreach ($poi->features as $feature) {
+							
+							
+							
 							$request->addArgument("type", preg_replace("/_.+$/", "", $feature->properties->Type));
-							$request->addArgument("longitude", $feature->geometry->coordinates[0]);
-							$request->addArgument("latitude", $feature->geometry->coordinates[1]);
+							
+							// NOTE: FOR PAYS PAILLON
+							$request->addArgument("longitude", $feature->properties->Longitude);
+							$request->addArgument("latitude", $feature->properties->Latitude);
+							
+							// NOTE: FOR CARF POIs
+// 							$request->addArgument("longitude",  $feature->geometry->coordinates[0]);
+// 							$request->addArgument("latitude", $feature->geometry->coordinates[1]);
+							
 							$value = '{
-								"longitude" : "'. $feature->geometry->coordinates[0] .'", 
-								"latitude" : "'. $feature->geometry->coordinates[1] .'", 
-								"title" : "'. $feature->properties->Nom .'", 
-								"description" : "'. $feature->properties->Description .'", 
+								"longitude" : "'. 	$feature->properties->Longitude .'", 
+								"latitude" : "'. 	$feature->properties->Latitude .'", 
+								"title" : "'. 		$feature->properties->Nom .'", 
+								"description" : "'. $feature->properties->Description . '",
+								
+								"SousType" : "'.	$feature->properties->SousType .'", 
+								"Adresse" : "'. 	$feature->properties->Adresse .'", 
+								"E-mail" : "'. 		$feature->properties->Email .'", 
+								"Link" : "'. 		$feature->properties->Link .'", 
+								"IdMedia" : "'. 	$feature->properties->IdMedia .'", 
+								"ComUrbaine" : "'.	$feature->properties->ComUrbaine .'", 
+								"Altitude" : "'.	$feature->properties->Altitude .'", 
 								"icon" : ""
 								}';
+							
 							$request->addArgument("value", $value);
-							$request->send();
+							
+							try {
+								$request->send();
+							} catch (Exception $e) {
+							}
+							
 						}
-					}
-
-					// PAYS PAILLONS POI
-					if(isset($poi->Type)) {
-						
-						echo "Type: " . $poi->Type;
-						
-						$request->addArgument("type", $poi->Type);
-						$request->addArgument("longitude", $poi->Longitude);
-						$request->addArgument("latitude", $poi->Latitude);
-						$value = '{
-													"longitude" : "'. $poi->Longitude .'", 
-													"latitude" : "'. $poi->Latitude .'", 
-													"title" : "'. $poi->Nom .'", 
-													"description" : "'. $poi->Description .'", 
-													"SousType" : "'. $poi->SousType .'", 
-													"Adresse" : "'. $poi->Adresse .'", 
-													"E-mail" : "'. $poi->E-mail .'", 
-													"Link" : "'. $poi->Link .'", 
-													"IdMedia" : "'. $poi->IdMedia .'", 
-													"ComUrbaine" : "'. $poi->ComUrbaine .'", 
-													"Altitude" : "'. $poi->Altitude .'", 
-													"icon" : ""
-													}';
-						echo "Longitude" . $poi->Longitude . "<br />";
-						echo "Latitude" . $poi->Latitude . "<br />";
-						echo "$value" . $value . "<br />";
-
-						$request->addArgument("value", $value);
-						$request->send();
 					}
 				}
 			} else {
@@ -123,12 +110,12 @@ class MainController extends AuthenticatedController {
 				$request->addArgument("longitude", $_POST['longitude']);
 				$request->addArgument("latitude", $_POST['latitude']);
 				$value = '{
-													"longitude" : "'. $_POST['longitude'] .'", 
-													"latitude" : "'. $_POST['latitude'] .'", 
-													"title" : "'. $_POST['title'] .'", 
-													"description" : "'. $_POST['description'] .'", 
-													"icon" : ""
-													}';
+					"longitude" : "'. $_POST['longitude'] .'", 
+					"latitude" : "'. $_POST['latitude'] .'", 
+					"title" : "'. $_POST['title'] .'", 
+					"description" : "'. $_POST['description'] .'", 
+					"icon" : ""
+				}';
 				$request->addArgument("value", $value);
 				$request->send();
 			}

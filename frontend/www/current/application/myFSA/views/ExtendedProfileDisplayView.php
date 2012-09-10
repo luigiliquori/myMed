@@ -1,18 +1,10 @@
 <? include("header.php"); ?>
-<!--  Javascript that disables the submit button as long as the checkbox is not checked -->
-<script type="text/javascript">
-	$('#agreement').change(function() {
-		if (this.checked)
-			$('#submitButton').button('enable');
-		else
-			$('#submitButton').button('disable');
-	});
-</script>
-
-<!-- Header -->
-<div data-role="header" data-position="inline" data-theme="a">
-	<a href="#" data-rel="back" data-role="button"  data-icon="back">Back</a>
-	<h1>Profile</h1>
+<div data-role="page" id="PublishView" data-theme="a">
+<div class="wrapper">
+<div data-role="header" data-theme="a">
+<a data-theme="a" data-rel="back" data-role="button"  data-icon="back" >Back</a>
+<h3>myFSA</h3>
+<a href="?action=logout" rel="external" data-role="button" data-theme="a">Quit</a>
 </div>
 
 <div data-role="content" data-theme="a">
@@ -23,21 +15,34 @@
 			<h3 class="ui-li-heading"><?=$_SESSION['user']->name?></h3>
 			<p class="ui-li-desc"><?=$_SESSION['user']->login?></p>
 		</li>
-		<!-- here copied text from notepad -->
-		
+
+		<?php if ($_SESSION["profileFilled"] == "company") {?>
 		<li class="ui-li ui-li-static ui-body-a">
-			<h3 class="ui-li-heading">Full Profile : <?= $_SESSION['ExtendedProfile']->doctor['name']?></h3>
-			<div class="mymem-profile-grid">
-					<div class="mymem-profile-block-a">company address :</div>
-					<div class="mymem-profile-block-b"><a href="# <?= $_SESSION['ExtendedProfile']->companyName?>" data-role="button" ><?= $_SESSION['ExtendedProfile']->companyName?></a></div>
-					<div class="mymem-profile-block-a">Phone :</div>
-					<div class="mymem-profile-block-b"><a href="tel:<?= $_SESSION['ExtendedProfile']->doctor['phone']?>" data-role="button" ><?= $_SESSION['ExtendedProfile']->doctor['phone']?></a></div>
-					<div class="mymem-profile-block-a">Surname :</div>
-					<div class="mymem-profile-block-b"><a href="mailto:<?= $_SESSION['ExtendedProfile']->doctor['email']?>" data-role="button"><?= $_SESSION['ExtendedProfile']->doctor['email']?></a></div>
+			<h3 class="ui-li-heading"> Full profile information</h3>
+			<div>
+						
+				<!-- 	displaying array:
+				
+						$object = array( 
+						"type" => $_POST["ctype"],
+						"name" => $_POST["cname"],
+						"address" => $_POST["caddress"],
+						"number" => $_POST["cnumber"]); -->
+			
+					<br> Company type : <br/>
+					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['type']?></a>
+					
+					<br> Company name :<br/>
+					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['name']?></a>
+					
+					<br> Company address : <br/>
+					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['address']?></a>
+					
+					<br> Company number :<br/>
+					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['number']?></a>
 			</div>
-		</li>
-		
-	</ul>
-	
+		</li>		
+		<?php }?>
+	</ul>	
 </div>
 <? include("footer.php"); ?>

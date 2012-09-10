@@ -7,18 +7,19 @@
 class MainController extends AuthenticatedController {
 
 	public /*String[]*/ $filterList = array(
+				// CARF
 // 				"ADAPEI",
 // 				"ADERF",
 // 				"ASSEDIC",
 				"Banques",
 				"Bibliotheque",
 // 				"CCAS",
-				"Cimetieres",
+// 				"Cimetieres",
 				"colleges",
 				"Eglises",
 // 				"EPCI",
 // 				"EqptPublic",
-				"Forts_militaires",
+// 				"Forts_militaires",
 // 				"Fourriere",
 // 				"FoyerRural",
 // 				"GARES_SUD",
@@ -42,14 +43,22 @@ class MainController extends AuthenticatedController {
 				"OfficeDeTourisme",
 				"Pizza_Emporter",
 				"Police_municipale",
-				"Ports",
-				"POSTES",
+// 				"Ports",
+// 				"POSTES",
 				"Primaire",
 				"Restaurants",
 // 				"SCIENCES_PO",
-				"STADES",
-				"Travail_Temporaire",
+// 				"STADES",
+// 				"Travail_Temporaire",
 // 				"Tresor_Public",
+	
+				// PAYS PAILLON
+				"Transports",
+				"Santé",
+				"TourismeCulture",
+				"AdressesUtilesServices",
+				"Sports",
+				"EducationEnfance"
 		);
 	
 	public function handleRequest() {

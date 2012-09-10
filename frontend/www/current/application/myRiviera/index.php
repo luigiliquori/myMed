@@ -12,5 +12,10 @@ ini_set("display_errors", "On");
 // Include main controller : Dispatches actions to individual controllers
 include(MYMED_ROOT . '/system/controllers/index-controller.php');
 
+
+textdomain(GLOBAL_MESSAGES);
+
+// Call the main controller
 main_controller();
+
 ?>

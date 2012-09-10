@@ -21,8 +21,8 @@ require_once("header.php"); ?>
 		<h3>Réseaux social transfontalier</h3>
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
-		    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
-		    <input type="password" name="password" id="password" data-inline="true" placeholder="Mot de passe"  data-theme="c"/>
+			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
+		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion par votre compte myMed" />
 			
 		</form>

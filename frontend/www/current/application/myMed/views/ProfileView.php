@@ -4,6 +4,8 @@
 	
 	<div data-role="content">
 	
+		<?= debug_r($_SESSION['user'])?>
+	
 		<div Style="text-align: left;">
 			
 			<?php if($_SESSION['user']->profilePicture != "") { ?>
@@ -27,19 +29,23 @@
 			
 			<li  data-role="list-divider" >Informations générales</li>
 			<li data-icon="refresh">
-				<img alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" class="ui-li-icon" />
+				<img alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" width="50" Style="margin-left: 5px; top:5px;"/>
 				<a href="#updateProfile">Email<p><?= $_SESSION['user']->email ?></p></a>
 			</li>
 			<li data-icon="refresh">
-				<img alt="Date de naissance: " src="<?= APP_ROOT ?>/img/birthday_icon.png" class="ui-li-icon"/>
+				<img alt="Date de naissance: " src="<?= APP_ROOT ?>/img/birthday_icon.png" width="50" Style="margin-left: 5px; top:5px;"/>
 				<a href="#updateProfile">Date de naissance<p><?= $_SESSION['user']->birthday ?></p></a>
+			</li>
+			<li data-icon="refresh">
+				<img alt="Langue: " src="<?= APP_ROOT ?>/img/<?= $_SESSION['user']->lang ?>_flag.png" width="50" Style="margin-left: 5px; top:5px;"/>
+				<a href="#Lang">Langue<p><?= $_SESSION['user']->lang ?></p></a>
 			</li>
 			
 			<li  data-role="list-divider" >Profils étendus</li>
 			<?php foreach ($this->applicationList as $applicationName) { ?>
 				<?php if ($this->applicationStatus[$applicationName] == "on") { ?>
-					<li data-icon="refresh">
-			    		<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" class="ui-li-icon" />
+					<li data-icon="refresh" >
+			    		<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" width="50" Style="margin-left: 5px; top:5px;"/>
 					    	<a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile" rel="external">
 						    	<?= $applicationName ?>
 						    	<div Style="position: relative; left: 0px;">
@@ -65,7 +71,7 @@
 		
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="b">
+	<div data-role="footer" data-position="fixed" data-theme="a">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>
@@ -76,3 +82,7 @@
 	</div>
 
 </div>
+
+<? if(!empty($_SESSION['user']->lang)):?>
+	<? include("LangView.php"); ?>
+<? endif ?>

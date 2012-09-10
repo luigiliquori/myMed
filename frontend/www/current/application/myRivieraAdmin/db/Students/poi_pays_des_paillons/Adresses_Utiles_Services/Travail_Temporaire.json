@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Adresses_utiles_Services", "SousType": "Travail Temporaire", "Nom": "ESAT EPIS  Etablissement et Service d'Aide par le Travail", "Description": "La structure a comme objectif l’intégration en milieux de travail de personnes handicapées. Il s'agit de promouvoir la Personne Handicapée « Acteur de la vie économique ». ", "Adresse": "86, rue de l’Iscle 06340 Cantaron                Contact: 04 93 27 74 60                                                  ", "E-mail": "complexeepis@adsea06.org         ", "Link": "www.adsea06-esat.org ", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.76289", "Longitude": "7.31653", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+
+]
+}

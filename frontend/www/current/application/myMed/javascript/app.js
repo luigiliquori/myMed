@@ -7,7 +7,7 @@ $(document).ready(function() {
 	    bars.hide();
 	    return false;
 	});
-
+	
 	showLoadingBar("chargement en cours...");
 	
 });

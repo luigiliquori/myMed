@@ -15,7 +15,7 @@ class LocalisationView {
 			</div>
 		</div>
 					<!-- footer -->
-		<div data-role="navbar" data-iconpos="top" data-theme="b" >
+		<div data-role="navbar" data-iconpos="top" data-theme="b" data-position="fixed">
  	<ul>
 		<li>
 			<a href="#" data-icon="home" data-theme="b" ></a>
@@ -59,7 +59,7 @@ class LocalisationView {
 			</div>
 			
 					<!-- footer -->
-		<div data-role="navbar" data-iconpos="top" data-theme="b" >
+		<div data-role="navbar" data-iconpos="top" data-theme="b" data-position="fixed">
  	<ul>
 		<li>
 			<a href="#" data-icon="home" data-theme="b" ></a>
@@ -284,7 +284,7 @@ class LocalisationView {
 			</form>
 		</div>
 					<!-- footer -->
-		<div data-role="navbar" data-iconpos="top" data-theme="b" >
+		<div data-role="navbar" data-iconpos="top" data-theme="b" data-position="fixed">
  	<ul>
 		<li>
 			<a href="#" data-icon="home" data-theme="b" ></a>

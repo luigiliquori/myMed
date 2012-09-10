@@ -17,10 +17,6 @@
 	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/original/jqm-icon-pack-2.0-original.css" rel="stylesheet" />
 	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/font-awesome/jqm-icon-pack-2.1.2-fa.css" rel="stylesheet" />
 	
-	<!-- DateBox -->
-	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
-	
 	<!--  SimpleDialog -->
 	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
 	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
