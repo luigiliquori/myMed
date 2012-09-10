@@ -80,19 +80,17 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 		for (String predicate : predicates) {
 			
 			Map<String, MUserBean> recipients = new HashMap<String, MUserBean>();
-	        {
-	            final Map<String, String> subscribers = storageManager.selectAllStr(CF_SUBSCRIBEES, predicate);
-	            for (final Entry<String, String> entry : subscribers.entrySet()) {
-	                MUserBean recipient = null;
-	                try {
-	                    recipient = profileManager.read(entry.getKey());
-	                } catch (IOBackEndException e) {}
-	                if (recipient != null) {
-	                	recipient.setMailTemplate(entry.getValue());
-	                    recipients.put(entry.getKey(), recipient);
-	                }
-	            }
-	        }
+	        
+            final Map<String, String> subscribers = storageManager.selectAllStr(CF_SUBSCRIBEES, predicate);
+            for (final Entry<String, String> entry : subscribers.entrySet()) {
+                MUserBean recipient = null;
+                try {
+                    recipient = profileManager.read(entry.getKey());
+                } catch (IOBackEndException e) {}
+                if (recipient != null) {
+                    recipients.put(entry.getKey(), recipient);
+                }
+            }
 	        
 	        // Loop on recipients
 	        for (MUserBean recipient : recipients.values()) {
@@ -105,8 +103,8 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	            String language = recipient.getLang();
 	            
 	            // Get the mail template from the manager
-	            String app = extractApplication(recipient.getMailTemplate());
-	            String namespace = extractNamespace(recipient.getMailTemplate());
+	            String app = extractApplication(subscribers.get(recipient.getId()));
+	            String namespace = extractNamespace(subscribers.get(recipient.getId()));
 	            
 	            data.put("application", app);
 	            

@@ -30,7 +30,9 @@ import javax.servlet.http.Part;
 
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
+import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
+import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.model.data.application.DataBean;
 
 
@@ -122,6 +124,13 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
         }
 
         return parameters;
+    }
+	
+	@Override
+    protected void validateToken(final String accessToken) throws InternalBackEndException, IOBackEndException {
+		new SessionManager().readSimple(accessToken);
+		
+		// @TODO don't forget to implement accesstoken refresh in frontend, since this one expires after some time
     }
 
 }

@@ -1,3 +1,31 @@
+.oauth_small_btn {
+	background: white url('/system/img/oauth-logos.png');
+	width: 24px;
+	height: 24px;
+	border: 2px solid #DDD;
+	border-right: 2px solid #CCC;
+	border-bottom: 2px solid #CCC;
+	margin: 3px;
+	display: inline-block;
+	vertical-align: middle;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow: 2px 2px 4px #ddd;
+	-moz-box-shadow: 2px 2px 4px #ddd;
+	-webkit-box-shadow: 2px 2px 4px #ddd;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.oauth_small_btn:hover {
+	border-color: #888;
+}
+
+.ui-header .ui-title{
+	white-space: normal;
+}
+
 .ui-page {
  	background-image: url("../img/background.png");
 	background-size: 100% 100%; 
@@ -33,7 +61,7 @@
 
 .content {
 	text-align: center;
-	padding: 0px;
+	/*padding: 0px;*/
 }
 
 .content h3 {

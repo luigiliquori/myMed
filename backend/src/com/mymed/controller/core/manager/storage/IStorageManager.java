@@ -270,6 +270,13 @@ public interface IStorageManager {
 			Map<String, String> args) 
 					throws InternalBackEndException;
 	
+	void insertSliceStr(
+			String tableName,
+			String primaryKey,
+			int ttl,
+			Map<String, String> args) 
+					throws InternalBackEndException;
+	
 	/** v2 */
 	void insertSuperSliceStr(
 			String superTableName,

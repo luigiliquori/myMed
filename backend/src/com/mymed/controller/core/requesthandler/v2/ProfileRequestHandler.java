@@ -165,7 +165,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                         //message.addDataObject(JSON_PROFILE, userBean);
                         message.setDescription("User updated!");
                         LOGGER.info("User updated!");
-                    } catch (final JsonSyntaxException e) {
+                    } catch (final JsonSyntaxException e) { // one field update, should be removed now
                     	String key = parameters.get("key");
                     	String value = parameters.get("value");
                     	if (key == null) {

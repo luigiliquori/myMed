@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
+import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.mailtemplates.MailDispatcher;
@@ -89,226 +90,232 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 		final JsonMessageOut<Object> out = new JsonMessageOut<Object>(200, this
 				.getClass().getName());
 
-		JsonMessageIn in = gson.fromJson(request.getReader(), JsonMessageIn.class);
-		
-		validateToken(in.getAccessToken());
-		
-		final RequestCode code = REQUEST_CODE_MAP.get(in.getCode());
-
-		// some vars
-		LinkedHashMap<String, List<String>> keywords; // predicates once formatted
-		List<String> rows; //corresponding  rows ^
-		MUserBean publisher = null; // publishing user in case it exists
-		
-		String id = in.getId();
+		try{
+			JsonMessageIn in = gson.fromJson(request.getReader(), JsonMessageIn.class);
 			
-		switch (code) {
-
-		case CREATE:
-			out.setMethod(JSON_CODE_CREATE);
-
-			in.init();
-			LOGGER.info("predicates: {} ", in.getPredicates());
-			/* generate the ROWS to search */
-			keywords = MatchMakingv2.format(in.getPredicates());
+			validateToken(in.getAccessToken());
 			
-			LOGGER.info("keywords: {} ", keywords);
-
-			rows = new CombiLine(keywords, in.getLengthMax()).expand();
-			MatchMakingv2.prefix(in.getApplication(), rows);
-
-			/* make sure to put an id pointer */
-			if (id == null) {
-				final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
-				id = h.SHA1ToString(System.currentTimeMillis() + in.getMetadata().toString());
-			}
-			in.getMetadata().put("id", id);
-
-			LOGGER.info("in " + id + "." + in.getData().size() + "."
-					+ keywords.size());
+			final RequestCode code = REQUEST_CODE_MAP.get(in.getCode());
+	
+			// some vars
+			LinkedHashMap<String, List<String>> keywords; // predicates once formatted
+			List<String> rows; //corresponding  rows ^
+			MUserBean publisher = null; // publishing user in case it exists
 			
-			dataManager.create(rows, id, in.getMetadata());
-
-			in.getData().put("keywords", gson.toJson(keywords));
-
-			/* creates data */
-			dataManager.create(in.getApplication() + id, in.getData());
-			
-			if ("noNotification".equals(in.getUser())){ // don't use subscriptions
-				LOGGER.info(">>>>>>>>>  no Notification ");
-				break;
-			} else if (in.getUser() != null){ // look if the content is signed
-				in.getData().put("user", in.getUser());
-				publisher = profileManager.read(in.getUser());
-			}
-			
-			in.getData().put("id", id); // just for having publication link in mails
-			mail_executor.execute(new MailDispatcher(
-					in.getApplication(),
-					rows,
-					in.getData(),
-					publisher));
-
-			break;
-			
-		case READ:
-			out.setMethod(JSON_CODE_READ);
-			
-			if (id != null) {
-				// Get DATA (details)
-				if (id.startsWith("[")){ //we've a list of ids coming
-					List<String> ids = gson.fromJson(id, listType);
-					ids = prefix(in.getApplication(), ids);
-					final Map<String, Map<String, String>> details = dataManager.read(ids); 
-					
-					out.setDescription("Details found for predicate: " + id);
-					LOGGER.info("Details found for predicate: " + id);
-
-					out.addDataObject(JSON_DETAILS, details);
-					
-				} else { //read a simple row id
-					final Map<String, String> details = dataManager.read(in.getApplication() + id);
-					if (details.isEmpty()){
-						out.setStatus(404);
-						out.setDescription("No results found!");
-						break;
-					}
-					out.setDescription("Details found for predicate: " + id);
-					LOGGER.info("Details found for predicate: " + id);
-
-					out.addDataObject(JSON_DETAILS, details);
-				}
-
-			} else if (in.getPredicates() != null) {
-
+			String id = in.getId();
+				
+			switch (code) {
+	
+			case CREATE:
+				out.setMethod(JSON_CODE_CREATE);
+	
+				in.init();
+				LOGGER.info("predicates: {} ", in.getPredicates());
 				/* generate the ROWS to search */
 				keywords = MatchMakingv2.format(in.getPredicates());
-
+				
 				LOGGER.info("keywords: {} ", keywords);
+	
+				rows = new CombiLine(keywords, in.getLengthMax()).expand();
+				MatchMakingv2.prefix(in.getApplication(), rows);
+	
+				/* make sure to put an id pointer */
+				if (id == null) {
+					final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
+					id = h.SHA1ToString(System.currentTimeMillis() + in.getMetadata().toString());
+				}
+				in.getMetadata().put("id", id);
+	
+				LOGGER.info("in " + id + "." + in.getData().size() + "."
+						+ keywords.size());
 				
-				rows = new CombiLine(keywords).expand();
-				prefix(in.getApplication(), rows);
+				dataManager.create(rows, id, in.getMetadata());
+	
+				in.getData().put("keywords", gson.toJson(keywords));
+	
+				/* creates data */
+				dataManager.create(in.getApplication() + id, in.getData());
 				
-				Map<String, Map<String, String>> resMap;
-
-				resMap = dataManager.read(rows, "", "");
-
-				if (resMap.isEmpty()) {
-					out.setStatus(404);
-					out.setDescription("No results found for predicate:"+ in.getPredicates());
+				if ("noNotification".equals(in.getUser())){ // don't use subscriptions
+					LOGGER.info(">>>>>>>>>  no Notification ");
+					break;
+				} else if (in.getUser() != null){ // look if the content is signed
+					in.getData().put("user", in.getUser());
+					publisher = profileManager.read(in.getUser());
+				}
+				
+				in.getData().put("id", id); // just for having publication link in mails
+				mail_executor.execute(new MailDispatcher(
+						in.getApplication(),
+						rows,
+						in.getData(),
+						publisher));
+	
+				break;
+				
+			case READ:
+				out.setMethod(JSON_CODE_READ);
+				
+				if (id != null) {
+					// Get DATA (details)
+					if (id.startsWith("[")){ //we've a list of ids coming
+						List<String> ids = gson.fromJson(id, listType);
+						ids = prefix(in.getApplication(), ids);
+						final Map<String, Map<String, String>> details = dataManager.read(ids); 
+						
+						out.setDescription("Details found for predicate: " + id);
+						LOGGER.info("Details found for predicate: " + id);
+	
+						out.addDataObject(JSON_DETAILS, details);
+						
+					} else { //read a simple row id
+						final Map<String, String> details = dataManager.read(in.getApplication() + id);
+						if (details.isEmpty()){
+							out.setStatus(404);
+							out.setDescription("No results found!");
+							break;
+						}
+						out.setDescription("Details found for predicate: " + id);
+						LOGGER.info("Details found for predicate: " + id);
+	
+						out.addDataObject(JSON_DETAILS, details);
+					}
+	
+				} else if (in.getPredicates() != null) {
+	
+					/* generate the ROWS to search */
+					keywords = MatchMakingv2.format(in.getPredicates());
+	
+					LOGGER.info("keywords: {} ", keywords);
+					
+					rows = new CombiLine(keywords).expand();
+					prefix(in.getApplication(), rows);
+					
+					Map<String, Map<String, String>> resMap;
+	
+					resMap = dataManager.read(rows, "", "");
+	
+					if (resMap.isEmpty()) {
+						out.setStatus(404);
+						out.setDescription("No results found for predicate:"+ in.getPredicates());
+						break;
+					}
+					
+					out.setDescription("Results found for predicate: " + in.getPredicates());
+					LOGGER.info("Results found predicate: " + in.getPredicates());
+	
+					out.addDataObject(JSON_RESULTS, resMap.values());
+	
+				} else {
+					throw new InternalBackEndException(
+							"missing id or index argument!");
+				}
+	
+				break;
+	
+			
+			case UPDATE:
+				out.setMethod(JSON_CODE_UPDATE);
+	
+				in.init();
+				LOGGER.info("predicates: {} ", in.getPredicates());
+				
+				if (id == null)
+					throw new InternalBackEndException("missing id argument!");
+				
+				if (in.getMetadata().size()>0){
+					/* generate the ROWS to search */
+					keywords = MatchMakingv2.format(in.getPredicates());
+	
+					LOGGER.info("keywords: {} ", keywords);
+		
+					rows = new CombiLine(keywords).expand();
+					MatchMakingv2.prefix(in.getApplication(), rows);
+					LOGGER.info("in " + id + "." + in.getMetadata().size() + "."
+						+ keywords.size()+ "." + rows);
+					
+					dataManager.create(rows, id, in.getMetadata());
+				}
+				
+		
+				LOGGER.info("updating data " + id + " size "
+						+ in.getData().size());
+	
+				/* creates data */
+				dataManager.create(in.getApplication() + id, in.getData());
+				
+				
+				if ("noNotification".equals(in.getUser())){ // don't use subscriptions
+					LOGGER.info(">>>>>>>>>  no Notification ");
+					break;
+				} else if (in.getUser() != null) // look if the content is signed
+					publisher = profileManager.read(in.getUser());
+	
+				LOGGER.info(">>>>>>>>>  notifying subscribers ");
+					
+				mail_executor.execute(new MailDispatcher(
+					in.getApplication(),
+					MiscUtils.singleton(in.getApplication() + id),
+					in.getData(),
+					publisher));
+				
+				break;
+				
+			case DELETE:
+	
+				out.setMethod(JSON_CODE_DELETE);
+				// final String mode = parameters.get("mode");
+	
+				if (id == null)
+					throw new InternalBackEndException("missing id argument!");
+	
+				
+				LOGGER.info("deleting " + in.getApplication() + id);
+				
+				if (in.getField() != null){
+					dataManager.delete(in.getApplication() + id, in.getField());
 					break;
 				}
 				
-				out.setDescription("Results found for predicate: " + in.getPredicates());
-				LOGGER.info("Results found predicate: " + in.getPredicates());
-
-				out.addDataObject(JSON_RESULTS, resMap.values());
-
-			} else {
-				throw new InternalBackEndException(
-						"missing id or index argument!");
-			}
-
-			break;
-
-		
-		case UPDATE:
-			out.setMethod(JSON_CODE_UPDATE);
-
-			in.init();
-			LOGGER.info("predicates: {} ", in.getPredicates());
-			
-			if (id == null)
-				throw new InternalBackEndException("missing id argument!");
-			
-			if (in.getMetadata().size()>0){
-				/* generate the ROWS to search */
-				keywords = MatchMakingv2.format(in.getPredicates());
-
-				LOGGER.info("keywords: {} ", keywords);
+				String keywordsStr = "[]";
+				try{
+					keywordsStr = dataManager.read(in.getApplication() + id, "keywords");
+				}catch(IOBackEndException e){}
+				
+	
+				LOGGER.info(" trying to delete  " + id + "." + keywordsStr);
+	
+				keywords = new LinkedHashMap<String, List<String>>();
+	
+				if (keywordsStr != null) {
+					keywords = gson.fromJson(keywordsStr, xType);
+					LOGGER.info(" get index : {} ", keywords);
+				}
+				
+				LOGGER.info(" deleting  " + id + "." + keywords.size());
 	
 				rows = new CombiLine(keywords).expand();
-				MatchMakingv2.prefix(in.getApplication(), rows);
-				LOGGER.info("in " + id + "." + in.getMetadata().size() + "."
-					+ keywords.size()+ "." + rows);
-				
-				dataManager.create(rows, id, in.getMetadata());
-			}
-			
+				prefix(in.getApplication(), rows);
 	
-			LOGGER.info("updating data " + id + " size "
-					+ in.getData().size());
-
-			/* creates data */
-			dataManager.create(in.getApplication() + id, in.getData());
-			
-			
-			if ("noNotification".equals(in.getUser())){ // don't use subscriptions
-				LOGGER.info(">>>>>>>>>  no Notification ");
+				for (String i : rows) {
+					dataManager.delete("", i, id);
+				}
+	
+				/* deletes data */
+				dataManager.delete(in.getApplication() + id);
+	
 				break;
-			} else if (in.getUser() != null) // look if the content is signed
-				publisher = profileManager.read(in.getUser());
-
-			LOGGER.info(">>>>>>>>>  notifying subscribers ");
-				
-			mail_executor.execute(new MailDispatcher(
-				in.getApplication(),
-				MiscUtils.singleton(in.getApplication() + id),
-				in.getData(),
-				publisher));
-			
-			break;
-			
-		case DELETE:
-
-			out.setMethod(JSON_CODE_DELETE);
-			// final String mode = parameters.get("mode");
-
-			if (id == null)
-				throw new InternalBackEndException("missing id argument!");
-
-			
-			LOGGER.info("deleting " + in.getApplication() + id);
-			
-			if (in.getField() != null){
-				dataManager.delete(in.getApplication() + id, in.getField());
-				break;
+	
+			default:
+				throw new InternalBackEndException("PublishRequestHandler("
+						+ code + ") not exist!");
 			}
-			
-			String keywordsStr = "[]";
-			try{
-				keywordsStr = dataManager.read(in.getApplication() + id, "keywords");
-			}catch(IOBackEndException e){}
-			
-
-			LOGGER.info(" trying to delete  " + id + "." + keywordsStr);
-
-			keywords = new LinkedHashMap<String, List<String>>();
-
-			if (keywordsStr != null) {
-				keywords = gson.fromJson(keywordsStr, xType);
-				LOGGER.info(" get index : {} ", keywords);
-			}
-			
-			LOGGER.info(" deleting  " + id + "." + keywords.size());
-
-			rows = new CombiLine(keywords).expand();
-			prefix(in.getApplication(), rows);
-
-			for (String i : rows) {
-				dataManager.delete("", i, id);
-			}
-
-			/* deletes data */
-			dataManager.delete(in.getApplication() + id);
-
-			break;
-
-		default:
-			throw new InternalBackEndException("PublishRequestHandler("
-					+ code + ") not exist!");
-		}
-
+		
+		} catch (final AbstractMymedException e) {
+            LOGGER.debug("Error in doPost", e);
+            out.setStatus(e.getStatus());
+            out.setDescription(e.getMessage());
+        }
 
 		printJSonResponse(out, response);
 	}

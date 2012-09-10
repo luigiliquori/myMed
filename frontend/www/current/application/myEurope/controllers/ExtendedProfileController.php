@@ -94,7 +94,7 @@ class ExtendedProfileController extends AuthenticatedController
 		$publish->send();
 		
 		$publish = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id)),
+				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id, "email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
 				UPDATE);
 		$publish->send();
 		

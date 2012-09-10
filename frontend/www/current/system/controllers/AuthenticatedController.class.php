@@ -28,7 +28,7 @@ class AuthenticatedController extends AbstractController {
 			}	*/			
 			
 			// Redirect to "showLogin" view
-			$this->redirectTo("login");
+			$this->redirectTo("login", $_REQUEST);
 		} else {
 			$this->user = $_SESSION['user'];
 		}

@@ -11,16 +11,14 @@ require(dirname(__FILE__) . '/../../../system/config.php');
 		array("application"=>"myApp", "id"=>"someFuckingCassandraTests", "data"=>array("k2"=>"22222222")),
 		UPDATE );*/
 
-$req = new RequestJson(null, $_POST,CREATE, "v2/SubscribeRequestHandler"  );
+$req = new RequestJson(null );
 
 session_start();
-$req->addArgument("application", "myEurope:part");
-$req->addArgument("mailTemplate", "myEurope:part");
-$req->addArgument("predicates", '["entreprise|environnement","",""]');
-$req->addArgument("user", "MYMED_cyril.auburtin@inria.fr");
+$req->addArgument("application", "myEurope:profiles");
+$req->addArgument("id", "fdbfae26cc33117334437d8761090ce7");
 $req->setURL("http://mymed20.sophia.inria.fr:8080/backend/");
 if (!isset($_SESSION['accessToken']))
-	$req->addArgument('accessToken', '2989c62d6bcab48ffafa3d80c5e415218a4b09d6'); //for tests
+	$req->addArgument('accessToken', 'c852f1ad014df55e350f1e0ed24a642db86fd73f'); //for tests
 
 $res = $req->send();
 

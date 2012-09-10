@@ -15,10 +15,6 @@
 * limitations under the License.
 */
 
-define('CREATE'		, 0);
-define('READ'		, 1);
-define('UPDATE'		, 2);
-define('DELETE'		, 3);
 
 
 class Request {

@@ -16,8 +16,7 @@
 	</div>
 
 	<div data-role="content">
-		<br />
-		<h1 style="font-family: Trebuchet MS;"><?= $this->blog.' '._("Blog") ?></h1>
+		<h1 style="font-family: Trebuchet MS;text-align: center;"><?= $this->blog.' '._("Blog") ?></h1>
 		
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>

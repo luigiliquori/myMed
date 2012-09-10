@@ -10,8 +10,18 @@ class LoginController extends AbstractController {
 	 */
 	public /*String*/ function handleRequest() {
 		
+		/* authed by social networks apis*/
+		if (isset($_SESSION['user'])) { 
+
+			$this->storeUser($_SESSION['user'], isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null);
+			
+			// Redirect to main page
+			$this->redirectTo("main");
+		
+		}
+		
 		/* Typical login : we received a POST with login and password */
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+		else if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
 		
 			// Get arguments 
 			$login	= $_POST['login'];
@@ -29,8 +39,8 @@ class LoginController extends AbstractController {
 			}
 					
 			// Building the Authentication request
-			$request = new Request("AuthenticationRequestHandler", READ);
-			$request->addArgument("login", $login);
+			$request = new Requestv2("v2/AuthenticationRequestHandler");
+			$request->addArgument("login", $login); // must strtolower here first and if error check with <
 			$request->addArgument("password", $pass);
 			
 			// Argument code filled by Request
@@ -83,7 +93,7 @@ class LoginController extends AbstractController {
 					$mAuthenticationBean->user = $_SESSION['user']->id;
 					$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
 					
-					$request = new Request("AuthenticationRequestHandler", CREATE);
+					$request = new Requestv2("v2/AuthenticationRequestHandler", CREATE);
 					$request->addArgument("authentication", json_encode($mAuthenticationBean));
 					$request->addArgument("user", json_encode($_SESSION['user']));
 					$request->addArgument("application", APPLICATION_NAME);
@@ -97,8 +107,8 @@ class LoginController extends AbstractController {
 				$this->redirectTo("main");
 			}
 			
-		} else { // Not a POST request : Simply show the login form 
-			
+		} else { // Not a POST request : 
+
 			$this->renderView("login");
 			
 		}
@@ -113,7 +123,7 @@ class LoginController extends AbstractController {
 		
 		// Building the Session Request
 		// This will check if the session exists in the backend and will return an User if it's the case.	
-		$request = new Request("SessionRequestHandler", READ);
+		$request = new Requestv2("v2/SessionRequestHandler");
 		$request->addArgument("socialNetwork", "myMed");
 		
 		// The AccessToken is fetched from the $_SESSION
@@ -127,10 +137,34 @@ class LoginController extends AbstractController {
 			$_SESSION['error'] = $responseObject->description;
 		} else {
 			// Everything went fine, we now have an USER in our session
-			$_SESSION['user'] = json_decode($responseObject->data->user);
+			$_SESSION['user'] = $responseObject->dataObject->user;
 			if( !isset($_SESSION['friends']) ){
 				$_SESSION['friends'] = array();
 			}
+		}
+	}
+	
+	public function storeUser($user, $accessToken) {
+
+		$request = new Requestv2("v2/SessionRequestHandler", UPDATE , array("user"=>$user->id, "accessToken"=>$accessToken));
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		
+		if($responseObject->status != 200) {
+			$this->error = $responseObject->description;
+		}		
+		
+		//temp  @TODO see how to merge accounts of other providers with mymed for same emails
+		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($user)));
+		$responsejSon = $request->send();
+		$responseObject2 = json_decode($responsejSon);
+		
+		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$user->id));
+		$responsejSon = $request->send();
+		$responseObject3 = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			$_SESSION['user2'] = $_SESSION['user']; 
+			$_SESSION['user'] = $responseObject3->dataObject->user;
 		}
 	}
 }

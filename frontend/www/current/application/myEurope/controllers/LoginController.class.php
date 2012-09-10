@@ -110,7 +110,7 @@ class LoginController extends AbstractController {
 			$_SESSION['error'] = $responseObject->description;
 		} else {
 			// Everything went fine, we now have an USER in our session
-			$_SESSION['user'] = json_decode($responseObject->data->user);
+			$_SESSION['user'] = $responseObject->dataObject->user;
 			if( !isset($_SESSION['friends']) ){
 				$_SESSION['friends'] = array();
 			}

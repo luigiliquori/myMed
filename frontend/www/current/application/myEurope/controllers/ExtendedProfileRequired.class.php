@@ -11,7 +11,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		 * Try to get the User ExtendedProfile if it exist
 		 * ExtendedProfile stored in the $_SESSION while using the app
 		 */
-		if (!array_key_exists('myEurope', $_SESSION)) {
+		if (!array_key_exists('myEuropeProfile', $_SESSION)) {
 
 			$this->fetchExtendedProfile();
 		}
@@ -59,7 +59,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		}
 		catch(Exception $e){}
 		
-		if (empty($res->details)){
+		if (!isset($res->details)){
 			$this->error = "";
 			debug("wow");
 			$this->showProfileList();
@@ -70,6 +70,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			$this->success = "";
 			
 			$profile = getProfile($this, $_SESSION['myEurope']->profile);
+			debug('test');
 			debug_r($profile);
 			if (isset($profile->id))
 				$_SESSION['myEuropeProfile'] =$profile;
