@@ -65,7 +65,7 @@ class MUserBean {
 	public /*String*/	$lang;
 	
 	
-	public static function constructFromGoogle($user){ //from oauth
+	public static function constructFromGoogleOAuth($user){ //from oauth
 		$user['email'] = filter_var($user['email'], FILTER_SANITIZE_EMAIL);
 		$user['profilePicture'] = filter_var($user['picture'], FILTER_VALIDATE_URL);
 		
@@ -83,7 +83,7 @@ class MUserBean {
 		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
 	}
 	
-	public static function constructFromGoogleOid($user){
+	public static function constructFromOpenId($user){
 
 		foreach ($user as $k=>$v){
 			if(strpos($k, 'first')!==false)

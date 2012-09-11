@@ -2,7 +2,7 @@
 
 <div data-role="page" id="results">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3empty(_("Results")) ?>
+		<? tabs_simple("Results", $_SESSION['user']->name) ?>
 		<? include("notifications.php"); ?>
 	</div>
 
@@ -38,7 +38,7 @@
 		
 		<ul id="matchinglist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>" style="clear:both;">
 
-			<? if (count($this->result) == 0) :?>
+			<?php if (count($this->result) == 0) :?>
 			<li>
 				<h4><?= _("Your search didn't match any result.") ?></h4>
 			</li>

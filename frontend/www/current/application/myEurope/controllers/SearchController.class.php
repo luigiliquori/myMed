@@ -17,11 +17,13 @@ class SearchController extends ExtendedProfileRequired {
 		$this->roles = array();
 		
 		debug_r($_GET);
+		$cats = array_values(Categories::$roles);
+		$t = array_keys(Categories::$themes);
 		foreach( $_GET as $i=>$v ){
 			if ($v == "on"){
-				if ( in_array($i, $this->thems)){
+				if ( in_array($i, $t)){
 					array_push($this->themes, $i);
-				} else if ( in_array($i, $this->cats)){
+				} else if ( in_array($i, $cats)){
 					array_push($this->roles, $i);
 				} else {
 					array_push($this->places, $i);

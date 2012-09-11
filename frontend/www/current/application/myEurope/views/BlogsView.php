@@ -6,30 +6,26 @@
 <div data-role="page" id="Blog">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-	      	<ul>
-	      		<li><a href="./" rel="external" data-theme="d" data-icon="back"><?= _("Back") ?></a></li>
-	      		<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
-	      	</ul>
-      	</div>
+		<? tabs_simple($this->blog.' '._("Blog"), $_SESSION['user']->name) ?>
       	<? include("notifications.php"); ?>
 	</div>
 
 	<div data-role="content">
-		<h1 style="font-family: Trebuchet MS;text-align: center;"><?= $this->blog.' '._("Blog") ?></h1>
+	
+	<br />
 		
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>
 	<div data-role="collapsible" <? if($first){echo('data-collapsed="false"');$first=false;} ?>>
-		<h2><?= $v['title'] ?><time style="font-weight: lighter; font-size: 14px; letter-spacing: 1px; float: right;"><?= date('j/n/y', $v['time']) ?></time></h2>
+		<h2><?= $v['title'] ?><time style="font-weight: lighter; font-size: 14px; letter-spacing: 1px; float: right;"><?= date('j/n/Y', $v['time']) ?></time></h2>
 		<ul data-role="listview" data-theme="d" data-divider-theme="d">
 			<li id="<?= $k ?>">
 				<div style="position: absolute;">
-				<a class="vote-up-off" onclick="rate($(this), $(this).parents('li').attr('id'), '<?= $v['user'] ?>', 1);" title="<?= $v['up'] ?> up votes (click again to undo)">up vote</a>
+				<a class="vote-up-off" onclick="rate($(this), '<?= $k ?>', '<?= $v['user'] ?>', 1);" title="<?= $v['up'] ?> up votes (click again to undo)">up vote</a>
 				<p style="text-align: center;font-weight: bold;"><?= $v['up']-$v['down'] ?></p>
-				<a class="vote-down-off" onclick="rate($(this), $(this).parents('li').attr('id'), '<?= $v['user'] ?>', 0);" title="<?= $v['down']?> down votes, (click again to undo)">down vote</a>
+				<a class="vote-down-off" onclick="rate($(this), '<?= $k ?>', '<?= $v['user'] ?>', 0);" title="<?= $v['down']?> down votes, (click again to undo)">down vote</a>
 				</div>
-				<p style="padding-left: 40px;"><?= $v['text'] ?></p>
+				<div style="padding-left: 40px; padding-top: 5px; font-weight: initial;"><?= $v['text'] ?></div>
 				<p class="ui-li-aside"><a href="?action=extendedProfile&user=<?= $v['user'] ?>" data-transition="slidedown" class="user-sig"><?= prettyprintUser($v['user']) ?></a> le <time><?= date('j/n/y G:i', $v['time']) ?></time>
 				 <a href="" onclick="reply($(this));">reply</a>
 				 <a href="#deletePopup" data-rel="popup" data-position-to="origin" onclick="setIds($(this));" class="delete-icon" title=""></a>

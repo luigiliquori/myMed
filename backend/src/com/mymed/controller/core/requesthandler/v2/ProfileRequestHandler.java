@@ -96,8 +96,8 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
             switch (code) {
                 case READ :
                     message.setMethod(JSON_CODE_READ);
-                    final MUserBean userBean = profileManager.read(userID);
-                    message.addDataObject(JSON_USER, userBean);
+                    final Map<String, String> user = profileManager.readSimple(userID);
+                    message.addDataObject(JSON_USER, user);
                     break;
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);

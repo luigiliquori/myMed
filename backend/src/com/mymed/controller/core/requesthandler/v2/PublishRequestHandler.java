@@ -40,7 +40,6 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.publish.PublishManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageIn;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
-import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.CombiLine;
 import com.mymed.utils.HashFunction;
 import com.mymed.utils.MatchMakingv2;
@@ -100,7 +99,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 			// some vars
 			LinkedHashMap<String, List<String>> keywords; // predicates once formatted
 			List<String> rows; //corresponding  rows ^
-			MUserBean publisher = null; // publishing user in case it exists
+			Map<String, String> publisher = null; // publishing user in case it exists
 			
 			String id = in.getId();
 				
@@ -141,7 +140,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 					break;
 				} else if (in.getUser() != null){ // look if the content is signed
 					in.getData().put("user", in.getUser());
-					publisher = profileManager.read(in.getUser());
+					publisher = profileManager.readSimple(in.getUser());
 				}
 				
 				in.getData().put("id", id); // just for having publication link in mails
@@ -249,7 +248,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 					LOGGER.info(">>>>>>>>>  no Notification ");
 					break;
 				} else if (in.getUser() != null) // look if the content is signed
-					publisher = profileManager.read(in.getUser());
+					publisher = profileManager.readSimple(in.getUser());
 	
 				LOGGER.info(">>>>>>>>>  notifying subscribers ");
 					

@@ -56,7 +56,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 		final String application,
 		final List<String> predicates,
 		final Map<String, String> details,
-		final MUserBean publisher) 
+		final Map<String, String> publisher) 
             throws InternalBackEndException 
     {
     	this();

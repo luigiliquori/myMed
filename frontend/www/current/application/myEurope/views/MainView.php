@@ -1,21 +1,32 @@
 <? include("header.php"); ?>
 
 <?
-function tab_bar_white($activeTab) {
-	tabs_white(array(
-			//"share" => array(_('Share'), "plus"),
-			"about" => array(_("About"), "info"),
-			"home" => array(APPLICATION_NAME, "myEurope"),
-			"admin" => array(_('Admin'), "gear"),
-			"profile" => array(_('Profile'), "profile"),
-		),
-		$activeTab);
-} 
+
+if ($_SESSION['myEurope']->permission>1){
+	function tab_bar($activeTab) {
+		tabs($activeTab, array(
+			array("#about", "About", "info"),
+			array("#home", APPLICATION_NAME, "myEurope"),
+			array("#profile", 'Profile', "profile"),
+			array("?action=Admin", 'Admin', "gear")
+		));
+	}
+ }else {
+ 	function tab_bar($activeTab) {
+ 		tabs($activeTab, array(
+ 			array("#about", "About", "info"),
+ 			array("#home", APPLICATION_NAME, "myEurope"),
+ 			array("#profile", 'Profile', "profile")
+ 		));
+ 	}
+ }
+
+
 ?>
 		
 <div data-role="page" id="home">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("home") ?>
+		<? tab_bar("#home") ?>
 		<? include("notifications.php"); ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
@@ -47,7 +58,7 @@ function tab_bar_white($activeTab) {
 
 <div data-role="page" id="profile">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("profile") ?>
+		<? tab_bar("#profile") ?>
 	</div>
 
 	<div data-role="content" style="text-align:center;">
@@ -66,7 +77,7 @@ function tab_bar_white($activeTab) {
 
 <div data-role="page" id="about">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("about") ?>
+		<? tab_bar("#about") ?>
 	</div>
 	<div data-role="content">
 		<br />
@@ -82,7 +93,7 @@ function tab_bar_white($activeTab) {
 
 <div data-role="page" id="admin">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("admin") ?>
+		<? tab_bar("#admin") ?>
 	</div>
 	<div data-role="content">
 		<br />
@@ -100,10 +111,7 @@ function tab_bar_white($activeTab) {
 <div data-role="page" id="search">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2click(
-				_('Search a partner'),
-				"$('#searchForm').submit();",
-				"search") ?>
+		<? tabs_simple('Partnerships', 'Search',APPLICATION_NAME, "javascript:$('#searchForm').submit();", "search") ?>
 	</div>
 	
 	<div data-role="content">
@@ -259,9 +267,9 @@ function tab_bar_white($activeTab) {
 			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
 				<legend><?= _('Category of searched partners') ?>:</legend>
-				<? foreach($this->cats as $i=>$item) :?>
-					<input type="checkbox" name="<?= $item ?>" id="checkbox-c<?= $item ?>"/>
-					<label for="checkbox-c<?= $item ?>"><?= $i ?></label>
+				<? foreach(Categories::$roles as $i=>$item) :?>
+					<input type="checkbox" name="<?= $i ?>" id="checkbox-c<?= $i ?>"/>
+					<label for="checkbox-c<?= $i ?>"><?= $item ?></label>
 				<? endforeach ?>
 		    </fieldset>
 		    </div>
@@ -294,10 +302,7 @@ function tab_bar_white($activeTab) {
 <div data-role="page" id="post">
 	
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2click(
-				_('Insert an offer'),
-				"$('#publishForm').submit();",
-				"check") ?>
+		<? tabs_simple('Partnerships', 'Insert',APPLICATION_NAME, "javascript:$('#publishForm').submit();", "check") ?>
 	</div>
 
 	<div data-role="content">
@@ -305,8 +310,8 @@ function tab_bar_white($activeTab) {
 				
 			<input type="hidden" name="action" value="Publish" />
 			<input type="hidden" name="namespace" value="part" />
-			<?= debug($this->cats[$_SESSION['myEuropeProfile']->role]) ?>
-			<input type="hidden" name="cat" value="<?= $this->cats[$_SESSION['myEuropeProfile']->role] ?>" />
+			<?= debug(Categories::$roles[$_SESSION['myEuropeProfile']->role]) ?>
+			<input type="hidden" name="cat" value="<?= Categories::$roles[$_SESSION['myEuropeProfile']->role] ?>" />
 			
 			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
@@ -475,7 +480,10 @@ function tab_bar_white($activeTab) {
 	</div>
 </div>
 
-
-<? include("infos.php"); ?>
+<? if($_SESSION['user']->lang=="it"): ?>
+	<? include("infos_it.php"); ?>
+<? else: ?>
+	<? include("infos.php"); ?>
+<? endif; ?>
 
 <? include("footer.php"); ?>

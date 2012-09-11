@@ -123,6 +123,25 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
         return new ProfileManager(storageManager).read(authentication.getUser());
     }
     
+    /**
+     * @see IAuthenticationManager#read(String, String)
+     */
+    @Override
+    public final Map<String, String> readSimple(final String login, final String password) throws InternalBackEndException,
+                    IOBackEndException {
+    	
+        final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
+        final MAuthenticationBean authentication = (MAuthenticationBean) introspection(MAuthenticationBean.class, args);
+
+        if ("".equals(authentication.getLogin())) {
+            throw new IOBackEndException("The login does not exist!", ERROR_NOT_FOUND);
+        } else if (!authentication.getPassword().equals(password)) {
+            throw new IOBackEndException("Wrong password", ERROR_FORBIDDEN);
+        }
+
+        return new ProfileManager(storageManager).readSimple(authentication.getUser());
+    }
+    
 	
     /**
      * @see IAuthenticationManager#read(String)

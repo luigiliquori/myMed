@@ -23,7 +23,9 @@ build
 backend/build
 backend/src/com/mymed/tests/lib/
 backend/src/com/mymed/tests/results/
-general.properties
+*general.properties
 
 *.mo
 *.po
+backend/conf/config.xml
+

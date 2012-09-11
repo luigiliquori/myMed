@@ -345,6 +345,8 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
                     <token key="facebookappid" value="${facebookappid}"/>
                     <token key="facebookappsecret" value="${facebookappsecret}"/>
                     <token key="googleappsecret" value="${googleappsecret}"/>
+                    <token key="googleappclientid" value="${googleappclientid}"/>
+                    <token key="googleappclientsecret" value="${googleappclientsecret}"/>
                     <token key="citywayurl" value="${citywayurl}"/>
                     <token key="citywayappid" value="${citywayappid}"/>
                 </replacetokens>

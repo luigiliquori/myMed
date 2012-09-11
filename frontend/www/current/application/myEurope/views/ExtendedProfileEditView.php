@@ -1,11 +1,7 @@
 <? include("header.php"); ?>
 <div data-role="page">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
-				_('Profile'),
-				_('Validate'),
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
+		<? tabs_simple('Profile', 'Update', 'profile', "javascript:$('#ExtendedProfileForm').submit();",'check') ?>
 		<? include("notifications.php"); ?>
 	</div>
 	
@@ -20,8 +16,8 @@
 			<div data-role="fieldcontain">
 				<label for="role" class="select"><?= _("Your category") ?>:</label>
 				<select name="role" id="role">
-				<? foreach ($this->cats as $k=>$v) :?>
-					<option value="<?= $k ?>" <?= $_SESSION['myEuropeProfile']->role==$k?'selected="selected"':'' ?>><?= $k ?></option>
+				<? foreach (Categories::$roles as $v) :?>
+					<option value="<?= $v ?>" <?= $_SESSION['myEuropeProfile']->role==$v?'selected="selected"':'' ?>><?= $v ?></option>
 				<? endforeach ?>
 				</select>
 			</div>
@@ -71,7 +67,7 @@
 				<input type="password" id="password" name="password" />
 			</div>
 			<div style="text-align: center;">
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="<?= _('Validate') ?>"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="<?= _('Update') ?>"/>
 			</div>
 		</form>
 	</div>

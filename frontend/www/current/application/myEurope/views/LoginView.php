@@ -8,10 +8,10 @@ include("header.php"); ?>
  
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
- 	tabs(array(
- 			"login" =>  array(APPLICATION_NAME, "myEurope"),
- 			"register" => array(_('Registration'), "grid")), 
- 		$activeTab);
+ 	tabs($activeTab, array(
+ 			array("#login", APPLICATION_NAME, "myEurope"),
+ 			array("#register", 'Registration', "grid")
+ 		));
  }
  
  ?>
@@ -22,7 +22,7 @@ include("header.php"); ?>
 	
 		<!-- Tabs -->
 		<div data-role="header" data-theme="c" data-position="fixed">
-			<? tab_bar("login") ?>
+			<? tab_bar("#login") ?>
 			<? include("notifications.php"); ?>
 		</div>
 
@@ -61,7 +61,7 @@ include("header.php"); ?>
 	
 		<!-- Tabs -->
 		<div data-role="header" data-theme="c" data-position="fixed">
-			<? tab_bar("register") ?>
+			<? tab_bar("#register") ?>
 		</div>
 
 		<!--  Register form -->

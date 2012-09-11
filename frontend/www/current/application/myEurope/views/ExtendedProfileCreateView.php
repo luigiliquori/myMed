@@ -3,7 +3,7 @@
 <? if(!isset($_SESSION['user']->lang)):?>
 <div data-role="page">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(APPLICATION_NAME, $_SESSION['user']->name) ?>
+		<? tabs_simple(APPLICATION_NAME, $_SESSION['user']->name) ?>
 		<? include("notifications.php"); ?>
 	</div>
 	<div data-role="content" style="text-align:center;">
@@ -32,7 +32,7 @@
 	   	<ul>
 	   		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
 	   		<li><a class="ui-btn-active"><?= APPLICATION_NAME ?></a></li>
-	   		<li><a href=""#new"" data-theme="d" data-icon="grid"><?= _('Create a new profile') ?></a></li>
+	   		<li><a href="#new" data-theme="d" data-icon="grid"><?= _('Create a new profile') ?></a></li>
 	   	</ul>
 	   	</div>
 	</div>
@@ -45,7 +45,7 @@
 		<ul data-role="listview" data-filter="true" data-inset="true" data-mini="true" data-filter-placeholder="<?= _("filter") ?>">
 		<? foreach ($this->cats as $k=>$v) :?>
 			<? if (!empty($v)) :?>
-				<li data-role="list-divider"><?= $k ?></li>
+				<li data-role="list-divider"><?= Categories::$roles[$k] ?></li>
 				<? foreach ($v as $ki=>$vi) :?>
 					<li><a href="?action=ExtendedProfile&id=<?= $vi->id ?>&link"><?= $vi->name ?></a></li>
 				<? endforeach ?>
@@ -58,11 +58,7 @@
 
 <div data-role="page" id="new" >
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3click(
-				APPLICATION_NAME,
-				_('Create'),
-				"$('#ExtendedProfileForm').submit();",
-				"gear") ?>
+		<? tabs_simple( APPLICATION_NAME, 'Create', 'none', "javascript:$('#ExtendedProfileForm').submit();", "gear") ?>
 	</div>
 
 	<div data-role="content">
@@ -76,7 +72,7 @@
 				<label for="role" class="select"><?= _("Your category") ?>:</label>
 				<select name="role" id="role">
 				<? foreach ($this->cats as $k=>$v) :?>
-					<option value="<?= $k ?>"><?= $k ?></option>
+					<option value="<?= $k ?>"><?= Categories::$roles[$k] ?></option>
 				<? endforeach ?>
 				</select>
 			</div>

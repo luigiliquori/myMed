@@ -3,7 +3,7 @@
 <div data-role="page">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3empty($this->details->title) ?>
+		<? tabs_simple($this->details->title, $_SESSION['user']->name) ?>
 		<? include("notifications.php"); ?>
 	</div>
 

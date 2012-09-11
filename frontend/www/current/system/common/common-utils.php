@@ -99,7 +99,7 @@ function comment(
 		 &nbsp; <?= $v['text'] ?>
 		<? if(!empty($userCommented)) : ?>
 		 &ndash; in reply of <span class="ui-link" <?= $userCommented!=-1?'onclick="show($(this));"':'' ?>><?= $userCommented!=-1?prettyprintUser($userCommented)."'s comment":'deleted comment' ?></span>
-		<? endif ?>svn checkout http://google-api-php-client.googlecode.com/svn/trunk/ google-api-php-client
+		<? endif ?>
 		 &ndash; <span class="ui-link user-sig" onclick="$.mobile.changePage('?action=extendedProfile&user=<?= $v['user'] ?>', { transition: 'slidedown'})"><?= prettyprintUser($v['user'] ) ?></span> <time><?= date('j/n/y G:i', $v['time'] ) ?></time>
 		  <a href="" onclick="reply($(this));">reply</a>
 		  <a href="#deletePopup" data-rel="popup" data-position-to="origin" onclick="setIds($(this));" class="delete-icon" title=""></a>
@@ -109,10 +109,10 @@ function comment(
 			<a type="button" data-inline="true" data-mini="true" data-inline="true" 
 				onclick="commentAdd($(this));" ><?= _('Reply') ?></a>
 		</div>
-		<div data-role="popup" id="votePopup<?= $id ?>" class="ui-content" data-overlay-theme="e" data-theme="d">
+		<div style="display:none;" data-role="popup" id="votePopup<?= $id ?>" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<a class="vote-up-off" onclick="rate($(this), $(this).parents('li').attr('id'), '<?= $v['user'] ?>', 1);" title="<?= $v['up'] ?> up votes (click again to undo)">up vote</a>
-			<a class="vote-down-off" onclick="rate($(this), $(this).parents('li').attr('id'), '<?= $v['user'] ?>', 0);" title="<?= $v['down']?> down votes, (click again to undo)">down vote</a>
+			<a class="vote-up-off" onclick="rate($(this), '<?= $id ?>', '<?= $v['user'] ?>', 1);" title="<?= $v['up'] ?> up votes (click again to undo)">up vote</a>
+			<a class="vote-down-off" onclick="rate($(this), '<?= $id ?>', '<?= $v['user'] ?>', 0);" title="<?= $v['down']?> down votes, (click again to undo)">down vote</a>
 		</div>
 </li>
 	<?

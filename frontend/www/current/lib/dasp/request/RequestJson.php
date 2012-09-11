@@ -92,14 +92,13 @@ class RequestJson {
 		if(isset($_SESSION['accessToken'])) {
 			$this->arguments['accessToken'] = $_SESSION['accessToken'];
 		}
-
 		// POST REQUEST
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);
 		curl_setopt($curl, CURLOPT_POST, true);
 
 		curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($this->arguments));
-
+		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);

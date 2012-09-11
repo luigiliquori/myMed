@@ -15,9 +15,10 @@ class PublishController extends ExtendedProfileRequired {
 		$themes = array();
 		$places = array();
 
+		$t = array_keys(Categories::$themes);
 		foreach( $_POST as $i=>$v ){
 			if ($v == "on"){
-				if ( in_array($i, $this->thems)){
+				if ( in_array($i, $t)){
 					array_push($themes, $i);
 				} else {
 					array_push($places, $i);

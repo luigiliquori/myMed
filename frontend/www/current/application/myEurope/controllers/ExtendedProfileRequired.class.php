@@ -20,32 +20,6 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		
 	}
 	
-	
-	public $cats = array(
-			"Association - Coopérative - Mutuelle"=>"Assoc",
-			"Entreprise privée"=>"Entr",
-			"Chambre consulaire - Groupement professionnel"=>"Chamb",
-			"Université - Recherche"=>"Univ",
-			"Commune, intercommunalité - établissement public communal ou intercommunal"=>"Comm",
-			"Département - établissement public départemental"=>"Dep",
-			"Région - établissement public régional"=>"Reg",
-			"Service de l’Etat - établissement public de l’Etat"=>"Serv",
-			"Autre établissement ou groupement public"=>"AutreEt",
-			"Autre"=>"Autre"
-	);
-	
-	public $thems = array(
-			"education",
-			"travail",
-			"entreprise",
-			"environnement",
-			"recherche",
-			"santé",
-			"social",
-			"agriculture",
-			"peche"
-	);
-	
 	/**
 	 * 
 	 * @return multitype:unknown
@@ -103,6 +77,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			
 				return $result;
 			}
+			$this->cats = Categories::$roles;
 			foreach($this->cats as $k=>$v){
 				$this->cats[$k] = filterArray($res->results, $k);
 			}

@@ -89,8 +89,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     message.setMethod(JSON_CODE_READ);
                     final MSessionBean session = sessionManager.read(accessToken);
                     message.setDescription("Session avaible");
-                    final MUserBean userBean = profileManager.read(session.getUser());
-                    message.addDataObject(JSON_USER, userBean);
+                    message.addDataObject(JSON_USER, profileManager.readSimple(session.getUser()));
                     break;
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);
@@ -140,12 +139,12 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 							"userID argument missing!");
 				}
 
-				final MUserBean userBean = profileManager.read(userID);
+				final Map<String, String> usr = profileManager.readSimple(userID);
 
 				// Create a new session
 				final MSessionBean sessionBean = new MSessionBean();
 				sessionBean.setIp(request.getRemoteAddr());
-				sessionBean.setUser(userBean.getId());
+				sessionBean.setUser(usr.get("id"));
 				sessionBean.setCurrentApplications("");
 				sessionBean.setP2P(false);
 				sessionBean.setTimeout(System.currentTimeMillis());
@@ -154,8 +153,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				sessionManager.create(sessionBean);
 
 				// Update the profile with the new session
-				userBean.setSession(accessToken);
-				profileManager.update(userBean);
+				profileManager.update(usr.get("id"), "session", accessToken);
 
 				message.setDescription("session created");
 				LOGGER.info("Session {} created -> LOGIN", accessToken);
@@ -164,7 +162,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				urlBuffer.append(SERVER_PROTOCOL);
 				urlBuffer.append(SERVER_URI);
 				urlBuffer.append("?socialNetwork=");
-				urlBuffer.append(userBean.getSocialNetworkName());
+				urlBuffer.append(usr.get("socialNetworkName"));
 				urlBuffer.trimToSize();
 
 				message.addDataObject("url", urlBuffer.toString());

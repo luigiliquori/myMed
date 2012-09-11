@@ -25,6 +25,9 @@
 	define('Facebook_APP_SECRET', '@facebookappsecret@');
 	define('Google_APP_SECRET', '@googleappsecret@');
 	
+	define('Google_APP_CLIENT_ID', '@googleappclientid@');
+	define('Google_APP_CLIENT_SECRET', '@googleappclientsecret@');
+	
 	//CITYWAY Keys
 	define('Cityway_URL', '@citywayurl@');
 	define('Cityway_APP_ID', '@citywayappid@');

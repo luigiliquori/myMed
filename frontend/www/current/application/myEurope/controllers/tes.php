@@ -11,7 +11,23 @@ require(dirname(__FILE__) . '/../../../system/config.php');
 		array("application"=>"myApp", "id"=>"someFuckingCassandraTests", "data"=>array("k2"=>"22222222")),
 		UPDATE );*/
 
-$req = new RequestJson(null );
+$req = new Requestv2("v2/ProfileRequestHandler", READ, array());
+
+session_start();
+$req->addArgument("userID", "MYMED_cyril.auburtin@gmail.com");
+$req->setURL("http://mymed20.sophia.inria.fr:8080/backend/");
+if (!isset($_SESSION['accessToken']))
+	$req->addArgument('accessToken', 'ya29.AHES6ZQGDWn2w9d7X-kc7fHBpc_noEuGk6fjNp9Evsdj0Y4R46z29g'); //for tests
+
+
+/*$req->addArgument("user", "MYMED_cyril.auburtin@gmail.com");
+$req->addArgument("key", "lastConnection");
+$req->addArgument("value", 10);
+$req->setURL("http://mymed20.sophia.inria.fr:8080/backend/");
+if (!isset($_SESSION['accessToken']))
+	$req->addArgument('accessToken', 'ya29.AHES6ZQGDWn2w9d7X-kc7fHBpc_noEuGk6fjNp9Evsdj0Y4R46z29g'); //for tests
+*/
+/*$req = new RequestJson(null );
 
 session_start();
 $req->addArgument("application", "myEurope:profiles");
@@ -19,7 +35,7 @@ $req->addArgument("id", "fdbfae26cc33117334437d8761090ce7");
 $req->setURL("http://mymed20.sophia.inria.fr:8080/backend/");
 if (!isset($_SESSION['accessToken']))
 	$req->addArgument('accessToken', 'c852f1ad014df55e350f1e0ed24a642db86fd73f'); //for tests
-
+*/
 $res = $req->send();
 
 print_r($res);

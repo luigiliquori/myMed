@@ -208,18 +208,6 @@ class ExtendedProfileController extends AuthenticatedController
 	 */
 	public /*void*/ function editProfile(){
 		
-		$this->cats = array(
-				"Association - Coopérative - Mutuelle"=>"",
-				"Entreprise privée"=>"",
-				"Chambre consulaire - Groupement professionnel"=>"",
-				"Université - Recherche"=>"",
-				"Mairie - établissement public communal ou intercommunal"=>"",
-				"Département - établissement public départemental"=>"",
-				"Région - établissement public régional"=>"",
-				"Service de l’Etat - établissement public de l’Etat"=>"",
-				"Autre établissement ou groupement public"=>"",
-				"Autre"=>""
-		);
 		$this->renderView("ExtendedProfileEdit");
 		
 	}
