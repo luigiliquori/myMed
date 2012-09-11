@@ -13,6 +13,8 @@ class LoginController extends AbstractController {
 		/* authed by social networks apis*/
 		if (isset($_SESSION['user'])) { 
 
+			debug($_SESSION['accessToken']);
+			debug_r($_SESSION['user']);
 			$this->storeUser($_SESSION['user'], isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null);
 			
 			// Redirect to main page
@@ -21,10 +23,10 @@ class LoginController extends AbstractController {
 		}
 		
 		/* Typical login : we received a POST with login and password */
-		else if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+		else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 			// Get arguments 
-			$login	= $_POST['login'];
+			$login	= trim($_POST['login']);
 			$pass	= hash("sha512", $_POST['password']);
 		
 			// Login and password should not be empty

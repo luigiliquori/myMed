@@ -6,18 +6,18 @@
 require_once("header.php"); ?>
 
 <div data-role="page" id="login">
+
+	<? include_once("header-bar-light.php"); ?>
+	<? tabs_main("login", array(
+			"about" => array(_('A propos'), "info"),
+			"login" => array(_('Connexion'), "home"),
+			"register" => array(_('Inscription'), "grid"),
+	)) ?>
+	<? include("notifications.php"); ?>
 	
 	<div data-role="content"  class="content">
-	
-		<? include_once("header-bar-light.php"); ?>
-		<? tabs_main("login", array(
-				"about" => array(_('A propos'), "info"),
-				"login" => array(_('Connexion'), "home"),
-				"register" => array(_('Inscription'), "grid"),
-		)) ?>
-		<? include("notifications.php"); ?>
 
-		<img alt="myMed" src="<?= APP_ROOT ?>/img/logo-mymed-250c.png" width="200" />
+		<img alt="myMed" src="<?= MYMED_URL_ROOT ?>/application/myMed/img/logo-mymed-250c.png" width="200" />
 		<h3>Réseaux social transfontalier</h3>
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />

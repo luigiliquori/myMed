@@ -3,10 +3,13 @@
 
 <div data-role="page" id="register" >	
 
-	<div data-role="header" data-theme="b">
-		<h1>Création d'un compte</h1>
-		<? include("notifications.php"); ?>
-	</div>
+	<? include_once("header-bar-light.php"); ?>
+	<? tabs_main("register", array(
+			"about" => array(_('A propos'), "info"),
+			"login" => array(_('Connexion'), "home"),
+			"register" => array(_('Inscription'), "grid"),
+	)) ?>
+	<? include("notifications.php"); ?>
 
 	<div data-role="content">
 	
@@ -47,16 +50,7 @@
 		
 		</form>
 	</div>
-	
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>
-				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid"  class="ui-btn-active ui-state-persist">Inscription</a></li>
-				<li><a href="#about" data-transition="none" data-icon="info">A propos</a></li>
-			</ul>
-		</div>
-	</div>
+
 	
 </div>
 

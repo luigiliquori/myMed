@@ -4,11 +4,24 @@
 	<? include("LangView.php"); ?>
 <? endif ?>
 
+
 <div id="home" data-role="page">
 
-<? include("header-bar.php"); ?>
-
-	<div data-role="content" class="content">
+	<? include_once ("header-bar-light.php"); ?>
+	<? tabs_main("home", array(
+			"home" => array(_('Applications'), "grid"),
+			"profile" => array(_('Profile'), "user"),
+			"store" => array(_('Store'), "star"),
+	), true) ?>
+	<? include("notifications.php")?>
+	<div data-role="content">
+		<br />
+		<a href="<?= MYMED_URL_ROOT ?>/application/myEurope" rel="external">myEurope </a>(for Sarah or others)
+		<br /><br /><br />
+		full profile
+		<pre style="text-align: left;"><? print_r($_SESSION['user']); ?></pre><br />
+		profile fetched from openid/oauth
+		<pre style="text-align: left;"><? print_r($_SESSION['user2']); ?></pre><br />
 
 		<div class="ui-grid-b" Style="padding: 10px;">
 			<?php $column = "a"; ?>
@@ -35,15 +48,7 @@
 		
 	</div>
 
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid" class="ui-btn-active ui-state-persist">Applications</a></li>
-				<li><a href="#profile" data-transition="none" data-icon="user">Profil</a></li>
-				<li><a href="#store" data-transition="none" data-icon="star">Store</a></li>
-			</ul>
-		</div>
-	</div>
+
 
 </div>
 
