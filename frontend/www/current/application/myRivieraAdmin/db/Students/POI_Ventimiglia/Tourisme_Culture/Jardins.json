@@ -1,0 +1,17 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Jardins", "Nom": "Giardini Comunali Monsignor Tommaso Reggio", "Description": "Ristrutturati nel 2006 con il progetto \"Les Jardins des Alpes\", i Giardini sono intitolati a Monsignor Tommaso Reggio, dichiarato Beato da Giovanni Paolo II, vescovo della Città di Ventimiglia  tra il 1877 e il 1892. Al suo interno sono conservati numerosi esemplari di palma (Phoenix canariensis) messe a dimora dal botanico tedesco Winter, noto per l'omonimo giardino di Bordighera. ", "Addresse": "Lungo Roia Girolamo Rossi\/Via Vitt. Veneto", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.789785", "Longitude": "7.607847" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Jardins", "Nom": "Giardino Botanico Hanbury", "Description": "Fondati nella seconda metà del 1800 dal nobile inglese Sir Thomas Hanbury  sul promontorio della Mortola,  i Giardini occupano una superficie di 18 ettari.  L'aspetto paesaggistico è tipicamente all'inglese, con vialetti irregolari e romantici , rustici pergolati e patii ed una pittoresca vista del mare sullo sfondo. In questo angolo di paradiso hanno trovato ambientazione specie arboree provenienti da diverse parti del mondo.", "Addresse": "Corso Montecarlo, 43 - Località La Mortola        Tel: +39 0184 229292", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.783725", "Longitude": "7.553709" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Jardins", "Nom": "Oasi naturalistica del Torrente Nervia", "Description": "Unico esempio nella Provincia di Imperia di habitat umido costiero. Si estende per 60.000 mq. e vi sono censite 160 specie botaniche tra le quali spiccano  il pioppo nero, il salice, l'ontano e l'esteso canneto a cannuccia di palude e circa 140 specie di uccelli tra cui aironi, svassi, anatre, limicoli ecc. anfibi, rettili e mammiferi. E' sito di interesse comunitario (SIC ) e costituisce tappa intermedia per numerose specie migratorie .", "Addresse": "Rotonda di Via Dante Alighieri sita  nei pressi della foce del Torrente Nervia.", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.787005", "Longitude": "7.631525" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}

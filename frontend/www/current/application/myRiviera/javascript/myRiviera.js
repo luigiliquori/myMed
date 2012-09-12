@@ -234,16 +234,29 @@ function displayError(error) {
 function updateFilter() {
 	filterArray = [];
 	$("#" + currentApplication + "Filter input:checked").each(function(index) {
-		filterArray.push($(this).attr('id'));
-		//markers[$(this).attr('id')] = [];
+		idFilters = $("#" + $(this).attr('id') + "Filters").val();
+		if(idFilters){
+			filters = idFilters.split(',');
+			if(filters){
+				for (var i=0 ; i<filters.length - 1 ; i++) {
+					filterArray.push(filters[i]);
+				}
+			}
+		}
 	});
 }
 
 function initFilter() {
 	filterArray = [];
 	$("#" + currentApplication + "Filter input").each(function(index) {
-		filterArray.push($(this).attr('id'));
-		markers[$(this).attr('id')] = [];
+		idFilters = $("#" + $(this).attr('id') + "Filters").val();
+		if(idFilters){
+			filters = idFilters.split(',');
+			for (var i=0 ; i<filters.length - 1 ; i++) {
+				filterArray.push(filters[i]);
+				markers[filters[i]] = [];
+			}
+		}
 	});
 }
 

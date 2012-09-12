@@ -7,58 +7,13 @@
 class MainController extends AuthenticatedController {
 
 	public /*String[]*/ $filterList = array(
-				// CARF
-// 				"ADAPEI",
-// 				"ADERF",
-// 				"ASSEDIC",
-				"Banques",
-				"Bibliotheque",
-// 				"CCAS",
-// 				"Cimetieres",
-				"colleges",
-				"Eglises",
-// 				"EPCI",
-// 				"EqptPublic",
-// 				"Forts_militaires",
-// 				"Fourriere",
-// 				"FoyerRural",
-// 				"GARES_SUD",
-// 				"Halte_Garderie",
-				"IUT",
-				"Jardins",
-// 				"LCM",
-// 				"LYP",
-// 				"LP",
-// 				"LYT",
-// 				"LEGTA",
-// 				"EREA",
-// 				"LCL",
-// 				"LCM",
-// 				"LPA",
-// 				"LG",
-				"Mairie",
-				"Maisons_Retraites",
-				"Maternelles",
-				"Monuments",
-				"OfficeDeTourisme",
-				"Pizza_Emporter",
-				"Police_municipale",
-// 				"Ports",
-// 				"POSTES",
-				"Primaire",
-				"Restaurants",
-// 				"SCIENCES_PO",
-// 				"STADES",
-// 				"Travail_Temporaire",
-// 				"Tresor_Public",
-	
-				// PAYS PAILLON
-				"Transports",
-				"Santé",
-				"TourismeCulture",
-				"AdressesUtilesServices",
-				"Sports",
-				"EducationEnfance"
+				"Transports" => array("Transports", "GARESSUD", "Ports"),
+				"Santé" => array("Santé", "MaisonsRetraites"),
+				"Tourisme culture" => array("TourismeCulture", "Eglises", "Jardins", "Officesdutourisme", "Monuments", "Fortsmilitaires"),
+				"Adresses utiles" => array("AdressesUtiles", "Mairie", "Banques", "Policemunicipale", "POSTES"),
+				"Sports" => array("Sports", "STADES"),
+				"Restaurants" => array("Restaurants", "PizzasEmporter"),
+				"Education" => array("Education", "Bibliotheques", "IUT", "colleges", "Primaires", "Maternelles")
 		);
 	
 	public function handleRequest() {
@@ -68,7 +23,7 @@ class MainController extends AuthenticatedController {
 		if ($handle = opendir('img/pois')) {
 			$pois = "";
 			while (false !== ($file = readdir($handle))) {
-				$pois .= $file . ",";
+				$pois .= "," . $file;
 			}
 			echo "<input id='poiIcon' type='hidden' value='" . $pois . "' />";
 		}
@@ -79,7 +34,6 @@ class MainController extends AuthenticatedController {
 			$responseObject = json_decode($responsejSon);
 				
 			if($responseObject->status != 200) {
-// 				$this->setError($responseObject->description);
 				$this->setError("Une erreur interne s'est produite, veuillez réessayer plus tard...");
 			} else {
 				$this->setSuccess("Votre message a bien été transmis aux administrateurs de l'application<br />Merci de votre contribution!");

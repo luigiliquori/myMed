@@ -60,33 +60,40 @@ class MainController extends AuthenticatedController {
 					if(isset($poi->features)) {
 						foreach ($poi->features as $feature) {
 							
+							if(isset($feature->geometry)) { // CARF POIs
+								$longitude = $feature->geometry->coordinates[0];
+								$latitude  = $feature->geometry->coordinates[1];
+							} else { // Students POIs
+								$longitude = $feature->properties->Longitude;
+								$latitude  = $feature->properties->Latitude;
+							}
+							$longitude = str_replace(',', '.', $longitude);
+							$latitude = str_replace(',', '.', $latitude);
 							
-							
-							$request->addArgument("type", preg_replace("/_.+$/", "", $feature->properties->Type));
-							
-							// NOTE: FOR PAYS PAILLON
-							$request->addArgument("longitude", $feature->properties->Longitude);
-							$request->addArgument("latitude", $feature->properties->Latitude);
-							
-							// NOTE: FOR CARF POIs
-// 							$request->addArgument("longitude",  $feature->geometry->coordinates[0]);
-// 							$request->addArgument("latitude", $feature->geometry->coordinates[1]);
+							$request->addArgument("longitude", $longitude);
+							$request->addArgument("latitude", $latitude);
+							$request->addArgument("type", $feature->properties->Type);
 							
 							$value = '{
-								"longitude" : "'. 	$feature->properties->Longitude .'", 
-								"latitude" : "'. 	$feature->properties->Latitude .'", 
+								"longitude" : "'. 	$longitude .'", 
+								"latitude" : "'. 	$latitude .'", 
 								"title" : "'. 		$feature->properties->Nom .'", 
 								"description" : "'. $feature->properties->Description . '",
-								
-								"SousType" : "'.	$feature->properties->SousType .'", 
-								"Adresse" : "'. 	$feature->properties->Adresse .'", 
-								"E-mail" : "'. 		$feature->properties->Email .'", 
-								"Link" : "'. 		$feature->properties->Link .'", 
-								"IdMedia" : "'. 	$feature->properties->IdMedia .'", 
-								"ComUrbaine" : "'.	$feature->properties->ComUrbaine .'", 
-								"Altitude" : "'.	$feature->properties->Altitude .'", 
-								"icon" : ""
+								"icon" : ""';
+							
+							if(isset($feature->properties->SousType)){ // Students POIs
+								$value .= ',
+								"SousType" : "'.	$feature->properties->SousType.'", 
+								"Adresse" : "'. 	$feature->properties->Adresse.'", 
+								"E-mail" : "'. 		$feature->properties->Email.'", 
+								"Link" : "'. 		$feature->properties->Link.'", 
+								"IdMedia" : "'. 	$feature->properties->IdMedia.'", 
+								"ComUrbaine" : "'.	$feature->properties->ComUrbaine.'", 
+								"Altitude" : "'.	$feature->properties->Altitude.'" 
 								}';
+							} else {
+								$value .= '}';
+							}
 							
 							$request->addArgument("value", $value);
 							

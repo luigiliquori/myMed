@@ -115,14 +115,20 @@
 				<h3>Points d'interêts</h3>
 				<div id="<?= APPLICATION_NAME ?>Filter" class="ui-grid-a">
 					<?php $i=0; ?>
-					<?php foreach ($this->filterList as $filter) { ?>
+					<?php foreach ($this->filterList as $key => $value) { ?>
 						<?php if($i%2==0) { ?>
 							<div class="ui-block-a">
 						<?php }  else { ?>
 							<div class="ui-block-b">
 						<?php } ?>
-							<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>" class="custom" checked="checked"/> 
-							<label for="<?= $filter ?>" style="font-size: 9pt;"><?= $filter ?></label>
+							<?php $filters = "" ?>
+							<?php foreach ($value as $filter) { ?>
+								<?php $filters .= $filter . "," ?>
+							<?php } ?>
+							<?php $trimKey = str_replace(' ', '', $key); ?>
+							<input type="hidden" id="<?= $trimKey . "Filters" ?>" value="<?= $filters ?>" />
+							<input type="checkbox" name="<?= $trimKey ?>" id="<?= $trimKey ?>" class="custom" checked="checked"/> 
+							<label for="<?= $trimKey ?>" style="font-size: 9pt;"><?= $key ?></label>
 						</div>
 						<?php $i++; ?>
 					<?php } ?>

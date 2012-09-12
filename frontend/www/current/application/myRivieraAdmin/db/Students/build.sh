@@ -2,6 +2,10 @@
 
 # rename filename if needed
 IFS=$'\n';for f in `find .`; do file=$(echo $f | tr [:blank:] '_'); [ -e $f ] && [ ! -e $file ] && mv "$f" $file;done;unset IFS
+for f in $(find . -name '*.xlsx')
+do
+	rm -rf $f
+done;
 
 # convert into csv
 for f in $(find . -name '*.xls')

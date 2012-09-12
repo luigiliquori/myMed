@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Travail Temporaire", "Nom": "Centro per l'impiego", "Description": "Struttura che fornisce servizi e propone interventi personalizzati a sostegno dell'occupazione.", "Addresse": "Via Lamboglia, 13                                 Tel: +39 0184 254822", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.785905", "Longitude": "7.624573" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}
