@@ -32,6 +32,7 @@ class DetailsController extends AuthenticatedController {
 
 		if (isset($res->details)){
 			$this->details = $res->details;
+			debug_r($this->details);
 			$rep =  new Reputationv2($this, $this->details->user, $this->id);
 			$this->reputation = $rep->send();
 			

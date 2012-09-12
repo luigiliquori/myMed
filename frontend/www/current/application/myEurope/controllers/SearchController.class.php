@@ -48,12 +48,8 @@ class SearchController extends ExtendedProfileRequired {
 		array_push($this->index, new DataBeanv2("keyword", ENUM, join("|",$this->p)));
 		
 		
-			
-
-		debug("search on.. ".$_GET['namespace']);
-		
 		$find = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'], "predicates"=>$this->index));
+				array("application"=>APPLICATION_NAME.":part", "predicates"=>$this->index));
 		
 		try{
 			$res = $find->send();
@@ -61,6 +57,8 @@ class SearchController extends ExtendedProfileRequired {
 		catch(Exception $e){}
 		$this->result = array();
 		$this->success = "";
+		
+		debug_r($res);
 
 		if (isset($res->results))
 			$this->result = (array) $res->results;

@@ -48,6 +48,10 @@ $("#post").live("pagecreate", function() {
 });
 
 $("#search").live("pagecreate", function() {
+	$("#searchForm").submit(function() {
+		return validate(this);		
+	});
+	
 	$('#checkbox-all, #checkbox-all2, #checkbox-all3').click(function() {
 		var parent =$(this).parent().parent(); //must do better later
 		if ($(this).is(':checked')){
@@ -60,21 +64,15 @@ $("#search").live("pagecreate", function() {
 	});
 });
 
-$("#home").live("pagecreate", function() {
-	
-	
-	$("#searchForm").submit(function() {
-		return validate(this);		
-	})
-});
 
 function validate(elt){
 	var t=[];
-	$('input[name="t"]', elt).each(function(i, v) {
+	$('input[data-t]', elt).each(function(i, v) {
 		if ($(v).is(':checked')){
-			t.push(v.val());
+			t.push($(v).data('t'));
 		}
 	});
+	$('#searchedThemes').val(t.join('|'))
 }
 
 function sortBy( i ){

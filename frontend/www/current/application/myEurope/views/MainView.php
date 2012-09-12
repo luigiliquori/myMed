@@ -133,41 +133,43 @@
 			<input type="hidden" name="action" value="Search" />
 			<input type="hidden" name="namespace" value="part" />
 			
+			<input type="hidden" name="t" id="searchedThemes" value="" />
+			
 			<br />
 			
 			<div data-role="fieldcontain">
-		 	<fieldset data-role="controlgroup" id="themecheckboxes">
+		 	<fieldset data-role="controlgroup">
 				<legend><?= _('Offer Themes') ?>:</legend>
 				
 				<input type="checkbox" id="checkbox-all" />
 				<label for="checkbox-all"><?= _('All') ?></label>
 				
-				<input type="checkbox" name="education" id="checkbox-1a"/>
+				<input type="checkbox" data-t="education" id="checkbox-1a"/>
 				<label for="checkbox-1a"><?= _("Education, culture and sport") ?></label>
 
-				<input type="checkbox" name="travail" id="checkbox-2a"/>
+				<input type="checkbox" data-t="travail" id="checkbox-2a"/>
 				<label for="checkbox-2a"><?= _("Work and training") ?></label>
 				
-				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
+				<input type="checkbox" data-t="entreprise" id="checkbox-3a"/>
 				<label for="checkbox-3a"><?= _("Enterprises, Research and Innovation") ?></label>
 				
-				<input type="checkbox" name="environnement" id="checkbox-4a"/>
+				<input type="checkbox" data-t="environnement" id="checkbox-4a"/>
 				<label for="checkbox-4a"><?= _("Environment, Energies and Risk") ?></label>
 				
-				<input type="checkbox" name="recherche" id="checkbox-7a"/>
+				<input type="checkbox" data-t="recherche" id="checkbox-7a"/>
 				<label for="checkbox-7a"><?= _("Transport, Facilities and Zoning") ?></label>
 
-				<input type="checkbox" name="santé" id="checkbox-8a" />
+				<input type="checkbox" data-t="santé" id="checkbox-8a" />
 				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
 				
-				<input type="checkbox" name="social" id="checkbox-9a" />
+				<input type="checkbox" data-t="social" id="checkbox-9a" />
 				<label for="checkbox-9a"><?= _("Social Affairs") ?></label>
 				
-				<input type="checkbox" name="agriculture" id="checkbox-5a" />
+				<input type="checkbox" data-t="agriculture" id="checkbox-5a" />
 				<label for="checkbox-5a"><?= _("Agriculture") ?></label>
 
-				<input type="checkbox" name="peche" id="checkbox-6a" />
-				<label for="checkbox-6a"><?= _("Fishing") ?></label>			
+				<input type="checkbox" data-t="peche" id="checkbox-6a" />
+				<label for="checkbox-6a"><?= _("Fishing") ?></label>		
 
 				
 		    </fieldset>

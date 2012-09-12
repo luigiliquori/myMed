@@ -114,18 +114,16 @@ class RequestJson {
 		
 		$obj = json_decode($result);
 		
-		if(!isset($obj)) // IOBackendException catch has been removed in v2
-			throw new Exception("No results found!");
-		
-		if ($obj->status != 200 && $obj->status != 404 && !is_null($this->handler)) { // Error
+		if ($obj->status == 404 && !is_null($this->handler)){
 			$this->handler->setError($obj->description);
-			throw new Exception("No results found");
+			throw new NoResultException("No results found");
 		
-		} else if(isset($obj->dataObject))// Success
+		} else if($obj->status == 200) {// Success
 			return $obj->dataObject;
-		else
-			return null;
-
+		} else {
+			$this->handler->setError($obj->description);
+			throw new Exception("Erreur");
+		}
 	}
 }
 ?>
