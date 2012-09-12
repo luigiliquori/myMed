@@ -66,12 +66,12 @@ function setupDASP(id, at, app) {
  *            id of the map
  */
 function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
-	
+
 	if (!map) {
-		
+
 		directionsDisplay = new google.maps.DirectionsRenderer();
 		directionsService = new google.maps.DirectionsService();
-		
+
 		// init Map
 		map = new google.maps.Map(document.getElementById(mapID), {
 			zoom : 16,
@@ -124,7 +124,7 @@ function focusOnLatLng(position) {
 
 	// make sure position not null
 	position= position || currentPos || new google.maps.LatLng(43.696036, 7.265592);
-	
+
 	// memorize the position in the cityway itinary // should be moved to riviera specific
 	pos = position;
 
@@ -147,8 +147,8 @@ function focusOnLatLng(position) {
  * @param description
  * @returns {google.maps.Marker}
  */
-function addMarker(position, icon, title, description, animation, isDraggable, id) {
-	
+function addMarker(position, icon, title, description, animation, isDraggable, id, Address, Email, Link, IdMedia, Altitude) {
+
 	var marker = new google.maps.Marker({
 		draggable : isDraggable,
 		position : position,
@@ -162,17 +162,50 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 		var boxText = document.createElement("div");
 		boxText.style.cssText = "background-color: white; padding: 5px; border: thin black solid; border-radius: 5px; color: black;";
 		boxText.innerHTML = 
-			'<h4 style=" margin-top: 2px; margin-bottom: 2px;">' + title + '</h4>' +
-			'<p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
-
+			'<h4 style=" margin-top: 2px; margin-bottom: 2px;">' + title + '</h4>';
+		if(IdMedia) {
+			medias = IdMedia.split(".jpg");
+			for(var i=0 ; i<medias.length-1 ; i++) {
+				boxText.innerHTML += 
+					'<a href="img/pois/pictures/' + $.trim(medias[i]) + '.jpg" target="blank"><img alt="' + $.trim(medias[i]) + '" src="img/pois/pictures/' + $.trim(medias[i]) + '.jpg" width="270px" /></a><br/>';
+			}
+		}
+		boxText.innerHTML += '<p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
+		if(Address) {
+			boxText.innerHTML += '<p><b>Adresse</b> : ' + Address + '<br />';
+			if(Altitude) {
+				boxText.innerHTML += '<b>Altitude</b> : ' + Altitude;
+			}
+			boxText.innerHTML +=  '</p>';
+		}
+		if(Email || Link) {
+			boxText.innerHTML += '<hr />';
+		}
+		if(Email) {
+			boxText.innerHTML +=  '<a href="mailto:' + $.trim(Email) + '">Email</a>';
+		}
+		if(Link){
+			boxText.innerHTML +=  '<a href="http://' + $.trim(Link.replace(/http:\/\//g, '')) + '" target="blank">Plus d\'infos</a>';
+		}
 		var myOptions = {
-				content: boxText,
-				pixelOffset: new google.maps.Size(-200, -10),
-				boxStyle: {
-					opacity: 0.9,
-					width: "180px"
+				content: boxText
+				,disableAutoPan: false
+				,maxWidth: 0
+				,zIndex: null
+				,boxStyle: { 
+					opacity: 0.95
+					,width: "280px"
+
 				}
+		,closeBoxMargin: "2px 2px 2px 2px"
+			,closeBoxURL: "img/close.png"
+				,infoBoxClearance: new google.maps.Size(1, 1)
+		,isHidden: false
+		,pane: "floatPane"
+			,enableEventPropagation: false
+
 		};
+
 		marker.ib = new InfoBox(myOptions);
 	}
 
@@ -217,18 +250,18 @@ function publishDASPRequest(formID) {
 }
 
 function getPosition(){
-	
+
 	$.ajax({
 		//url: "../../backend/PositionRequestHandler",
 		url: "../../lib/dasp/ajax/Position.php",
 		success: function(data){
 			data = JSON.parse(data);
 			currentPos = new google.maps.LatLng(
-				data.dataObject.position.latitude,
-				data.dataObject.position.longitude
+					data.dataObject.position.latitude,
+					data.dataObject.position.longitude
 			);
 			currentPlace = data.dataObject.position.formattedAddress;
-			
+
 			if (focusOnCurrentPosition) {
 				focusOnLatLng(currentPos);
 				focusOnCurrentPosition = false;

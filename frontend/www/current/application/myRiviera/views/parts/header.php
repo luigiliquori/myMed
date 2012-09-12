@@ -55,7 +55,7 @@
 			
 	</head>
 		
-<body <?= isset($_SESSION['user']) ? 'onload="initialize();"' : ''?>>
+<body <?= isset($_SESSION['user']) ? 'onload="initialize();"' : ''?> >
 
 <input type='hidden' id='userID' value='<?= $_SESSION['user']->id ?>' />
 <input type='hidden' id='applicationName' value='<?= APPLICATION_NAME ?>' />

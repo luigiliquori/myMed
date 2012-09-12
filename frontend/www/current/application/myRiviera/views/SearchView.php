@@ -134,14 +134,6 @@
 					<?php } ?>
 				</div>
 				
-				<h3>Persistence des points d'intérêts</h3>
-				<fieldset id="flip-persistence" data-role="controlgroup" style="width:200px;">	
-					<select name="flip-per" id="flip-per" data-role="slider" onchange="if(!$(this).val()) {clearMarkers();}">
-						<option value=''>non</option>
-						<option value='1'>oui</option>
-					</select>
-				</fieldset>
-				
 				<h3>Type de Trajet</h3>
 				<div  id="cityway-search">
 					<fieldset data-role="controlgroup" >

@@ -48,6 +48,16 @@ function initialize() {
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
 			displayError, false);
+	
+	// Add onClick function on the map
+	google.maps.event.addListener(
+            map,
+            "click",
+            function() {
+            	closeMarkersBox();
+            }
+        );
+            
 
 	// autocompletes Google Maps Places API
 	if (useautocompletion) {
@@ -281,6 +291,12 @@ function clearAll() {
 	updatezoom = true;
 }
 
+function closeMarkersBox(){
+	for ( var i = 1; i < pmarkers.length && pmarkers[i]; i++) {
+		pmarkers[i].ib.close();
+	}
+}
+
 function clearMarkers() {
 	for ( var i = 1; i < pmarkers.length && pmarkers[i]; i++) {
 		pmarkers[i].ib.close();
@@ -343,10 +359,28 @@ function otherMarkers(index, type, lat, lon, rad) {
 						} else {
 							icon = null;
 						}
+						var Address, Email, Link, IdMedia, Altitude = null;
+						if(value.Adresse) {
+							Address = value.Adresse;
+						}
+						if(value.Email) {
+							Email = value.Email;
+						}
+						if(value.Link) {
+							Link = value.Link;
+						}
+						if(value.IdMedia) {
+							IdMedia = value.IdMedia;
+						}
+						if(value.Altitude) {
+							Altitude = value.Altitude;
+						}
 						var marker = addMarker(new google.maps.LatLng(value.latitude,
 								value.longitude), icon, value.title,
-								"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
+								"<p><b>Type</b> : " + type + "</p>" + value.description, null, false, id,
+								Address, Email, Link, IdMedia, Altitude);
 						google.maps.event.addListener(marker, "click", function(e) {
+							closeMarkersBox();
 							marker.ib.open(map, this);
 						});
 						markers[type][index].push(marker);

@@ -85,7 +85,7 @@ class MainController extends AuthenticatedController {
 								$value .= ',
 								"SousType" : "'.	$feature->properties->SousType.'", 
 								"Adresse" : "'. 	$feature->properties->Adresse.'", 
-								"E-mail" : "'. 		$feature->properties->Email.'", 
+								"Email" : "'. 		$feature->properties->Email.'", 
 								"Link" : "'. 		$feature->properties->Link.'", 
 								"IdMedia" : "'. 	$feature->properties->IdMedia.'", 
 								"ComUrbaine" : "'.	$feature->properties->ComUrbaine.'", 
