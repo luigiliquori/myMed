@@ -74,11 +74,9 @@
 #spacer{
 	height: 100px;
 }
+
 .logos{
 	margin: 15px;
-}
-
-.social{
 	border-top:1px solid transparent;
 	width: 97%;
 	opacity:0.7;
@@ -94,8 +92,16 @@
 
 @media all and (max-width: 600px){
 	 .logos > img {margin: 5px 10px;}
-	 .social {position: relative;textalign:center;}
+	 .logos {position: relative;textalign:center;}
 	 #spacer {height: 0; margin-bottom: -20px;}
+}
+
+.social {
+	cursor: pointer;
+	width: 17px;
+	height: 18px;
+	background-image: url('/system/img/footer-sprite.png');
+	background-repeat: no-repeat;
 }
 
 .vote-up-off,.vote-up-on,.vote-down-off,.vote-down-on, .delete-icon {

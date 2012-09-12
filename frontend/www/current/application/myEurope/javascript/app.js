@@ -60,10 +60,10 @@ $("#search").live("pagecreate", function() {
 	});
 });
 
-$("#home").live("pageshow", function() {
+/*$("#home").live("pageshow", function() {
 	$('#searchButton').addClass('ui-btn-active');
 	$('#postButton').addClass('ui-btn-active');
-});
+});*/
 
 function sortBy( i ){
 	
@@ -231,7 +231,7 @@ function commentAdd(el){
 			else
 				ul.prepend(li);
 			
-			$(li).find('.comment').trigger('create');
+			$(li).trigger('create');
 			ul.listview('refresh');
 		}
 	});

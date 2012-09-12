@@ -1,25 +1,15 @@
 <? include("header.php"); ?>
 
 <?
-
-if ($_SESSION['myEurope']->permission>1){
-	function tab_bar($activeTab) {
-		tabs($activeTab, array(
-			array("#about", "About", "info"),
-			array("#home", APPLICATION_NAME, "myEurope"),
-			array("#profile", 'Profile', "profile"),
-			array("?action=Admin", 'Admin', "gear")
-		));
-	}
- }else {
- 	function tab_bar($activeTab) {
- 		tabs($activeTab, array(
- 			array("#about", "About", "info"),
- 			array("#home", APPLICATION_NAME, "myEurope"),
- 			array("#profile", 'Profile', "profile")
- 		));
- 	}
+ function tab_bar($activeTab) {
+ 	tabs($activeTab, array(
+ 		array("#infos", "About European programs", "info"),
+ 		array("#home", APPLICATION_NAME, "myEurope"),
+ 		array("#blogs", "Blogs", "none"),
+ 		array("#profile", $_SESSION['user']->name, "profile")
+ 	));
  }
+ 
 
 
 ?>
@@ -31,23 +21,23 @@ if ($_SESSION['myEurope']->permission>1){
 	</div>
 	<div data-role="content" style="text-align:center;">
 		
-		<div data-role="fieldcontain" style="padding-top: 5%;padding-bottom: 5%;">
-			<a href="#search" id="searchButton" type="button" class="ui-btn-active ui-state-persist" style="width:45%;min-width:250px;" data-inline="true"><?= _('Search a partnership offer') ?></a>
-			<a href="#post" id="postButton" type="button" class="ui-btn-active" style="width:45%;min-width:250px;" data-inline="true"><?= _('Insert a partnership offer') ?></a>
+		<div data-role="fieldcontain" style="padding-top: 5%;">
+			<a href="#search" type="button" style="width:60%;min-width:250px;margin: auto;"><br><?= _('Search a partnership offer') ?><br><br></a>
 		</div>
-
-		<div data-role="fieldcontain" >
-			<a href="#infos" style="width:30%;min-width:250px;" class="wrap"
-			type="button" data-inline="true" data-theme="d"><?= _('About European programs') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=Alcotra" style="width:30%;min-width:250px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true"><?= _('Alcotra Blog') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=myEurope" rel="external" style="width:30%;min-width:250px;" class="wrap"
-			type="button" data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
+		
+		<div data-role="fieldcontain">
+			<a href="#post" type="button" style="width:60%;min-width:250px;margin: auto;"><br><?= _('Insert a partnership offer') ?><br><br></a>
 		</div>
+			
+		<? if ($_SESSION['myEurope']->permission > 1): ?>
+		<div data-role="fieldcontain">
+			<a href="?action=Admin" type="button" style="width:60%;min-width:250px;margin: auto;"><?= _('Admin') ?></a>
+		</div>
+		<? endif; ?>
 		
 		<div id="spacer">
 		</div>
-		<div class="social logos">
+		<div class="logos">
 			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
 			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
 			<img alt="myMed" src="../../system/img/logos/mymed" />
@@ -75,17 +65,35 @@ if ($_SESSION['myEurope']->permission>1){
 	</div>
 </div>
 
+<div data-role="page" id="blogs">
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tab_bar("#blogs") ?>
+	</div>
+
+	<div data-role="content" style="text-align:center;">
+	
+		<div data-role="fieldcontain">
+			<a href="?action=Blog&blog=myEurope" type="button" style="width:60%;min-width:250px;margin: auto;"><br><?= _('Beta Testers Blog') ?><br><br></a>
+		</div>
+		<br />
+		<br />
+		<br />
+		<a href="#createPopup" data-rel="popup" data-inline="true" data-icon="plus"> <?= _("Create a bew blog") ?></a>
+		
+		<div data-role="popup" id="createPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<input type="text" id="blogName" placeholder="Blog's name" data-inline="true" />
+			<a onclick="" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Yes</a>
+		</div>
+	</div>
+</div>
+
 <div data-role="page" id="about">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar("#about") ?>
 	</div>
 	<div data-role="content">
-		<br />
-		<div style="text-align: center;">
-			<a href="https://plus.google.com/u/0/101253244628163302593/posts" target="_blank" style="padding-left:10px;"><img src="../../system/img/social/googleplus_32" alt="myEurope on Google+"></a>
-			<a href="http://www.facebook.com/pages/myEurope/274577279309326" target="_blank" style="padding-left:20px;"><img src="../../system/img/social/facebook_32" alt="myEurope on Facebook"></a>
-			<a href="https://twitter.com/my_europe" target="_blank" style="padding-left:20px;"><img src="../../system/img/social/twitter_32" alt="myEurope on Twitter"></a>
-		</div>
+		
 		<br />
 		<?= about() ?>
 	</div>

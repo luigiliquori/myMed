@@ -3,6 +3,7 @@ class Categories {
 	
  	static $themes;
  	static $roles;
+ 	static $calls;
  	static $places_f;
  	static $places_i;
  	static $places_o;
@@ -34,7 +35,16 @@ Categories::$roles = array(
 		"autre"           => _("Autre")
 );
 
+Categories::$calls = array(
+		"alcotra.."       => _("Alcotra"),
+		"ETC...."         => _(""),
+
+);
+
 Categories::$places_f = array(
+		"Alpes Maritime",
+		"ETC...",
+		"vrvgr",
 );
 Categories::$places_i = array(
 );

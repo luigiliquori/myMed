@@ -109,7 +109,7 @@ function comment(
 			<a type="button" data-inline="true" data-mini="true" data-inline="true" 
 				onclick="commentAdd($(this));" ><?= _('Reply') ?></a>
 		</div>
-		<div style="display:none;" data-role="popup" id="votePopup<?= $id ?>" class="ui-content" data-overlay-theme="e" data-theme="d">
+		<div data-role="popup" id="votePopup<?= $id ?>" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<a class="vote-up-off" onclick="rate($(this), '<?= $id ?>', '<?= $v['user'] ?>', 1);" title="<?= $v['up'] ?> up votes (click again to undo)">up vote</a>
 			<a class="vote-down-off" onclick="rate($(this), '<?= $id ?>', '<?= $v['user'] ?>', 0);" title="<?= $v['down']?> down votes, (click again to undo)">down vote</a>

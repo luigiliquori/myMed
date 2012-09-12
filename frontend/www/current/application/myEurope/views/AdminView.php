@@ -4,7 +4,6 @@
 
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tabs_simple('Admin',  $_SESSION['user']->name) ?>
-		<? tab_bar_white("#users") ?>
 		<? include("notifications.php"); ?>
 	</div>
 	
