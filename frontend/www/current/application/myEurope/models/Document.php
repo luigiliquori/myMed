@@ -20,7 +20,20 @@ class Document {
 	
 	public $index; // wrapper of categories
 	
+	//construct methods
 	
+	//construct index from the request url values, post or get
+	function __construct($request) {
+		$this->index=array();
+		
+		$this->themes = array();
+		$this->places = array();
+		$this->roles = array();
+	}
+	
+	public function read($id) {
+		
+	}
 	
 	
 }

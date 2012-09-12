@@ -17,7 +17,7 @@ class SearchController extends ExtendedProfileRequired {
 		$this->roles = array();
 		
 		debug_r($_GET);
-		$cats = array_values(Categories::$roles);
+		$cats = array_keys(Categories::$roles);
 		$t = array_keys(Categories::$themes);
 		foreach( $_GET as $i=>$v ){
 			if ($v == "on"){

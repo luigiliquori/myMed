@@ -1,3 +1,27 @@
+/* big button first version */
+.mymed-big-button {
+	line-height : 150px;
+	vertical-align : middle;
+}
+.mymed-big-button .ui-btn-text, .mymed-huge-button .ui-btn-text{
+	font-size : 120%;
+	white-space: normal;
+}
+
+/* use this one */
+
+.mymed-huge-button .ui-btn-inner{
+	padding-top: 75px;
+	padding-bottom: 75px;
+	white-space: normal;
+}
+@media all and (max-width: 600px){
+	 .mymed-huge-button .ui-btn-inner{
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+}
+
 .ui-page {
  	background-image: url("../img/background.png");
 	background-size: 100% 100%; 

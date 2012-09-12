@@ -2,8 +2,6 @@
 /**
  * Display a notification bar for errors or success.
  * Now with close button and fadeOut animation
- * 
- * @author David Da Silva
  */
 ?>
 <div class="ui-bar ui-bar-e" id="notification-error" style="display:<?= empty($this->error)?'none':'block' ?>">

@@ -1,7 +1,9 @@
 <?php function tabs_info(){return tabs_simple("Informations", $_SESSION['user']->name, 'info','#profile', 'profile');}?>
 
 <div data-role="page" id="infos">
-	<? tabs_info() ?>
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tab_bar("#infos") ?>
+	</div>
 
 	<div data-role="content">
 		<br />
@@ -30,7 +32,6 @@
 		<ul data-role="listview" data-inset="true">
 			<li><a href="#Recherche">Horizon 2020-Le futur Programme Cadre pour la Recherche et l'Innovation </a>
 			</li>
-		</ul>
 		</ul>
 	</div>
 </div>

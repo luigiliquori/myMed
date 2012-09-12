@@ -60,10 +60,22 @@ $("#search").live("pagecreate", function() {
 	});
 });
 
-/*$("#home").live("pageshow", function() {
-	$('#searchButton').addClass('ui-btn-active');
-	$('#postButton').addClass('ui-btn-active');
-});*/
+$("#home").live("pagecreate", function() {
+	
+	
+	$("#searchForm").submit(function() {
+		return validate(this);		
+	})
+});
+
+function validate(elt){
+	var t=[];
+	$('input[name="t"]', elt).each(function(i, v) {
+		if ($(v).is(':checked')){
+			t.push(v.val());
+		}
+	});
+}
 
 function sortBy( i ){
 	

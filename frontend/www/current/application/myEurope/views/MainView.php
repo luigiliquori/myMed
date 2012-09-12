@@ -13,25 +13,30 @@
 
 
 ?>
+
+
 		
 <div data-role="page" id="home">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar("#home") ?>
 		<? include("notifications.php"); ?>
+		
 	</div>
 	<div data-role="content" style="text-align:center;">
+	
+	<? include("social.php"); ?>
 		
 		<div data-role="fieldcontain" style="padding-top: 5%;">
-			<a href="#search" type="button" style="width:60%;min-width:250px;margin: auto;"><br><?= _('Search a partnership offer') ?><br><br></a>
+			<a href="#search" type="button" class="mymed-huge-button"><?= _('Search a partnership offer') ?></a>
 		</div>
 		
 		<div data-role="fieldcontain">
-			<a href="#post" type="button" style="width:60%;min-width:250px;margin: auto;"><br><?= _('Insert a partnership offer') ?><br><br></a>
+			<a href="#post" type="button" class="mymed-huge-button"><?= _('Insert a partnership offer') ?></a>
 		</div>
 			
 		<? if ($_SESSION['myEurope']->permission > 1): ?>
 		<div data-role="fieldcontain">
-			<a href="?action=Admin" type="button" style="width:60%;min-width:250px;margin: auto;"><?= _('Admin') ?></a>
+			<a href="?action=Admin" type="button"><?= _('Admin') ?></a>
 		</div>
 		<? endif; ?>
 		
@@ -73,7 +78,7 @@
 	<div data-role="content" style="text-align:center;">
 	
 		<div data-role="fieldcontain">
-			<a href="?action=Blog&blog=myEurope" type="button" style="width:60%;min-width:250px;margin: auto;"><br><?= _('Beta Testers Blog') ?><br><br></a>
+			<a href="?action=Blog&blog=myEurope" type="button"  class="mymed-huge-button"><?= _('Beta Testers Blog') ?></a>
 		</div>
 		<br />
 		<br />
@@ -123,7 +128,7 @@
 	</div>
 	
 	<div data-role="content">
-		<form action="./" id="searchForm" data-ajax="false">
+		<form action="" id="searchForm" data-ajax="false">
 		
 			<input type="hidden" name="action" value="Search" />
 			<input type="hidden" name="namespace" value="part" />

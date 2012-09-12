@@ -93,13 +93,19 @@
 @media all and (max-width: 600px){
 	 .logos > img {margin: 5px 10px;}
 	 .logos {position: relative;textalign:center;}
-	 #spacer {height: 0; margin-bottom: -20px;}
+	 #spacer {height: 0;}
 }
 
 .social {
 	cursor: pointer;
-	width: 17px;
-	height: 18px;
+	text-indent: -9999em;
+	font-size: 1px;
+	display: inline-block;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-right: 3px;
+	width: 32px;
+	height: 32px;
 	background-image: url('/system/img/footer-sprite.png');
 	background-repeat: no-repeat;
 }
