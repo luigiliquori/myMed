@@ -1,7 +1,7 @@
 <? include("header.php"); ?>
 <div data-role="page">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_simple('Profile', 'Update', 'profile', "javascript:$('#ExtendedProfileForm').submit();",'check') ?>
+		<? tabs_simple('Profile') ?>
 		<? include("notifications.php"); ?>
 	</div>
 	
@@ -67,7 +67,7 @@
 				<input type="password" id="password" name="password" />
 			</div>
 			<div style="text-align: center;">
-				<input type="submit" data-inline="true" data-role="button" data-icon="check" value="<?= _('Update') ?>"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
 			</div>
 		</form>
 	</div>

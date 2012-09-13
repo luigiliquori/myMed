@@ -39,13 +39,13 @@ class MainController extends AuthenticatedController {
 		$_SESSION["launchpad"] = true;
 
 		// get all the application in MYMED_ROOT . '/application
-		if ($handle = opendir(MYMED_ROOT . '/application')) {
+		/*if ($handle = opendir(MYMED_ROOT . '/application')) {
 			while (false !== ($file = readdir($handle))) {
 				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, self::$hiddenApplication)) {
 					array_push($this->applicationList, $file);
 				}
 			}
-		}
+		}*/
 		$this->applicationList = array();
 		$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
 		

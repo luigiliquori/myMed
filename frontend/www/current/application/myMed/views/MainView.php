@@ -7,7 +7,7 @@
 
 <div id="home" data-role="page">
 
-	<div data-role="header" data-theme="b" data-position="fixed">
+	<div data-role="header" data-theme="d" data-position="fixed">
 		<? tab_bar_main("#home") ?>
 		<? include("notifications.php"); ?>
 	</div>
@@ -49,9 +49,7 @@
 
 
 </div>
-
 <? include("ProfileView.php"); ?>
-<? include("UpdateProfileView.php"); ?>
 <? include("StoreView.php"); ?>
 
 <? include("footer.php"); ?>

@@ -73,6 +73,7 @@ class DetailsController extends AuthenticatedController {
 		} else{
 			$this->details=new StdClass();
 			$this->details->text = "<h2 style='text-align:center;'>Contenu effacé par l'auteur</h2>";
+			$this->details->title = "effacé";
 			$this->renderView("details");
 		}
 			

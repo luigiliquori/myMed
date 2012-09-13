@@ -7,7 +7,7 @@ require_once("header.php"); ?>
 
 <div data-role="page" id="login">
 
-	<div data-role="header" data-theme="b" data-position="fixed">
+	<div data-role="header" data-theme="d" data-position="fixed">
 		<? tab_bar_login("#login") ?>
 		<? include("notifications.php"); ?>
 	</div>

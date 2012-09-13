@@ -2,7 +2,7 @@
 
 <div data-role="page" id="results">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_simple("Results", $_SESSION['user']->name) ?>
+		<? tabs_simple("Results") ?>
 		<? include("notifications.php"); ?>
 	</div>
 
@@ -30,7 +30,7 @@
 		(empty($this->p)?'':_('Keywords').': <em style="font-size: 14px;">'.join(", ",$this->p).'</em>') ?>:
 		
 		</label>
-		<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert"
+		<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
 		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$_GET['namespace'] ?>", <?= json_encode($this->index) ?>);'><?= _("Subscribe") ?></a>
 		</div>
 		<? endif ?>

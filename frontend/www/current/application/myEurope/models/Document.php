@@ -3,48 +3,33 @@
 class Document {
 	
 	public $id;
-	public $title;
-	public $expirationDate;
+	public $namespace;
 	public $user;
+	
+	public $handler;
 	
 	public $reputation;
 	
-	public /* array of ExtendedProfile*/ $partnersProfiles;  // first is the owner, others who joined, might sort them by rep, at the end unshift partner at the top of list highlighted
 	
-	public $index;
-	
-	//construct methods
-	
-	//construct index from the request url values, post or get
-	public function __construct($request) {
-		$this->index = array();
+	public function __construct(
+			IRequestHandler $handler,
+			$namespace,
+			$id,
+			$index,
+			$data,
+			$metadata) {
 		
-		//the order matters because I was too lazy to sort it backend-side
-		$this->index[] = new DataBeanv2("t", ENUM, $request['t']); //themes
-		$this->index[] = new DataBeanv2("p", ENUM, $request['p']); //places
-		$this->index[] = new DataBeanv2("r", ENUM, $request['r']); //roles of profiles
-		$this->index[] = new DataBeanv2("c", ENUM, $request['c']); // call
-		$this->index[] = new DataBeanv2("k", ENUM, $request['k']); // keywords
-		
-		if isset($request['date']){
-			$this->expirationDate = $request['date'];
-		}
-		if isset($request['title']){
-			$this->title = $request['title'];
-		}
-		if isset($request['text']){
-			$this->text = $request['text'];
-		}
+		$this->handler = $handler;
+		$this->namespace = $namespace;
+		$this->id = $id;
+		$this->index = $index;
+		$this->data = $data;
+		$this->metadata = $metadata;
 	}
 	
-	public function init($title, $user){
-		$this->title= $title;
-		$this->user= $user;
-	}
-	
-	public function search(IRequestHandler $handler) {
-		$find = new RequestJson($handler,
-				array("application"=>APPLICATION_NAME.":part", "predicates"=>$this->index));
+	public function search() {
+		$find = new RequestJson($this->handler,
+				array("application"=>APPLICATION_NAME.":".$this->namespace, "predicates"=>$this->index));
 		
 		try{
 			$res = $find->send();
@@ -52,85 +37,62 @@ class Document {
 
 		}catch(Exception $e){
 		}
-		$handler->success = "";
+		$this->handler->success = "";
 		return (array) $res->results;
 	}
 	
 	
 	
-	public function read(IRequestHandler $handler) {
+	public function read() {
 		
-		$rep =  new Reputationv2($handler, $this->user, $this->id);
+		$rep =  new Reputationv2($this->handler, $this->user, $this->id);
 		$this->reputation = $rep->send();
 		
-		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":part","id"=>$this->id));
+		$req = new RequestJson( $this->handler, array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id));
 		
 		try{
 			$res = $req->send();
 		}catch (NoResultException $e) {
-			$this->details=new StdClass();
-			$this->details->text = "<h2 style='text-align:center;'>"._("Contenu effacé par l'auteur")."</h2>";
+			$res->details=new StdClass();
+			$res->details->text = "<h2 style='text-align:center;'>"._("Contenu effacé par l'auteur")."</h2>";
 		}catch(Exception $e){
 		}
 		
-		$this->partnersProfiles = array();
-		
-		foreach ($this->details as $k => $v){
-			if (strpos($k, "user_") === 0){
-				$p = new ExtendedProfile($v)
-				$this->partnersProfiles[$p->id]= $p->readFromUser();
-			}
-		}
-		//sort them by rep
-		
-		//author
-		$p = new ExtendedProfile($this->user);
-		$authorProfile = $p->readFromUser();
-		
-		$this->partnersProfiles = array_merge(array($this->user=>$authorProfile, $this->partnersProfiles));
+		$this->handler->success = "";
+		return (array) $res->details;
 		
 	}
 	
 	
-	public function create(IRequestHandler $handler, $user) {
+	public function create() {
 		
-		$t = time();
+		$t = time();		
+		$id = hash("md5", $t.$this->user);
 		
-		$data = array(
-				"title" => $this->title,
-				"time"=>$t,
-				"user" => $user,
-				"text" => !empty($this->text)?$this->text:"contenu vide"
-		);
-		
-		$metadata = array(
-				/* @todo more stuff here */
-				"title" => $this->title,
-				"time"=>$t,
-				"user" => $user,
-		);
-		
-		if (isset($this->expirationDate)){
-			$data['expirationDate'] = $this->expirationDate;
-			$metadata['expirationDate'] = $this->expirationDate;
-		}
-		
-		$id = hash("md5", $t.$user);
-		
-		$publish = new RequestJson($handler,
-				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=>$user, "data"=>$data, "predicates"=>$index, "metadata"=>$metadata),
+		$publish = new RequestJson($this->handler,
+				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$this->id, "user"=>$this->user, "data"=>$this->data, "predicates"=>$this->index, "metadata"=>$this->metadata),
 				CREATE);
 		
 		$publish->send();
 	}
 	
-	public function update(IRequestHandler $handler) {
-	
+	public function update() {
+		
+		$publish = new RequestJson($handler,
+				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$this->id, "user"=>$this->user, "data"=>$this->data, "predicates"=>$this->index, "metadata"=>$this->metadata),
+				UPDATE);
+		
+		$publish->send();
 	
 	}
 	
-	public function delete(IRequestHandler $handler) {
-		//after a read, so you can update all people's profiles
+	public function delete() {
+		$publish = new RequestJson($this->handler,
+				array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id),
+				DELETE);
+
+		
+		$publish->send();
 	
 	}
 	

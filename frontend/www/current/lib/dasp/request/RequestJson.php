@@ -115,7 +115,7 @@ class RequestJson {
 		$obj = json_decode($result);
 		
 		if ($obj->status == 404 && !is_null($this->handler)){
-			$this->handler->setError($obj->description);
+			$this->handler->setError('');
 			throw new NoResultException("No results found");
 		
 		} else if($obj->status == 200) {// Success

@@ -79,13 +79,13 @@
 		 
 		 <div data-role="popup" id="deleteTestersPopup" style="padding:10px;" data-theme="e">
 			<a data-role="button" style="color:blue;font-style: italic;" data-icon="thumb" data-mini="true" onclick="var id=$('#deleteField').val();rate(1, id);">+1</a>
-			<a onclick="$('#deleteMessageForm').submit();" data-role="button" data-theme="d" data-icon="delete" data-mini="true">remove</a>
+			<a onclick="$('#deleteMessageForm').submit();" data-role="button" data-theme="d" data-icon="remove" data-mini="true">remove</a>
 		</div>
 		
 		<div data-role="popup" id="deleteTestersPopup2" style="padding:5px;"  data-theme="e">
 			<a onclick="$('#'+$('#deleteFieldhash').val()).find('form').toggle();" data-rel="back" data-role="button" data-theme="d" data-mini="true" data-inline="true">reply</a>
 			<a data-role="button" style="color:blue;font-style: italic;" data-icon="thumb" data-mini="true" onclick="var id=$('#deleteField').val();rate(1, id);" data-inline="true">+1</a>
-			<a onclick="$('#deleteMessageForm').submit();" data-role="button" data-theme="d" data-icon="delete" data-mini="true" data-inline="true">remove</a>
+			<a onclick="$('#deleteMessageForm').submit();" data-role="button" data-theme="d" data-icon="remove" data-mini="true" data-inline="true">remove</a>
 		</div>
 		
 		<form method="post" id="deleteMessageForm" action="?action=Blog&blog=<?= $this->blog ?>" style="display:none;">

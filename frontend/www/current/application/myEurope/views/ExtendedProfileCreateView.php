@@ -1,45 +1,30 @@
 <? include("header.php"); ?>
 
-<? if(!isset($_SESSION['user']->lang)):?>
-<div data-role="page">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_simple(APPLICATION_NAME, $_SESSION['user']->name) ?>
-		<? include("notifications.php"); ?>
-	</div>
-	<div data-role="content" style="text-align:center;">
-		<br /><br />
-		<?= _("Choose a language") ?>:<br />
-		<fieldset data-role="controlgroup" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
-			<label for="radio-view-a"><?= _("French") ?></label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
-			<label for="radio-view-b"><?= _("Italian") ?></label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
-			<label for="radio-view-e"><?= _("English") ?></label>
-		</fieldset>
-		<br />
-		<div style="text-align: center;" >
-			<a href="#profiles" type="button" data-inline="true" data-icon="arrow-r" data-transition="slide"><?= _("Next") ?></a>
-		</div>
-	</div>
-</div>
-<? endif ?>
+<? 
+ 
+ /** Definition of the Login / Register tabs */
+ function tab_bar($activeTab) {
+ 	tabs($activeTab, array(
+ 			array("#profiles", "Profils existant", "list"),
+ 			array("#new", 'Create', "pencil")
+ 		), true);
+ }
+ 
+ ?>
 
 <div data-role="page" id="profiles">
-	<div data-role="header" data-theme="c" data-position="fixed">
 
-		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-	   	<ul>
-	   		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
-	   		<li><a class="ui-btn-active"><?= APPLICATION_NAME ?></a></li>
-	   		<li><a href="#new" data-theme="d" data-icon="grid"><?= _('Create a new profile') ?></a></li>
-	   	</ul>
-	   	</div>
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tab_bar("#profiles") ?>
+		<? include("notifications.php"); ?>
 	</div>
+
 	<div data-role="content">
 		<p>
 		<?= _("Hello, This is your first time on myEurope.<br/><br/>
 				 Please fill in your profile with an existing Organization profile or <a href='#new'>create a new one</a>") ?>
+		<a href='#new' data-transition="slide"><?= _("create a new one") ?>	</a> 
+		
 		</p>
 		<br />
 		<ul data-role="listview" data-filter="true" data-inset="true" data-mini="true" data-filter-placeholder="<?= _("filter") ?>">
@@ -57,8 +42,10 @@
 </div>
 
 <div data-role="page" id="new" >
+
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_simple( APPLICATION_NAME, 'Create', 'none', "javascript:$('#ExtendedProfileForm').submit();", "gear") ?>
+		<? tab_bar("#new") ?>
+		<? include("notifications.php"); ?>
 	</div>
 
 	<div data-role="content">

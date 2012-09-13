@@ -36,6 +36,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		if (!isset($res->details)){
 			$this->error = "";
 			debug("wow");
+			
 			$this->showProfileList();
 		}
 		else {
@@ -77,10 +78,13 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			
 				return $result;
 			}
+
 			$this->cats = Categories::$roles;
+			
 			foreach($this->cats as $k=>$v){
 				$this->cats[$k] = filterArray($res->results, $k);
 			}
+			debug_r($this->cats);
 			$this->renderView("ExtendedProfileCreate");
 		}
 		$this->renderView("Main");

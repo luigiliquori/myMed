@@ -8,19 +8,21 @@
  *  $ActiveTab : Current active tab id 
  *  These tabs should be repeated in the header of each tabbed page
  */
-function tabs($activeTab, $tabs, $useBack = false) {
+function tabs($activeTab, $tabs, $useBackTomyMed = false) {
 	
 	$reverse = true;
 	?> 	
 
   	<div class="ui-header ui-bar-e" data-mini="true">
-  		<span style="color: #588fbe; margin: 9px; font-size: 13px; font-weight: bold; "><a href="/application/myMed" rel="external"><img alt="myMed" src="../../system/img/logos/mymed" style="vertical-align: -25%;"/></a>Réseau social transfontalier</span>
+  		<? if ($useBackTomyMed): ?>
+			<a href="/application/myMed" style="margin-left: 5px;margin-top: -5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">myMed</a>
+		<? endif ?>
+  		<span style="color: #588fbe; font-size: 13px; font-weight: bold; margin-left: 10px;display: inline-block;">
+  		<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true"><h1 style="display: inline-block;margin-top: 0;margin-bottom: 0;"><?= APPLICATION_NAME ?></h1></a> Réseau social transfontalier</span>
+  		<? include("social.php"); ?>
   	</div>
-	<div data-role="navbar" data-theme="b"  data-iconpos="left"> 
-		<ul >
-			<? if ($useBack): ?>
-				<li><a data-rel="back" rel="external" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
-			<? endif ?>
+	<div data-role="navbar" data-theme="b"  data-iconpos="bottom"> 
+		<ul>
 	  		<? foreach ($tabs as $i): ?>
 	  		<li>
 	  			<a 
@@ -44,19 +46,21 @@ function tabs($activeTab, $tabs, $useBack = false) {
  	<?
  }
  
- function tabs_simple($title, $actionTitle, $icon='none', $action='?action=extendedProfile', $actionIcon='profile') {
+ function tabs_simple($title, $icon='', $actionTitle=null, $action=null, $actionIcon=null) {
  	?>
    	<div class="ui-header ui-bar-e" data-mini="true">
-   		<span style="color: #588fbe; margin: 9px; font-size: 13px; font-weight: bold; "><a href="/application/myMed" rel="external"><img alt="myMed" src="../../system/img/logos/mymed" style="vertical-align: -25%;"/></a>Réseau social transfontalier</span>
+   		<span style="color: #588fbe; font-size: 13px; font-weight: bold; margin-left: 10px;display: inline-block;"><a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" ><h1 style="display: inline-block;margin-top: 0;margin-bottom: 0;"><?= APPLICATION_NAME ?></h1></a> Réseau social transfontalier</span>
+  		<? include("social.php"); ?>
 	</div>
-	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
+	<div data-role="navbar" data-theme="d" data-iconpos="left" data-collapsed-icon="faplus" data-expanded-icon="faminus"> 
 		<ul >
- 		 	<li><a data-rel="back" rel="external" data-icon="back"><?= _("Back") ?></a></li>
+ 		 	<li><a data-rel="back" rel="external" data-icon="arrow-left"><?= _("Back") ?></a></li>
  		  	<li><a class="ui-btn-active" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
+ 		  	<? if (!is_null($actionTitle)): ?>
 			<li>
 				<a href="<?= $action ?>" <?= $action[0]!='#'?'rel="external"':'' ?> data-icon="<?= $actionIcon ?>"><?= _($actionTitle) ?></a>
 			</li>
-
+			<? endif; ?>
  		</ul>
 	</div>
 
@@ -126,11 +130,7 @@ function tabs($activeTab, $tabs, $useBack = false) {
 	?>	
 	</p>
 </div>
-<div class="logos" style="text-align: center;">
-	<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
-	<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
-	<img alt="myMed" src="../../system/img/logos/mymed" />
-</div>
+
 <?
        }
        

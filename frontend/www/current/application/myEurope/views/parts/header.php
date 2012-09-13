@@ -9,22 +9,25 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
-	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile.css" />
-	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile.js"></script>
-	
 	<!-- CLE  -->
 	<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
-	
-	<!-- APP JS -->
-	<script src="javascript/app.js"></script>
-	
+	<!--  Extra icons for jquery -->
+	<link rel="stylesheet" href="../../lib/jquery/extra-icons/jqm-icon-pack-2.1.2-fa.css" />
+	<!-- JQUERY  -->
+	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile.css" />
 	<!-- MYMED css -->
 	<link href="../../system/css/common.css" rel="stylesheet" />
 	<!-- APP css -->
 	<link href="css/app.css" rel="stylesheet" />
 	
+	
+	
+	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
+	<script src="../../lib/jquery/jquery.mobile.js"></script>
+	<!-- APP JS -->
+	<script src="javascript/app.js"></script>
+	
+
 	<!-- Google Analytics -->
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];

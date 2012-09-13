@@ -6,7 +6,7 @@
 <div data-role="page" id="Blog">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_simple($this->blog.' '._("Blog"), $_SESSION['user']->name) ?>
+		<? tabs_simple($this->blog.' '._("Blog")) ?>
       	<? include("notifications.php"); ?>
 	</div>
 
@@ -61,7 +61,7 @@
 </div>
 		
 		<br />
-		<div data-role="collapsible" class="loadCLE" data-mini="true" data-inline="true" style="margin-bottom: -.5em;">
+		<div data-role="collapsible" class="loadCLE" data-mini="true" data-inline="true" style="margin-bottom: -.5em;" data-collapsed-icon="edit" data-expanded-icon="faminus">
 			<h3 style="margin:auto;margin-left: 0;width:165px;"><?= _('New Message') ?></h3>
 			<form method="post" action="?action=Blog&blog=<?= $this->blog ?>"  style="text-align:right;">
 				<input type="text" name="title" placeholder="<?= _('title') ?>" data-mini="true" data-inline="true" value="" />
@@ -79,15 +79,15 @@
 			<div data-role="controlgroup" data-mini="true">
 				<a onclick="setReplyForm();" data-rel="back" data-icon="forward" data-role="button" data-theme="d" data-mini="true">reply</a>
 				<a data-role="button" data-icon="thumb" onclick="var id=$('#deleteField').val();rate($(this), id, user, 1);">12</a>
-				<a data-role="button" style="color:gray;" data-icon="minus" onclick="var id=$('#deleteField').val();rate($(this), id, user, 0);">5</a>
-				<a data-role="button" data-theme="d" data-icon="delete" data-mini="true">remove</a>
+				<a data-role="button" style="color:gray;" data-icon="faminus" onclick="var id=$('#deleteField').val();rate($(this), id, user, 0);">5</a>
+				<a data-role="button" data-theme="d" data-icon="remove" data-mini="true">remove</a>
 			</div>
 		</div>
 		
 		<div data-role="popup" id="deletePopup" class="ui-content" data-overlay-theme="e" data-theme="d">
-			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<?= _('Sure?') ?><br />
-			<a onclick="commentRm();" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Yes</a>
+			<a onclick="commentRm();" data-role="button" data-theme="d" data-icon="remove" data-inline="true">Yes</a>
 		</div>
 		
 		<form method="post" id="deleteMessageForm" action="?action=Blog&blog=<?= $this->blog ?>" style="display:none;">

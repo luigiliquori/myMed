@@ -1,6 +1,7 @@
+
 <div id="profile" data-role="page">
 
-	<div data-role="header" data-theme="b" data-position="fixed">
+	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar_main("#profile") ?>
 		<? include("notifications.php"); ?>
 	</div>
@@ -75,6 +76,5 @@
 
 </div>
 
-<? if(!empty($_SESSION['user']->lang)):?>
-	<? include("LangView.php"); ?>
-<? endif ?>
+<? include("UpdateProfileView.php"); ?>
+

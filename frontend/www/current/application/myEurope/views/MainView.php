@@ -3,11 +3,11 @@
 <?
  function tab_bar($activeTab) {
  	tabs($activeTab, array(
- 		array("#infos", "About European programs", "info"),
- 		array("#home", APPLICATION_NAME, "myEurope"),
- 		array("#blogs", "Blogs", "none"),
- 		array("#profile", $_SESSION['user']->name, "profile")
- 	));
+ 		array("#infos", "About European programs", "info-sign"),
+ 		array("#home", "Partenariats", "retweet"),
+ 		array("#blogs", "Bonnes pratiques", "comments"),
+ 		array("#profile", $_SESSION['user']->name, "person")
+ 	), true);
  }
  
 
@@ -20,13 +20,11 @@
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar("#home") ?>
 		<? include("notifications.php"); ?>
-		
 	</div>
 	<div data-role="content" style="text-align:center;">
-	
-	<? include("social.php"); ?>
 		
-		<div data-role="fieldcontain" style="padding-top: 5%;">
+		<br />
+		<div data-role="fieldcontain">
 			<a href="#search" type="button" class="mymed-huge-button"><?= _('Search a partnership offer') ?></a>
 		</div>
 		
@@ -40,8 +38,7 @@
 		</div>
 		<? endif; ?>
 		
-		<div id="spacer">
-		</div>
+		<div id="spacer"></div>
 		<div class="logos">
 			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
 			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
@@ -54,18 +51,17 @@
 <div data-role="page" id="profile">
 	<div data-role="header" data-theme="c" data-position="fixed">
 		<? tab_bar("#profile") ?>
+		<? include("social.php"); ?>
 	</div>
 
 	<div data-role="content" style="text-align:center;">
 		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
 
 		<br />
-		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
-			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="grid" style="text-align: left;"><?= _('Edit my profile') ?></a>
-		</fieldset>
-		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
-			<a data-role="button" href="?action=logout" rel="external" data-icon="delete" style="text-align: left;"><?= _('Log Out') ?></a>
-		</fieldset>
+		<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+		<br />
+		<a data-role="button" href="?action=logout" rel="external" data-icon="signout" data-inline="true"><?= _('Log Out') ?></a>
+
 		
 	</div>
 </div>
@@ -76,19 +72,22 @@
 	</div>
 
 	<div data-role="content" style="text-align:center;">
-	
+		<br />
 		<div data-role="fieldcontain">
-			<a href="?action=Blog&blog=myEurope" type="button"  class="mymed-huge-button"><?= _('Beta Testers Blog') ?></a>
+			<a href="?action=Blog&blog=Bonnes Pratiques" rel="external" type="button" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques dans la création de projet et leur soumission ...etc') ?></a>
+		</div>
+		<div data-role="fieldcontain">
+			<a href="?action=Blog&blog=myEurope"  rel="external" type="button"  class="mymed-huge-button"><?= _('Beta Testers Blog') ?></a>
 		</div>
 		<br />
 		<br />
 		<br />
-		<a href="#createPopup" data-rel="popup" data-inline="true" data-icon="plus"> <?= _("Create a bew blog") ?></a>
+		<a href="#createPopup" data-rel="popup" data-inline="true" data-icon="faplus"> <?= _("Create a bew blog") ?></a>
 		
 		<div data-role="popup" id="createPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
-			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<input type="text" id="blogName" placeholder="Blog's name" data-inline="true" />
-			<a onclick="" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Yes</a>
+			<a onclick="$('#createPopup').popup('close');" data-role="button" data-theme="d" data-icon="ok" data-inline="true"><?= _("Create") ?></a>
 		</div>
 	</div>
 </div>
@@ -124,7 +123,7 @@
 <div data-role="page" id="search">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_simple('Partnerships', 'Search',APPLICATION_NAME, "javascript:$('#searchForm').submit();", "search") ?>
+		<? tabs_simple('Recherche de partenaire') ?>
 	</div>
 	
 	<div data-role="content">
@@ -317,7 +316,7 @@
 <div data-role="page" id="post">
 	
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_simple('Partnerships', 'Insert',APPLICATION_NAME, "javascript:$('#publishForm').submit();", "check") ?>
+		<? tabs_simple('Déposer une offre') ?>
 	</div>
 
 	<div data-role="content">
@@ -495,6 +494,13 @@
 	</div>
 </div>
 
+
+<?php 
+
+function tabs_info(){
+	return tabs_simple("Informations", 'info-sign');
+}
+?>
 <? if($_SESSION['user']->lang=="it"): ?>
 	<? include("infos_it.php"); ?>
 <? else: ?>

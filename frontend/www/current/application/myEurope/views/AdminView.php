@@ -3,7 +3,7 @@
 <div data-role="page" id="users">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_simple('Admin',  $_SESSION['user']->name) ?>
+		<? tabs_simple('Admin') ?>
 		<? include("notifications.php"); ?>
 	</div>
 	
@@ -11,7 +11,7 @@
 	
 		
 		
-		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert" style="float: right;"
+		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"
 		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:users", "<?= APPLICATION_NAME ?>:users", []); $(this).addClass("ui-disabled");'><?= _("Subscribe") ?></a>
 		
 		<input id="user_permission" name="permission" value="" type="hidden" />

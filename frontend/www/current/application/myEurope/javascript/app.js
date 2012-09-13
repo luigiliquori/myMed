@@ -3,7 +3,7 @@ var isSub = 3;
 
 var application="myEurope", predicate="";
 
-var isCLEpost = false, isCLEblog = false;
+var CLEloaded = false;
 
 /*$('label').click(function(e){
     e.stopPropagation()
@@ -37,14 +37,28 @@ var isCLEpost = false, isCLEblog = false;
 	//console.log("__ "+isSub+" "+tags);
 });*/
 
-$("#post").live("pagecreate", function() {
-	if(!isCLEpost){
+$("#Blog, #post").live("pageshow", function() {
+	CLEloaded = false;
+		
+	$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
+		console.log("CLE loaded");
+		$("#CLEeditor").cleditor({useCSS:true})[0].focus();
+	});
+	
+});
+
+
+$(".loadCLE").live("expand", function(e) {
+	if(!CLEloaded){
+		var me = this;
 		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
 			console.log("CLE loaded");
 			$("#CLEeditor").cleditor({useCSS:true})[0].focus();
+			$(me).trigger('expand');
+			CLEloaded = true
 		});
 	}
-	isCLEpost = true;
+	
 });
 
 $("#search").live("pagecreate", function() {
@@ -114,19 +128,7 @@ function subscribe(el, application, mailTemplate, predicates) {
 	});
 }
 
-$("#Blog").live("pageshow", function() {
-	isCLEblog = false;
-});
 
-$(".loadCLE").live("expand", function(e) {
-	if(!isCLEblog){
-		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
-			console.log("CLE loaded");
-			$("#CLEeditor").cleditor({useCSS:true})[0].focus();
-		});
-	}
-	isCLEblog = true;
-});
 
 function rate(el, id, usr, feedback) {
 	var page = el.parents('[data-role=page]').attr('id');
@@ -241,8 +243,9 @@ function commentAdd(el){
 			else
 				ul.prepend(li);
 			
-			$(li).trigger('create');
+			$('#Blog').trigger('pagecreate');
 			ul.listview('refresh');
+			field.find('.comment').fadeOut('fast');
 		}
 	});
 }

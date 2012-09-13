@@ -34,7 +34,7 @@ function tabs($activeTab, $tabs, $useBack = false) {
 			<? endif ?>
 			<? foreach ($tabs as $i): ?>
 			<li><a href="<?= $i[0] ?>" data-transition="slide" data-icon="<?= $i[2] ?>" <?= ($reverse) ? 'data-direction="reverse"' : '' ?>
-			<?= $i[0][0]!='#'?'rel="external"':'' ?> <?= ($activeTab == $i[0]) ? 'class="ui-btn-down-c ui-state-persist"' : '' ?>> <?= _($i[1]) ?>
+			<?= ($activeTab == $i[0]) ? 'class="ui-btn-down-c ui-state-persist"' : '' ?>> <?= _($i[1]) ?>
 			</a>
 			</li>
 			<? if ($i[0] == $activeTab) {

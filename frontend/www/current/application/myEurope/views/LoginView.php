@@ -9,8 +9,8 @@ include("header.php"); ?>
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
  	tabs($activeTab, array(
- 			array("#login", APPLICATION_NAME, "myEurope"),
- 			array("#register", 'Registration', "grid")
+ 			array("#login", "Connexion", "signin"),
+ 			array("#register", 'Registration', "list-ul")
  		));
  }
  
@@ -48,7 +48,13 @@ include("header.php"); ?>
 				<?= about(); ?>
 			</div>
 		</div>
-			
+		<div id="spacer"></div>
+		<div class="logos" style="text-align: center;">
+			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
+			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
+			<img alt="myMed" src="../../system/img/logos/mymed" />
+		</div>
+					
 		
 		
 	</div>

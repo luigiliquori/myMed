@@ -31,7 +31,7 @@ function url($action, $args=array()) {
 	global $ACTION;
 	
 	// Real path
-
+	debug($action);
 	if ($action[0] == '/' || $action[0] == '?' || $action[0] == '.' || strpos($action, "index.php") === 0 ) return $action;
 	
 	// Same action

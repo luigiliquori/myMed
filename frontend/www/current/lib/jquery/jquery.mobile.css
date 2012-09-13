@@ -940,6 +940,9 @@ a.ui-link-inherit {
 .ui-icon-radio-off {
 	background-color: transparent;	
 }
+.ui-checkbox .ui-icon, .ui-radio .ui-icon {
+	background-color: white;
+}
 .ui-checkbox-on .ui-icon,
 .ui-radio-on .ui-icon {
 	background-color: #4596ce /*{global-active-background-color}*/; /* NOTE: this hex should match the active state color. It's repeated here for cascade */

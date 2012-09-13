@@ -1,4 +1,3 @@
-<?php function tabs_info(){return tabs_simple("Informations", $_SESSION['user']->name, 'info','#profile', 'profile');}?>
 
 <div data-role="page" id="infos">
 	<div data-role="header" data-theme="c" data-position="fixed">
