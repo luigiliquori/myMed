@@ -1,28 +1,18 @@
-<? if (!empty($this->error)): ?>
-	<div  
-		data-role="navbar" 
-		data-theme="e"
-		class="ui-bar ui-bar-e error-box" >
-	
-		<p>
-		<img alt="Warning: " src="<?= APP_ROOT ?>/img/warning-icon.png" class="ui-li-icon" />
-		<span Style="position: relative; top: -10px;"><?= $this->error ?></span>
-		<a href=".error-box" data-action="close" data-role="button" >ok</a>
-		</p>
-		
-	</div>
-<? endif ?>
+<?
+/**
+ * Display a notification bar for errors or success.
+ * Now with close button and fadeOut animation
+ */
+?>
+<div class="ui-bar ui-bar-e" id="notification-error" style="display:<?= empty($this->error)?'none':'block' ?>">
+	<img alt="Warning: " src="<?= APP_ROOT ?>/img/warning-icon.png" class="ui-li-icon" />
+	<h3 style="font-weight:lighter;"><?= $this->error ?></h3>
+	<a href="#" style="float:right;" data-role="button" data-icon="delete" data-inline="true" data-iconpos="notext" onclick="$(this).parent().fadeOut('fast');">Button</a>
+</div>
 
-<? if (!empty($this->success)): ?>
-	<div 
-		data-role="navbar"
-		data-theme="e"
-		class="ui-bar ui-bar-e error-box" >
-		
-		<p>
-		<span Style="position: relative; top: -10px;"><?= $this->success ?></span>
-		<a href=".error-box" data-action="close" data-role="button" >ok</a>
-		</p>
-			
-	</div>
-<? endif ?>
+
+<div class="ui-bar ui-bar-e" id="notification-success" style="display:<?= empty($this->success)?'none':'block' ?>">
+	<h3 style="font-weight:lighter;"><?= $this->success ?></h3>
+	<a href="#" style="float:right;" data-role="button" data-icon="delete" data-inline="true" data-iconpos="notext" onclick="$(this).parent().fadeOut('fast');">Button</a>
+</div>
+

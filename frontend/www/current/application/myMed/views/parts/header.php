@@ -1,3 +1,4 @@
+<? include_once('header-bar-light.php'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
 
@@ -8,8 +9,19 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
+	<!-- load css before scripts to stop sort of flash effect  -->
+	
+	
+	
 	<!-- JQUERY  -->
 	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile.css" />
+	<!-- APP css -->
+	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
+	<!-- MYMED css -->
+	<link href="<?= MYMED_URL_ROOT ?>/system/css/common.css" rel="stylesheet" />
+	
+	
+	
 	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
 	<script src="../../lib/jquery/jquery.mobile.js"></script>
 	
@@ -25,10 +37,7 @@
 
 	<!-- APP JS -->
 	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
-	<!-- APP css -->
-	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
-	<!-- MYMED css -->
-	<link href="<?= MYMED_URL_ROOT ?>/system/css/common.css" rel="stylesheet" />
+	
 	
 	<!-- Google Analytics -->
 	<script type="text/javascript">

@@ -1,12 +1,10 @@
 <div id="store" data-role="page">
+	
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<? tab_bar_main("#store") ?>
+		<? include("notifications.php"); ?>
+	</div>
 
-	<? include_once("header-bar-light.php"); ?>
-	<? tabs_main("store", array(
-			"home" => array(_('Applications'), "grid"),
-			"profile" => array(_('Profile'), "user"),
-			"store" => array(_('Store'), "star"),
-	), true) ?>
-	<? include("notifications.php")?>
 	<div data-role="content" class="content">
 		
 		<div class="ui-grid-a" style="position: relative;">

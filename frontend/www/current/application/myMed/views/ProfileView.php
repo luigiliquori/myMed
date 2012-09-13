@@ -1,12 +1,10 @@
 <div id="profile" data-role="page">
 
-	<? include_once("header-bar-light.php"); ?>
-	<? tabs_main("profile", array(
-			"home" => array(_('Applications'), "grid"),
-			"profile" => array(_('Profile'), "user"),
-			"store" => array(_('Store'), "star"),
-	), true) ?>
-	<? include("notifications.php")?>
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<? tab_bar_main("#profile") ?>
+		<? include("notifications.php"); ?>
+	</div>
+
 	<div data-role="content">
 	
 		<?= debug_r($_SESSION['user'])?>

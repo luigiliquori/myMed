@@ -1,50 +1,52 @@
 
 <?
 
-function tabs_main($activeTab, $tabs, $banner = false) {
-	
- 	$reverse = true;
- 	?>
- 	
-  	
-  		
-  	<div data-role="header" data-theme="c" data-position="fixed">
- 		
- 		<? if ($banner): ?>
-  		<div class="ui-header ui-bar-e" data-mini="true">
-  			<span style="color: #588fbe; margin: 9px; font-size: 13px; font-weight: bold; "><a href="./"><img alt="myMed" src="../../system/img/logos/mymed" style="vertical-align: -25%;"/></a>Réseau social transfontalier</span>
-  		</div>
-  		<? endif; ?>
-	  	<div data-role="navbar" data-theme="b"  data-iconpos="left"> 
-		  	<ul >
-		  		<? foreach ($tabs as $id => $v) { ?>
-		  		<li>
-		  			<a 
-		  				href="#<?= $id ?>"  
-		  				data-transition="slide" 
-		  				data-icon="<?= $v[1] ?>" 
-		  				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
-		  				<?= ($activeTab == $id) ? 'class="ui-btn-down-c ui-state-persist"' : '' ?> >
-		  				<?= $v[0] ?>
-		  			</a>
-		  		</li><? 
-		  		
-		  		if ($id == $activeTab) {
-		  			$reverse = false;
-		  		}
-		  	}
-		  
-		  	?> 
-		  	</ul>
-	  	</div>
-	  	
-  	</div>
-  		
-  	
-  	
- 	
-  	
-  	 <?
-   }
+
+function tab_bar_main($activeTab) {
+	tabs($activeTab, array(
+			array("#home", "Applications", "grid"),
+			array("#profile", "Profile", "user"),
+			array("#store", "Store", "star")
+	));
+}
+
+function tab_bar_login($activeTab) {
+	tabs($activeTab, array(
+			array("#about", "A propos", "info"),
+			array("#login", "Connexion", "home"),
+			array("#register", "Inscription", "grid")
+	));
+}
    
+function tabs($activeTab, $tabs, $useBack = false) {
+
+	$reverse = true;
+	?>
+
+	<div class="ui-header ui-bar-e" data-mini="true">
+		<span style="color: #588fbe; margin: 9px; font-size: 13px; font-weight: bold;"><a href="."><img alt="myMed" src="../../system/img/logos/mymed"
+				style="vertical-align: -25%;" /> </a>Réseau social transfontalier</span>
+	</div>
+	<div data-role="navbar" data-iconpos="bottom">
+		<ul>
+			<? if ($useBack): ?>
+			<li><a data-rel="back" rel="external" data-icon="back"><?= _("Back") ?> </a></li>
+			<? endif ?>
+			<? foreach ($tabs as $i): ?>
+			<li><a href="<?= $i[0] ?>" data-transition="slide" data-icon="<?= $i[2] ?>" <?= ($reverse) ? 'data-direction="reverse"' : '' ?>
+			<?= $i[0][0]!='#'?'rel="external"':'' ?> <?= ($activeTab == $i[0]) ? 'class="ui-btn-down-c ui-state-persist"' : '' ?>> <?= _($i[1]) ?>
+			</a>
+			</li>
+			<? if ($i[0] == $activeTab) {
+				$reverse = false;
+			}
+			endforeach;
+			?>
+		</ul>
+	</div>
+	
+	<?
+}
+
+ 
 ?>

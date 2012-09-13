@@ -1,15 +1,12 @@
 
 <? require_once("header.php"); ?>
 
-<div data-role="page" id="register" >	
-
-	<? include_once("header-bar-light.php"); ?>
-	<? tabs_main("register", array(
-			"about" => array(_('A propos'), "info"),
-			"login" => array(_('Connexion'), "home"),
-			"register" => array(_('Inscription'), "grid"),
-	)) ?>
-	<? include("notifications.php"); ?>
+<div data-role="page" id="register">
+	
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<? tab_bar_login("#register") ?>
+		<? include("notifications.php"); ?>
+	</div>
 
 	<div data-role="content">
 	

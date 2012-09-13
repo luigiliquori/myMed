@@ -7,13 +7,11 @@
 
 <div id="home" data-role="page">
 
-	<? include_once ("header-bar-light.php"); ?>
-	<? tabs_main("home", array(
-			"home" => array(_('Applications'), "grid"),
-			"profile" => array(_('Profile'), "user"),
-			"store" => array(_('Store'), "star"),
-	), true) ?>
-	<? include("notifications.php")?>
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<? tab_bar_main("#home") ?>
+		<? include("notifications.php"); ?>
+	</div>
+
 	<div data-role="content">
 		<br />
 		<a href="<?= MYMED_URL_ROOT ?>/application/myEurope" rel="external">myEurope </a>(for Sarah or others)
