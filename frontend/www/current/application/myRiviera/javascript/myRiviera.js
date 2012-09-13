@@ -38,13 +38,13 @@ var radius;
 //$("#Map").live("pageinit", initialize);
 	
 function initialize() {
+	
+	showLoadingBar("chargement de la carte..."); 
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
 			$("#applicationName").val());
 
-	showLoadingBar("chargement de la carte..."); 
-	
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
 			displayError, false);

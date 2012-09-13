@@ -187,6 +187,7 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 		if(Link){
 			boxText.innerHTML +=  '<a href="http://' + $.trim(Link.replace(/http:\/\//g, '')) + '" target="blank">Plus d\'infos</a>';
 		}
+		
 		var myOptions = {
 				content: boxText
 				,disableAutoPan: false
