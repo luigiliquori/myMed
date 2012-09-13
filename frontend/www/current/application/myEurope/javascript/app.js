@@ -48,21 +48,32 @@ $("#post").live("pagecreate", function() {
 });
 
 $("#search").live("pagecreate", function() {
-	$('#checkbox-all').click(function() {
+	$("#searchForm").submit(function() {
+		return validate(this);		
+	});
+	
+	$('#checkbox-all, #checkbox-all2, #checkbox-all3').click(function() {
+		var parent =$(this).parent().parent(); //must do better later
 		if ($(this).is(':checked')){
-			$('#themecheckboxes input[type=checkbox]').attr('checked', 'checked').checkboxradio();
-			$('#themecheckboxes input[type=checkbox]').checkboxradio('refresh');
+			parent.find('input[type=checkbox]').attr('checked', 'checked').checkboxradio();
+			parent.find('input[type=checkbox]').checkboxradio('refresh');
 		} else {
-			$('#themecheckboxes input[type=checkbox]').removeAttr('checked').checkboxradio();
-			$('#themecheckboxes input[type=checkbox]').checkboxradio('refresh');
+			parent.find('input[type=checkbox]').removeAttr('checked').checkboxradio();
+			parent.find('input[type=checkbox]').checkboxradio('refresh');
 		}
 	});
 });
 
-$("#home").live("pageshow", function() {
-	$('#searchButton').addClass('ui-btn-active');
-	$('#postButton').addClass('ui-btn-active');
-});
+
+function validate(elt){
+	var t=[];
+	$('input[data-t]', elt).each(function(i, v) {
+		if ($(v).is(':checked')){
+			t.push($(v).data('t'));
+		}
+	});
+	$('#searchedThemes').val(t.join('|'))
+}
 
 function sortBy( i ){
 	
@@ -94,7 +105,7 @@ function subscribe(el, application, mailTemplate, predicates) {
 		//code : 0,
 		application : application,
 		mailTemplate: mailTemplate,
-		predicates : predicates
+		predicates : JSON.stringify(predicates)
 	}, function(res) {
 		console.log(res);
 		var response = JSON.parse(res);
@@ -230,7 +241,7 @@ function commentAdd(el){
 			else
 				ul.prepend(li);
 			
-			$(li).find('.comment').trigger('create');
+			$(li).trigger('create');
 			ul.listview('refresh');
 		}
 	});

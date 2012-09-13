@@ -1,42 +1,48 @@
 <? include("header.php"); ?>
 
 <?
-function tab_bar_white($activeTab) {
-	tabs_white(array(
-			//"share" => array(_('Share'), "plus"),
-			"about" => array(_("About"), "info"),
-			"home" => array(APPLICATION_NAME, "myEurope"),
-			"admin" => array(_('Admin'), "gear"),
-			"profile" => array(_('Profile'), "profile"),
-		),
-		$activeTab);
-} 
+ function tab_bar($activeTab) {
+ 	tabs($activeTab, array(
+ 		array("#infos", "About European programs", "info"),
+ 		array("#home", APPLICATION_NAME, "myEurope"),
+ 		array("#blogs", "Blogs", "none"),
+ 		array("#profile", $_SESSION['user']->name, "profile")
+ 	));
+ }
+ 
+
+
 ?>
+
+
 		
 <div data-role="page" id="home">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("home") ?>
+		<? tab_bar("#home") ?>
 		<? include("notifications.php"); ?>
+		
 	</div>
 	<div data-role="content" style="text-align:center;">
+	
+	<? include("social.php"); ?>
 		
-		<div data-role="fieldcontain" style="padding-top: 5%;padding-bottom: 5%;">
-			<a href="#search" id="searchButton" type="button" class="ui-btn-active ui-state-persist" style="width:45%;min-width:250px;" data-inline="true"><?= _('Search a partnership offer') ?></a>
-			<a href="#post" id="postButton" type="button" class="ui-btn-active" style="width:45%;min-width:250px;" data-inline="true"><?= _('Insert a partnership offer') ?></a>
+		<div data-role="fieldcontain" style="padding-top: 5%;">
+			<a href="#search" type="button" class="mymed-huge-button"><?= _('Search a partnership offer') ?></a>
 		</div>
-
-		<div data-role="fieldcontain" >
-			<a href="#infos" style="width:30%;min-width:250px;" class="wrap"
-			type="button" data-inline="true" data-theme="d"><?= _('About European programs') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=Alcotra" style="width:30%;min-width:250px;" class="wrap"
-			type="button"  data-theme="d" data-inline="true"><?= _('Alcotra Blog') ?><span style="font-weight: lighter;"> 2014-2020</span></a>
-			<a href="?action=Blog&blog=myEurope" rel="external" style="width:30%;min-width:250px;" class="wrap"
-			type="button" data-theme="d" data-inline="true"><?= _('Beta Testers Blog') ?></a>
+		
+		<div data-role="fieldcontain">
+			<a href="#post" type="button" class="mymed-huge-button"><?= _('Insert a partnership offer') ?></a>
 		</div>
+			
+		<? if ($_SESSION['myEurope']->permission > 1): ?>
+		<div data-role="fieldcontain">
+			<a href="?action=Admin" type="button"><?= _('Admin') ?></a>
+		</div>
+		<? endif; ?>
 		
 		<div id="spacer">
 		</div>
-		<div class="social logos">
+		<div class="logos">
 			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
 			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
 			<img alt="myMed" src="../../system/img/logos/mymed" />
@@ -47,20 +53,12 @@ function tab_bar_white($activeTab) {
 
 <div data-role="page" id="profile">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("profile") ?>
+		<? tab_bar("#profile") ?>
 	</div>
 
 	<div data-role="content" style="text-align:center;">
 		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
 
-		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
-			<label for="radio-view-a"><?= _('French') ?></label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
-			<label for="radio-view-b"><?= _('Italian') ?></label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
-			<label for="radio-view-e"><?= _('English') ?></label>
-		</fieldset>
 		<br />
 		<fieldset data-role="controlgroup" style="display:inline-block;width: 50%;">
 			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="grid" style="text-align: left;"><?= _('Edit my profile') ?></a>
@@ -72,17 +70,35 @@ function tab_bar_white($activeTab) {
 	</div>
 </div>
 
+<div data-role="page" id="blogs">
+	<div data-role="header" data-theme="c" data-position="fixed">
+		<? tab_bar("#blogs") ?>
+	</div>
+
+	<div data-role="content" style="text-align:center;">
+	
+		<div data-role="fieldcontain">
+			<a href="?action=Blog&blog=myEurope" type="button"  class="mymed-huge-button"><?= _('Beta Testers Blog') ?></a>
+		</div>
+		<br />
+		<br />
+		<br />
+		<a href="#createPopup" data-rel="popup" data-inline="true" data-icon="plus"> <?= _("Create a bew blog") ?></a>
+		
+		<div data-role="popup" id="createPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<input type="text" id="blogName" placeholder="Blog's name" data-inline="true" />
+			<a onclick="" data-role="button" data-theme="d" data-icon="delete" data-inline="true">Yes</a>
+		</div>
+	</div>
+</div>
+
 <div data-role="page" id="about">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("about") ?>
+		<? tab_bar("#about") ?>
 	</div>
 	<div data-role="content">
-		<br />
-		<div style="text-align: center;">
-			<a href="https://plus.google.com/u/0/101253244628163302593/posts" target="_blank" style="padding-left:10px;"><img src="../../system/img/social/googleplus_32" alt="myEurope on Google+"></a>
-			<a href="http://www.facebook.com/pages/myEurope/274577279309326" target="_blank" style="padding-left:20px;"><img src="../../system/img/social/facebook_32" alt="myEurope on Facebook"></a>
-			<a href="https://twitter.com/my_europe" target="_blank" style="padding-left:20px;"><img src="../../system/img/social/twitter_32" alt="myEurope on Twitter"></a>
-		</div>
+		
 		<br />
 		<?= about() ?>
 	</div>
@@ -90,7 +106,7 @@ function tab_bar_white($activeTab) {
 
 <div data-role="page" id="admin">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("admin") ?>
+		<? tab_bar("#admin") ?>
 	</div>
 	<div data-role="content">
 		<br />
@@ -108,53 +124,52 @@ function tab_bar_white($activeTab) {
 <div data-role="page" id="search">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2click(
-				_('Search a partner'),
-				"$('#searchForm').submit();",
-				"search") ?>
+		<? tabs_simple('Partnerships', 'Search',APPLICATION_NAME, "javascript:$('#searchForm').submit();", "search") ?>
 	</div>
 	
 	<div data-role="content">
-		<form action="./" id="searchForm" data-ajax="false">
+		<form action="" id="searchForm" data-ajax="false">
 		
 			<input type="hidden" name="action" value="Search" />
 			<input type="hidden" name="namespace" value="part" />
 			
+			<input type="hidden" name="t" id="searchedThemes" value="" />
+			
 			<br />
 			
 			<div data-role="fieldcontain">
-		 	<fieldset data-role="controlgroup" id="themecheckboxes">
+		 	<fieldset data-role="controlgroup">
 				<legend><?= _('Offer Themes') ?>:</legend>
 				
 				<input type="checkbox" id="checkbox-all" />
 				<label for="checkbox-all"><?= _('All') ?></label>
 				
-				<input type="checkbox" name="education" id="checkbox-1a"/>
+				<input type="checkbox" data-t="education" id="checkbox-1a"/>
 				<label for="checkbox-1a"><?= _("Education, culture and sport") ?></label>
 
-				<input type="checkbox" name="travail" id="checkbox-2a"/>
+				<input type="checkbox" data-t="travail" id="checkbox-2a"/>
 				<label for="checkbox-2a"><?= _("Work and training") ?></label>
 				
-				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
+				<input type="checkbox" data-t="entreprise" id="checkbox-3a"/>
 				<label for="checkbox-3a"><?= _("Enterprises, Research and Innovation") ?></label>
 				
-				<input type="checkbox" name="environnement" id="checkbox-4a"/>
+				<input type="checkbox" data-t="environnement" id="checkbox-4a"/>
 				<label for="checkbox-4a"><?= _("Environment, Energies and Risk") ?></label>
 				
-				<input type="checkbox" name="recherche" id="checkbox-7a"/>
+				<input type="checkbox" data-t="recherche" id="checkbox-7a"/>
 				<label for="checkbox-7a"><?= _("Transport, Facilities and Zoning") ?></label>
 
-				<input type="checkbox" name="santé" id="checkbox-8a" />
+				<input type="checkbox" data-t="santé" id="checkbox-8a" />
 				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
 				
-				<input type="checkbox" name="social" id="checkbox-9a" />
+				<input type="checkbox" data-t="social" id="checkbox-9a" />
 				<label for="checkbox-9a"><?= _("Social Affairs") ?></label>
 				
-				<input type="checkbox" name="agriculture" id="checkbox-5a" />
+				<input type="checkbox" data-t="agriculture" id="checkbox-5a" />
 				<label for="checkbox-5a"><?= _("Agriculture") ?></label>
 
-				<input type="checkbox" name="peche" id="checkbox-6a" />
-				<label for="checkbox-6a"><?= _("Fishing") ?></label>			
+				<input type="checkbox" data-t="peche" id="checkbox-6a" />
+				<label for="checkbox-6a"><?= _("Fishing") ?></label>		
 
 				
 		    </fieldset>
@@ -168,8 +183,8 @@ function tab_bar_white($activeTab) {
 				
 					<div data-role="collapsible">
 						<h3><?= _("France") ?></h3>
-						<input type="checkbox" id="checkbox-all2" />
-						<label for="checkbox-all2"><?= _('All') ?></label>
+						<input type="checkbox" id="checkbox-all3" />
+						<label for="checkbox-all3"><?= _('All') ?></label>
 						
 						<input type="checkbox" name="Ain" id="checkbox-10b"/>
 						<label for="checkbox-10b">Ain</label>
@@ -267,9 +282,9 @@ function tab_bar_white($activeTab) {
 			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
 				<legend><?= _('Category of searched partners') ?>:</legend>
-				<? foreach($this->cats as $i=>$item) :?>
-					<input type="checkbox" name="<?= $item ?>" id="checkbox-c<?= $item ?>"/>
-					<label for="checkbox-c<?= $item ?>"><?= $i ?></label>
+				<? foreach(Categories::$roles as $i=>$item) :?>
+					<input type="checkbox" name="<?= $i ?>" id="checkbox-c<?= $i ?>"/>
+					<label for="checkbox-c<?= $i ?>"><?= $item ?></label>
 				<? endforeach ?>
 		    </fieldset>
 		    </div>
@@ -302,10 +317,7 @@ function tab_bar_white($activeTab) {
 <div data-role="page" id="post">
 	
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2click(
-				_('Insert an offer'),
-				"$('#publishForm').submit();",
-				"check") ?>
+		<? tabs_simple('Partnerships', 'Insert',APPLICATION_NAME, "javascript:$('#publishForm').submit();", "check") ?>
 	</div>
 
 	<div data-role="content">
@@ -313,8 +325,8 @@ function tab_bar_white($activeTab) {
 				
 			<input type="hidden" name="action" value="Publish" />
 			<input type="hidden" name="namespace" value="part" />
-			<?= debug_r($this->cats[$_SESSION['myEuropeProfile']->role]); ?>
-			<input type="hidden" name="cat" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
+			<?= debug(Categories::$roles[$_SESSION['myEuropeProfile']->role]) ?>
+			<input type="hidden" name="cat" value="<?= Categories::$roles[$_SESSION['myEuropeProfile']->role] ?>" />
 			
 			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
@@ -483,7 +495,10 @@ function tab_bar_white($activeTab) {
 	</div>
 </div>
 
-
-<? include("infos.php"); ?>
+<? if($_SESSION['user']->lang=="it"): ?>
+	<? include("infos_it.php"); ?>
+<? else: ?>
+	<? include("infos.php"); ?>
+<? endif; ?>
 
 <? include("footer.php"); ?>

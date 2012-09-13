@@ -99,6 +99,13 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 
         return (MUserBean) introspection(MUserBean.class, args);
     }
+    
+    @Override
+    public final Map<String, String> readSimple(final String id) throws InternalBackEndException, IOBackEndException {
+        return storageManager.selectAllStr(CF_USER, id);
+
+    }
+
 
     /**
      * @throws IOBackEndException

@@ -2,7 +2,7 @@
 <div data-role="page">
 	<!-- Header -->
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2empty(prettyprintUser($_SESSION['user']->id)) ?>
+		<? tabs_simple("Unsubscription", $_SESSION['user']->name) ?>
 		<? include("notifications.php"); ?>
 	</div>
 	

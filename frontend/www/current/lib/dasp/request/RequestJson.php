@@ -15,7 +15,6 @@
 * limitations under the License.
 */
 
-
 /**
  *
  */
@@ -85,7 +84,6 @@ class RequestJson {
 		if($curl === false) {
 			trigger_error('Unable to init CURL : ', E_USER_ERROR);
 		}
-
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		
 		$this->arguments['code'] = $this->method;
@@ -94,14 +92,13 @@ class RequestJson {
 		if(isset($_SESSION['accessToken'])) {
 			$this->arguments['accessToken'] = $_SESSION['accessToken'];
 		}
-
 		// POST REQUEST
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);
 		curl_setopt($curl, CURLOPT_POST, true);
 
 		curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($this->arguments));
-
+		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -117,18 +114,16 @@ class RequestJson {
 		
 		$obj = json_decode($result);
 		
-		if(!isset($obj)) // IOBackendException catch has been removed in v2
-			throw new Exception("No results found!");
-		
-		if ($obj->status != 200 && $obj->status != 404 && !is_null($this->handler)) { // Error
+		if ($obj->status == 404 && !is_null($this->handler)){
 			$this->handler->setError($obj->description);
-			throw new Exception("No results found");
+			throw new NoResultException("No results found");
 		
-		} else if(isset($obj->dataObject))// Success
+		} else if($obj->status == 200) {// Success
 			return $obj->dataObject;
-		else
-			return null;
-
+		} else {
+			$this->handler->setError($obj->description);
+			throw new Exception("Erreur");
+		}
 	}
 }
 ?>

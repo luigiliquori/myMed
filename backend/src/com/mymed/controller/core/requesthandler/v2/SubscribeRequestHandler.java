@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
+import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.subscribe.SubscribeManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageIn;
@@ -74,117 +75,124 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 		final JsonMessageOut<Object> out = new JsonMessageOut<Object>(200, this
 				.getClass().getName());
 		
-		JsonMessageIn in = gson.fromJson(request.getReader(), JsonMessageIn.class);
-		
-		validateToken(in.getAccessToken());
-		
-		final RequestCode code = REQUEST_CODE_MAP.get(in.getCode());
-
-		if (in.getUser() == null)
-			throw new InternalBackEndException("missing user argument!");
-
-		final String application = in.getApplication()!=null?
-				in.getApplication()
-				:"";
-		String id = in.getId();
-		
-		switch (code) {
-
-		case CREATE:
-			out.setMethod(JSON_CODE_CREATE);
-
+		try{
+			JsonMessageIn in = gson.fromJson(request.getReader(), JsonMessageIn.class);
 			
-			if (id != null) {
-				/* we want to subscribe to a data changes */
-				LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
-				keywords.put(id, MiscUtils.singleton(id));
+			validateToken(in.getAccessToken());
+			
+			final RequestCode code = REQUEST_CODE_MAP.get(in.getCode());
+	
+			if (in.getUser() == null)
+				throw new InternalBackEndException("missing user argument!");
+	
+			final String application = in.getApplication()!=null?
+					in.getApplication()
+					:"";
+			String id = in.getId();
+			
+			switch (code) {
+	
+			case CREATE:
+				out.setMethod(JSON_CODE_CREATE);
+	
 				
-				subscriptionManager.create(application, id, in.getUser(), gson.toJson(keywords), in.getMailTemplate());
-
-				LOGGER.info(" created subscriptions for {}: {} ", in.getUser(), id);
-				out.setDescription("subscription created: " + id
-						+ " for user: " + in.getUser()+" with template "+ in.getMailTemplate());
-
-			} else if (in.getPredicates() != null){
-				/* we want to subscribe to keywords/ categories ... */
-
-				LOGGER.info("in ." + in.getPredicates().size());
-
-				LinkedHashMap<String, List<String>> keywords = MatchMakingv2.format(in.getPredicates());
-
-				LOGGER.info("indexes: {} ", keywords);
-				List<String> rows = new CombiLine(keywords).expand();
-
-				String v = gson.toJson(keywords);
-
-				for (String i : rows) {
-					subscriptionManager.create(application, i, in.getUser(), v, in.getMailTemplate());
+				if (id != null) {
+					/* we want to subscribe to a data changes */
+					LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
+					keywords.put(id, MiscUtils.singleton(id));
+					
+					subscriptionManager.create(application, id, in.getUser(), gson.toJson(keywords), in.getMailTemplate());
+	
+					LOGGER.info(" created subscriptions for {}: {} ", in.getUser(), id);
+					out.setDescription("subscription created: " + id
+							+ " for user: " + in.getUser()+" with template "+ in.getMailTemplate());
+	
+				} else if (in.getPredicates() != null){
+					/* we want to subscribe to keywords/ categories ... */
+	
+					LOGGER.info("in ." + in.getPredicates().size());
+	
+					LinkedHashMap<String, List<String>> keywords = MatchMakingv2.format(in.getPredicates());
+	
+					LOGGER.info("indexes: {} ", keywords);
+					List<String> rows = new CombiLine(keywords).expand();
+	
+					String v = gson.toJson(keywords);
+	
+					for (String i : rows) {
+						subscriptionManager.create(application, i, in.getUser(), v, in.getMailTemplate());
+					}
+	
+					LOGGER.info(" created subscriptions for {}: {} ", in.getUser(), in.getPredicates());
+					out.setDescription("subscription created: " + application + in.getPredicates()
+							+ " for user: " + in.getUser()+" with template "+ in.getMailTemplate());
 				}
-
-				LOGGER.info(" created subscriptions for {}: {} ", in.getUser(), in.getPredicates());
-				out.setDescription("subscription created: " + application + in.getPredicates()
-						+ " for user: " + in.getUser()+" with template "+ in.getMailTemplate());
+	
+				break;
+			case READ:
+				out.setMethod(JSON_CODE_READ);
+				/*
+				 * read subs of this user
+				 */
+				if (id != null) {
+					String sub = subscriptionManager.read(application + in.getUser(), id);
+					out.setDescription("Subscriptions found for Application: "
+							+ application + " User: " + in.getUser());
+					LOGGER.info("Subscriptions found for Application: "
+							+ application + " User: " + in.getUser());
+					out.addDataObject(JSON_SUBSCRIPTIONS, sub);
+				} else {
+					final Map<String, String> predicates = subscriptionManager.read(application + in.getUser());
+	
+					out.setDescription("Subscriptions found for Application: "
+							+ application + " User: " + in.getUser());
+					LOGGER.info("Subscriptions found for Application: "
+							+ application + " User: " + in.getUser());
+					out.addDataObject(JSON_SUBSCRIPTIONS, predicates);
+				}
+	
+				break;
+	
+			case DELETE:
+				out.setMethod(JSON_CODE_DELETE);
+	
+				if (id == null)
+					id = "ALL";
+	
+				LOGGER.info("in ." + application + in.getUser() +" . "  +id);
+				String keywordsStr = subscriptionManager.read(application + in.getUser(), id);
+				LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
+	
+				if (keywordsStr != null){
+					keywords = gson.fromJson(keywordsStr, xType);
+				}
+	
+				LOGGER.info("in ." + keywords.size());
+	
+				List<String> rows = new CombiLine(keywords).expand();
+	
+				for (String i : rows) {
+					subscriptionManager.delete(application, i, in.getUser());
+				}
+	
+				LOGGER.info("  deleted subscriptions for {}: {} ", in.getUser()+id, keywords);
+				out.setDescription("subscription deleted: " + keywords +" id "+ id
+						+ " for user: " + in.getUser());
+	
+				break;
+	
+			default:
+				throw new InternalBackEndException(
+						"SubscribeRequestHandler.doPost(" + code
+								+ ") not exist!");
+	
 			}
-
-			break;
-		case READ:
-			out.setMethod(JSON_CODE_READ);
-			/*
-			 * read subs of this user
-			 */
-			if (id != null) {
-				String sub = subscriptionManager.read(application + in.getUser(), id);
-				out.setDescription("Subscriptions found for Application: "
-						+ application + " User: " + in.getUser());
-				LOGGER.info("Subscriptions found for Application: "
-						+ application + " User: " + in.getUser());
-				out.addDataObject(JSON_SUBSCRIPTIONS, sub);
-			} else {
-				final Map<String, String> predicates = subscriptionManager.read(application + in.getUser());
-
-				out.setDescription("Subscriptions found for Application: "
-						+ application + " User: " + in.getUser());
-				LOGGER.info("Subscriptions found for Application: "
-						+ application + " User: " + in.getUser());
-				out.addDataObject(JSON_SUBSCRIPTIONS, predicates);
-			}
-
-			break;
-
-		case DELETE:
-			out.setMethod(JSON_CODE_DELETE);
-
-			if (id == null)
-				id = "ALL";
-
-			LOGGER.info("in ." + application + in.getUser() +" . "  +id);
-			String keywordsStr = subscriptionManager.read(application + in.getUser(), id);
-			LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
-
-			if (keywordsStr != null){
-				keywords = gson.fromJson(keywordsStr, xType);
-			}
-
-			LOGGER.info("in ." + keywords.size());
-
-			List<String> rows = new CombiLine(keywords).expand();
-
-			for (String i : rows) {
-				subscriptionManager.delete(application, i, in.getUser());
-			}
-
-			LOGGER.info("  deleted subscriptions for {}: {} ", in.getUser()+id, keywords);
-			out.setDescription("subscription deleted: " + keywords +" id "+ id
-					+ " for user: " + in.getUser());
-
-			break;
-
-		default:
-			throw new InternalBackEndException(
-					"SubscribeRequestHandler.doPost(" + code
-							+ ") not exist!");
-
-		}
+		
+		} catch (final AbstractMymedException e) {
+            LOGGER.debug("Error in doPost", e);
+            out.setStatus(e.getStatus());
+            out.setDescription(e.getMessage());
+        }
 
 		printJSonResponse(out, response);
 	}

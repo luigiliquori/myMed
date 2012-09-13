@@ -12,28 +12,28 @@ The following variables are available in the templates :
 -->
 <mail-template>
 
-    <subject>[${application}] Nouvel utilisateur inscrit</subject>
+    <subject>[${application}] Votre Profil</subject>
 
     <body><![CDATA[
         Bonjour ${recipient.name},<br/>
         <br/>
         
-        Un nouvel utilisateur vient de s'inscrire sur ${application}<br/>
-        Informations :
-        <ul>
-            <#list publication?keys as key>
-            	<#if key != 'keywords' && key != 'id' && key != 'user' && key != 'profile'>
-					<li><b>${key}</b>: ${publication[key]!'N/A'}</li>
-				</#if>
-			</#list>
-        </ul>
+        Votre profil <a href="${base_url}application/${application}/?action=ExtendedProfile">${application}</a> a les modifications suivantes: <br/>
         
-        Prenez contact avec celui-ci afin de confirmer son identit&eacute; puis autoriser sa participation &agrave; ${application} 
-        en vous rendant sur l'interface Admin:
-        <a href="${base_url}application/${application}/?action=Admin">
-	        	${base_url}application/${application}/?action=Admin
-	        </a>
-	    <br/>
+        
+        
+            <#list publication?keys as key>
+            	<#if key?starts_with("email_")>
+            		${publication[key]} s'est ajout&eacute; comme membre
+            	<#elseif key?starts_with("part")>
+            		Votre demande de partenariat a &eacute;t&eacute; accept&eacute;e
+            		<a href="${base_url}application/${application}/?action=Details&namespace=part&id=${publication[key]}"> voir </a>
+				<#else>
+		        	<b>${key}</b>: ${publication[key]!'N/A'}
+		        </#if>
+			</#list>
+        
+        <br />
         --<br/>
     
         L'&eacute;quipe myMed<br/>

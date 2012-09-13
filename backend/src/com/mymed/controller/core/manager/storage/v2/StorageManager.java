@@ -222,6 +222,46 @@ public class StorageManager extends
 
 		LOGGER.info("batch_mutate performed correctly");
 	}
+  //@TODO factorize the two below and above
+    @Override public void insertSliceStr(
+			final String tableName,
+			final String primaryKey,
+			int ttl,
+			final Map<String, String> args) 
+					throws InternalBackEndException {
+		try {
+			final Map<String, Map<String, List<Mutation>>> mutationMap = new HashMap<String, Map<String, List<Mutation>>>();
+			final long timestamp = System.currentTimeMillis();
+			final Map<String, List<Mutation>> tableMap = new HashMap<String, List<Mutation>>();
+			final List<Mutation> sliceMutationList = new ArrayList<Mutation>(5);
+
+			tableMap.put(tableName, sliceMutationList);
+
+			for (Entry<String, String> entry : args.entrySet()){
+				final Mutation mutation = new Mutation();
+				mutation.setColumn_or_supercolumn(new ColumnOrSuperColumn()
+				.setColumn(new Column(MConverter
+						.stringToByteBuffer(entry.getKey()), ByteBuffer
+						.wrap(encode(entry.getValue())), timestamp)
+					.setTtl(ttl)));
+				sliceMutationList.add(mutation);
+			}
+
+			// Insertion in the map
+			mutationMap.put(primaryKey, tableMap);
+
+			LOGGER.info(
+					"Performing a batch_mutate on table '{}' with key '{}'",
+					tableName, primaryKey);
+
+			wrapper.batch_mutate(mutationMap, consistencyOnWrite);
+		} catch (final InternalBackEndException e) {
+			LOGGER.debug("Insert slice in table '{}' failed", tableName, e);
+			throw new InternalBackEndException("InsertSlice failed."); // NOPMD
+		}
+
+		LOGGER.info("batch_mutate performed correctly");
+	}
 	
 	@Override public Map<String, String> selectAllStr(
 			String tableName,

@@ -8,140 +8,60 @@
  *  $ActiveTab : Current active tab id 
  *  These tabs should be repeated in the header of each tabbed page
  */
-function tabs($tabs, $activeTab) {
+function tabs($activeTab, $tabs, $useBack = false) {
 	
 	$reverse = true;
 	?> 	
-	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-	<ul>
-		<li><a href="?action=logout" rel="external" data-icon="back"><?= _("Exit") ?></a></li>
-		<? foreach ($tabs as $id => $v) { ?>
-		<li>
-			<a 
-				href="#<?= $id ?>"    
-				data-transition="slide" 
-				data-icon="<?= $v[1] ?>" 
-				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
-				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
-				<?= $v[0] ?>
-			</a>
-		</li><? 
-		
-		if ($id == $activeTab) {
-			$reverse = false;
-		}
-	}
 
-	?> 
-	</ul>
-	</div> <?
+  	<div class="ui-header ui-bar-e" data-mini="true">
+  		<span style="color: #588fbe; margin: 9px; font-size: 13px; font-weight: bold; "><a href="/application/myMed" rel="external"><img alt="myMed" src="../../system/img/logos/mymed" style="vertical-align: -25%;"/></a>Réseau social transfontalier</span>
+  	</div>
+	<div data-role="navbar" data-theme="b"  data-iconpos="left"> 
+		<ul >
+			<? if ($useBack): ?>
+				<li><a data-rel="back" rel="external" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
+			<? endif ?>
+	  		<? foreach ($tabs as $i): ?>
+	  		<li>
+	  			<a 
+	  				href="<?= $i[0] ?>"  
+	  				data-transition="slide" 
+	  				data-icon="<?= $i[2] ?>" 
+	  				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
+	  				<?= $i[0][0]!='#'?'rel="external"':'' ?>
+	  				<?= ($activeTab == $i[0]) ? 'class="ui-btn-down-c ui-state-persist"' : '' ?> >
+	  				<?= _($i[1]) ?>
+	  			</a>
+	  		</li>
+	  		<? if ($i[0] == $activeTab) {
+	  			$reverse = false;
+	  		}
+	  		endforeach;
+	  	?> 
+	  	</ul>
+  	</div>
+
+ 	<?
  }
  
- function tabs_white($tabs, $activeTab) {
- 
- 	$reverse = true;
+ function tabs_simple($title, $actionTitle, $icon='none', $action='?action=extendedProfile', $actionIcon='profile') {
  	?>
-  	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-  	<ul>
-  		<li><a href="/application/myMed" data-ajax="false" data-icon="back"><?= _("Exit") ?></a></li>
-  		<? foreach ($tabs as $id => $v) { ?>
-  		<li>
-  			<a 
-  				href="#<?= $id ?>"  
-  				data-transition="slide" 
-  				data-icon="<?= $v[1] ?>" 
-  				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
-  				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
-  				<?= $v[0] ?>
-  			</a>
-  		</li><? 
-  		
-  		if ($id == $activeTab) {
-  			$reverse = false;
-  		}
-  	}
-  
-  	?> 
-  	</ul>
-  	</div> <?
-   } 
- 
- function tabs_white_back($tabs, $activeTab) {
- 
- 	$reverse = true;
- 	?>
- 	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
- 	<ul>
- 		<li><a href="./" data-icon="back" rel="external"><?= APPLICATION_NAME ?></a></li>
- 		<? foreach ($tabs as $id => $v) { ?>
- 		<li>
- 			<a 
- 				href="#<?= $id ?>"    
- 				data-transition="slide" 
- 				data-icon="<?= $v[1] ?>" 
- 				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
- 				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
- 				<?= $v[0] ?>
- 			</a>
- 		</li><? 
- 		
- 		if ($id == $activeTab) {
- 			$reverse = false;
- 		}
- 	}
- 
- 	?> 
- 	</ul>
- 	</div> <?
-  } 
-  
-  function tabs_3(
-  		$title,
-  		$button,
-  		$url = "?action=extendedProfile",
-  		$icon = "profile") {
-  
-  	?>
-   	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-   	<ul>
-   		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
-   		<li><a class="ui-btn-active"><?= $title ?></a></li>
-   		<li><a href="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>"><?= $button ?></a></li>
-   	</ul>
-   	</div> <?
-   }
-   
-   function tabs_3click(
-   		$title,
-   		$button,
-   		$url = "?action=extendedProfile",
-   		$icon = "profile") {
-   
-   	?>
-      	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-      	<ul>
-      		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
-      		<li><a class="ui-btn-active"><?= $title ?></a></li>
-      		<li><a onclick="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>" rel="external"><?= $button ?></a></li>
-      	</ul>
-      	</div> <?
-      }
-   
-   function tabs_3empty(
-   		$title,
-   		$button = APPLICATION_NAME,
-   		$url = "./",
-   		$icon = APPLICATION_NAME) {
-   
-   	?>
-   		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-        	<ul>
-            	<li><a data-rel="back" data-icon="back" rel="external" data-theme="d"><?= _("Back") ?></a></li>
-            	<li><a href="<?= $url ?>" data-theme="d" rel="external"  data-icon="<?= $icon ?>"><?= $button ?></a></li>
-            	<li><a class="ui-btn-active" ><?= $title ?></a></li>
-            </ul>
-        </div> <?
-      }
+   	<div class="ui-header ui-bar-e" data-mini="true">
+   		<span style="color: #588fbe; margin: 9px; font-size: 13px; font-weight: bold; "><a href="/application/myMed" rel="external"><img alt="myMed" src="../../system/img/logos/mymed" style="vertical-align: -25%;"/></a>Réseau social transfontalier</span>
+	</div>
+	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
+		<ul >
+ 		 	<li><a data-rel="back" rel="external" data-icon="back"><?= _("Back") ?></a></li>
+ 		  	<li><a class="ui-btn-active" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
+			<li>
+				<a href="<?= $action ?>" <?= $action[0]!='#'?'rel="external"':'' ?> data-icon="<?= $actionIcon ?>"><?= _($actionTitle) ?></a>
+			</li>
+
+ 		</ul>
+	</div>
+
+  	<?
+}
    
    function tabs_2(
    		$title,

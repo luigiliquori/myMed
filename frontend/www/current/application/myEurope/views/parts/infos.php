@@ -1,12 +1,8 @@
+<?php function tabs_info(){return tabs_simple("Informations", $_SESSION['user']->name, 'info','#profile', 'profile');}?>
+
 <div data-role="page" id="infos">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-	   	<ul>
-	   		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
-	   		<li><a class="ui-btn-active" data-icon="info"><?= _("Informations") ?></a></li>
-	   		<li><a href="?action=extendedProfile" data-theme="d" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
-	   	</ul>
-	   	</div>
+		<? tab_bar("#infos") ?>
 	</div>
 
 	<div data-role="content">
@@ -14,23 +10,15 @@
 		<b>Programmes de coopération</b> dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée :
 
 		<ul data-role="listview" data-inset="true">
-			<li><a href="#alcotra">Programme transfrontalier Alcotra </a>
-			</li>
-			<li><a href="#MED">Programme transnational MED</a>
-			</li>
-			<li><a href="#Espace Alpin">Programme transnational Espace Alpin</a>
-			</li>
-			<li><a href="#IEVP">Programme transfrontalier IEVP CT MED</a>
-			</li>
-			<li><a href="#Interreg">Programme interrégional Interreg IV C</a>
-			</li>
+			<li><a href="#alcotra">Programme transfrontalier Alcotra </a></li>
+			<li><a href="#Maritime">Programme transfrontalier Italie-France Maritime</a></li>
+		    <li><a href="#IEVP">Programme transfrontalier IEVP CT MED</a></li>
+			<li><a href="#MED">Programme transnational MED</a></li>
+			<li><a href="#Espace Alpin">Programme transnational Espace Alpin</a></li>
+			<li><a href="#Interreg">Programme interrégional Interreg IV C</a></li>
 		</ul>
-		<br> Programme-cadre :
-		<ul data-role="listview" data-inset="true">
-			<li><a href="#Recherche">Horizon 2020-Le Programme Cadre pour la Recherche et l'Innovation </a>
-			</li>
-		</ul>
-		<br> Fonds structurels européens :
+		<br />
+		<b>Fonds structurels européens</b> que vous pouvez saisir pour bénéficier d'un financement de vos projets :
 		<ul data-role="listview" data-inset="true">
 			<li><a href="#FEDER">Programme opérationnel FEDER </a>
 			</li>
@@ -38,17 +26,18 @@
 			</li>
 			<li><a href="#FEADER">Programme de développement Rural Hexagonal FEADER</a>
 			</li>
+			</ul>
+		<br />
+		Informations relatives aux futurs programmes 2014-2020 :
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#Recherche">Horizon 2020-Le futur Programme Cadre pour la Recherche et l'Innovation </a>
+			</li>
 		</ul>
 	</div>
 </div>
 
 <div data-role="page" id="alcotra">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-	</div>
+	<? tabs_info() ?>
 	<div data-role="content">
 
 		<h3>
@@ -79,15 +68,15 @@
 		
 		<h3>Les territoires éligibles&nbsp;:</h3>
 		<p>
-			Territoires &eacute;ligibles au 1&deg; degr&eacute;&nbsp;: <br> Italie&nbsp;: R&eacute;gion autonome Vall&eacute;e d&rsquo;Aoste, Provinces de
+			Territoires &eacute;ligibles au 1&deg; degr&eacute;&nbsp;: <br /> Italie&nbsp;: R&eacute;gion autonome Vall&eacute;e d&rsquo;Aoste, Provinces de
 			Turin, Cuneo et Imperia. France&nbsp;: D&eacute;partements de Haute-Savoie, Savoie, Hautes-Alpes, Alpes de Haute-Provence et Alpes-Maritimes. </br>
-		
+		</p>
 		
 		<p>
-			Territoires &eacute;ligibles au 2&deg; degr&eacute;&nbsp;: <br> Italie&nbsp;:Provinces de Biella, Vercelli, Asti, Alessandria, Savona France&nbsp;:
-			D&eacute;partements de l&rsquo;Ain, Is&egrave;re, Dr&ocirc;me, Vaucluse, Var <br> Province de G&ecirc;nes pour l&rsquo;Italie et
+			Territoires &eacute;ligibles au 2&deg; degr&eacute;&nbsp;: <br /> Italie&nbsp;:Provinces de Biella, Vercelli, Asti, Alessandria, Savona France&nbsp;:
+			D&eacute;partements de l&rsquo;Ain, Is&egrave;re, Dr&ocirc;me, Vaucluse, Var <br /> Province de G&ecirc;nes pour l&rsquo;Italie et
 			D&eacute;partements du Rh&ocirc;ne et des Bouches-du-Rh&ocirc;ne sont admis au titre de la flexibilit&eacute; de l&rsquo;art. 21 (1) al.2 du
-			R&egrave;glement FEDER. <br> Participation de Monaco et de la Suisse sur financements propres.</br>
+			R&egrave;glement FEDER. <br /> Participation de Monaco et de la Suisse sur financements propres.<br />
 		</p>
 		<p>
 		
@@ -117,21 +106,60 @@
 			Pour plus d&rsquo;informations&nbsp;: <a href="http://www.interreg-alcotra.org/">Site officiel du Programme</a>
 		</p>
 		<p>
-			FAQ&nbsp;: <a data-theme="b" data-inline="true" data-mini="true" href="http://www.interreg-alcotra.org/2007-2013/?pg=faq&amp;lang=fr#q_0_1">FAQ
-				Alcotra</a>
+			FAQ&nbsp;: <a data-theme="b" data-inline="true" data-mini="true" href="http://www.interreg-alcotra.org/2007-2013/?pg=faq&amp;lang=fr#q_0_1">FAQ Alcotra</a>
 		</p>
 
 
 	</div>
 </div>
+<div data-role="page" id="Maritime">
+	<? tabs_info() ?>
+	<div data-role="content">
+	<h3>
+			<u>Objectifs principaux du programme :</u></h3>
+		<p>
+		Programme de coop&eacute;ration territoriale&nbsp;visant &agrave; am&eacute;liorer la coop&eacute;ration entre les zones frontali&egrave;res - comprises au sein de l&rsquo;espace maritime et c&ocirc;tier de l&rsquo;arc nord tyrrh&eacute;nien - dans les domaines de l&rsquo;accessibilit&eacute;, de l&rsquo;innovation, de la valorisation des ressources naturelles et culturelles afin d&rsquo;assurer la coh&eacute;sion des territoires et de favoriser l&rsquo;emploi et le d&eacute;veloppement durable.&nbsp;
+		</p>
+		<p>
+			<h3>
+				<u>Les enjeux :</u>
+			</h3>
+		</p>
+		
+		<p>
+			Axe 1 :&nbsp; Accessibilit&eacute; et r&eacute;seaux de communication
+		</p>
+		<p>
+			Axe 2 :&nbsp; Innovation et comp&eacute;titivit&eacute;
+		</p>
+		<p>
+			Axe 3&nbsp;: Ressources naturelles et culturelles
+		</p>
+		<p>
+			Axe 4&nbsp;: Int&eacute;gration des ressources et des services
+		</p>
+		<h3>
+			<p><u>Les b&eacute;n&eacute;ficiaires :</u></p>
+			<p>Les territoires &eacute;ligibles&nbsp;:</p>
+		</h3>
+		<p>
+			France :&nbsp; Corse
+		</p>
+		<p>
+			Italie :&nbsp; Ligurie, Toscane, Sardaigne
+		</p>
+		<p>
+			Pour plus d&rsquo;informations&nbsp;:
+		</p>
+		<p>
+			<a href="http://www.maritimeit-fr.net/">http://www.maritimeit-fr.net/</a>
+		</p>
+	</div>
+</div>
+
 
 <div data-role="page" id="MED">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-	</div>
+	<? tabs_info() ?>
 	<div data-role="content">
 
 		<h3>
@@ -167,13 +195,12 @@
 		<h3>Qui peut participer&nbsp;?</h3>
 
 		R&eacute;gions, villes, Centres de recherches, universit&eacute;s, associations &agrave; but non lucratif etc. Vous trouverez plus
-		d&rsquo;informations dans les documents officiels du programme. <br> <a href="http://www.programmemed.eu/">Site officiel du Programme</a>
+		d&rsquo;informations dans les documents officiels du programme. <br /> <a href="http://www.programmemed.eu/">Site officiel du Programme</a>
 		<h3>
 			<u>Prochaine p&eacute;riode de programmation 2014-2020 :</u>
 		</h3>
 		Les priorit&eacute;s seront donn&eacute;es &agrave; la <strong>croissance </strong>et &agrave; l&rsquo;<strong>emploi </strong>(Strat&eacute;gie
-		&laquo;&nbsp;Europe 2020). <br> Pour plus d&rsquo;informations&nbsp;: <a
-			href="http://www.programmemed.eu/a-propos-du-programme/prochaine-periode-de-programmation-2014-2020.html">Dernières actualités période 2014-2020</a>
+		&laquo;&nbsp;Europe 2020). <br> Pour plus d&rsquo;informations&nbsp;: <a href="http://www.programmemed.eu/a-propos-du-programme/prochaine-periode-de-programmation-2014-2020.html">Dernières actualités période 2014-2020</a>
 		</p>
 
 
@@ -181,17 +208,13 @@
 </div>
 
 <div data-role="page" id="Espace Alpin">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-	</div>
+	<? tabs_info() ?>
 	<div data-role="content">
 
 		<h3>
 			<u>Objectif g&eacute;n&eacute;ral du programme :</u>
 		</h3>
+		<p>
 		&nbsp; &laquo;&nbsp;Viser au renforcement des points forts et &agrave; l&rsquo;exploitation des opportunit&eacute;s que rec&egrave;le l&rsquo;Espace
 		alpin en tant que zone de coop&eacute;ration territoriale transnationale, mais aussi &agrave; la r&eacute;duction des points faibles et des menaces
 		identifi&eacute;es&nbsp;&raquo;.
@@ -203,10 +226,11 @@
 		<h3>
 			<u>Les enjeux :</u>
 		</h3>
+		<p>
 		Priorit&eacute; 1&nbsp;: Comp&eacute;titivit&eacute; et attractivit&eacute; du territoire
 		</p>
 		<p>Priorit&eacute; 2&nbsp;: Accessibilit&eacute;, transports et connexion des r&eacute;seaux</p>
-		<p>Priorit&eacute; 3&nbsp;: Environnement et pr&eacute;vention des risques&nbsp; &nbsp;
+		<p>Priorit&eacute; 3&nbsp;: Environnement et pr&eacute;vention des risques&nbsp; &nbsp;</p>
 		
 		
 		<p>
@@ -216,7 +240,8 @@
 			<u>Les b&eacute;n&eacute;ficiaires :</u>
 		</h3>
 		</p>
-		<h3>Les territoires &eacute;ligibles&nbsp;:</h3>
+		<p>
+			<h3>Les territoires &eacute;ligibles&nbsp;:</h3>
 		7 pays sont concern&eacute;s&nbsp;: France (4 r&eacute;gions dont PACA et Rh&ocirc;ne-Alpes), Italie (dont Pi&eacute;mont, Vall&eacute;e
 		d&rsquo;Aoste, Lombardie), Autriche, Allemagne, Liechtenstein, Slov&eacute;nie, Suisse.
 		</p>
@@ -262,18 +287,14 @@
 
 
 <div data-role="page" id="IEVP">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-	</div>
+	<? tabs_info() ?>
 	<div data-role="content">
-		<span><h3>
-				<u>Objectif du programme :</u>
-			</h3> </span> <span>&laquo;Contribuer &agrave; promouvoir le processus de coop&eacute;ration durable et harmonieuse au niveau du Bassin de la
-			M&eacute;diterran&eacute;e en traitant les d&eacute;fis communs et en valorisant ses potentialit&eacute;s endog&egrave;nes&nbsp;&raquo;.</span>
-		</p>
+	<p>
+		<span><h3><u>Objectif du programme :</u></h3> </span> 
+		<span>&laquo;Contribuer &agrave; promouvoir le processus de coop&eacute;ration durable et harmonieuse au niveau du Bassin de la
+			M&eacute;diterran&eacute;e en traitant les d&eacute;fis communs et en valorisant ses potentialit&eacute;s endog&egrave;nes&nbsp;&raquo;.
+		</span>
+	</p>
 		<p>&nbsp;</p>
 		<p>
 			<span><h3>
@@ -318,9 +339,8 @@
 		</p>
 		<p>&nbsp;</p>
 		<p>
-			<span><h3>
-					<u>Pour plus d&rsquo;informations sur la nouvelle p&eacute;riode de programmation 2014-2020 :</u>
-				</h3> </span>&nbsp;<a href="http://padil.ong-tn.org/dernieres-actualites/perspectives-futures-des-programmes-ievp-ct.html"><strong>Dernières
+			<span><h3><u>Pour plus d&rsquo;informations sur la nouvelle p&eacute;riode de programmation 2014-2020 :</u></h3> </span>
+			&nbsp;<a href="http://padil.ong-tn.org/dernieres-actualites/perspectives-futures-des-programmes-ievp-ct.html"><strong>Dernières
 					actualités période 2014-2020</strong> </a>
 		</p>
 		</p>
@@ -328,17 +348,13 @@
 </div>
 
 <div data-role="page" id="Interreg">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-	</div>
+	<? tabs_info() ?>
 	<div data-role="content">
 
 		<h3>
 			<u>Objectif du programme :</u>
 		</h3>
+		<p>
 		&laquo; Favoriser les &eacute;changes et transferts d&rsquo;exp&eacute;rience afin de d&eacute;velopper conjointement des approches et des
 		instruments qui am&eacute;liorent l&rsquo;efficacit&eacute; de la politique de d&eacute;veloppement r&eacute;gional et contribue &agrave; la
 		modernisation &eacute;conomique&nbsp;&raquo;
@@ -374,59 +390,13 @@
 	</div>
 </div>
 
-<div data-role="page" id="Recherche">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-	</div>
-	<div data-role="content">
-		<h3>
-			<u>Budget global pour la p&eacute;riode 2014-2020 :</u>
-		</h3>
-		&nbsp;80 milliards d&rsquo;euros &nbsp;
-		<h3>
-			<u>Objectif du Programme :</u>
-		</h3>
-		Le programme Horizon 2020 d&eacute;finira, pour la p&eacute;riode 2014-2020, les orientations de Recherche et d&rsquo;Innovation soutenues par la
-		Commission europ&eacute;enne.
-		</p>
-		<p>
-			Il succ&eacute;dera aux actuels Programmes Cadre de la Recherche (7<sup>E</sup> PCRD), Programme Cadre pour la Comp&eacute;titivit&eacute; et
-			l&rsquo;Innovation (CIP) et Institut Europ&eacute;en de Technologie.
-		</p>
-		<p>&nbsp;</p>
-		<p>
-		
-		
-		<h3>
-			<u>Les enjeux :</u>
-		</h3>
-		Priorit&eacute; 1&nbsp;: L&rsquo;excellence scientifique
-		</p>
-		<p>Priorit&eacute; 2&nbsp;: Le leadership industriel</p>
-		<p>Priorit&eacute; 3&nbsp;: Les d&eacute;fis soci&eacute;taux&nbsp;</p>
-
-		<a href="http://ec.europa.eu/research/horizon2020/index_en.cfm?pg=home&video=none">Pour plus d'informations sur le nouveau Programme</strong>
-		</a>
-
-
-
-	</div>
-</div>
-
 <div data-role="page" id="FEDER">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-	</div>
+	<? tabs_info() ?>
 	<div data-role="content">
 		<h3>
 			<u>Mission du FEDER &nbsp;(Fond Europ&eacute;en de d&eacute;veloppement R&eacute;gional) :</u>
 		</h3>
+		<p>
 		Contribuer financi&egrave;rement au renforcement de la coh&eacute;sion &eacute;conomique, sociale et territoriale en r&eacute;duisant les
 		disparit&eacute;s r&eacute;gionales.
 		</p>
@@ -450,7 +420,7 @@
 			<u>Prochaine p&eacute;riode de programmation 2014-2020 :</u>
 		</h3>
 		<p>L&rsquo;orientation g&eacute;n&eacute;rale de cette nouvelle p&eacute;riode de programmation &nbsp;pr&eacute;voit une &eacute;conomie-bas carbone
-			dans tous les secteur, &nbsp;conform&eacute;ment aux objectifs de la nouvelle Strat&eacute;gie Europe 2020.</p>
+			dans tous les secteurs, &nbsp;conform&eacute;ment aux objectifs de la nouvelle Strat&eacute;gie Europe 2020.</p>
 		<p>Autre grande ligne de cette nouvelle p&eacute;riode de programmation&nbsp;: le d&eacute;veloppement urbain durable.&nbsp;</p>
 
 		Pour plus d'informations <a href="http://www.europe-en-france.gouv.fr/Configuration-Generale-Pages-secondaires/FEDER"><strong>Présentation du FEDER</strong>
@@ -459,13 +429,7 @@
 </div>
 
 <div data-role="page" id="FSE">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-
-	</div>
+	<? tabs_info() ?>
 	<div data-role="content">
 
 		<h3>
@@ -510,12 +474,7 @@
 </div>
 
 <div data-role="page" id="FEADER">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(
-				$_SESSION['user']->name,
-				"?action=extendedProfile",
-				"profile") ?>
-	</div>
+	<? tabs_info() ?>
 	<div data-role="content">
 		<h3>
 			<u>Mission du FEADER (Fonds Europ&eacute;en Agricole pour le D&eacute;veloppement Rural) : </u>
@@ -532,9 +491,44 @@
 		<p>&middot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Am&eacute;liorer la qualit&eacute; de vie en milieu rural et la promotion de la
 			diversification des activit&eacute;s &eacute;conomiques</p>
 		<p>
-			<br> Pour plus d&rsquo;informations <a href="http://europa.eu/legislation_summaries/agriculture/general_framework/l60032_fr.htm">Présentation du
+			<br /> Pour plus d&rsquo;informations <a href="http://europa.eu/legislation_summaries/agriculture/general_framework/l60032_fr.htm">Présentation du
 				FEADER</a>
 		</p>
 
 	</div>
+</div>
+
+<div data-role="page" id="Recherche">
+	<? tabs_info() ?>
+	<div data-role="content">
+		<h3>
+			<u>Budget global pour la p&eacute;riode 2014-2020 :</u>
+		</h3>
+		&nbsp;80 milliards d&rsquo;euros &nbsp;
+		<h3>
+			<u>Objectif du Programme :</u>
+		</h3>
+		Le programme Horizon 2020 d&eacute;finira, pour la p&eacute;riode 2014-2020, les orientations de Recherche et d&rsquo;Innovation soutenues par la
+		Commission europ&eacute;enne.
+		</p>
+		<p>
+			Il succ&eacute;dera aux actuels Programmes Cadre de la Recherche (7<sup>E</sup> PCRD), Programme Cadre pour la Comp&eacute;titivit&eacute; et
+			l&rsquo;Innovation (CIP) et Institut Europ&eacute;en de Technologie.
+		</p>
+		<p>&nbsp;</p>
+		<p>
+		
+		
+		<h3>
+			<u>Les enjeux :</u>
+		</h3>
+		Priorit&eacute; 1&nbsp;: L&rsquo;excellence scientifique
+		</p>
+		<p>Priorit&eacute; 2&nbsp;: Le leadership industriel</p>
+		<p>Priorit&eacute; 3&nbsp;: Les d&eacute;fis soci&eacute;taux&nbsp;</p>
+
+		<a href="http://ec.europa.eu/research/horizon2020/index_en.cfm?pg=home&video=none">Pour plus d'informations sur le nouveau Programme</strong>
+		</a>
+		
+		</div>
 </div>

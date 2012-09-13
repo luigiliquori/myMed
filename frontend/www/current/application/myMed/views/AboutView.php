@@ -2,10 +2,13 @@
 <? require_once("header.php"); ?>
 
 <div data-role="page" id="about" >	
-
-	<div data-role="header" data-theme="b">
-		<h1>A propos</h1>
-	</div>
+	
+	<? include_once("header-bar-light.php"); ?>
+	<? tabs_main("about", array(
+			"about" => array(_('A propos'), "info"),
+			"login" => array(_('Connexion'), "home"),
+			"register" => array(_('Inscription'), "grid"),
+	)) ?>
 
 	<div data-role="content" class="content">
 	
@@ -23,16 +26,7 @@
 		<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>
 		
 	</div>
-	
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>
-				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid" >Inscription</a></li>
-				<li><a href="#about" data-transition="none" data-icon="info" class="ui-btn-active ui-state-persist">A propos</a></li>
-			</ul>
-		</div>
-	</div>
+
 </div>
 
 <? require_once("LoginView.php"); ?>

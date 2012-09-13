@@ -53,7 +53,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	private static final long serialVersionUID = 8762837510508354509L;
 
 	private IAuthenticationManager authenticationManager;
-	//private IRegistrationManager registrationManager;
 	private ISessionManager sessionManager;
 	private IProfileManager profileManager;
 
@@ -90,7 +89,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 		try {
 			authenticationManager = new AuthenticationManager();
-			//registrationManager = new RegistrationManager();
 			sessionManager = new SessionManager();
 			profileManager = new ProfileManager();
 		} catch (final InternalBackEndException e) {
@@ -253,15 +251,17 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					throw new InternalBackEndException(
 							"password argument missing!");
 				} else {
-					final MUserBean userBean = authenticationManager.read(
+					Map<String, String> usr = authenticationManager.readSimple(
 							login, password);
+					if (!usr.containsKey("id"))
+						throw new InternalBackEndException("user's id missing!"); // should never happen
 					message.setDescription("Successfully authenticated");
 					// TODO Remove this parameter
-					message.addDataObject(JSON_USER, userBean);
+					message.addDataObject(JSON_USER, usr);
 
 					final MSessionBean sessionBean = new MSessionBean();
 					sessionBean.setIp(request.getRemoteAddr());
-					sessionBean.setUser(userBean.getId());
+					sessionBean.setUser(usr.get("id"));
 					sessionBean.setCurrentApplications("");
 					sessionBean.setP2P(false);
 					// TODO Use The Cassandra Timeout mechanism
@@ -274,8 +274,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					sessionManager.create(sessionBean);
 
 					// Update the profile with the new session
-					userBean.setSession(accessToken);
-					profileManager.update(userBean);
+					usr.put("session", accessToken);
+					profileManager.update(usr.get("id"), usr);
 
 					LOGGER.info("Session {} created -> LOGIN", accessToken);
 					final StringBuffer urlBuffer = new StringBuffer(40);

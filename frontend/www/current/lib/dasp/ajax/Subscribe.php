@@ -2,13 +2,16 @@
 require_once('../request/RequestJson.php');
 require_once('../../../system/config.php');
 
-$request = new RequestJson(null, $_POST, CREATE, "v2/SubscribeRequestHandler");
+if (!isset($_POST["predicates"]))
+	$_POST["predicates"] = array();
+else
+	$_POST["predicates"] = json_decode($_POST["predicates"]);
+
+$request = new RequestJson(null, $_POST,CREATE, "v2/SubscribeRequestHandler"  );
 
 session_start();
 
 $request->addArgument("user", $_SESSION['user']->id);
-if (!$request->hasArgument("predicates"))
-	$request->addArgument("predicates", array());
 	
 $responsejSon = $request->send();
 

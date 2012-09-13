@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-05 14:42+0200\n"
-"PO-Revision-Date: 2012-09-05 14:45+0100\n"
-"Last-Translator: lvanni <lvanni@inria.fr>\n"
+"PO-Revision-Date: 2012-09-05 16:07+0100\n"
+"Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,11 +17,11 @@ msgstr ""
 
 #: ../application/myMed/views/LoginView.php:11
 msgid "Social Network"
-msgstr ""
+msgstr "Rete sociale"
 
 #: ../application/myMed/views/LoginView.php:29
 msgid "Ensemble par-delà les frontières"
-msgstr ""
+msgstr "Insieme oltre i confini"
 
 #: ../application/myMed/views/LoginView.php:39
 #: ../application/myEurope/views/LoginView.php:41
@@ -42,7 +42,7 @@ msgstr "A proposito"
 #: ../application/myMed/views/MainView.php:8
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:11
 msgid "Choose a language"
-msgstr ""
+msgstr "Scegli la lingua"
 
 #: ../application/myMed/views/MainView.php:11
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:14
@@ -75,17 +75,16 @@ msgid "Votre compte à bien été validé. Vous pouvez vous loguer à présent"
 msgstr ""
 
 #: ../application/myEurope/controllers/DetailsController.class.php:111
-#, fuzzy
 msgid "Partnership request sent"
-msgstr "Partenariato richiesto"
+msgstr "Richiesta di partenariato inviata"
 
 #: ../application/myEurope/controllers/DetailsController.class.php:132
 msgid "Partnerships added"
-msgstr ""
+msgstr "Il partner è stato aggiunto"
 
 #: ../application/myEurope/controllers/tes.php:16
 msgid "Association - Coopérative - Mutuelle"
-msgstr ""
+msgstr "Associazione - Cooperativa - Mutua"
 
 #: ../application/myEurope/views/AdminView.php:6
 msgid "Users"
@@ -148,7 +147,7 @@ msgstr "Postare"
 #: ../application/myEurope/views/BlogsView.php:94
 #: ../application/myEurope/views/DetailsView.php:41
 msgid "Sure?"
-msgstr ""
+msgstr "Conferma?"
 
 #: ../application/myEurope/views/DetailsView.php:23
 msgid "Partners"
@@ -164,21 +163,19 @@ msgstr "Partenariato richiesto"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:15
 msgid "Register in myEurope with this profile"
-msgstr ""
+msgstr "Registrarsi su myEurope con questo profilo"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:17
 msgid "Back to profiles list"
-msgstr ""
+msgstr "Ritorno verso la lista profili"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:24
-#, fuzzy
 msgid "Delete user"
-msgstr "Cancellare la mia offerta"
+msgstr "Cancella l'utente"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:26
-#, fuzzy
 msgid "Delete profile"
-msgstr "Cancellare la mia offerta"
+msgstr "Cancella profilo"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:22
 msgid "Next"
@@ -193,17 +190,15 @@ msgstr "Esci"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:35
 msgid "Create a new profile"
-msgstr ""
+msgstr "Creare un nuovo profilo"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:41
-#, fuzzy
 msgid ""
 "Hello, This is your first time on myEurope.<br/><br/>\n"
 "\t\t\t\t Please fill in your profile with an existing Organization profile or <a href='#new'>create a new one</a>"
 msgstr ""
 "Buongiorno<br/>,<br/>E' la sua prima connessione a  myEurope.<br/>\n"
-"\t\t\t\t Grazie di completare il proprio profilo.<br/>\n"
-"\t\t\tProfilo utente ?<br/> "
+"\t\t\t\t Grazie di completare il vostro profilo imputandolo ad un'organizzazione già presente o <a href='#new'>creandone uno nuovo</a>"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:45
 #: ../application/myEurope/views/ResultsView.php:34
@@ -211,20 +206,18 @@ msgid "filter"
 msgstr "Filtrare"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:63
-#, fuzzy
 msgid "Create"
-msgstr "Data"
+msgstr "Creare"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:72
 #: ../application/myEurope/views/ExtendedProfileEditView.php:17
-#, fuzzy
 msgid "Organization Name"
-msgstr "Nome dell'associazione"
+msgstr "Nome dell'organizzazione"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:76
 #: ../application/myEurope/views/ExtendedProfileEditView.php:21
 msgid "Your category"
-msgstr ""
+msgstr "Scegli una categoria "
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:88
 #: ../application/myEurope/views/ExtendedProfileEditView.php:33
@@ -234,7 +227,7 @@ msgstr "Indirizzo"
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:92
 #: ../application/myEurope/views/ExtendedProfileEditView.php:37
 msgid "Territoire d'action"
-msgstr ""
+msgstr "Territorio d'intervento"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:112
 #: ../application/myEurope/views/ExtendedProfileEditView.php:57
@@ -255,7 +248,7 @@ msgstr "Descrizione"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:130
 msgid "Create this profile"
-msgstr ""
+msgstr "Crea questo profilo"
 
 #: ../application/myEurope/views/ExtendedProfileEditView.php:5
 #: ../application/myEurope/views/MainView.php:10
@@ -291,14 +284,12 @@ msgid "Admin"
 msgstr ""
 
 #: ../application/myEurope/views/MainView.php:24
-#, fuzzy
 msgid "Search a partnership offer"
-msgstr "Trovare un'offerta"
+msgstr "Trovare un'offerta di partenariato"
 
 #: ../application/myEurope/views/MainView.php:25
-#, fuzzy
 msgid "Insert a partnership offer"
-msgstr "Sottomettere un'offerta"
+msgstr "Sottomettere un'offerta di partenariato"
 
 #: ../application/myEurope/views/MainView.php:30
 msgid "About European programs"
@@ -333,9 +324,8 @@ msgid "Search a partner"
 msgstr "Trovare un'offerta"
 
 #: ../application/myEurope/views/MainView.php:127
-#, fuzzy
 msgid "Offer Themes"
-msgstr "Tematiche"
+msgstr "Tematiche del progetto"
 
 #: ../application/myEurope/views/MainView.php:130
 #: ../application/myEurope/views/MainView.php:172
@@ -348,31 +338,28 @@ msgstr "Tutto"
 
 #: ../application/myEurope/views/MainView.php:133
 #: ../application/myEurope/views/MainView.php:324
-#, fuzzy
 msgid "Education, culture and sport"
-msgstr "Educazione, cultura e sport"
+msgstr "Educazione, cultura e sport "
 
 #: ../application/myEurope/views/MainView.php:136
 #: ../application/myEurope/views/MainView.php:327
 msgid "Work and training"
-msgstr ""
+msgstr "Lavoro e formazione professionale"
 
 #: ../application/myEurope/views/MainView.php:139
 #: ../application/myEurope/views/MainView.php:330
-#, fuzzy
 msgid "Enterprises, Research and Innovation"
-msgstr "Imprese, innovazione"
+msgstr "Imprese, Ricerca ed Innovazione"
 
 #: ../application/myEurope/views/MainView.php:142
 #: ../application/myEurope/views/MainView.php:333
-#, fuzzy
 msgid "Environment, Energies and Risk"
-msgstr "Ambiente, energia e trasporto"
+msgstr "Ambiente, energie e rischi ambientali"
 
 #: ../application/myEurope/views/MainView.php:145
 #: ../application/myEurope/views/MainView.php:336
 msgid "Transport, Facilities and Zoning"
-msgstr ""
+msgstr "Trasporto, infrastrutture e pianificazione territoriale"
 
 #: ../application/myEurope/views/MainView.php:148
 #: ../application/myEurope/views/MainView.php:339
@@ -382,7 +369,7 @@ msgstr "Salute e tutela dei consumatori"
 #: ../application/myEurope/views/MainView.php:151
 #: ../application/myEurope/views/MainView.php:342
 msgid "Social Affairs"
-msgstr ""
+msgstr "Affari sociali"
 
 #: ../application/myEurope/views/MainView.php:154
 #: ../application/myEurope/views/MainView.php:345
@@ -397,7 +384,7 @@ msgstr "Pesca"
 #: ../application/myEurope/views/MainView.php:164
 #: ../application/myEurope/views/MainView.php:355
 msgid "Areas"
-msgstr "Zone geografiche"
+msgstr "Zone geografiche del progetto"
 
 #: ../application/myEurope/views/MainView.php:170
 #: ../application/myEurope/views/MainView.php:361
@@ -416,37 +403,36 @@ msgstr "Altro"
 
 #: ../application/myEurope/views/MainView.php:269
 msgid "Category of searched partners"
-msgstr ""
+msgstr "Tipo di partner ricercati"
 
 #: ../application/myEurope/views/MainView.php:277
 #: ../application/myEurope/views/MainView.php:453
 msgid "Programme concerné par l'offre"
-msgstr ""
+msgstr "Programma "
 
 #: ../application/myEurope/views/MainView.php:279
 #: ../application/myEurope/views/MainView.php:455
 msgid "proposition libre"
-msgstr ""
+msgstr "Nessun programma di riferimento"
 
 #: ../application/myEurope/views/MainView.php:282
 #: ../application/myEurope/views/MainView.php:458
 msgid "Alpin Space"
-msgstr ""
+msgstr "Spazio Alpino"
 
 #: ../application/myEurope/views/MainView.php:285
 #: ../application/myEurope/views/MainView.php:461
 msgid "Italy-France Maritime"
-msgstr ""
+msgstr "Italia-Francia Marittima"
 
 #: ../application/myEurope/views/MainView.php:289
-#, fuzzy
 msgid "keywords"
-msgstr "Parole chiave"
+msgstr "Parole chiave "
 
 #: ../application/myEurope/views/MainView.php:290
 #: ../application/myEurope/views/MainView.php:467
 msgid "separated by a space, comma, plus"
-msgstr ""
+msgstr "separare con uno spazio"
 
 #: ../application/myEurope/views/MainView.php:296
 msgid "Search"
@@ -468,25 +454,23 @@ msgstr "Parole chiave"
 
 #: ../application/myEurope/views/MainView.php:470
 msgid "Date of expiration"
-msgstr ""
+msgstr "Data di scadenza"
 
 #: ../application/myEurope/views/MainView.php:471
 msgid "date in format year-month-day"
-msgstr ""
+msgstr "Data nel formato anno-mese-giorno"
 
 #: ../application/myEurope/views/MainView.php:474
-#, fuzzy
 msgid "Title"
-msgstr "Titolo"
+msgstr "Titolo "
 
 #: ../application/myEurope/views/MainView.php:475
-#, fuzzy
 msgid "partnership or project name"
-msgstr "Partenariato richiesto"
+msgstr "Partenariato o nome del progetto"
 
 #: ../application/myEurope/views/MainView.php:480
 msgid "Insert"
-msgstr ""
+msgstr "Inserire"
 
 #: ../application/myEurope/views/PublishSuccessView.php:17
 msgid "Your partnership offer has been successfully published on"
@@ -518,7 +502,7 @@ msgstr "Reputazione "
 
 #: ../application/myEurope/views/ResultsView.php:27
 msgid "Places"
-msgstr ""
+msgstr "Luogo"
 
 #: ../application/myEurope/views/ResultsView.php:38
 msgid "Your search didn't match any result."
@@ -533,15 +517,13 @@ msgid "You were not subscribed to these keywords"
 msgstr ""
 
 #: ../application/myEurope/views/WaitingForAcceptView.php:16
-#, fuzzy
 msgid ""
 "<b>Congratulations!</b> Your profile has been sent to myEurope team  \n"
 "\t\t\t<a href='mailto:myEuropeStaff@gmail.com'>myEuropeStaff@gmail.com</a>\t\t\n"
 "\t\t\tfor validation"
 msgstr ""
 "<b>Congratulazioni!</b> Il Suo profilo è stato inviato a myEurope  \n"
-"\t\t\t<a href='mailto:myAlpMed@gmail.com' type='button' data-inline='true' data-mini='true'><?= APPLICATION_NAME ?></a>\t\t\n"
-"\t\t\tper essere validato "
+"\t<a href='mailto:myEuropeStaff@gmail.com'>myEuropeStaff@gmail.com</a>\t \t\t\tper essere validato "
 
 #: ../application/myEurope/views/parts/utils.php:188
 msgid "<b>MyEurope</b> is a social network which is based on the meta-social network <b><em>myMed</em></b>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program."
@@ -592,12 +574,12 @@ msgstr "Indirizzo "
 #: ../application/myEurope/views/parts/utils.php:254
 #: ../application/myEurope/views/parts/utils.php:304
 msgid "Members list"
-msgstr ""
+msgstr "Lista dei membri"
 
 #: ../application/myEurope/views/parts/utils.php:257
 #: ../application/myEurope/views/parts/utils.php:307
 msgid "(You)"
-msgstr ""
+msgstr "(Io)"
 
 #~ msgid "Increase"
 #~ msgstr "Aumentare"

@@ -94,7 +94,7 @@ class ExtendedProfileController extends AuthenticatedController
 		$publish->send();
 		
 		$publish = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id)),
+				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id, "email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
 				UPDATE);
 		$publish->send();
 		
@@ -115,14 +115,14 @@ class ExtendedProfileController extends AuthenticatedController
 		$subscribe->send();
 		//subscribe to our organization profile
 		$subscribe = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":userUpdate"),
+				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
 				CREATE, "v2/SubscribeRequestHandler");
 		$subscribe->send();
 		
 		if ($permission <= 0)
 			$this->renderView("WaitingForAccept");
-// 		else
-// 			$this->renderView("main");
+		else
+			$this->renderView("main");
 	
 	}
 	
@@ -208,18 +208,6 @@ class ExtendedProfileController extends AuthenticatedController
 	 */
 	public /*void*/ function editProfile(){
 		
-		$this->cats = array(
-				"Association - Coopérative - Mutuelle"=>"",
-				"Entreprise privée"=>"",
-				"Chambre consulaire - Groupement professionnel"=>"",
-				"Université - Recherche"=>"",
-				"Mairie - établissement public communal ou intercommunal"=>"",
-				"Département - établissement public départemental"=>"",
-				"Région - établissement public régional"=>"",
-				"Service de l’Etat - établissement public de l’Etat"=>"",
-				"Autre établissement ou groupement public"=>"",
-				"Autre"=>""
-		);
 		$this->renderView("ExtendedProfileEdit");
 		
 	}

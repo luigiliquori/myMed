@@ -2,7 +2,7 @@
 
 <div data-role="page" id="results">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3empty(_("Results")) ?>
+		<? tabs_simple("Results", $_SESSION['user']->name) ?>
 		<? include("notifications.php"); ?>
 	</div>
 
@@ -21,19 +21,24 @@
 			<label for="radio-view-e"><?= _("reputation") ?></label>
 		</fieldset>
 		
+		<? if (!empty($this->themes)||!empty($this->places)||!empty($this->roles)||!empty($this->p)) :?>
 		<div style="float: right;">
 		<label for="subscribeButton" >
-		<?= _('Themes').': <em>'.(empty($this->themes)?_('All'):join(", ",$this->themes)).'</em>, '.
-		_('Places').': <em>'.(empty($this->places)?_('All'):join(", ",$this->places)).'</em>, '.
-		_('Keywords').': <em>'.(empty($this->p)?_('All'):join(", ",$this->p)).'</em>' ?>:</label>
+			<?= (empty($this->themes)?'':_('Themes').': <em style="font-size: 14px;">'.join(", ",$this->themes).'</em>, ').
+		(empty($this->places)?'':_('Places').': <em style="font-size: 14px;">'.join(", ",$this->places).'</em>, ').
+		(empty($this->roles)?'':_('Roles').': <em style="font-size: 14px;">'.join(", ",$this->roles).'</em>, ').
+		(empty($this->p)?'':_('Keywords').': <em style="font-size: 14px;">'.join(", ",$this->p).'</em>') ?>:
+		
+		</label>
 		<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="alert"
-		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$_GET['namespace'] ?>", <?= json_encode($this->index) ?>); $(this).addClass("ui-disabled");'><?= _("Subscribe") ?></a>
+		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$_GET['namespace'] ?>", <?= json_encode($this->index) ?>);'><?= _("Subscribe") ?></a>
 		</div>
+		<? endif ?>
 		</div>
 		
 		<ul id="matchinglist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>" style="clear:both;">
 
-			<? if (count($this->result) == 0) :?>
+			<?php if (count($this->result) == 0) :?>
 			<li>
 				<h4><?= _("Your search didn't match any result.") ?></h4>
 			</li>
@@ -41,7 +46,7 @@
 
 			<? foreach($this->result as $item) : ?>
 			
-			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->partner ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
+			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->user ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
 			<a href="?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>"><span
 					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?>  (<?= date('j/n/y G:i', $item->time) ?>)</span>
 				</a>

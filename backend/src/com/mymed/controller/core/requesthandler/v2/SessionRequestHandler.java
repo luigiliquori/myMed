@@ -15,6 +15,7 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -30,6 +31,7 @@ import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
+import com.mymed.utils.HashFunction;
 
 /**
  * Servlet implementation class SessionRequestHandler
@@ -72,23 +74,22 @@ public class SessionRequestHandler extends AbstractRequestHandler {
             final Map<String, String> parameters = getParameters(request);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String accessToken = parameters.get(JSON_ACCESS_TKN);
-            final String socialNetwork = parameters.get("socialNetwork");
+ //           final String socialNetwork = parameters.get("socialNetwork");
 
             if (accessToken == null) {
                 throw new InternalBackEndException("accessToken argument missing!");
             }
 
-            if (socialNetwork == null) {
-                throw new InternalBackEndException("socialNetwork argument missing!");
-            }
+//            if (socialNetwork == null) {
+//                throw new InternalBackEndException("socialNetwork argument missing!");
+//            }
 
             switch (code) {
                 case READ :
                     message.setMethod(JSON_CODE_READ);
                     final MSessionBean session = sessionManager.read(accessToken);
                     message.setDescription("Session avaible");
-                    final MUserBean userBean = profileManager.read(session.getUser());
-                    message.addDataObject(JSON_USER, userBean);
+                    message.addDataObject(JSON_USER, profileManager.readSimple(session.getUser()));
                     break;
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);
@@ -121,66 +122,72 @@ public class SessionRequestHandler extends AbstractRequestHandler {
         try {
             final Map<String, String> parameters = getParameters(request);
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String accessToken = parameters.get(JSON_ACCESS_TKN);
-            final String userID = parameters.get("userID");
-
-            if (accessToken == null) {
-                throw new InternalBackEndException("accessToken argument missing!");
-            }
+            String 
+            	accessToken = parameters.get(JSON_ACCESS_TKN);
+			final String userID = parameters.get("userID"), user = parameters.get(JSON_USER);
+            
 
             switch (code) {
                 case CREATE : // FOR FACEBOOK - TODO Check Security!
-                    message.setMethod(JSON_CODE_CREATE);
-                    if (userID == null) {
-                        throw new InternalBackEndException("userID argument missing!");
-                    }
+                	
+                if (accessToken == null) {
+	                throw new InternalBackEndException("accessToken argument missing!");
+	            }
+				message.setMethod(JSON_CODE_CREATE);
+				if (userID == null) {
+					throw new InternalBackEndException(
+							"userID argument missing!");
+				}
 
-                    final MUserBean userBean = profileManager.read(userID);
+				final Map<String, String> usr = profileManager.readSimple(userID);
 
-                    // Create a new session
-                    final MSessionBean sessionBean = new MSessionBean();
-                    sessionBean.setIp(request.getRemoteAddr());
-                    sessionBean.setUser(userBean.getId());
-                    sessionBean.setCurrentApplications("");
-                    sessionBean.setP2P(false);
-                    sessionBean.setTimeout(System.currentTimeMillis());
-                    sessionBean.setAccessToken(accessToken);
-                    sessionBean.setId(accessToken);
-                    sessionManager.create(sessionBean);
+				// Create a new session
+				final MSessionBean sessionBean = new MSessionBean();
+				sessionBean.setIp(request.getRemoteAddr());
+				sessionBean.setUser(usr.get("id"));
+				sessionBean.setCurrentApplications("");
+				sessionBean.setP2P(false);
+				sessionBean.setTimeout(System.currentTimeMillis());
+				sessionBean.setAccessToken(accessToken);
+				sessionBean.setId(accessToken);
+				sessionManager.create(sessionBean);
 
-                    // Update the profile with the new session
-                    userBean.setSession(accessToken);
-                    profileManager.update(userBean);
+				// Update the profile with the new session
+				profileManager.update(usr.get("id"), "session", accessToken);
 
-                    message.setDescription("session created");
-                    LOGGER.info("Session {} created -> LOGIN", accessToken);
+				message.setDescription("session created");
+				LOGGER.info("Session {} created -> LOGIN", accessToken);
 
-                    final StringBuffer urlBuffer = new StringBuffer(250);
-                    urlBuffer.append(SERVER_PROTOCOL);
-                    urlBuffer.append(SERVER_URI);
-                    urlBuffer.append("?socialNetwork=");
-                    urlBuffer.append(userBean.getSocialNetworkName());
-                    urlBuffer.trimToSize();
+				final StringBuffer urlBuffer = new StringBuffer(250);
+				urlBuffer.append(SERVER_PROTOCOL);
+				urlBuffer.append(SERVER_URI);
+				urlBuffer.append("?socialNetwork=");
+				urlBuffer.append(usr.get("socialNetworkName"));
+				urlBuffer.trimToSize();
 
-                    message.addDataObject("url", urlBuffer.toString());
-                    message.addDataObject(JSON_ACCESS_TKN, accessToken);
-                    break;
-                case UPDATE :
-                    // message.setMethod("UPDATE");
-                    // try {
-                    // if (session == null) {
-                    // throw new
-                    // InternalBackEndException("session argument missing!");
-                    //
-                    // }
-                    // sessionBean = getGson().fromJson(session,
-                    // MSessionBean.class);
-                    // sessionManager.update(sessionBean);
-                    // } catch (final JsonSyntaxException e) {
-                    // throw new InternalBackEndException(
-                    // "user jSon format is not valid");
-                    // }
-                    break;
+				message.addDataObject("url", urlBuffer.toString());
+				message.addDataObject(JSON_ACCESS_TKN, accessToken);
+				break;
+				
+			case UPDATE:
+				message.setMethod("UPDATE");
+				if (user == null) {
+	                throw new InternalBackEndException("user argument missing!");
+	            }
+				if (accessToken == null) {
+					final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
+					accessToken = h.SHA1ToString(user + System.currentTimeMillis());
+				}
+				
+				Map<String, String> session = new HashMap<String, String>();
+				session.put("user", user);
+				session.put("ip", request.getRemoteAddr());
+				session.put("id", accessToken);
+				sessionManager.update(accessToken, session);
+				message.setDescription("session updated");
+				LOGGER.info("Session updated for {} with {} ", user, accessToken);				
+				break;
+
                 default :
                     throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!");
             }

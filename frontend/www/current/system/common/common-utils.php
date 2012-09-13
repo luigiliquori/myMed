@@ -94,9 +94,8 @@ function comment(
 		$userCommented
 	) {?>
 <li id="<?= $id ?>" replyTo="<?= $v['replyTo'] ?>">
-		<p style="display: inline-block;"><b><?= $v['up'] - $v['down'] ?></b>
-		<a class="vote-up-off inline" onclick="rate($(this), $(this).parents('li').attr('id'), '<?= $v['user'] ?>', 1);" title="<?= $v['up'] ?> up votes (click again to undo)">up vote</a>
-		<a class="vote-down-off inline" onclick="rate($(this), $(this).parents('li').attr('id'), '<?= $v['user'] ?>', 0);" title="<?= $v['down']?> down votes, (click again to undo)">down vote</a>
+		<p style="display: inline-block;"><a href="#votePopup<?= $id ?>" data-rel="popup" data-position-to="origin"><?= $v['up'] - $v['down'] ?></a>
+		
 		 &nbsp; <?= $v['text'] ?>
 		<? if(!empty($userCommented)) : ?>
 		 &ndash; in reply of <span class="ui-link" <?= $userCommented!=-1?'onclick="show($(this));"':'' ?>><?= $userCommented!=-1?prettyprintUser($userCommented)."'s comment":'deleted comment' ?></span>
@@ -109,6 +108,11 @@ function comment(
 			<textarea name="text" placeholder="add a comment" onfocusout="var me=$(this);setTimeout(function(){me.parent().hide();}, 500);"></textarea>
 			<a type="button" data-inline="true" data-mini="true" data-inline="true" 
 				onclick="commentAdd($(this));" ><?= _('Reply') ?></a>
+		</div>
+		<div data-role="popup" id="votePopup<?= $id ?>" class="ui-content" data-overlay-theme="e" data-theme="d">
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<a class="vote-up-off" onclick="rate($(this), '<?= $id ?>', '<?= $v['user'] ?>', 1);" title="<?= $v['up'] ?> up votes (click again to undo)">up vote</a>
+			<a class="vote-down-off" onclick="rate($(this), '<?= $id ?>', '<?= $v['user'] ?>', 0);" title="<?= $v['down']?> down votes, (click again to undo)">down vote</a>
 		</div>
 </li>
 	<?

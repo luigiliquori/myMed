@@ -1,18 +1,9 @@
 <? include("header.php"); ?>
 
-<?
-function tab_bar_white($activeTab) {
-	tabs_white_back(array(
-			"users" => array(_("Users"), "profile")
-		),
-		$activeTab);
-} 
-?>
-
 <div data-role="page" id="users">
 
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_white("users") ?>
+		<? tabs_simple('Admin',  $_SESSION['user']->name) ?>
 		<? include("notifications.php"); ?>
 	</div>
 	

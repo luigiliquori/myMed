@@ -1,3 +1,10 @@
+
+## run (after installing poedit)
+## xgettext -f translations
+## then open it and merge with fr and it .po
+## finally replace the old with it
+
+
 #########
 # myMed #
 #########
@@ -10,19 +17,19 @@
 ../application/myMed/views/StoreSubView.php
 ../application/myMed/views/StoreView.php
 ../application/myMed/views/UpdateProfileView.php
-
+ 
 ../application/myMed/controllers/LoginController.class.php
 ../application/myMed/controllers/RegisterController.class.php
 ../application/myMed/controllers/ResetPasswordController.class.php
 ../application/myMed/controllers/StoreController.class.php
 ../application/myMed/controllers/UpdateProfileController.class.php
-
+ 
 ############
 # myEurope #
 ############
 ../application/myEurope/controllers/DetailsController.class.php
 ../application/myEurope/controllers/tes.php
-
+ 
 ../application/myEurope/views/AdminView.php
 ../application/myEurope/views/BlogsView.php
 ../application/myEurope/views/DetailsView.php
@@ -31,13 +38,12 @@
 ../application/myEurope/views/ExtendedProfileEditView.php
 ../application/myEurope/views/LoginView.php
 ../application/myEurope/views/MainView.php
-
+ 
 ../application/myEurope/views/PublishSuccessView.php
-
+ 
 ../application/myEurope/views/ResultsView.php
-
+ 
 ../application/myEurope/views/UnsubscribeView.php
 ../application/myEurope/views/WaitingForAcceptView.php
-
+ 
 ../application/myEurope/views/parts/utils.php
-

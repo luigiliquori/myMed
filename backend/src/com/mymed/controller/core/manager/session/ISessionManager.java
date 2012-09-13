@@ -15,6 +15,8 @@
  */
 package com.mymed.controller.core.manager.session;
 
+import java.util.Map;
+
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.session.MSessionBean;
@@ -46,6 +48,8 @@ public interface ISessionManager {
    * @throws InternalBackEndException
    */
   MSessionBean read(String userID) throws InternalBackEndException, IOBackEndException;
+  
+  byte[] readSimple(final String sessionID) throws IOBackEndException, InternalBackEndException;
 
   /**
    * 
@@ -54,6 +58,8 @@ public interface ISessionManager {
    * @throws InternalBackEndException
    */
   void update(MSessionBean session) throws InternalBackEndException, IOBackEndException;
+  
+  void update(final String id, final Map<String, String> map) throws InternalBackEndException, IOBackEndException;
 
   /**
    * logout

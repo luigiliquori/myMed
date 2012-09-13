@@ -22,21 +22,17 @@ class DetailsController extends AuthenticatedController {
 		if (isset($_GET["accept"])){
 			$this->addPartner();
 		}
-		
-		$this->text = "description vide";
 
 		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id));
 		
 		try{
 			$res = $req->send();
 		}
-		catch(Exception $e){
-			$this->details=new StdClass();
-			$this->details->text = "Contenu effacé par l'auteur";
-		}
+		catch(Exception $e){}
 
 		if (isset($res->details)){
 			$this->details = $res->details;
+			debug_r($this->details);
 			$rep =  new Reputationv2($this, $this->details->user, $this->id);
 			$this->reputation = $rep->send();
 			
@@ -73,10 +69,13 @@ class DetailsController extends AuthenticatedController {
 				}
 			}
 			
-			debug_r($this->details);
 			$this->renderView("details");
-		} else
+		} else{
+			$this->details=new StdClass();
+			$this->details->text = "<h2 style='text-align:center;'>Contenu effacé par l'auteur</h2>";
 			$this->renderView("details");
+		}
+			
 			//$this->redirectTo("search");
 		// @todo errors
 		
@@ -106,9 +105,12 @@ class DetailsController extends AuthenticatedController {
 				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id'], "user"=> $_SESSION['user']->id, "user"=>$_SESSION['user']->id, "data"=>$data ),
 				UPDATE);
 	
-		$publish->send();
+		$rs = $publish->send();
 		if (empty($this->error))
 			$this->success = _("Partnership request sent");
+		
+		debug_r($rs);
+		debug_r($this->success);
 	}
 	
 	public /*void*/ function addPartner(){
@@ -123,13 +125,26 @@ class DetailsController extends AuthenticatedController {
 				UPDATE);
 		$publish->send();
 		
-		$publish = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_GET["accept"], "data"=>array("part_".$this->id=>$this->id) ),
-				UPDATE);
-		$publish->send();
 		
-		if (empty($this->error))
-			$this->success = _("Partnerships added");
+		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":users","id"=>$_GET["accept"]));
+		try{
+			$res = $req->send();
+		}
+		catch(Exception $e){}
+		if (isset($res->details)){
+			
+			$publish = new RequestJson( $this,
+					array("application"=>APPLICATION_NAME.":profiles", "id"=>$res->details->profile, "data"=>array("part_".$this->id=>$this->id) ),
+					UPDATE);
+			$rs = $publish->send();
+			if (empty($this->error))
+				$this->success = _("Partner added");
+			debug_r($rs);
+			debug_r($this->error);
+		}
+		
+		
+		
 	}
 	
 	

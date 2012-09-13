@@ -46,6 +46,7 @@ class MainController extends AuthenticatedController {
 				}
 			}
 		}
+		$this->applicationList = array();
 		$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
 		
 		// get the success/error message (if it exists)
@@ -59,12 +60,13 @@ class MainController extends AuthenticatedController {
 		}
 		// set the status of the applications
 		$this->resetApplicationStatus();
+		$extentedProfile->applicationList = array();
 		foreach ($extentedProfile->applicationList as $app){
 			$this->applicationStatus[$app] = "on";
 		}
 
 		// REPUTATION
-		if ($handle = opendir(MYMED_ROOT . '/application')) {
+		/*if ($handle = opendir(MYMED_ROOT . '/application')) {
 			while (false !== ($file = readdir($handle))) {
 				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) {
 					
@@ -101,7 +103,7 @@ class MainController extends AuthenticatedController {
 					}
 				}
 			}
-		}
+		}*/
 
 		$this->renderView("main");
 	}

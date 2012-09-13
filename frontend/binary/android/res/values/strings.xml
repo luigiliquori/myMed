@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, Mobile!</string>
-    <string name="app_name">myEurope</string>
-    <string name="loading_msg">Chargement en cours de myEurope &#8230; \n TESDRGV</string>
+    <string name="app_name">myMed</string>
+    <string name="loading_msg">Chargement en cours de myMed &#8230; \n ...</string>
 </resources>

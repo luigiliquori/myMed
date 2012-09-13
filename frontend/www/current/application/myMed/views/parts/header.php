@@ -13,18 +13,22 @@
 	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
 	<script src="../../lib/jquery/jquery.mobile.js"></script>
 	
+
 	<!-- jQuery icons pack -->
-	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/original/jqm-icon-pack-2.0-original.css" rel="stylesheet" />
-	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/font-awesome/jqm-icon-pack-2.1.2-fa.css" rel="stylesheet" />
+	<!-- <link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/original/jqm-icon-pack-2.0-original.css" rel="stylesheet" /> -->
+	<!-- <link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/font-awesome/jqm-icon-pack-2.1.2-fa.css" rel="stylesheet" /> -->
 	
 	<!--  SimpleDialog -->
-	<script src="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
-	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
+	<!-- <script src="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script> -->
+	<!-- <link href="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> -->
 	
+
 	<!-- APP JS -->
 	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
 	<!-- APP css -->
 	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
+	<!-- MYMED css -->
+	<link href="<?= MYMED_URL_ROOT ?>/system/css/common.css" rel="stylesheet" />
 	
 	<!-- Google Analytics -->
 	<script type="text/javascript">
@@ -39,11 +43,7 @@
 	  })();
 	</script>
 	
-	<!-- Share this -->
-	<script type="text/javascript">var switchTo5x=true;</script>
-	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-	<script type="text/javascript">stLight.options({publisher: "f0ca88be-be8a-427a-983a-f670821d7ad2"}); </script>
-			
+	
 	</head>
 		
 <body onload="hideLoadingBar()">

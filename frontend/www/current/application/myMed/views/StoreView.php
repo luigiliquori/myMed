@@ -1,7 +1,12 @@
 <div id="store" data-role="page">
 
-	<? include("header-bar.php"); ?>
-	
+	<? include_once("header-bar-light.php"); ?>
+	<? tabs_main("store", array(
+			"home" => array(_('Applications'), "grid"),
+			"profile" => array(_('Profile'), "user"),
+			"store" => array(_('Store'), "star"),
+	), true) ?>
+	<? include("notifications.php")?>
 	<div data-role="content" class="content">
 		
 		<div class="ui-grid-a" style="position: relative;">
@@ -42,16 +47,6 @@
 			} ?>
 		</div>
 			
-	</div>
-	
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>
-				<li><a href="#profile" data-transition="none" data-icon="user" >Profil</a></li>
-				<li><a href="#store" data-transition="none" data-icon="star" class="ui-btn-active ui-state-persist">Store</a></li>
-			</ul>
-		</div>
 	</div>
 
 </div>

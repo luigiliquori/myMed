@@ -74,11 +74,9 @@
 #spacer{
 	height: 100px;
 }
+
 .logos{
 	margin: 15px;
-}
-
-.social{
 	border-top:1px solid transparent;
 	width: 97%;
 	opacity:0.7;
@@ -94,8 +92,22 @@
 
 @media all and (max-width: 600px){
 	 .logos > img {margin: 5px 10px;}
-	 .social {position: relative;textalign:center;}
-	 #spacer {height: 0; margin-bottom: -20px;}
+	 .logos {position: relative;textalign:center;}
+	 #spacer {height: 0;}
+}
+
+.social {
+	cursor: pointer;
+	text-indent: -9999em;
+	font-size: 1px;
+	display: inline-block;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-right: 3px;
+	width: 32px;
+	height: 32px;
+	background-image: url('/system/img/footer-sprite.png');
+	background-repeat: no-repeat;
 }
 
 .vote-up-off,.vote-up-on,.vote-down-off,.vote-down-on, .delete-icon {

@@ -17,11 +17,13 @@ class SearchController extends ExtendedProfileRequired {
 		$this->roles = array();
 		
 		debug_r($_GET);
+		$cats = array_keys(Categories::$roles);
+		$t = array_keys(Categories::$themes);
 		foreach( $_GET as $i=>$v ){
 			if ($v == "on"){
-				if ( in_array($i, $this->thems)){
+				if ( in_array($i, $t)){
 					array_push($this->themes, $i);
-				} else if ( in_array($i, $this->cats)){
+				} else if ( in_array($i, $cats)){
 					array_push($this->roles, $i);
 				} else {
 					array_push($this->places, $i);
@@ -33,7 +35,8 @@ class SearchController extends ExtendedProfileRequired {
 		
 		array_push($this->index, new DataBeanv2("places", ENUM, join("|",$this->places)));
 		
-		array_push($this->index, new DataBeanv2("roles", ENUM, join("|",$this->roles)));
+		if (!empty($this->roles))
+			array_push($this->index, new DataBeanv2("cats", ENUM, join("|",$this->roles)));
 		
 		if ($_GET['call']!="")
 			array_push($this->index, new DataBeanv2("call", ENUM, $_GET['call']));
@@ -45,12 +48,8 @@ class SearchController extends ExtendedProfileRequired {
 		array_push($this->index, new DataBeanv2("keyword", ENUM, join("|",$this->p)));
 		
 		
-			
-
-		debug("search on.. ".$_GET['namespace']);
-		
 		$find = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'], "predicates"=>$this->index));
+				array("application"=>APPLICATION_NAME.":part", "predicates"=>$this->index));
 		
 		try{
 			$res = $find->send();
@@ -58,17 +57,20 @@ class SearchController extends ExtendedProfileRequired {
 		catch(Exception $e){}
 		$this->result = array();
 		$this->success = "";
+		
+		debug_r($res);
 
 		if (isset($res->results))
 			$this->result = (array) $res->results;
 		
 		$this->suggestions = array();
 		function addvaluelashes($o){
-			return addslashes($o->value);
+			$o->value = addslashes($o->value);
+			return $o;
 		}
-		
+		debug_r($this->index);
 		$this->index = array_map("addvaluelashes", $this->index); //for ajax subscribe
-		
+		debug_r($this->index);
 		// Render the view			
 		$this->renderView("Results");
 		

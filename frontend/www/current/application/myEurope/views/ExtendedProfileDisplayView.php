@@ -2,7 +2,7 @@
 
 <div data-role="page">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2empty(prettyprintId($this->id), "profile") ?>
+		<? tabs_simple($this->id, $_SESSION['user']->name) ?>
 		<? include("notifications.php"); ?>
 	</div>
 	
