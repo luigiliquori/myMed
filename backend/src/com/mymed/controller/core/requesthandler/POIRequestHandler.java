@@ -96,7 +96,10 @@ public class POIRequestHandler extends AbstractRequestHandler {
      */
     private int convertDegreeToMicroDegree(final String coord) {
         final StringBuffer resultBuffer = new StringBuffer(coord.length());
-        final String[] digits = coord.split("\\.");
+        String[] digits = coord.split("\\.");
+        if(digits.length < 2) {
+        	throw new InternalBackEndException("wrong format of long or lat : " + coord);
+        }
 
         resultBuffer.append(digits[0]);
         int i = 0;

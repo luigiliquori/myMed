@@ -9,7 +9,7 @@
 
 	<div data-role="content" class="content">
 	
-		<img alt="myMed" src="<?= MYMED_URL_ROOT ?>/application/myMed/img/logo-mymed-250c.png" />
+		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" />
 		<br />
 		<h3> Réseau Social Transfrontalier </h3>
 		<br />

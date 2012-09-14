@@ -38,16 +38,26 @@ var radius;
 //$("#Map").live("pageinit", initialize);
 	
 function initialize() {
+	
+	showLoadingBar("chargement de la carte..."); 
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
 			$("#applicationName").val());
 
-	showLoadingBar("chargement de la carte..."); 
-	
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
 			displayError, false);
+	
+	// Add onClick function on the map
+	google.maps.event.addListener(
+            map,
+            "click",
+            function() {
+            	closeMarkersBox();
+            }
+        );
+            
 
 	// autocompletes Google Maps Places API
 	if (useautocompletion) {
@@ -234,16 +244,29 @@ function displayError(error) {
 function updateFilter() {
 	filterArray = [];
 	$("#" + currentApplication + "Filter input:checked").each(function(index) {
-		filterArray.push($(this).attr('id'));
-		//markers[$(this).attr('id')] = [];
+		idFilters = $("#" + $(this).attr('id') + "Filters").val();
+		if(idFilters){
+			filters = idFilters.split(',');
+			if(filters){
+				for (var i=0 ; i<filters.length - 1 ; i++) {
+					filterArray.push(filters[i]);
+				}
+			}
+		}
 	});
 }
 
 function initFilter() {
 	filterArray = [];
 	$("#" + currentApplication + "Filter input").each(function(index) {
-		filterArray.push($(this).attr('id'));
-		markers[$(this).attr('id')] = [];
+		idFilters = $("#" + $(this).attr('id') + "Filters").val();
+		if(idFilters){
+			filters = idFilters.split(',');
+			for (var i=0 ; i<filters.length - 1 ; i++) {
+				filterArray.push(filters[i]);
+				markers[filters[i]] = [];
+			}
+		}
 	});
 }
 
@@ -266,6 +289,12 @@ function clearAll() {
 	currentSegmentID = 0, prevSegmentID = 0;
 	$('#itineraireContent').html("");
 	updatezoom = true;
+}
+
+function closeMarkersBox(){
+	for ( var i = 1; i < pmarkers.length && pmarkers[i]; i++) {
+		pmarkers[i].ib.close();
+	}
 }
 
 function clearMarkers() {
@@ -330,10 +359,28 @@ function otherMarkers(index, type, lat, lon, rad) {
 						} else {
 							icon = null;
 						}
+						var Address, Email, Link, IdMedia, Altitude = null;
+						if(value.Adresse) {
+							Address = value.Adresse;
+						}
+						if(value.Email) {
+							Email = value.Email;
+						}
+						if(value.Link) {
+							Link = value.Link;
+						}
+						if(value.IdMedia) {
+							IdMedia = value.IdMedia;
+						}
+						if(value.Altitude) {
+							Altitude = value.Altitude;
+						}
 						var marker = addMarker(new google.maps.LatLng(value.latitude,
 								value.longitude), icon, value.title,
-								"<p>Type: 	" + type + "</p>" + value.description, null, false, id);
+								"<p><b>Type</b> : " + type + "</p>" + value.description, null, false, id,
+								Address, Email, Link, IdMedia, Altitude);
 						google.maps.event.addListener(marker, "click", function(e) {
+							closeMarkersBox();
 							marker.ib.open(map, this);
 						});
 						markers[type][index].push(marker);

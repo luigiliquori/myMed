@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Education", "SousType": "Lycée publique", "Nom": "Liceo Statale \"Angelico Aprosio\"", "Description": "Liceo Scientifico tradizionale - Scientifico con sperimentazione informatica - Scientifico con sperimentazione linguistica - Ginnasio - Liceo Classico", "Addresse": "Via Bruno Corti, 7           Tel: +39 0184 250545 ", "Link": "http:\/\/www.liceoaprosio.it\/", "E-mail": "imps03000e@istruzione.it \npostacertificata@pec.liceoaprosio.it", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.786958", "Longitude": "7.620904" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}

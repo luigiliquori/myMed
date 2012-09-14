@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Croix Rouge", "Nom": "Croce Rossa Italiana ", "Description": "", "Addresse": "Via Dante Alighieri, 12                        Tel: +39 0184 231889", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.786649", "Longitude": "7.631311" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Croix Rouge", "Nom": "Croce Verde Intemelia ", "Description": "", "Addresse": "Piazza XX Settembre, 8                       Tel: +39 0184 34803 ", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.792721", "Longitude": "7.608394" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}

@@ -1,0 +1,15 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Consulats", "Nom": "Consolato di Francia ", "Description": "", "Addresse": "Via Martiri della Libertà, 2                    Tel: +39 0184 351264", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.791048", "Longitude": "7.607557" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Consulats", "Nom": "Consolato di Monaco Principato", "Description": "", "Addresse": "Via Roma, 29                                              Tel: +39 0184 351187", "Link": "", "E-mail": "biamontigm@libero.it", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.789878", "Longitude": "7.610593" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Consulats", "Nom": "Consolato del Portogallo", "Description": "", "Addresse": "Via Cavour, 30                                        Tel: +39 0184 351247", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.792442", "Longitude": "7.607364" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Consulats", "Nom": "Consolato di Spagna", "Description": "", "Addresse": "Via Cavour, 30                                       Tel: +39 0184 351247", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.792442", "Longitude": "7.607364" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}

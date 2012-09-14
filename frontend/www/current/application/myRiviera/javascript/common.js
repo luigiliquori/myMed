@@ -67,7 +67,7 @@ function hideLoadingBar() {
 	$.mobile.hidePageLoadingMsg();
 }
 function showLoadingBar(text) {
-	$.mobile.showPageLoadingMsg("d", text);
+	$.mobile.showPageLoadingMsg("b", text, true);
 	setTimeout(hideLoadingBar, 10000);
 }
 

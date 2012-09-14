@@ -1,9 +1,0 @@
-{
-"type": "FeatureCollection",
-"features": [
-{ "type": "Feature", "properties": { "Type": "Adresses_Utiles_Services", "SousType": "", "Nom": "Maison de la Formation du Pays des Paillons", "Description": "Cet outil de proximité permet aux jeunes de 16 à 25 ans sans emploi et non qualifiés d' acquérir  des compétences et des valeurs nécessaires à une vie sociale, professionnelle ou personnelle épanouie. ", "Adresse": "Rue de la gare                06340 Cantaron              Contact: 09 62 38 51 21                                            ", "E-mail": "laclef06@wanadoo.fr", "Link": "", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "9.17569444444444", "Longitude": "7.31900", "Altitude": "", "field_13": "", "field_14": "", "field_15": "", "field_16": "", "field_17": "", "field_18": "", "field_19": "" }, "geometry": null }
-,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "", "field_13": "", "field_14": "", "field_15": "", "field_16": "", "field_17": "", "field_18": "", "field_19": "" }, "geometry": null }
-
-]
-}

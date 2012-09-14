@@ -1,0 +1,23 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Police municipale", "Nom": "Carabinieri", "Description": "", "Addresse": "Via Chiappori, 13                                  Tel: +39 0184 236600", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.801332", "Longitude": "7.601748" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Police municipale", "Nom": "Polizia Municipale", "Description": "", "Addresse": "Via San Secondo, 9                              Tel: +39 0184 352525  ", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.793975", "Longitude": "7605883" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Police municipale", "Nom": "Corpo Forestale ", "Description": "", "Addresse": "Via Lamboglia, 13                                 Tel: +39 0184 250723", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.785769", "Longitude": "7.625831" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Police municipale", "Nom": "Vigili del Fuoco", "Description": "", "Addresse": "C.so Limone Piemonte, 2 (Roverino)                        Tel: +39 0184 357473", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "43.810654", "Longitude": "7.59333" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Police municipale", "Nom": "Compagnia della Guardia di Finanza ", "Description": "", "Addresse": "Via Trossarelli, 9                                   Tel: +39 0184 356322", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.791342", "Longitude": "7.604446" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Police municipale", "Nom": "Polizia ", "Description": "", "Addresse": "Via Aprosio, 12                                      Tel: +39 0184 23821", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.798561", "Longitude": "7.608063" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}

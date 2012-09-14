@@ -115,26 +115,24 @@
 				<h3>Points d'interêts</h3>
 				<div id="<?= APPLICATION_NAME ?>Filter" class="ui-grid-a">
 					<?php $i=0; ?>
-					<?php foreach ($this->filterList as $filter) { ?>
+					<?php foreach ($this->filterList as $key => $value) { ?>
 						<?php if($i%2==0) { ?>
 							<div class="ui-block-a">
 						<?php }  else { ?>
 							<div class="ui-block-b">
 						<?php } ?>
-							<input type="checkbox" name="<?= $filter ?>" id="<?= $filter ?>" class="custom" checked="checked"/> 
-							<label for="<?= $filter ?>" style="font-size: 9pt;"><?= $filter ?></label>
+							<?php $filters = "" ?>
+							<?php foreach ($value as $filter) { ?>
+								<?php $filters .= $filter . "," ?>
+							<?php } ?>
+							<?php $trimKey = str_replace(' ', '', $key); ?>
+							<input type="hidden" id="<?= $trimKey . "Filters" ?>" value="<?= $filters ?>" />
+							<input type="checkbox" name="<?= $trimKey ?>" id="<?= $trimKey ?>" class="custom" checked="checked"/> 
+							<label for="<?= $trimKey ?>" style="font-size: 9pt;"><?= $key ?></label>
 						</div>
 						<?php $i++; ?>
 					<?php } ?>
 				</div>
-				
-				<h3>Persistence des points d'intérêts</h3>
-				<fieldset id="flip-persistence" data-role="controlgroup" style="width:200px;">	
-					<select name="flip-per" id="flip-per" data-role="slider" onchange="if(!$(this).val()) {clearMarkers();}">
-						<option value=''>non</option>
-						<option value='1'>oui</option>
-					</select>
-				</fieldset>
 				
 				<h3>Type de Trajet</h3>
 				<div  id="cityway-search">
