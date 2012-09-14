@@ -111,7 +111,7 @@ public class MatchMakingV2 extends TestValues {
 		userBean.setInteractionList(INTERACTION_LST_ID);
 		userBean.setLastConnection(CAL_INSTANCE.getTimeInMillis());
 		userBean.setReputation(REPUTATION_ID);
-		userBean.setSubscribtionList(SUBSCRIPTION_LST_ID);
+		userBean.setApplicationList(SUBSCRIPTION_LST_ID);
 
 	}
     

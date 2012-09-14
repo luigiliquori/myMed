@@ -158,7 +158,7 @@ function subscribe(el, application, mailTemplate, predicates) {
 
 
 function rate(el, id, usr, feedback) {
-	var page = el.parents('[data-role=page]').attr('id');
+	var succ = el.parents('[data-role=page]').find('#notification-success');  //should work on that
 	var data = {
 			application : id,
 			producer : usr,
@@ -169,8 +169,8 @@ function rate(el, id, usr, feedback) {
 	$.get('../../lib/dasp/ajax/Interaction', data, function(res) {
 		console.log(res);
 		var response = JSON.parse(res);
-		$('#'+page+' #notification-success h3').text(response.description);
-		$('#'+page+' #notification-success').show();
+		succ.find('h3').text(response.description);
+		succ.show();
 		//location.reload(0);
 		
 	});
@@ -201,13 +201,13 @@ var blog="", field="", rm="";
 
 function show(el){
 	var me = el.closest('li');
-	if ( me.data('replyTo')==me.prev().attr('id')){
+	if ( me.data('replyto')==me.prev().attr('id')){
 		me.animate({'margin-left':'50px'}, 200);
 		return;
 	}
 	
 	
-	var father = $('#'+me.data('replyTo'));
+	var father = $('#'+me.data('replyto'));
 	var clone = father.clone();
 	
 	me.before(clone);

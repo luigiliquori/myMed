@@ -12,19 +12,13 @@
 		<? include("notifications.php"); ?>
 	</div>
 
-	<div data-role="content">
+	<div data-role="content" style="text-align: center;">
 		<br />
-		<a href="<?= MYMED_URL_ROOT ?>/application/myEurope" rel="external">myEurope </a>(for Sarah or others)
-		<br /><br /><br />
-		full profile
-		<pre style="text-align: left;"><? print_r($_SESSION['user']); ?></pre><br />
-		profile fetched from openid/oauth
-		<pre style="text-align: left;"><? print_r($_SESSION['user2']); ?></pre><br />
-
+		
 		<div class="ui-grid-b" Style="padding: 10px;">
 			<?php $column = "a"; ?>
-			<?php foreach ($this->applicationList as $applicationName) { ?>
-				<?php if ($this->applicationStatus[$applicationName] == "on") { ?>
+			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
+				<?php if ($status == "on") { ?>
 					<div class="ui-block-<?= $column ?>">
 						<a href="/application/<?= $applicationName ?>" rel="external" class="myIcon"><img
 							alt="<?= $applicationName ?>"

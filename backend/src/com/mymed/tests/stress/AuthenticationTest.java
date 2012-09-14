@@ -72,7 +72,7 @@ public class AuthenticationTest extends StressTestValues {
 			userBean.setLogin(String.format(LOGIN, counter));
 			userBean.setName(String.format(NAME, counter));
 			userBean.setSession(String.format(SESSION, counter));
-			userBean.setSubscribtionList(String.format(SUB_LIST_ID, counter));
+			userBean.setApplicationList(String.format(SUB_LIST_ID, counter));
 
 			beanArray[0] = authBean;
 			beanArray[1] = userBean;

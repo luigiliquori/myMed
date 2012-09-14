@@ -11,7 +11,7 @@
 		
 		<div class="ui-grid-a" style="position: relative;">
 			<?php $column = "a"; ?>
-			<?php foreach ($this->applicationList as $applicationName) {  ?>
+			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) {  ?>
 					<div class="ui-block-<?= $column ?>">
 						<div class="ui-bar-c" style="height:120px; text-align: left; overflow: hidden;">
 							<a href="?action=store&applicationStore=<?= $applicationName ?>#storeSub" rel="external" class="myIcon" style="text-decoration: none;" data-ajax="false">
@@ -20,7 +20,7 @@
 								
 								<div Style="position: relative; left: 0px; top: 0px;">
 							    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-							    		<?php if($i*20-20 < $this->reputation[$applicationName . STORE_PREFIX] ) { ?>
+							    		<?php if($i*20-20 < $_SESSION['reputation'][$applicationName . STORE_PREFIX] ) { ?>
 							    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="10" Style="left: <?= $i ?>0px;" />
 							    		<?php } else { ?>
 							    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="10" Style="left: <?= $i ?>0px;"/>

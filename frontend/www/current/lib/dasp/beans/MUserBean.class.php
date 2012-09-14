@@ -44,7 +44,7 @@ class MUserBean {
 	/**
 	 * APPLICATION_LIST_ID
 	 */
-	public /*String*/	$subscribtionList;
+	public /*String*/	$applicationList;
 	/**
 	 * REPUTATION_ID
 	 */
@@ -93,7 +93,7 @@ class MUserBean {
 			else if(strpos($k, 'last')!==false)
 				$user['lastName'] = $v[0];
 			else if(strpos($k, 'language')!==false)
-				$user['lang'] = $v[0];
+				$user['lang'] = substr($v[0], 0, 2);
 		}
 		$user['name'] = $user['firstName'] . ' ' .$user['lastName'];
 		

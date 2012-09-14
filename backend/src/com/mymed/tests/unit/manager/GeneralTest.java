@@ -98,7 +98,7 @@ public class GeneralTest extends TestValues {
         userBean.setInteractionList(INTERACTION_LST_ID);
         userBean.setLastConnection(CAL_INSTANCE.getTimeInMillis());
         userBean.setReputation(REPUTATION_ID);
-        userBean.setSubscribtionList(SUBSCRIPTION_LST_ID);
+        userBean.setApplicationList(SUBSCRIPTION_LST_ID);
 
         try {
             name = MConverter.stringToByteBuffer(NAME).array();

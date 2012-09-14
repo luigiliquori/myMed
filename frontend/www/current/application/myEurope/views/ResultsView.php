@@ -47,7 +47,7 @@
 			<? foreach($this->result as $item) : ?>
 			
 			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->user ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
-			<a href="?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>"><span
+			<a href="?action=details&namespace=<?= $this->namespace ?>&id=<?= urlencode($item->id) ?>"><span
 					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?>  (<?= date('j/n/y G:i', $item->time) ?>)</span>
 				</a>
 			</li>

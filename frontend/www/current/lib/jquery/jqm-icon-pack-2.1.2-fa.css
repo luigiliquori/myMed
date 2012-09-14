@@ -151,7 +151,7 @@
     readers do not read off random characters that represent icons */
 .ui-icon-glass:before                { content: "\f000"; margin-top: 2px; }
 .ui-icon-music:before                { content: "\f001"; margin-left: 1px; margin-top: 2px; }
-.ui-icon-fasearch:before               { content: "\f002"; }
+.ui-icon-fasearch:before               { content: "\f002"; margin-left: 2px;}
 .ui-icon-envelope:before             { content: "\f003"; margin-left: -1px;
 										margin-left: 2px;
 										margin-top: 1px;
@@ -162,7 +162,7 @@
 									}
 .ui-icon-fastar:before                 { content: "\f005"; }
 .ui-icon-star-empty:before           { content: "\f006"; }
-.ui-icon-user:before                 { content: "\f007"; margin-left: 4px; }
+.ui-icon-user:before                 { content: "\f007"; margin-left: 3px; }
 .ui-icon-film:before                 { content: "\f008"; margin-left: 2px; }
 .ui-icon-th-large:before             { content: "\f009"; margin-left: 2px; margin-top: 2px; }
 .ui-icon-th:before                   { content: "\f00a"; margin-left: 3px; margin-top: 2px; }
@@ -225,7 +225,7 @@
 .ui-icon-adjust:before               { content: "\f042"; margin-top: 2px; }
 .ui-icon-tint:before                 { content: "\f043"; }
 .ui-icon-edit:before                 { content: "\f044"; }
-.ui-icon-share:before                { content: "\f045"; }
+.ui-icon-share:before                { content: "\f045"; margin-top: 2px; }
 .ui-icon-facheck:before                { content: "\f046"; }
 .ui-icon-move:before                 { content: "\f047"; }
 .ui-icon-step-backward:before        { content: "\f048"; }

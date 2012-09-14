@@ -6,7 +6,7 @@
  		array("#infos", "About European programs", "info-sign"),
  		array("#home", "Partenariats", "retweet"),
  		array("#blogs", "Bonnes pratiques", "comments"),
- 		array("#profile", $_SESSION['user']->name, "group")
+ 		array("#profile", $_SESSION['user']->name, "user")
  	), true);
  }
 
@@ -23,11 +23,11 @@
 		
 		<br />
 		<div data-role="fieldcontain">
-			<a href="#search" type="button" class="mymed-huge-button"><?= _('Search a partnership offer') ?></a>
+			<a href="#search" type="button" data-icon="fasearch" class="mymed-huge-button"><?= _('Search a partnership offer') ?></a>
 		</div>
 		
 		<div data-role="fieldcontain">
-			<a href="#post" type="button" class="mymed-huge-button"><?= _('Insert a partnership offer') ?></a>
+			<a href="#post" type="button" data-icon="share" class="mymed-huge-button"><?= _('Insert a partnership offer') ?></a>
 		</div>
 			
 		<? if ($_SESSION['myEurope']->permission > 1): ?>
@@ -207,8 +207,7 @@
 				<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
 				<select name="c" id="call">
 					<? foreach (Categories::$calls as $k=>$v): ?>
-						<input type="checkbox" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
-						<label for="checkbox-<?= $k ?>"><?= $v ?></label>
+						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach; ?>
 				</select>
 			</div>
@@ -296,8 +295,7 @@
 				<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
 				<select name="c" id="call">
 					<? foreach (Categories::$calls as $k=>$v): ?>
-						<input type="checkbox" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
-						<label for="checkbox-<?= $k ?>"><?= $v ?></label>
+						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach; ?>
 				</select>
 			</div>

@@ -17,7 +17,7 @@ class Partnership extends Document {
 		$this->index[] = new DataBeanv2("k", ENUM, $request['k']); // keywords
 	}
 	
-	public function initSearch($request) {
+	public function initCreate($request) {
 		$this->index = array();
 		//the order matters because I was too lazy to sort it backend-side
 		$this->index[] = new DataBeanv2("t", ENUM, '|'.$request['t']); //themes

@@ -4,17 +4,17 @@
 
 function tab_bar_main($activeTab) {
 	tabs($activeTab, array(
-			array("#home", "Applications", "grid"),
+			array("#home", "Applications", "tags"),
 			array("#profile", "Profile", "user"),
-			array("#store", "Store", "star")
+			array("#store", "Store", "shopping-cart")
 	));
 }
 
 function tab_bar_login($activeTab) {
 	tabs($activeTab, array(
-			array("#about", "A propos", "info"),
-			array("#login", "Connexion", "home"),
-			array("#register", "Inscription", "grid")
+			array("#about", "A propos", "info-sign"),
+			array("#login", "Connexion", "signin"),
+			array("#register", "Inscription", "th-list")
 	));
 }
    

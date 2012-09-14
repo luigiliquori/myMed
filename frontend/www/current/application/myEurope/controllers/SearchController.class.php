@@ -9,7 +9,7 @@ class SearchController extends ExtendedProfileRequired {
 	public function handleRequest() {
 		
 		parent::handleRequest();
-		
+		$this->namespace = "part";
 		$this->index=array();
 		
 		$this->themes = array();

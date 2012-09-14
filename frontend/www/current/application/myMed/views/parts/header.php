@@ -18,9 +18,7 @@
 	<!-- APP css -->
 	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
 	<!-- MYMED css -->
-	<link href="<?= MYMED_URL_ROOT ?>/system/css/common.css" rel="stylesheet" />
-	
-	
+	<link href="<?= MYMED_URL_ROOT ?>/system/css/common.css" rel="stylesheet" />	
 	
 	<script src="../../lib/jquery/jquery-1.8.1.min.js"></script>
 	<script src="../../lib/jquery/jquery.mobile-1.2.0-beta.1.js"></script>
