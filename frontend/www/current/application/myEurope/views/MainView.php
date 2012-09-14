@@ -129,12 +129,6 @@
 		
 			<input type="hidden" name="action" value="Search" />
 			
-			<input type="hidden" name="t" class="formThemes" value="" />
-			<input type="hidden" name="pf" class="formFrance" value="" />
-			<input type="hidden" name="pi" class="formItaly" value="" />
-			<input type="hidden" name="po" class="formOther" value="" />
-			<input type="hidden" name="r" class="formRoles" value="" />
-			
 			<br />
 			
 			<div data-role="fieldcontain">
@@ -145,7 +139,7 @@
 				<label for="checkbox-all"><?= _('All') ?></label>
 				
 				<? foreach (Categories::$themes as $k=>$v): ?>
-					<input type="checkbox" data-t="<?= $k ?>" id="checkbox-<?= $k ?>"/>
+					<input type="checkbox" name="t[]" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
 					<label for="checkbox-<?= $k ?>"><?= $v ?></label>
 				<? endforeach; ?>
 
@@ -164,7 +158,7 @@
 						<label for="checkbox-all3"><?= _('All') ?></label>
 						
 						<? foreach (Categories::$places_fr as $k=>$v): ?>
-							<input type="checkbox" data-pf="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
+							<input type="checkbox" name="pf[]" value="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
 							<label for="checkbox-f<?= $k ?>"><?= $v ?></label>
 						<? endforeach; ?>
 						
@@ -175,7 +169,7 @@
 						<label for="checkbox-all2"><?= _('All') ?></label>
 						
 						<? foreach (Categories::$places_it as $k=>$v): ?>
-							<input type="checkbox" data-pi="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
+							<input type="checkbox" name="pi[]" value="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
 							<label for="checkbox-i<?= $k ?>"><?= $v ?></label>
 						<? endforeach; ?>
 						
@@ -184,7 +178,7 @@
 						<h3><?= _("Other") ?></h3>
 					
 						<? foreach (Categories::$places_ot as $k=>$v): ?>
-							<input type="checkbox" data-po="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
+							<input type="checkbox" name="po[]" value="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
 							<label for="checkbox-o<?= $k ?>"><?= $v ?></label>
 						<? endforeach; ?>
 						
@@ -198,7 +192,7 @@
 			<fieldset data-role="controlgroup">
 				<legend><?= _('Category of searched partners') ?>:</legend>
 				<? foreach (Categories::$roles as $k=>$v): ?>
-					<input type="checkbox" data-r="<?= $k ?>" id="checkbox-<?= $k ?>"/>
+					<input type="checkbox" name="r[]" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
 					<label for="checkbox-<?= $k ?>"><?= $v ?></label>
 				<? endforeach; ?>
 		    </fieldset>
@@ -235,11 +229,7 @@
 		<form action="./" method="post" id="publishForm">
 				
 			<input type="hidden" name="action" value="Publish" />
-			
-			<input type="hidden" name="t" class="formThemes" value="" />
-			<input type="hidden" name="pf" class="formFrance" value="" />
-			<input type="hidden" name="pi" class="formItaly" value="" />
-			<input type="hidden" name="po" class="formOther" value="" />
+
 			<input type="hidden" name="r" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
 			
 			<div data-role="fieldcontain">
@@ -247,7 +237,7 @@
 				<legend><?= _('Themes') ?>:</legend>
 								
 				<? foreach (Categories::$themes as $k=>$v): ?>
-					<input type="checkbox" data-t="<?= $k ?>" id="checkbox-<?= $k ?>"/>
+					<input type="checkbox"  name="t[]" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
 					<label for="checkbox-<?= $k ?>"><?= $v ?></label>
 				<? endforeach; ?>
 				
@@ -265,7 +255,7 @@
 						<h3><?= _("France") ?></h3>
 						
 						<? foreach (Categories::$places_fr as $k=>$v): ?>
-							<input type="checkbox" data-pf="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
+							<input type="checkbox" name="pf[]" value="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
 							<label for="checkbox-f<?= $k ?>"><?= $v ?></label>
 						<? endforeach; ?>
 
@@ -274,7 +264,7 @@
 						<h3><?= _("Italy") ?></h3>
 						
 						<? foreach (Categories::$places_it as $k=>$v): ?>
-							<input type="checkbox" data-pi="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
+							<input type="checkbox" name="pi[]" value="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
 							<label for="checkbox-i<?= $k ?>"><?= $v ?></label>
 						<? endforeach; ?>
 						
@@ -283,7 +273,7 @@
 						<h3><?= _("Other") ?></h3>
 					
 						<? foreach (Categories::$places_ot as $k=>$v): ?>
-							<input type="checkbox" data-po="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
+							<input type="checkbox" name="po[]" value="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
 							<label for="checkbox-o<?= $k ?>"><?= $v ?></label>
 						<? endforeach; ?>
 					</div>

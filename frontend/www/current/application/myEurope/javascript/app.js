@@ -41,7 +41,7 @@ $("#Blog, #post").live("pageshow", function() {
 	CLEloaded = false;
 		
 	$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
-		console.log("CLE loaded");
+		//console.log("CLE loaded");
 		$("#CLEeditor").cleditor({useCSS:true})[0].focus();
 	});
 	
@@ -52,7 +52,7 @@ $(".loadCLE").live("expand", function(e) {
 	if(!CLEloaded){
 		var me = this;
 		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
-			console.log("CLE loaded");
+			//console.log("CLE loaded");
 			$("#CLEeditor").cleditor({useCSS:true})[0].focus();
 			$(me).trigger('expand');
 			CLEloaded = true
@@ -62,9 +62,9 @@ $(".loadCLE").live("expand", function(e) {
 });
 
 $("#search").live("pagecreate", function() {
-	$("#searchForm").submit(function() {
+	/*$("#searchForm").submit(function() {
 		return validate(this);		
-	});
+	});*/
 	
 	$('#checkbox-all, #checkbox-all2, #checkbox-all3').click(function() {
 		var parent =$(this).parent().parent(); //must do better later
@@ -79,43 +79,43 @@ $("#search").live("pagecreate", function() {
 });
 
 
-function validate(elt){
+/*function validate(elt){
 	var t=[];
 	$('input[data-t]', elt).each(function(i, v) {
 		if ($(v).is(':checked')){
 			t.push($(v).data('t'));
 		}
 	});
-	$('.formThemes').val(t.join('|'));
+	$('.formThemes').val(t.join('-'));
 	var pf=[];
 	$('input[data-pf]', elt).each(function(i, v) {
 		if ($(v).is(':checked')){
 			pf.push($(v).data('pf'));
 		}
 	});
-	$('.formFrance').val(pf.join('|'));
+	$('.formFrance').val(pf.join('-'));
 	var pi=[];
 	$('input[data-pi]', elt).each(function(i, v) {
 		if ($(v).is(':checked')){
 			pi.push($(v).data('pi'));
 		}
 	});
-	$('.formItaly').val(pi.join('|'));
+	$('.formItaly').val(pi.join('-'));
 	var po=[];
 	$('input[data-t]', elt).each(function(i, v) {
 		if ($(v).is(':checked')){
 			po.push($(v).data('po'));
 		}
 	});
-	$('.formOther').val(po.join('|'));
+	$('.formOther').val(po.join('-'));
 	var r=[];
 	$('input[data-r]', elt).each(function(i, v) {
 		if ($(v).is(':checked')){
 			t.push($(v).data('r'));
 		}
 	});
-	$('.formRoles').val(r.join('|'));
-}
+	$('.formRoles').val(r.join('-'));
+}*/
 
 function sortBy( i ){
 	
@@ -149,7 +149,7 @@ function subscribe(el, application, mailTemplate, predicates) {
 		mailTemplate: mailTemplate,
 		predicates : JSON.stringify(predicates)
 	}, function(res) {
-		console.log(res);
+		//console.log(res);
 		var response = JSON.parse(res);
 		$('#'+page+' #notification-success h3').text(response.description);
 		$('#'+page+' #notification-success').show();
@@ -165,9 +165,9 @@ function rate(el, id, usr, feedback) {
 			feedback : feedback
 		};
 	
-	console.log(data);
+	//console.log(data);
 	$.get('../../lib/dasp/ajax/Interaction', data, function(res) {
-		console.log(res);
+		//console.log(res);
 		var response = JSON.parse(res);
 		succ.find('h3').text(response.description);
 		succ.show();
@@ -252,7 +252,7 @@ function commentAdd(el){
 	var text = el.prev('textarea').val();
 	var post = rm==""?field:rm;
 
-	console.log(replyTo+" "+text);
+	//console.log(replyTo+" "+text);
 	var userCommented = replyTo!=""?field.find('.user-sig').text():"";
 	
 	$.post('../../lib/dasp/ajax/PublishComment', {
@@ -262,7 +262,7 @@ function commentAdd(el){
 		userCommented: userCommented,
 		text: text,
 	}, function(li) {
-		console.log(li);
+		//console.log(li);
 		if (li != null){//insert the comment
 			var ul = rm == ""?field.find('ul'):field.closest('ul');
 			if (replyTo != "")
@@ -291,7 +291,7 @@ function commentRm(){
 		id : blog+"comments"+rm.attr('id'),
 		field: field.attr('id')
 	}, function(res) {
-		console.log(res);
+		//console.log(res);
 		var response = JSON.parse(res);
 		if (response != null){//insert the comment
 

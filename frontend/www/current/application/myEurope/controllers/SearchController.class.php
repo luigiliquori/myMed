@@ -11,32 +11,15 @@ class SearchController extends ExtendedProfileRequired {
 		parent::handleRequest();
 		$this->namespace = "part";
 		$this->index=array();
-		
-		$this->themes = array();
-		$this->places = array();
-		$this->roles = array();
-		
+
 		debug_r($_GET);
-		$cats = array_keys(Categories::$roles);
-		$t = array_keys(Categories::$themes);
-		foreach( $_GET as $i=>$v ){
-			if ($v == "on"){
-				if ( in_array($i, $t)){
-					array_push($this->themes, $i);
-				} else if ( in_array($i, $cats)){
-					array_push($this->roles, $i);
-				} else {
-					array_push($this->places, $i);
-				}
-			}
-		}
 		
-		array_push($this->index, new DataBeanv2("themes", ENUM, join("|",$this->themes)));
+		array_push($this->index, new DataBeanv2("themes", ENUM, join("|", $_GET['t'])));
 		
-		array_push($this->index, new DataBeanv2("places", ENUM, join("|",$this->places)));
+		array_push($this->index, new DataBeanv2("places", ENUM, join("|",  array_merge($_GET['pf'], $_GET['pi'], $_GET['po']))));
 		
 		if (!empty($this->roles))
-			array_push($this->index, new DataBeanv2("cats", ENUM, join("|",$this->roles)));
+			array_push($this->index, new DataBeanv2("cats", ENUM, join("|", $_GET['r'])));
 		
 		if ($_GET['call']!="")
 			array_push($this->index, new DataBeanv2("call", ENUM, $_GET['call']));

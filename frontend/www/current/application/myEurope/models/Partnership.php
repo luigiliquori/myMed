@@ -10,9 +10,9 @@ class Partnership extends Document {
 	public function initSearch($request) {
 		$this->index = array();
 		//the order matters because I was too lazy to sort it backend-side
-		$this->index[] = new DataBeanv2("t", ENUM, $request['t']); //themes
-		$this->index[] = new DataBeanv2("p", ENUM, $request['p']); //places
-		$this->index[] = new DataBeanv2("r", ENUM, $request['r']); //roles of profiles
+		$this->index[] = new DataBeanv2("t", ENUM, join("|",  $request['t'])); //themes
+		$this->index[] = new DataBeanv2("p", ENUM, join("|", array_merge($request['pf'], $request['pi'], $request['po']))); //places
+		$this->index[] = new DataBeanv2("r", ENUM, join("|", $request['r'])); //roles of profiles
 		$this->index[] = new DataBeanv2("c", ENUM, $request['c']); // call
 		$this->index[] = new DataBeanv2("k", ENUM, $request['k']); // keywords
 	}
@@ -20,10 +20,10 @@ class Partnership extends Document {
 	public function initCreate($request) {
 		$this->index = array();
 		//the order matters because I was too lazy to sort it backend-side
-		$this->index[] = new DataBeanv2("t", ENUM, '|'.$request['t']); //themes
-		$this->index[] = new DataBeanv2("p", ENUM, '|'.$request['p']); //places
-		$this->index[] = new DataBeanv2("r", ENUM, '|'.$request['r']); //roles of profiles
-		$this->index[] = new DataBeanv2("c", ENUM, '|'.$request['c']); // call
+		$this->index[] = new DataBeanv2("t", ENUM, '|'.join("|",  $request['t'])); //themes
+		$this->index[] = new DataBeanv2("p", ENUM, '|'.join("|", array_merge($request['pf'], $request['pi'], $request['po']))); //places
+		$this->index[] = new DataBeanv2("r", ENUM, '|'.join("|", $request['r'])); //roles of profiles
+		$this->index[] = new DataBeanv2("c", ENUM, '|'. $request['c']); // call
 		$this->index[] = new DataBeanv2("k", ENUM, '|'.$request['k']); // keywords
 	}
 	
@@ -53,8 +53,8 @@ class Partnership extends Document {
 		$k = preg_split('/[ ,+:-]/', $k, NULL, PREG_SPLIT_NO_EMPTY);
 		$k = array_map('strtolower', $k);
 		$k = array_filter($k, array($this, "smallWords"));
-		$k = array_unique($k);
-		return join("|",$k);
+		return array_unique($k);
+
 	}
 	
 	private function smallWords($w){

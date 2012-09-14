@@ -26,9 +26,9 @@ class PublishController extends ExtendedProfileRequired {
 			}
 		}
 		
-		array_push($index, new DataBeanv2("themes", ENUM, "|".join("|",$themes)));
+		array_push($index, new DataBeanv2("themes", ENUM, "|".join("|", $_POST['t'])));
 
-		array_push($index, new DataBeanv2("places", ENUM, "|".join("|",$places)));
+		array_push($index, new DataBeanv2("places", ENUM, "|".join("|", array_merge($_POST['pf'], $_POST['pi'], $_POST['po']))));
 		
 		array_push($index, new DataBeanv2("cats", ENUM, "|".$_POST['cat']));
 		
