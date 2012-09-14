@@ -128,9 +128,12 @@
 		<form action="" id="searchForm" data-ajax="false">
 		
 			<input type="hidden" name="action" value="Search" />
-			<input type="hidden" name="namespace" value="part" />
 			
-			<input type="hidden" name="t" id="searchedThemes" value="" />
+			<input type="hidden" name="t" class="formThemes" value="" />
+			<input type="hidden" name="pf" class="formFrance" value="" />
+			<input type="hidden" name="pi" class="formItaly" value="" />
+			<input type="hidden" name="po" class="formOther" value="" />
+			<input type="hidden" name="r" class="formRoles" value="" />
 			
 			<br />
 			
@@ -141,34 +144,11 @@
 				<input type="checkbox" id="checkbox-all" />
 				<label for="checkbox-all"><?= _('All') ?></label>
 				
-				<input type="checkbox" data-t="education" id="checkbox-1a"/>
-				<label for="checkbox-1a"><?= _("Education, culture and sport") ?></label>
+				<? foreach (Categories::$themes as $k=>$v): ?>
+					<input type="checkbox" data-t="<?= $k ?>" id="checkbox-<?= $k ?>"/>
+					<label for="checkbox-<?= $k ?>"><?= $v ?></label>
+				<? endforeach; ?>
 
-				<input type="checkbox" data-t="travail" id="checkbox-2a"/>
-				<label for="checkbox-2a"><?= _("Work and training") ?></label>
-				
-				<input type="checkbox" data-t="entreprise" id="checkbox-3a"/>
-				<label for="checkbox-3a"><?= _("Enterprises, Research and Innovation") ?></label>
-				
-				<input type="checkbox" data-t="environnement" id="checkbox-4a"/>
-				<label for="checkbox-4a"><?= _("Environment, Energies and Risk") ?></label>
-				
-				<input type="checkbox" data-t="recherche" id="checkbox-7a"/>
-				<label for="checkbox-7a"><?= _("Transport, Facilities and Zoning") ?></label>
-
-				<input type="checkbox" data-t="santé" id="checkbox-8a" />
-				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
-				
-				<input type="checkbox" data-t="social" id="checkbox-9a" />
-				<label for="checkbox-9a"><?= _("Social Affairs") ?></label>
-				
-				<input type="checkbox" data-t="agriculture" id="checkbox-5a" />
-				<label for="checkbox-5a"><?= _("Agriculture") ?></label>
-
-				<input type="checkbox" data-t="peche" id="checkbox-6a" />
-				<label for="checkbox-6a"><?= _("Fishing") ?></label>		
-
-				
 		    </fieldset>
 		    </div>
 			<div data-role="fieldcontain">
@@ -183,42 +163,10 @@
 						<input type="checkbox" id="checkbox-all3" />
 						<label for="checkbox-all3"><?= _('All') ?></label>
 						
-						<input type="checkbox" name="Ain" id="checkbox-10b"/>
-						<label for="checkbox-10b">Ain</label>
-						
-						<input type="checkbox" name="Alpes-Maritimes" id="checkbox-1b" />
-						<label for="checkbox-1b">Alpes-Maritimes</label>
-						
-						<input type="checkbox" name="Alpes de Haute-Provence" id="checkbox-5b" />
-						<label for="checkbox-5b">Alpes de Haute-Provence</label>
-						
-						<input type="checkbox" name="Bouches du Rhône" id="checkbox-3b"/>
-						<label for="checkbox-3b">Bouches du Rhône</label>
-						
-						<input type="checkbox" name="Drôme" id="checkbox-12b"/>
-						<label for="checkbox-12b">Drôme</label>
-						
-						<input type="checkbox" name="Hautes-Alpes" id="checkbox-6b" />
-						<label for="checkbox-6b">Hautes-Alpes</label>
-						
-						<input type="checkbox" name="Haute-Savoie" id="checkbox-9b"/>
-						<label for="checkbox-9b">Haute-Savoie</label>
-						
-						<input type="checkbox" name="Isère" id="checkbox-11b"/>
-						<label for="checkbox-11b">Isère</label>
-						
-						<input type="checkbox" name="Rhône" id="checkbox-7b"/>
-						<label for="checkbox-7b">Rhône</label>
-						
-						<input type="checkbox" name="Savoie" id="checkbox-8b" />
-						<label for="checkbox-8b">Savoie</label>
-						
-						<input type="checkbox" name="Var" id="checkbox-2b"/>
-						<label for="checkbox-2b">Var</label>
-
-						<input type="checkbox" name="Vaucluse" id="checkbox-4b" />
-						<label for="checkbox-4b">Vaucluse</label>
-
+						<? foreach (Categories::$places_fr as $k=>$v): ?>
+							<input type="checkbox" data-pf="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
+							<label for="checkbox-f<?= $k ?>"><?= $v ?></label>
+						<? endforeach; ?>
 						
 					</div>
 					<div data-role="collapsible">
@@ -226,51 +174,21 @@
 						<input type="checkbox" id="checkbox-all2" />
 						<label for="checkbox-all2"><?= _('All') ?></label>
 						
-						<input type="checkbox" name="Alessandria" id="checkbox-21b"/>
-						<label for="checkbox-21b">Alessandria</label>
-						
-						<input type="checkbox" name="Aosta" id="checkbox-13b"/>
-						<label for="checkbox-13b">Aosta</label>
-						
-						<input type="checkbox" name="Asti" id="checkbox-20b"/>
-						<label for="checkbox-20b">Asti</label>
-						
-						<input type="checkbox" name="Biella" id="checkbox-18b"/>
-						<label for="checkbox-18b">Biella</label>
-						
-						<input type="checkbox" name="Cuneo" id="checkbox-14b"/>
-						<label for="checkbox-14b">Cuneo</label>
-						
-						<input type="checkbox" name="Genova" id="checkbox-17b"/>
-						<label for="checkbox-17b">Genova</label>
-						
-						<input type="checkbox" name="Imperia" id="checkbox-16b"/>
-						<label for="checkbox-16b">Imperia</label>
-						
-						<input type="checkbox" name="Savona" id="checkbox-22b"/>
-						<label for="checkbox-22b">Savona</label>
-						
-						<input type="checkbox" name="Torino" id="checkbox-15b"/>
-						<label for="checkbox-15b">Torino</label>
-						
-						<input type="checkbox" name="Vercelli" id="checkbox-19b"/>
-						<label for="checkbox-19b">Vercelli</label>
+						<? foreach (Categories::$places_it as $k=>$v): ?>
+							<input type="checkbox" data-pi="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
+							<label for="checkbox-i<?= $k ?>"><?= $v ?></label>
+						<? endforeach; ?>
 						
 					</div>
 					<div data-role="collapsible">
 						<h3><?= _("Other") ?></h3>
 					
-						<input type="checkbox" name="Monaco" id="checkbox-23b"/>
-						<label for="checkbox-23b">Monaco</label>
-						
-						<input type="checkbox" name="Suisse" id="checkbox-24b"/>
-						<label for="checkbox-24b">Suisse</label>
-						
-						<input type="checkbox" name="Corse" id="checkbox-25b"/>
-						<label for="checkbox-25b">Corse</label>
+						<? foreach (Categories::$places_ot as $k=>$v): ?>
+							<input type="checkbox" data-po="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
+							<label for="checkbox-o<?= $k ?>"><?= $v ?></label>
+						<? endforeach; ?>
 						
 					</div>
-				
 				
 				</div>
 				
@@ -279,27 +197,24 @@
 			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
 				<legend><?= _('Category of searched partners') ?>:</legend>
-				<? foreach(Categories::$roles as $i=>$item) :?>
-					<input type="checkbox" name="<?= $i ?>" id="checkbox-c<?= $i ?>"/>
-					<label for="checkbox-c<?= $i ?>"><?= $item ?></label>
-				<? endforeach ?>
+				<? foreach (Categories::$roles as $k=>$v): ?>
+					<input type="checkbox" data-r="<?= $k ?>" id="checkbox-<?= $k ?>"/>
+					<label for="checkbox-<?= $k ?>"><?= $v ?></label>
+				<? endforeach; ?>
 		    </fieldset>
 		    </div>
 		      <div data-role="fieldcontain">
 				<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
-				<select name="call" id="call">
-					<option value=""><?= _("proposition libre") ?></option>
-					<option value="Alcotra">Alcotra</option>
-					<option value="Med">Med</option>
-					<option value="Alpin"><?= _("Alpin Space") ?></option>
-					<option value="IEVP">IEVP CT MED</option>
-					<option value="Interreg">Interreg IV C</option>
-					<option value="Maritime"><?= _("Italy-France Maritime") ?></option>
+				<select name="c" id="call">
+					<? foreach (Categories::$calls as $k=>$v): ?>
+						<input type="checkbox" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
+						<label for="checkbox-<?= $k ?>"><?= $v ?></label>
+					<? endforeach; ?>
 				</select>
 			</div>
 		    <div data-role="fieldcontain">
 				<label for="textinputs1"><?= _('keywords') ?>: </label>
-				<input id="textinputs1" name="keywords" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
+				<input id="textinputs1" name="k" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
 			</div>
 
 			<br />
@@ -321,40 +236,21 @@
 		<form action="./" method="post" id="publishForm">
 				
 			<input type="hidden" name="action" value="Publish" />
-			<input type="hidden" name="namespace" value="part" />
-			<?= debug(Categories::$roles[$_SESSION['myEuropeProfile']->role]) ?>
-			<input type="hidden" name="cat" value="<?= Categories::$roles[$_SESSION['myEuropeProfile']->role] ?>" />
+			
+			<input type="hidden" name="t" class="formThemes" value="" />
+			<input type="hidden" name="pf" class="formFrance" value="" />
+			<input type="hidden" name="pi" class="formItaly" value="" />
+			<input type="hidden" name="po" class="formOther" value="" />
+			<input type="hidden" name="r" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
 			
 			<div data-role="fieldcontain">
 			<fieldset data-role="controlgroup">
 				<legend><?= _('Themes') ?>:</legend>
 								
-				<input type="checkbox" name="education" id="checkbox-1a"/>
-				<label for="checkbox-1a"><?= _("Education, culture and sport") ?></label>
-
-				<input type="checkbox" name="travail" id="checkbox-2a"/>
-				<label for="checkbox-2a"><?= _("Work and training") ?></label>
-				
-				<input type="checkbox" name="entreprise" id="checkbox-3a"/>
-				<label for="checkbox-3a"><?= _("Enterprises, Research and Innovation") ?></label>
-				
-				<input type="checkbox" name="environnement" id="checkbox-4a"/>
-				<label for="checkbox-4a"><?= _("Environment, Energies and Risk") ?></label>
-				
-				<input type="checkbox" name="recherche" id="checkbox-7a"/>
-				<label for="checkbox-7a"><?= _("Transport, Facilities and Zoning") ?></label>
-
-				<input type="checkbox" name="santé" id="checkbox-8a" />
-				<label for="checkbox-8a"><?= _("Health and Consumer Protection") ?></label>
-				
-				<input type="checkbox" name="social" id="checkbox-9a" />
-				<label for="checkbox-9a"><?= _("Social Affairs") ?></label>
-				
-				<input type="checkbox" name="agriculture" id="checkbox-5a" />
-				<label for="checkbox-5a"><?= _("Agriculture") ?></label>
-
-				<input type="checkbox" name="peche" id="checkbox-6a" />
-				<label for="checkbox-6a"><?= _("Fishing") ?></label>	
+				<? foreach (Categories::$themes as $k=>$v): ?>
+					<input type="checkbox" data-t="<?= $k ?>" id="checkbox-<?= $k ?>"/>
+					<label for="checkbox-<?= $k ?>"><?= $v ?></label>
+				<? endforeach; ?>
 				
 		    </fieldset>
 		    </div>
@@ -369,111 +265,46 @@
 					<div data-role="collapsible">
 						<h3><?= _("France") ?></h3>
 						
-						<input type="checkbox" name="Ain" id="checkbox-10b"/>
-						<label for="checkbox-10b">Ain</label>
-						
-						<input type="checkbox" name="Alpes-Maritimes" id="checkbox-1b" />
-						<label for="checkbox-1b">Alpes-Maritimes</label>
-						
-						<input type="checkbox" name="Alpes de Haute-Provence" id="checkbox-5b" />
-						<label for="checkbox-5b">Alpes de Haute-Provence</label>
-						
-						<input type="checkbox" name="Bouches du Rhône" id="checkbox-3b"/>
-						<label for="checkbox-3b">Bouches du Rhône</label>
-						
-						<input type="checkbox" name="Drôme" id="checkbox-12b"/>
-						<label for="checkbox-12b">Drôme</label>
-						
-						<input type="checkbox" name="Hautes-Alpes" id="checkbox-6b" />
-						<label for="checkbox-6b">Hautes-Alpes</label>
-						
-						<input type="checkbox" name="Haute-Savoie" id="checkbox-9b"/>
-						<label for="checkbox-9b">Haute-Savoie</label>
-						
-						<input type="checkbox" name="Isère" id="checkbox-11b"/>
-						<label for="checkbox-11b">Isère</label>
-						
-						<input type="checkbox" name="Rhône" id="checkbox-7b"/>
-						<label for="checkbox-7b">Rhône</label>
-						
-						<input type="checkbox" name="Savoie" id="checkbox-8b" />
-						<label for="checkbox-8b">Savoie</label>
-						
-						<input type="checkbox" name="Var" id="checkbox-2b"/>
-						<label for="checkbox-2b">Var</label>
+						<? foreach (Categories::$places_fr as $k=>$v): ?>
+							<input type="checkbox" data-pf="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
+							<label for="checkbox-f<?= $k ?>"><?= $v ?></label>
+						<? endforeach; ?>
 
-						<input type="checkbox" name="Vaucluse" id="checkbox-4b" />
-						<label for="checkbox-4b">Vaucluse</label>
-
-						
 					</div>
 					<div data-role="collapsible">
 						<h3><?= _("Italy") ?></h3>
 						
-						<input type="checkbox" name="Alessandria" id="checkbox-21b"/>
-						<label for="checkbox-21b">Alessandria</label>
-						
-						<input type="checkbox" name="Aosta" id="checkbox-13b"/>
-						<label for="checkbox-13b">Aosta</label>
-						
-						<input type="checkbox" name="Asti" id="checkbox-20b"/>
-						<label for="checkbox-20b">Asti</label>
-						
-						<input type="checkbox" name="Biella" id="checkbox-18b"/>
-						<label for="checkbox-18b">Biella</label>
-						
-						<input type="checkbox" name="Cuneo" id="checkbox-14b"/>
-						<label for="checkbox-14b">Cuneo</label>
-						
-						<input type="checkbox" name="Genova" id="checkbox-17b"/>
-						<label for="checkbox-17b">Genova</label>
-						
-						<input type="checkbox" name="Imperia" id="checkbox-16b"/>
-						<label for="checkbox-16b">Imperia</label>
-						
-						<input type="checkbox" name="Savona" id="checkbox-22b"/>
-						<label for="checkbox-22b">Savona</label>
-						
-						<input type="checkbox" name="Torino" id="checkbox-15b"/>
-						<label for="checkbox-15b">Torino</label>
-						
-						<input type="checkbox" name="Vercelli" id="checkbox-19b"/>
-						<label for="checkbox-19b">Vercelli</label>
+						<? foreach (Categories::$places_it as $k=>$v): ?>
+							<input type="checkbox" data-pi="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
+							<label for="checkbox-i<?= $k ?>"><?= $v ?></label>
+						<? endforeach; ?>
 						
 					</div>
 					<div data-role="collapsible">
 						<h3><?= _("Other") ?></h3>
 					
-						<input type="checkbox" name="Monaco" id="checkbox-23b"/>
-						<label for="checkbox-23b">Monaco</label>
-						
-						<input type="checkbox" name="Suisse" id="checkbox-24b"/>
-						<label for="checkbox-24b">Suisse</label>
-						
-						<input type="checkbox" name="Corse" id="checkbox-25b"/>
-						<label for="checkbox-25b">Corse</label>
+						<? foreach (Categories::$places_ot as $k=>$v): ?>
+							<input type="checkbox" data-po="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
+							<label for="checkbox-o<?= $k ?>"><?= $v ?></label>
+						<? endforeach; ?>
 					</div>
-				
 				
 				</div>
 		    </fieldset>
 		    </div>
 		    <div data-role="fieldcontain">
 				<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
-				<select name="call" id="call">
-					<option value=""><?= _("proposition libre") ?></option>
-					<option value="Alcotra">Alcotra</option>
-					<option value="Med">Med</option>
-					<option value="Alpin"><?= _("Alpin Space") ?></option>
-					<option value="IEVP">IEVP CT MED</option>
-					<option value="Interreg">Interreg IV C</option>
-					<option value="Maritime"><?= _("Italy-France Maritime") ?></option>
+				<select name="c" id="call">
+					<? foreach (Categories::$calls as $k=>$v): ?>
+						<input type="checkbox" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
+						<label for="checkbox-<?= $k ?>"><?= $v ?></label>
+					<? endforeach; ?>
 				</select>
 			</div>
 		    
 			<div data-role="fieldcontain">
 				<label for="textinputp1"><?= _('Keywords') ?>: </label>
-				<input id="textinputp1" name="keywords" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
+				<input id="textinputp1" name="k" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="textinputp2"><?= _('Date of expiration') ?>: </label>

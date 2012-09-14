@@ -18,12 +18,12 @@ var CLEloaded = false;
 	for (i in params){
 		if (params[i].split('=')[1] == "on"){
 			tags.push(params[i].split('=')[0]);
-		}	
+		}
 	}
 	tags.sort();
 	
 	isSub = 3;
-	$.get('../../lib/dasp/ajax/Subscribe', { 
+	$.get('../../lib/dasp/ajax/Subscribe', {
 		code: 1, 
 		application: application ,
 		predicate: tags.join("") 
@@ -86,7 +86,35 @@ function validate(elt){
 			t.push($(v).data('t'));
 		}
 	});
-	$('#searchedThemes').val(t.join('|'))
+	$('.formThemes').val(t.join('|'));
+	var pf=[];
+	$('input[data-pf]', elt).each(function(i, v) {
+		if ($(v).is(':checked')){
+			pf.push($(v).data('pf'));
+		}
+	});
+	$('.formFrance').val(pf.join('|'));
+	var pi=[];
+	$('input[data-pi]', elt).each(function(i, v) {
+		if ($(v).is(':checked')){
+			pi.push($(v).data('pi'));
+		}
+	});
+	$('.formItaly').val(pi.join('|'));
+	var po=[];
+	$('input[data-t]', elt).each(function(i, v) {
+		if ($(v).is(':checked')){
+			po.push($(v).data('po'));
+		}
+	});
+	$('.formOther').val(po.join('|'));
+	var r=[];
+	$('input[data-r]', elt).each(function(i, v) {
+		if ($(v).is(':checked')){
+			t.push($(v).data('r'));
+		}
+	});
+	$('.formRoles').val(r.join('|'));
 }
 
 function sortBy( i ){

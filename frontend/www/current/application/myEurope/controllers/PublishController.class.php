@@ -8,8 +8,8 @@ class PublishController extends ExtendedProfileRequired {
 		
 		parent::handleRequest();
 
-		$this->namespace = $_POST['namespace'];
-		debug('namespace ->  '.$this->namespace);
+		$d = new Partnership($this, 'part');
+		
 		$index=array();
 		
 		$themes = array();
@@ -35,11 +35,8 @@ class PublishController extends ExtendedProfileRequired {
 		if ($_POST['call']!="")
 			array_push($index, new DataBeanv2("call", ENUM, "|".$_POST['call']));
 		
-		$p = preg_split('/[ ,+:-]/', $_POST['keywords'], NULL, PREG_SPLIT_NO_EMPTY);
-		$p = array_map('strtolower', $p);
-		$p = array_filter($p, array($this, "smallWords"));
-		$p = array_unique($p);
-		array_push($index, new DataBeanv2("keyword", ENUM, "|".join("|",$p)));
+		
+		
 		
 		$t = time();
 		
@@ -110,8 +107,6 @@ class PublishController extends ExtendedProfileRequired {
 		}
 	}
 	
-	function smallWords($w){
-		return strlen($w) > 2;
-	}
+	
 }
 ?>

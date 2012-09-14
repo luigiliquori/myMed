@@ -12,12 +12,12 @@ class Document {
 	
 	
 	public function __construct(
-			IRequestHandler $handler,
-			$namespace,
-			$id,
-			$index,
-			$data,
-			$metadata) {
+			IRequestHandler $handler = null,
+			$namespace = null,
+			$id = null,
+			$index = null,
+			$data = null,
+			$metadata = null) {
 		
 		$this->handler = $handler;
 		$this->namespace = $namespace;
@@ -67,7 +67,7 @@ class Document {
 	public function create() {
 		
 		$t = time();		
-		$id = hash("md5", $t.$this->user);
+		$this->id = hash("md5", $t.$this->user);
 		
 		$publish = new RequestJson($this->handler,
 				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$this->id, "user"=>$this->user, "data"=>$this->data, "predicates"=>$this->index, "metadata"=>$this->metadata),

@@ -36,19 +36,50 @@ Categories::$roles = array(
 );
 
 Categories::$calls = array(
-		"alcotra.."       => _("Alcotra"),
-		"ETC...."         => _(""),
+		"libre"           => _("Proposition libre"),
+		"alcotra"         => _("Alcotra"),
+		"med"             => _("MED"),
+		"esp"             => _("Espace Alpin"),
+		"ievp"            => _("IEVP CT MED"),
+		"interreg"        => _("Interreg IV C"),
+		"mar"             => _("Italie-France Maritime"),
 
 );
 
 Categories::$places_fr = array(
-		"Alpes Maritime",
-		"ETC...",
-		"vrvgr",
+		_("Ain"),
+		_("Alpes-Maritimes"),
+		_("Alpes de Haute-Provence"),
+		_("Bouches-du-Rhône"),
+		_("Drôme"),
+		_("Hautes-Alpes"),
+		_("Haute-Savoie"),
+		_("Isère"),
+		_("Rhône"),
+		_("Savoie"),
+		_("Var"),
+		_("Vaucluse"),
+		
+		
 );
 Categories::$places_it = array(
+		_("Alessandria"),
+		_("Aosta"), 
+		_("Asti"), 
+		_("Biella"),
+		_("Cuneo"), 
+		_("Genova"), 
+		_("Imperia"),
+		_("Savona"),
+		_("Torino"),
+		_("Vercelli"),
+		
 );
+
 Categories::$places_ot = array(
+		_("Monaco"),
+		_("Switzerland"),
+		_("Corsica"),
 );
 
 ?>

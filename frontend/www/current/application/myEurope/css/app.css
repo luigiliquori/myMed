@@ -1,16 +1,4 @@
 
-.ui-icon-myEurope {
-	background-image: url("../img/myEurope.png");
-}
-
-.ui-icon-up {
-	background-image: url("../img/up.png");
-}
-
-.ui-icon-down {
-	background-image: url("../img/down.png");
-}
-
 .ui-controlgroup-last {
 	vertical-align: top;
 }
@@ -22,14 +10,6 @@
 .ui-li {
 	padding-top: 1px;
 	padding-bottom: 1px;
-}
-
-.ui-icon-down{
-	background-color: #eee;
-}
-
-.ui-icon-up{
-	background-color: #eee;
 }
 
 .ui-li-desc {
@@ -48,11 +28,6 @@
 	color: #777;
 	font-style: italic;
 }
-
-/*#results .ui-slider-switch {
-	min-width: 47%;
-	margin-bottom: 10px;
-}*/
 
 .ui-slider-switch {
 	min-width: 120px;
@@ -94,6 +69,11 @@
 	 .logos > img {margin: 5px 10px;}
 	 .logos {position: relative;textalign:center;}
 	 #spacer {height: 0;}
+}
+
+.largeWidth{
+	display: inline-block;
+	margin-left: 5px;
 }
 
 @media all and (max-width: 480px){
