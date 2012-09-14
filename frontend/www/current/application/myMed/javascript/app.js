@@ -64,3 +64,16 @@ function updateProfile(k, v) {
 		//var response = JSON.parse(res);
 	});
 }
+
+$("[data-role=page]").live("pagecreate", function() {
+	if (isiPhoneoriPad()){
+		$(this).find('.toptab').hide();
+		$(this).find('.iostab').show();
+	}
+});
+
+function isiPhoneoriPad(){
+	var deviceStr = (navigator.userAgent+navigator.platform).toLowerCase();
+	return !deviceStr.match(/(iphone|ipod|ipad)/);
+}
+

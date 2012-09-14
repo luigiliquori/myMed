@@ -3,10 +3,10 @@
 
 <div data-role="page" id="register">
 	
-	<div data-role="header" data-theme="d" data-position="fixed">
-		<? tab_bar_login("#register") ?>
-		<? include("notifications.php"); ?>
-	</div>
+
+	<? tab_bar_login("#register") ?>
+	<? include("notifications.php"); ?>
+
 
 	<div data-role="content">
 	

@@ -24,6 +24,11 @@
 	width: 30%;
 }
 
+.ui-header h4.ui-title {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
 .label {
 	color: #777;
 	font-style: italic;
@@ -71,11 +76,6 @@
 	 #spacer {height: 0;}
 }
 
-.largeWidth{
-	display: inline-block;
-	margin-left: 5px;
-}
-
 @media all and (max-width: 480px){
 	 .largeWidth{display: none;}
 }
@@ -90,7 +90,7 @@
 	margin-right: 3px;
 	width: 32px;
 	height: 32px;
-	background-image: url('/system/img/footer-sprite.png');
+	background-image: url('/system/img/footer-sprite2.png');
 	background-repeat: no-repeat;
 }
 

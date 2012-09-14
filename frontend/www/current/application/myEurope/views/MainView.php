@@ -3,8 +3,8 @@
 <?
  function tab_bar($activeTab) {
  	tabs($activeTab, array(
- 		array("#infos", "About European programs", "info-sign"),
  		array("#home", "Partenariats", "retweet"),
+ 		array("#infos", "About European programs", "info-sign"),
  		array("#blogs", "Bonnes pratiques", "comments"),
  		array("#profile", $_SESSION['user']->name, "user")
  	), true);
@@ -23,11 +23,11 @@
 		
 		<br />
 		<div data-role="fieldcontain">
-			<a href="#search" type="button" data-icon="fasearch" class="mymed-huge-button"><?= _('Search a partnership offer') ?></a>
+			<a href="#search" type="button" class="mymed-huge-button"><?= _('Search a partnership offer') ?></a>
 		</div>
 		
 		<div data-role="fieldcontain">
-			<a href="#post" type="button" data-icon="share" class="mymed-huge-button"><?= _('Insert a partnership offer') ?></a>
+			<a href="#post" type="button" class="mymed-huge-button"><?= _('Insert a partnership offer') ?></a>
 		</div>
 			
 		<? if ($_SESSION['myEurope']->permission > 1): ?>
@@ -120,7 +120,7 @@
 
 <div data-role="page" id="search">
 
-	<div data-role="header" data-theme="c" data-position="fixed">
+	<div data-role="header" class="ui-btn-active" data-position="fixed">
 		<? tabs_simple('Recherche de partenaire') ?>
 	</div>
 	
@@ -221,7 +221,7 @@
 
 <div data-role="page" id="post">
 	
-	<div data-role="header" data-theme="c" data-position="fixed">
+	<div data-role="header" class="ui-btn-active" data-position="fixed">
 		<? tabs_simple('Déposer une offre') ?>
 	</div>
 
@@ -314,8 +314,11 @@
 
 <?php 
 
-function tabs_info(){
-	return tabs_simple("Informations", 'info-sign');
+function tabs_info(){?>
+	<div data-role="header" class="ui-btn-active" data-position="fixed">
+	<?= tabs_simple("Informations", 'info-sign'); ?>
+	</div>
+	<?
 }
 ?>
 <? if($_SESSION['user']->lang=="it"): ?>

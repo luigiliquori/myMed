@@ -1,10 +1,9 @@
 
 <div id="profile" data-role="page">
 
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar_main("#profile") ?>
-		<? include("notifications.php"); ?>
-	</div>
+	<? tab_bar_main("#profile") ?>
+	<? include("notifications.php"); ?>
+
 
 	<div data-role="content">
 	

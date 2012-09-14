@@ -5,7 +5,7 @@
 
 <div data-role="page" id="Blog">
 
-	<div data-role="header" data-theme="c" data-position="fixed">
+	<div data-role="header" class="ui-btn-active" data-position="fixed">
 		<? tabs_simple($this->blog.' '._("Blog")) ?>
       	<? include("notifications.php"); ?>
 	</div>

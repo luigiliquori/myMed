@@ -69,7 +69,7 @@
 /* first row */
 .ui-icon-plus { background-position: 0px 0px !important; }
 .ui-icon-minus { background-position: -36px 0px !important; }
-.ui-icon-delete { background-position: -71px 0px !important; }
+.ui-icon-delete { background-position: -72px 0px !important; }
 .ui-icon-arrow-r { background-position: -107px 0px !important; }
 .ui-icon-arrow-l { background-position: -143px 1px !important; }
 .ui-icon-arrow-u { background-position: -179px 1px !important; }
@@ -172,7 +172,7 @@
 .ui-icon-zoom-in:before              { content: "\f00e"; }
 
 .ui-icon-zoom-out:before             { content: "\f010"; }
-.ui-icon-off:before                  { content: "\f011"; margin-left: 3px;}
+.ui-icon-off:before                  { content: "\f011"; margin-left: 2px;}
 .ui-icon-signal:before               { content: "\f012"; margin-left: -1px; }
 .ui-icon-cog:before                  { content: "\f013"; margin-left: 3px; margin-top: 2px; }
 .ui-icon-trash:before                { content: "\f014"; }

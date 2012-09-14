@@ -2,7 +2,7 @@
 
 <div data-role="page" id="users">
 
-	<div data-role="header" data-theme="c" data-position="fixed">
+	<div data-role="header" class="ui-btn-active" data-position="fixed">
 		<? tabs_simple('Admin') ?>
 		<? include("notifications.php"); ?>
 	</div>

@@ -13,13 +13,13 @@ function tabs($activeTab, $tabs, $useBackTomyMed = false) {
 	$reverse = true;
 	?> 	
 
-  	<div class="ui-header ui-bar-e" data-mini="true">
+  	<div data-role="header" data-theme="b" style="max-height: 33px;">
   		<? if ($useBackTomyMed): ?>
 			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">myMed</a>
 		<? endif ?>
-  		<span style="color: #588fbe; font-size: 13px; font-weight: bold; margin-left: 40px;display: inline-block;">
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true"><h1 style="display: inline-block;margin-top: 0;margin-bottom: 0;"><?= APPLICATION_NAME ?></h1><span class="largeWidth">Réseau social transfontalier</span></a>
-  		</span>
+  		<h1>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?><span class="largeWidth">Réseau social transfontalier</span></a>
+  		</h1>
   		<? include("social.php"); ?>
   	</div>
 	<div data-role="navbar" data-theme="b"  data-iconpos="bottom"> 
@@ -49,26 +49,19 @@ function tabs($activeTab, $tabs, $useBackTomyMed = false) {
  
  function tabs_simple($title, $icon='', $actionTitle=null, $action=null, $actionIcon=null) {
  	?>
-   	<div class="ui-header ui-bar-e" data-mini="true">
-   		<span style="color: #588fbe; font-size: 13px; font-weight: bold; margin-left: 40px;display: inline-block;">
-  			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true"><h1 style="display: inline-block;margin-top: 0;margin-bottom: 0;"><?= APPLICATION_NAME ?></h1><span class="largeWidth">Réseau social transfontalier</span></a>  		
-  		</span>
+ 	<div data-role="header" data-theme="b" style="max-height: 34px;">
+ 		<a data-rel="back" rel="external" data-icon="arrow-left"><?= _("Back") ?></a>
+  		<h1>
+  			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?><span class="largeWidth">Réseau social transfontalier</span></a>
+  		</h1>
   		<? include("social.php"); ?>
-	</div>
-	<div data-role="navbar" data-theme="d" data-iconpos="left" data-collapsed-icon="faplus" data-expanded-icon="faminus"> 
-		<ul >
- 		 	<li><a data-rel="back" rel="external" data-icon="arrow-left"><?= _("Back") ?></a></li>
- 		  	<li><a class="ui-btn-active" data-icon="<?= $icon ?>"><?= _($title) ?></a></li>
- 		  	<? if (!is_null($actionTitle)): ?>
-			<li>
-				<a href="<?= $action ?>" <?= $action[0]!='#'?'rel="external"':'' ?> data-icon="<?= $actionIcon ?>"><?= _($actionTitle) ?></a>
-			</li>
-			<? endif; ?>
- 		</ul>
-	</div>
-
-  	<?
+  	</div>
+  	<h4><?= _($title) ?></h4>
+	<? if (!is_null($actionTitle)): ?>
+		<a class="ui-btn-right" href="<?= $action ?>" <?= $action[0]!='#'?'rel="external"':'' ?> data-icon="<?= $actionIcon ?>"><?= _($actionTitle) ?></a>
+	<? endif;
 }
+
    
    function tabs_2(
    		$title,

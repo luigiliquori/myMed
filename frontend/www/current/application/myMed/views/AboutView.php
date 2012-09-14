@@ -2,10 +2,10 @@
 <? require_once("header.php"); ?>
 
 <div data-role="page" id="about" >	
-	<div data-role="header" data-theme="d" data-position="fixed">
-		<? tab_bar_login("#about") ?>
-		<? include("notifications.php"); ?>
-	</div>
+
+	<? tab_bar_login("#about") ?>
+	<? include("notifications.php"); ?>
+
 
 	<div data-role="content" class="content">
 	

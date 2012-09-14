@@ -2,10 +2,10 @@
 
 <div id="store" data-role="page">
 	
-	<div data-role="header" data-theme="d" data-position="fixed">
-		<? tab_bar_main("#store") ?>
-		<? include("notifications.php"); ?>
-	</div>
+
+	<? tab_bar_main("#store") ?>
+	<? include("notifications.php"); ?>
+
 
 	<div data-role="content" class="content">
 		

@@ -76,6 +76,7 @@ class MainController extends AuthenticatedController {
 		if (!isset($_SESSION['applicationList'])){
 			if (is_null($myApps = json_decode($_SESSION['user']->applicationList))){
 				$myApps = self::$bootstrapApplication;
+				//store it in the user db profile
 			}
 			
 			array_walk( $myApps, array($this, 'setOn'));

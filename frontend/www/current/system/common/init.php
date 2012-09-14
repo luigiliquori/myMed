@@ -56,13 +56,13 @@ add_path(MYMED_ROOT . '/lib/socialNetworkAPIs');
 add_path(MYMED_ROOT . '/lib/socialNetworkAPIs/facebook/src/');
 
 // Set autoload
-function autoload($className) {
+spl_autoload_register(function ($className) {
 
 	foreach(array(".class.php", ".php") as $x) {
 
 		foreach(explode(PATH_SEPARATOR, get_include_path()) as $path) {
 			$fname = $path . '/' . $className.$x;
-			if(@file_exists($fname)) {
+			if(file_exists($fname)) {
 				require_once($fname);
 				return true;
 			}
@@ -71,9 +71,8 @@ function autoload($className) {
 	
 	error_log("Failed to find '$className' in " . get_include_path());
 	return false;
-}
+});
 
-spl_autoload_register('autoload');
 // ------------------------------------------------------------------------------------------------
 // Global Config
 // ------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 <? include("header.php"); ?>
 
 <div data-role="page" id="results">
-	<div data-role="header" data-theme="c" data-position="fixed">
+	<div data-role="header" class="ui-btn-active" data-position="fixed">
 		<? tabs_simple("Results") ?>
 		<? include("notifications.php"); ?>
 	</div>
