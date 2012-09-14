@@ -129,7 +129,6 @@ function subscribe(el, application, mailTemplate, predicates) {
 }
 
 
-
 function rate(el, id, usr, feedback) {
 	var page = el.parents('[data-role=page]').attr('id');
 	var data = {
@@ -174,13 +173,13 @@ var blog="", field="", rm="";
 
 function show(el){
 	var me = el.closest('li');
-	if ( me.attr('replyTo')==me.prev().attr('id')){
+	if ( me.data('replyTo')==me.prev().attr('id')){
 		me.animate({'margin-left':'50px'}, 200);
 		return;
 	}
-		
-		
-	var father = $('#'+me.attr('replyTo'));
+	
+	
+	var father = $('#'+me.data('replyTo'));
 	var clone = father.clone();
 	
 	me.before(clone);
@@ -233,7 +232,7 @@ function commentAdd(el){
 		id: blog+"comments"+post.attr('id'),
 		replyTo: replyTo,
 		userCommented: userCommented,
-		text: text
+		text: text,
 	}, function(li) {
 		console.log(li);
 		if (li != null){//insert the comment
@@ -243,6 +242,9 @@ function commentAdd(el){
 			else
 				ul.prepend(li);
 			
+			if (rm!=""){
+				$(li).css('margin-left', '50px');
+			}
 			$('#Blog').trigger('pagecreate');
 			ul.listview('refresh');
 			field.find('.comment').fadeOut('fast');

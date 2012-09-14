@@ -6,11 +6,9 @@
  		array("#infos", "About European programs", "info-sign"),
  		array("#home", "Partenariats", "retweet"),
  		array("#blogs", "Bonnes pratiques", "comments"),
- 		array("#profile", $_SESSION['user']->name, "person")
+ 		array("#profile", $_SESSION['user']->name, "group")
  	), true);
  }
- 
-
 
 ?>
 

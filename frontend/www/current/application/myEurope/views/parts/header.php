@@ -12,18 +12,17 @@
 	<!-- CLE  -->
 	<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
 	<!--  Extra icons for jquery -->
-	<link rel="stylesheet" href="../../lib/jquery/extra-icons/jqm-icon-pack-2.1.2-fa.css" />
+	<link rel="stylesheet" href="../../lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile.css" />
+	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0-beta.1.css" />
 	<!-- MYMED css -->
 	<link href="../../system/css/common.css" rel="stylesheet" />
 	<!-- APP css -->
 	<link href="css/app.css" rel="stylesheet" />
 	
 	
-	
-	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile.js"></script>
+	<script src="../../lib/jquery/jquery-1.8.1.min.js"></script>
+	<script src="../../lib/jquery/jquery.mobile-1.2.0-beta.1.js"></script>
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
 	

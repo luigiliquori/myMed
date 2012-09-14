@@ -96,7 +96,9 @@
 	 #spacer {height: 0;}
 }
 
-
+@media all and (max-width: 480px){
+	 .largeWidth{display: none;}
+}
 
 .social {
 	cursor: pointer;

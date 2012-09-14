@@ -91,9 +91,10 @@ function title_bar($title) {
 function comment(
 		$id, //comment id
 		$v,  // comment content
-		$userCommented
+		$userCommented,
+		$indent = false
 	) {?>
-<li id="<?= $id ?>" replyTo="<?= $v['replyTo'] ?>">
+<li id="<?= $id ?>" data-replyTo="<?= $v['replyTo'] ?>" <?= $indent?'style="margin-left: 50px;"':'' ?>>
 		<p style="display: inline-block;"><a href="#votePopup<?= $id ?>" data-rel="popup" data-position-to="origin"><?= $v['up'] - $v['down'] ?></a>
 		
 		 &nbsp; <?= $v['text'] ?>
@@ -105,7 +106,7 @@ function comment(
 		  <a href="#deletePopup" data-rel="popup" data-position-to="origin" onclick="setIds($(this));" class="delete-icon" title=""></a>
 		 </p>
 		 <div id="<?= 'comment'.$id ?>" class='comment' style='margin-top: 30px;display: none;'>
-			<textarea name="text" placeholder="add a comment" onfocusout="var me=$(this);setTimeout(function(){me.parent().hide();}, 500);"></textarea>
+			<textarea name="text" placeholder="add a comment" focusout="var me=$(this);setTimeout(function(){me.parent().hide();}, 500);"></textarea>
 			<a type="button" data-inline="true" data-mini="true" data-inline="true" 
 				onclick="commentAdd($(this));" ><?= _('Reply') ?></a>
 		</div>

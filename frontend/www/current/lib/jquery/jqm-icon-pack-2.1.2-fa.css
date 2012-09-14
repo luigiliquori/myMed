@@ -73,7 +73,7 @@
 .ui-icon-arrow-r { background-position: -107px 0px !important; }
 .ui-icon-arrow-l { background-position: -143px 1px !important; }
 .ui-icon-arrow-u { background-position: -179px 1px !important; }
-.ui-icon-arrow-d { background-position: -216px 1px !important; }
+.ui-icon-arrow-d { background-position: -215px 1px !important; }
 .ui-icon-check { background-position: -251px 1px !important; }
 .ui-icon-gear { background-position: -287px 1px !important; }
 .ui-icon-refresh { background-position: -323px 1px !important; }
@@ -172,7 +172,7 @@
 .ui-icon-zoom-in:before              { content: "\f00e"; }
 
 .ui-icon-zoom-out:before             { content: "\f010"; }
-.ui-icon-off:before                  { content: "\f011"; margin-left: 2px;}
+.ui-icon-off:before                  { content: "\f011"; margin-left: 3px;}
 .ui-icon-signal:before               { content: "\f012"; margin-left: -1px; }
 .ui-icon-cog:before                  { content: "\f013"; margin-left: 3px; margin-top: 2px; }
 .ui-icon-trash:before                { content: "\f014"; }
@@ -246,7 +246,7 @@
 .ui-icon-remove-sign:before          { content: "\f057"; margin-top: 2px; }
 .ui-icon-ok-sign:before              { content: "\f058"; margin-top: 2px; }
 .ui-icon-question-sign:before        { content: "\f059"; margin-top: 2px; }
-.ui-icon-info-sign:before            { content: "\f05a"; margin-right: 0px; margin-top: 1px; }
+.ui-icon-info-sign:before            { content: "\f05a"; margin-left: 3px; margin-top: 1px; }
 .ui-icon-screenshot:before           { content: "\f05b"; }
 .ui-icon-remove-circle:before        { content: "\f05c"; margin-top: 2px; }
 .ui-icon-ok-circle:before            { content: "\f05d"; margin-top: 2px; }

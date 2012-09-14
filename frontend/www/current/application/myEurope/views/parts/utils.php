@@ -15,10 +15,11 @@ function tabs($activeTab, $tabs, $useBackTomyMed = false) {
 
   	<div class="ui-header ui-bar-e" data-mini="true">
   		<? if ($useBackTomyMed): ?>
-			<a href="/application/myMed" style="margin-left: 5px;margin-top: -5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">myMed</a>
+			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">myMed</a>
 		<? endif ?>
-  		<span style="color: #588fbe; font-size: 13px; font-weight: bold; margin-left: 10px;display: inline-block;">
-  		<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true"><h1 style="display: inline-block;margin-top: 0;margin-bottom: 0;"><?= APPLICATION_NAME ?></h1></a> Réseau social transfontalier</span>
+  		<span style="color: #588fbe; font-size: 13px; font-weight: bold; margin-left: 40px;display: inline-block;">
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true"><h1 style="display: inline-block;margin-top: 0;margin-bottom: 0;"><?= APPLICATION_NAME ?></h1> <span class="largeWidth">Réseau social transfontalier</span></a>
+  		</span>
   		<? include("social.php"); ?>
   	</div>
 	<div data-role="navbar" data-theme="b"  data-iconpos="bottom"> 
@@ -49,7 +50,9 @@ function tabs($activeTab, $tabs, $useBackTomyMed = false) {
  function tabs_simple($title, $icon='', $actionTitle=null, $action=null, $actionIcon=null) {
  	?>
    	<div class="ui-header ui-bar-e" data-mini="true">
-   		<span style="color: #588fbe; font-size: 13px; font-weight: bold; margin-left: 10px;display: inline-block;"><a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" ><h1 style="display: inline-block;margin-top: 0;margin-bottom: 0;"><?= APPLICATION_NAME ?></h1></a> Réseau social transfontalier</span>
+   		<span style="color: #588fbe; font-size: 13px; font-weight: bold; margin-left: 40px;display: inline-block;">
+  			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true"><h1 style="display: inline-block;margin-top: 0;margin-bottom: 0;"><?= APPLICATION_NAME ?></h1> <span class="largeWidth">Réseau social transfontalier</span></a>  		
+  		</span>
   		<? include("social.php"); ?>
 	</div>
 	<div data-role="navbar" data-theme="d" data-iconpos="left" data-collapsed-icon="faplus" data-expanded-icon="faminus"> 

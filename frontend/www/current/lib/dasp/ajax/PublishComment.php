@@ -34,7 +34,7 @@ if (isset($res)) {
 
 session_write_close();
 
-comment($k, $_POST, $userCommented);
+comment($k, $_POST, $userCommented, $_POST['replyTo']!=""?true:false);
 
 //echo json_encode($response);
 
