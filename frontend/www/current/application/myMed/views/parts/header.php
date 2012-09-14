@@ -11,10 +11,10 @@
 	
 	<!-- load css before scripts to stop sort of flash effect  -->
 	
-	
-	
+	<!--  Extra icons for jquery -->
+	<link rel="stylesheet" href="../../lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile.css" />
+	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0-beta.1.css" />
 	<!-- APP css -->
 	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
 	<!-- MYMED css -->
@@ -22,19 +22,8 @@
 	
 	
 	
-	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile.js"></script>
-	
-
-	<!-- jQuery icons pack -->
-	<!-- <link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/original/jqm-icon-pack-2.0-original.css" rel="stylesheet" /> -->
-	<!-- <link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/font-awesome/jqm-icon-pack-2.1.2-fa.css" rel="stylesheet" /> -->
-	
-	<!--  SimpleDialog -->
-	<!-- <script src="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script> -->
-	<!-- <link href="<?= MYMED_URL_ROOT ?>/lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> -->
-	
-
+	<script src="../../lib/jquery/jquery-1.8.1.min.js"></script>
+	<script src="../../lib/jquery/jquery.mobile-1.2.0-beta.1.js"></script>
 	<!-- APP JS -->
 	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
 	
