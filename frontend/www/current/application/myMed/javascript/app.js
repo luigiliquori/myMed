@@ -32,7 +32,10 @@ function showLoadingBar(text) {
 
 function SetApplicationStatus(application, status) {
 	$(location).attr('href', "?action=store&applicationStore=" + application + "&status=" + status);
-}  
+}
+function toggleStatus(app, status){
+	$.mobile.changePage("?action=store&applicationStore="+app+"&status="+status);
+}
 
 function nextScreenshot() {
 	$("#screenshot" + cpt).hide();

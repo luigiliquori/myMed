@@ -7,17 +7,16 @@
  	tabs($activeTab, array(
  			array("#profiles", "Profils existant", "list"),
  			array("#new", 'Create', "pencil")
- 		), true);
+ 		), '', true);
  }
  
  ?>
 
 <div data-role="page" id="profiles">
 
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#profiles") ?>
-		<? include("notifications.php"); ?>
-	</div>
+	
+	<? tab_bar("#profiles") ?>
+	<? include("notifications.php"); ?>
 
 	<div data-role="content">
 		<p>
@@ -43,10 +42,8 @@
 
 <div data-role="page" id="new" >
 
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#new") ?>
-		<? include("notifications.php"); ?>
-	</div>
+	<? tab_bar("#new") ?>
+	<? include("notifications.php"); ?>
 
 	<div data-role="content">
 		<form action="?action=ExtendedProfile" method="post" id="ExtendedProfileForm" data-ajax="false">

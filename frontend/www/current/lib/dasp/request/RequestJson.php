@@ -121,7 +121,8 @@ class RequestJson {
 		} else if($obj->status == 200) {// Success
 			return $obj->dataObject;
 		} else {
-			$this->handler->setError($obj->description);
+			if (!is_null($this->handler))
+				$this->handler->setError($obj->description);
 			throw new Exception("Erreur");
 		}
 	}

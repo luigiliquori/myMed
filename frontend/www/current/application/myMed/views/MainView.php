@@ -4,11 +4,10 @@
 	<? include("LangView.php"); ?>
 <? endif ?>
 
-
 <div id="home" data-role="page">
 
 	
-	<? tab_bar_main("#home") ?>
+	<? tab_bar_main("?action=main"); ?>
 	<? include("notifications.php"); ?>
 	
 
@@ -44,6 +43,5 @@
 
 </div>
 <? include("ProfileView.php"); ?>
-<? include("StoreView.php"); ?>
 
 <? include("footer.php"); ?>

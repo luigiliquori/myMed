@@ -96,7 +96,7 @@ class LoginController extends AbstractController {
 		
 		// Building the Session Request
 		// This will check if the session exists in the backend and will return an User if it's the case.	
-		$request = new Requestv2("SessionRequestHandler", READ);
+		$request = new Requestv2("v2/SessionRequestHandler");
 		$request->addArgument("socialNetwork", "myMed");
 		
 		// The AccessToken is fetched from the $_SESSION

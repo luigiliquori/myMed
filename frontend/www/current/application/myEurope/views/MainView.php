@@ -15,10 +15,9 @@
 
 		
 <div data-role="page" id="home">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#home") ?>
-		<? include("notifications.php"); ?>
-	</div>
+
+	<? tab_bar("#home") ?>
+	<? include("notifications.php"); ?>
 	<div data-role="content" style="text-align:center;">
 		
 		<br />
@@ -47,11 +46,8 @@
 </div>
 
 <div data-role="page" id="profile">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#profile") ?>
-		<? include("social.php"); ?>
-	</div>
 
+	<? tab_bar("#profile") ?>
 	<div data-role="content" style="text-align:center;">
 		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
 
@@ -65,10 +61,8 @@
 </div>
 
 <div data-role="page" id="blogs">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#blogs") ?>
-	</div>
 
+	<? tab_bar("#blogs") ?>
 	<div data-role="content" style="text-align:center;">
 		<br />
 		<div data-role="fieldcontain">
@@ -91,9 +85,8 @@
 </div>
 
 <div data-role="page" id="about">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#about") ?>
-	</div>
+
+	<? tab_bar("#about") ?>
 	<div data-role="content">
 		
 		<br />
@@ -120,10 +113,7 @@
 
 <div data-role="page" id="search">
 
-	<div data-role="header" class="ui-btn-active" data-position="fixed">
-		<? tabs_simple('Recherche de partenaire') ?>
-	</div>
-	
+	<? tabs_simple(array('Recherche de partenaire')); ?>
 	<div data-role="content">
 		<form action="" id="searchForm" data-ajax="false">
 		
@@ -221,10 +211,7 @@
 
 <div data-role="page" id="post">
 	
-	<div data-role="header" class="ui-btn-active" data-position="fixed">
-		<? tabs_simple('Déposer une offre') ?>
-	</div>
-
+	<? tabs_simple(array('Déposer une offre')) ?>
 	<div data-role="content">
 		<form action="./" method="post" id="publishForm">
 				
@@ -313,12 +300,8 @@
 
 
 <?php 
-
-function tabs_info(){?>
-	<div data-role="header" class="ui-btn-active" data-position="fixed">
-	<?= tabs_simple("Informations", 'info-sign'); ?>
-	</div>
-	<?
+function tabs_info($item){
+	tabs_simple(array("infos", $item));
 }
 ?>
 <? if($_SESSION['user']->lang=="it"): ?>

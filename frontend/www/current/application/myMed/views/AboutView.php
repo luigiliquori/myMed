@@ -3,7 +3,7 @@
 
 <div data-role="page" id="about" >	
 
-	<? tab_bar_login("#about") ?>
+	<? tab_bar_login("#about"); ?>
 	<? include("notifications.php"); ?>
 
 

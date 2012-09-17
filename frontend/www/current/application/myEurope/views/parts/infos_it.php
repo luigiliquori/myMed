@@ -1,8 +1,7 @@
 
 <div data-role="page" id="infos">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#infos") ?>
-	</div>
+
+	<? tab_bar("#infos") ?>
 	<div data-role="content">
 		<br />
 		<b>Programmi di cooperazione</b> dei quali possono beneficiare i territori dell'Euroregione Alpi-Mediterraneo :
@@ -30,7 +29,7 @@
 	</div>
 </div>
 <div data-role="page" id="alcotra">
-	<? tabs_info() ?>
+	<? tabs_info("alcotra") ?>
 	<div data-role="content">
 	<h3>
 			<u>Obiettivo globale :</u>
@@ -103,7 +102,7 @@
 	</div>
 </div>
 <div data-role="page" id="Marittimo">
-	<? tabs_info() ?>
+	<? tabs_info("Marittimo") ?>
 	<div data-role="content">
 
     <h3>
@@ -141,7 +140,7 @@
 	</div>
 </div>
 <div data-role="page" id="MED">
-	<? tabs_info() ?>
+	<? tabs_info("MED") ?>
 	<div data-role="content">
 		<h3>
 			<u>I principali obiettivi del programma:&nbsp;</u>
@@ -180,7 +179,7 @@
 	</div>
 </div>
 <div data-role="page" id="Spazio alpino">
-	<? tabs_info() ?>
+	<? tabs_info("Spazio alpino") ?>
 	<div data-role="content">
 	
 		<h3>
@@ -231,7 +230,7 @@
 	</div>
 </div>
 <div data-role="page" id="ENPI CBC">
-	<? tabs_info() ?>
+	<? tabs_info("ENPI CBC") ?>
 	<div data-role="content">
 	<h3>
 				<u>Obiettivo del programma :</u>
@@ -281,7 +280,7 @@
 	</div>
 </div>
 <div data-role="page" id="Interreg">
-	<? tabs_info() ?>
+	<? tabs_info("Interreg") ?>
 	<div data-role="content">
 	<h3>
 			<u>Obiettivo del programma :</u>
@@ -319,7 +318,7 @@
 	</div>
 </div>
 <div data-role="page" id="Ricerca">
-	<? tabs_info() ?>
+	<? tabs_info("Ricerca") ?>
 	<div data-role="content">
 		<h3><u>Bilancio per il periodo 2014-2020 :</u></h3>
 		<p>&nbsp;80 miliardi di euro</p>
@@ -343,7 +342,7 @@
 	</div>
 </div>
 <div data-role="page" id="FESR">
-	<? tabs_info() ?>
+	<? tabs_info("FESR") ?>
 	<div data-role="content">
 	<h3>
 			<u>Missione del FESR (Fondo Europeo di Sviluppo Regionale)   :</u>
@@ -367,7 +366,7 @@ Altra grande linea del nuovo periodo di programmazione : lo sviluppo urbano sost
 	</div>
 </div>
 <div data-role="page" id="FSE">
-	<? tabs_info() ?>
+	<? tabs_info("FSE") ?>
 	<div data-role="content">
 		<h3>
 			<u>Missione del FSE (Fondo Sociale Europeo) :</u>&nbsp;</h3>
@@ -401,7 +400,7 @@ Altra grande linea del nuovo periodo di programmazione : lo sviluppo urbano sost
   </div>
   
 <div data-role="page" id="FEASR">
-	<? tabs_info() ?>
+	<? tabs_info("FEASR") ?>
 	<div data-role="content">
 	<h3>
 		<u>Missione del FEASR (Fondo Europeo Agricolo di Sviluppo Rurale) : </u></h3>

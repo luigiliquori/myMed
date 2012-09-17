@@ -5,13 +5,9 @@
 
 <div data-role="page" id="Blog">
 
-	<div data-role="header" class="ui-btn-active" data-position="fixed">
-		<? tabs_simple($this->blog.' '._("Blog")) ?>
-      	<? include("notifications.php"); ?>
-	</div>
-
+	<? tabs_simple(array($this->blog.' '._("Blog"))); ?>
+	<? include("notifications.php"); ?>
 	<div data-role="content">
-	
 	<br />
 		
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d">

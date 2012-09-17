@@ -9,15 +9,18 @@ class ExtendedProfile {
 	public $partnerships; //partnerships owned or joined
 	public $reputation; //partnerships owned or joined
 	
+	public $handler;
 	
-	public function __construct($id){
+	
+	public function __construct(IRequestHandler $handler, $id){
 		$this->id = $id;
+		$this->handler = $handler;
 	}
 	
 	
-	public function read(IRequestHandler $handler){
+	public function read(){
 		
-		$find = new RequestJson($handler, array("application"=>APPLICATION_NAME.":profiles", "id"=>$this->id));
+		$find = new RequestJson($this->handler, array("application"=>APPLICATION_NAME.":profiles", "id"=>$this->id));
 		
 		try{ $res = $find->send();
 		} catch(Exception $e){
@@ -39,13 +42,13 @@ class ExtendedProfile {
 		
 	}
 	
-	public function readFromUser(IRequestHandler $handler, $user){
+	public function readFromUser($user){
 		
-		$find = new RequestJson($handler, array("application"=>APPLICATION_NAME.":users", "id"=>$user));
+		$find = new RequestJson($this->handler, array("application"=>APPLICATION_NAME.":users", "id"=>$user));
 		try{ $res = $find->send();
 		} catch(Exception $e){
 		}
-		return $this->read($handler, $res->details->profile);
+		return $this->read($this->handler, $res->details->profile);
 	}
 	
 }

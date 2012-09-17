@@ -1,18 +1,13 @@
 <?
-function tab_bar_main($activeTab) {
-	tabs($activeTab, array(
-			array("#home", "Applications", "tags"),
-			array("#profile", "Profile", "user"),
-			array("#store", "Store", "shopping-cart")
-	), true);
-}
 
-function tab_bar_login($activeTab) {
+define('SEP', '<span style="opacity: 0.7; font-size: 80%;"> &gt; </span>');
+
+function tab_bar_main($activeTab, $subtible=null) {
 	tabs($activeTab, array(
-			array("#login", "Connexion", "signin"),
-			array("#register", "Inscription", "th-list"),
-			array("#about", "A propos", "info-sign")
-	));
+			array("?action=main", "Applications", "tags"),
+			array("?action=main#profile", "Profile", "user"),
+			array("?action=store", "Store", "shopping-cart")
+	), true, $subtible);
 }
    
 function tabs($activeTab, $tabs, $useLogOut = false) {
@@ -22,6 +17,7 @@ function tabs($activeTab, $tabs, $useLogOut = false) {
 	foreach ($tabs as $i){
 		$tabsStr .=
 		'<li><a href="'. $i[0] .'" data-transition="none" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
+		.($i[0][0]!='#'?'rel="external"':'')
 		.($activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '').'>'. _($i[1])
 		.'</a></li>';
 		if ($i[0] == $activeTab) {
@@ -34,7 +30,7 @@ function tabs($activeTab, $tabs, $useLogOut = false) {
 			<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Déconnexion</a>
 		<? endif ?>
   		<h1>
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?><span class="largeWidth">Réseau social transfontalier</span></a>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"> Réseau social transfontalier</span></a>
   		</h1>
   		<div data-role="header" data-theme="d" class="toptab">
 			<div data-role="navbar" data-role="footer" data-iconpos="bottom" >

@@ -1,5 +1,7 @@
 <?php 
 
+define('SEP', '<span style="opacity: 0.7; font-size: 80%;"> &gt; </span>');
+
 function tab_bar_default($activeTab, $me) {
 	tabs($activeTab, array(
 			array("#home", "Partenariats", "retweet"),
@@ -26,10 +28,10 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed 
 	?>
 	<div data-role="header" data-theme="b" data-position="fixed">
   		<? if ($useBackTomyMed): ?>
-			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">myMed</a>
+			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
 		<? endif ?>
   		<h1>
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?></a><span style="opacity: 0.7;"> &gt; </span><span class="largeWidth"><?= $subtitle ?></span>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"> Réseau social transfontalier</span></a>
   		</h1>
   		<? include("social.php"); ?>
   		<div data-role="header" data-theme="d" class="toptab">
@@ -47,19 +49,26 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed 
  	<?
  }
  
- function tabs_simple($title, $icon='', $actionTitle=null, $action=null, $actionIcon=null) {
+ function tabs_simple($title=null, $useback=true, $action=null) {
  	?>
- 	<div data-role="header" data-theme="b" style="max-height: 34px;">
- 		<a data-rel="back" rel="external" data-icon="arrow-left"><?= _("Back") ?></a>
+ 	<div data-role="header" data-theme="b" data-position="fixed">
+ 		<? if ($useback): ?>
+ 			<a data-rel="back" rel="external" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
+ 		<? endif; ?>
   		<h1>
-  			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?><span class="largeWidth">Réseau social transfontalier</span></a>
+  			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?></a>
+  			<? if (!is_null($title)): ?>
+  				<? foreach($title as $path): ?>
+					<?= SEP ?><a href="#<?= $path ?>" style="text-decoration: none; color: white;font-size: 80%;"><?= _($path) ?></a>
+				<? endforeach; ?>
+			<? endif; ?>
   		</h1>
+  		<? if (!is_null($action)): ?>
+			<a class="ui-btn-right" href="<?= $action[0] ?>" <?= $action[0][0]!='#'?'rel="external"':'' ?> data-icon="<?= $action[2] ?>"><?= _($actionTitle[1]) ?></a>
+		<? endif; ?>
   		<? include("social.php"); ?>
   	</div>
-  	<h4><?= _($title) ?></h4>
-	<? if (!is_null($actionTitle)): ?>
-		<a class="ui-btn-right" href="<?= $action ?>" <?= $action[0]!='#'?'rel="external"':'' ?> data-icon="<?= $actionIcon ?>"><?= _($actionTitle) ?></a>
-	<? endif;
+  	<?
 }
 
    

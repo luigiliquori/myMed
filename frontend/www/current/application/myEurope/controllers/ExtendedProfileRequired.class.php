@@ -26,13 +26,14 @@ class ExtendedProfileRequired extends AuthenticatedController {
 	 */
 	public /*void*/ function fetchExtendedProfile(){
 		
+		debug_r($_SESSION['user']);
 		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id));
 			
 		try{
 			$res = $find->send();
 		}
 		catch(Exception $e){}
-		
+		debug_r($res);
 		if (!isset($res->details)){
 			$this->error = "";
 			debug("wow");

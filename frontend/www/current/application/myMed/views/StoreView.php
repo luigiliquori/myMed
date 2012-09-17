@@ -1,9 +1,11 @@
+<? include("header.php"); ?>
 
+<? define('STORE_PREFIX' , '_store'); ?>
 
-<div id="store" data-role="page">
+<div data-role="page">
 	
 
-	<? tab_bar_main("#store") ?>
+	<? tab_bar_main("?action=store"); ?>
 	<? include("notifications.php"); ?>
 
 
@@ -14,7 +16,7 @@
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) {  ?>
 					<div class="ui-block-<?= $column ?>">
 						<div class="ui-bar-c" style="height:120px; text-align: left; overflow: hidden;">
-							<a href="?action=store&applicationStore=<?= $applicationName ?>#storeSub" rel="external" class="myIcon" style="text-decoration: none;" data-ajax="false">
+							<a href="?action=store&applicationStore=<?= $applicationName ?>" rel="external" class="myIcon" style="text-decoration: none;">
 								
 								<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" width="50px" Style="position: relative; left:8px; top:5px;">
 								
@@ -51,4 +53,4 @@
 
 </div>
 
-<? include("StoreSubView.php"); ?>
+<? include("footer.php"); ?>

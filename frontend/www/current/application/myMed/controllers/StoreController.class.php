@@ -1,6 +1,5 @@
 <?php
 
-define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
 
 /**
  *
@@ -8,19 +7,33 @@ define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
  * @author lvanni
  *
  */
-class StoreController extends MainController {
-
+class StoreController extends AuthenticatedController {
+	
 	public /*void*/ function handleRequest() {
+		
+		parent::handleRequest();
 
 		if(isset($_REQUEST['applicationStore'])) {
 				
 			// update the application status
 			if(isset($_REQUEST['status'])) {
 				// update status
-				$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
-				$appList = $extentedProfile->applicationList;
-				$newAppList = array();
-				if($_REQUEST['status'] == "off") {
+				//$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
+				//$appList = $extentedProfile->applicationList;
+				//$newAppList = array();
+				
+				$_SESSION['applicationList'][$_REQUEST["applicationStore"]] = $_REQUEST['status'];
+				$this->setSuccess("L'application " . $_REQUEST['applicationStore'] . " est maintenant ".$_REQUEST['status']);
+				
+				$extentedProfile = new ExtendedProfile($this, $_SESSION['user']->id, $_SESSION['applicationList']);
+				try{
+					$extentedProfile->storeFavoriteApps();
+				}catch(Exception $e){
+					$this->setError(_("Echec de sauvegarde ").$e);
+				}
+				
+				/*if($_REQUEST['status'] == "off") {
+					$_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "off";
 					foreach ($appList as $app) {
 						if($app != $_REQUEST['applicationStore']) {
 							array_push($newAppList, $app);
@@ -28,6 +41,7 @@ class StoreController extends MainController {
 					}
 					$this->setSuccess("L'application " . $_REQUEST['applicationStore'] . " est maintenant désactivée");
 				} else if ($_REQUEST['status'] == "on") {
+					$_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "on";
 					foreach ($appList as $app) {
 						array_push($newAppList, $app);
 					}
@@ -37,12 +51,13 @@ class StoreController extends MainController {
 				
 				$extentedProfile = new ExtendedProfile($_SESSION['user']->id, $newAppList);
 				$extentedProfile->storeProfile($this);
-					
+				
 				// set the status of the applications
 				$this->resetApplicationStatus();
 				foreach ($extentedProfile->applicationList as $app){
 					$this->applicationStatus[$app] = "on";
 				}
+				*/
 			}
 
 			// update the reputation of the application
@@ -69,12 +84,11 @@ class StoreController extends MainController {
 				} catch (Exception $e) {
 					$this->currentErrorMess = "Une erreur interne est survenue, veuillez réessayer plus tard...";
 				}
-			}
-				
+			}	
+			$this->renderView("storeSub");
 		}
-
-		parent::handleRequest();
-
+		$this->renderView("store");
+		
 	}
 
 }
