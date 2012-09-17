@@ -389,7 +389,7 @@
 <!-- ***************************************************************** -->
 
 <div data-role="page" id="FEDER">
-		<div data-role="header" data-theme="b" data-position="fixed">
+	<div data-role="header" data-theme="b" data-position="fixed">
 		<a href="#" data-rel="back" data-icon="arrow-l">Retour</a>
 		<h1><?= APPLICATION_NAME ?></h1>
 		<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-icon="delete" data-theme="r" data-icon="power" class="ui-btn-right" data-iconpos="notext">Déconnexion</a>
@@ -397,11 +397,8 @@
 
 	<div data-role="content">
 	
-			
-		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
-		
-			<div data-role="collapsible" data-collapsed="false">
-			<h3>Missions</h3>
+		<div data-role="collapsible" data-collapsed="false" data-theme="c" data-content-theme="d">
+			<h3>Descriptif</h3>
 			<h4>
 			<u>Mission du FEDER &nbsp;(Fond Europ&eacute;en de d&eacute;veloppement R&eacute;gional) :</u>
 			</h4>
@@ -411,9 +408,6 @@
 			</p>
 			<p>&nbsp;</p>
 			<p>
-			</div>
-			
-			<div data-role="collapsible">
 			<h3>Actions</h3>
 			<h4>
 			<u>Les actions du FEDER :</u>
@@ -427,9 +421,6 @@
 					europ&eacute;enne&nbsp;&raquo</b>.
 			</p>
 			<p>&nbsp;</p>
-			</div>
-			
-			<div data-role="collapsible">
 			<h3>2014-2020</h3>
 			<h4>
 			<u>Prochaine p&eacute;riode de programmation 2014-2020 :</u>
@@ -440,10 +431,8 @@
 	
 			Pour plus d'informations <a href="http://www.europe-en-france.gouv.fr/Configuration-Generale-Pages-secondaires/FEDER"><strong>Présentation du FEDER</strong>
 			</a>
-			</div>
 			
 		</div>
-	
 	</div>
 </div>
 

@@ -47,6 +47,16 @@ $("#post").live("pagecreate", function() {
 	isCLEpost = true;
 });
 
+$("#info").live("pagecreate", function() {
+	if(!isCLEpost){
+		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
+			console.log("CLE loaded");
+			$("#CLEeditor2").cleditor({useCSS:true})[0].focus();
+		});
+	}
+	isCLEpost = true;
+});
+
 $("#search").live("pagecreate", function() {
 	$('#checkbox-all').click(function() {
 		if ($(this).is(':checked')){

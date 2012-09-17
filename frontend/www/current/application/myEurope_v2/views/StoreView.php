@@ -72,20 +72,34 @@
 	
 	
 	<div data-role="content" class="content">
-		<div data-role="collapsible" data-collapsed="false" data-theme="c" data-content-theme="d">
-			<h3>Trouver un partenaire européen</h3>
-			<p Style="color: black">Pour ceux qui s’engagent pour la 1ère fois dans la réalisation d’un projet européen, cela semble être la difficulté principale ! En fait le problème réside moins dans la recherche d’un partenaire que dans le maintien de la coopération avec celui-ci sur des bases positives…</p>
-			<p Style="color: black">Qu’il soit local ou international le partenariat doit faire l’objet d’une analyse et induire une démarche stratégique [1]] Les motifs d’engagement dans un partenariat suppose d’identifier les enjeux qu’implique cette démarche (que veut l’organisation porteuse du projet, que recherche le partenaire sollicité ?…)</p>
-			<p Style="color: black">
-			[1] [Racine - Construire et conduire des partenairats transnationaux
-			Recherche :
-			Pour y voir plus clair dans les programmes européens...
-			Les projets des autres...
-			Outils pratiques
-			Points de vue & Analyses
-			Se former pour conduire un projet européen
-			Trouver un partenaire européen
-			</p>
+		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			<div data-role="collapsible" data-collapsed="false">
+				<h3>Trouver un partenaire européen</h3>
+				<p Style="color: black">Pour ceux qui s’engagent pour la 1ère fois dans la réalisation d’un projet européen, cela semble être la difficulté principale ! En fait le problème réside moins dans la recherche d’un partenaire que dans le maintien de la coopération avec celui-ci sur des bases positives…</p>
+				<p Style="color: black">Qu’il soit local ou international le partenariat doit faire l’objet d’une analyse et induire une démarche stratégique [1]] Les motifs d’engagement dans un partenariat suppose d’identifier les enjeux qu’implique cette démarche (que veut l’organisation porteuse du projet, que recherche le partenaire sollicité ?…)</p>
+				<p Style="color: black">
+				[1] [Racine - Construire et conduire des partenairats transnationaux
+				Recherche :
+				Pour y voir plus clair dans les programmes européens...
+				Les projets des autres...
+				Outils pratiques
+				Points de vue & Analyses
+				Se former pour conduire un projet européen
+				Trouver un partenaire européen
+				</p>
+			</div>
+			<div data-role="collapsible" data-collapsed="true" Style="text-align: left;">
+				<h3>Commentaires</h3>
+				Cool!
+				<br /><br />
+				<div data-role="collapsible" data-collapsed="true" Style="text-align: left;" data-theme="c" data-content-theme="d" >
+					<h3>Ajouter</h3>
+					<textarea name="text"></textarea>
+					<div style="text-align: center;" >
+						<a href="#post1" data-role="button" data-inline="true" data-icon="check" data-theme="g"><?=_('Insert') ?></a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	
