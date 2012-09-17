@@ -7,42 +7,28 @@
 		
 		<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
 			<h3>Informations générales</h3>
-			<ul data-role="listview"  data-mini="true">
-				<li data-icon="refresh">
-					<div Style="text-align: left;">
-						
-						<?php if($_SESSION['user']->profilePicture != "") { ?>
-							<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
-						<?php } else { ?>
-							<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
-						<?php } ?>
-						
-						<br />
-						
-						<div Style="position: absolute; top:50px; left: 100px; font-weight: bold; font-size: 14pt; text-align: center;">
-							<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> <br /><br />
-							<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh" data-mini="true">mise à jour</a>
-						</div>
-						
-					</div>
-				</li>
+			<div Style="text-align: left;">
+				<h3>Profil</h3>
+				<?php if($_SESSION['user']->profilePicture != "") { ?>
+					<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
+				<?php } else { ?>
+					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
+				<?php } ?>
+				
+				<br />
+				
+				<div Style="position: absolute; top:200px; left: 150px; font-weight: bold; font-size: 14pt; text-align: center;">
+					<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> <br /><br />
+					<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh" data-mini="true">mise à jour</a>
+				</div>
+			</div>
+			<br /><br />
+			<ul data-role="listview"  data-mini="true" data-filter="true">
+				<li data-role="list-divider">liste des membres</li>
+				<?php include_once 'mailList.php';?>
 			</ul>
 		</div>
 	
-		<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
-			<h3>liste des membres</h3>	
-			<ul data-role="listview"  data-mini="true">
-				<li data-icon="refresh">
-					bredasarah@gmail.com (Vous)
-				</li>
-				<li data-icon="refresh">
-					cyril.auburtin@gmail.com
-				</li>
-				<li data-icon="refresh">
-					pierreyves.vela@gmail.com
-				</li>
-		    </ul>
-		</div>
 	</div>
 
 	<div data-role="footer" data-position="fixed" data-theme="a">

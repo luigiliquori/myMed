@@ -10,23 +10,23 @@
 			<div data-role="collapsible" data-collapsed="false">
 				<h3>Journal des Bonnes Pratiques</h3>
 				<ul data-role="listview"  data-mini="true" data-filter="true">
-					<li data-icon="refresh">
-						<a href="#exemple"><h3 style="color: black;">Trouver un partenaire européen</h3></a>
+					<li>
+						<a class="ULitem" href="#exemple"><h3 style="color: black;">Trouver un partenaire européen</h3></a>
 					</li>
-					<li data-icon="refresh">
-						<a href="#exemple"><h3 style="color: black;">Par quoi commencer ?</h3></a>
+					<li>
+						<a class="ULitem" href="#exemple"><h3 style="color: black;">Par quoi commencer ?</h3></a>
 					</li>
-					<li data-icon="refresh">
-						<a href="#exemple"><h3 style="color: black;">Des pistes pour trouver un partenaire</h3></a>
+					<li>
+						<a class="ULitem" href="#exemple"><h3 style="color: black;">Des pistes pour trouver un partenaire</h3></a>
 					</li>
-					<li data-icon="refresh">
-						<a href="#exemple"><h3 style="color: black;">Identifier un partenaire dans un séminaire de contact</h3></a>
+					<li>
+						<a class="ULitem" href="#exemple"><h3 style="color: black;">Identifier un partenaire dans un séminaire de contact</h3></a>
 					</li>
-					<li data-icon="refresh">
-						<a href="#exemple"><h3 style="color: black;">Remplir une fiche de recherche de partenaire avec le PEJA</h3></a>
+					<li>
+						<a class="ULitem" href="#exemple"><h3 style="color: black;">Remplir une fiche de recherche de partenaire avec le PEJA</h3></a>
 					</li>
-					<li data-icon="refresh">
-						<a href="#exemple"><h3 style="color: black;">En live avec son partenaire !</h3></a>
+					<li>
+						<a class="ULitem" href="#exemple"><h3 style="color: black;">En live avec son partenaire !</h3></a>
 					</li>
 				</ul>
 			</div>
@@ -34,11 +34,11 @@
 			<div data-role="collapsible">
 				<h3>Journal des "Beta" testeurs de myEurope</h3>
 				<ul data-role="listview"  data-mini="true" data-filter="true">
-					<li data-icon="refresh">
-						<a href="#exemple"><h3 style="color: black;">Icones pour partager l'application</h3></a>
+					<li>
+						<a class="ULitem" href="#exemple"><h3 style="color: black;">Icones pour partager l'application</h3></a>
 					</li>
-					<li data-icon="refresh">
-						<a href="#exemple"><h3 style="color: black;">Juste un test</h3></a>
+					<li>
+						<a class="ULitem" href="#exemple"><h3 style="color: black;">Juste un test</h3></a>
 					</li>
 				</ul>
 			</div>
