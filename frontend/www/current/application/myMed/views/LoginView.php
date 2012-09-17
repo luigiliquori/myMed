@@ -19,14 +19,15 @@ require_once("header.php"); ?>
 			<input type="hidden" name="signin" value="1" />
 			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
 		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>
- 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion par votre compte myMed" />
+ 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
 			
 		</form>
 		
 		
-		<div data-role="collapsible" data-mini="true" data-collapsed="false" data-content-theme="c" data-inline="true" style="text-align: left;width: 260px;margin: auto;">
-			<h3><?= _("Ou par vos comptes:") ?></h3>
+		<div data-role="collapsible" data-mini="true" data-collapsed="true" data-content-theme="c" data-inline="true" style="text-align: left;width: 260px;margin: auto;">
+			<h3><?= _("Options") ?></h3>
 			
+			<h4><?= _("Connexion à partir de vos comptes:") ?></h4>
 			(<a href="http://oauth.net/2/">OAuth</a>) <a  title="log in with Google Oauth" 
 			href="<?= MYMED_URL_ROOT ?>/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" rel="external" style="background-position: -1px -1px" class="oauth_small_btn"></a>
 			 <a  title="log in with Facebook Oauth" 

@@ -9,9 +9,9 @@ function tab_bar_main($activeTab) {
 
 function tab_bar_login($activeTab) {
 	tabs($activeTab, array(
-			array("#about", "A propos", "info-sign"),
 			array("#login", "Connexion", "signin"),
-			array("#register", "Inscription", "th-list")
+			array("#register", "Inscription", "th-list"),
+			array("#about", "A propos", "info-sign")
 	));
 }
    
@@ -21,7 +21,7 @@ function tabs($activeTab, $tabs, $useLogOut = false) {
 	$tabsStr = "";
 	foreach ($tabs as $i){
 		$tabsStr .=
-		'<li><a href="'. $i[0] .'" data-transition="slide" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
+		'<li><a href="'. $i[0] .'" data-transition="none" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
 		.($activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '').'>'. _($i[1])
 		.'</a></li>';
 		if ($i[0] == $activeTab) {

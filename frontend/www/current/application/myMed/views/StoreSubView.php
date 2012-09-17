@@ -1,12 +1,13 @@
 <div id="storeSub" data-role="page">
 
-	<? include("header-bar.php"); ?>
+	<? tab_bar_main("#store") ?>
+	<? include("notifications.php"); ?>
 	
 	<div data-role="content">
 		
 		<?php if(isset($_REQUEST["applicationStore"])) { ?>
 		
-			<div data-role="collapsible" data-mini="true" data-theme="a" data-content-theme="c" data-collapsed="false">
+			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				<h3><?= $_REQUEST["applicationStore"] ?></h3>
 				<img alt="<?= $_REQUEST["applicationStore"] ?>" src="../../application/<?= $_REQUEST["applicationStore"] ?>/img/icon.png" Style="position: absolute; width: 50px;">
 				<div Style="position: absolute; left: 100px;">
@@ -27,7 +28,7 @@
 				<div style="position: relative; height:60px;"></div>
 			</div>
 			
-			<div data-role="collapsible" data-mini="true" data-theme="a" data-content-theme="c" data-collapsed="false">
+			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				<h3>Screenshots</h3>
 				
 				<center>
@@ -56,7 +57,7 @@
 				</div>
 			</div>
 			
-			<div data-role="collapsible" data-mini="true" data-theme="a" data-content-theme="c" data-collapsed="false">
+			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				<h3 Style="color: lightblue;">Description</h3>
 				<p><?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description") ?></p>
 				<div id="hidden-sharethis">
@@ -69,16 +70,6 @@
 			
 		<?php } ?>
 			
-	</div>
-	
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>
-				<li><a href="#profile" data-transition="none" data-icon="user" >Profil</a></li>
-				<li><a href="#store" data-transition="none" data-icon="star" class="ui-btn-active ui-state-persist">Store</a></li>
-			</ul>
-		</div>
 	</div>
 
 </div>

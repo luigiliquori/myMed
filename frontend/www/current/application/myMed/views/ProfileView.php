@@ -20,7 +20,6 @@
 			<div Style="display:inline-block; font-weight: bold; font-size: 14pt; text-align: center;">
 				<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> <br />
 				<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh" data-mini="true">mise à jour</a>
-				<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-icon="delete" data-mini="true" data-theme="r" data-icon="power" class="ui-btn-right">Déconnexion</a>
 				
 			</div>
 			
