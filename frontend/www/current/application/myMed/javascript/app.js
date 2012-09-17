@@ -74,6 +74,6 @@ $("[data-role=page]").live("pagecreate", function() {
 
 function isiPhoneoriPad(){
 	var deviceStr = (navigator.userAgent+navigator.platform).toLowerCase();
-	return !deviceStr.match(/(iphone|ipod|ipad)/);
+	return true; //deviceStr.match(/(iphone|ipod|ipad)/);
 }
 

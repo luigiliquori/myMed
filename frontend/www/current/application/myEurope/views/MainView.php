@@ -7,7 +7,7 @@
  		array("#infos", "About European programs", "info-sign"),
  		array("#blogs", "Bonnes pratiques", "comments"),
  		array("#profile", $_SESSION['user']->name, "user")
- 	), true);
+ 	), APPLICATION_LABEL, true);
  }
 
 ?>

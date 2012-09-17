@@ -14,8 +14,8 @@
 
 	<div data-role="content" style="text-align: center;">
 		<br />
-		
-		<div class="ui-grid-b" Style="padding: 10px;">
+		<br />
+		<div class="ui-grid-b">
 			<?php $column = "a"; ?>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 				<?php if ($status == "on") { ?>

@@ -1,49 +1,49 @@
 <?php 
 
+function tab_bar_default($activeTab, $me) {
+	tabs($activeTab, array(
+			array("#home", "Partenariats", "retweet"),
+			array("#infos", "About European programs", "info-sign"),
+			array("#blogs", "Bonnes pratiques", "comments"),
+			array("#profile", $me, "user")
+	), true);
+}
 
-/**
- *  Generates a navbar of tabs with appropriate transitions (left / right).
- *  $tabs : An array of "<tabId>" => "<Label>"
- *          Where tabId is the id of the page = The id of the div with data-role="page"
- *  $ActiveTab : Current active tab id 
- *  These tabs should be repeated in the header of each tabbed page
- */
-function tabs($activeTab, $tabs, $useBackTomyMed = false) {
+function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed = false) {
 	
 	$reverse = true;
-	?> 	
-
-  	<div data-role="header" data-theme="b" style="max-height: 33px;">
+	$tabsStr = "";
+	foreach ($tabs as $i){
+		$tabsStr .=
+		'<li><a href="'. $i[0] .'" data-transition="slide" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
+		.($i[0][0]!='#'?'rel="external"':'')
+		.($activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '').'>'. _($i[1])
+		.'</a></li>';
+		if ($i[0] == $activeTab) {
+			$reverse = false;
+		}
+	}
+	?>
+	<div data-role="header" data-theme="b" data-position="fixed">
   		<? if ($useBackTomyMed): ?>
 			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">myMed</a>
 		<? endif ?>
   		<h1>
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?><span class="largeWidth">Réseau social transfontalier</span></a>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?></a><span style="opacity: 0.7;"> &gt; </span><span class="largeWidth"><?= $subtitle ?></span>
   		</h1>
   		<? include("social.php"); ?>
+  		<div data-role="header" data-theme="d" class="toptab">
+			<div data-role="navbar" data-role="footer" data-iconpos="bottom" >
+				<ul><?= $tabsStr ?></ul>
+			</div>
+		</div>
   	</div>
-	<div data-role="navbar" data-theme="b"  data-iconpos="bottom"> 
-		<ul>
-	  		<? foreach ($tabs as $i): ?>
-	  		<li>
-	  			<a 
-	  				href="<?= $i[0] ?>"  
-	  				data-transition="slide" 
-	  				data-icon="<?= $i[2] ?>" 
-	  				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
-	  				<?= $i[0][0]!='#'?'rel="external"':'' ?>
-	  				<?= ($activeTab == $i[0]) ? 'class="ui-btn-down-c ui-state-persist"' : '' ?> >
-	  				<?= _($i[1]) ?>
-	  			</a>
-	  		</li>
-	  		<? if ($i[0] == $activeTab) {
-	  			$reverse = false;
-	  		}
-	  		endforeach;
-	  	?> 
-	  	</ul>
-  	</div>
-
+	
+	<div data-role="footer" data-theme="d" data-position="fixed" style="display: none;" class="iostab">
+		<div data-role="navbar" data-role="footer" data-iconpos="top" >
+			<ul><?= $tabsStr ?></ul>
+		</div>
+	</div>
  	<?
  }
  

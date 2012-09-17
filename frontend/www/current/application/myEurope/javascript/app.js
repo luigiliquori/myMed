@@ -307,3 +307,15 @@ function prettyprintUser(id){
 	return id.split(/(MYMED_|@)/)[2].replace('.', ' ');
 }
 
+$("[data-role=page]").live("pagecreate", function() {
+	if (isiPhoneoriPad()){
+		$(this).find('.toptab').hide();
+		$(this).find('.iostab').show();
+	}
+});
+
+function isiPhoneoriPad(){
+	var deviceStr = (navigator.userAgent+navigator.platform).toLowerCase();
+	return true; //deviceStr.match(/(iphone|ipod|ipad)/);
+}
+
