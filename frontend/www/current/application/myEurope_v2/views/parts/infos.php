@@ -386,6 +386,8 @@
 	</div>
 </div>
 
+<!-- ***************************************************************** -->
+
 <div data-role="page" id="FEDER">
 		<div data-role="header" data-theme="b" data-position="fixed">
 		<a href="#" data-rel="back" data-icon="arrow-l">Retour</a>
@@ -394,40 +396,58 @@
 	</div>
 
 	<div data-role="content">
-		<h3>
+	
+			
+		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
+		
+			<div data-role="collapsible" data-collapsed="false">
+			<h3>Missions</h3>
+			<h4>
 			<u>Mission du FEDER &nbsp;(Fond Europ&eacute;en de d&eacute;veloppement R&eacute;gional) :</u>
-		</h3>
-		<p>
-		Contribuer financi&egrave;rement au renforcement de la coh&eacute;sion &eacute;conomique, sociale et territoriale en r&eacute;duisant les
-		disparit&eacute;s r&eacute;gionales.
-		</p>
-		<p>&nbsp;</p>
-		<p>
-		
-		
-		<h3>
+			</h4>
+			<p>
+			Contribuer financi&egrave;rement au renforcement de la coh&eacute;sion &eacute;conomique, sociale et territoriale en r&eacute;duisant les
+			disparit&eacute;s r&eacute;gionales.
+			</p>
+			<p>&nbsp;</p>
+			<p>
+			</div>
+			
+			<div data-role="collapsible">
+			<h3>Actions</h3>
+			<h4>
 			<u>Les actions du FEDER :</u>
-		</h3>
-		Ses actions se concentrent autour des priorit&eacute;s suivantes&nbsp;: comp&eacute;titivit&eacute;, innovation, cr&eacute;ation d&rsquo;emplois
-		durables et une croissance respectueuse de l&rsquo;environnement.
-		</p>
-		<p>
-			Il cofinance &eacute;galement les trois nouveaux objectifs de la politique r&eacute;gionale&nbsp;: &laquo;&nbsp;<b>Convergence</b>&nbsp;&raquo;,
-			&laquo;&nbsp;<b>Comp&eacute;titivit&eacute; r&eacute;gionale et emploi</b>&nbsp;&raquo; et &laquo;&nbsp;<b>Coop&eacute;ration territoriale
-				europ&eacute;enne&nbsp;&raquo</b>.
-		</p>
-		<p>&nbsp;</p>
-		<h3>
+			</h4>
+			Ses actions se concentrent autour des priorit&eacute;s suivantes&nbsp;: comp&eacute;titivit&eacute;, innovation, cr&eacute;ation d&rsquo;emplois
+			durables et une croissance respectueuse de l&rsquo;environnement.
+			</p>
+			<p>
+				Il cofinance &eacute;galement les trois nouveaux objectifs de la politique r&eacute;gionale&nbsp;: &laquo;&nbsp;<b>Convergence</b>&nbsp;&raquo;,
+				&laquo;&nbsp;<b>Comp&eacute;titivit&eacute; r&eacute;gionale et emploi</b>&nbsp;&raquo; et &laquo;&nbsp;<b>Coop&eacute;ration territoriale
+					europ&eacute;enne&nbsp;&raquo</b>.
+			</p>
+			<p>&nbsp;</p>
+			</div>
+			
+			<div data-role="collapsible">
+			<h3>2014-2020</h3>
+			<h4>
 			<u>Prochaine p&eacute;riode de programmation 2014-2020 :</u>
-		</h3>
-		<p>L&rsquo;orientation g&eacute;n&eacute;rale de cette nouvelle p&eacute;riode de programmation &nbsp;pr&eacute;voit une &eacute;conomie-bas carbone
-			dans tous les secteurs, &nbsp;conform&eacute;ment aux objectifs de la nouvelle Strat&eacute;gie Europe 2020.</p>
-		<p>Autre grande ligne de cette nouvelle p&eacute;riode de programmation&nbsp;: le d&eacute;veloppement urbain durable.&nbsp;</p>
-
-		Pour plus d'informations <a href="http://www.europe-en-france.gouv.fr/Configuration-Generale-Pages-secondaires/FEDER"><strong>Présentation du FEDER</strong>
-		</a>
+			</h4>
+			<p>L&rsquo;orientation g&eacute;n&eacute;rale de cette nouvelle p&eacute;riode de programmation &nbsp;pr&eacute;voit une &eacute;conomie-bas carbone
+				dans tous les secteurs, &nbsp;conform&eacute;ment aux objectifs de la nouvelle Strat&eacute;gie Europe 2020.</p>
+			<p>Autre grande ligne de cette nouvelle p&eacute;riode de programmation&nbsp;: le d&eacute;veloppement urbain durable.&nbsp;</p>
+	
+			Pour plus d'informations <a href="http://www.europe-en-france.gouv.fr/Configuration-Generale-Pages-secondaires/FEDER"><strong>Présentation du FEDER</strong>
+			</a>
+			</div>
+			
+		</div>
+	
 	</div>
 </div>
+
+<!-- ***************************************************************** -->
 
 <div data-role="page" id="FSE">
 	

@@ -113,6 +113,11 @@
 	background-repeat: no-repeat;
 }
 
+.ULitem {
+	position: relative;
+	left: -10px;
+}
+
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
 ******************************************************************************************/

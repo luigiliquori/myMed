@@ -26,6 +26,9 @@
 	<!-- APP css -->
 	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
 	
+	<!-- CLE  -->
+	<link rel="stylesheet" type="text/css" href="<?= MYMED_URL_ROOT ?>/lib/jquery/CLEeditor/jquery.cleditor.css" />
+	
 	<!-- Google Analytics -->
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
