@@ -29,22 +29,22 @@ function tabs($activeTab, $tabs, $useLogOut = false) {
 		}
 	}
 	?>
-	<div data-role="header" data-theme="b" data-position="fixed" style="height: 34px;">
+	<div data-role="header" data-theme="b" data-position="fixed">
   		<? if ($useLogOut): ?>
 			<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Déconnexion</a>
 		<? endif ?>
   		<h1>
   			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?><span class="largeWidth">Réseau social transfontalier</span></a>
   		</h1>
+  		<div data-role="header" data-theme="d" class="toptab">
+			<div data-role="navbar" data-role="footer" data-iconpos="bottom" >
+				<ul><?= $tabsStr ?></ul>
+			</div>
+		</div>
   	</div>
 	
-	<div data-role="header" data-theme="d" data-position="fixed" style="top: 34px;" class="toptab">
-		<div data-role="navbar" data-role="footer" data-iconpos="bottom" >
-			<ul><?= $tabsStr ?></ul>
-		</div>
-	</div>
 	<div data-role="footer" data-theme="d" data-position="fixed" style="display: none;" class="iostab">
-		<div data-role="navbar" data-role="footer" data-iconpos="bottom" >
+		<div data-role="navbar" data-role="footer">
 			<ul><?= $tabsStr ?></ul>
 		</div>
 	</div>
