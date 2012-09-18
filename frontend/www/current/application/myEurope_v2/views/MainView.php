@@ -427,7 +427,7 @@
 			<textarea id="CLEeditor" name="text"></textarea>
 
 			<div style="text-align: center;" >
-				<a href="#post1" data-role="button" data-inline="true" data-icon="check" data-theme="g"><?=_('Insert') ?></a>
+				<a href="#post1" data-role="button" data-inline="true" data-icon="check" data-theme="g" data-rel="dialog"><?=_('Insert') ?></a>
 			</div>
 		</form>
 	</div>
@@ -452,7 +452,7 @@
 	<div data-role="header" data-theme="b" data-position="fixed">
 		<a href="#" data-rel="back" data-icon="arrow-l">Retour</a>
 		<h1><?= APPLICATION_NAME ?></h1>
-		<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-icon="delete" data-theme="r" data-icon="power" class="ui-btn-right" data-iconpos="notext">Déconnexion</a></div>
+	<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-icon="delete" data-theme="r" data-icon="power" class="ui-btn-right" data-iconpos="notext">Déconnexion</a></div>
 
 	<div data-role="content">
 		<div style="margin-bottom: 16px;">
@@ -521,28 +521,18 @@
 
 <div data-role="page" id="post1">
 	
-	<div data-role="header" data-theme="b" data-position="fixed">
-		<a href="#" data-rel="back" data-icon="arrow-l">Retour</a>
+	<div data-role="header" data-theme="b">
 		<h1><?= APPLICATION_NAME ?></h1>
-		<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-icon="delete" data-theme="r" data-icon="power" class="ui-btn-right" data-iconpos="notext">Déconnexion</a></div>
-
-	<div data-role="content">
-		<br />
-		<?= _("Your partnership offer has been successfully published on") ?>
-		 <?= APPLICATION_NAME ?>,
-		 <br /><br />
-		<a href="?action=search<?= $this->req ?>" rel="external" type="button" data-inline="true"> <?= _("See similar offers") ?> </a><br />
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#home" data-transition="none" data-icon="search"  class="ui-btn-active ui-state-persist">Partenariats</a></li>
-				<li><a href="#info" data-transition="none" data-back="true" data-icon="info">Informations</a></li>
-				<li><a href="#store" data-transition="none" data-icon="grid">Journal</a></li>
-				<li><a href="#profile" data-transition="none" data-icon="user">Profil</a></li>
-			</ul>
-		</div>
+	<div data-role="content">
+		<br />
+		<?= _("Votre offre à bien été prise en compte") ?> !
+		 <br /><br />
+		 <div style="text-align: center;" >
+			 <a href="" rel="external" type="button" data-inline="true"> <?= _("Voir les offres simillaires") ?> </a>
+		 </div>
+		 <br />
 	</div>
 	
 </div>
