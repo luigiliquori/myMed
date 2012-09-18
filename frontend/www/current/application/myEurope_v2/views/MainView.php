@@ -427,7 +427,7 @@
 			<textarea id="CLEeditor" name="text"></textarea>
 
 			<div style="text-align: center;" >
-				<a href="#post1" data-role="button" data-inline="true" data-icon="check" data-theme="g" data-rel="dialog"><?=_('Insert') ?></a>
+				<a href="#post1" data-role="button" data-inline="true" data-icon="check" data-theme="g" data-rel="popup"><?=_('Insert') ?></a>
 			</div>
 		</form>
 	</div>

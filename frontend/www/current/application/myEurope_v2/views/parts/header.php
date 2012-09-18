@@ -9,9 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile.css" />
-	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile.js"></script>
+	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0-beta.1.css" />
+	<script src="../../lib/jquery/jquery-1.8.1.min.js"></script>
+	<script src="../../lib/jquery/jquery.mobile-1.2.0-beta.1.js"></script>
 	
 	<!-- jQuery icons pack -->
 	<link href="<?= MYMED_URL_ROOT ?>/lib/jquery/jQuery-Mobile-Icon-Pack/original/jqm-icon-pack-2.0-original.css" rel="stylesheet" />

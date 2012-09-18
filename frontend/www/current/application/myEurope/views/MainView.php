@@ -28,20 +28,6 @@
 		<div data-role="fieldcontain">
 			<a href="#post" type="button" class="mymed-huge-button"><?= _('Insert a partnership offer') ?></a>
 		</div>
-			
-		<? if ($_SESSION['myEurope']->permission > 1): ?>
-		<div data-role="fieldcontain">
-			<a href="?action=Admin" type="button"><?= _('Admin') ?></a>
-		</div>
-		<? endif; ?>
-		
-		<div id="spacer"></div>
-		<div class="logos">
-			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
-			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
-			<img alt="myMed" src="../../system/img/logos/mymed" />
-		</div>
-
 	</div>
 </div>
 
@@ -54,7 +40,10 @@
 		<br />
 		<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
 		<br />
-		<a data-role="button" href="?action=logout" rel="external" data-icon="signout" data-inline="true"><?= _('Log Out') ?></a>
+		<? if ($_SESSION['myEurope']->permission > 1): ?>
+			<a href="?action=Admin" data-role="button" data-icon="gear" data-inline="true"><?= _('Admin') ?></a>
+		<? endif; ?>
+		<!-- <a data-role="button" href="?action=logout" rel="external" data-icon="signout" data-inline="true"><?= _('Log Out') ?></a>  -->
 
 		
 	</div>
