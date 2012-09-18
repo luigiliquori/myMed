@@ -10,11 +10,11 @@
 	
 	<div data-role="content">
 		<div  style="padding-top: 5%;">
-			<a href="#search" type="button" class="mymed-huge-button">Rechercher un partenariat</a>
+			<a href="#search" type="button" class="mymed-huge-button" style="opacity:0.9">Rechercher un partenariat</a>
 		</div>
 		
 		<div >
-			<a href="#post" type="button" class="mymed-huge-button">Déposer une offre de partenariat</a>
+			<a href="#post" type="button" class="mymed-huge-button" style="opacity:0.9">Déposer une offre de partenariat</a>
 		</div>
 	</div>
 	

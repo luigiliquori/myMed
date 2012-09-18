@@ -19,7 +19,7 @@ require_once("header.php"); ?>
 			<input type="hidden" name="signin" value="1" />
 		    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/><br />
 		    <input type="password" name="password" id="password" placeholder="<?= _("Password") ?>"  data-theme="c"/><br />
- 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= _("Log In") ?>" />
+ 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= _("Connexion") ?>" />
 		</form>
 		
 		<div style="position: relative; top: -100px;">
@@ -36,9 +36,9 @@ require_once("header.php"); ?>
 	<div data-role="footer" data-position="fixed" data-theme="a">
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#login" data-transition="none" data-back="true" data-icon="home" class="ui-btn-active ui-state-persist"><?= _("Log In") ?></a></li>
-				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid"><?= _("Registration") ?></a></li>
-				<li><a href="#about" data-transition="none" data-icon="info"><?= _("About") ?></a></li>
+				<li><a href="#login" data-transition="none" data-back="true" data-icon="home" class="ui-btn-active ui-state-persist"><?= _("Connexion") ?></a></li>
+				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid"><?= _("Inscription") ?></a></li>
+				<li><a href="#about" data-transition="none" data-icon="info"><?= _("A propos") ?></a></li>
 			</ul>
 		</div>
 	</div>

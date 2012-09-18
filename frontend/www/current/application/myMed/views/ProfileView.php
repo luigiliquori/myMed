@@ -1,7 +1,7 @@
 
 <div id="profile" data-role="page">
 
-	<? tab_bar_main("?action=main#profile"); ?>
+	<? tab_bar_main("#profile"); ?>
 	<? include("notifications.php"); ?>
 
 
