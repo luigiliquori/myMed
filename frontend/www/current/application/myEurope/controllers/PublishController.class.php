@@ -8,36 +8,6 @@ class PublishController extends ExtendedProfileRequired {
 		
 		parent::handleRequest();
 
-		$d = new Partnership($this, 'part');
-		
-		$index=array();
-		
-		$themes = array();
-		$places = array();
-
-		$t = array_keys(Categories::$themes);
-		foreach( $_POST as $i=>$v ){
-			if ($v == "on"){
-				if ( in_array($i, $t)){
-					array_push($themes, $i);
-				} else {
-					array_push($places, $i);
-				}
-			}
-		}
-		
-		array_push($index, new DataBeanv2("themes", ENUM, "|".join("|", $_POST['t'])));
-
-		array_push($index, new DataBeanv2("places", ENUM, "|".join("|", array_merge($_POST['pf'], $_POST['pi'], $_POST['po']))));
-		
-		array_push($index, new DataBeanv2("cats", ENUM, "|".$_POST['cat']));
-		
-		if ($_POST['call']!="")
-			array_push($index, new DataBeanv2("call", ENUM, "|".$_POST['call']));
-		
-		
-		
-		
 		$t = time();
 		
 		$data = array(
@@ -63,48 +33,48 @@ class PublishController extends ExtendedProfileRequired {
 		
 		$id = hash("md5", $t.$_SESSION['user']->id);
 		
-		$publish = new RequestJson($this, 
-				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=>$_SESSION['user']->id, "data"=>$data, "predicates"=>$index, "metadata"=>$metadata),
-				CREATE);
+		$this->part = new Partnership($this, $id, $data, $metadata);
+		$this->part->initCreate($_POST);
+		
+		try{
+			$this->result = $this->part->create();
+		}catch(Exception $e){
+			debug("post err".$e);
+			$this->setError($e);
+			$this->renderView("Main", "post");
+		}
+		
+		
+		
+		// put this project in our profile
+		$publish = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_SESSION['myEurope']->profile, "user"=>"noNotification", "data"=>array("part_".$id=>$id)),
+				UPDATE);
 		
 		$publish->send();
+		//push it in session
+		array_push($_SESSION['myEuropeProfile']->partnerships, $id);
 		
-		if (!empty($this->error)){
-			debug("post err");
-			$this->renderView("Main", "post");
-		} else {
-			
-			// put this project in our profile
-			$publish = new RequestJson( $this,
-					array("application"=>APPLICATION_NAME.":profiles", "id"=>$_SESSION['myEurope']->profile, "user"=>"noNotification", "data"=>array("part_".$id=>$id)),
-					UPDATE);
-			
-			$publish->send();
-			//push it in session
-			array_push($_SESSION['myEuropeProfile']->partnerships, $id);
-			
-			$subscribe = new RequestJson( $this,
-					array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileParts"),
-					CREATE, "v2/SubscribeRequestHandler");
-			$subscribe->send();
-			
-			
-			//redirect to search with the indexes
-			unset($_POST['text']);
-			unset($_POST['action']);
-			debug_r($index);
-			$this->req = "";
-			debug("post suc");
-			debug(json_encode($_POST));
-			unset($_POST['cat']);
-			$get_line = "";
-			foreach($_POST as $key=>$value){
-				$this->req .= '&' . $key . '=' . $value;
-			}
-			$this->renderView("PublishSuccess");
-			//$this->redirectTo("search", $_POST);
-			//$this->renderView("Main", "post");
-		}
+		$subscribe = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileParts"),
+				CREATE, "v2/SubscribeRequestHandler");
+		$subscribe->send();
+		
+		
+		//redirect to search with the indexes
+		unset($_POST['text']);
+		unset($_POST['action']);
+		$this->req = "";
+		debug("post suc");
+		debug(json_encode($_POST));
+		unset($_POST['r']);
+		$get_line = "";
+		$this->req = http_build_query($_POST);
+		
+		$this->renderView("PublishSuccess");
+		//$this->redirectTo("search", $_POST);
+		//$this->renderView("Main", "post");
+		
 	}
 	
 	

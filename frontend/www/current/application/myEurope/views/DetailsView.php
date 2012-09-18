@@ -2,7 +2,7 @@
 
 <div data-role="page">
 
-	<? tabs_simple(array('Results', $this->details->title)); ?>
+	<? tabs_simple(array('results', $this->details->title)); ?>
 	<? include("notifications.php"); ?>
 
 	<div data-role="content" >

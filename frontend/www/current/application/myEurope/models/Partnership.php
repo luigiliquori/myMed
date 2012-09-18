@@ -7,10 +7,29 @@ class Partnership extends Document {
 	public /* array of ExtendedProfile*/ $partnersProfiles;  // first is the owner, others who joined, might sort them by rep, at the end unshift partner at the top of list highlighted
 	
 	//construct index from the request url values, post or get
+	
+	public function __construct(
+			IRequestHandler $handler = null,
+			$id = null,
+			$data = null,
+			$metadata = null,
+			$index = null) {
+		parent::__construct($handler, "part", $id, $data, $metadata, $index);
+	}
+	
 	public function initSearch($request) {
 		$this->index = array();
+		foreach (array('t', 'pf', 'pi', 'po', 'r') as $el){
+			if (!isset($request[$el])){
+				$request[$el] = array();
+			}
+		}
+		if ($request['c'] == "libre"){
+			$request['c'] = ""; //equivalent to all choices
+		}
+		
 		//the order matters because I was too lazy to sort it backend-side
-		$this->index[] = new DataBeanv2("t", ENUM, join("|",  $request['t'])); //themes
+		$this->index[] = new DataBeanv2("t", ENUM, join("|", $request['t'])); //themes
 		$this->index[] = new DataBeanv2("p", ENUM, join("|", array_merge($request['pf'], $request['pi'], $request['po']))); //places
 		$this->index[] = new DataBeanv2("r", ENUM, join("|", $request['r'])); //roles of profiles
 		$this->index[] = new DataBeanv2("c", ENUM, $request['c']); // call
@@ -19,11 +38,20 @@ class Partnership extends Document {
 	
 	public function initCreate($request) {
 		$this->index = array();
+		foreach (array('t', 'pf', 'pi', 'po') as $el){
+			if (!isset($request[$el])){
+				$request[$el] = array();
+			}
+		}
+		if ($request['c'] == "libre"){
+			$request['c'] = ""; //equivalent to all choices
+		}
+		
 		//the order matters because I was too lazy to sort it backend-side
 		$this->index[] = new DataBeanv2("t", ENUM, '|'.join("|",  $request['t'])); //themes
 		$this->index[] = new DataBeanv2("p", ENUM, '|'.join("|", array_merge($request['pf'], $request['pi'], $request['po']))); //places
-		$this->index[] = new DataBeanv2("r", ENUM, '|'.join("|", $request['r'])); //roles of profiles
-		$this->index[] = new DataBeanv2("c", ENUM, '|'. $request['c']); // call
+		$this->index[] = new DataBeanv2("r", ENUM, '|'.$request['r']); //roles of profiles
+		$this->index[] = new DataBeanv2("c", ENUM, '|'.$request['c']); // call
 		$this->index[] = new DataBeanv2("k", ENUM, '|'.$request['k']); // keywords
 	}
 	
@@ -52,13 +80,9 @@ class Partnership extends Document {
 		
 		$k = preg_split('/[ ,+:-]/', $k, NULL, PREG_SPLIT_NO_EMPTY);
 		$k = array_map('strtolower', $k);
-		$k = array_filter($k, array($this, "smallWords"));
+		$k = array_filter($k, function ($w){return strlen($w) > 2;});
 		return array_unique($k);
 
-	}
-	
-	private function smallWords($w){
-		return strlen($w) > 2;
 	}
 	
 }
