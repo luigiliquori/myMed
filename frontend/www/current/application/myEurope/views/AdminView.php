@@ -2,10 +2,8 @@
 
 <div data-role="page" id="users">
 
-	<div data-role="header" class="ui-btn-active" data-position="fixed">
-		<? tabs_simple('Admin') ?>
-		<? include("notifications.php"); ?>
-	</div>
+	<? tabs_simple(array('Admin')); ?>
+	<? include("notifications.php"); ?>
 	
 	<div data-role="content">
 	
@@ -20,20 +18,10 @@
 		<p><?= _("New users waiting for validation") ?>: <?= count($this->blocked) ?></p>
 		<ul data-role="listview" data-inset="true">
 		<? foreach( $this->blocked as $i => $item ) : ?>
-			<li>
-				<form action="?action=Admin" method="post" id="userUpForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->permission + 1 ?>" />
-					<input type="hidden" name="id" value="<?= $item->id ?>" />
-				</form>
-				<form action="?action=Admin" method="post" id="userDownForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->permission - 1 ?>" />
-					<input type="hidden" name="id" value="<?= $item->id ?>" />
-				</form>
-				
+			<li>		
 				<a href="?action=ExtendedProfile&id=<?= $item->profile ?>"> <?= $item->email ?></a>
-				<a rel="external" data-icon="minus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission - 1 ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= $item->permission ?></a>
-	        	<a rel="external" data-icon="plus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission + 1 ?>" data-theme="e"><?= $item->permission ?></a> 
-
+				<a rel="external" data-icon="minus" href="?action=Admin&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= $item->permission ?></a>
+	        	<a rel="external" data-icon="plus" href="?action=Admin&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>" data-theme="e"><?= $item->permission ?></a>
 			</li>
 		<? endforeach ?>
 		</ul>
@@ -42,20 +30,9 @@
 		<ul data-role="listview" data-inset="true">
 		<? foreach( $this->normals as $i => $item ) : ?>
 			<li>
-				<form action="?action=Admin" method="post" id="userUpForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->permission + 1 ?>" />
-					<input type="hidden" name="id" value="<?= $item->id ?>" />
-				</form>
-				<form action="?action=Admin" method="post" id="userDownForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->permission - 1 ?>" />
-					<input type="hidden" name="id" value="<?= $item->id ?>" />
-					
-				</form>
-				
-				<a href="?action=ExtendedProfile&id=<?= $item->profile ?>"> <?= $item->email ?></span></a>
-				<a rel="external" data-icon="minus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission - 1 ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= $item->permission ?></a>
-	        	<a rel="external" data-icon="plus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission + 1 ?>" data-theme="e"><?= $item->permission ?></a> 
-				
+				<a href="?action=ExtendedProfile&id=<?= $item->profile ?>"> <?= $item->email ?></a>
+				<a rel="external" data-icon="minus" href="?action=Admin&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= $item->permission ?></a>
+	        	<a rel="external" data-icon="plus" href="?action=Admin&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>" data-theme="e"><?= $item->permission ?></a>
 			</li>
 		<? endforeach ?>	
 		</ul>
@@ -64,21 +41,9 @@
 		<ul data-role="listview" data-inset="true">
 		<? foreach( $this->admins as $i => $item ) : ?>
 			<li>
-				<form action="?action=Admin" method="post" id="userUpForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->permission + 1 ?>" />
-					<input type="hidden" name="id" value="<?= $item->id ?>" />
-				</form>
-				<form action="?action=Admin" method="post" id="userDownForm<?= $i ?>">
-					<input type="hidden" name="perm" value="<?= $item->permission - 1 ?>" />
-					<input type="hidden" name="id" value="<?= $item->id ?>" />
-					
-				</form>
-				
-				<a href="?action=ExtendedProfile&id=<?= $item->profile ?>"> <?= $item->email ?></span></a>
-				<a rel="external" data-icon="minus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission - 1 ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= $item->permission ?></a>
-	        	<a rel="external" data-icon="plus" href="?action=Admin&id=<?= $item->id ?>&perm=<?= $item->permission + 1 ?>" data-theme="e"><?= $item->permission ?></a> 
-				
-
+				<a href="?action=ExtendedProfile&id=<?= $item->profile ?>"> <?= $item->email ?></a>
+				<a rel="external" data-icon="minus" href="?action=Admin&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= $item->permission ?></a>
+	        	<a rel="external" data-icon="plus" href="?action=Admin&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>" data-theme="e"><?= $item->permission ?></a>
 			</li>
 		<? endforeach ?>	
 		</ul>

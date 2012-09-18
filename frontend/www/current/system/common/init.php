@@ -62,7 +62,7 @@ spl_autoload_register(function ($className) {
 
 		foreach(explode(PATH_SEPARATOR, get_include_path()) as $path) {
 			$fname = $path . '/' . $className.$x;
-			if(file_exists($fname)) {
+			if(@file_exists($fname)) {
 				require_once($fname);
 				return true;
 			}

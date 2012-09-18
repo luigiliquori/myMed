@@ -1,11 +1,9 @@
 <? include("header.php"); ?>
 
 <div data-role="page" id="results">
-	<div data-role="header" class="ui-btn-active" data-position="fixed">
-		<? tabs_simple("Results") ?>
-		<? include("notifications.php"); ?>
-	</div>
 
+	<? tabs_simple(array("Results")); ?>
+	<? include("notifications.php"); ?>
 	<div data-role="content">
 
 		<div style="margin-bottom: 16px;">

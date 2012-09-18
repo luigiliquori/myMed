@@ -1,9 +1,7 @@
 
 <div data-role="page" id="infos">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#infos") ?>
-	</div>
 
+	<? tab_bar("#infos") ?>
 	<div data-role="content">
 		<br />
 		<b>Programmes de coopération</b> dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée :
@@ -36,7 +34,7 @@
 </div>
 
 <div data-role="page" id="alcotra">
-	<? tabs_info() ?>
+	<? tabs_info('alcotra') ?>
 	<div data-role="content">
 
 		<h3>
@@ -112,7 +110,7 @@
 	</div>
 </div>
 <div data-role="page" id="Maritime">
-	<? tabs_info() ?>
+	<? tabs_info("Maritime") ?>
 	<div data-role="content">
 	<h3>
 			<u>Objectifs principaux du programme :</u></h3>
@@ -158,7 +156,7 @@
 
 
 <div data-role="page" id="MED">
-	<? tabs_info() ?>
+	<? tabs_info("MED") ?>
 	<div data-role="content">
 
 		<h3>
@@ -207,7 +205,7 @@
 </div>
 
 <div data-role="page" id="Espace Alpin">
-	<? tabs_info() ?>
+	<? tabs_info("Espace Alpin") ?>
 	<div data-role="content">
 
 		<h3>
@@ -286,7 +284,7 @@
 
 
 <div data-role="page" id="IEVP">
-	<? tabs_info() ?>
+	<? tabs_info("IEVP") ?>
 	<div data-role="content">
 	<p>
 		<span><h3><u>Objectif du programme :</u></h3> </span> 
@@ -347,7 +345,7 @@
 </div>
 
 <div data-role="page" id="Interreg">
-	<? tabs_info() ?>
+	<? tabs_info("Interreg") ?>
 	<div data-role="content">
 
 		<h3>
@@ -390,7 +388,7 @@
 </div>
 
 <div data-role="page" id="FEDER">
-	<? tabs_info() ?>
+	<? tabs_info("FEDER") ?>
 	<div data-role="content">
 		<h3>
 			<u>Mission du FEDER &nbsp;(Fond Europ&eacute;en de d&eacute;veloppement R&eacute;gional) :</u>
@@ -428,7 +426,7 @@
 </div>
 
 <div data-role="page" id="FSE">
-	<? tabs_info() ?>
+	<? tabs_info("FSE") ?>
 	<div data-role="content">
 
 		<h3>
@@ -473,7 +471,7 @@
 </div>
 
 <div data-role="page" id="FEADER">
-	<? tabs_info() ?>
+	<? tabs_info("FEADER") ?>
 	<div data-role="content">
 		<h3>
 			<u>Mission du FEADER (Fonds Europ&eacute;en Agricole pour le D&eacute;veloppement Rural) : </u>
@@ -498,7 +496,7 @@
 </div>
 
 <div data-role="page" id="Recherche">
-	<? tabs_info() ?>
+	<? tabs_info("Recherche") ?>
 	<div data-role="content">
 		<h3>
 			<u>Budget global pour la p&eacute;riode 2014-2020 :</u>

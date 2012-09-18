@@ -2,10 +2,8 @@
 
 <div data-role="page">
 
-	<div data-role="header" class="ui-btn-active" data-position="fixed">
-		<? tabs_simple($this->details->title) ?>
-		<? include("notifications.php"); ?>
-	</div>
+	<? tabs_simple(array('Results', $this->details->title)); ?>
+	<? include("notifications.php"); ?>
 
 	<div data-role="content" >
 	

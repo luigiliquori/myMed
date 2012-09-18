@@ -74,13 +74,13 @@ class MainController extends AuthenticatedController {
 
 		//let's store them in session since we are not in the UK
 		if (!isset($_SESSION['applicationList'])){
-			if (is_null($myApps = json_decode($_SESSION['user']->applicationList))){
+			if (is_null($myApps = json_decode($_SESSION['user']->applicationList, true))){
 				$myApps = self::$bootstrapApplication;
 				//store it in the user db profile
 			}
-			
+			$allaps = array_merge(self::$bootstrapApplication, self::$otherApplication);
+			array_walk( $allaps, array($this, 'setOff'));
 			array_walk( $myApps, array($this, 'setOn'));
-			array_walk( self::$otherApplication, array($this, 'setOff'));
 		}
 // 		$this->resetApplicationStatus();
 

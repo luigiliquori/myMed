@@ -24,18 +24,18 @@ class AdminController extends ExtendedProfileRequired {
 				$res = $find->send();
 			}
 			catch(Exception $e){}
-			if (isset($res)){
-				$this->success = "";
+			
+			$this->success = "";
+			
+			$this->users = $res->results;
+			debug_r($this->users);
+			
+			$this->blocked = array();
+			$this->normals = array();
+			$this->admins = array();
+			array_walk($this->users, array($this,"userFilter"));
 				
-				$this->users = $res->results;
-					debug_r($this->users);
-				$this->blocked = array_filter($this->users, array($this,"isBlocked"));
-				$this->normals = array_filter($this->users, array($this,"isNormal"));
-				$this->admins = array_filter($this->users, array($this,"isAdmin"));
-					
-				$this->renderView("admin");
-			}
-			$this->renderView("main");
+			$this->renderView("admin");
 			
 		}
 		
@@ -52,17 +52,17 @@ class AdminController extends ExtendedProfileRequired {
 
 	}
 	
-	public function isBlocked($var){
-		return($var->permission <= 0);
+	public function userFilter($var){
+		//$var->id = filter_var($var->id, FILTER_SANITIZE_EMAIL);
+		if (isset($var->id)){
+			if ($var->permission < 1){
+				$this->blocked[] = $var;
+			} else if ($var->permission == 1){
+				$this->normals[] = $var;
+			} else {
+				$this->admins[] = $var;
+			}
+		}
 	}
-	
-	public function isNormal($var){
-		return($var->permission == 1);
-	}
-	
-	public function isAdmin($var){
-		return($var->permission > 1);
-	}
-	
 }
 ?>

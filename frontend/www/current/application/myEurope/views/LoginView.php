@@ -21,10 +21,9 @@ include("header.php"); ?>
 	<div data-role="content">
 	
 		<!-- Tabs -->
-		<div data-role="header" data-theme="c" data-position="fixed">
-			<? tab_bar("#login") ?>
-			<? include("notifications.php"); ?>
-		</div>
+		<? tab_bar("#login") ?>
+		<? include("notifications.php"); ?>
+		
 
 		<!-- Login form -->
 		<form data-role="content" action="index.php?action=login" data-ajax="false" method="post">
@@ -66,9 +65,7 @@ include("header.php"); ?>
 	<div data-role="content">
 	
 		<!-- Tabs -->
-		<div data-role="header" data-theme="c" data-position="fixed">
-			<? tab_bar("#register") ?>
-		</div>
+		<? tab_bar("#register") ?>
 
 		<!--  Register form -->
 		<form data-role="content" action="index.php?action=register" method="post">

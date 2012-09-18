@@ -1,14 +1,3 @@
-.ui-header h4.ui-title {
-	margin-top: 3px;
-	margin-bottom: 3px;
-}
-
-.ui-header h1.ui-title {
-	margin-top: 7px;
-	margin-bottom: 7px;
-}
-
-
 /* big button first version */
 .mymed-big-button {
 	line-height : 150px;
@@ -19,7 +8,7 @@
 	white-space: normal;
 }
 
-/* use this one */
+/* big button: use this one */
 
 .mymed-huge-button .ui-btn-inner{
 	padding-top: 75px;
@@ -33,9 +22,9 @@
 	}
 }
 
-.largeWidth{
-	font-size: 80%;
-	margin-left: 5px;
+.ui-header .ui-title{
+	margin-right: 20%;
+	margin-left: 20%;
 }
 
 .ui-page {

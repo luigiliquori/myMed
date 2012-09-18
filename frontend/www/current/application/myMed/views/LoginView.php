@@ -5,10 +5,20 @@
 //
 require_once("header.php"); ?>
 
+<?
+function tab_bar_login($activeTab) {
+	tabs($activeTab, array(
+			array("#login", "Connexion", "signin"),
+			array("#register", "Inscription", "th-list"),
+			array("#about", "A propos", "info-sign")
+	));
+}
+?>
+
 <div data-role="page" id="login">
 
 	<div data-role="header" data-theme="d" data-position="fixed">
-		<? tab_bar_login("#login") ?>
+		<? tab_bar_login("#login"); ?>
 		<? include("notifications.php"); ?>
 	</div>
 	

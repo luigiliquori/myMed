@@ -2,22 +2,25 @@
 
 require(dirname(__FILE__) . '/../../../lib/dasp/request/RequestJson.php');
 require(dirname(__FILE__) . '/../../../lib/dasp/request/Requestv2.php');
+require(dirname(__FILE__) . '/../../../lib/dasp/request/Requestv2Wrapper.php');
 require(dirname(__FILE__) . '/../../../system/config.php');
 
 
 
 
-/*$req = new RequestJson(null,
-		array("application"=>"myApp", "id"=>"someFuckingCassandraTests", "data"=>array("k2"=>"22222222")),
-		UPDATE );*/
+$req = new Requestv2Wrapper(null,
+		array("user"=>"MYMED_cyril.auburtin@inria.fr", "key"=>"applicationList", "value"=>json_encode(array("myEurope", "myRiviera"))),
+		UPDATE, "v2/ProfileRequestHandler" );
 
-$req = new Requestv2("v2/ProfileRequestHandler", READ, array());
+/*$req = new Requestv2("v2/ProfileRequestHandler", READ, array());
 
 session_start();
-$req->addArgument("userID", "MYMED_cyril.auburtin@gmail.com");
+$req->addArgument("userID", "MYMED_cyril.auburtin@gmail.com");*/
 $req->setURL("http://mymed20.sophia.inria.fr:8080/backend/");
+
+
 if (!isset($_SESSION['accessToken']))
-	$req->addArgument('accessToken', 'ya29.AHES6ZQGDWn2w9d7X-kc7fHBpc_noEuGk6fjNp9Evsdj0Y4R46z29g'); //for tests
+	$req->addArgument('accessToken', 'b5f7d04a94704896a719c6777a7faa55e8e68c3f'); //for tests
 
 
 /*$req->addArgument("user", "MYMED_cyril.auburtin@gmail.com");

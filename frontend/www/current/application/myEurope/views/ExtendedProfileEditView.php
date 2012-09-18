@@ -1,9 +1,9 @@
 <? include("header.php"); ?>
 <div data-role="page">
-	<div data-role="header" class="ui-btn-active" data-position="fixed">
-		<? tabs_simple('Profile') ?>
-		<? include("notifications.php"); ?>
-	</div>
+	
+	<? tabs_simple(array('Profile'));?>
+	<? include("notifications.php"); ?>
+	
 	
 	<div data-role="content">
 		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">

@@ -1,6 +1,10 @@
-<div id="storeSub" data-role="page">
+<? include("header.php"); ?>
 
-	<? tab_bar_main("#store") ?>
+<? define('STORE_PREFIX' , '_store'); ?>
+
+<div data-role="page">
+
+	<? tab_bar_main("?action=store"); ?>
 	<? include("notifications.php"); ?>
 	
 	<div data-role="content">
@@ -10,19 +14,17 @@
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				<h3><?= $_REQUEST["applicationStore"] ?></h3>
 				<img alt="<?= $_REQUEST["applicationStore"] ?>" src="../../application/<?= $_REQUEST["applicationStore"] ?>/img/icon.png" Style="position: absolute; width: 50px;">
-				<div Style="position: absolute; left: 100px;">
+				<div style="position: absolute; left: 200px;">
 					<p>Version: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/version") ?></i><br />
 					Mise à jour: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i></p>
 				</div>
-				
 				<div Style="position: absolute; right: 20px;">
-					<select id="flip-<?= $_REQUEST["applicationStore"] ?>" name="flip-<?= $_REQUEST["applicationStore"] ?>"
-						id="flip-<?= $_REQUEST["applicationStore"] ?>" data-role="slider" data-mini="true"
-						onChange="SetApplicationStatus('<?= $_REQUEST["applicationStore"] ?>', $('#flip-<?= $_REQUEST["applicationStore"] ?>').val());">
+					<select data-role="slider" data-mini="true"
+						onChange="toggleStatus('<?= $_GET['applicationStore'] ?>', $(this).val());">
 						<option value="off"
-						<?= $this->applicationStatus[$_REQUEST["applicationStore"]] == "off" ? "selected='selected'" : "" ?>>Off</option>
+						<?= $_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "off" ? "selected='selected'" : "" ?>>Off</option>
 						<option value="on"
-						<?= $this->applicationStatus[$_REQUEST["applicationStore"]] == "on"  ? "selected='selected'" : "" ?>>On</option>
+						<?= $_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "on"  ? "selected='selected'" : "" ?>>On</option>
 					</select>
 				</div>
 				<div style="position: relative; height:60px;"></div>
@@ -73,3 +75,4 @@
 	</div>
 
 </div>
+<? include("footer.php"); ?>

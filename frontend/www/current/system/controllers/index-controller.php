@@ -69,6 +69,7 @@ function callController(
 
 // Start session
 session_start();
+session_set_cookie_params(3600);
 
 // ---------------------------------------------------------------------
 // Internationalization
