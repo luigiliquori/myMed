@@ -12,7 +12,7 @@ $store = new Auth_OpenID_FileStore(getStorePath());
 $consumer = new Auth_OpenID_Consumer($store);
 
 // Create an authentication request to the OpenID provider
-$response = $consumer->complete('http://mymed20.sophia.inria.fr/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_catch.php');
+$response = $consumer->complete(getReturnTo());
 
 if ($response->status == Auth_OpenID_SUCCESS) {
 	// Get registration informations
@@ -25,7 +25,7 @@ if ($response->status == Auth_OpenID_SUCCESS) {
 	
 	$_SESSION['user'] = MUserBean::constructFromOpenId($obj->data);
 	$_SESSION['accessToken'] = sha1($_SESSION['user']->email . time());
-	header('Location: ./../../../../../?action=login');
+	header('Location: '.getTrustRoot().'?action=login');
 
 
 } else {

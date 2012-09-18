@@ -19,17 +19,13 @@
 			<label for="radio-view-e"><?= _("reputation") ?></label>
 		</fieldset>
 		
-		<? if (true || !empty($this->themes)||!empty($this->places)||!empty($this->roles)||!empty($this->p)) :?>
+		<? if ($this->part->isIndexNotEmpty()) :?>
 		<div style="float: right;">
-		<label for="subscribeButton" >
-			<?= (empty($this->themes)?'':_('Themes').': <em style="font-size: 14px;">'.join(", ",$this->themes).'</em>, ').
-		(empty($this->places)?'':_('Places').': <em style="font-size: 14px;">'.join(", ",$this->places).'</em>, ').
-		(empty($this->roles)?'':_('Roles').': <em style="font-size: 14px;">'.join(", ",$this->roles).'</em>, ').
-		(empty($this->p)?'':_('Keywords').': <em style="font-size: 14px;">'.join(", ",$this->p).'</em>') ?>:
-		
-		</label>
-		<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
-		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$this->part->namespace ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
+			<label for="subscribeButton">
+				<?= $this->part->renderSearchIndex(); ?>:
+			</label>
+			<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
+			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$this->part->namespace ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
 		</div>
 		<? endif ?>
 		</div>

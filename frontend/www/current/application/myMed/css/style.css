@@ -1,3 +1,9 @@
+.ui-page {
+ 	background-image: url("../img/background.png");
+ 	/** the rest is in system/css/common.css **/
+}
+
+
 .oauth_small_btn {
 	background: white url('/system/img/oauth-logos.png');
 	width: 24px;

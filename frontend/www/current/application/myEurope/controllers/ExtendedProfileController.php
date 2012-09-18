@@ -213,7 +213,6 @@ class ExtendedProfileController extends AuthenticatedController
 	}
 	
 	public /*void*/ function showOtherProfile($id){
-		debug_r($id);
 		
 		$this->profile = new ExtendedProfile($this, $id);
 		try{
@@ -221,18 +220,20 @@ class ExtendedProfileController extends AuthenticatedController
 		}catch (NoResultException $e) {
 		}catch(Exception $e){
 		}
-
-		//debug_r($this->profile);
+		
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
-	public /*void*/ function showUserProfile($id){
-	
-		$this->profile = getProfilefromUser($this, $id);
-		if (!empty($this->profile)){
-			$this->id = $this->profile->name;
-			$this->renderView("ExtendedProfileDisplay");
+	public /*void*/ function showUserProfile($user){
+		
+		$this->profile = new ExtendedProfile($this);
+		try{
+			$this->result = $this->profile->readFromUser($user);
+		}catch (NoResultException $e) {
+		}catch(Exception $e){
 		}
+	
+		$this->renderView("ExtendedProfileDisplay");
 	}
 	
 	public /*void*/ function showMyProfile(){

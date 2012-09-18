@@ -6,24 +6,19 @@
 
 
 	<div data-role="content">
-	
-		<?= debug_r($_SESSION['user'])?>
-	
-		<div Style="text-align: left;">
-			<br />
-			<?php if($_SESSION['user']->profilePicture != "") { ?>
-				<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
-			<?php } else { ?>
-				<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
-			<?php } ?>
-			
-			<div Style="display:inline-block; font-weight: bold; font-size: 14pt; text-align: center;">
-				<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> <br />
-				<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh" data-mini="true">mise à jour</a>
-				
-			</div>
+
+		<?php if($_SESSION['user']->profilePicture != "") { ?>
+			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
+		<?php } else { ?>
+			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
+		<?php } ?>
+		
+		<div style="display:inline-block; margin-left: 15px; vertical-align: 25%; font-weight: bold; font-size: 14pt; text-align: center;">
+			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> <br />
+			<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh" data-mini="true">mise à jour</a>
 			
 		</div>
+	
 		
 		<br /><br />
 		

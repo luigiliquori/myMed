@@ -38,7 +38,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed 
   		
   		<? include("social.php"); ?>
   		
-  		<div data-role="header" data-theme="d" class="toptab">
+  		<div data-role="header" data-theme="d" style="display: none;" class="toptab">
 			<div data-role="navbar" data-role="footer" data-iconpos="bottom" >
 				<ul><?= $tabsStr ?></ul>
 			</div>

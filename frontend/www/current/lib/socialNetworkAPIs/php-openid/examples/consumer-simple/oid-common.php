@@ -26,13 +26,13 @@ function getScheme() {
 }
 
 function getReturnTo() {
-    return sprintf("%s://%s%s/finish_auth.php",
+    return sprintf("%s://%s%s/oid_catch.php",
                    getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
 }
 
 function getTrustRoot() {
-    return sprintf("%s://%s%s/",
-                   getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
+    return sprintf("%s://%s/",
+                   getScheme(), $_SERVER['SERVER_NAME']);
 }
 
 function getStorePath(){

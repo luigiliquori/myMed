@@ -1,8 +1,11 @@
+.aloha-ui .aloha-sidebar-bar .aloha-sidebar-right, .aloha-sidebar-handle {
+	display: none;
+}
+
+
 .ui-page {
  	background-image: url("../img/background.png");
-	background-size: 100% 100%; 
-	text-shadow: none;
-	color: white;
+ 	/** the rest is in system/css/common.css **/
 }
 
 .ui-controlgroup-last {

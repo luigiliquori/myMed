@@ -38,7 +38,7 @@ foreach($attribute as $attr){
 $auth->addExtension($ax);
 
 // Redirect to OpenID provider for authentication
-$url = $auth->redirectURL('http://mymed20.sophia.inria.fr', 'http://mymed20.sophia.inria.fr/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_catch.php');
+$url = $auth->redirectURL(getTrustRoot(), getReturnTo());
 header('Location: ' . $url);
 
 
