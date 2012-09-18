@@ -27,13 +27,17 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed 
 	}
 	?>
 	<div data-role="header" data-theme="b" data-position="fixed">
-  		<? if ($useBackTomyMed): ?>
+  		<? if ($useBackTomyMed) { ?>
 			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
-		<? endif ?>
+		<? } else { ?>
+  			<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="signout" data-iconpos="notext">Deconnexion</a>
+  		<? } ?>
   		<h1>
   			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"> Réseau social transfontalier</span></a>
   		</h1>
+  		
   		<? include("social.php"); ?>
+  		
   		<div data-role="header" data-theme="d" class="toptab">
 			<div data-role="navbar" data-role="footer" data-iconpos="bottom" >
 				<ul><?= $tabsStr ?></ul>

@@ -10,7 +10,7 @@
 			<div  data-role="collapsible" data-collapsed="false">
 				<h3>Rechercher</h3>
 			
-				<ul data-role="listview" data-filter="ture" >
+				<ul data-role="listview" data-filter="true" >
 				
 					<li data-role="list-divider"><b>Programmes de coopération</b> dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée :</li>
 				
