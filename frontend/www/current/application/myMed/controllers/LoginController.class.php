@@ -165,7 +165,7 @@ class LoginController extends AbstractController {
 		$responsejSon = $request->send();
 		$responseObject3 = json_decode($responsejSon);
 		if($responseObject->status == 200) {
-			$_SESSION['user2'] = $_SESSION['user']; 
+			$_SESSION['user2'] = $_SESSION['user']; // 
 			$_SESSION['user'] = $responseObject3->dataObject->user;
 		}
 	}

@@ -16,6 +16,8 @@ ini_set('include_path', $path);
 require_once "Auth/OpenID/Consumer.php";
 require_once "Auth/OpenID/FileStore.php";
 require_once "Auth/OpenID/AX.php";
+require_once "Auth/OpenID/SReg.php";
+require_once "Auth/OpenID/PAPE.php";
 
 function getScheme() {
     $scheme = 'http';
