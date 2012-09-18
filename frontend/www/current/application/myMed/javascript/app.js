@@ -68,7 +68,7 @@ function updateProfile(k, v) {
 	});
 }
 
-$("[data-role=page]").live("pagecreate", function() {
+$("[data-role=page]").live("pageshow", function() {
 	if (isiPhoneoriPad()){
 		$(this).find('.toptab').hide();
 		$(this).find('.iostab').show();
