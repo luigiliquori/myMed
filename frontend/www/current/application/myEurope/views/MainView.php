@@ -44,7 +44,6 @@
 			<a href="?action=Admin" data-role="button" data-icon="gear" data-inline="true"><?= _('Admin') ?></a>
 		<? endif; ?>
 		<!-- <a data-role="button" href="?action=logout" rel="external" data-icon="signout" data-inline="true"><?= _('Log Out') ?></a>  -->
-
 		
 	</div>
 </div>
@@ -53,17 +52,40 @@
 
 	<? tab_bar("#blogs") ?>
 	<div data-role="content" style="text-align:center;">
-		<br />
-		<div data-role="fieldcontain">
-			<a href="?action=Blog&blog=Bonnes Pratiques" rel="external" type="button" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques dans la création de projet et leur soumission ...etc') ?></a>
-		</div>
-		<div data-role="fieldcontain">
-			<a href="?action=Blog&blog=myEurope"  rel="external" type="button"  class="mymed-huge-button"><?= _('Beta Testers Blog') ?></a>
-		</div>
-		<br />
-		<br />
-		<br />
-		<a href="#createPopup" data-rel="popup" data-inline="true" data-icon="faplus"> <?= _("Create a bew blog") ?></a>
+		<ul data-role="listview" data-inset="true" data-filter="true" >
+			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
+			<li>
+				<a href="?action=Blog&blog=Trouver un partenaire europeen" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Trouver un partenaire européen') ?></a>
+			</li>
+			<li>
+				<a href="?action=Blog&blog=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?></a>
+			</li>
+			<li>
+				<a href="?action=Blog&blog=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?></a>
+			</li>
+			<li>
+				<a href="?action=Blog&blog=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?></a>
+			</li>
+			<li>
+				<a href="?action=Blog&blog=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?></a>
+			</li>
+			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?></li>
+			<li>
+				<a href="?action=Blog&blog=Bugs et problemes rencontres"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?></a>
+			</li>
+			<li>
+				<a href="?action=Blog&blog=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?></a>
+			</li>
+			<li>
+				<a href="?action=Blog&blog=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?></a>
+			</li>
+		</ul>
+		
+		<? if ($_SESSION['myEurope']->permission > 1): ?>
+			<div data-role="fieldcontain">
+				<a href="#createPopup" data-rel="popup" data-inline="true" type="button" data-icon="faplus"> <?= _("Create a new blog") ?></a>
+			</div>
+		<? endif; ?>
 		
 		<div data-role="popup" id="createPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>

@@ -3,102 +3,52 @@
 //
 // This view shows both the login and register forms, with two tabs
 //
-include("header.php"); ?>
-<? 
- 
- /** Definition of the Login / Register tabs */
- function tab_bar($activeTab) {
- 	tabs($activeTab, array(
- 			array("#login", "Connexion", "signin"),
- 			array("#register", 'Registration', "list-ul")
- 		));
- }
- 
- ?>
+require_once("header.php"); ?>
 
 <div data-role="page" id="login">
-	
-	<div data-role="content">
-	
-		<!-- Tabs -->
-		<? tab_bar("#login") ?>
+
+	<div data-role="header" data-theme="b">
+		<img alt="title" src="img/icon.png" height="40" Style="position: absolute;" />
+		<h1><?= APPLICATION_NAME ?></h1>
 		<? include("notifications.php"); ?>
-		
-
-		<!-- Login form -->
-		<form data-role="content" action="index.php?action=login" data-ajax="false" method="post">
-			
-			<div data-role="fieldcontain">
-				<label for="login" ><?= _("Email") ?></label>
-				<input type="text" id="login" name="login" placeholder="em@il" />
-			</div>
-			<div data-role="fieldcontain">
-				<label for="password"><?= _("Password") ?></label>
-				<input type="password" id="password" name="password" placeholder="" />
-			</div>
-			<div data-role="controlgroup" style="width:auto;text-align: center;" data-type="horizontal">
-				<input type="submit" value="<?= _("Log In") ?>" data-inline="true" class="ui-btn-active ui-state-persist" />
-			</div>
+	</div>
+	
+	<div data-role="content"  class="content">
+	
+		<form action="?action=login" method="post" data-ajax="false" style="position: relative; top: 100px; height: 400px;">
+			<input type="hidden" name="signin" value="1" />
+		    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/><br />
+		    <input type="password" name="password" id="password" placeholder="<?= _("Password") ?>"  data-theme="c"/><br />
+ 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Connexion") ?>" />
 		</form>
-			
-		<div style="text-align: center;" >
-			<div data-role="collapsible" data-mini="true" data-inline="true">
-				<h3 style="margin:auto;width:136px;"><?= _("About") ?></h3>
-				<?= about(); ?>
-			</div>
-		</div>
-		<div id="spacer"></div>
-		<div class="logos" style="text-align: center;">
-			<img alt="Alcotra" src="../../system/img/logos/fullsize/alcotra" style="width: 100px;"/>
-			<img alt="Europe" src="../../system/img/logos/fullsize/EU" style="width: 80px;"/>
-			<img alt="myMed" src="../../system/img/logos/mymed" />
-		</div>
-					
 		
+		<div style="position: relative; top: -100px;">
+			<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/alcotra.png" />
+			<br />
+			<i><?= _("Ensemble par-delà les frontières") ?></i>
+			<br /><br />
+			<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/europe.jpg" />
+		</div>
 		
+		<br/><br/>
+		
+	</div>
+	
+				
+	<div data-role="footer" data-position="fixed" data-theme="d">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#login" data-transition="none" data-back="true" data-icon="home" class="ui-btn-active ui-state-persist"><?= _("Connexion") ?></a></li>
+				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid"><?= _("Inscription") ?></a></li>
+				<li><a href="#about" data-transition="none" data-icon="info"><?= _("A propos") ?></a></li>
+			</ul>
+		</div>
 	</div>
 	
 </div>
 	
-<div data-role="page" id="register" >	
+<? require_once("RegisterView.php"); ?>
 
-	<div data-role="content">
-	
-		<!-- Tabs -->
-		<? tab_bar("#register") ?>
+<? require_once("AboutView.php"); ?>
 
-		<!--  Register form -->
-		<form data-role="content" action="index.php?action=register" method="post">
-		
-			<label for="prenom"><?= _("first name") ?></label>
-			<input id="prenom" type="text" name="prenom" value="" />
-			
-			<label for="nom"><?= _("last name") ?></label>
-			<input id="nom" type="text" name="nom" value="" />
-			
-			<label for="email" ><?= _("Email") ?></label>
-			<input type="text" id="email" name="email" value="" />
-			
-			<label for="password" ><?= _("Password") ?></label>
-			<input type="password" id="password" name="password" />
-			
-			<label for="confirm" ><?= _("Password (confirmation)") ?></label>
-			<input type="password" id="confirm" name="confirm" />
-			<br/>
-			
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 8px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= MYMED_ROOT ?>/application/myMed/conds" rel="external">conditions d'utilisation</a>
-			</span><br />
-    		
-			<br/>
-			
-			<div style="text-align: center;" >
-				<input type="submit" value="<?= _("Validate") ?>" data-inline="true" data-theme="b" />
-			</div>
-		</form>
-	</div>
-	
-</div>
-<? include("footer.php"); ?>
+<? require_once("footer.php"); ?>
