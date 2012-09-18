@@ -15,9 +15,9 @@ class Document {
 			IRequestHandler $handler = null,
 			$namespace = null,
 			$id = null,
-			$index = null,
 			$data = null,
-			$metadata = null) {
+			$metadata = null,
+			$index = null) {
 		
 		$this->handler = $handler;
 		$this->namespace = $namespace;

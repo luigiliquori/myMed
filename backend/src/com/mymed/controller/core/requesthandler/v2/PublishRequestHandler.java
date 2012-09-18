@@ -181,7 +181,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 					}
 	
 				} else if (in.getPredicates() != null) {
-	
+					LOGGER.info("preds: {} ", in.getPredicates());
 					/* generate the ROWS to search */
 					keywords = MatchMakingv2.format(in.getPredicates());
 	

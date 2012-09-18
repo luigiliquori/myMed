@@ -4,56 +4,31 @@
 
 class SearchController extends ExtendedProfileRequired {
 	
-	public $index;
+	public $part;
 
 	public function handleRequest() {
 		
 		parent::handleRequest();
-		$this->namespace = "part";
-		$this->index=array();
+		
+		$this->part = new Partnership($this);
+		$this->part->initSearch($_GET);
 
-		debug_r($_GET);
-		
-		array_push($this->index, new DataBeanv2("themes", ENUM, join("|", $_GET['t'])));
-		
-		array_push($this->index, new DataBeanv2("places", ENUM, join("|",  array_merge($_GET['pf'], $_GET['pi'], $_GET['po']))));
-		
-		if (!empty($this->roles))
-			array_push($this->index, new DataBeanv2("cats", ENUM, join("|", $_GET['r'])));
-		
-		if ($_GET['call']!="")
-			array_push($this->index, new DataBeanv2("call", ENUM, $_GET['call']));
-
-		$p = preg_split('/[ ,+:-]/', $_GET['keywords'], NULL, PREG_SPLIT_NO_EMPTY);
-		$p = array_map('strtolower', $p);
-		$p = array_filter($p, array($this, "smallWords"));
-		$this->p = array_unique($p);
-		array_push($this->index, new DataBeanv2("keyword", ENUM, join("|",$this->p)));
-		
-		
-		$find = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":part", "predicates"=>$this->index));
-		
 		try{
-			$res = $find->send();
-		}
-		catch(Exception $e){}
-		$this->result = array();
-		$this->success = "";
-		
-		debug_r($res);
+			$this->result = $this->part->search();
+		}catch (NoResultException $e) {
 
-		if (isset($res->results))
-			$this->result = (array) $res->results;
+		}catch(Exception $e){
+		}
+		$this->success = "";
 		
 		$this->suggestions = array();
 		function addvaluelashes($o){
 			$o->value = addslashes($o->value);
 			return $o;
 		}
-		debug_r($this->index);
-		$this->index = array_map("addvaluelashes", $this->index); //for ajax subscribe
-		debug_r($this->index);
+
+		$this->index = array_map("addvaluelashes", $this->part->index); //for ajax subscribe
+
 		// Render the view			
 		$this->renderView("Results");
 		

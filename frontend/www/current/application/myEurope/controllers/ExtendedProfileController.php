@@ -214,12 +214,16 @@ class ExtendedProfileController extends AuthenticatedController
 	
 	public /*void*/ function showOtherProfile($id){
 		debug_r($id);
-		$this->profile = getProfile($this, $id);
-		debug_r($this->profile);
-		if (!empty($this->profile)){
-			$this->id = $this->profile->name;
-			$this->renderView("ExtendedProfileDisplay");
+		
+		$this->profile = new ExtendedProfile($this, $id);
+		try{
+			$this->result = $this->profile->readProfile();
+		}catch (NoResultException $e) {
+		}catch(Exception $e){
 		}
+
+		//debug_r($this->profile);
+		$this->renderView("ExtendedProfileDisplay");
 	}
 	
 	public /*void*/ function showUserProfile($id){

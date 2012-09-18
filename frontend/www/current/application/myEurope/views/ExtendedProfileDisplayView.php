@@ -2,12 +2,13 @@
 
 <div data-role="page">
 
-	<? tabs_simple(array($this->id)); ?>
+	<? tabs_simple(array($this->profile->details['name'])); ?>
 	<? include("notifications.php"); ?>
 	
 	<div data-role="content" >
 	
-		<?= printProfile($this->profile) ?>
+		<br />
+		<? $this->profile->renderProfile(); ?>
 		<? if (isset($_GET['link'])) :?>
 		<br />
 		<div style="text-align: center;">
