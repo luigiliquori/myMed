@@ -5,16 +5,6 @@
 //
 require_once("header.php"); ?>
 
-<?
-function tab_bar_login($activeTab) {
-	tabs($activeTab, array(
-			array("#login", "Connexion", "signin"),
-			array("#register", "Inscription", "th-list"),
-			array("#about", "A propos", "info-sign")
-	));
-}
-?>
-
 <div data-role="page" id="login">
 
 	

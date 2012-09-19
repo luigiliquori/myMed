@@ -2,6 +2,14 @@
 
 define('SEP', '<span style="opacity: 0.7; font-size: 80%;"> &gt; </span>');
 
+function tab_bar_login($activeTab) {
+	tabs($activeTab, array(
+			array("#login", "Connexion", "signin"),
+			array("#register", "Inscription", "th-list"),
+			array("#about", "A propos", "info-sign")
+	));
+}
+
 function tab_bar_main($activeTab, $subtible=null) {
 	tabs($activeTab, array(
 			array("?action=main", "Applications", "tags"),
