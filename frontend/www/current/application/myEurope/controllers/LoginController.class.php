@@ -21,11 +21,15 @@ class LoginController extends AbstractController {
 			if( empty($login) ){
 				// TODO i18n
 				$this->error = "eMail cannot be empty!";
-				$this->renderView("login");
+				include( MYMED_ROOT . "/application/myMed//views/LoginView.php");
+				exit();
+				//$this->renderView("login");
 			} else if( empty($pass) ){
 				// TODO i18n
 				$this->error = "Password cannot be empty!";
-				$this->renderView("login");
+				include( MYMED_ROOT . "/application/myMed//views/LoginView.php");
+				exit();
+				//$this->renderView("login");
 			}
 			
 			// Building the Authentication request
@@ -48,7 +52,9 @@ class LoginController extends AbstractController {
 				debug("error");	
 					
 				// Show the login form
-				$this->renderView("login");
+				include( MYMED_ROOT . "/application/myMed/views/LoginView.php");
+				exit();
+				//$this->renderView("login");
 				
 			} else {
 				
@@ -81,8 +87,10 @@ class LoginController extends AbstractController {
 			
 			
 		} else { // Not a POST request : Simply show the login form 
-			
-			$this->renderView("login");
+			debug_r($_SERVER);
+			include( MYMED_ROOT . "/application/myMed/views/LoginView.php");
+			exit();
+			//$this->renderView("login");
 			
 		}
 

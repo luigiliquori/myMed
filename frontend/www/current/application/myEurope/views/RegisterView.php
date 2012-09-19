@@ -11,7 +11,7 @@
 	<div data-role="content">
 	
 		<!--  Register form -->
-		<form action="index.php?action=register" method="post" data-ajax="false">
+		<form action="?action=register" method="post" data-ajax="false">
 		
 				<label for="prenom">Prénom / Activité commerciale : </label>
 				<input type="text" name="prenom" value="" />

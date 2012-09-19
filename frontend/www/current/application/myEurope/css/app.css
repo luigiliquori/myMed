@@ -16,19 +16,6 @@
 	margin-top: -14px;
 }
 
-.ui-li {
-	padding-top: 1px;
-	padding-bottom: 1px;
-}
-
-.ui-li-desc {
-	white-space: normal;
-	font-size: 14px;
-	clear: both;
-	margin-top: 0;
-	margin-bottom: .1em;
-}
-
 .ui-li-aside{
 	width: 30%;
 }
@@ -72,6 +59,10 @@
 .logos > img{
 	margin: 10px 10%;
 	vertical-align: middle;
+}
+
+h4.logo{
+	color: white;
 }
 
 @media all and (max-width: 600px){

@@ -5,7 +5,7 @@
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
  	tabs($activeTab, array(
- 			array("#profiles", "Profils existant", "list"),
+ 			array("#profiles", "Profils existants", "list"),
  			array("#new", 'Create', "pencil")
  		), '', true);
  }
@@ -17,7 +17,7 @@
 	
 	<? tab_bar("#profiles") ?>
 	<? include("notifications.php"); ?>
-
+<?php debug_r($_SESSION['user']); ?>
 	<div data-role="content">
 		<p>
 		<?= _("Hello, This is your first time on myEurope.<br/><br/>
