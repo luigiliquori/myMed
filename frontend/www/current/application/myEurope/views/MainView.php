@@ -35,6 +35,17 @@
 
 	<? tab_bar("#profile") ?>
 	<div data-role="content" style="text-align:center;">
+		
+		<?php if($_SESSION['user']->profilePicture != ""): ?>
+			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
+		<?php else: ?>
+			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
+		<?php endif; ?>
+		
+		<div style="display:inline-block; margin-left: 15px; vertical-align: 25%; color: #EEE; font-weight: bold; font-size: 14pt; text-align: center;">
+			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> 
+		</div>
+		
 		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
 
 		<br />

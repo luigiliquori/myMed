@@ -53,7 +53,7 @@ abstract class AbstractController implements IRequestHandler {
 		global $SUCCESS; 
 		$SUCCESS = $this->success;
 		
-		require($viewPath);
+		include($viewPath);
 		exit();
 	}
 	

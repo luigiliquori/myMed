@@ -26,8 +26,7 @@
 		</ul>
 	</div>
 </div>
-
-<div data-role="page" id="alcotra" style="background-image: none;">
+<div data-role="page" id="alcotra" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info('alcotra') ?>
 	<div data-role="content">
 
@@ -103,7 +102,7 @@
 
 	</div>
 </div>
-<div data-role="page" id="Maritime" style="background-image: none;">
+<div data-role="page" id="Maritime" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("Maritime") ?>
 	<div data-role="content">
 	<h3>
@@ -149,7 +148,7 @@
 </div>
 
 
-<div data-role="page" id="MED" style="background-image: none;">
+<div data-role="page" id="MED" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("MED") ?>
 	<div data-role="content">
 
@@ -198,7 +197,7 @@
 	</div>
 </div>
 
-<div data-role="page" id="Espace Alpin" style="background-image: none;">
+<div data-role="page" id="Espace Alpin" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("Espace Alpin") ?>
 	<div data-role="content">
 
@@ -277,7 +276,7 @@
 </div>
 
 
-<div data-role="page" id="IEVP" style="background-image: none;">
+<div data-role="page" id="IEVP" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("IEVP") ?>
 	<div data-role="content">
 	<p>
@@ -338,7 +337,7 @@
 	</div>
 </div>
 
-<div data-role="page" id="Interreg" style="background-image: none;">
+<div data-role="page" id="Interreg" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("Interreg") ?>
 	<div data-role="content">
 
@@ -381,7 +380,7 @@
 	</div>
 </div>
 
-<div data-role="page" id="FEDER" style="background-image: none;">
+<div data-role="page" id="FEDER" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("FEDER") ?>
 	<div data-role="content">
 		<h3>
@@ -419,7 +418,7 @@
 	</div>
 </div>
 
-<div data-role="page" id="FSE" style="background-image: none;">
+<div data-role="page" id="FSE" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("FSE") ?>
 	<div data-role="content">
 
@@ -464,7 +463,7 @@
 	</div>
 </div>
 
-<div data-role="page" id="FEADER" style="background-image: none;">
+<div data-role="page" id="FEADER" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("FEADER") ?>
 	<div data-role="content">
 		<h3>
@@ -489,7 +488,7 @@
 	</div>
 </div>
 
-<div data-role="page" id="Recherche" style="background-image: none;">
+<div data-role="page" id="Recherche" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("Recherche") ?>
 	<div data-role="content">
 		<h3>

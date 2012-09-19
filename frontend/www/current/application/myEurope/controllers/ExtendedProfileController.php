@@ -57,9 +57,8 @@ class ExtendedProfileController extends AuthenticatedController
 		else if (isset($_GET['rmProfile']))
 			$this->deleteProfile($_GET['rmProfile']);
 		
-		else if (isset($_SESSION['myEurope'])){
-			$this->showMyProfile();
-			debug('k');
+		else if (isset($_SESSION['user'])){
+			$this->redirectTo("extendedProfile", array("user"=>$_SESSION['user']->id));
 		}
 		
 			
@@ -228,17 +227,12 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		$this->profile = new ExtendedProfile($this);
 		try{
-			$this->result = $this->profile->readFromUser($user);
+			$result = $this->profile->readFromUser($user);
 		}catch (NoResultException $e) {
 		}catch(Exception $e){
 		}
 	
 		$this->renderView("ExtendedProfileDisplay");
-	}
-	
-	public /*void*/ function showMyProfile(){
-
-		$this->redirectTo("Main", array(), "#profile");
 	}
 	
 	public /*void*/ function deleteUser($id){

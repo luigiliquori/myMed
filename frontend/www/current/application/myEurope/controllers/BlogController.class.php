@@ -82,15 +82,17 @@ class BlogController extends ExtendedProfileRequired {
 			$this->comments = array();
 			
 			$req = new RequestJson($this, array("application"=>APPLICATION_NAME.":blogs"));
-			
+
 			foreach($res->details as $k => $v){
-				
 				$req->addArguments(array("id"=>$this->blog."comments".$k));
-				try{
-					$r = $req->send();
-				} catch(Exception $e){}
 				
 				$this->comments[$k] = array();
+				try{
+					$r = $req->send();
+				} catch (NoResultException $e) {
+					continue;
+				}catch(Exception $e){}
+				
 				if (isset($r->details)){
 					
 					foreach ($r->details as $ki=>$vi){
@@ -99,7 +101,7 @@ class BlogController extends ExtendedProfileRequired {
 					$rep =  new Reputationv2($this, null, array_keys($this->comments[$k]));
 					$repArr = $rep->send();
 					$this->comments[$k] = array_replace_recursive($repArr, $this->comments[$k]);
-					
+
 					uasort($this->comments[$k], array($this, "repCmp"));
 					
 				}

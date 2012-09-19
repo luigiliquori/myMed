@@ -1,9 +1,5 @@
 <? include("header.php"); ?>
 
-<? if(empty($_SESSION['user']->lang)):?>
-	<? include("LangView.php"); ?>
-<? endif ?>
-
 <div id="home" data-role="page">
 
 	

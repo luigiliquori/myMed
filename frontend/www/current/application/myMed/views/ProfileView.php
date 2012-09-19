@@ -69,5 +69,7 @@
 
 </div>
 
+<? include("LangView.php"); ?>
+
 <? include("UpdateProfileView.php"); ?>
 
