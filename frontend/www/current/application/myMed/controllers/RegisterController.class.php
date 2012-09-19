@@ -70,8 +70,6 @@ class RegisterController extends AbstractController {
 				$this->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
 				$this->renderView("login");
 			}
-			
-			
 		}
 		
 		// Case where the user click the link on the e-mail to confirm registration 
