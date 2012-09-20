@@ -55,7 +55,7 @@ public interface IAuthenticationManager {
 	 */
 	MUserBean read(String login, String password) throws InternalBackEndException, IOBackEndException;
 	
-	Map<String, String> readSimple(String login, String password) throws InternalBackEndException,
+	String readSimple(String login, String password) throws InternalBackEndException,
     IOBackEndException;
 	
 	/**
@@ -86,6 +86,17 @@ public interface IAuthenticationManager {
 	 * @param recipient
 	 * @param accessToken
 	 */
-	void sendRegistrationEmail( String application, MUserBean recipient,  String accessToken );
+
+
+	void sendRegistrationEmailSimple(String application,
+			Map<String, String> recipient, String accessToken);
+
+
+	void updateSimple(String id, Map<String, String> args, String oldid)
+			throws InternalBackEndException, IOBackEndException;
+
+
+	Map<String, String> readSimple(String key) throws InternalBackEndException,
+			IOBackEndException;
 	
 }

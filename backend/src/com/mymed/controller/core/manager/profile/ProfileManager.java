@@ -117,9 +117,9 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
         return create(user);
     }
     
-    public final void update(final String id, final Map<String, String> map) throws InternalBackEndException, IOBackEndException {
+    public final void update(final String id, final Map<String, String> args) throws InternalBackEndException, IOBackEndException {
     	
-        storageManager.insertSliceStr(CF_USER, id, map);
+        storageManager.insertSliceStr(CF_USER, id, args);
     }
     
     public final void update(final String id, final String key, final String value) throws InternalBackEndException, IOBackEndException {

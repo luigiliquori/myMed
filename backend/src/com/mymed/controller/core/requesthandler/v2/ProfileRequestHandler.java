@@ -15,7 +15,7 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
-import static com.mymed.utils.GsonUtils.gson;
+import static com.mymed.utils.MiscUtils.json_decode;
 
 import java.util.Map;
 
@@ -30,7 +30,6 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
-import com.mymed.model.data.user.MUserBean;
 
 /**
  * Servlet implementation class UsersRequestHandler
@@ -146,26 +145,32 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                     message.setMethod(JSON_CODE_CREATE);
                     try {
                         LOGGER.info("User:\n", user);
-                        MUserBean userBean = gson.fromJson(user, MUserBean.class);
-                        LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
-                        userBean = profileManager.create(userBean);
+                        
+                        Map<String, String> usr = json_decode(user);
+                        //MUserBean userBean = gson.fromJson(user, MUserBean.class);
+                        LOGGER.info("Trying to create a new user:\n {}", usr);
+                        profileManager.update(usr.get("id"), usr); //@TODO check if id
                         LOGGER.info("User created!");
                         message.setDescription("User created!");
-                        message.addDataObject(JSON_PROFILE, userBean);
+                        message.addDataObject(JSON_PROFILE, usr);
                     } catch (final JsonSyntaxException e) {
                         throw new InternalBackEndException("user jSon format is not valid");
                     }
                     break;
                 case UPDATE :
                     message.setMethod(JSON_CODE_UPDATE);
-                    try {
-                        Map<String, String> userFields = gson.fromJson(user, dataType);
-                        LOGGER.info("Trying to update user:\n {}", userFields);
-                        profileManager.update(userFields.get("id"), userFields);
+                    
+                    if (user.startsWith("{")) {
+                    	
+                    	Map<String, String> usr = json_decode(user);
+
+                        LOGGER.info("Trying to update user:\n {}", usr);
+                        profileManager.update(usr.get("id"), usr);
                         //message.addDataObject(JSON_PROFILE, userBean);
                         message.setDescription("User updated!");
                         LOGGER.info("User updated!");
-                    } catch (final JsonSyntaxException e) { // one field update, should be removed now
+                        
+                    } else { // one field update, should be removed now
                     	String key = parameters.get("key");
                     	String value = parameters.get("value");
                     	if (key == null) {

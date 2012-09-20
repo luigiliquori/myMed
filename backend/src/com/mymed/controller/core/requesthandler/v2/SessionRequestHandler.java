@@ -30,7 +30,6 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.session.MSessionBean;
-import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
 
 /**
