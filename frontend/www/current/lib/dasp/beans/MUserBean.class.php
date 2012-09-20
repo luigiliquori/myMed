@@ -15,10 +15,7 @@
 * limitations under the License.
 */
 class MUserBean {
-	/**
-	 * Used for the hash code
-	 */
-	public /*int*/	$PRIME;
+
 	/**
 	 * USER_ID
 	 */

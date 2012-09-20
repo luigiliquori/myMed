@@ -35,7 +35,7 @@ function tab_bar_login($activeTab) {
 		<div data-role="collapsible" data-mini="true" data-collapsed="true" data-content-theme="c" data-inline="true" style="text-align: center;width: 260px;margin: auto;">
 			<h3><?= _("Options") ?></h3>
 			
-			<h4><?= _("Connexion à partir de vos comptes:") ?></h4>
+			<h4><?= _("Connection from other accounts") ?></h4>
 			
 			(<a href="http://openid.net/">OpenID</a>) <a  title="log in with Google openID" 
 			onclick="$('#openIdProvider').val('https://www.google.com/accounts/o8/id'); $('#openIdForm').submit();" rel="external" style="background-position: -1px -1px" class="oauth_small_btn"></a>

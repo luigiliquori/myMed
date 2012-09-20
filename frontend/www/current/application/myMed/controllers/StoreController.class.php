@@ -7,6 +7,8 @@
  * @author lvanni
  *
  */
+define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
+
 class StoreController extends AuthenticatedController {
 	
 	public /*void*/ function handleRequest() {

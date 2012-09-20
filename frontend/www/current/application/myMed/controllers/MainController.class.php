@@ -93,8 +93,7 @@ class MainController extends AuthenticatedController {
 // 			while (false !== ($file = readdir($handle))) {
 // 				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) {
 
-		if (!isset($_SESSION['reputation'])){
-			
+		if (!isset($_SESSION['reputation'])){	
 			foreach($_SESSION['applicationList'] as $app => $status){
 				
 				// Get the reputation of the user in each the application
