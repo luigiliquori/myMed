@@ -20,7 +20,7 @@ class UpdateProfileController extends AbstractController {
 		
 		// Error to show => show the register view
 		if (!empty($this->error)) {
-			$this->renderView("register");
+			$this->renderView("main");
 			return;
 		}
 		
@@ -44,9 +44,7 @@ class UpdateProfileController extends AbstractController {
 		}
 		
 		// update the profile
-		
-		
-		/*$mUserBean = new MUserBean();
+		$mUserBean = new MUserBean();
 		$mUserBean->id = $_SESSION['user']->id;
 		$mUserBean->firstName = $_POST["prenom"];
 		$mUserBean->lastName = $_POST["nom"];
@@ -57,27 +55,30 @@ class UpdateProfileController extends AbstractController {
 		$mUserBean->profilePicture = $_POST["thumbnail"];
 		
 		// keep the session opened 
-		$mUserBean->socialNetworkName = $_SESSION['user']->socialNetworkName;
-		$mUserBean->SocialNetworkID = $_SESSION['user']->SocialNetworkID;
-		$mUserBean->SocialNetworkID = $_SESSION['accessToken'];*/
+// 		$mUserBean->socialNetworkName = $_SESSION['user']->socialNetworkName;
+// 		$mUserBean->SocialNetworkID = $_SESSION['user']->SocialNetworkID;
+// 		$mUserBean->SocialNetworkID = $_SESSION['accessToken'];
 		
-		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
-		$_POST['login'] = $_POST["email"];
-		unset($_POST['oldPassword']);
-		unset($_POST['password']);
-		unset($_POST['confirm']);
+// 		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+// 		$_POST['login'] = $_POST["email"];
+// 		unset($_POST['oldPassword']);
+// 		unset($_POST['password']);
+// 		unset($_POST['confirm']);
 		
-		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($_POST)));
+// 		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($_POST)));
+
+		$request = new Request("ProfileRequestHandler", UPDATE);
+		$request->addArgument("user", json_encode($mUserBean));
 		$responsejSon = $request->send();
 		$responseObject2 = json_decode($responsejSon);
 
 		if($responseObject2->status != 200) {
 			$this->error = $responseObject2->description;
 		} else{
-			$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $_POST);
+			$_SESSION['user'] = $mUserBean;
 		}
 		
-		$this->redirectTo("Main", null, "#profile");
+		$this->renderView("main");
 		
 	}
 
