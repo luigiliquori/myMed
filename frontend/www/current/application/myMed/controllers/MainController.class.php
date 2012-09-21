@@ -15,7 +15,6 @@ class MainController extends AuthenticatedController {
 
 	protected $currentSuccessMess = null;
 	protected $currentErrorMess = null;
-	protected $defaultView = "main";
 	
 	public function __construct() {
 		
@@ -100,7 +99,7 @@ class MainController extends AuthenticatedController {
 			}
 		}
 
-		$this->renderView($this->defaultView);
+		$this->renderView("main");
 	}
 
 
