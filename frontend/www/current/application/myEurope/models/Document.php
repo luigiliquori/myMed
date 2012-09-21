@@ -34,7 +34,6 @@ class Document {
 		try{
 			$res = $find->send();
 		}catch (NoResultException $e) {
-
 		}catch(Exception $e){
 		}
 		$this->handler->success = "";

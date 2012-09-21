@@ -37,8 +37,31 @@ foreach($attribute as $attr){
 // Add AX fetch request to authentication request
 $auth->addExtension($ax);
 
+
+// add  SREG, not needed for google
+$sreg_request = Auth_OpenID_SRegRequest::build(
+		// Required
+		array('nickname', 'email'),
+		// Optional
+		array('fullname'));
+if ($sreg_request) {
+	$auth->addExtension($sreg_request);
+}
+$policy_uris = null;
+if (isset($_GET['policies'])) {
+	$policy_uris = $_GET['policies'];
+}
+
+$pape_request = new Auth_OpenID_PAPE_Request($policy_uris);
+if ($pape_request) {
+	$auth->addExtension($pape_request);
+}
+// ---- end of the unneeded stuff -- just testing
+
+
+
 // Redirect to OpenID provider for authentication
-$url = $auth->redirectURL('http://mymed20.sophia.inria.fr', 'http://mymed20.sophia.inria.fr/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_catch.php');
+$url = $auth->redirectURL(getTrustRoot(), getReturnTo());
 header('Location: ' . $url);
 
 

@@ -16,6 +16,8 @@ ini_set('include_path', $path);
 require_once "Auth/OpenID/Consumer.php";
 require_once "Auth/OpenID/FileStore.php";
 require_once "Auth/OpenID/AX.php";
+require_once "Auth/OpenID/SReg.php";
+require_once "Auth/OpenID/PAPE.php";
 
 function getScheme() {
     $scheme = 'http';
@@ -26,13 +28,13 @@ function getScheme() {
 }
 
 function getReturnTo() {
-    return sprintf("%s://%s%s/finish_auth.php",
+    return sprintf("%s://%s%s/oid_catch.php",
                    getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
 }
 
 function getTrustRoot() {
-    return sprintf("%s://%s%s/",
-                   getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
+    return sprintf("%s://%s/",
+                   getScheme(), $_SERVER['SERVER_NAME']);
 }
 
 function getStorePath(){

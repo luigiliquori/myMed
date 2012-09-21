@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-05 14:42+0200\n"
-"PO-Revision-Date: 2012-09-10 07:10+0100\n"
+"PO-Revision-Date: 2012-09-18 19:01+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgstr ""
 
 #: ../application/myEurope/controllers/DetailsController.class.php:111
 msgid "Partnership request sent"
-msgstr "Demande de Partenariat envoyée"
+msgstr "Demande de partenariat envoyée"
 
 #: ../application/myEurope/controllers/DetailsController.class.php:132
 msgid "Partnerships added"
@@ -175,7 +175,7 @@ msgstr "Supprimer l'utilisateur"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:26
 msgid "Delete profile"
-msgstr "Supprimer le profile"
+msgstr "Supprimer le profil"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:22
 msgid "Next"
@@ -466,7 +466,7 @@ msgstr "Titre "
 
 #: ../application/myEurope/views/MainView.php:475
 msgid "partnership or project name"
-msgstr "Demande de Partenariat envoyée "
+msgstr "Titre du Partenariat ou Projet visé"
 
 #: ../application/myEurope/views/MainView.php:480
 msgid "Insert"

@@ -23,11 +23,9 @@ require_once("header.php"); ?>
 		</form>
 		
 		<div style="position: relative; top: -100px;">
-			<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/alcotra.png" />
+			<img alt="Alcotra" src="/system/img/logos/alcotra.png" />
 			<br />
 			<i><?= _("Ensemble par-delà les frontières") ?></i>
-			<br /><br />
-			<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/europe.jpg" />
 		</div>
 		
 		<br/><br/>

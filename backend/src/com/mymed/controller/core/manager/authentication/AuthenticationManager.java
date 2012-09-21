@@ -27,7 +27,7 @@ import com.mymed.controller.core.manager.mailtemplates.MailTemplate;
 import com.mymed.controller.core.manager.mailtemplates.MailTemplateManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
-import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.mail.Mail;
@@ -132,13 +132,11 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
     	
         final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
         final MAuthenticationBean authentication = (MAuthenticationBean) introspection(MAuthenticationBean.class, args);
-
         if ("".equals(authentication.getLogin())) {
             throw new IOBackEndException("The login does not exist!", ERROR_NOT_FOUND);
         } else if (!authentication.getPassword().equals(password)) {
             throw new IOBackEndException("Wrong password", ERROR_FORBIDDEN);
         }
-
         return new ProfileManager(storageManager).readSimple(authentication.getUser());
     }
     

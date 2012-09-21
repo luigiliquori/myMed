@@ -64,7 +64,6 @@ rank:
 	
 	<div data-role="content" >
 		<b>Author</b> : <?= $this->result->publisherID ?><br/>
-		<b>Pred1</b>: <?//= $this->result->pred1 ?>
 		<b>Cathegory</b>: <?= $this->result->pred2 ?><br/>
 		<b>Title</b>: <?= $this->result->pred3 ?><br/>
 		<b>field1</b>: <?= $this->result->begin ?><br/>

@@ -37,7 +37,7 @@ var CLEloaded = false;
 	//console.log("__ "+isSub+" "+tags);
 });*/
 
-$("#Blog, #post").live("pageshow", function() {
+$("#Blog, #post").live("pagecreate", function() {
 	CLEloaded = false;
 		
 	$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
@@ -133,7 +133,7 @@ function sortBy( i ){
 		break;
 	case "title":
 		lis.sort(function(a, b){
-		    return $(a).attr('data-title') < $(b).attr('data-title') ? 1 : -1;
+		    return $(a).attr('data-title') > $(b).attr('data-title') ? 1 : -1;
 		});
 		break;
 	}

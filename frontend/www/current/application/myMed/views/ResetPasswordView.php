@@ -11,7 +11,7 @@
 	<div data-role="content">
 	
 		<!--  Register form -->
-		<form action="index.php?action=resetPassword" method="post" data-ajax="false">
+		<form action="?action=resetPassword" method="post" data-ajax="false">
 				
 				<label for="password" >Nouveau mot de passe : </label>
 				<input type="password" name="password" />

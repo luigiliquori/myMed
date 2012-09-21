@@ -57,9 +57,8 @@ class ExtendedProfileController extends AuthenticatedController
 		else if (isset($_GET['rmProfile']))
 			$this->deleteProfile($_GET['rmProfile']);
 		
-		else if (isset($_SESSION['myEurope'])){
-			$this->showMyProfile();
-			debug('k');
+		else if (isset($_SESSION['user'])){
+			$this->redirectTo("extendedProfile", array("user"=>$_SESSION['user']->id));
 		}
 		
 			
@@ -213,7 +212,6 @@ class ExtendedProfileController extends AuthenticatedController
 	}
 	
 	public /*void*/ function showOtherProfile($id){
-		debug_r($id);
 		
 		$this->profile = new ExtendedProfile($this, $id);
 		try{
@@ -221,23 +219,20 @@ class ExtendedProfileController extends AuthenticatedController
 		}catch (NoResultException $e) {
 		}catch(Exception $e){
 		}
-
-		//debug_r($this->profile);
+		
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
-	public /*void*/ function showUserProfile($id){
-	
-		$this->profile = getProfilefromUser($this, $id);
-		if (!empty($this->profile)){
-			$this->id = $this->profile->name;
-			$this->renderView("ExtendedProfileDisplay");
+	public /*void*/ function showUserProfile($user){
+		
+		$this->profile = new ExtendedProfile($this);
+		try{
+			$result = $this->profile->readFromUser($user);
+		}catch (NoResultException $e) {
+		}catch(Exception $e){
 		}
-	}
 	
-	public /*void*/ function showMyProfile(){
-
-		$this->redirectTo("Main", array(), "#profile");
+		$this->renderView("ExtendedProfileDisplay");
 	}
 	
 	public /*void*/ function deleteUser($id){

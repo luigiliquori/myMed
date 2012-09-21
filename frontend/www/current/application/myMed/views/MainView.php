@@ -1,19 +1,13 @@
-<? include("header.php"); ?>
-
-<? if(empty($_SESSION['user']->lang)):?>
-	<? include("LangView.php"); ?>
-<? endif ?>
+<? include_once ("header.php"); ?>
 
 <div id="home" data-role="page">
-
 	
 	<? tab_bar_main("?action=main"); ?>
 	<? include("notifications.php"); ?>
-	
 
 	<div data-role="content" style="text-align: center;">
 		<br />
-		<br />
+		<br /><? debug_r($_SESSION['user2']);debug_r($_SESSION['user']);debug_r($_SESSION['user3']); ?>
 		<div class="ui-grid-b">
 			<?php $column = "a"; ?>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
@@ -42,6 +36,6 @@
 
 
 </div>
-<? include("ProfileView.php"); ?>
+<? include_once("ProfileView.php"); ?>
 
-<? include("footer.php"); ?>
+<? include_once("footer.php"); ?>

@@ -13,20 +13,14 @@ class SearchController extends ExtendedProfileRequired {
 		$this->part = new Partnership($this);
 		$this->part->initSearch($_GET);
 
-		try{
-			$this->result = $this->part->search();
-		}catch (NoResultException $e) {
+		$this->result = $this->part->search();
 
-		}catch(Exception $e){
-		}
-		$this->success = "";
-		
 		$this->suggestions = array();
+		
 		function addvaluelashes($o){
 			$o->value = addslashes($o->value);
 			return $o;
 		}
-
 		$this->index = array_map("addvaluelashes", $this->part->index); //for ajax subscribe
 
 		// Render the view			

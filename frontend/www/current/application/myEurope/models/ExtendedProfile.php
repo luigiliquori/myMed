@@ -61,6 +61,7 @@ class ExtendedProfile extends Document{
 				<p>
 					<strong style="color:#444;"><?= (empty($this->details['activity'])?" ":$this->details['activity']) ?></strong>
 				</p>
+				<br />
 				<p>
 					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
 					<?=
@@ -71,7 +72,7 @@ class ExtendedProfile extends Document{
 				</p>
 				<br />
 				<p>
-					<?= empty($profile['desc'])?" ":$profile['desc'] ?>
+					<?= empty($this->details['desc'])?" ":$this->details['desc'] ?>
 				</p>
 				<p class="ui-li-aside">
 					réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $this->reputation['up'] ?> votes +, <?= $this->reputation['down'] ?> votes -"><?= $this->reputation['up'] - $this->reputation['down'] ?></a>

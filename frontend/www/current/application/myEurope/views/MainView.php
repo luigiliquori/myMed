@@ -22,11 +22,11 @@
 		
 		<br />
 		<div data-role="fieldcontain">
-			<a href="#search" type="button" class="mymed-huge-button" data-icon="pushpin"><?= _('Search a partnership offer') ?></a>
+			<a href="#search" type="button" class="mymed-huge-button"><?= _('Search a partnership offer') ?></a>
 		</div>
 		
 		<div data-role="fieldcontain">
-			<a href="#post" type="button" class="mymed-huge-button" data-icon="search"><?= _('Insert a partnership offer') ?></a>
+			<a href="#post" type="button" class="mymed-huge-button"><?= _('Insert a partnership offer') ?></a>
 		</div>
 	</div>
 </div>
@@ -35,6 +35,17 @@
 
 	<? tab_bar("#profile") ?>
 	<div data-role="content" style="text-align:center;">
+		
+		<?php if($_SESSION['user']->profilePicture != ""): ?>
+			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
+		<?php else: ?>
+			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
+		<?php endif; ?>
+		
+		<div style="display:inline-block; margin-left: 15px; vertical-align: 25%; color: #EEE; font-weight: bold; font-size: 14pt; text-align: center;">
+			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> 
+		</div>
+		
 		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
 
 		<br />
@@ -55,7 +66,7 @@
 		<ul data-role="listview" data-inset="true" data-filter="true" >
 			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
 			<li>
-				<a href="?action=Blog&blog=Trouver un partenaire europeen" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Trouver un partenaire européen') ?></a>
+				<a href="?action=Blog&blog=Bonnes Pratiques" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?></a>
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?></a>
@@ -71,7 +82,7 @@
 			</li>
 			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?></li>
 			<li>
-				<a href="?action=Blog&blog=Bugs et problemes rencontres"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?></a>
+				<a href="?action=Blog&blog=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?></a>
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?></a>
@@ -236,7 +247,7 @@
 			<input type="hidden" name="r" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
 			
 			<div data-role="fieldcontain">
-				<?= _('Title') ?>: <input id="textinputp3" name="title" placeholder="<?= _("partnership or project name") ?>" value='' type="text" />
+				<b><?= _('Title') ?>: </b> <input id="textinputp3" data-inline="true" name="title" placeholder="<?= _("partnership or project name") ?>" value='' type="text" />
 			</div>
 			
 			<div  data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
@@ -312,7 +323,7 @@
 				</div>
 			</div>
 			
-			<textarea id="CLEeditor" id="textContent" name="text"></textarea>
+			<textarea id="CLEeditor" name="text"><h1>Votre partenariat</h1>  ...</textarea>
 
 			<div style="text-align: center;" >
 				<input type="submit" class="ui-btn-active ui-state-persist"  data-inline="true" data-icon="check" value="<?=_('Insert') ?>" />

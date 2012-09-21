@@ -78,7 +78,7 @@ class MUserBean {
 		
 		$user['id'] = 'MYMED_'.$user['email'];
 		
-		$user['socialNetworkName'] = 'Google - OAuth2.0';
+		$user['socialNetworkName'] = 'Google - OAuth2.0';// shoud append it
 		
 		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
 	}
@@ -98,8 +98,8 @@ class MUserBean {
 		$user['name'] = $user['firstName'] . ' ' .$user['lastName'];
 		
 		$user['id'] = 'MYMED_'.$user['email'];
-					
-		$user['socialNetworkName'] = 'Google - OpenID';
+		
+		$user['socialNetworkName'] = 'OpenID'; // @TODO shoud append it to know where all merged profiles comes from
 
 		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
 	}

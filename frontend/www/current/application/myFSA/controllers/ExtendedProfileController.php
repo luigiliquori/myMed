@@ -19,6 +19,7 @@ class ExtendedProfileController extends AbstractController
 			$this->showProfile();
 		else
 			$this->renderView("ExtendedProfileForm");
+			$this->renderView("ExtendedProfileForm");
 		
 	}	
 	

@@ -103,7 +103,6 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
     @Override
     public final Map<String, String> readSimple(final String id) throws InternalBackEndException, IOBackEndException {
         return storageManager.selectAllStr(CF_USER, id);
-
     }
 
 

@@ -269,7 +269,7 @@ public class StorageManager extends
 					throws InternalBackEndException {
 		
 		// Prepare output
-		HashMap<String, String> slice = new HashMap<String, String>();
+		HashMap<String, String> res = new HashMap<String, String>();
 
 		final SlicePredicate predicate = new SlicePredicate();
 		final SliceRange sliceRange = new SliceRange();
@@ -277,17 +277,20 @@ public class StorageManager extends
 		sliceRange.setFinish(new byte[0]);
 		predicate.setSlice_range(sliceRange);
 		final ColumnParent parent = new ColumnParent(tableName);
-		final List<ColumnOrSuperColumn> results = wrapper.get_slice(key,
+		final List<ColumnOrSuperColumn> columns = wrapper.get_slice(key,
 				parent, predicate, consistencyOnRead);
 
 		LOGGER.info("Select slice from column family '{}' with key '{}'",
 				parent.getColumn_family(), key);
+		
+		System.out.println("Select slice from column family '{}' with key '{}'"+
+				parent.getColumn_family()+ key);
 
-		for (final ColumnOrSuperColumn res : results) {
-			final Column col = res.getColumn();
-			slice.put(decode(col.getName()), decode(col.getValue()));
+		for (final ColumnOrSuperColumn c : columns) {
+			final Column col = c.getColumn();
+			res.put(decode(col.getName()), decode(col.getValue()));
 		}
-		return slice;
+		return res;
 	}
 	
 	@Override public void insertSuperSliceStr(

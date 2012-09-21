@@ -11,7 +11,7 @@
 	<div data-role="content">
 	
 		<!--  Register form -->
-		<form action="index.php?action=register" method="post" data-ajax="false">
+		<form action="?action=register" method="post" data-ajax="false">
 		
 				<label for="prenom">Prénom / Activité commerciale : </label>
 				<input type="text" name="prenom" value="" />
@@ -48,7 +48,7 @@
 		</form>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="a">
+	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>

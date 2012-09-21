@@ -7,6 +7,7 @@
 define('APPLICATION_NAME', "myEurope");
 define('APP_ROOT', __DIR__);
 define('MYMED_ROOT', __DIR__ . '/../..');
+define('MYMED_URL_ROOT', '../../');
 define('APPLICATION_LABEL', "Réseau social transfontalier");
 
 // Include main controller : Dispatches actions to individual controllers
