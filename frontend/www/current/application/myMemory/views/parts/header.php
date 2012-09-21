@@ -24,7 +24,7 @@
 	<script src="javascript/app.js"></script>
 	
 	<!-- MYMED css -->
-	<link href="../myMed/css/style.css" rel="stylesheet" />
+	<link href="/system/css/common.css" rel="stylesheet" />
 	<!-- APP css -->
 	<link href="css/style.css" rel="stylesheet" />
 	

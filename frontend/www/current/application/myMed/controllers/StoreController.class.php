@@ -7,14 +7,14 @@
  * @author lvanni
  *
  */
+
 define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
 
 class StoreController extends AuthenticatedController {
+
 	
 	public /*void*/ function handleRequest() {
 		
-		parent::handleRequest();
-
 		if(isset($_REQUEST['applicationStore'])) {
 				
 			// update the application status
@@ -79,16 +79,19 @@ class StoreController extends AuthenticatedController {
 					$responseObject = json_decode($responsejSon);
 						
 					if($responseObject->status != 200) {
-						$this->currentErrorMess = "Vous n'avez pas le droit de voter plus d'une fois)";
+						$this->currentErrorMess = "Vous n'avez pas le droit de voter plus d'une fois!";
 					} else {
-						$this->currentSuccessMess = "Merci de votre contribution";
+						$this->currentSuccessMess = "Merci de votre contribution.";
 					}
 				} catch (Exception $e) {
 					$this->currentErrorMess = "Une erreur interne est survenue, veuillez réessayer plus tard...";
 				}
 			}	
-			$this->renderView("storeSub");
+			$this->defaultView = "storeSub";
+			parent::handleRequest();
+			
 		}
+		
 		$this->renderView("store");
 		
 	}

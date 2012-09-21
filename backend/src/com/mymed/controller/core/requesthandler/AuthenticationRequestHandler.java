@@ -316,7 +316,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 						// verify the oldPassword
 						authenticationManager.read(oldLogin, oldPassword);
-
+						
 						// no exception = update the Authentication
 						LOGGER.info("Trying to update authentication:\n {}", authenticationBean.toString());
 						authenticationManager.update(oldLogin, authenticationBean);
