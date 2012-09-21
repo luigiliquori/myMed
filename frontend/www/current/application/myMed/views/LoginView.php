@@ -57,7 +57,7 @@ function tab_bar_login($activeTab) {
 			(<a href="http://oauth.net/2/">OAuth</a>) <a  title="log in with Google Oauth" 
 			href="<?= MYMED_URL_ROOT ?>/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" rel="external" style="background-position: -1px -1px" class="oauth_small_btn"></a>
 			 <a  title="log in with Facebook Oauth" 
-			href="javascript:alert('available soon')" rel="external" style="background-position: -1px -105px" class="oauth_small_btn"></a>
+			href="<?= MYMED_URL_ROOT ?>/lib/socialNetworkAPIs/facebook/examples/FbLogin.php" rel="external" style="background-position: -1px -105px" class="oauth_small_btn"></a>
 			
 		</div>
 

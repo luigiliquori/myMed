@@ -9,6 +9,35 @@ class LoginController extends AbstractController {
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*String*/ function handleRequest() {
+		$app_id = "352079521548536";
+		$app_secret = "c386710770c974bdb307e87d4a8fb4a6";
+		$my_url = "http://mymed21.sophia.inria.fr/";
+		
+		if(isset($_REQUEST["code"])){
+			$code = $_REQUEST["code"];
+		}
+		
+		if(isset($_SESSION['state'])&&($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state']))) {
+			$token_url = "https://graph.facebook.com/oauth/access_token?"
+			. "client_id=" . $app_id . "&redirect_uri=" . urlencode($my_url)
+			. "&client_secret=" . $app_secret . "&code=" . $code;
+		
+			$response = file_get_contents($token_url);
+			$params = null;
+			parse_str($response, $params);
+		
+			$graph_url = "https://graph.facebook.com/me?access_token="
+			. $params['access_token'];
+		
+			$user = json_decode(file_get_contents($graph_url));
+			//$_SESSION['user']= $user->name;
+				
+			$debugtxt  =  "<pre>USEEEEEEEEEEEEEEEER";
+			$debugtxt  .= var_export($user, TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+		}
+		
 		
 		/* authed by social networks apis*/
 		if (isset($_SESSION['user'])) { 
