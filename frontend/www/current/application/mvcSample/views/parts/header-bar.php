@@ -1,4 +1,4 @@
-<div data-role="header">
+<div data-role="header" data-theme="b">
 
 	<? if (!empty($this->user)) : ?>
 		<a href="#profile"><?= $this->user->name ?></a>
