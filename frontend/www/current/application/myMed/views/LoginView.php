@@ -53,7 +53,7 @@ function tab_bar_login($activeTab) {
 					<form id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
 						<label><?= _("We also support OpenId") ?><a href="http://openid.net/" style="text-decoration: none;">*</a>: </label>
 						<input id="openIdProvider" type="text" style="max-width:250px;display:inline-block;" data-mini="true" name="openid_identifier" data-inline="true" value="https://www.google.com/accounts/o8/id" placeholder="" />
-						<div style="display:inline-block;vertical-align: middle;">
+						<div style="display:inline-block;vertical-align: middle;width: 45px;">
 							<input type="submit" value="ok" data-theme="b" data-mini="true" title="<?= _("log in with openid") ?>" />
 						</div>
 						
@@ -142,17 +142,17 @@ function tab_bar_login($activeTab) {
 	
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" />
 		<br />
-		<h3> Réseau Social Transfrontalier </h3>
+		<h3><?= APPLICATION_LABEL ?></h3>
 		<br />
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
-			<p>Le projet myMed est né d’une double constatation: l’existence d’un énorme potentiel de développement des activités économiques de la zone transfrontalière, objet de l’action Alcotra, et le manque criant d’infrastructures techniquement avancées en permettant un développement harmonieux. La proposition myMed est née d’une collaboration existante depuis plus de 15 ans entre l’Institut National de Recherche en Informatique et en Automatique (INRIA) de Sophia Antipolis et l’Ecole Polytechnique de Turin, auxquels viennent s’ajouter deux autres partenaires, l’Université de Turin et l’Université du Piémont Oriental.
+			<p>
+			<?= _(APPLICATION_NAME."about") ?>
 			</p>
 			</li>
 		</ul>
-		
 		<p>
-		<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank">Plus d'informations</a>
+		<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= _("More informations") ?></a>
 		</p>
 		<br />
 		<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>

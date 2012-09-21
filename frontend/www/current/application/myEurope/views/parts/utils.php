@@ -2,22 +2,22 @@
 
 define('SEP', '<span style="opacity: 0.7; font-size: 80%;"> &gt; </span>');
 
-function tab_bar_default($activeTab, $me) {
+function tab_bar_default($activeTab) {
 	tabs($activeTab, array(
 			array("#home", "Partenariats", "retweet"),
 			array("#infos", "About European programs", "info-sign"),
 			array("#blogs", "Bonnes pratiques", "comments"),
-			array("#profile", $me, "user")
-	), true);
+			array("#profile", "Profile", "user")
+	));
 }
 
-function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed = false) {
+function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1) {
 	
 	$reverse = true;
 	$tabsStr = "";
 	foreach ($tabs as $i){
 		$tabsStr .=
-		'<li><a href="'. $i[0] .'" data-transition="none" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
+		'<li><a href="'. $i[0] .'" data-transition="slidefade" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
 		.($i[0][0]!='#'?'rel="external"':'')
 		.($activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '').'>'. _($i[1])
 		.'</a></li>';
@@ -27,9 +27,9 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed 
 	}
 	?>
 	<div data-role="header" data-theme="b" data-position="fixed">
-  		<? if ($useBackTomyMed) { ?>
+  		<? if ($buttonLeft & 1) { ?>
 			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
-		<? } else { ?>
+		<? } else if ($buttonLeft & 2) { ?>
   			<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="signout" data-iconpos="notext">Deconnexion</a>
   		<? } ?>
   		<h1>
@@ -76,44 +76,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed 
 }
 
    
-   function tabs_2(
-   		$title,
-   		$url = "",
-  		$icon = "") {
-   	?>
-      	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-      	<ul>
-      		<li><a data-rel="back" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
-      		<li><a href="<?= $url ?>" data-icon="<?= $icon ?>" class="ui-btn-active"><?= $title ?></a></li>
-      	</ul>
-      	</div> <?
-      }
-      
-      function tabs_2click(
-      		$title,
-      		$url = "",
-      		$icon = "") {
-      	?>
-            	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-            	<ul>
-            		<li><a href="./" data-icon="back" data-theme="d"><?= _("Back") ?></a></li>
-            		<li><a onclick="<?= $url ?>" data-theme="d" data-icon="<?= $icon ?>"><?= $title ?></a></li>
-            	</ul>
-            	</div> <?
-            }
-      
-      function tabs_2empty($title, $icon="") {
-      	?>
-            	<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-            	<ul>
-            		<li><a data-rel="back" data-icon="back" rel="external"  data-theme="d"><?= _("Back") ?></a></li>
-            		<li><a class="ui-btn-active" data-icon="<?= $icon ?>"><?= $title ?></a></li>
-            	</ul>
-            	</div> <?
-        }
-            
-            
-       function about(){
+function about(){
        	?>
 <div style="text-align: justify;margin-left:20px;margin-right:20px;">
 	<p>
@@ -141,7 +104,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed 
 </div>
 
 <?
-       }
+}
        
        
 	function printProfile($profile){

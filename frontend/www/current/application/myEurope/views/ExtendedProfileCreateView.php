@@ -7,7 +7,7 @@
  	tabs($activeTab, array(
  			array("#profiles", "Profils existants", "list"),
  			array("#new", 'Create', "pencil")
- 		), '', true);
+ 		), '', 2);
  }
  
  ?>
@@ -21,8 +21,8 @@
 	<div data-role="content">
 		<p>
 		<?= _("Hello, This is your first time on myEurope.<br/><br/>
-				 Please fill in your profile with an existing Organization profile or <a href='#new'>create a new one</a>") ?>
-		<a href='#new' data-transition="slide"><?= _("create a new one") ?>	</a> 
+				 Please fill in your profile with an existing Organization profile or ") ?>
+		<a href='#new' data-transition="slidefade"><?= _("create a new one") ?>	</a> 
 		
 		</p>
 		<br />

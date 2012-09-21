@@ -34,7 +34,7 @@ class Entry {
 		if ($res->status != 200 ){
 			throw new Exception($res->description);
 		} else {// Success
-			return $res->dataObject->results;
+			return (array) $res->dataObject->results;
 		}
 	}
 	
@@ -47,7 +47,7 @@ class Entry {
 		if ($res->status != 200 ){
 			throw new Exception($res->description);
 		} else {// Success
-			return $res->dataObject->details;
+			return (array) $res->dataObject->details;
 		}
 	}
 	

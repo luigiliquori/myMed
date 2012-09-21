@@ -1,22 +1,9 @@
 <? include("header.php"); ?>
 
-<?
- function tab_bar($activeTab) {
- 	tabs($activeTab, array(
- 		array("#home", "Partenariats", "retweet"),
- 		array("#infos", "About European programs", "info-sign"),
- 		array("#blogs", "Bonnes pratiques", "comments"),
- 		array("#profile", $_SESSION['user']->name, "user")
- 	), APPLICATION_LABEL, true);
- }
 
-?>
-
-
-		
 <div data-role="page" id="home">
 
-	<? tab_bar("#home") ?>
+	<? tab_bar_default("#home") ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content" style="text-align:center;">
 		
@@ -33,7 +20,7 @@
 
 <div data-role="page" id="profile">
 
-	<? tab_bar("#profile") ?>
+	<? tab_bar_default("#profile") ?>
 	<div data-role="content" style="text-align:center;">
 		
 		
@@ -71,7 +58,7 @@
 
 <div data-role="page" id="blogs">
 
-	<? tab_bar("#blogs") ?>
+	<? tab_bar_default("#blogs") ?>
 	<div data-role="content" style="text-align:center;">
 		<ul data-role="listview" data-inset="true" data-filter="true" >
 			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
@@ -118,7 +105,7 @@
 
 <div data-role="page" id="about">
 
-	<? tab_bar("#about") ?>
+	<? tab_bar_default("#about") ?>
 	<div data-role="content">
 		
 		<br />
@@ -128,7 +115,7 @@
 
 <div data-role="page" id="admin">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#admin") ?>
+		<? tab_bar_default("#admin") ?>
 	</div>
 	<div data-role="content">
 		<br />

@@ -1,4 +1,4 @@
-<? include_once ("header.php"); ?>
+<? include("header.php"); ?>
 
 <div id="home" data-role="page">
 	
@@ -36,6 +36,5 @@
 
 
 </div>
-<? include_once("ProfileView.php"); ?>
 
-<? include_once("footer.php"); ?>
+<? include("footer.php"); ?>

@@ -1,6 +1,6 @@
 <div id="updateProfile" data-role="page">
 
-	<? tab_bar_main("?action=main#profile"); ?>
+	<? tab_bar_main("?action=main#profile", 2); ?>
 	<? include("notifications.php"); ?>
 	
 	<div data-role="content" class="content" Style="text-align: left;">

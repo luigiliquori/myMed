@@ -1,7 +1,7 @@
 
 <div data-role="page" id="infos">
 
-	<? tab_bar("#infos") ?>
+	<? tab_bar_default("#infos") ?>
 	<div data-role="content">
 		<ul data-role="listview" data-inset="true" data-filter="true" >
 		

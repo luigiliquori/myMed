@@ -156,9 +156,9 @@ class DetailsController extends AuthenticatedController {
 			$details = $user->read();
 		} catch (Exception $e) {
 		}
-		$profile = new Profile($details->profile);
+		$profile = new Profile($details['profile']);
 		try {
-			$profile->details = (array) $profile->read();
+			$profile->details = $profile->read();
 		} catch (Exception $e) {
 		}
 		$profile->parseProfile();

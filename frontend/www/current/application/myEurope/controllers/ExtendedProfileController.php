@@ -62,7 +62,7 @@ class ExtendedProfileController extends AuthenticatedController {
 		
 			
 		else
-			$this->renderView("ExtendedProfileCreate");
+			$this->redirectTo("main");
 		
 	}
 	
@@ -216,6 +216,7 @@ class ExtendedProfileController extends AuthenticatedController {
 		try {
 			$this->profile->details = $this->profile->read();
 		} catch (Exception $e) {
+			$this->redirectTo("main");
 		}
 		$this->profile->parseProfile();
 		$this->profile->reputation = parent::reputation(null, $id);
@@ -229,8 +230,9 @@ class ExtendedProfileController extends AuthenticatedController {
 		try {
 			$details = $user->read();
 		} catch (Exception $e) {
+			$this->redirectTo("main");
 		}		
-		$this->showOtherProfile($details->profile);
+		$this->showOtherProfile($details['profile']);
 	}
 	
 	public /*void*/ function deleteUser($id){
