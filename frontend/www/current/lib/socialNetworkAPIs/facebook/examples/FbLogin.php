@@ -3,7 +3,7 @@
 		$app_secret = "c386710770c974bdb307e87d4a8fb4a6";
 		$my_url = "http://mymed21.sophia.inria.fr/";
 		
-		//session_start();
+		session_start();
 		$code = $_REQUEST["code"];
 		
 		if(empty($code)) {
