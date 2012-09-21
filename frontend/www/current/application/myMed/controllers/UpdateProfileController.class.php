@@ -10,18 +10,8 @@ class UpdateProfileController extends AbstractController {
 	public /*String*/ function handleRequest() { 
 		
 		// Preconditions
-		if($_POST['password'] != $_POST['confirm']){
-			$this->error = "FAIL: password != confirmation";
-		} else if($_POST['password'] == ""){
-			$this->error = "FAIL: password cannot be empty!";
-		} else if($_POST['email'] == ""){
-			$this->error = "FAIL: email cannot be empty!";
-		}
-		
-		// Error to show => show the register view
-		if (!empty($this->error)) {
-			$this->renderView("register");
-			return;
+		if(false){ //check password here
+			$this->error = _("Wrong password");
 		}
 
 		
@@ -65,9 +55,7 @@ class UpdateProfileController extends AbstractController {
 		
 		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['login'] = $_POST["email"];
-		unset($_POST['oldPassword']);
-		unset($_POST['password']);
-		unset($_POST['confirm']);
+		unset($_POST['password']);// /\ don't store people password! or we could deal with justice
 		
 		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($_POST)));
 

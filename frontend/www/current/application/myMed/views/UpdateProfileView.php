@@ -9,44 +9,33 @@
 			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
 			
 			<label for="firstName">Prénom / Activité commerciale : </label>
-			<input type="text" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
-			<br />
+			<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
 			
 			<label for="lastName">Nom : </label>
-			<input type="text" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
-			<br />
+			<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			
 			<label for="email" >eMail : </label>
-			<input type="text" name="email" value="<?= $_SESSION['user']->email ?>" />
-			<br />
-			
-<!-- 			<label for="oldPassword" >Ancien mot de passe : </label> -->
-<!-- 			<input type="password" name="oldPassword" /> -->
-<!-- 			<br /> -->
-			
-<!-- 			<label for="password" >Nouveau mot de passe : </label> -->
-<!-- 			<input type="password" name="password" /> -->
-<!-- 			<br /> -->
-			
-<!-- 			<label for="password" >Confirmation : </label> -->
-<!-- 			<input type="password" name="confirm" /> -->
-<!-- 			<br /> -->
+			<input type="text" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
 			
 			<label for="birthday" >Date de naissance : </label>
-			<input type="text" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
-			<br />
+			<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			
 			<label for="profilePicture" >Photo du profil (url): </label>
-			<input type="text" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
-			<br />
+			<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			
 			<label for="thumbnail" >Langue	: </label>
-			<select name="lang">
+			<select id="thumbnail" name="lang">
 				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Francais</option>
 				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
 				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
 			</select>
+			
 			<br />
+			
+			<div data-role="fieldcontain">
+				<label for="password" ><?= _("Password") ?> : </label>
+				<input type="password" id="password" name="password" />
+			</div>
 			
 			<center>
 				<div data-role="controlgroup" data-type="horizontal">
