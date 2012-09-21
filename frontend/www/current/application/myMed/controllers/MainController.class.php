@@ -15,6 +15,7 @@ class MainController extends AuthenticatedController {
 
 	protected $currentSuccessMess = null;
 	protected $currentErrorMess = null;
+	protected $defaultView = "main";
 	
 	public function __construct() {
 		
@@ -61,7 +62,7 @@ class MainController extends AuthenticatedController {
 		debug_r($_SESSION['applicationList']);
 
 		// REPUTATION
-		if (!isset($_SESSION['reputation'])){
+// 		if (!isset($_SESSION['reputation'])) { // NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE
 			
 			foreach($_SESSION['applicationList'] as $app => $status){
 				
@@ -98,9 +99,9 @@ class MainController extends AuthenticatedController {
 				}
 			}
 
-		}
+// 		}
 
-		$this->renderView("main");
+		$this->renderView($this->defaultView);
 	}
 
 
