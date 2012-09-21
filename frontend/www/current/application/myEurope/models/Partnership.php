@@ -1,20 +1,19 @@
 <?php
 
-require('Document.php');
+require_once('Entry.php');
 
-class Partnership extends Document {
+class Partnership extends Entry {
 	
 	public /* array of ExtendedProfile*/ $partnersProfiles;  // first is the owner, others who joined, might sort them by rep, at the end unshift partner at the top of list highlighted
 	
 	//construct index from the request url values, post or get
 	
 	public function __construct(
-			IRequestHandler $handler = null,
 			$id = null,
 			$data = null,
 			$metadata = null,
 			$index = null) {
-		parent::__construct($handler, "part", $id, $data, $metadata, $index);
+		parent::__construct("part", $id, $data, $metadata, $index);
 	}
 	 
 	
@@ -57,24 +56,15 @@ class Partnership extends Document {
 	}
 	
 	
-	public function fetchPartnersProfiles($res) {
+	public function parseProfile() {
 		
-		$this->partnersProfiles = array();
-		
-		foreach ($res as $k => $v){
+		$this->users = array();
+		foreach ($this->details as $k => $v){
 			if (strpos($k, "user_") === 0){
-				$p = new ExtendedProfile($v);
-				$this->partnersProfiles[$p->id]= $p->readFromUser();
+				unset($this->details[$k]); // some cleaning for debug
+				$this->users[] = $v;
 			}
 		}
-		//sort them by rep
-		
-		//author
-		$p = new ExtendedProfile($this->user);
-		$authorProfile = $p->readFromUser();
-		
-		$this->partnersProfiles = array_merge(array($this->user=>$authorProfile, $this->partnersProfiles));
-		
 	}
 	
 	public function makeKeywords($k){
@@ -94,6 +84,7 @@ class Partnership extends Document {
 			 || strlen($this->index[3]->value)
 			 || strlen($this->index[4]->value);
 	}
+	
 	
 	public function renderSearchIndex(){
 		$t = "";

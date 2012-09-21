@@ -33,4 +33,14 @@ class AuthenticatedController extends AbstractController {
 			$this->user = $_SESSION['user'];
 		}
 	}
+	
+	public function reputation( $producer=null, $id=null ){
+		$rep =  new ReputationSimple( $producer, $id, APPLICATION_NAME);
+		$res = $rep->send();
+		if($res->status != 200) {
+			throw new Exception($res->description);
+		} else {
+			return formatReputation($res->dataObject->reputation);
+		}
+	}
 }

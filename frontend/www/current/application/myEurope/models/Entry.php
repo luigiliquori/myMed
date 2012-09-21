@@ -1,25 +1,24 @@
 <?php
 
-class Document {
+/**
+ * 
+ * generic class of a data saved in our DB
+ *
+ */
+class Entry {
 	
 	public $id;
 	public $namespace;
 	public $user;
 	
-	public $handler;
-	
-	public $reputation;
-	
 	
 	public function __construct(
-			IRequestHandler $handler = null,
 			$namespace = null,
 			$id = null,
 			$data = null,
 			$metadata = null,
 			$index = null) {
-		
-		$this->handler = $handler;
+
 		$this->namespace = $namespace;
 		$this->id = $id;
 		$this->index = $index;
@@ -28,38 +27,28 @@ class Document {
 	}
 	
 	public function search() {
-		$find = new RequestJson($this->handler,
+		$find = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$this->namespace, "predicates"=>$this->index));
 		
-		try{
-			$res = $find->send();
-		}catch (NoResultException $e) {
-		}catch(Exception $e){
+		$res = $find->send();
+		if ($res->status != 200 ){
+			throw new Exception($res->description);
+		} else {// Success
+			return $res->dataObject->results;
 		}
-		$this->handler->success = "";
-		return (array) $res->results;
 	}
-	
-	
 	
 	public function read() {
 		
-		$rep =  new Reputationv2($this->handler, $this->user, $this->id);
-		$this->reputation = $rep->send();
+		$req = new RequestPubSub(
+				array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id));
 		
-		$req = new RequestJson( $this->handler, array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id));
-		
-		try{
-			$res = $req->send();
-		}catch (NoResultException $e) {
-			$res->details=new StdClass();
-			$res->details->text = "<h2 style='text-align:center;'>"._("Contenu effacé par l'auteur")."</h2>";
-		}catch(Exception $e){
+		$res = $req->send();
+		if ($res->status != 200 ){
+			throw new Exception($res->description);
+		} else {// Success
+			return $res->dataObject->details;
 		}
-		
-		$this->handler->success = "";
-		return (array) $res->details;
-		
 	}
 	
 	
@@ -68,31 +57,37 @@ class Document {
 		$t = time();		
 		$this->id = hash("md5", $t.$this->user);
 		
-		$publish = new RequestJson($this->handler,
+		$publish = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$this->id, "user"=>$this->user, "data"=>$this->data, "predicates"=>$this->index, "metadata"=>$this->metadata),
 				CREATE);
 		
-		$publish->send();
+		$res = $publish->send();
+		if ($res->status != 200 ){
+			throw new Exception($res->description);
+		}
 	}
 	
 	public function update() {
 		
-		$publish = new RequestJson($handler,
+		$publish = new RequestPubSub(				
 				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$this->id, "user"=>$this->user, "data"=>$this->data, "predicates"=>$this->index, "metadata"=>$this->metadata),
 				UPDATE);
 		
-		$publish->send();
-	
+		$res = $publish->send();
+		if ($res->status != 200 ){
+			throw new Exception($res->description);
+		}
 	}
 	
 	public function delete() {
-		$publish = new RequestJson($this->handler,
+		$publish = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id),
 				DELETE);
 
-		
-		$publish->send();
-	
+		$res = $publish->send();
+		if ($res->status != 200 ){
+			throw new Exception($res->description);
+		}
 	}
 	
 	

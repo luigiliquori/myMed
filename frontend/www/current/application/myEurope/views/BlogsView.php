@@ -5,7 +5,7 @@
 
 <div data-role="page" id="Blog">
 
-	<? tabs_simple(array($this->blog.' '._("Blog"))); ?>
+	<? tabs_simple(array($this->blog.' '."Blog")); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content">
 	<br />

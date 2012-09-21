@@ -36,13 +36,23 @@
 	<? tab_bar("#profile") ?>
 	<div data-role="content" style="text-align:center;">
 		
+		
 		<?php if($_SESSION['user']->profilePicture != ""): ?>
-			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
+			<a href="#updatePicPopup" data-rel="popup"><img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80"></a>
 		<?php else: ?>
-			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
+			<a href="#updatePicPopup" data-rel="popup"><img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80"></a>
 		<?php endif; ?>
 		
-		<div style="display:inline-block; margin-left: 15px; vertical-align: 25%; color: #EEE; font-weight: bold; font-size: 14pt; text-align: center;">
+		
+		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<div style="display: inline-block;">
+				<input type="text" id="picUrl" placeholder="Picture's url" value="http://cdn.walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg" data-inline="true" />
+			</div>
+			<a onclick="$('#updatePicPopup').popup('close');updateProfile('profilePicture', $('#picUrl').val());" data-role="button" data-theme="d" data-mini="true" data-icon="ok" data-inline="true"><?= _("Update") ?></a>
+		</div>
+		
+		<div style="display:inline-block; margin-left: 15px; vertical-align: 25%; color: white; font-weight: bold; font-size: 14pt; text-align: center;">
 			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> 
 		</div>
 		
