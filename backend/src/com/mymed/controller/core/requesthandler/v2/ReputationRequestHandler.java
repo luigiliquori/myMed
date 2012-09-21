@@ -75,7 +75,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
         try {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
-            checkToken(parameters);
+            validateToken(parameters.get(JSON_ACCESS_TKN));
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String 
             	id = parameters.get("id"), 
@@ -147,7 +147,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
         try {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
-            checkToken(parameters);
+            validateToken(parameters.get(JSON_ACCESS_TKN));
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
             switch (code) {

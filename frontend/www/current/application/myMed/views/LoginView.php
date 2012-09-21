@@ -20,7 +20,7 @@ function tab_bar_login($activeTab) {
 	<? tab_bar_login("#login"); ?>
 	<? include("notifications.php"); ?>
 	
-	<div data-role="content"  class="content">
+	<div data-role="content" class="content">
 
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" width="200" />
 		<form action="?action=login" method="post" data-ajax="false">
@@ -32,32 +32,36 @@ function tab_bar_login($activeTab) {
 		</form>
 		
 		
-		<div data-role="collapsible" data-mini="true" data-collapsed="true" data-collapsed="false" data-content-theme="c" data-inline="true" style="text-align: center;width: 260px; margin: auto;">
+		<div data-role="collapsible" data-mini="true" data-collapsed="false" data-content-theme="d" data-inline="true" style="width:70%; min-width:280px; margin: auto;">
 			<h3><?= _("Options") ?></h3>
-			
-			<h4><?= _("Connection from other accounts") ?></h4>
-			
-			(<a href="http://openid.net/">OpenID</a>) <a  title="log in with Google openID" 
-			onclick="$('#openIdProvider').val('https://www.google.com/accounts/o8/id'); $('#openIdForm').submit();" rel="external" style="background-position: -1px -1px" class="oauth_small_btn"></a>
-			 <a href="#oidFormPopup" data-rel="popup" data-role="none" >plus</a>
-			
-			
-			<div data-role="popup" id="oidFormPopup" class="ui-content" data-theme="d">
-				<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<form id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
-					Url OpenID:
-					<input id="openIdProvider" type="text" style="width:280px;display:inline-block;" data-mini="true" name="openid_identifier" data-inline="true" value="https://www.google.com/accounts/o8/id" placeholder="Open ID url" />
-					<div style="display:inline-block;vertical-align: middle;">
-						<input type="submit" value="OK" title="log in with openid" data-mini="true" data-inline="true"/>
-					</div>
-				</form>
+
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<legend><?= _("Register with") ?><a href="http://oauth.net/2/" style="text-decoration: none;">*</a>:</legend>
+					<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external"><img src="/system/img/social/google_logo.png" /></a>
+					<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external" style="margin-left: 20px;"><img src="/system/img/social/facebook_logo.png" /></a>
+					<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external" style="margin-left: 20px;"><img src="/system/img/social/twitter_logo.png" /></a>
+				</fieldset>
+				
 			</div>
-			<br />
 			
-			(<a href="http://oauth.net/2/">OAuth</a>) <a  title="log in with Google Oauth" 
-			href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" rel="external" style="background-position: -1px -1px" class="oauth_small_btn"></a>
-			 <a  title="log in with Facebook Oauth" 
-			href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" rel="external" style="background-position: -1px -105px" class="oauth_small_btn"></a>
+			
+			<div data-role="collapsible" data-mini="true" data-content-theme="c" data-inline="true">
+				<h3><?= _("more options") ?></h3>
+				
+				<div data-role="fieldcontain">
+					<form id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
+						<label><?= _("We also support OpenId") ?><a href="http://openid.net/" style="text-decoration: none;">*</a>: </label>
+						<input id="openIdProvider" type="text" style="max-width:250px;display:inline-block;" data-mini="true" name="openid_identifier" data-inline="true" value="https://www.google.com/accounts/o8/id" placeholder="" />
+						<div style="display:inline-block;vertical-align: middle;">
+							<input type="submit" value="ok" data-theme="b" data-mini="true" title="<?= _("log in with openid") ?>" />
+						</div>
+						
+					</form>
+					
+				</div>
+				
+			</div>
 			
 		</div>
 
@@ -88,6 +92,8 @@ function tab_bar_login($activeTab) {
 		<!--  Register form -->
 		<form action="?action=register" method="post" data-ajax="false">
 		
+			<br />
+			
 				<label for="prenom">Prénom / Activité commerciale : </label>
 				<input type="text" name="prenom" value="" />
 				<br />

@@ -13,6 +13,10 @@ function getReturnTo() {
 	return sprintf("%s://%s%s/oauth_catch.php",
 			getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
 }
+function getTrustRoot() {
+	return sprintf("%s://%s/",
+			getScheme(), $_SERVER['SERVER_NAME']);
+}
 
 function getScheme() {
 	$scheme = 'http';

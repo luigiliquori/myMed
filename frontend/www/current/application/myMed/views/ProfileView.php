@@ -70,7 +70,6 @@
 </div>
 <? include_once("MainView.php"); ?>
 
-<? include("LangView.php"); ?>
 
 <? include("UpdateProfileView.php"); ?>
 

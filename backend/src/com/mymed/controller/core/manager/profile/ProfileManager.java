@@ -52,6 +52,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
      * The social network ID field.
      */
     private static final String SOCIAL_NETWORK_ID = GENERAL.get("general.social.network.id");
+    private static final String SOCIAL_NETWORK_NAME = GENERAL.get("general.social.network.name");
 
     /**
      * Default constructor.
@@ -104,6 +105,11 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
     public final Map<String, String> readSimple(final String id) throws InternalBackEndException, IOBackEndException {
         return storageManager.selectAllStr(CF_USER, id);
     }
+    
+    
+    public final String readSimpleField(final String id, final String field) throws InternalBackEndException, IOBackEndException {
+        return storageManager.selectColumnStr(CF_USER, id, field);
+    }
 
 
     /**
@@ -138,6 +144,14 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 
         if (user.getSocialNetworkID().equals(SOCIAL_NETWORK_ID)) {
             storageManager.removeAll(CF_AUTHENTICATION, user.getLogin());
+        }
+    }
+    
+    @Override
+    public final void deleteSimple(final String id) throws InternalBackEndException, IOBackEndException {
+        storageManager.removeAll(CF_USER, id);
+        if (readSimpleField(id, "socialNetworkName").contains(SOCIAL_NETWORK_NAME)) {
+            storageManager.removeAll(CF_AUTHENTICATION, readSimpleField(id, "login"));
         }
     }
 }

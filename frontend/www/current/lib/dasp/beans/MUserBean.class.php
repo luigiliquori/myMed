@@ -62,26 +62,53 @@ class MUserBean {
 	public /*String*/	$lang;
 	
 	
-	public static function constructFromGoogleOAuth($user){ //from oauth
+	public static function constructFromGoogleOAuth($user){
 		$user['email'] = filter_var($user['email'], FILTER_SANITIZE_EMAIL);
 		$user['profilePicture'] = filter_var($user['picture'], FILTER_VALIDATE_URL);
 		
+		if (isset($user['link']))
+			$user['link'] = filter_var($user['link'], FILTER_VALIDATE_URL);
 		if (isset($user['given_name']))
 			$user['firstName'] = $user['given_name'];
 		if (isset($user['family_name']))
 			$user['lastName'] = $user['family_name'];
 		if (isset($user['locale']))
-			$user['lang'] = $user['locale'];
+			$user['lang'] = substr($user['locale'], 0, 2);
 		
 		$user['id'] = 'MYMED_'.$user['email'];
 		
-		$user['socialNetworkName'] = 'Google - OAuth2.0';// shoud append it
+		$user['socialNetworkName'] = 'Google-OAuth';
 		
 		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
 	}
 	
+	public static function constructFromFacebookOAuth($user){
+		if (isset($user['link']))
+			$user['link'] = filter_var($user['link'], FILTER_VALIDATE_URL);
+		if (isset($user['first_name']))
+			$user['firstName'] = $user['first_name'];
+		if (isset($user['last_name']))
+			$user['lastName'] = $user['last_name'];
+		if (isset($user['locale']))
+			$user['lang'] = substr($user['locale'], 0, 2);
+	
+		$user['socialNetworkName'] = 'Facebook-OAuth';
+	
+		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
+	}
+	
+	public static function constructFromTwitterOAuth($user){
+		if (isset($user['link']))
+			$user['link'] = filter_var($user['link'], FILTER_VALIDATE_URL);
+		if (isset($user['profile_image_url']))
+			$user['profilePicture'] = filter_var($user['profile_image_url'], FILTER_VALIDATE_URL);
+	
+		$user['socialNetworkName'] = 'Twitter-OAuth';
+	
+		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
+	}
+	
 	public static function constructFromOpenId($user){
-
 		foreach ($user as $k=>$v){
 			if(strpos($k, 'first')!==false)
 				$user['firstName'] = $v[0];
@@ -96,7 +123,7 @@ class MUserBean {
 		
 		$user['id'] = 'MYMED_'.$user['email'];
 		
-		$user['socialNetworkName'] = 'OpenID'; // @TODO shoud append it to know where all merged profiles comes from
+		$user['socialNetworkName'] = 'OpenID';
 
 		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
 	}

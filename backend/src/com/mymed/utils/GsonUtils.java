@@ -17,6 +17,7 @@
 package com.mymed.utils;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,6 +28,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 import com.mymed.model.data.application.MOntologyID;
 
 /**
@@ -69,6 +71,11 @@ public class GsonUtils {
         {
             return MOntologyID.fromInt(json.getAsInt());
         }
+    }
+    
+    
+    public static Map<String, String> json_to_map(String s) {
+    	return gson.fromJson(s, new TypeToken<Map<String, String>>() {}.getType());
     }
 
 }

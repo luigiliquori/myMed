@@ -28,6 +28,9 @@
 	define('Google_APP_CLIENT_ID', '@googleappclientid@');
 	define('Google_APP_CLIENT_SECRET', '@googleappclientsecret@');
 	
+	define('Twitter_APP_KEY', '@twitterappkey@');
+	define('Twitter_APP_SECRET', '@twitterappsecret@');
+	
 	//CITYWAY Keys
 	define('Cityway_URL', '@citywayurl@');
 	define('Cityway_APP_ID', '@citywayappid@');

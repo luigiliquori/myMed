@@ -184,6 +184,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				session.put("id", accessToken);
 				sessionManager.update(accessToken, session);
 				message.setDescription("session updated");
+				message.addDataObject(JSON_ACCESS_TKN, accessToken);
 				LOGGER.info("Session updated for {} with {} ", user, accessToken);				
 				break;
 

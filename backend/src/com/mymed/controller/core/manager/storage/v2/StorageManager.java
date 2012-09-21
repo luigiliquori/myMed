@@ -282,9 +282,6 @@ public class StorageManager extends
 
 		LOGGER.info("Select slice from column family '{}' with key '{}'",
 				parent.getColumn_family(), key);
-		
-		System.out.println("Select slice from column family '{}' with key '{}'"+
-				parent.getColumn_family()+ key);
 
 		for (final ColumnOrSuperColumn c : columns) {
 			final Column col = c.getColumn();

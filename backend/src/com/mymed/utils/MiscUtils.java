@@ -81,13 +81,14 @@ public class MiscUtils {
 	
 	
 	// --------------------------
-	// JSON decode 
+	// JSON-simple decode  equivalent of gson.fromJson(s, new TypeToken<Map<String, String>>() {}.getType())
 	// --------------------------
 	
-	public static Map<String, String> json_decode(String s) {
+	public static Map<String, String> json_to_map(String s) {
 		if (!s.startsWith("{")){
 			throw new InternalBackEndException("decoding error", " decoding error: not an Object");
 		}
+		
 		Map<String, String> res = new HashMap<String, String>();
 		JSONObject obj = (JSONObject) JSONValue.parse(s);
 		//cast obj Map in a Map<String, String>

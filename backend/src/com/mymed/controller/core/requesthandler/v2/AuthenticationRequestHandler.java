@@ -15,7 +15,7 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
-import static com.mymed.utils.MiscUtils.json_decode;
+import static com.mymed.utils.MiscUtils.json_to_map;
 
 import java.util.Map;
 
@@ -193,11 +193,11 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				} else {
 					// Launch the registration procedure
 
-					Map<String, String> usr = json_decode(user);
+					Map<String, String> usr = json_to_map(user);
 					usr.put("socialNetworkID", SOCIAL_NET_ID + "_not_validated");
         		    usr.put("socialNetworkName", SOCIAL_NET_NAME);
 					
-					Map<String, String> auth = json_decode(authentication);
+					Map<String, String> auth = json_to_map(authentication);
         		    
         		    LOGGER.info("Trying to create a new user:\n {}",
 							usr);
@@ -283,7 +283,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 							"oldPassword argument missing!");
 				} else {
 					
-					Map<String, String> auth = json_decode(authentication);
+					Map<String, String> auth = json_to_map(authentication);
         		    
         		    authenticationManager.read(
 							auth.get("login"),

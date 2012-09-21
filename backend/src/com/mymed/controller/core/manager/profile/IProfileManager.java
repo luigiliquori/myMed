@@ -68,5 +68,8 @@ public interface IProfileManager {
 	 */
 	void delete(String id) throws InternalBackEndException, IOBackEndException;
 
+	void deleteSimple(String id) throws InternalBackEndException,
+			IOBackEndException;
+
 	
 }

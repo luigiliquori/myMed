@@ -9,6 +9,8 @@ class LoginController extends AbstractController {
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*String*/ function handleRequest() {
+		
+		/*
 		$app_id = "352079521548536";
 		$app_secret = "c386710770c974bdb307e87d4a8fb4a6";
 		$my_url = "http://mymed21.sophia.inria.fr/";
@@ -32,15 +34,17 @@ class LoginController extends AbstractController {
 				
 				debug_r($user);
 			}
-		}
+		}*/
 		
-		/* authed by social networks apis*/
+		
+		/** authed by social networks apis*/
 		if (isset($_SESSION['user'])) { 
 
-			debug($_SESSION['accessToken']);
+			$token = isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null;
 			debug_r($_SESSION['user']);
-			$this->storeUser($_SESSION['user'], isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null);
+			$this->storeUser($_SESSION['user'], $token);
 			
+			debug_r($_SESSION['user2']);debug_r($_SESSION['user']);
 			// Redirect to main page
 			$this->redirectTo("main");
 		
@@ -178,7 +182,12 @@ class LoginController extends AbstractController {
 		
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
-		}		
+			return;
+		} else {
+			$_SESSION['accessToken'] = $responseObject->dataObject->accessToken; // in case was not set yet
+		}
+		
+		debug("token -> ".$_SESSION['accessToken']);
 		
 		//temp  @TODO see how to merge accounts of other providers with mymed for same emails
 		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($user)));
@@ -189,7 +198,7 @@ class LoginController extends AbstractController {
 		$responsejSon = $request->send();
 		$responseObject3 = json_decode($responsejSon);
 		if($responseObject->status == 200) {
-			$_SESSION['user2'] = $_SESSION['user']; // 
+			$_SESSION['user2'] = $_SESSION['user']; //keep it just for seeing the diff (debug)
 			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject3->dataObject->user);
 		}
 	}

@@ -24,9 +24,22 @@ if(!isset($_GET["code"])) {
 		. $params['access_token'];
 	
 		$user = json_decode(file_get_contents($graph_url));
-		echo('<pre>');
+		
+		require_once ROOT.'lib/dasp/beans/MUserBean.class.php';
+		
+		$_SESSION['user'] = MUserBean::constructFromFacebookOAuth((array) $user);
+		
+		
+		header('Location: '.getTrustRoot().'?action=login');
+		
+		/*echo('<pre>');
 		print_r($user);
 		echo('</pre>');
+		echo('<br>');
+		echo('<pre>');
+		print_r($_SESSION['user']);
+		echo('</pre>');*/
+		
 	}
 	else {
 		echo("The state does not match. You may be a victim of CSRF.");
