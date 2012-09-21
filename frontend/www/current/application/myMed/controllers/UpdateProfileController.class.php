@@ -9,18 +9,21 @@ class UpdateProfileController extends AbstractController {
 	 */
 	public /*String*/ function handleRequest() { 
 		
-// Preconditions
-// 		if($_POST['password'] != $_POST['confirm']){
-// 			$this->error = "FAIL: password != confirmation";
-// 		} else if($_POST['password'] == ""){
-// 			$this->error = "FAIL: password cannot be empty!";
-// 		} else if($_POST['email'] == ""){
-// 			$this->error = "FAIL: email cannot be empty!";
-// 		}
-// 		if (!empty($this->error)) {
-// 			$this->renderView("main");
-// 			return;
-// 		}
+		// Preconditions
+		if($_POST['password'] != $_POST['confirm']){
+			$this->error = "FAIL: password != confirmation";
+		} else if($_POST['password'] == ""){
+			$this->error = "FAIL: password cannot be empty!";
+		} else if($_POST['email'] == ""){
+			$this->error = "FAIL: email cannot be empty!";
+		}
+		
+		// Error to show => show the register view
+		if (!empty($this->error)) {
+			$this->renderView("register");
+			return;
+		}
+
 		
 		// update the authentication
 // 		$mAuthenticationBean = new MAuthenticationBean();
@@ -42,7 +45,9 @@ class UpdateProfileController extends AbstractController {
 // 		}
 		
 		// update the profile
-		$mUserBean = new MUserBean();
+		
+		
+		/*$mUserBean = new MUserBean();
 		$mUserBean->id = $_SESSION['user']->id;
 		$mUserBean->firstName = $_POST["firstName"];
 		$mUserBean->lastName = $_POST["lastName"];
@@ -50,23 +55,33 @@ class UpdateProfileController extends AbstractController {
 		$mUserBean->email = $_POST["email"];
 		$mUserBean->login = $_POST["email"];
 		$mUserBean->birthday = $_POST["birthday"];
-		$mUserBean->profilePicture = $_POST["profilePicture"];
-		$mUserBean->lang = $_POST["lang"];
-		
 
-		$request = new Request("ProfileRequestHandler", UPDATE);
-		$request->addArgument("user", json_encode($mUserBean));
+		$mUserBean->profilePicture = $_POST["thumbnail"];
+		
+		// keep the session opened 
+		$mUserBean->socialNetworkName = $_SESSION['user']->socialNetworkName;
+		$mUserBean->SocialNetworkID = $_SESSION['user']->SocialNetworkID;
+		$mUserBean->SocialNetworkID = $_SESSION['accessToken'];*/
+		
+		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+		$_POST['login'] = $_POST["email"];
+		unset($_POST['oldPassword']);
+		unset($_POST['password']);
+		unset($_POST['confirm']);
+		
+		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($_POST)));
+
 		$responsejSon = $request->send();
 		$responseObject2 = json_decode($responsejSon);
 
 		if($responseObject2->status != 200) {
 			$this->error = $responseObject2->description;
 		} else{
-			$this->success = "Mise à jour du profil réussit";
-			$_SESSION['user'] = $mUserBean;
+
+			$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $_POST);
 		}
 		
-		$this->renderView("profile");
+		$this->redirectTo("Main", null, "#profile");
 		
 	}
 

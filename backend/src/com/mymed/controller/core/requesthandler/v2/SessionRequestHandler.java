@@ -15,11 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
-import static com.mymed.utils.GsonUtils.gson;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

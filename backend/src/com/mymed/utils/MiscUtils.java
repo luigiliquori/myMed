@@ -54,8 +54,7 @@ public class MiscUtils {
     
     /** Decode a byte array into a string, using the default encoding */
     public static String decode(byte[] value) {
-        return Charset.forName(ENCODING).decode(ByteBuffer.wrap(value)).toString()
-        		.replaceAll("\\u0000", "" );  // BUG FIX - for the weird character at the end of the String
+        return Charset.forName(ENCODING).decode(ByteBuffer.wrap(value)).toString();
     }
     
     /** Encode a  string  into a byte array, using the default encoding */
