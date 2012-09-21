@@ -19,7 +19,6 @@
 			<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh" data-mini="true">mise à jour</a>
 			
 		</div>
-	
 		
 		<br /><br />
 		
@@ -36,7 +35,7 @@
 			</li>
 			<li data-icon="refresh">
 				<img alt="Langue: " src="<?= APP_ROOT ?>/img/<?= $_SESSION['user']->lang ?>_flag.png" width="50" Style="margin-left: 5px; top:5px;"/>
-				<a href="#Lang">Langue<p><?= $_SESSION['user']->lang ?></p></a>
+				<a href="#updateProfile">Langue<p><?= $_SESSION['user']->lang ?></p></a>
 			</li>
 			
 			<li  data-role="list-divider">Profils</li>
@@ -70,6 +69,8 @@
 
 </div>
 <? include_once("MainView.php"); ?>
+
+<? include("LangView.php"); ?>
 
 <? include("UpdateProfileView.php"); ?>
 

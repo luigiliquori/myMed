@@ -45,7 +45,7 @@
 							$userCommented = $this->comments[$k][$v['replyTo']]['user'];
 						?>
 						<?= comment($id, $v, $userCommented) ?>
-					<? endforeach ?>
+					<? endforeach; ?>
 					</ul>
 				</div>
 				

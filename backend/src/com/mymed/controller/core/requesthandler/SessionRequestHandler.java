@@ -87,7 +87,9 @@ public class SessionRequestHandler extends AbstractRequestHandler {
                     message.setMethod(JSON_CODE_READ);
                     final MSessionBean session = sessionManager.read(accessToken);
                     message.setDescription("Session avaible");
+                    LOGGER.info("Session {}", session);
                     final MUserBean userBean = profileManager.read(session.getUser());
+                    LOGGER.info("User {}", userBean);
                     message.addData(JSON_USER, gson.toJson(userBean));
                     message.addDataObject(JSON_USER, userBean);
                     break;

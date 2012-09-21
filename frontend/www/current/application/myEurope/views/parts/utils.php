@@ -198,44 +198,43 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $useBackTomyMed 
 			 
 			default:
 				?>
-					<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
-						<li>
-							<h3>
-								<?= $profile->name ?>
-							</h3>
-							<p>
-								<?= _("Role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
-							</p>
-							<?= debug_r($profile) ?>
-							<p>
-								<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
-							</p>
-							
-							<p class="ui-li-aside">
-								réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $profile->reputation['up'] ?> votes +, <?= $profile->reputation['down'] ?> votes -"><?= $profile->reputation['up'] - $profile->reputation['down'] ?></a>
-							</p>
-							<br />
-							<p>
-								<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
-								<?=
-								(empty($profile->email)?" ": _("email").": <a href='mailto:".$profile->email."'>".$profile->email."</a>")." - ".
-								(empty($profile->phone)?" ":_("phone").": <a href='tel:".$profile->phone."'>".$profile->phone."</a>")." - ".
-								(empty($profile->address)?" ":_("address").": ".$profile->address)
-								?>
-							</p>
-							<br />
-							<p>
-								<?= empty($profile->desc)?" ":$profile->desc ?>
-							</p>
-							<br />
-						</li>
-						<? if( count($profile->users)>0) :?>
-							<li data-role="list-divider"><?= _("Members list") ?></li>
-						<? endif ?>
-						<? foreach($profile->users as $item) :?>
-							<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
-						<? endforeach ?>
-					</ul>
+				<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
+					<li>
+						<h3>
+							<?= $profile->name ?>
+						</h3>
+						<p>
+							<?= _("Role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
+						</p>
+						<p>
+							<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
+						</p>
+						
+						<p class="ui-li-aside">
+							réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $profile->reputation['up'] ?> votes +, <?= $profile->reputation['down'] ?> votes -"><?= $profile->reputation['up'] - $profile->reputation['down'] ?></a>
+						</p>
+						<br />
+						<p>
+							<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
+							<?=
+							(empty($profile->email)?" ": _("email").": <a href='mailto:".$profile->email."'>".$profile->email."</a>")." - ".
+							(empty($profile->phone)?" ":_("phone").": <a href='tel:".$profile->phone."'>".$profile->phone."</a>")." - ".
+							(empty($profile->address)?" ":_("address").": ".$profile->address)
+							?>
+						</p>
+						<br />
+						<p>
+							<?= empty($profile->desc)?" ":$profile->desc ?>
+						</p>
+						<br />
+					</li>
+					<? if( count($profile->users)>0) :?>
+						<li data-role="list-divider"><?= _("Members list") ?></li>
+					<? endif ?>
+					<? foreach($profile->users as $item) :?>
+						<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
+					<? endforeach ?>
+				</ul>
 					
 					<?
 					break;

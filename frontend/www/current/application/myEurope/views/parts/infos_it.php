@@ -28,7 +28,7 @@
 		</ul> 
 	</div>
 </div>
-<div data-role="page" id="alcotra" style="background-image: none;">
+<div data-role="page" id="alcotra" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("alcotra") ?>
 	<div data-role="content">
 	<h3>
@@ -101,7 +101,7 @@
 			&nbsp;&nbsp;</p>
 	</div>
 </div>
-<div data-role="page" id="Marittimo" style="background-image: none;">
+<div data-role="page" id="Marittimo" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("Marittimo") ?>
 	<div data-role="content">
 
@@ -139,7 +139,7 @@
 			<a href="http://www.maritimeit-fr.net/">Sito ufficiale del programma</a></p>
 	</div>
 </div>
-<div data-role="page" id="MED" style="background-image: none;">
+<div data-role="page" id="MED" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("MED") ?>
 	<div data-role="content">
 		<h3>
@@ -178,7 +178,7 @@
 
 	</div>
 </div>
-<div data-role="page" id="Spazio alpino" style="background-image: none;">
+<div data-role="page" id="Spazio alpino" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("Spazio alpino") ?>
 	<div data-role="content">
 	
@@ -229,7 +229,7 @@
 
 	</div>
 </div>
-<div data-role="page" id="ENPI CBC" style="background-image: none;">
+<div data-role="page" id="ENPI CBC" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("ENPI CBC") ?>
 	<div data-role="content">
 	<h3>
@@ -279,7 +279,7 @@
 		</p>
 	</div>
 </div>
-<div data-role="page" id="Interreg" style="background-image: none;">
+<div data-role="page" id="Interreg" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("Interreg") ?>
 	<div data-role="content">
 	<h3>
@@ -317,7 +317,7 @@
 
 	</div>
 </div>
-<div data-role="page" id="Ricerca" style="background-image: none;">
+<div data-role="page" id="Ricerca" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("Ricerca") ?>
 	<div data-role="content">
 		<h3><u>Bilancio per il periodo 2014-2020:</u></h3>
@@ -341,7 +341,7 @@
 
 	</div>
 </div>
-<div data-role="page" id="FESR" style="background-image: none;">
+<div data-role="page" id="FESR" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("FESR") ?>
 	<div data-role="content">
 	<h3>
@@ -365,7 +365,7 @@ Altra grande linea del nuovo periodo di programmazione: lo sviluppo urbano soste
 
 	</div>
 </div>
-<div data-role="page" id="FSE" style="background-image: none;">
+<div data-role="page" id="FSE" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("FSE") ?>
 	<div data-role="content">
 		<h3>
@@ -399,7 +399,7 @@ Altra grande linea del nuovo periodo di programmazione: lo sviluppo urbano soste
 		</div>
   </div>
   
-<div data-role="page" id="FEASR" style="background-image: none;">
+<div data-role="page" id="FEASR" style="background-image: url('../../system/img/background.png');">
 	<? tabs_info("FEASR") ?>
 	<div data-role="content">
 	<h3>

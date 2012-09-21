@@ -5,16 +5,19 @@
 	<? tabs_simple(array('results', $this->details->title)); ?>
 	<? include("notifications.php"); ?>
 
-	<div data-role="content" >
-	
-		<div class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
-			<a data-role="button" style="color:gray;" data-icon="faminus" onclick="rate($(this), '<?= $this->id ?>',  '<?= $this->details->partner ?>', 0);"><?= $this->reputation['down'] ?></a>
-			<a data-role="button" style="color:blue;" data-icon="faplus" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->partner ?>', 1);"><?= $this->reputation['up'] ?></a>
-		</div>
+	<div data-role="content" >		
 		
-		<?= $this->details->text ?>
+		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
+			<li>
+				<?= $this->details->text ?>
+				<p class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
+					<a data-role="button" data-icon="faplus" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->partner ?>', 1);">
+						<span style="color: blue;font-size: 14px;"><?= $this->reputation['up'] ?></span> <span style="font-weight: normal;">"J'aime"</span>
+					</a>
+				</p>
+			</li>
+		</ul>
 		
-			
 			 
 		<? if (isset($this->details->user)) :?>
 			<br /><br />

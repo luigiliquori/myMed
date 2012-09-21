@@ -234,11 +234,13 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					throw new InternalBackEndException("password argument missing!");
 				} else {
 					final MUserBean userBean = authenticationManager.read(login, password);
+					
+					LOGGER.info("read User {}", userBean);
+					
 					message.setDescription("Successfully authenticated");
 					// TODO Remove this parameter
 					message.addData(JSON_USER, gson.toJson(userBean));
 					message.addDataObject(JSON_USER, userBean);
-
 					final MSessionBean sessionBean = new MSessionBean();
 					sessionBean.setIp(request.getRemoteAddr());
 					sessionBean.setUser(userBean.getId());

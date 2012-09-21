@@ -5,8 +5,7 @@
 	<? tabs_simple(array($this->profile->details['name'])); ?>
 	<? include("notifications.php"); ?>
 	
-	<div data-role="content" >
-	
+	<div data-role="content" style="text-align:center;">
 		<br />
 		<? $this->profile->renderProfile(); ?>
 		<? if (isset($_GET['link'])) :?>
@@ -26,6 +25,12 @@
 		<a href="?action=ExtendedProfile&rmProfile=<?= $_GET['id'] ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete profile') ?></a>
 		</div>
 		<? endif ?>
+		
+		<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
+		<br />
+		<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+		<? endif; ?>
+		
 	</div>
 </div>
 <? include("footer.php"); ?>
