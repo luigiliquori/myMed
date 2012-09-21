@@ -18,7 +18,7 @@ require_once("header.php"); ?>
 			<input type="hidden" name="signin" value="1" />
 			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
 		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>
- 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
+ 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="Connexion" />
 			
 		</form>
 		

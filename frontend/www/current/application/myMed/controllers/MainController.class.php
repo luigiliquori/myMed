@@ -10,16 +10,9 @@ define('STORE_PREFIX' , '_store');
 
 class MainController extends AuthenticatedController {
 
-	//public static $hiddenApplication = array("myMed", "myNCE", "myBEN", "myTestApp", "myMed_old", "myOldEurope", "myTemplate");
-	
-	
-	
-	//if user->applicationList is empty
 	public static $bootstrapApplication = array("myEurope", "myRiviera", "myFSA", "myMemory", "myBen", "myEuroCIN");
-	
 	public static $otherApplication = array("myJob", "myConsolato", "myStudent", "myAutoinsieme", "myREADME", "myAngel");
 
-	
 	protected $currentSuccessMess = null;
 	protected $currentErrorMess = null;
 	
@@ -50,28 +43,10 @@ class MainController extends AuthenticatedController {
 		// Set the flag
 		$_SESSION["launchpad"] = true;
 
-		// get all the application in MYMED_ROOT . '/application
-// 		if ($handle = opendir(MYMED_ROOT . '/application')) {
-// 			while (false !== ($file = readdir($handle))) {
-// 				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, self::$hiddenApplication)) {
-// 					array_push($this->applicationList, $file);
-// 				}
-// 			}
-// 		}
-		
-// 		$extentedProfile = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
-		
 		// get the success/error message (if it exists)
 		$this->setSuccess($this->currentSuccessMess);
 		$this->setError($this->currentErrorMess);
 		
-		// setup the extendedProfile if needed
-// 		if($extentedProfile == null){
-// 			$extentedProfile = new ExtendedProfile($_SESSION['user']->id, self::$bootstrapApplication);
-// 			$extentedProfile->storeProfile($this);
-// 		}
-		// set the status of the applications
-
 		//let's store them in session since we are not in the UK
 		if (!isset($_SESSION['applicationList'])){
 			if (is_null($myApps = json_decode($_SESSION['user']->applicationList, true))){
@@ -82,17 +57,10 @@ class MainController extends AuthenticatedController {
 			array_walk( $allaps, array($this, 'setOff'));
 			array_walk( $myApps, array($this, 'setOn'));
 		}
-// 		$this->resetApplicationStatus();
 
-		
-		
 		debug_r($_SESSION['applicationList']);
 
 		// REPUTATION
-// 		if ($handle = opendir(MYMED_ROOT . '/application')) {
-// 			while (false !== ($file = readdir($handle))) {
-// 				if(preg_match("/my/", $file) && !preg_match("/Admin/", $file) && !in_array($file, $this->hiddenApplication)) {
-
 		if (!isset($_SESSION['reputation'])){
 			
 			foreach($_SESSION['applicationList'] as $app => $status){

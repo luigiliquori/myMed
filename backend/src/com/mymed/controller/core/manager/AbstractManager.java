@@ -198,15 +198,15 @@ public abstract class AbstractManager {
 					method.invoke(mbean, argument);
 				} catch (NoSuchFieldException e) {
 					LOGGER.info("WARNING: {} is not a bean field", fieldName);
+				} catch (final IllegalArgumentException ex) {
+					LOGGER.info("WARNING: {} IllegalArgumentException", fieldName);
 				}
 			}
 		}  catch (final SecurityException ex) {
 			throw new InternalBackEndException(ex);
 		} catch (final NoSuchMethodException ex) {
 			throw new InternalBackEndException(ex);
-		} catch (final IllegalArgumentException ex) {
-			throw new InternalBackEndException(ex);
-		} catch (final IllegalAccessException ex) {
+		}  catch (final IllegalAccessException ex) {
 			throw new InternalBackEndException(ex);
 		} catch (final InvocationTargetException ex) {
 			throw new InternalBackEndException(ex);

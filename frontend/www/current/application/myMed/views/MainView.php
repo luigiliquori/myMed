@@ -1,15 +1,9 @@
-<? include("header.php"); ?>
-
-<? if(empty($_SESSION['user']->lang)):?>
-	<? include("LangView.php"); ?>
-<? endif ?>
+<? include_once ("header.php"); ?>
 
 <div id="home" data-role="page">
-
 	
 	<? tab_bar_main("?action=main"); ?>
 	<? include("notifications.php"); ?>
-	
 
 	<div data-role="content" style="text-align: center;">
 		<br />
@@ -42,6 +36,6 @@
 
 
 </div>
-<? include("ProfileView.php"); ?>
+<? include_once("ProfileView.php"); ?>
 
-<? include("footer.php"); ?>
+<? include_once("footer.php"); ?>

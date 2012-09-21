@@ -3,13 +3,11 @@
 <? define('STORE_PREFIX' , '_store'); ?>
 
 <div data-role="page">
-	
 
 	<? tab_bar_main("?action=store"); ?>
 	<? include("notifications.php"); ?>
 
-
-	<div data-role="content" class="content">
+	<div data-role="content" Style="padding: 0px; opacity: 0.9">
 		
 		<div class="ui-grid-a" style="position: relative;">
 			<?php $column = "a"; ?>
