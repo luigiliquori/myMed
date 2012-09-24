@@ -36,9 +36,9 @@ var radius;
 /* --------------------------------------------------------- */
 
 //$("#Map").live("pageinit", initialize);
-	
+
 function initialize() {
-	
+
 	showLoadingBar("chargement de la carte..."); 
 
 	// INITIALIZE DASP
@@ -48,16 +48,16 @@ function initialize() {
 	// INITIALIZE DASP->MAP
 	setupDASPMap($("#applicationName").val() + "Map", displayPosition,
 			displayError, false);
-	
+
 	// Add onClick function on the map
 	google.maps.event.addListener(
-            map,
-            "click",
-            function() {
-            	closeMarkersBox();
-            }
-        );
-            
+			map,
+			"click",
+			function() {
+				closeMarkersBox();
+			}
+	);
+
 
 	// autocompletes Google Maps Places API
 	if (useautocompletion) {
@@ -90,10 +90,10 @@ function initialize() {
 
 		// refocus on lastest position
 		focusOnLatLng(pos);
-		
+
 		old = filterArray;
 		updateFilter();
-		
+
 		// if the user changed the POIS type, compute missing and hide others
 		for ( var i in array_diff(filterArray, old)) {
 			markers[filterArray[i]][currentSegmentID] = null;
@@ -119,14 +119,14 @@ function initialize() {
 				otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
 			}
 		}
-		
+
 	});
 
 	// initialize the filter for the markers
 	initFilter();
 
 	resizeMap();
-	
+
 	$('#depart').keyup(function(event) {
 		if (event.keyCode == 13) {
 			validateIt();
@@ -155,9 +155,9 @@ function displayPosition(position) {
 //	var latlng = new google.maps.LatLng(43.87793, 7.449154);  // sospel
 //	var latlng = new google.maps.LatLng(43.7904171, 7.607139);  // vintimille
 //	var latlng = new google.maps.LatLng(43.757808, 7.473754);	// roquerbune
-	
+
 	//$.get("#", { latitude: latlng.lat(), longitude: latlng.lng() } );
-	
+
 	// if the accuracy is good enough, print a circle to show the area
 	// is use watchPosition instead of getCurrentPosition don't
 	// forget to clear previous circle, using
@@ -180,13 +180,13 @@ function displayPosition(position) {
 			});
 		}
 	}
-	
+
 	// Store the position into cassandra
 	var position = {
-		'userID': $("#userID").val(),
-		'latitude': latlng.lat(),
-		'longitude': latlng.lng(),
-		'formattedAddress': ''
+			'userID': $("#userID").val(),
+			'latitude': latlng.lat(),
+			'longitude': latlng.lng(),
+			'formattedAddress': ''
 	};
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode({'latLng' : latlng }, function(results, status) {
@@ -195,7 +195,7 @@ function displayPosition(position) {
 		}
 		updatePosition({'position': JSON.stringify(position)});
 	});
-	
+
 	// add position marker
 	if(currentPositionMarker == null) { // WATCH POSITION
 		// create current position marker
@@ -211,7 +211,7 @@ function displayPosition(position) {
 			focusOnCurrentPosition = false;
 		}
 	}
-	
+
 	// set position of the currentPositionMarker
 	currentPositionMarker.setPosition(latlng);
 	// add the position to the popup
@@ -226,12 +226,12 @@ function displayPosition(position) {
 
 
 function displayError(error) {
-	
+
 	//get lastest position known of the user
 	getPosition();
-	
-	
-	
+
+
+
 }
 
 
@@ -282,7 +282,7 @@ function clearAll() {
 		directionsDisplays[i].setMap(null);
 	pmarkers = [];
 //	for (key in markers) {
-//		markers[key].splice(1, markers[key].length); // just keep current pos POI markers
+//	markers[key].splice(1, markers[key].length); // just keep current pos POI markers
 //	}
 	directionsDisplays = [];
 	steps = [];
@@ -325,20 +325,20 @@ function clearMarkers() {
  */
 function otherMarkers(index, type, lat, lon, rad) {
 	if (!markers[type][index]) { // create them if not exist
-		
+
 		var params = {
-			'application': $("#applicationName").val() + "Admin",
-			'type': type,
-			'latitude': lat || steps[index - 1].position.lat(),
-			'longitude': lon || steps[index - 1].position.lng(),
-			'radius': rad || $('#slider-radius').val(),
-			//'accessToken': $("#accessToken").val(),
-			//'code': 1
+				'application': $("#applicationName").val() + "Admin",
+				'type': type,
+				'latitude': lat || steps[index - 1].position.lat(),
+				'longitude': lon || steps[index - 1].position.lng(),
+				'radius': rad || $('#slider-radius').val(),
+				//'accessToken': $("#accessToken").val(),
+				//'code': 1
 		};
-		
+
 		//getMarkers
 		//will do async write in markers[index], and on map
-		
+
 		// 3 possible ways
 		// direct: "../../backend/POIRequestHandler" put it with dapaType:"jsonp"
 		// direct: jsonp : "http://mymed.fr:8080/backend/POIRequestHandler" put it with dapaType:"jsonp"
@@ -353,12 +353,17 @@ function otherMarkers(index, type, lat, lon, rad) {
 					$.each(data.dataObject.pois, function(i, poi) {
 						value = JSON.parse(poi.value);
 						id = poi.id;
+
+						// GET ICON
 						iconAvailable = $('#poiIcon').val().split(",");
-						if(iconAvailable.indexOf(type + '.png') > 0){
+						if(poi.icon) {
+							icon = poi.icon;
+						} else  if(iconAvailable.indexOf(type + '.png') > 0){
 							icon = 'img/pois/' + type + '.png';
 						} else {
 							icon = null;
 						}
+						
 						var Address, Email, Link, IdMedia, Altitude = null;
 						if(value.Adresse) {
 							Address = value.Adresse;
@@ -388,7 +393,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 				}
 			}
 		});
-		
+
 	} else {// already existing, redrop them
 		for ( var i = 0; i < markers[type][index].length; i++) {
 			markers[type][index][i].setMap(map);
@@ -590,7 +595,7 @@ function calcRouteByCityway(result) {
 		content1 = tripSegment.distance > 0 ? 'Distance: ' + tripSegment.distance + ' m' : 'Durée: ' + tripSegment.duration + ' min';
 		content2 = (tripSegment.comment || '&nbsp;');
 		steps[i]['desc'] = content1 + '<br />' + content2;
-		
+
 		desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
 
 		desc.appendTo($('#itineraireContent'));
@@ -620,9 +625,9 @@ function calcRouteByCityway(result) {
 		}
 
 	}
-	
+
 	$("#ceparou06").show();
-	
+
 	// create jquerymobile styled elmts
 	$('.ui-page').trigger('create');
 
@@ -686,7 +691,7 @@ function calcRouteByGoogle(printTrip) {
 
 						content1 = 'Distance: ' + st.distance.text + ' (' + st.duration.text + ')';
 						content2 = st.instructions;
-						
+
 						steps[i] = {
 								'position' : st.start_location,
 								'icon' : icon,
@@ -762,7 +767,7 @@ function changeDestination() {
 
 function validateIt() {
 	var geocoder = new google.maps.Geocoder();
-	
+
 	// change EndMarker icon
 	if(EndMarkerIcon) {
 		endmarker.setIcon($("#selectarrivee").val().split("&&")[0].replace("?type=large", ""));
@@ -814,7 +819,7 @@ function validateIt() {
 				clearAll();
 
 				showLoadingBar("Calcul de l'itinéraire en cours...");
-				
+
 				$.ajax({
 					type : "POST",
 					url : "ajax/cityway.php",
@@ -841,7 +846,7 @@ function validateIt() {
 
 function changeEndMarkerIcon() {
 	EndMarkerIcon = true;
-	
+
 }
 
 
