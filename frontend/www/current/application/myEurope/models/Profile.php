@@ -13,7 +13,7 @@ class Profile extends Entry{
 			$id = null,
 			$data = null,
 			$metadata = null,
-			$index = null) {
+			$index = array()) {
 		parent::__construct("profiles", $id, $data, $metadata, $index);
 	}
 	

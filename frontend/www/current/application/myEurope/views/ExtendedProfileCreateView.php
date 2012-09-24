@@ -7,7 +7,7 @@
  	tabs($activeTab, array(
  			array("#profiles", "Profils existants", "list"),
  			array("#new", 'Create', "pencil")
- 		), '', 2);
+ 		), '', 1);
  }
  
  ?>

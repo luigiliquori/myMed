@@ -99,10 +99,15 @@ public class SessionManager extends AbstractManager implements ISessionManager {
     return session;
   }
   
+  @Override
   public byte[] readSimple(final String sessionID) throws IOBackEndException, InternalBackEndException {
-	 return storageManager.selectColumn(CF_SESSION, sessionID, "id");
+	  return storageManager.selectColumn(CF_SESSION, sessionID, "id");
   }
 
+  @Override
+  public String readSimpleUser(final String sessionID) throws IOBackEndException, InternalBackEndException {
+	  return storageManager.selectColumnStr(CF_SESSION, sessionID, "user");
+  }
 
   /**
    * @throws IOBackEndException

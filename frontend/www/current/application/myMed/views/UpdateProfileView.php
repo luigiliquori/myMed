@@ -1,10 +1,12 @@
+
+
 <div id="updateProfile" data-role="page">
 
-	<? tab_bar_main("?action=main#profile", 2); ?>
-	<? include("notifications.php"); ?>
+	<? tab_bar_main("?action=profile", 2); ?>
+	<? include 'notifications.php'; ?>
 	
 	<div data-role="content" class="content" Style="text-align: left;">
-		<form action="?action=updateProfile" method="post" data-ajax="false">
+		<form action="?action=profile" id="updateProfileForm" method="post" data-ajax="false">
 		
 			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
 			
@@ -36,6 +38,12 @@
 				<label for="password" ><?= _("Password") ?> : </label>
 				<input type="password" id="password" name="password" />
 			</div>
+			<? if (!isset($_SESSION['user']->email)): /*oauthed user have no password for the moment*/ ?>
+			<div data-role="fieldcontain">
+				<label for="passwordConfirm" ><?= _("Password Confirmation") ?> : </label>
+				<input type="password" id="passwordConfirm" name="passwordConfirm" />
+			</div>
+			<? endif; ?>
 			
 			<center>
 				<div data-role="controlgroup" data-type="horizontal">

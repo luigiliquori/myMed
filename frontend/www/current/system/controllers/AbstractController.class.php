@@ -43,7 +43,8 @@ abstract class AbstractController implements IRequestHandler {
 	}
 	
 	/** Renders a view by including its file, and exit */
-	public function renderView($view) {			
+	public function renderView($view) {	
+	
 		$view = ucfirst($view);
 		$viewPath = APP_ROOT . "/views/${view}View.php";
 		

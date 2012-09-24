@@ -12,7 +12,7 @@ class Partnership extends Entry {
 			$id = null,
 			$data = null,
 			$metadata = null,
-			$index = null) {
+			$index = array()) {
 		parent::__construct("part", $id, $data, $metadata, $index);
 	}
 	 

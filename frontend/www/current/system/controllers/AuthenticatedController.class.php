@@ -34,13 +34,18 @@ class AuthenticatedController extends AbstractController {
 		}
 	}
 	
-	public function reputation( $producer=null, $id=null ){
-		$rep =  new ReputationSimple( $producer, $id, APPLICATION_NAME);
+	public function reputation($producer=null, $id=null, $app=APPLICATION_NAME){
+		$rep =  new ReputationSimple($app, $producer, $id);
 		$res = $rep->send();
 		if($res->status != 200) {
 			throw new Exception($res->description);
 		} else {
-			return formatReputation($res->dataObject->reputation);
+			if ( is_array($id) || is_array($producer)){
+				return formatReputations($res->dataObject->reputation);
+			}else {
+				return formatReputation($res->dataObject->reputation);
+			}
+			
 		}
 	}
 }

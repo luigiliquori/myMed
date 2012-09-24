@@ -77,29 +77,21 @@ function strcontain($haystack,$needle){
 	return $pos !== false;
 }
 
-function formatReputation( $rep){
-	if ( !is_array($rep)){
-		return array(
-				"rep" => round($rep->reputation * 100),
-				"nbOfRatings" => $rep->numberOfVerdicts,
-				"up" => $rep->reputation * $rep->numberOfVerdicts,
-				"down" => $rep->numberOfVerdicts - $rep->reputation * $rep->numberOfVerdicts,
-				"rated" => $rep->rated
-		);
-	} else {
-		$res = array();
-		foreach ($rep as $k=>$v){
-			$res[$k] = array(
-					"rep" => round($v->reputation * 100),
-					"nbOfRatings" => $v->numberOfVerdicts,
-					"up" => $v->reputation * $v->numberOfVerdicts,
-					"down" => $v->numberOfVerdicts - $v->reputation * $v->numberOfVerdicts,
-					"rated" => $v->rated
-			);
-		}
-		return $res;
+function formatReputation($rep){
+	return array(
+			"rep" => round($rep->reputation * 100),
+			"nbOfRatings" => $rep->numberOfVerdicts,
+			"up" => $rep->reputation * $rep->numberOfVerdicts,
+			"down" => $rep->numberOfVerdicts - $rep->reputation * $rep->numberOfVerdicts,
+			//"rated" => $rep->rated
+	);
+}
+function formatReputations($rep){
+	$res = array();
+	foreach ($rep as $k=>$v){
+		$res[$k] = formatReputation($v);
 	}
-		
+	return $res;
 }
 
 /** Generate nice  element for title : div[data-role="header"]/h3 */

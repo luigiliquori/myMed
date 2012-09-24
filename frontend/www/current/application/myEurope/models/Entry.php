@@ -17,7 +17,7 @@ class Entry {
 			$id = null,
 			$data = null,
 			$metadata = null,
-			$index = null) {
+			$index = array()) {
 
 		$this->namespace = $namespace;
 		$this->id = $id;
@@ -27,6 +27,8 @@ class Entry {
 	}
 	
 	public function search() {
+		debug(APPLICATION_NAME.$this->namespace." ");
+		debug_r($this->index);
 		$find = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$this->namespace, "predicates"=>$this->index));
 		

@@ -44,7 +44,6 @@ class LoginController extends AbstractController {
 			debug_r($_SESSION['user']);
 			$this->storeUser($_SESSION['user'], $token);
 			
-			debug_r($_SESSION['user2']);debug_r($_SESSION['user']);
 			// Redirect to main page
 			$this->redirectTo("main");
 		
@@ -198,9 +197,21 @@ class LoginController extends AbstractController {
 		$responsejSon = $request->send();
 		$responseObject3 = json_decode($responsejSon);
 		if($responseObject->status == 200) {
+			$prevEmail = isset($_SESSION['user']->email);
 			$_SESSION['user2'] = $_SESSION['user']; //keep it just for seeing the diff (debug)
 			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject3->dataObject->user);
+			
+			if (!$prevEmail && isset($_SESSION['user']->email)){
+				/* 
+				 * the user's come from twiter or fb, and he afterwhile setted his email, 
+				 * give him a brand new user id and profile
+				 * and update 
+				 */
+				
+			}
 		}
+		
+		
 	}
 }
 ?>

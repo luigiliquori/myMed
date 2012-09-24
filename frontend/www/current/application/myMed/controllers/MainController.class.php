@@ -59,6 +59,8 @@ class MainController extends AuthenticatedController {
 		}
 
 		debug_r($_SESSION['applicationList']);
+		debug_r($_SESSION['user2']);
+		debug_r($_SESSION['user']);
 
 		// REPUTATION
 		if (!isset($_SESSION['reputation'])){	// NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE

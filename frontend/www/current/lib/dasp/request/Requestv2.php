@@ -96,9 +96,7 @@ class Requestv2 {
 			$this->arguments['accessToken'] = $_SESSION['accessToken'];
 		}
 
-		if($this->method == CREATE || $this->method == UPDATE
-				 || ($this->ressource == "v2/AuthenticationRequestHandler" && $this->method == READ)
-				 || strpos($this->ressource, "/FindRequestHandler") !== false){
+		if($this->method == CREATE || $this->method == UPDATE){
 			// POST REQUEST
 			curl_setopt($curl, CURLOPT_HTTPHEADER, $httpHeader);
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource);

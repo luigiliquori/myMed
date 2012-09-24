@@ -80,3 +80,20 @@ function isiPhoneoriPad(){
 	return true; //deviceStr.match(/(iphone|ipod|ipad)/);
 }
 
+$("#updateProfile").live("pagecreate", function() {
+	var page = $(this);
+	$("#updateProfileForm").submit(function() {
+		var box = page.find('#notification-error');
+		if ($('#password').val()==""){
+			box.find('h3').text("Mot de passe vide");
+			box.show();
+			return false;
+		}
+		if ($('#id').val()==""){
+			box.find('h3').text("id vide");
+			box.show();
+			return false;
+		}
+		return true;
+	});
+});

@@ -43,7 +43,7 @@
 			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> 
 		</div>
 		
-		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
+		<? $_SESSION['myEuropeProfile']->renderProfile(); ?>
 
 		<br />
 		<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
@@ -241,7 +241,7 @@
 		<form action="./" method="post" id="publishForm">
 				
 			<input type="hidden" name="action" value="Publish" />
-			<input type="hidden" name="r" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
+			<input type="hidden" name="r" value="<?= $_SESSION['myEuropeProfile']->details['role'] ?>" />
 			
 			<div data-role="fieldcontain">
 				<b><?= _('Title') ?>: </b> <input id="textinputp3" data-inline="true" name="title" placeholder="<?= _("partnership or project name") ?>" value='' type="text" />

@@ -11,7 +11,7 @@ class User extends Entry{
 			$id = null,
 			$data = null,
 			$metadata = null,
-			$index = null) {
+			$index = array()) {
 		parent::__construct("users", $id, $data, $metadata, $index);
 	}
 	

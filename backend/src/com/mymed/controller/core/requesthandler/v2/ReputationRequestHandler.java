@@ -80,45 +80,39 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             final String 
             	id = parameters.get("id"), 
             	producer = parameters.get(JSON_PRODUCER),
-            	ids = parameters.get("ids"),//many ids
             	consumer = parameters.get(JSON_CONSUMER);
 
             switch (code) {
-                case READ :
-//                    if (producer == null)
-//                        throw new InternalBackEndException("missing producer argument!");
+			case READ:
+				// if (producer == null)
+				// throw new
+				// InternalBackEndException("missing producer argument!");
 
-                    if(id != null){
-                    	
-                        final MReputationEntity reputation = reputationManager.read(id, producer, consumer);
+				if (id == null) {
 
-                        message.addDataObject(JSON_REPUTATION, reputation);
-                    	
-                    } else if(ids != null){
-                    	List<String> prods = new ArrayList<String>();
-                    	try {
-                    		prods = gson.fromJson(ids, listType);
-            			} catch (final JsonSyntaxException e) {
-            				LOGGER.debug("Error in Json format", e);
-            				throw new InternalBackEndException("jSon format is not valid");
-            			} catch (final JsonParseException e) {
-            				LOGGER.debug("Error in parsing Json", e);
-            				throw new InternalBackEndException(e.getMessage());
-            			}
-                    	
-                        final Map<String, MReputationEntity> reputationMap = reputationManager.read(prods, producer, consumer);
+					final MReputationEntity reputation = reputationManager.read(producer, consumer);
+					message.addDataObject(JSON_REPUTATION, reputation);
 
-                        message.addDataObject(JSON_REPUTATION, reputationMap);
-                    	
-                    } else {
-                    	
-                    	final MReputationEntity reputation = reputationManager.read(producer, consumer);
+				} else if (id.startsWith("[")) { // list of id's
+					List<String> ids = gson.fromJson(id, listType);
+					final Map<String, MReputationEntity> reputationMap = reputationManager
+							.read(ids, producer, consumer);
+					message.addDataObject(JSON_REPUTATION, reputationMap);
+				} else {
+					if (id.startsWith("[")) { // list of producer's
+						List<String> prods = gson.fromJson(id, listType);
+						// final MReputationEntity reputation =
+						// reputationManager.read(id, prods, consumer);
+						// message.addDataObject(JSON_REPUTATION, reputation);
+					} else {
+						final MReputationEntity reputation = reputationManager
+								.read(id, producer, consumer);
+						message.addDataObject(JSON_REPUTATION, reputation);
+					}
 
-                        message.addDataObject(JSON_REPUTATION, reputation);
-                    }
-                        
+				}
 
-                    break;
+				break;
                 case DELETE :
                     break;
                 default :
@@ -128,7 +122,13 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             LOGGER.debug("Error in doGet operation", e);
             message.setStatus(e.getStatus());
             message.setDescription(e.getMessage());
-        }
+        } catch (final JsonSyntaxException e) {
+			LOGGER.debug("Error in Json format", e);
+			throw new InternalBackEndException("jSon format is not valid");
+		} catch (final JsonParseException e) {
+			LOGGER.debug("Error in parsing Json", e);
+			throw new InternalBackEndException(e.getMessage());
+		}
 
         printJSonResponse(message, response);
     }

@@ -1,9 +1,9 @@
-<? include("header.php"); ?>
+<? include_once 'header.php'; ?>
 
 <div id="profile" data-role="page">
 
 	<? tab_bar_main("?action=profile"); ?>
-	<? include("notifications.php"); ?>
+	<? include 'notifications.php'; ?>
 
 	<div data-role="content">
 
@@ -68,7 +68,7 @@
 
 </div>
 
-<? include("UpdateProfileView.php"); ?>
+<? include 'UpdateProfileView.php'; ?>
 
-<? include("footer.php"); ?>
+<? include 'footer.php'; ?>
 

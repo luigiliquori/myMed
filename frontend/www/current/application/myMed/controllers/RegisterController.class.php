@@ -21,6 +21,8 @@ class RegisterController extends AbstractController {
 				$this->error = "L'email ne peut pas être vide.";
 			} else if(!$_POST['checkCondition']){
 				$this->error = "Vous devez accepter les conditions d'utilisation.";
+			} else if (filter_var($_POST['email'], 'FILTER_VALIDATE_EMAIL') === false){
+				$this->error = _("Email not valid");
 			}
 			
 			// Error to show => show the register view
@@ -31,7 +33,7 @@ class RegisterController extends AbstractController {
 			
 			// Create the new user
 			$mUserBean = new MUserBean();
-			$email = strtolower(filter_var($_POST["email"], FILTER_SANITIZE_EMAIL));
+			$email = strtolower(trim($_POST["email"]));
 			$mUserBean->id = "MYMED_" . $email;
 			$mUserBean->firstName = $_POST["prenom"];
 			$mUserBean->lastName = $_POST["nom"];
