@@ -15,7 +15,8 @@ class PublishController extends ExtendedProfileRequired {
 				"time"=>$t,
 				"user" => $_SESSION['user']->id,
 				"partner" => $_SESSION['myEurope']->profile,
-				"text" => !empty($_POST['text'])?$_POST['text']:"contenu vide"
+				"text" => !empty($_POST['text'])?$_POST['text']:"contenu vide",
+				
 			);
 		
 		$metadata = array(

@@ -42,7 +42,8 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			$this->showProfileList();
 		}
 		$profile->parseProfile();
-		$profile->reputation = parent::reputation(null, $profile->details['id']);
+		$profile->reputation = pickFirst(parent::reputation(null, $profile->details['id']));
+		debug_r($profile->reputation);
 		
 		$_SESSION['myEuropeProfile'] =$profile;
 		

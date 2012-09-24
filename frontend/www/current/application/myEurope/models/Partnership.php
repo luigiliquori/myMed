@@ -90,7 +90,7 @@ class Partnership extends Entry {
 		$t = "";
 		foreach ($this->index as $i => $v){
 			if (!empty($this->index[$i]->value)){
-				$t .= '<span style="font-size: 14px;background-color: white;padding: 3px;border-radius: 10px;-moz-border-radius:10px;">'.$v->value.'</span> ';
+				$t .= ''.$v->value.' ';
 			}
 		}
 		return $t;

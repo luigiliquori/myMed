@@ -219,7 +219,7 @@ class ExtendedProfileController extends AuthenticatedController {
 			$this->redirectTo("main");
 		}
 		$this->profile->parseProfile();
-		$this->profile->reputation = parent::reputation(null, $id);
+		$this->profile->reputation = pickFirst(parent::reputation(null, $id));
 
 		$this->renderView("ExtendedProfileDisplay");
 	}

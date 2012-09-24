@@ -20,13 +20,8 @@
 		</fieldset>
 		
 		<? if ($this->part->isIndexNotEmpty()) :?>
-		<div style="float: right;">
-			<label for="subscribeButton">
-				<?= $this->part->renderSearchIndex(); ?>:
-			</label>
-			<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
+			<a id="subscribeButton" style="float: right;" title="<?= _("Subscrive to:").' '.$this->part->renderSearchIndex(); ?>" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
 			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$this->part->namespace ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
-		</div>
 		<? endif ?>
 		</div>
 		

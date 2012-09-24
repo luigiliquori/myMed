@@ -281,7 +281,12 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					LOGGER.info("----oauthed user, @TODO this should go in create ");
 					Map<String, String> auth = json_to_map(authentication);
 					Map<String, String> auth2 = authenticationManager.readSimple(oldLogin);
-					auth.put("user", auth2.get("user"));
+					if (!auth.containsKey("user")){
+						auth.put("user", auth2.get("user"));
+					}
+					if (!auth.containsKey("password")){
+						auth.put("password", auth2.get("password"));
+					}
 					authenticationManager.updateSimple(auth.get("login"), auth, oldLogin);
 					
 				} else {

@@ -35,7 +35,7 @@ class DetailsController extends AuthenticatedController {
 		if (isset($res->details)){
 			$this->details = $res->details;
 			
-			$this->reputation = parent::reputation($this->details->user, $this->id);
+			$this->reputation = pickFirst(parent::reputation($this->details->user, $this->id));
 			
 			if (isset($this->details->user)){
 				
@@ -162,7 +162,7 @@ class DetailsController extends AuthenticatedController {
 		} catch (Exception $e) {
 		}
 		$profile->parseProfile();
-		$profile->reputation = parent::reputation(null, $id);
+		$profile->reputation = pickFirst(parent::reputation(null, $id));
 		return $profile;
 	}
 	

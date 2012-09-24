@@ -15,10 +15,6 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
-import static com.mymed.utils.GsonUtils.gson;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -88,30 +84,10 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 				// throw new
 				// InternalBackEndException("missing producer argument!");
 
-				if (id == null) {
-
-					final MReputationEntity reputation = reputationManager.read(producer, consumer);
-					message.addDataObject(JSON_REPUTATION, reputation);
-
-				} else if (id.startsWith("[")) { // list of id's
-					List<String> ids = gson.fromJson(id, listType);
-					final Map<String, MReputationEntity> reputationMap = reputationManager
-							.read(ids, producer, consumer);
-					message.addDataObject(JSON_REPUTATION, reputationMap);
-				} else {
-					if (id.startsWith("[")) { // list of producer's
-						List<String> prods = gson.fromJson(id, listType);
-						// final MReputationEntity reputation =
-						// reputationManager.read(id, prods, consumer);
-						// message.addDataObject(JSON_REPUTATION, reputation);
-					} else {
-						final MReputationEntity reputation = reputationManager
-								.read(id, producer, consumer);
-						message.addDataObject(JSON_REPUTATION, reputation);
-					}
-
-				}
-
+				final Map<String, MReputationEntity> reputationMap =
+				reputationManager.read(id, producer, consumer);
+				message.addDataObject(JSON_REPUTATION, reputationMap);
+				
 				break;
                 case DELETE :
                     break;

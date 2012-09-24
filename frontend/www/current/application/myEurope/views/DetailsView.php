@@ -6,7 +6,7 @@
 	<? include("notifications.php"); ?>
 
 	<div data-role="content" >		
-		
+		<h1><?= $this->details->title ?></h1>
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
 				<?= $this->details->text ?>
@@ -20,7 +20,8 @@
 				<? endif; ?>
 			</li>
 		</ul>
-		
+		<b style="font-size:14px;"><?= _('Keywords') ?>:</b>
+			<?= str_replace('"', '', $this->details->keywords) ?>
 			 
 		<? if (isset($this->details->user)) :?>
 			<br /><br />

@@ -36,6 +36,7 @@ import com.mymed.controller.core.manager.subscribe.SubscribeManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageIn;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.utils.CombiLine;
+import com.mymed.utils.GsonUtils;
 import com.mymed.utils.MatchMakingv2;
 import com.mymed.utils.MiscUtils;
 
@@ -164,7 +165,7 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 				LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
 	
 				if (keywordsStr != null){
-					keywords = gson.fromJson(keywordsStr, xType);
+					keywords = GsonUtils.json_to_keywords(keywordsStr);
 				}
 	
 				LOGGER.info("in ." + keywords.size());
