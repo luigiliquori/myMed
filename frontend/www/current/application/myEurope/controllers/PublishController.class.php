@@ -15,7 +15,8 @@ class PublishController extends ExtendedProfileRequired {
 				"time"=>$t,
 				"user" => $_SESSION['user']->id,
 				"partner" => $_SESSION['myEurope']->profile,
-				"text" => !empty($_POST['text'])?$_POST['text']:"contenu vide"
+				"text" => !empty($_POST['text'])?$_POST['text']:"contenu vide",
+				
 			);
 		
 		$metadata = array(
@@ -33,18 +34,16 @@ class PublishController extends ExtendedProfileRequired {
 		
 		$id = hash("md5", $t.$_SESSION['user']->id);
 		
-		$this->part = new Partnership($this, $id, $data, $metadata);
+		$this->part = new Partnership($id, $data, $metadata);
 		$this->part->initCreate($_POST);
 		
 		try{
-			$this->result = $this->part->create();
+			$res = $this->part->create();
 		}catch(Exception $e){
 			debug("post err".$e);
 			$this->setError($e);
-			$this->renderView("Main", "post");
+			$this->redirectTo("Main", null, "post");
 		}
-		
-		
 		
 		// put this project in our profile
 		$publish = new RequestJson( $this,

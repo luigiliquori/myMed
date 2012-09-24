@@ -1,4 +1,5 @@
 <? include_once('header-bar-light.php'); ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
 
@@ -47,8 +48,8 @@
 <? // ================== Switch to active tab on load ==========================================?>
 <? if (!empty($TAB)) :?>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
+		$('[data-role=page]:last').live("pageshow", function() {
+			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"});
 		});
 	</script>
 <? endif ?>

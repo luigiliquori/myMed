@@ -27,23 +27,15 @@ class Requestv2Wrapper extends Requestv2 {
 	}
 
 	public /*string*/ function send() {
-		try{
-			$result = parent::send();
-		}catch(Exception $e){
-		}
-		
+		$result = parent::send();
 		$obj = json_decode($result);
 		
-		if ($obj->status == 404 && !is_null($this->handler)){
-			$this->handler->setError('');
-			throw new NoResultException("No results found");
+		if ($obj->status != 200 && !is_null($this->handler)){
+			$this->handler->setError($obj->description);
+			throw new Exception("No results found");
 		
-		} else if($obj->status == 200) {// Success
+		} else {// Success
 			return $obj->dataObject;
-		} else {
-			if (!is_null($this->handler))
-				$this->handler->setError($obj->description);
-			throw new Exception("Erreur");
 		}
 		
 	}

@@ -2,7 +2,7 @@
 
 //require_once dirname(__FILE__) . '/../../../lib/dasp/beans/DataBeanv2.php';
 
-class SearchController extends ExtendedProfileRequired {
+class SearchController extends AuthenticatedController {
 	
 	public $part;
 
@@ -10,18 +10,21 @@ class SearchController extends ExtendedProfileRequired {
 		
 		parent::handleRequest();
 		
-		$this->part = new Partnership($this);
+		$this->part = new Partnership();
 		$this->part->initSearch($_GET);
 
-		$this->result = $this->part->search();
-
+		try {
+			$this->result = $this->part->search();
+		} catch (Exception $e) {
+		}
+		
 		$this->suggestions = array();
 		
 		function addvaluelashes($o){
 			$o->value = addslashes($o->value);
 			return $o;
 		}
-		$this->index = array_map("addvaluelashes", $this->part->index); //for ajax subscribe
+		$this->part->index = array_map("addvaluelashes", $this->part->index); //for ajax subscribe
 
 		// Render the view			
 		$this->renderView("Results");

@@ -7,7 +7,12 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import com.mymed.controller.core.exception.InternalBackEndException;
 
@@ -49,13 +54,14 @@ public class MiscUtils {
     
     /** Decode a byte array into a string, using the default encoding */
     public static String decode(byte[] value) {
-        return Charset.forName(ENCODING).decode(ByteBuffer.wrap(value)).toString()
-        		.replaceAll("\\u0000", "" );  // BUG FIX - for the weird character at the end of the String
+        return Charset.forName(ENCODING).decode(ByteBuffer.wrap(value)).toString();
     }
     
-    /** Decode a byte array into a string, using the default encoding */
+    /** Encode a  string  into a byte array, using the default encoding */
     public static byte[] encode(String value) {
-        if (value == null) return null;
+        if (value == null) {
+        	value = "";
+        }
         try {
             return value.getBytes(ENCODING);
         } catch (UnsupportedEncodingException e) {
@@ -73,6 +79,28 @@ public class MiscUtils {
 		return l;
     }
 	
+	
+	// --------------------------
+	// JSON-simple decode  equivalent of gson.fromJson(s, new TypeToken<Map<String, String>>() {}.getType())
+	// --------------------------
+	
+	public static Map<String, String> json_to_map(String s) {
+		if (!s.startsWith("{")){
+			throw new InternalBackEndException("decoding error", " decoding error: not an Object");
+		}
+		
+		Map<String, String> res = new HashMap<String, String>();
+		JSONObject obj = (JSONObject) JSONValue.parse(s);
+		//cast obj Map in a Map<String, String>
+	    for (Object keyObj: obj.keySet()) {
+	    	if (obj.get(keyObj) == null){
+	    		res.put(keyObj.toString(), "");
+	    	} else {
+	    		res.put(keyObj.toString(), obj.get(keyObj).toString());
+	    	}
+	    }
+		return res;
+	}
 	
 	// ---------------------------------------------------------------------------
     // Application+namespace parsers  

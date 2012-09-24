@@ -1,8 +1,8 @@
 <?php
 
-require('Document.php');
+require_once('Entry.php');
 
-class ExtendedProfile extends Document{
+class Profile extends Entry{
 
 	public $users; //members
 	public $partnerships; //partnerships owned or joined
@@ -10,18 +10,14 @@ class ExtendedProfile extends Document{
 	public $details; // all profile data
 	
 	public function __construct(
-			IRequestHandler $handler = null,
 			$id = null,
 			$data = null,
 			$metadata = null,
-			$index = null) {
-		parent::__construct($handler, "profiles", $id, $data, $metadata, $index);
+			$index = array()) {
+		parent::__construct("profiles", $id, $data, $metadata, $index);
 	}
 	
-	public function readProfile(){
-		
-		$this->details = parent::read();
-
+	public function parseProfile(){
 		$this->users = array();
 		$this->partnerships = array();
 		foreach ($this->details as $k => $v){
@@ -34,20 +30,10 @@ class ExtendedProfile extends Document{
 			}
 		}
 		sort($this->users);
-		$this->handler->success = "";
-		
 	}
 	
-	public function readFromUser($user){
-		
-		$find = new RequestJson($this->handler, array("application"=>APPLICATION_NAME.":users", "id"=>$user));
-		try{ $res = $find->send();
-		} catch(Exception $e){
-		}
-		$this->id = $res->details->profile;
-		return $this->readProfile();
-	}
 	
+	//shouldn't be there, I'll put that in utils later
 	public function renderProfile(){
 		?>
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d" style="margin-top: 2px;">

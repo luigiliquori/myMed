@@ -15,11 +15,10 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
-import static com.mymed.utils.GsonUtils.gson;
+import static com.mymed.utils.MiscUtils.json_to_map;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,9 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
-import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
@@ -38,9 +35,6 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.session.ISessionManager;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
-import com.mymed.model.data.session.MAuthenticationBean;
-import com.mymed.model.data.session.MSessionBean;
-import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
 
 /**
@@ -120,10 +114,54 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 			final RequestCode code = REQUEST_CODE_MAP.get(parameters
 					.get(JSON_CODE));
+			
+			final String login = parameters.get(JSON_LOGIN);
+			final String password = parameters.get(JSON_PASSWORD);
+			final String passwordCheck = parameters.get("passwordCheck");
 
 			switch (code) {
 			case READ:
-				throw new InternalBackEndException(" do Post READ...");
+				message.setMethod(JSON_CODE_READ);
+				if (login == null) {
+					throw new InternalBackEndException(
+							"login argument missing!");
+				} else if (password == null) {
+					throw new InternalBackEndException(
+							"password argument missing!");
+				} else {
+					String usrId = authenticationManager.readSimple(login, password);
+
+					message.setDescription("Successfully authenticated");
+
+					message.addDataObject(JSON_USER, usrId);
+					if (passwordCheck != null){ //for fast password check only
+						break;
+					}
+					
+					final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
+					String accessToken = h.SHA1ToString(login + password
+							+ System.currentTimeMillis());
+					
+					Map<String, String> session = new HashMap<String, String>();
+					session.put("user", usrId);
+					session.put("ip", request.getRemoteAddr());
+					session.put("id", accessToken);
+					sessionManager.update(accessToken, session);
+
+					// Update the profile with the new session
+					profileManager.update(usrId, "session", accessToken);
+
+					LOGGER.info("Session {} created -> LOGIN", accessToken);
+					final StringBuffer urlBuffer = new StringBuffer(40);
+					urlBuffer.append(SERVER_PROTOCOL);
+					urlBuffer.append(SERVER_URI);
+
+					urlBuffer.trimToSize();
+
+					message.addDataObject("url", urlBuffer.toString());
+					message.addDataObject(JSON_ACCESS_TKN, accessToken);
+				}
+				break;
 			case DELETE:
 				throw new InternalBackEndException("not implemented yet...");
 			default:
@@ -159,8 +197,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					.get(JSON_CODE));
 			final String authentication = parameters.get(JSON_AUTH);
 			final String user = parameters.get(JSON_USER);
-			final String login = parameters.get(JSON_LOGIN);
-			final String password = parameters.get(JSON_PASSWORD);
 			final String oldPassword = parameters.get(JSON_OLD_PWD);
 			final String oldLogin = parameters.get(JSON_OLD_LOGIN);
 			final String application = parameters.get(JSON_APPLICATION);
@@ -173,17 +209,24 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				String accessToken = parameters.get(JSON_ACCESS_TKN);
 				if (accessToken != null) {
 					//registrationManager.read(application, accessToken);
-			        MAuthenticationBean authenticationBean = 
-			        		authenticationManager.read("_to_validate_" + accessToken);
+					Map<String, String> auth = 
+			        		authenticationManager.readSimple("_to_validate_" + accessToken);
 					
-					MUserBean userBean = profileManager.read(authenticationBean.getUser());
-					userBean.setSocialNetworkID(SOCIAL_NET_ID);
-					profileManager.update(userBean);
-					authenticationManager.create(userBean, authenticationBean);
+					Map<String, String> usr = profileManager.readSimple(auth.get("user"));
+					profileManager.update(usr.get("id"), "socialNetworkID", SOCIAL_NET_ID);
 					
-					authenticationManager.delete("_to_validate_" + accessToken);
+					Map<String, String> auth2 = authenticationManager.readSimple(
+							auth.get("login"));
+
+					if (auth2.size()<3){ // only if the user does not exist
+						authenticationManager.updateSimple(auth.get("login"), auth, "_to_validate_" + accessToken);
+						message.setDescription("user profile created");
+						break;
+					}
+					message.setStatus(AuthenticationManager.ERROR_CONFLICT);
+					message.setDescription("The login already exist");
+					break;
 					
-					message.setDescription("user profile created");
 				} else if (authentication == null) {
 					throw new InternalBackEndException(
 							"authentication argument missing!");
@@ -191,135 +234,71 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					throw new InternalBackEndException("user argument missing!");
 				} else {
 					// Launch the registration procedure
-					try {
-						final MUserBean userBean = gson.fromJson(user,
-								MUserBean.class);
-						userBean.setSocialNetworkID(SOCIAL_NET_ID + "_not_validated");
-						userBean.setSocialNetworkName(SOCIAL_NET_NAME);
 
-						final MAuthenticationBean authenticationBean = gson
-								.fromJson(authentication,
-										MAuthenticationBean.class);
+					Map<String, String> usr = json_to_map(user);
+					usr.put("socialNetworkID", SOCIAL_NET_ID + "_not_validated");
+        		    usr.put("socialNetworkName", SOCIAL_NET_NAME);
+					
+					Map<String, String> auth = json_to_map(authentication);
+        		    
+        		    LOGGER.info("Trying to create a new user:\n {}",
+							usr);
+        		    LOGGER.info("Trying to create a new auth:\n {}",
+							auth);
+        		    
+        		    Map<String, String> auth2 = authenticationManager.readSimple(
+							auth.get("login"));
+        		    
+        		    if (auth2.size()<3){ //the login does not exist yet
+        		    	
+        		    	// We use the APP_NAME as the epsilon for the hash function
+				        final HashFunction hashFunc = new HashFunction(application);
+				        final String accToken = hashFunc.SHA1ToString(usr.get("login") 
+				        		+ System.currentTimeMillis());
+						
+				        LOGGER.info("there....."+accToken);
+						authenticationManager.updateSimple("_to_validate_" + accToken, auth, null);
+						LOGGER.info("ok....."+usr.get("id"));
+						profileManager.update(usr.get("id"), usr);//TODO check user contains id
+						
+						/* send confirmation mail   */  
+						authenticationManager.sendRegistrationEmailSimple( application, usr, accToken);
+						
+						LOGGER.info("registration email sent");
+						message.setDescription("registration email sent");
+        		    }  
 
-						LOGGER.info("Trying to create a new user:\n {}",
-								userBean.toString());
-
-						// Check if the login already exist
-						boolean loginAlreadyExist = true;
-						try {
-							authenticationManager.read(
-									authenticationBean.getLogin(),
-									authenticationBean.getPassword());
-						} catch (final IOBackEndException loginTestException) {
-							if (loginTestException.getStatus() == 404) { // the login does not exist
-								
-								// We use the APP_NAME as the epsilon for the hash function
-						        final HashFunction hashFunc = new HashFunction(application);
-						        final String accToken = hashFunc.SHA1ToString(userBean.getLogin() 
-						        		+ System.currentTimeMillis());
-								
-								
-								authenticationManager.create("_to_validate_" + accToken, authenticationBean);
-								profileManager.create(userBean);
-								
-								/* send confirmation mail   */  
-								authenticationManager.sendRegistrationEmail( application, userBean, accToken);
-						        
-//								registrationManager.create(userBean,
-//										authenticationBean, application);
-								
-								LOGGER.info("registration email sent");
-								message.setDescription("registration email sent");
-								loginAlreadyExist = false;
-							}
-						}
-						if (loginAlreadyExist) {
-							throw new IOBackEndException(
-									"The login already exist!", 409);
-						}
-					} catch (final JsonSyntaxException e) {
-						LOGGER.debug("JSON format is not valid", e);
-						throw new InternalBackEndException(
-								"User/Authentication jSon format is not valid"); // NOPMD
-					}
 				}
 				break;
-			case READ:
-				message.setMethod(JSON_CODE_READ);
-				if (login == null) {
-					throw new InternalBackEndException(
-							"login argument missing!");
-				} else if (password == null) {
-					throw new InternalBackEndException(
-							"password argument missing!");
-				} else {
-					Map<String, String> usr = authenticationManager.readSimple(
-							login, password);
-					if (!usr.containsKey("id"))
-						throw new InternalBackEndException("user's id missing!"); // should never happen
-					message.setDescription("Successfully authenticated");
-					// TODO Remove this parameter
-					message.addDataObject(JSON_USER, usr);
 
-					final MSessionBean sessionBean = new MSessionBean();
-					sessionBean.setIp(request.getRemoteAddr());
-					sessionBean.setUser(usr.get("id"));
-					sessionBean.setCurrentApplications("");
-					sessionBean.setP2P(false);
-					// TODO Use The Cassandra Timeout mechanism
-					sessionBean.setTimeout(System.currentTimeMillis());
-					final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
-					accessToken = h.SHA1ToString(login + password
-							+ sessionBean.getTimeout());
-					sessionBean.setAccessToken(accessToken);
-					sessionBean.setId(accessToken);
-					sessionManager.create(sessionBean);
-
-					// Update the profile with the new session
-					usr.put("session", accessToken);
-					profileManager.update(usr.get("id"), usr);
-
-					LOGGER.info("Session {} created -> LOGIN", accessToken);
-					final StringBuffer urlBuffer = new StringBuffer(40);
-					urlBuffer.append(SERVER_PROTOCOL);
-					urlBuffer.append(SERVER_URI);
-
-					urlBuffer.trimToSize();
-
-					message.addDataObject("url", urlBuffer.toString());
-					message.addDataObject(JSON_ACCESS_TKN, accessToken);
-				}
-				break;
 			case UPDATE:
 				if (authentication == null) {
 					throw new InternalBackEndException(
 							"Missing authentication argument!");
-				} else if (oldLogin == null) {
-					throw new InternalBackEndException(
-							"oldLogin argument missing!");
-				} else if (oldPassword == null) {
-					throw new InternalBackEndException(
-							"oldPassword argument missing!");
-				} else {
-					try {
-						final MAuthenticationBean authenticationBean = gson
-								.fromJson(authentication,
-										MAuthenticationBean.class);
-
-						// verify the oldPassword
-						authenticationManager.read(oldLogin, oldPassword);
-
-						// no exception = update the Authentication
-						LOGGER.info("Trying to update authentication:\n {}",
-								authenticationBean.toString());
-						authenticationManager.update(oldLogin,
-								authenticationBean);
-						LOGGER.info("Authentication updated!");
-					} catch (final JsonSyntaxException e) {
-						LOGGER.debug("JSON format is not valid", e);
-						throw new InternalBackEndException(
-								"Authentication jSon format is not valid"); // NOPMD
+				} else if (oldPassword == null || oldLogin == null) {
+					//throw new InternalBackEndException("oldPassword argument missing!");
+					
+					LOGGER.info("----oauthed user, @TODO this should go in create ");
+					Map<String, String> auth = json_to_map(authentication);
+					Map<String, String> auth2 = authenticationManager.readSimple(oldLogin);
+					if (!auth.containsKey("user")){
+						auth.put("user", auth2.get("user"));
 					}
+					if (!auth.containsKey("password")){
+						auth.put("password", auth2.get("password"));
+					}
+					authenticationManager.updateSimple(auth.get("login"), auth, oldLogin);
+					
+				} else {
+					
+					Map<String, String> auth = json_to_map(authentication);
+					String oldUser = authenticationManager.readSimple(oldLogin, oldPassword); //check pw
+					auth.put("user", oldUser);
+        		    // no exception = update the Authentication
+					LOGGER.info("Trying to update authentication:\n {}",auth);
+					authenticationManager.updateSimple(auth.get("login"), auth, oldLogin); // @TODO check for login
+					LOGGER.info("Authentication updated!");
+					
 				}
 				break;
 			default:

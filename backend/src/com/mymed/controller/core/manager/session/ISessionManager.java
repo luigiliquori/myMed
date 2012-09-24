@@ -68,4 +68,7 @@ public interface ISessionManager {
    * @throws InternalBackEndException
    */
   void delete(String userID) throws InternalBackEndException, IOBackEndException;
+
+  String readSimpleUser(String sessionID) throws IOBackEndException,
+		InternalBackEndException;
 }

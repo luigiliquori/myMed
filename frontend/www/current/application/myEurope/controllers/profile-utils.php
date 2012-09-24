@@ -1,5 +1,7 @@
 <?
 
+// will be droped soon
+
 
 function getProfilefromUser($handler, $id){
 

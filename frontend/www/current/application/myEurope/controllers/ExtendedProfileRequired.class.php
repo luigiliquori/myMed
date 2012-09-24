@@ -27,68 +27,61 @@ class ExtendedProfileRequired extends AuthenticatedController {
 	public /*void*/ function fetchExtendedProfile(){
 		
 		debug_r($_SESSION['user']);
-		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id));
-			
-		try{
-			$res = $find->send();
-		}
-		catch(Exception $e){}
-		debug_r($res);
-		if (!isset($res->details)){
-			$this->error = "";
-			debug("wow");
-			
+		
+		$user = new User($_SESSION['user']->id);
+		try {
+			$details = $user->read();
+		} catch (Exception $e) {
 			$this->showProfileList();
 		}
-		else {
-			
-			$_SESSION['myEurope'] = $res->details;
-			$this->success = "";
-			
-			$profile = getProfile($this, $_SESSION['myEurope']->profile);
-			debug('test');
-			debug_r($profile);
-			if (isset($profile->id))
-				$_SESSION['myEuropeProfile'] =$profile;
-			else
-				$this->showProfileList();
-			
-			if ($_SESSION['myEurope']->permission <= 0)
-				$this->renderView("WaitingForAccept");
-			$this->renderView("Main");
+		$_SESSION['myEurope'] = (object) $details;
+		$profile = new Profile($details['profile']);
+		try {
+			$profile->details = $profile->read();
+		} catch (Exception $e) {
+			$this->showProfileList();
 		}
+		$profile->parseProfile();
+		$profile->reputation = pickFirst(parent::reputation(null, $profile->details['id']));
+		debug_r($profile->reputation);
+		
+		$_SESSION['myEuropeProfile'] =$profile;
+		
+		if ($_SESSION['myEurope']->permission <= 0){
+			$this->renderView("WaitingForAccept");
+		}
+		
+		$this->renderView("Main");
+		
 	}
 	
 	
 	public function showProfileList(){
-		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":profiles", "predicates"=>array()));
-			
-		try{
-			$res = $find->send();
+		
+		$profile = new Profile();
+		try {
+			$res = $profile->search();
+		} catch (Exception $e) {
 		}
-		catch(Exception $e){
-		}
-		if (isset($res->results)){
-			function filterArray($array, $value){
-				$result = array();
-				foreach($array as $item) {
-					if ($item->role == $value) {
-						$result[] = $item;
-					}
+		
+		$this->cats = Categories::$roles;
+		
+		function filterArray($array, $value){
+			$result = array();
+			foreach($array as $item) {
+				if ($item->role == $value) {
+					$result[] = $item;
 				}
-			
-				return $result;
 			}
-
-			$this->cats = Categories::$roles;
-			
-			foreach($this->cats as $k=>$v){
-				$this->cats[$k] = filterArray($res->results, $k);
-			}
-			debug_r($this->cats);
-			$this->renderView("ExtendedProfileCreate");
+			return $result;
 		}
-		$this->renderView("Main");
+		
+		foreach($this->cats as $k=>$v){
+			$this->cats[$k] = filterArray($res, $k);
+		}
+		debug_r($this->cats);
+		$this->renderView("ExtendedProfileCreate");
+		
 		
 	}
 

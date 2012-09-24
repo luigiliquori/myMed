@@ -17,6 +17,9 @@
 package com.mymed.utils;
 
 import java.lang.reflect.Type;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,6 +30,8 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
+import com.mymed.model.data.application.DataBean;
 import com.mymed.model.data.application.MOntologyID;
 
 /**
@@ -38,6 +43,11 @@ public class GsonUtils {
     // ---------------------------------------------------------------------------
     // Constants
     // ---------------------------------------------------------------------------
+	
+	public static Type listType = new TypeToken<List<String>>() {}.getType();
+	public static Type dataType = new TypeToken<Map<String, String>>() {}.getType();
+	public static Type predicateType = new TypeToken<List<DataBean>>() {}.getType();
+	public static Type keywordsType = new TypeToken<Map<String, List<String>>>() {}.getType();
     
     public static Gson gson;
     static{     
@@ -70,5 +80,18 @@ public class GsonUtils {
             return MOntologyID.fromInt(json.getAsInt());
         }
     }
-
+    
+    
+    public static Map<String, String> json_to_map(String s) {
+    	return gson.fromJson(s, dataType);
+    }
+    public static List<String> json_to_list(String s) {
+    	return gson.fromJson(s, listType);
+    }
+    public static List<DataBean> json_to_predicate(String s) {
+    	return gson.fromJson(s, predicateType);
+    }
+    public static LinkedHashMap<String, List<String>> json_to_keywords(String s) {
+    	return gson.fromJson(s, keywordsType);
+    }
 }

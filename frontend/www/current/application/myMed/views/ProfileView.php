@@ -1,10 +1,9 @@
-<? include_once ("header.php"); ?>
-<? include_once("header-bar-light.php"); ?>
+<? include_once 'header.php'; ?>
 
 <div id="profile" data-role="page">
 
-	<? tab_bar_main("?action=main#profile"); ?>
-	<? include("notifications.php"); ?>
+	<? tab_bar_main("?action=profile"); ?>
+	<? include 'notifications.php'; ?>
 
 	<div data-role="content">
 
@@ -68,11 +67,8 @@
 
 
 </div>
-<? include_once("MainView.php"); ?>
 
-<? include("LangView.php"); ?>
+<? include 'UpdateProfileView.php'; ?>
 
-<? include("UpdateProfileView.php"); ?>
-
-<? include_once("footer.php"); ?>
+<? include 'footer.php'; ?>
 

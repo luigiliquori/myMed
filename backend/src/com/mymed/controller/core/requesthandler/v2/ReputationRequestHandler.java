@@ -15,10 +15,6 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
-import static com.mymed.utils.GsonUtils.gson;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -75,50 +71,24 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
         try {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
-            checkToken(parameters);
+            validateToken(parameters.get(JSON_ACCESS_TKN));
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String 
             	id = parameters.get("id"), 
             	producer = parameters.get(JSON_PRODUCER),
-            	ids = parameters.get("ids"),//many ids
             	consumer = parameters.get(JSON_CONSUMER);
 
             switch (code) {
-                case READ :
-//                    if (producer == null)
-//                        throw new InternalBackEndException("missing producer argument!");
+			case READ:
+				// if (producer == null)
+				// throw new
+				// InternalBackEndException("missing producer argument!");
 
-                    if(id != null){
-                    	
-                        final MReputationEntity reputation = reputationManager.read(id, producer, consumer);
-
-                        message.addDataObject(JSON_REPUTATION, reputation);
-                    	
-                    } else if(ids != null){
-                    	List<String> prods = new ArrayList<String>();
-                    	try {
-                    		prods = gson.fromJson(ids, listType);
-            			} catch (final JsonSyntaxException e) {
-            				LOGGER.debug("Error in Json format", e);
-            				throw new InternalBackEndException("jSon format is not valid");
-            			} catch (final JsonParseException e) {
-            				LOGGER.debug("Error in parsing Json", e);
-            				throw new InternalBackEndException(e.getMessage());
-            			}
-                    	
-                        final Map<String, MReputationEntity> reputationMap = reputationManager.read(prods, producer, consumer);
-
-                        message.addDataObject(JSON_REPUTATION, reputationMap);
-                    	
-                    } else {
-                    	
-                    	final MReputationEntity reputation = reputationManager.read(producer, consumer);
-
-                        message.addDataObject(JSON_REPUTATION, reputation);
-                    }
-                        
-
-                    break;
+				final Map<String, MReputationEntity> reputationMap =
+				reputationManager.read(id, producer, consumer);
+				message.addDataObject(JSON_REPUTATION, reputationMap);
+				
+				break;
                 case DELETE :
                     break;
                 default :
@@ -128,7 +98,13 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             LOGGER.debug("Error in doGet operation", e);
             message.setStatus(e.getStatus());
             message.setDescription(e.getMessage());
-        }
+        } catch (final JsonSyntaxException e) {
+			LOGGER.debug("Error in Json format", e);
+			throw new InternalBackEndException("jSon format is not valid");
+		} catch (final JsonParseException e) {
+			LOGGER.debug("Error in parsing Json", e);
+			throw new InternalBackEndException(e.getMessage());
+		}
 
         printJSonResponse(message, response);
     }
@@ -147,7 +123,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
         try {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
-            checkToken(parameters);
+            validateToken(parameters.get(JSON_ACCESS_TKN));
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
             switch (code) {

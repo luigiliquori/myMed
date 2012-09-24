@@ -84,9 +84,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
         } catch (final IOBackEndException e) {
             // only if the user does not exist
             if (e.getStatus() == ERROR_NOT_FOUND) {
-                final Map<String, byte[]> authMap = authentication.getAttributeToMap();
-                storageManager.insertSlice(CF_AUTHENTICATION,
-                                com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
+            	create(authentication.getLogin(), authentication);
                 return user;
             }
         }
@@ -127,17 +125,17 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
      * @see IAuthenticationManager#read(String, String)
      */
     @Override
-    public final Map<String, String> readSimple(final String login, final String password) throws InternalBackEndException,
+    public final String readSimple(final String login, final String password) throws InternalBackEndException,
                     IOBackEndException {
     	
-        final Map<byte[], byte[]> args = storageManager.selectAll(CF_AUTHENTICATION, login);
-        final MAuthenticationBean authentication = (MAuthenticationBean) introspection(MAuthenticationBean.class, args);
-        if ("".equals(authentication.getLogin())) {
-            throw new IOBackEndException("The login does not exist!", ERROR_NOT_FOUND);
-        } else if (!authentication.getPassword().equals(password)) {
+    	Map<String, String> auth = readSimple(login);
+    	
+    	if (auth.size()<3){
+    		throw new IOBackEndException("The login does not exist!", ERROR_NOT_FOUND);
+    	} else if (!password.equals(auth.get("password").trim())) {
             throw new IOBackEndException("Wrong password", ERROR_FORBIDDEN);
         }
-        return new ProfileManager(storageManager).readSimple(authentication.getUser());
+        return auth.get("user");
     }
     
 	
@@ -154,6 +152,13 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 		
 
 		return authentication;
+	}
+    
+    @Override
+    public final Map<String , String> readSimple(final String key)
+			throws InternalBackEndException, IOBackEndException {
+
+		return storageManager.selectAllStr(CF_AUTHENTICATION, key);
 	}
 
     /**
@@ -174,6 +179,17 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
         storageManager.insertSlice(CF_AUTHENTICATION,
                         com.mymed.utils.MConverter.byteArrayToString(authMap.get(FIELD_LOGIN)), authMap);
     }
+    
+    @Override
+    public final void updateSimple(final String id, final Map<String, String> args, final String oldid)
+                    throws InternalBackEndException, IOBackEndException {
+        // Remove the old Authentication (the login/key can be changed)
+    	if (oldid != null){
+    		storageManager.removeAll(CF_AUTHENTICATION, oldid);
+    	}
+        // Insert the new Authentication
+        storageManager.insertSliceStr(CF_AUTHENTICATION, id, args);
+    }
 
 	@Override
 	public void delete(String key) throws InternalBackEndException, IOBackEndException {
@@ -182,7 +198,8 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
 	
 	
 	/** send registration mail, uses myMed#registration-XX.ftl.xml template */
-    public void sendRegistrationEmail( String application, MUserBean recipient,  String accessToken ) {
+    @Override
+    public void sendRegistrationEmailSimple( String application, Map<String, String> recipient,  String accessToken ) {
         
         // Prepare HashMap of object for FreeMarker template
         HashMap<String, Object> data = new HashMap<String, Object>(); 
@@ -204,7 +221,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
         data.put("recipient", recipient);
         
         // Get the prefered language of the user
-        String language = recipient.getLang();
+        String language = recipient.get("lang");
         
         // Get the mail template from the manager
         MailTemplate template = this.mailTemplateManager.getTemplate(
@@ -219,7 +236,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
         // Create the mail
         final MailMessage message = new MailMessage();
         message.setSubject(subject);
-        message.setRecipients(asList(recipient.getEmail()));
+        message.setRecipients(asList(recipient.get("email")));
         message.setText(body);
 
         // Send it
@@ -229,7 +246,7 @@ public class AuthenticationManager extends AbstractManager implements IAuthentic
         mail.send();
         
         LOGGER.info(String.format("Mail sent to '%s' with title '%s' for registration", 
-                recipient.getEmail(), 
+                recipient.get("email"), 
                 subject));
 
     }

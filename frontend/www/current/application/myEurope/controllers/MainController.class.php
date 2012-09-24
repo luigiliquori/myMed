@@ -5,6 +5,8 @@ class MainController extends ExtendedProfileRequired {
 		
 		parent::handleRequest();
 		debug_r($_SESSION['user']);
+		debug_r($_SESSION['myEurope']);
+		debug_r($_SESSION['myEuropeProfile']);
 		$this->renderView("main");
 		
 	}

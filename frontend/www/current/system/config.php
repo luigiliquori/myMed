@@ -23,10 +23,13 @@
 	//Social Networks Keys
 	define('Facebook_APP_ID', '@facebookappid@');
 	define('Facebook_APP_SECRET', '@facebookappsecret@');
-	define('Google_APP_SECRET', '@googleappsecret@');
 	
+	define('Google_APP_SECRET', '@googleappsecret@');
 	define('Google_APP_CLIENT_ID', '@googleappclientid@');
 	define('Google_APP_CLIENT_SECRET', '@googleappclientsecret@');
+	
+	define('Twitter_APP_KEY', '@twitterappkey@');
+	define('Twitter_APP_SECRET', '@twitterappsecret@');
 	
 	//CITYWAY Keys
 	define('Cityway_URL', '@citywayurl@');

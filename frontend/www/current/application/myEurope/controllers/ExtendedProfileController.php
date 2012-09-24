@@ -12,8 +12,7 @@ require_once 'profile-utils.php';
  * @author David Da Silva
  * 
  */
-class ExtendedProfileController extends AuthenticatedController
-{
+class ExtendedProfileController extends AuthenticatedController {
 	/**
 	 * @see IRequestHandler::handleRequest()
 	 */
@@ -63,7 +62,7 @@ class ExtendedProfileController extends AuthenticatedController
 		
 			
 		else
-			$this->renderView("ExtendedProfileCreate");
+			$this->redirectTo("main");
 		
 	}
 	
@@ -213,26 +212,27 @@ class ExtendedProfileController extends AuthenticatedController
 	
 	public /*void*/ function showOtherProfile($id){
 		
-		$this->profile = new ExtendedProfile($this, $id);
-		try{
-			$this->result = $this->profile->readProfile();
-		}catch (NoResultException $e) {
-		}catch(Exception $e){
+		$this->profile = new Profile($id);
+		try {
+			$this->profile->details = $this->profile->read();
+		} catch (Exception $e) {
+			$this->redirectTo("main");
 		}
-		
+		$this->profile->parseProfile();
+		$this->profile->reputation = pickFirst(parent::reputation(null, $id));
+
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
 	public /*void*/ function showUserProfile($user){
 		
-		$this->profile = new ExtendedProfile($this);
-		try{
-			$result = $this->profile->readFromUser($user);
-		}catch (NoResultException $e) {
-		}catch(Exception $e){
-		}
-	
-		$this->renderView("ExtendedProfileDisplay");
+		$user = new User($user);
+		try {
+			$details = $user->read();
+		} catch (Exception $e) {
+			$this->redirectTo("main");
+		}		
+		$this->showOtherProfile($details['profile']);
 	}
 	
 	public /*void*/ function deleteUser($id){

@@ -20,9 +20,9 @@ function tab_bar_login($activeTab) {
 	<? tab_bar_login("#login"); ?>
 	<? include("notifications.php"); ?>
 	
-	<div data-role="content"  class="content">
+	<div data-role="content" class="content">
 
-		<img alt="myMed" src="<?= MYMED_URL_ROOT ?>/application/myMed/img/logo-mymed-250c.png" width="200" />
+		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" width="200" />
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
 			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
@@ -32,43 +32,47 @@ function tab_bar_login($activeTab) {
 		</form>
 		
 		
-		<div data-role="collapsible" data-mini="true" data-collapsed="true" data-content-theme="c" data-inline="true" style="text-align: center;width: 260px;margin: auto;">
+		<div data-role="collapsible" data-mini="true" data-collapsed="false" data-content-theme="d" data-inline="true" style="width:70%; min-width:280px; margin: auto;">
 			<h3><?= _("Options") ?></h3>
-			
-			<h4><?= _("Connexion à partir de vos comptes:") ?></h4>
-			
-			(<a href="http://openid.net/">OpenID</a>) <a  title="log in with Google openID" 
-			onclick="$('#openIdProvider').val('https://www.google.com/accounts/o8/id'); $('#openIdForm').submit();" rel="external" style="background-position: -1px -1px" class="oauth_small_btn"></a>
-			 <a href="#oidFormPopup" data-rel="popup" data-role="none" >plus</a>
-			
-			
-			<div data-role="popup" id="oidFormPopup" class="ui-content" data-theme="d">
-				<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<form id="openIdForm" action="<?= MYMED_URL_ROOT ?>/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
-					Url OpenID:
-					<input id="openIdProvider" type="text" style="width:280px;display:inline-block;" data-mini="true" name="openid_identifier" data-inline="true" value="https://www.google.com/accounts/o8/id" placeholder="Open ID url" />
-					<div style="display:inline-block;vertical-align: middle;">
-						<input type="submit" value="OK" title="log in with openid" data-mini="true" data-inline="true"/>
-					</div>
-				</form>
+
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<legend><?= _("Register with") ?><a href="http://oauth.net/2/" style="text-decoration: none;">*</a>:</legend>
+					<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external"><img src="/system/img/social/google_logo.png" /></a>
+					<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external" style="margin-left: 20px;"><img src="/system/img/social/facebook_logo.png" /></a>
+					<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external" style="margin-left: 20px;"><img src="/system/img/social/twitter_logo.png" /></a>
+				</fieldset>
+				
 			</div>
-			<br />
 			
-			(<a href="http://oauth.net/2/">OAuth</a>) <a  title="log in with Google Oauth" 
-			href="<?= MYMED_URL_ROOT ?>/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" rel="external" style="background-position: -1px -1px" class="oauth_small_btn"></a>
-			 <a  title="log in with Facebook Oauth" 
-			href="javascript:alert('available soon')" rel="external" style="background-position: -1px -105px" class="oauth_small_btn"></a>
+			
+			<div data-role="collapsible" data-mini="true" data-content-theme="c" data-inline="true">
+				<h3><?= _("more options") ?></h3>
+				
+				<div data-role="fieldcontain">
+					<form id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
+						<label><?= _("We also support OpenId") ?><a href="http://openid.net/" style="text-decoration: none;">*</a>: </label>
+						<input id="openIdProvider" type="text" style="max-width:250px;display:inline-block;" data-mini="true" name="openid_identifier" data-inline="true" value="https://www.google.com/accounts/o8/id" placeholder="" />
+						<div style="display:inline-block;vertical-align: middle;width: 45px;">
+							<input type="submit" value="ok" data-theme="b" data-mini="true" title="<?= _("log in with openid") ?>" />
+						</div>
+						
+					</form>
+					
+				</div>
+				
+			</div>
 			
 		</div>
 
 
 
 		<br /><br />
-		<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/alcotra.png" />
+		<img alt="Alcotra" src="/system/img/logos/alcotra.png" />
 		<br />
 		<i>"Ensemble par-delà les frontières"</i>
 		<br /><br />
-		<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/europe.jpg" />
+		<img alt="Alcotra" src="/system/img/logos/europe.jpg" />
 		
 	</div>
 	
@@ -88,6 +92,8 @@ function tab_bar_login($activeTab) {
 		<!--  Register form -->
 		<form action="?action=register" method="post" data-ajax="false">
 		
+			<br />
+			
 				<label for="prenom">Prénom / Activité commerciale : </label>
 				<input type="text" name="prenom" value="" />
 				<br />
@@ -136,17 +142,17 @@ function tab_bar_login($activeTab) {
 	
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" />
 		<br />
-		<h3> Réseau Social Transfrontalier </h3>
+		<h3><?= APPLICATION_LABEL ?></h3>
 		<br />
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
-			<p>Le projet myMed est né d’une double constatation: l’existence d’un énorme potentiel de développement des activités économiques de la zone transfrontalière, objet de l’action Alcotra, et le manque criant d’infrastructures techniquement avancées en permettant un développement harmonieux. La proposition myMed est née d’une collaboration existante depuis plus de 15 ans entre l’Institut National de Recherche en Informatique et en Automatique (INRIA) de Sophia Antipolis et l’Ecole Polytechnique de Turin, auxquels viennent s’ajouter deux autres partenaires, l’Université de Turin et l’Université du Piémont Oriental.
+			<p>
+			<?= _(APPLICATION_NAME."about") ?>
 			</p>
 			</li>
 		</ul>
-		
 		<p>
-		<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank">Plus d'informations</a>
+		<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= _("More informations") ?></a>
 		</p>
 		<br />
 		<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>

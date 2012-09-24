@@ -25,6 +25,10 @@ $client->setRedirectUri(
 	);
 $client->setDeveloperKey(Google_APP_SECRET);
 
+function getTrustRoot() {
+    return sprintf("%s://%s/",
+                   getScheme(), $_SERVER['SERVER_NAME']);
+}
 
 function getScheme() {
 	$scheme = 'http';

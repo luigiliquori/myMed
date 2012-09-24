@@ -1,22 +1,9 @@
 <? include("header.php"); ?>
 
-<?
- function tab_bar($activeTab) {
- 	tabs($activeTab, array(
- 		array("#home", "Partenariats", "retweet"),
- 		array("#infos", "About European programs", "info-sign"),
- 		array("#blogs", "Bonnes pratiques", "comments"),
- 		array("#profile", $_SESSION['user']->name, "user")
- 	), APPLICATION_LABEL, true);
- }
 
-?>
-
-
-		
 <div data-role="page" id="home">
 
-	<? tab_bar("#home") ?>
+	<? tab_bar_default("#home") ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content" style="text-align:center;">
 		
@@ -33,20 +20,30 @@
 
 <div data-role="page" id="profile">
 
-	<? tab_bar("#profile") ?>
+	<? tab_bar_default("#profile") ?>
 	<div data-role="content" style="text-align:center;">
 		
+		
 		<?php if($_SESSION['user']->profilePicture != ""): ?>
-			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
+			<a href="#updatePicPopup" data-rel="popup"><img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80"></a>
 		<?php else: ?>
-			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
+			<a href="#updatePicPopup" data-rel="popup"><img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80"></a>
 		<?php endif; ?>
 		
-		<div style="display:inline-block; margin-left: 15px; vertical-align: 25%; color: #EEE; font-weight: bold; font-size: 14pt; text-align: center;">
+		
+		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<div style="display: inline-block;">
+				<input type="text" id="picUrl" placeholder="Picture's url" value="http://cdn.walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg" data-inline="true" />
+			</div>
+			<a onclick="$('#updatePicPopup').popup('close');updateProfile('profilePicture', $('#picUrl').val());" data-role="button" data-theme="d" data-mini="true" data-icon="ok" data-inline="true"><?= _("Update") ?></a>
+		</div>
+		
+		<div style="display:inline-block; margin-left: 15px; vertical-align: 25%; color: white; font-weight: bold; font-size: 14pt; text-align: center;">
 			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> 
 		</div>
 		
-		<?= printMyProfile($_SESSION['myEuropeProfile']) ?>
+		<? $_SESSION['myEuropeProfile']->renderProfile(); ?>
 
 		<br />
 		<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
@@ -61,7 +58,7 @@
 
 <div data-role="page" id="blogs">
 
-	<? tab_bar("#blogs") ?>
+	<? tab_bar_default("#blogs") ?>
 	<div data-role="content" style="text-align:center;">
 		<ul data-role="listview" data-inset="true" data-filter="true" >
 			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
@@ -108,7 +105,7 @@
 
 <div data-role="page" id="about">
 
-	<? tab_bar("#about") ?>
+	<? tab_bar_default("#about") ?>
 	<div data-role="content">
 		
 		<br />
@@ -118,7 +115,7 @@
 
 <div data-role="page" id="admin">
 	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tab_bar("#admin") ?>
+		<? tab_bar_default("#admin") ?>
 	</div>
 	<div data-role="content">
 		<br />
@@ -146,10 +143,9 @@
 			<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
 				<div  data-role="collapsible" data-collapsed="false">
 					<h3><?= _('Offer Themes') ?>:</h3>
+				 	<div data-role="fieldcontain">
 				 	<fieldset data-role="controlgroup">
-						
-						<input type="checkbox" id="checkbox-all" />
-						<label for="checkbox-all"><?= _('All') ?></label>
+						<legend><?= _('Themes') ?>:</legend>
 						
 						<? foreach (Categories::$themes as $k=>$v): ?>
 							<input type="checkbox" name="t[]" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
@@ -157,80 +153,84 @@
 						<? endforeach; ?>
 		
 				    </fieldset>
+				    </div>
 				</div>
 				   
 				<div data-role="collapsible" data-collapsed="true">
 					<h3><?= _('Areas') ?>:</h3>
+					<div data-role="fieldcontain">
 				 	<fieldset data-role="controlgroup">
 		
-						<div data-role="collapsible-set">
-						
-							<div data-role="collapsible">
-								<h3><?= _("France") ?></h3>
-								<input type="checkbox" id="checkbox-all3" />
-								<label for="checkbox-all3"><?= _('All') ?></label>
-								
-								<? foreach (Categories::$places_fr as $k=>$v): ?>
-									<input type="checkbox" name="pf[]" value="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
-									<label for="checkbox-f<?= $k ?>"><?= $v ?></label>
-								<? endforeach; ?>
-								
-							</div>
-							<div data-role="collapsible">
-								<h3><?= _("Italy") ?></h3>
-								<input type="checkbox" id="checkbox-all2" />
-								<label for="checkbox-all2"><?= _('All') ?></label>
-								
-								<? foreach (Categories::$places_it as $k=>$v): ?>
-									<input type="checkbox" name="pi[]" value="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
-									<label for="checkbox-i<?= $k ?>"><?= $v ?></label>
-								<? endforeach; ?>
-								
-							</div>
-							<div data-role="collapsible">
-								<h3><?= _("Other") ?></h3>
-							
-								<? foreach (Categories::$places_ot as $k=>$v): ?>
-									<input type="checkbox" name="po[]" value="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
-									<label for="checkbox-o<?= $k ?>"><?= $v ?></label>
-								<? endforeach; ?>
-								
-							</div>
-						
-						</div>
-						
-				    </fieldset>
+						<legend><?= _("France") ?></legend>
+						<? foreach (Categories::$places_fr as $k=>$v): ?>
+							<input type="checkbox" name="pf[]" value="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
+							<label for="checkbox-f<?= $k ?>"><?= $v ?></label>
+						<? endforeach; ?>
+					</fieldset>
+					</div>
+					<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<legend><?= _("Italy") ?></legend>
+						<? foreach (Categories::$places_it as $k=>$v): ?>
+							<input type="checkbox" name="pi[]" value="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
+							<label for="checkbox-i<?= $k ?>"><?= $v ?></label>
+						<? endforeach; ?>
+					</fieldset>
+					</div>
+					<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<legend><?= _("Other") ?></legend>
+					
+						<? foreach (Categories::$places_ot as $k=>$v): ?>
+							<input type="checkbox" name="po[]" value="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
+							<label for="checkbox-o<?= $k ?>"><?= $v ?></label>
+						<? endforeach; ?>
+					</fieldset>
+				   </div>
 			    </div>
 			    
 				<div data-role="collapsible" data-collapsed="true">
-					<h3><?= _('Category of searched partners') ?>:</h3>
+					<h3><?= _('Category of partnership') ?>:</h3>
+					
+					
+					<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup">
+						<legend><?= _('Category of searched partners') ?></legend>
 						<? foreach (Categories::$roles as $k=>$v): ?>
 							<input type="checkbox" name="r[]" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
 							<label for="checkbox-<?= $k ?>"><?= $v ?></label>
 						<? endforeach; ?>
 				    </fieldset>
+				    </div>
+				    
+				    <div data-role="fieldcontain">
+				   		<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
+						<select name="c" id="call">
+							<? foreach (Categories::$calls as $k=>$v): ?>
+								<option value="<?= $k ?>"><?= $v ?></option>
+							<? endforeach; ?>
+						</select>
+					</div>
+					
+					<div data-role="fieldcontain">
+			    		<label for="textinputs1"><?= _('keywords') ?>:</label>
+			    		<input id="textinputs1" name="k" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
+			    	</div>
+					
 			    </div>
-		    
-			    <div data-role="collapsible" data-collapsed="true">
-					<h3><?= _("Programme concerné par l'offre") ?>:</h3>
-					<select name="c" id="call">
-						<? foreach (Categories::$calls as $k=>$v): ?>
-							<option value="<?= $k ?>"><?= $v ?></option>
-						<? endforeach; ?>
-					</select>
-				</div>
-			   
-			    <div data-role="collapsible" data-collapsed="true">
-			    	<h3><?= _('keywords') ?>: </h3>
-					<input id="textinputs1" name="k" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />
-				</div>
 			
 			</div>
 
 			<br />
-
+			<div data-role="popup" id="helpPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
+				<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<p> 
+					Si vous laissez tous les champs <b>vides</b> (non cochés), vous obtenez toutes les offres publiées à ce jour<br><br>
+					Lorsque vous laissez un ensemble de champs de recherche <b>vide</b>, la recherche est globale sur cette partie.
+				</p>
+			</div>
 			<div style="text-align: center;" >
+				<a href="#helpPopup" data-rel="popup" data-position-to="window" data-inline="true" data-theme="e" type="button" data-icon="question-sign" style="margin-right: 20px;"> <?= _("Help") ?></a>
 				<input type="submit" class="ui-btn-active ui-state-persist" data-icon="search" data-inline="true" value="<?=_('Search') ?>"/>
 			</div>
 		</form>
@@ -244,7 +244,7 @@
 		<form action="./" method="post" id="publishForm">
 				
 			<input type="hidden" name="action" value="Publish" />
-			<input type="hidden" name="r" value="<?= $_SESSION['myEuropeProfile']->role ?>" />
+			<input type="hidden" name="r" value="<?= $_SESSION['myEuropeProfile']->details['role'] ?>" />
 			
 			<div data-role="fieldcontain">
 				<b><?= _('Title') ?>: </b> <input id="textinputp3" data-inline="true" name="title" placeholder="<?= _("partnership or project name") ?>" value='' type="text" />
@@ -256,60 +256,64 @@
 				<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 					<div  data-role="collapsible" data-collapsed="false">
 						<h3><?= _('Themes') ?>:</h3>
-						<fieldset data-role="controlgroup">
+						<div data-role="fieldcontain">
+				 		<fieldset data-role="controlgroup">
+							<legend><?= _('Themes') ?>:</legend>
 							<? foreach (Categories::$themes as $k=>$v): ?>
 								<input type="checkbox"  name="t[]" value="<?= $k ?>" id="checkbox-<?= $k ?>"/>
 								<label for="checkbox-<?= $k ?>"><?= $v ?></label>
 							<? endforeach; ?>
 							
 					    </fieldset>
+					    </div>
 				    </div>
 			    
 					<div  data-role="collapsible" data-collapsed="true">
 						<h3><?= _('Areas') ?>:</h3>
-					 	<fieldset data-role="controlgroup">
-							
-							<div data-role="collapsible-set">
-							
-							
-								<div data-role="collapsible">
-									<h3><?= _("France") ?></h3>
+					 	<div data-role="fieldcontain">
+				 		<fieldset data-role="controlgroup">
+							<legend><?= _("France") ?></legend>
 									
-									<? foreach (Categories::$places_fr as $k=>$v): ?>
-										<input type="checkbox" name="pf[]" value="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
-										<label for="checkbox-f<?= $k ?>"><?= $v ?></label>
-									<? endforeach; ?>
-			
-								</div>
-								<div data-role="collapsible">
-									<h3><?= _("Italy") ?></h3>
-									
-									<? foreach (Categories::$places_it as $k=>$v): ?>
-										<input type="checkbox" name="pi[]" value="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
-										<label for="checkbox-i<?= $k ?>"><?= $v ?></label>
-									<? endforeach; ?>
-									
-								</div>
-								<div data-role="collapsible">
-									<h3><?= _("Other") ?></h3>
-								
-									<? foreach (Categories::$places_ot as $k=>$v): ?>
-										<input type="checkbox" name="po[]" value="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
-										<label for="checkbox-o<?= $k ?>"><?= $v ?></label>
-									<? endforeach; ?>
-								</div>
+							<? foreach (Categories::$places_fr as $k=>$v): ?>
+								<input type="checkbox" name="pf[]" value="<?= $v ?>" id="checkbox-f<?= $k ?>"/>
+								<label for="checkbox-f<?= $k ?>"><?= $v ?></label>
+							<? endforeach; ?>
+						</fieldset>
+						</div>
+						<div data-role="fieldcontain">
+				 		<fieldset data-role="controlgroup">
+							<legend><?= _("Italy") ?></legend>
 							
-							</div>
-					    </fieldset>
-					 </div>
+							<? foreach (Categories::$places_it as $k=>$v): ?>
+								<input type="checkbox" name="pi[]" value="<?= $v ?>" id="checkbox-i<?= $k ?>"/>
+								<label for="checkbox-i<?= $k ?>"><?= $v ?></label>
+							<? endforeach; ?>
+						</fieldset>
+						</div>	
+						<div data-role="fieldcontain">
+				 		<fieldset data-role="controlgroup">
+							<legend><?= _("Other") ?></legend>
+						
+							<? foreach (Categories::$places_ot as $k=>$v): ?>
+								<input type="checkbox" name="po[]" value="<?= $v ?>" id="checkbox-o<?= $k ?>"/>
+								<label for="checkbox-o<?= $k ?>"><?= $v ?></label>
+							<? endforeach; ?>
+						</fieldset>
+						</div>
+					</div>
 					   
 			  	  	 <div  data-role="collapsible" data-collapsed="true">
-						<h3><?= _("Programme concerné par l'offre") ?>:</h3>
-						<select name="c" id="call">
-							<? foreach (Categories::$calls as $k=>$v): ?>
-								<option value="<?= $k ?>"><?= $v ?></option>
-							<? endforeach; ?>
-						</select>
+			  	  	 	<h3><?= _('Other options') ?>:</h3>
+			  	  	 	
+			  	  	 	<div data-role="fieldcontain">
+					   		<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
+							<select name="c" id="call">
+								<? foreach (Categories::$calls as $k=>$v): ?>
+									<option value="<?= $k ?>"><?= $v ?></option>
+								<? endforeach; ?>
+							</select>
+						</div>
+						
 						<div data-role="fieldcontain">
 							<label for="textinputp1"><?= _('Keywords') ?>: </label>
 							<input id="textinputp1" name="k" placeholder="<?= _('separated by a space, comma, plus') ?>" value='' type="text" />

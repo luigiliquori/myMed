@@ -15,7 +15,6 @@ class MainController extends AuthenticatedController {
 
 	protected $currentSuccessMess = null;
 	protected $currentErrorMess = null;
-	protected $defaultView = "main";
 	
 	public function __construct() {
 		
@@ -60,10 +59,12 @@ class MainController extends AuthenticatedController {
 		}
 
 		debug_r($_SESSION['applicationList']);
+		debug_r($_SESSION['user2']);
+		debug_r($_SESSION['user']);
 
 		// REPUTATION
-// 		if (!isset($_SESSION['reputation'])) { // NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE
-			
+		if (!isset($_SESSION['reputation'])){	// NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE
+
 			foreach($_SESSION['applicationList'] as $app => $status){
 				
 				// Get the reputation of the user in each the application
@@ -98,10 +99,9 @@ class MainController extends AuthenticatedController {
 					$_SESSION['reputation'][$app . STORE_PREFIX] = 100;
 				}
 			}
+		}
 
-// 		}
-
-		$this->renderView($this->defaultView);
+		$this->renderView("main");
 	}
 
 

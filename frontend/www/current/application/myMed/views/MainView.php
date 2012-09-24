@@ -1,4 +1,4 @@
-<? include_once ("header.php"); ?>
+<? include("header.php"); ?>
 
 <div id="home" data-role="page">
 	
@@ -7,7 +7,7 @@
 
 	<div data-role="content" style="text-align: center;">
 		<br />
-		<br /><? debug_r($_SESSION['user2']);debug_r($_SESSION['user']);debug_r($_SESSION['user3']); ?>
+		<br />
 		<div class="ui-grid-b">
 			<?php $column = "a"; ?>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
@@ -36,6 +36,5 @@
 
 
 </div>
-<? include_once("ProfileView.php"); ?>
 
-<? include_once("footer.php"); ?>
+<? include("footer.php"); ?>

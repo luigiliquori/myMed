@@ -233,8 +233,21 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				} else if (password == null) {
 					throw new InternalBackEndException("password argument missing!");
 				} else {
-					final MUserBean userBean = authenticationManager.read(login, password);
 					
+					MUserBean userBean = authenticationManager.read(login, password);
+					LOGGER.info("read User {}", userBean);
+					
+					int count = 4;
+					while("".equals(userBean.getId()) && count>0){
+						userBean = profileManager.read("MYMED_"+login);
+					}
+					
+					if ("".equals(userBean.getId())){
+						message.setStatus(404);
+						message.setDescription("Could not read user id");
+						LOGGER.info(">>>>> v1 totally fails");
+						break;
+					}
 					LOGGER.info("read User {}", userBean);
 					
 					message.setDescription("Successfully authenticated");

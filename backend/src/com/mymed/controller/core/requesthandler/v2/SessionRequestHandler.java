@@ -15,11 +15,8 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
-import static com.mymed.utils.GsonUtils.gson;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +30,6 @@ import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.session.MSessionBean;
-import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.HashFunction;
 
 /**
@@ -90,9 +86,9 @@ public class SessionRequestHandler extends AbstractRequestHandler {
             switch (code) {
                 case READ :
                     message.setMethod(JSON_CODE_READ);
-                    final MSessionBean session = sessionManager.read(accessToken);
+                    final String me = sessionManager.readSimpleUser(accessToken);
                     message.setDescription("Session avaible");
-                    message.addDataObject(JSON_USER, profileManager.readSimple(session.getUser()));
+                    message.addDataObject(JSON_USER, profileManager.readSimple(me));
                     break;
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);
@@ -188,6 +184,7 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				session.put("id", accessToken);
 				sessionManager.update(accessToken, session);
 				message.setDescription("session updated");
+				message.addDataObject(JSON_ACCESS_TKN, accessToken);
 				LOGGER.info("Session updated for {} with {} ", user, accessToken);				
 				break;
 

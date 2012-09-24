@@ -1,5 +1,5 @@
 <? 
-require_once 'profile-utils.php';
+
 
 class DetailsController extends AuthenticatedController {
 	
@@ -22,8 +22,10 @@ class DetailsController extends AuthenticatedController {
 		if (isset($_GET["accept"])){
 			$this->addPartner();
 		}
+		
+		$this->namespace = "part"; //temp
 
-		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id));
+		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id));
 		
 		try{
 			$res = $req->send();
@@ -32,12 +34,12 @@ class DetailsController extends AuthenticatedController {
 
 		if (isset($res->details)){
 			$this->details = $res->details;
-			debug_r($this->details);
-			$rep =  new Reputationv2($this, $this->details->user, $this->id);
-			$this->reputation = $rep->send();
+			
+			$this->reputation = pickFirst(parent::reputation($this->details->user, $this->id));
 			
 			if (isset($this->details->user)){
-				$this->details->userProfile = getProfilefromUser($this, $this->details->user);
+				
+				$this->details->userProfile = $this->getProfile($this->details->user);
 				
 				if ($this->delete){
 					$request = new RequestJson($this,
@@ -46,12 +48,12 @@ class DetailsController extends AuthenticatedController {
 					$request->send();
 				}
 			}
-
+			
 			$this->partnersProfiles = array();
-
+			
 			foreach ($this->details as $k => $v){
 				if (strpos($k, "user_") === 0){
-					$p = getProfilefromUser($this, $v);
+					$p = $this->getProfile($v);
 					$this->partnersProfiles[$p->id]= $p;
 				}
 			}
@@ -144,8 +146,24 @@ class DetailsController extends AuthenticatedController {
 			debug_r($this->error);
 		}
 		
-		
-		
+	}
+
+	
+	public /*void*/ function getProfile($id){
+	
+		$user = new User($id);
+		try {
+			$details = $user->read();
+		} catch (Exception $e) {
+		}
+		$profile = new Profile($details['profile']);
+		try {
+			$profile->details = $profile->read();
+		} catch (Exception $e) {
+		}
+		$profile->parseProfile();
+		$profile->reputation = pickFirst(parent::reputation(null, $id));
+		return $profile;
 	}
 	
 	

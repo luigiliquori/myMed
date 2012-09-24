@@ -10,12 +10,39 @@ class LoginController extends AbstractController {
 	 */
 	public /*String*/ function handleRequest() {
 		
-		/* authed by social networks apis*/
+		/*
+		$app_id = "352079521548536";
+		$app_secret = "c386710770c974bdb307e87d4a8fb4a6";
+		$my_url = "http://mymed21.sophia.inria.fr/";
+		
+		if(isset($_REQUEST["code"])){
+			$code = $_REQUEST["code"];
+			if(isset($_SESSION['state'])&&($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state']))) {
+				$token_url = "https://graph.facebook.com/oauth/access_token?"
+				. "client_id=" . $app_id . "&redirect_uri=" . urlencode($my_url)
+				. "&client_secret=" . $app_secret . "&code=" . $code;
+			
+				$response = file_get_contents($token_url);
+				$params = null;
+				parse_str($response, $params);
+			
+				$graph_url = "https://graph.facebook.com/me?access_token="
+				. $params['access_token'];
+			
+				$user = json_decode(file_get_contents($graph_url));
+				//$_SESSION['user']= $user->name;
+				
+				debug_r($user);
+			}
+		}*/
+		
+		
+		/** authed by social networks apis*/
 		if (isset($_SESSION['user'])) { 
 
-			debug($_SESSION['accessToken']);
+			$token = isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null;
 			debug_r($_SESSION['user']);
-			$this->storeUser($_SESSION['user'], isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null);
+			$this->storeUser($_SESSION['user'], $token);
 			
 			// Redirect to main page
 			$this->redirectTo("main");
@@ -154,7 +181,12 @@ class LoginController extends AbstractController {
 		
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
-		}		
+			return;
+		} else {
+			$_SESSION['accessToken'] = $responseObject->dataObject->accessToken; // in case was not set yet
+		}
+		
+		debug("token -> ".$_SESSION['accessToken']);
 		
 		//temp  @TODO see how to merge accounts of other providers with mymed for same emails
 		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($user)));
@@ -165,9 +197,13 @@ class LoginController extends AbstractController {
 		$responsejSon = $request->send();
 		$responseObject3 = json_decode($responsejSon);
 		if($responseObject->status == 200) {
-			$_SESSION['user2'] = $_SESSION['user']; // 
+			$prevEmail = isset($_SESSION['user']->email);
+			$_SESSION['user2'] = $_SESSION['user']; //keep it just for seeing the diff (debug)
 			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject3->dataObject->user);
+
 		}
+		
+		
 	}
 }
 ?>

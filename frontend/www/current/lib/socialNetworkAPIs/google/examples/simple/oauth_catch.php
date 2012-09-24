@@ -3,10 +3,6 @@ require_once "oauth-common.php";
 
 session_start();
 
-
-
-
-
 if (isset($_GET['code'])) {
 	
 	require_once 'contrib/Google_Oauth2Service.php';
@@ -24,7 +20,7 @@ if (isset($_GET['code'])) {
 	$_SESSION['accessToken'] = $tokens['access_token'];
 
 	// Redirect to main page
-	header('Location: ./../../../../../?action=login');
+	header('Location: '.getTrustRoot().'?action=login');
 
 }
 
