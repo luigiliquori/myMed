@@ -53,19 +53,46 @@ function printMarkers(type, lon, lat, rad) {
 		success: function(data){
 			if ( data && data.dataObject.pois.length){
 				$.each(data.dataObject.pois, function(i, poi) {
-					value = JSON.parse(poi.value);
-					id = poi.id;
-					icon = null;
-					// type
-					description = "<p>Type: 	" + type + "</p>";
-					// description
-					description += value.description;
-					// delete button;
-					description += "<br /><br /><a href='#' onClick='deleteMarker(\"" + value.latitude + "\", \"" + value.longitude + "\", \"" + poi.id + "\", \"" + type +"\")' data-role='button' data-theme='r' >Delete</a>";
-					var marker = addMarker(new google.maps.LatLng(value.latitude, value.longitude), icon, value.title, description, null, false, id);
-					google.maps.event.addListener(marker, "click", function(e) {
-						marker.ib.open(map, this);
-					});
+					try {
+						value = JSON.parse(poi.value);
+						id = poi.id;
+						var Address, Email, Link, IdMedia, Altitude = null;
+						
+						// GET ICON
+						if(value.icon) {
+							icon = value.icon;
+						} else {
+							icon = null;
+						}
+
+						if(value.Adresse) {
+							Address = value.Adresse;
+						}
+						if(value.Email) {
+							Email = value.Email;
+						}
+						if(value.Link) {
+							Link = value.Link;
+						}
+						if(value.IdMedia) {
+							IdMedia = value.IdMedia;
+						}
+						if(value.Altitude) {
+							Altitude = value.Altitude;
+						}
+						// type
+						description = "<p>Type: " + type + "</p>";
+						// description
+						description += value.description;
+						// delete button;
+						description += "<br /><br /><a href='#' onClick='deleteMarker(\"" + value.latitude + "\", \"" + value.longitude + "\", \"" + poi.id + "\", \"" + type +"\")' data-role='button' data-theme='r' >Delete</a>";
+						var marker = addMarker(new google.maps.LatLng(value.latitude, value.longitude), icon, value.title, description, null, false, id, Address, Email, Link, IdMedia, Altitude);
+						google.maps.event.addListener(marker, "click", function(e) {
+							marker.ib.open(map, this);
+						});
+					} catch (err) {
+//						alert("ERR : " + poi.value);
+					}
 				});
 			}
 		},
@@ -73,7 +100,7 @@ function printMarkers(type, lon, lat, rad) {
 			alert("error: " + data)	;
 		}
 	});
-	
+
 	focusOnPosition(lat, lon);
 }
 
@@ -87,7 +114,7 @@ function deleteMarker(latitude, longitude, itemId, type) {
 			'itemId': itemId.replace(/\+/g, '%20'),
 			'accessToken': $("#accessToken").val()
 	};
-	
+
 	$.ajax({
 		url: "../../lib/dasp/ajax/POI.php",
 		data: params,
