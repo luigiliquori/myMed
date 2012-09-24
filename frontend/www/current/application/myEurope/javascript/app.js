@@ -123,7 +123,7 @@ function sortBy( i ){
 	switch(i){
 	case "partner":
 		lis.sort(function(a, b){
-		    return $(a).attr('data-partner') > $(b).attr('data-partner') ? 1 : -1;
+		    return $(a).attr('data-partner').toLowerCase() > $(b).attr('data-partner').toLowerCase() ? 1 : -1;
 		});
 		break;
 	case "date":
@@ -133,7 +133,7 @@ function sortBy( i ){
 		break;
 	case "title":
 		lis.sort(function(a, b){
-		    return $(a).attr('data-title') > $(b).attr('data-title') ? 1 : -1;
+		    return $(a).attr('data-title').toLowerCase() > $(b).attr('data-title').toLowerCase() ? 1 : -1;
 		});
 		break;
 	}
@@ -161,6 +161,26 @@ function rate(el, id, usr, feedback) {
 	var succ = el.parents('[data-role=page]').find('#notification-success');  //should work on that
 	var data = {
 			application : id,
+			producer : usr,
+			feedback : feedback
+		};
+	
+	//console.log(data);
+	$.get('../../lib/dasp/ajax/Interaction', data, function(res) {
+		//console.log(res);
+		var response = JSON.parse(res);
+		succ.find('h3').text(response.description);
+		succ.show();
+		//location.reload(0);
+		
+	});
+}
+
+function ratemyEurope(el, id, usr, feedback) {
+	var succ = el.parents('[data-role=page]').find('#notification-success');  //should work on that
+	var data = {
+			application : "myEurope",
+			predicate: id,
 			producer : usr,
 			feedback : feedback
 		};

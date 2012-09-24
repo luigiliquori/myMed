@@ -77,21 +77,22 @@ function strcontain($haystack,$needle){
 	return $pos !== false;
 }
 
+
 function formatReputation($rep){
-	return array(
-			"rep" => round($rep->reputation * 100),
-			"nbOfRatings" => $rep->numberOfVerdicts,
-			"up" => $rep->reputation * $rep->numberOfVerdicts,
-			"down" => $rep->numberOfVerdicts - $rep->reputation * $rep->numberOfVerdicts,
-			//"rated" => $rep->rated
-	);
-}
-function formatReputations($rep){
 	$res = array();
 	foreach ($rep as $k=>$v){
-		$res[$k] = formatReputation($v);
+		$res[$k] = array(
+				"rep" => round($v->reputation * 100),
+				"nbOfRatings" => $v->numberOfVerdicts,
+				"up" => $v->reputation * $v->numberOfVerdicts,
+				"down" => $v->numberOfVerdicts - $v->reputation * $v->numberOfVerdicts,
+				//"rated" => $rep->rated
+		);
 	}
 	return $res;
+}
+function pickFirst($array){
+	return reset($array);
 }
 
 /** Generate nice  element for title : div[data-role="header"]/h3 */

@@ -40,12 +40,7 @@ class AuthenticatedController extends AbstractController {
 		if($res->status != 200) {
 			throw new Exception($res->description);
 		} else {
-			if ( is_array($id) || is_array($producer)){
-				return formatReputations($res->dataObject->reputation);
-			}else {
-				return formatReputation($res->dataObject->reputation);
-			}
-			
+			return formatReputation($res->dataObject->reputation);
 		}
 	}
 }

@@ -88,6 +88,9 @@ class MUserBean {
 		if (isset($user['locale'])){
 			$user['lang'] = substr($user['locale'], 0, 2);
 		}
+		if (isset($user['email'])){
+			$user['id'] = "MYMED_".$user['email'];
+		}
 		$user['socialNetworkName'] = 'Facebook-OAuth';
 		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
 	}
@@ -95,6 +98,11 @@ class MUserBean {
 	public static function constructFromTwitterOAuth($user){
 		if (isset($user['profile_image_url'])){
 			$user['profilePicture'] = $user['profile_image_url'];
+		}
+		if (isset($user['email'])){ // unfortunately  twitter doesn't give email
+			$user['id'] = "MYMED_".$user['email'];
+		} else if ($user['screen_name']){
+			$user['id'] = $user['screen_name'];
 		}
 		$user['socialNetworkName'] = 'Twitter-OAuth';
 		return (object) array_intersect_key($user, get_class_vars(__CLASS__));

@@ -1,7 +1,5 @@
 <?php
 
-require_once 'profile-utils.php';
-
 /**
  *	This class extends the default myMed user profile, common to every applications, with a profile specific
  * for this application. Store anything you need.
@@ -219,7 +217,7 @@ class ExtendedProfileController extends AuthenticatedController {
 			$this->redirectTo("main");
 		}
 		$this->profile->parseProfile();
-		$this->profile->reputation = parent::reputation(null, $id);
+		$this->profile->reputation = pickFirst(parent::reputation(null, $id));
 
 		$this->renderView("ExtendedProfileDisplay");
 	}

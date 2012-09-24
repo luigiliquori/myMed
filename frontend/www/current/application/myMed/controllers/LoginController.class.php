@@ -200,15 +200,7 @@ class LoginController extends AbstractController {
 			$prevEmail = isset($_SESSION['user']->email);
 			$_SESSION['user2'] = $_SESSION['user']; //keep it just for seeing the diff (debug)
 			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject3->dataObject->user);
-			
-			if (!$prevEmail && isset($_SESSION['user']->email)){
-				/* 
-				 * the user's come from twiter or fb, and he afterwhile setted his email, 
-				 * give him a brand new user id and profile
-				 * and update 
-				 */
-				
-			}
+
 		}
 		
 		

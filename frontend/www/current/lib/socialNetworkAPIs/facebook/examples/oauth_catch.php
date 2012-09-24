@@ -26,7 +26,7 @@ if(!isset($_GET["code"])) {
 		$user = json_decode(file_get_contents($graph_url));
 		
 		require_once ROOT.'lib/dasp/beans/MUserBean.class.php';
-		
+		$_SESSION['user3'] =(array) $user;
 		$_SESSION['user'] = MUserBean::constructFromFacebookOAuth((array) $user);
 		
 		

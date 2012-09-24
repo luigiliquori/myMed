@@ -71,6 +71,13 @@ h4.logo{
 	 #spacer {height: 0;}
 }
 
+@media all and (min-width: 450px){
+	.ui-field-contain label.postTitle { vertical-align: top; display: inline-block; width: 10%; margin: 0 2% 0 0; }
+	.ui-field-contain input.postTitle { width: 88%; display: inline-block; }
+	.ui-hide-label .postTitle { width: 100%; } 
+	.ui-input-search input.postTitle { width: 98%; }
+}
+
 .social {
 	cursor: pointer;
 	text-indent: -9999em;

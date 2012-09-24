@@ -16,6 +16,7 @@ class SearchController extends AuthenticatedController {
 		try {
 			$this->result = $this->part->search();
 		} catch (Exception $e) {
+			$this->result = array();
 		}
 		
 		$this->suggestions = array();

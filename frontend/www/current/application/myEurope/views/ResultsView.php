@@ -20,13 +20,8 @@
 		</fieldset>
 		
 		<? if ($this->part->isIndexNotEmpty()) :?>
-		<div style="float: right;">
-			<label for="subscribeButton">
-				<?= $this->part->renderSearchIndex(); ?>:
-			</label>
-			<a id="subscribeButton" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
+			<a id="subscribeButton" style="float: right;" title="<?= _("Subscrive to:").' '.$this->part->renderSearchIndex(); ?>" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
 			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$this->part->namespace ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
-		</div>
 		<? endif ?>
 		</div>
 		
@@ -42,7 +37,7 @@
 			
 			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->user ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
 			<a href="?action=details&id=<?= urlencode($item->id) ?>"><span
-					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?>  (<?= date('j/n/y G:i', $item->time) ?>)</span>
+					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?></span><span style="font-weight: lighter;float: right;font-size: 14px;"><?= date('j/n/Y G:i', $item->time) ?></span>
 				</a>
 			</li>
 			<? endforeach ?>

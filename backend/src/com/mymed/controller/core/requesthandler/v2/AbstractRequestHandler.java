@@ -41,17 +41,6 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	 * 
 	 */
 	private static final long serialVersionUID = 5219022603572550553L;
-
-	
-	/** Type of the data parameter */
-	protected Type dataType;
-	
-	/** Type of the predicate parameter */
-	protected Type predicateType;
-	/** Type of the predicate parameter formatted */
-	protected Type xType;
-	
-	protected Type listType;
 	
 	protected AbstractRequestHandler() {
         super();
@@ -71,14 +60,7 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 
         // We do not trust what users write on the command line
         SERVER_PROTOCOL = DEFAULT_SERVER_PROTOCOL.split(":")[0] + "://";
-        
-        // init handlers deserialization Types
-        dataType = new TypeToken<Map<String, String>>() {}.getType();
-        
-        predicateType = new TypeToken<List<DataBean>>() {}.getType();
-        xType = new TypeToken<Map<String, List<String>>>() {}.getType();
-        
-        listType = new TypeToken<List<String>>() {}.getType();
+
         
     }
 	

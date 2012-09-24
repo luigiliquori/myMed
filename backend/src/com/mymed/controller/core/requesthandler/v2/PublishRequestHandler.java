@@ -41,6 +41,7 @@ import com.mymed.controller.core.manager.publish.PublishManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageIn;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.utils.CombiLine;
+import com.mymed.utils.GsonUtils;
 import com.mymed.utils.HashFunction;
 import com.mymed.utils.MatchMakingv2;
 import com.mymed.utils.MiscUtils;
@@ -158,7 +159,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				if (id != null) {
 					// Get DATA (details)
 					if (id.startsWith("[")){ //we've a list of ids coming
-						List<String> ids = gson.fromJson(id, listType);
+						List<String> ids = GsonUtils.json_to_list(id);
 						ids = prefix(in.getApplication(), ids);
 						final Map<String, Map<String, String>> details = dataManager.read(ids); 
 						
@@ -287,7 +288,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 				keywords = new LinkedHashMap<String, List<String>>();
 	
 				if (keywordsStr != null) {
-					keywords = gson.fromJson(keywordsStr, xType);
+					keywords = GsonUtils.json_to_keywords(keywordsStr);
 					LOGGER.info(" get index : {} ", keywords);
 				}
 				

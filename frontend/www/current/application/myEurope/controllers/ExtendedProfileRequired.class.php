@@ -1,7 +1,5 @@
 <? 
 
-require_once 'profile-utils.php';
-
 class ExtendedProfileRequired extends AuthenticatedController {
 	
 	public /*void*/ function handleRequest(){
@@ -42,7 +40,8 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			$this->showProfileList();
 		}
 		$profile->parseProfile();
-		$profile->reputation = parent::reputation(null, $profile->details['id']);
+		$profile->reputation = pickFirst(parent::reputation(null, $profile->details['id']));
+		debug_r($profile->reputation);
 		
 		$_SESSION['myEuropeProfile'] =$profile;
 		
