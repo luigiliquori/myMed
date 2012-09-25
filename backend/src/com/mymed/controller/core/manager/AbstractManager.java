@@ -128,8 +128,10 @@ public abstract class AbstractManager {
      * Value of the private modifiers (for introspection).
      */
     private static final int PRIV = Modifier.PRIVATE;
+    
+    private String table;
 
-    /**
+	/**
      * Default constructor.
      * 
      * @param storageManager
@@ -152,6 +154,15 @@ public abstract class AbstractManager {
 
         // We do not trust what users write on the command line
         SERVER_PROTOCOL = DEFAULT_SERVER_PROTOCOL.split(":")[0] + "://";
+    }
+    
+    public AbstractManager(String table, final IStorageManager storageManager) {
+    	this(storageManager);
+    	this.table = table;
+    }
+    
+    public Map<String, String> fetch(String id){
+    	return storageManager.selectAllStr(table, id);
     }
 
     /**

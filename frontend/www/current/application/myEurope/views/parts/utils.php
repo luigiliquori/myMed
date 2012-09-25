@@ -16,8 +16,8 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
 	$reverse = true;
 	$tabsStr = "";
 	foreach ($tabs as $i){
-		$tabsStr .=
-		'<li><a href="'. $i[0] .'" data-transition="slidefade" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
+		$tabsStr .= // C'est moche le slide effect!
+		'<li><a href="'. $i[0] .'" data-transition="none" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
 		.($i[0][0]!='#'?'rel="external"':'')
 		.($activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '').'>'. _($i[1])
 		.'</a></li>';

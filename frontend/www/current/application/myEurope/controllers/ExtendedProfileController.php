@@ -1,7 +1,5 @@
 <?php
 
-require_once 'profile-utils.php';
-
 /**
  *	This class extends the default myMed user profile, common to every applications, with a profile specific
  * for this application. Store anything you need.

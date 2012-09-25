@@ -35,7 +35,8 @@ class DetailsController extends AuthenticatedController {
 		if (isset($res->details)){
 			$this->details = $res->details;
 			
-			$this->reputation = pickFirst(parent::reputation($this->details->user, $this->id));
+			//$this->reputation = pickFirst(parent::reputation($this->details->user, $this->id));
+			$this->reputation = pickFirst(parent::reputation($this->details->user, null, $this->id));
 			
 			if (isset($this->details->user)){
 				

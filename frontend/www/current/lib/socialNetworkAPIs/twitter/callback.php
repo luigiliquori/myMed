@@ -43,7 +43,7 @@ if (200 == $connection->http_code) {
   $content = $connection->get('account/verify_credentials');
   
   require_once ROOT.'lib/dasp/beans/MUserBean.class.php';
-  
+  $_SESSION['user3'] =(array) $content;
   $_SESSION['user'] = MUserBean::constructFromTwitterOAuth((array) $content);
 
   header('Location: '.getTrustRoot().'?action=login');

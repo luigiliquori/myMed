@@ -59,6 +59,7 @@ class MainController extends AuthenticatedController {
 		}
 
 		debug_r($_SESSION['applicationList']);
+		debug_r($_SESSION['user3']);
 		debug_r($_SESSION['user2']);
 		debug_r($_SESSION['user']);
 

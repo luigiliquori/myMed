@@ -123,7 +123,7 @@ function sortBy( i ){
 	switch(i){
 	case "partner":
 		lis.sort(function(a, b){
-		    return $(a).attr('data-partner') > $(b).attr('data-partner') ? 1 : -1;
+		    return $(a).attr('data-partner').toLowerCase() > $(b).attr('data-partner').toLowerCase() ? 1 : -1;
 		});
 		break;
 	case "date":
@@ -133,7 +133,7 @@ function sortBy( i ){
 		break;
 	case "title":
 		lis.sort(function(a, b){
-		    return $(a).attr('data-title') > $(b).attr('data-title') ? 1 : -1;
+		    return $(a).attr('data-title').toLowerCase() > $(b).attr('data-title').toLowerCase() ? 1 : -1;
 		});
 		break;
 	}

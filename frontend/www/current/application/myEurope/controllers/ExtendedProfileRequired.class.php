@@ -1,7 +1,5 @@
 <? 
 
-require_once 'profile-utils.php';
-
 class ExtendedProfileRequired extends AuthenticatedController {
 	
 	public /*void*/ function handleRequest(){
