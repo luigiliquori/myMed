@@ -10,11 +10,50 @@ class LoginController extends AbstractController {
 	 */
 	public /*String*/ function handleRequest() {
 		
+		/*
+		$app_id = "352079521548536";
+		$app_secret = "c386710770c974bdb307e87d4a8fb4a6";
+		$my_url = "http://mymed21.sophia.inria.fr/";
+		
+		if(isset($_REQUEST["code"])){
+			$code = $_REQUEST["code"];
+			if(isset($_SESSION['state'])&&($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state']))) {
+				$token_url = "https://graph.facebook.com/oauth/access_token?"
+				. "client_id=" . $app_id . "&redirect_uri=" . urlencode($my_url)
+				. "&client_secret=" . $app_secret . "&code=" . $code;
+			
+				$response = file_get_contents($token_url);
+				$params = null;
+				parse_str($response, $params);
+			
+				$graph_url = "https://graph.facebook.com/me?access_token="
+				. $params['access_token'];
+			
+				$user = json_decode(file_get_contents($graph_url));
+				//$_SESSION['user']= $user->name;
+				
+				debug_r($user);
+			}
+		}*/
+		
+		
+		/** authed by social networks apis*/
+		if (isset($_SESSION['user'])) { 
+
+			$token = isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null;
+			debug_r($_SESSION['user']);
+			$this->storeUser($_SESSION['user'], $token);
+			
+			// Redirect to main page
+			$this->redirectTo("main");
+		
+		}
+		
 		/* Typical login : we received a POST with login and password */
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+		else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 			// Get arguments 
-			$login	= $_POST['login'];
+			$login	= trim($_POST['login']);
 			$pass	= hash("sha512", $_POST['password']);
 		
 			// Login and password should not be empty
@@ -29,8 +68,8 @@ class LoginController extends AbstractController {
 			}
 					
 			// Building the Authentication request
-			$request = new Request("AuthenticationRequestHandler", READ);
-			$request->addArgument("login", $login);
+			$request = new Requestv2("v2/AuthenticationRequestHandler");
+			$request->addArgument("login", $login); // must strtolower here first and if error check with <
 			$request->addArgument("password", $pass);
 			
 			// Argument code filled by Request
@@ -83,7 +122,7 @@ class LoginController extends AbstractController {
 					$mAuthenticationBean->user = $_SESSION['user']->id;
 					$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
 					
-					$request = new Request("AuthenticationRequestHandler", CREATE);
+					$request = new Requestv2("v2/AuthenticationRequestHandler", CREATE);
 					$request->addArgument("authentication", json_encode($mAuthenticationBean));
 					$request->addArgument("user", json_encode($_SESSION['user']));
 					$request->addArgument("application", APPLICATION_NAME);
@@ -97,8 +136,8 @@ class LoginController extends AbstractController {
 				$this->redirectTo("main");
 			}
 			
-		} else { // Not a POST request : Simply show the login form 
-			
+		} else { // Not a POST request : 
+
 			$this->renderView("login");
 			
 		}
@@ -113,7 +152,7 @@ class LoginController extends AbstractController {
 		
 		// Building the Session Request
 		// This will check if the session exists in the backend and will return an User if it's the case.	
-		$request = new Request("SessionRequestHandler", READ);
+		$request = new Requestv2("v2/SessionRequestHandler");
 		$request->addArgument("socialNetwork", "myMed");
 		
 		// The AccessToken is fetched from the $_SESSION
@@ -127,11 +166,44 @@ class LoginController extends AbstractController {
 			$_SESSION['error'] = $responseObject->description;
 		} else {
 			// Everything went fine, we now have an USER in our session
-			$_SESSION['user'] = json_decode($responseObject->data->user);
+			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject->dataObject->user);
 			if( !isset($_SESSION['friends']) ){
 				$_SESSION['friends'] = array();
 			}
 		}
+	}
+	
+	public function storeUser($user, $accessToken) {
+
+		$request = new Requestv2("v2/SessionRequestHandler", UPDATE , array("user"=>$user->id, "accessToken"=>$accessToken));
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		
+		if($responseObject->status != 200) {
+			$this->error = $responseObject->description;
+			return;
+		} else {
+			$_SESSION['accessToken'] = $responseObject->dataObject->accessToken; // in case was not set yet
+		}
+		
+		debug("token -> ".$_SESSION['accessToken']);
+		
+		//temp  @TODO see how to merge accounts of other providers with mymed for same emails
+		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($user)));
+		$responsejSon = $request->send();
+		$responseObject2 = json_decode($responsejSon);
+		
+		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$user->id));
+		$responsejSon = $request->send();
+		$responseObject3 = json_decode($responsejSon);
+		if($responseObject->status == 200) {
+			$prevEmail = isset($_SESSION['user']->email);
+			$_SESSION['user2'] = $_SESSION['user']; //keep it just for seeing the diff (debug)
+			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject3->dataObject->user);
+
+		}
+		
+		
 	}
 }
 ?>

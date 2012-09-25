@@ -16,17 +16,13 @@
 package com.mymed.controller.core.requesthandler.v2;
 
 import static com.mymed.utils.GsonUtils.gson;
-import static com.mymed.utils.MatchMaking.makePrefix;
-import static com.mymed.utils.MatchMaking.parseInt;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,233 +32,179 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.pubsub.v2.PubSubManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.application.IndexBean;
-import com.mymed.utils.MatchMaking;
-import com.mymed.utils.MatchMaking.IndexRow;
+import com.mymed.controller.core.manager.subscribe.SubscribeManager;
+import com.mymed.controller.core.requesthandler.message.JsonMessageIn;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
+import com.mymed.utils.CombiLine;
+import com.mymed.utils.GsonUtils;
+import com.mymed.utils.MatchMakingv2;
+import com.mymed.utils.MiscUtils;
 
 /**
  * Servlet implementation class PubSubRequestHandler
  */
 
-@MultipartConfig
 @WebServlet("/v2/SubscribeRequestHandler")
-
 public class SubscribeRequestHandler extends AbstractRequestHandler {
-    /**
-     * Generated serial ID.
-     */
-    private static final long serialVersionUID = -3497628036243410706L;
+	/**
+	 * Generated serial ID.
+	 */
+	private static final long serialVersionUID = -3497628036243410706L;
 
-    /**
-     * JSON 'predicate' attribute.
-     */
-    
-    private static final String JSON_SUBSCRIPTIONS = JSON.get("json.subscriptions");
+	/**
+	 * JSON 'predicate' attribute.
+	 */
 
-    private final PubSubManager pubsubManager;
+	protected static final String JSON_SUBSCRIPTIONS = JSON.get("json.subscriptions");
 
-    public SubscribeRequestHandler() throws InternalBackEndException {
-        super();
-        pubsubManager = new PubSubManager();
-    }
+	protected final SubscribeManager subscriptionManager;
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    @Override
-    protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+	public SubscribeRequestHandler() throws InternalBackEndException {
+		super();
+		subscriptionManager = new SubscribeManager();
+	}
 
-        try {
-            final Map<String, String> parameters = getParameters(request);
-            // Check the access token
-            checkToken(parameters);
 
-            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String 
-            application = parameters.get(JSON_APPLICATION),
-            dataId = parameters.get("id"), 
-            user = parameters.get(JSON_USER),
-            namespace = parameters.get(JSON_NAMESPACE);
-            
-            if (application == null)
-        		throw new InternalBackEndException("missing application argument!");
-        	else if(user == null)
-        		throw new InternalBackEndException("missing user argument!");
-            
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response) Create a subscription
+	 */
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException, JsonSyntaxException, JsonParseException, IOException {
+
+		final JsonMessageOut<Object> out = new JsonMessageOut<Object>(200, this
+				.getClass().getName());
+		
+		try{
+			JsonMessageIn in = gson.fromJson(request.getReader(), JsonMessageIn.class);
+			
+			validateToken(in.getAccessToken());
+			
+			final RequestCode code = REQUEST_CODE_MAP.get(in.getCode());
+	
+			if (in.getUser() == null)
+				throw new InternalBackEndException("missing user argument!");
+	
+			final String application = in.getApplication()!=null?
+					in.getApplication()
+					:"";
+			String id = in.getId();
+			
 			switch (code) {
+	
+			case CREATE:
+				out.setMethod(JSON_CODE_CREATE);
+	
+				
+				if (id != null) {
+					/* we want to subscribe to a data changes */
+					LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
+					keywords.put(id, MiscUtils.singleton(id));
+					
+					subscriptionManager.create(application, id, in.getUser(), gson.toJson(keywords), in.getMailTemplate());
+	
+					LOGGER.info(" created subscriptions for {}: {} ", in.getUser(), id);
+					out.setDescription("subscription created: " + id
+							+ " for user: " + in.getUser()+" with template "+ in.getMailTemplate());
+	
+				} else if (in.getPredicates() != null){
+					/* we want to subscribe to keywords/ categories ... */
+	
+					LOGGER.info("in ." + in.getPredicates().size());
+	
+					LinkedHashMap<String, List<String>> keywords = MatchMakingv2.format(in.getPredicates());
+	
+					LOGGER.info("indexes: {} ", keywords);
+					List<String> rows = new CombiLine(keywords).expand();
+	
+					String v = gson.toJson(keywords);
+	
+					for (String i : rows) {
+						subscriptionManager.create(application, i, in.getUser(), v, in.getMailTemplate());
+					}
+	
+					LOGGER.info(" created subscriptions for {}: {} ", in.getUser(), in.getPredicates());
+					out.setDescription("subscription created: " + application + in.getPredicates()
+							+ " for user: " + in.getUser()+" with template "+ in.getMailTemplate());
+				}
+	
+				break;
 			case READ:
-				message.setMethod(JSON_CODE_READ);
+				out.setMethod(JSON_CODE_READ);
 				/*
 				 * read subs of this user
 				 */
-				if (dataId != null){
-					String sub = pubsubManager.readSubEntry(makePrefix(application, namespace) 
-							+ user, dataId);
-					message.setDescription("Subscriptions found for Application: " 
-							+ application + " User: " + user);
-					LOGGER.info("Subscriptions found for Application: "+ application + " User: " + user);
-					message.addDataObject(JSON_SUBSCRIPTIONS, sub);
+				if (id != null) {
+					String sub = subscriptionManager.read(application + in.getUser(), id);
+					out.setDescription("Subscriptions found for Application: "
+							+ application + " User: " + in.getUser());
+					LOGGER.info("Subscriptions found for Application: "
+							+ application + " User: " + in.getUser());
+					out.addDataObject(JSON_SUBSCRIPTIONS, sub);
 				} else {
-					final Map<String, String> predicates = pubsubManager.read(makePrefix(application, namespace) 
-						+ user);
-					
-					message.setDescription("Subscriptions found for Application: " 
-							+ application + " User: " + user);
-					LOGGER.info("Subscriptions found for Application: "+ application + " User: " + user);
-					message.addDataObject(JSON_SUBSCRIPTIONS, predicates);
+					final Map<String, String> predicates = subscriptionManager.read(application + in.getUser());
+	
+					out.setDescription("Subscriptions found for Application: "
+							+ application + " User: " + in.getUser());
+					LOGGER.info("Subscriptions found for Application: "
+							+ application + " User: " + in.getUser());
+					out.addDataObject(JSON_SUBSCRIPTIONS, predicates);
 				}
-				
+	
 				break;
-
+	
+			case DELETE:
+				out.setMethod(JSON_CODE_DELETE);
+	
+				if (id == null)
+					id = "ALL";
+	
+				LOGGER.info("in ." + application + in.getUser() +" . "  +id);
+				String keywordsStr = subscriptionManager.read(application + in.getUser(), id);
+				LinkedHashMap<String, List<String>> keywords = new LinkedHashMap<String, List<String>>();
+	
+				if (keywordsStr != null){
+					keywords = GsonUtils.json_to_keywords(keywordsStr);
+				}
+	
+				LOGGER.info("in ." + keywords.size());
+	
+				List<String> rows = new CombiLine(keywords).expand();
+	
+				for (String i : rows) {
+					subscriptionManager.delete(application, i, in.getUser());
+				}
+	
+				LOGGER.info("  deleted subscriptions for {}: {} ", in.getUser()+id, keywords);
+				out.setDescription("subscription deleted: " + keywords +" id "+ id
+						+ " for user: " + in.getUser());
+	
+				break;
+	
 			default:
 				throw new InternalBackEndException(
-						"SubscribeRequestHandler.doGet(" + code + ") not exist!");
+						"SubscribeRequestHandler.doPost(" + code
+								+ ") not exist!");
+	
 			}
-        } catch (final AbstractMymedException e) {
-            LOGGER.debug("Error in doGet operation", e);
-            message.setStatus(e.getStatus());
-            message.setDescription(e.getMessage());
+		
+		} catch (final AbstractMymedException e) {
+            LOGGER.debug("Error in doPost", e);
+            out.setStatus(e.getStatus());
+            out.setDescription(e.getMessage());
         }
 
-        printJSonResponse(message, response);
-    }
-
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     * Create a subscription
-     */
-    @Override
-    protected void doPost(
-            final HttpServletRequest request, 
-            final HttpServletResponse response) throws ServletException {
-        
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
-
-        try {
-            final Map<String, String> parameters = getParameters(request);
-            // Check the access token
-            checkToken(parameters);
-
-            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String 
-            	application = parameters.get(JSON_APPLICATION),
-        		user = parameters.get(JSON_USER),
-        		dataId = parameters.get("id"), 
-        		/*
-        		 * subscribe to a specific data, (notified for its updates)
-        		 */
-        		index = parameters.get("index"),
-        		/*
-        		 * subscribe to keywords
-        		 * NOTE for DELETE it's id paramter that is used either for data and indexes subscriotions
-        		 * in order to have short unsubscribe links ...
-        		 */
-        		namespace = parameters.get(JSON_NAMESPACE),
-        		min = parameters.get("min"),
-        		max = parameters.get("max");
-        
-            // @TODO if 'id' is given it overrides 'index', only index treated below
-        
-			List<IndexBean> query = new ArrayList<IndexBean>();
-			String prefix = makePrefix(application, namespace);
-            
-            if (application == null)
-                throw new InternalBackEndException("missing application argument!");
-        	else if (user == null)
-                throw new InternalBackEndException("missing user argument!");
-            
-            try {
-            	if (index != null)
-            		query = gson.fromJson(index, indexType);
-
-            } catch (final JsonSyntaxException e) {
-                LOGGER.debug("Error in Json format", e);
-                throw new InternalBackEndException("jSon format is not valid");
-            } catch (final JsonParseException e) {
-                LOGGER.debug("Error in parsing Json", e);
-                throw new InternalBackEndException(e.getMessage());
-            }
-            
-            switch (code) {
-            
-            case CREATE:
-            	message.setMethod(JSON_CODE_CREATE);
-            	
-            	if (dataId != null){
-            		/* we want to subscribe to a data changes */
-            		pubsubManager.create(
-            				prefix, dataId, user, "_");
-            		
-            		LOGGER.info(" created subscriptions for {}: {} ", user, dataId);
-                	message.setDescription("subscription created: " + dataId +" for user: " + user);
-            		
-            	} else {
-            		/* we want to subscribe to keywords/ categories ... */
-            		Collections.sort(query);
-
-                	LOGGER.info("in ."+query.size());
-                	
-                	LinkedHashMap<String, List<String>> indexes = MatchMaking.formatIndexes(query);
-        			
-                	List<IndexRow> combi = MatchMaking.getPredicate(
-        					indexes, 
-        					min!=null?parseInt(min):0,
-        					max!=null?parseInt(max):query.size());
-					for (IndexRow i : combi) {
-
-						pubsubManager.create(
-								prefix,
-								i.toString(), user,
-								gson.toJson(i.getIndexes(query)));
-					}
-            		
-            		LOGGER.info(" created subscriptions for {}: {} ", user, index);
-                	message.setDescription("subscription created: " + index +" for user: " + user);
-            	}
-
-            	break;
-            	
-            case DELETE:
-            	message.setMethod(JSON_CODE_DELETE);
-            	
-            	if (dataId == null)
-            		throw new InternalBackEndException("missing id argument!");
-            
-            	String subJson = pubsubManager.readSubEntry(prefix + user, dataId);
-            	
-            	if (subJson != null)
-            		query = gson.fromJson(subJson, indexType);
-            	
-            	LOGGER.info("in ."+query.size());
-            	LinkedHashMap<String, List<String>> indexes = MatchMaking.formatIndexes(query);	
-            	List<IndexRow> combi = MatchMaking.getPredicate(
-    					indexes, 0, query.size());
-				for (IndexRow i : combi) {
-					pubsubManager.delete(prefix,i.toString(), user);
-				}
-                    
-				LOGGER.info("  deleted subscriptions for {}: {} ", user, subJson);
-                message.setDescription("subscription deleted: " + subJson +" for user: " + user);
-
-            	break;
-            	
-
-			default:
-				throw new InternalBackEndException("SubscribeRequestHandler.doPost(" + code + ") not exist!");
-            	
-            }
-
-        } catch (final AbstractMymedException e) {
-            LOGGER.debug("Error in doPost operation", e);
-            message.setStatus(e.getStatus());
-            message.setDescription(e.getMessage());
-        }
-
-        printJSonResponse(message, response);
-    }
+		printJSonResponse(out, response);
+	}
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException {
+		throw new InternalBackEndException("SubscribeRequestHandler.doGet() not exist!");
+	}
 }

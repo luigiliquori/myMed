@@ -15,6 +15,8 @@
 */
 package com.mymed.controller.core.manager.profile;
 
+import java.util.Map;
+
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.user.MUserBean;
@@ -42,6 +44,8 @@ public interface IProfileManager {
 	 * @return the User corresponding to the id
 	 */
 	MUserBean read(String id) throws InternalBackEndException, IOBackEndException;
+	
+	Map<String, String> readSimple(String id) throws InternalBackEndException, IOBackEndException;
 
 	/**
 	 * Update the profile of an user into the database
@@ -52,6 +56,10 @@ public interface IProfileManager {
 	 */
 	MUserBean update(MUserBean user) throws InternalBackEndException, IOBackEndException;
 
+	void update(String id, Map<String, String> map) throws InternalBackEndException, IOBackEndException;
+	
+	void update(String id, String key, String value) throws InternalBackEndException, IOBackEndException;
+	
 	/**
 	 * Delete an existing user
 	 * 
@@ -59,4 +67,9 @@ public interface IProfileManager {
 	 *            The user to delete
 	 */
 	void delete(String id) throws InternalBackEndException, IOBackEndException;
+
+	void deleteSimple(String id) throws InternalBackEndException,
+			IOBackEndException;
+
+	
 }

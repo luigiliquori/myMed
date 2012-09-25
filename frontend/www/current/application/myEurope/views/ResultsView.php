@@ -1,58 +1,61 @@
 <? include("header.php"); ?>
 
 <div data-role="page" id="results">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3empty(
-				"Résultats") ?>
-		<? include("notifications.php")?>
-	</div>
-	
-	<div data-role="content" >
-	
-		<ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="filtrer parmi les résultats">
-			
-			<select data-theme="c" data-mini="true" name="slider2" id="flip-a2" data-role="slider"
-				onchange="">
-				<option value="3">Trier par réputation</option>
-				<option value="0">Trier par nom de partenaire</option>
-			</select>
-			
-			<select data-theme="e"  data-mini="true" name="slider" id="flip-a" data-role="slider"
-				onchange="$.get('../../lib/dasp/ajax/Subscribe', { code: $(this).val(), application: '<?= APPLICATION_NAME ?>' ,namespace: '<?= $_GET['namespace'] ?>' ,index: '<?= json_encode($this->index) ?>' } );">
-				<option value="3">Souscrire aux futurs contenus correspondant à cette recherche</option>
-				<option value="0">Désabonner</option>
-			</select>
-			
-			<? if (count($this->result) == 0) :?>
+
+	<? tabs_simple(array("Results")); ?>
+	<? include("notifications.php"); ?>
+	<div data-role="content">
+
+		<div style="margin-bottom: 16px;">
+		<label for="radio-group1"><?= _("Sort by") ?>:</label>
+		<fieldset id="radio-group1" data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;">
+			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-t" value="title" checked='checked'/>
+			<label for="radio-view-t"><?= _("title") ?></label>
+			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-a"value="partner"/>
+			<label for="radio-view-a"><?= _("partner") ?></label>
+			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-b" value="date" />
+			<label for="radio-view-b"><?= _("date") ?></label>
+			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-e" value="reputation" />
+			<label for="radio-view-e"><?= _("reputation") ?></label>
+		</fieldset>
+		
+		<? if ($this->part->isIndexNotEmpty()) :?>
+			<a id="subscribeButton" style="float: right;" title="<?= _("Subscrive to:").' '.$this->part->renderSearchIndex(); ?>" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
+			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$this->part->namespace ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
+		<? endif ?>
+		</div>
+		
+		<ul id="matchinglist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>" style="clear:both;">
+
+			<?php if (count($this->result) == 0) :?>
 			<li>
-				<h4>Votre recherche n'a abouti à aucun résultat.</h4>
+				<h4><?= _("Your search didn't match any result.") ?></h4>
 			</li>
 			<? endif ?>
-			
+
 			<? foreach($this->result as $item) : ?>
-				<li>
-					<a href="./?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>" data-ajax="false">		
-						<span style="font-weight: lighter;">Offre publiée par </span>  <?= $item->user ?> <span style="font-weight: lighter;">(26/07/2012), réputation </span> 100% <span style="font-weight: lighter;">, id# </span><?= $item->id ?>
- 					</a>
-				</li>
-			<? endforeach ?>
 			
+			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->user ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
+			<a href="?action=details&id=<?= urlencode($item->id) ?>"><span
+					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?></span><span style="font-weight: lighter;float: right;font-size: 14px;"><?= date('j/n/Y G:i', $item->time) ?></span>
+				</a>
+			</li>
+			<? endforeach ?>
+
 			<? if (!empty($this->suggestions)) :?>
-				<li data-role="list-divider">Suggestions:</li>
+			<li data-role="list-divider">Suggestions:</li>
 			<? foreach($this->suggestions as $item) : ?>
-				<li>
-					<a href="./?action=details&namespace=<?= $_GET['namespace'] ?>&id=<?= urlencode($item->id) ?>" data-ajax="false">		
-						<b>...</b> : <?= print_r($item) ?><br/>
- 					</a>
-				</li>
+			<li><a href="./?action=details&id=<?= urlencode($item->id) ?>"> <b>...</b> : <?= print_r($item) ?><br />
+			</a>
+			</li>
 			<? endforeach ?>
 			<? endif ?>
-			
+
 		</ul>
-		
-			
+
+
 	</div>
-	
+
 
 </div>
 

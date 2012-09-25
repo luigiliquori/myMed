@@ -1,27 +1,36 @@
 <? include("header.php"); ?>
 
+<div data-role="page">
 
-
-
-<!-- Header -->
-<div data-role="header" data-theme="c" data-position="fixed">
-	<? tabs_3(
-			"Profil",
-			"Modifer",
-			"?action=ExtendedProfile&edit=false",
-			"gear") ?>
-	<? include("notifications.php")?>
-</div>
-
-<div data-role="content" >
+	<? tabs_simple(array($this->profile->details['name'])); ?>
+	<? include("notifications.php"); ?>
 	
-	<? if (isset($this->profile)) :?>
-		Rôle: <?= $this->profile->role ?><br />
-		activité: <?= $this->profile->activity ?><br />
-		Email: <?= $this->profile->email ?><br />
-		Adresse: <?= $this->profile->address ?><br />
-	<? endif ?>
-	
-	
+	<div data-role="content" style="text-align:center;">
+		<br />
+		<? $this->profile->renderProfile(); ?>
+		<? if (isset($_GET['link'])) :?>
+		<br />
+		<div style="text-align: center;">
+		<a href="?action=ExtendedProfile&link=<?= $_GET['id'] ?>" rel="external" data-role="button" data-theme="e" data-inline="true" data-icon="pushpin"><?= _('Register in myEurope with this profile') ?></a>
+		<br />
+		<a href="?action=Main#profiles" rel="external" data-role="button" data-inline="true" data-icon="back"><?= _('Back to profiles list') ?></a>
+		</div>
+		<? endif ?>
+		
+		<? if (isset($_GET['admin'])) :/*should check permission*/?>
+		<br />
+		<div style="text-align: center;">
+		<a href="?action=ExtendedProfile&rmUser=<?= $_GET['id'] ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete user') ?></a>
+		<br />
+		<a href="?action=ExtendedProfile&rmProfile=<?= $_GET['id'] ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete profile') ?></a>
+		</div>
+		<? endif ?>
+		
+		<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
+		<br />
+		<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+		<? endif; ?>
+		
+	</div>
 </div>
 <? include("footer.php"); ?>

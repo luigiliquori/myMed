@@ -15,10 +15,7 @@
 * limitations under the License.
 */
 class MUserBean {
-	/**
-	 * Used for the hash code
-	 */
-	public /*int*/	$PRIME;
+
 	/**
 	 * USER_ID
 	 */
@@ -44,7 +41,7 @@ class MUserBean {
 	/**
 	 * APPLICATION_LIST_ID
 	 */
-	public /*String*/	$subscribtionList;
+	public /*String*/	$applicationList;
 	/**
 	 * REPUTATION_ID
 	 */
@@ -59,6 +56,76 @@ class MUserBean {
 	public /*String*/	$interactionList;
 	public /*String*/	$socialNetworkID;
 	public /*String*/	$socialNetworkName;
+	
+	/** lang **/
+	
+	public /*String*/	$lang;
+
+
+	public static function constructFromGoogleOAuth($user){
+		$user['profilePicture'] = $user['picture'];
+		if (isset($user['given_name'])){
+			$user['firstName'] = $user['given_name'];
+		}
+		if (isset($user['family_name'])){
+			$user['lastName'] = $user['family_name'];
+		}
+		if (isset($user['locale'])){
+			$user['lang'] = substr($user['locale'], 0, 2);
+		}
+		$user['id'] = 'MYMED_'.$user['email'];
+		$user['socialNetworkName'] = 'Google-OAuth';
+		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
+	}
+
+	public static function constructFromFacebookOAuth($user){
+		if (isset($user['first_name'])){
+			$user['firstName'] = $user['first_name'];
+		}
+		if (isset($user['last_name'])){
+			$user['lastName'] = $user['last_name'];
+		}
+		if (isset($user['locale'])){
+			$user['lang'] = substr($user['locale'], 0, 2);
+		}
+		if (isset($user['email'])){
+			$user['id'] = "MYMED_".$user['email'];
+		}
+		$user['socialNetworkName'] = 'Facebook-OAuth';
+		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
+	}
+
+	public static function constructFromTwitterOAuth($user){
+		if (isset($user['profile_image_url'])){
+			$user['profilePicture'] = $user['profile_image_url'];
+		}
+		if (isset($user['email'])){ // unfortunately  twitter doesn't give email
+			$user['id'] = "MYMED_".$user['email'];
+		} else if ($user['screen_name']){
+			$user['id'] = $user['screen_name'];
+		}
+		$user['socialNetworkName'] = 'Twitter-OAuth';
+		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
+	}
+
+	public static function constructFromOpenId($user){
+		foreach ($user as $k=>$v){
+			if(strpos($k, 'first')!==false){
+				$user['firstName'] = $v[0];
+			}else if(strpos($k, 'email')!==false){
+				$user['email'] = $v[0];
+			}else if(strpos($k, 'last')!==false){
+				$user['lastName'] = $v[0];
+			}else if(strpos($k, 'language')!==false){
+				$user['lang'] = substr($v[0], 0, 2);
+			}
+		}
+		$user['name'] = $user['firstName'] . ' ' .$user['lastName'];
+		$user['id'] = 'MYMED_'.$user['email'];
+		$user['socialNetworkName'] = 'OpenID';
+		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
+	}
+	
 }
 
 ?>

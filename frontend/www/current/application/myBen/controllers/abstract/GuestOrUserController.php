@@ -88,9 +88,7 @@ class GuestOrUserController extends AbstractController {
 			$_SESSION[ACCESS_TOKEN] = $res->data->accessToken;
 			
 		}
-		
 		return $_SESSION[ACCESS_TOKEN];
-		
 	}
 	
 	/** 

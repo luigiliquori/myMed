@@ -30,8 +30,10 @@ import javax.servlet.http.Part;
 
 import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
+import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.model.data.application.IndexBean;
+import com.mymed.controller.core.manager.session.SessionManager;
+import com.mymed.model.data.application.DataBean;
 
 
 public abstract class AbstractRequestHandler extends com.mymed.controller.core.requesthandler.AbstractRequestHandler {
@@ -39,16 +41,6 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	 * 
 	 */
 	private static final long serialVersionUID = 5219022603572550553L;
-
-	/**
-	 * Type of the index parameter
-	 */
-	protected Type indexType;
-	
-	/**
-	 * Type of the index parameter
-	 */
-	protected Type dataType;
 	
 	protected AbstractRequestHandler() {
         super();
@@ -68,12 +60,9 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 
         // We do not trust what users write on the command line
         SERVER_PROTOCOL = DEFAULT_SERVER_PROTOCOL.split(":")[0] + "://";
+
         
-        // init handlers deserialization Types
-        indexType = new TypeToken<List<IndexBean>>() {}.getType();
-        dataType = new TypeToken<Map<String, String>>() {}.getType();
     }
-	
 	
 	@Override
     protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
@@ -117,6 +106,13 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
         }
 
         return parameters;
+    }
+	
+	@Override
+    protected void validateToken(final String accessToken) throws InternalBackEndException, IOBackEndException {
+		new SessionManager().readSimple(accessToken);
+		
+		// @TODO don't forget to implement accesstoken refresh in frontend, since this one expires after some time
     }
 
 }

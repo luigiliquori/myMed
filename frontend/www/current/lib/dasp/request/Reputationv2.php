@@ -23,41 +23,76 @@ require_once dirname(__FILE__).'/IRequestHandler.php';
  * @author lvanni
  *
  */
-class Reputation extends Requestv2 {
+class Reputationv2 extends Requestv2 {
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
 	private /*IRequestHandler*/ $handler;
+	private $producer;
+	private $id;
 
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct() {
+	public function __construct($handler, $producer = null, $id = null) {
 		parent::__construct("v2/ReputationRequestHandler", READ);
+		$this->handler = $handler;
+		$this->producer = $producer;
+		$this->id = $id;
 	}
 
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
-	public /*String*/ function getReputation(/*String*/ $application, /*String*/ $producer, /*String*/ $consumer = null){
-		parent::addArgument("application", $application);
-		parent::addArgument("producer", $producer);
-		parent::addArgument("consumer", $consumer);
+	public /*String*/ function send(){
+		parent::addArgument("application", isset($_GET['application'])?$_GET['application']:APPLICATION_NAME);
+		parent::addArgument("consumer", $_SESSION['user']->id );
+		parent::addArgument("producer", $this->producer );
+		if (!empty($this->id)){
+			if ( is_array($this->id))
+				parent::addArgument("ids", json_encode($this->id));
+			else
+				parent::addArgument("id", $this->id);
+		}
+		
 
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);
 
-		if($responseObject->status == 200) {
-			return $responseObject->dataObject->reputation;
+		$rep = 1;
+		$nb = 0;
+		
+		if($responseObject->status != 200) {
+			$this->handler->setError($responseObject->description);
 		} else {
-			if (!is_null($this->handler)) {
-				$this->handler->setError($responseObject->description);
+			if ( !is_array($this->id)){
+				$rep = $responseObject->dataObject->reputation->reputation;
+				$nb = $responseObject->dataObject->reputation->numberOfVerdicts;
+			
+				return array(
+						"rep" => round($rep * 100),
+						"nbOfRatings" => $nb,
+						"up" => $rep * $nb,
+						"down" => $nb - $rep * $nb,
+						"rated" => $responseObject->dataObject->reputation->rated
+				);
 			} else {
-				throw new Exception($responseObject->description);
+				$res = array();
+				foreach ($responseObject->dataObject->reputation as $k=>$v){
+					$res[$k] = array(
+							"rep" => round($v->reputation * 100),
+							"nbOfRatings" => $v->numberOfVerdicts,
+							"up" => $v->reputation * $v->numberOfVerdicts,
+							"down" => $v->numberOfVerdicts - $v->reputation * $v->numberOfVerdicts,
+							"rated" => $v->rated
+					);
+				}
+				return $res;
 			}
+		
 		}
+		
 
-		return null;
 	}
 }
 ?>

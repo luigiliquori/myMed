@@ -1,21 +1,26 @@
-<div id="store" data-role="page">
+<? include("header.php"); ?>
 
-	<? include("header-bar.php"); ?>
-	
-	<div data-role="content" class="content">
+<? define('STORE_PREFIX' , '_store'); ?>
+
+<div data-role="page">
+
+	<? tab_bar_main("?action=store"); ?>
+	<? include("notifications.php"); ?>
+
+	<div data-role="content" Style="padding: 0px; opacity: 0.9">
 		
 		<div class="ui-grid-a" style="position: relative;">
 			<?php $column = "a"; ?>
-			<?php foreach ($this->applicationList as $applicationName) {  ?>
+			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) {  ?>
 					<div class="ui-block-<?= $column ?>">
 						<div class="ui-bar-c" style="height:120px; text-align: left; overflow: hidden;">
-							<a href="?action=main&applicationStore=<?= $applicationName ?>#storeSub" rel="external" class="myIcon" style="text-decoration: none;" data-ajax="false">
+							<a href="?action=store&applicationStore=<?= $applicationName ?>" rel="external" class="myIcon" style="text-decoration: none;">
 								
 								<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" width="50px" Style="position: relative; left:8px; top:5px;">
 								
 								<div Style="position: relative; left: 0px; top: 0px;">
 							    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-							    		<?php if($i*20-20 < $this->reputation[$applicationName] ) { ?>
+							    		<?php if($i*20-20 < $_SESSION['reputation'][$applicationName . STORE_PREFIX] ) { ?>
 							    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="10" Style="left: <?= $i ?>0px;" />
 							    		<?php } else { ?>
 							    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="10" Style="left: <?= $i ?>0px;"/>
@@ -43,17 +48,7 @@
 		</div>
 			
 	</div>
-	
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid">Applications</a></li>
-				<li><a href="#profile" data-transition="none" data-icon="profile" >Profil</a></li>
-				<li><a href="#store" data-transition="none" data-icon="star" class="ui-btn-active ui-state-persist">Store</a></li>
-			</ul>
-		</div>
-	</div>
 
 </div>
 
-<? include("StoreSubView.php"); ?>
+<? include("footer.php"); ?>

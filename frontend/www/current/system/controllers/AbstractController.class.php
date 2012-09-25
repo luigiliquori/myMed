@@ -15,24 +15,36 @@ abstract class AbstractController implements IRequestHandler {
 	 * Optional argument for passing GET vars
 	 * Optional arg for passing url hash '#aa'
 	 */
-	public function redirectTo($action, array $vars=array(), $hash="") {
-		$url = url($action, $vars);
+	public function redirectTo($action, $vars=array(), $hash="") {
 		
-		if ($url[0] != '/') {
-			$url = "/application/". APPLICATION_NAME . "/index.php" . $url;
-		}
+		$url = url($action, $vars);
+		$url .= $hash;
 
-		$url.= $hash;
-
-		printf("<script>location.href='$url'</script>");
-		//header('Refresh:0;url=/application/'.APPLICATION_NAME.'/index.php?action=' . $action . $get_line);
-
-			
+		debug($url);
+		?>
+		<html>
+			<head>
+				<!-- HTML reload (for data-ajax=false) -->
+				<script>
+					location.href='<?= $url ?>'
+				</script>
+			</head>
+			<body>
+				<!-- Change page : JQueryMobile redirect -->
+				<div data-role="page">
+					<script>
+						$.mobile.changePage('<?= $url ?>');
+					</script>
+				</div>
+			</body>
+		</html>
+		<?
 		exit();
 	}
 	
 	/** Renders a view by including its file, and exit */
-	public function renderView($view) {			
+	public function renderView($view) {	
+	
 		$view = ucfirst($view);
 		$viewPath = APP_ROOT . "/views/${view}View.php";
 		
@@ -42,7 +54,7 @@ abstract class AbstractController implements IRequestHandler {
 		global $SUCCESS; 
 		$SUCCESS = $this->success;
 		
-		require($viewPath);
+		include($viewPath);
 		exit();
 	}
 	

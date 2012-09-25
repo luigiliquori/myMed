@@ -20,10 +20,9 @@ import java.util.Map;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
-import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.controller.core.manager.storage.IStorageManager;
+import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.session.MSessionBean;
-import com.mymed.model.data.user.MUserBean;
 
 /**
  * Manage the session of a user
@@ -40,7 +39,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
     this(new StorageManager());
   }
 
-  public SessionManager(final StorageManager storageManager) throws InternalBackEndException {
+  public SessionManager(final IStorageManager storageManager) throws InternalBackEndException {
     super(storageManager);
   }
 
@@ -73,6 +72,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
     }
 
     LOGGER.info("Creating new session with ID '{}' for user '{}'", sessionBean.getId(), sessionBean.getUser());
+    
     storageManager.insertSlice(CF_SESSION, sessionBean.getId(), sessionBean.getAttributeToMap());
 
   }
@@ -84,7 +84,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
    */
   @Override
   public MSessionBean read(final String sessionID) throws IOBackEndException, InternalBackEndException {
-
+	  
     final Map<byte[], byte[]> args = storageManager.selectAll(CF_SESSION, sessionID);
     if(args.size() == 0) {
     	throw new InternalBackEndException("Session unknown!");
@@ -93,9 +93,20 @@ public class SessionManager extends AbstractManager implements ISessionManager {
     
     if (session.isExpired()) {
       throw new IOBackEndException("Session expired!", 404);
+      // why not deleting it then?
     }
 
     return session;
+  }
+  
+  @Override
+  public byte[] readSimple(final String sessionID) throws IOBackEndException, InternalBackEndException {
+	  return storageManager.selectColumn(CF_SESSION, sessionID, "id");
+  }
+
+  @Override
+  public String readSimpleUser(final String sessionID) throws IOBackEndException, InternalBackEndException {
+	  return storageManager.selectColumnStr(CF_SESSION, sessionID, "user");
   }
 
   /**
@@ -105,6 +116,11 @@ public class SessionManager extends AbstractManager implements ISessionManager {
   @Override
   public void update(final MSessionBean session) throws InternalBackEndException, IOBackEndException {
     create(session);
+  }
+  
+  public final void update(final String id, final Map<String, String> map) throws InternalBackEndException, IOBackEndException {
+  	
+      storageManager.insertSliceStr(CF_SESSION, id, 60*60*24, map); // 1 day session, might decrease or increase that after
   }
 
   /**
@@ -119,7 +135,7 @@ public class SessionManager extends AbstractManager implements ISessionManager {
     session.setExpired(true);
     update(session);
 
-    // Removed after 10 days
+    // Removed after 10 days--> WHERE???
     storageManager.removeAll(CF_SESSION, sessionID + SESSION_SUFFIX);
   }
 }

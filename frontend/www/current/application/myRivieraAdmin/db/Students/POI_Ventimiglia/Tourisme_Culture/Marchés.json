@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Marchés", "Nom": "Mercato Coperto", "Description": "Di recente ristrutturazione, si trova nella centrale Via della Repubblica. E' aperto tutti i giorni dalle ore 6 alle ore 13,30, il venerdì e sabato sino alle ore 19,00. Si trovano i  prodotti tipici dell'agricoltura, i formaggi  e i prodotti della gastronomia locale ed un'ampia scelta di fiori, un tempo intensamente coltivati sulle colline delle frazioni circostanti ", "Addresse": "Corso Repubblica", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.853976", "Longitude": "7.602789" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}

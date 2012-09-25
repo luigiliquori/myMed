@@ -37,7 +37,7 @@ import com.mymed.controller.core.manager.registration.IRegistrationManager;
 import com.mymed.controller.core.manager.registration.RegistrationManager;
 import com.mymed.controller.core.manager.session.ISessionManager;
 import com.mymed.controller.core.manager.session.SessionManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.session.MAuthenticationBean;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
@@ -115,7 +115,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	 */
 	@Override
 	public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+		final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
 		try {
 			final Map<String, String> parameters = getParameters(request);
@@ -161,7 +161,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	 */
 	@Override
 	public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-		final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+		final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
 		try {
 			final Map<String, String> parameters = getParameters(request);
@@ -233,12 +233,27 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				} else if (password == null) {
 					throw new InternalBackEndException("password argument missing!");
 				} else {
-					final MUserBean userBean = authenticationManager.read(login, password);
+					
+					MUserBean userBean = authenticationManager.read(login, password);
+					LOGGER.info("read User {}", userBean);
+					
+					int count = 4;
+					while("".equals(userBean.getId()) && count>0){
+						userBean = profileManager.read("MYMED_"+login);
+					}
+					
+					if ("".equals(userBean.getId())){
+						message.setStatus(404);
+						message.setDescription("Could not read user id");
+						LOGGER.info(">>>>> v1 totally fails");
+						break;
+					}
+					LOGGER.info("read User {}", userBean);
+					
 					message.setDescription("Successfully authenticated");
 					// TODO Remove this parameter
 					message.addData(JSON_USER, gson.toJson(userBean));
 					message.addDataObject(JSON_USER, userBean);
-
 					final MSessionBean sessionBean = new MSessionBean();
 					sessionBean.setIp(request.getRemoteAddr());
 					sessionBean.setUser(userBean.getId());
@@ -314,7 +329,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 						// verify the oldPassword
 						authenticationManager.read(oldLogin, oldPassword);
-
+						
 						// no exception = update the Authentication
 						LOGGER.info("Trying to update authentication:\n {}", authenticationBean.toString());
 						authenticationManager.update(oldLogin, authenticationBean);

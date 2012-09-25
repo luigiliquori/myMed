@@ -1,4 +1,4 @@
-<div data-role="navbar" data-iconpos="top" data-theme="b" >
+<div data-role="navbar" data-iconpos="top" data-position="fixed" data-theme="b"  >
  	<ul>
 		<li>
 			<a href="?action=main" data-icon="home" data-theme="b" ></a>

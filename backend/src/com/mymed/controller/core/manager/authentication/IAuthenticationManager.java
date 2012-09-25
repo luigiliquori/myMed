@@ -15,6 +15,8 @@
 */
 package com.mymed.controller.core.manager.authentication;
 
+import java.util.Map;
+
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.model.data.session.MAuthenticationBean;
@@ -53,6 +55,8 @@ public interface IAuthenticationManager {
 	 */
 	MUserBean read(String login, String password) throws InternalBackEndException, IOBackEndException;
 	
+	String readSimple(String login, String password) throws InternalBackEndException,
+    IOBackEndException;
 	
 	/**
 	 * authentication simple read
@@ -82,6 +86,17 @@ public interface IAuthenticationManager {
 	 * @param recipient
 	 * @param accessToken
 	 */
-	void sendRegistrationEmail( String application, MUserBean recipient,  String accessToken );
+
+
+	void sendRegistrationEmailSimple(String application,
+			Map<String, String> recipient, String accessToken);
+
+
+	void updateSimple(String id, Map<String, String> args, String oldid)
+			throws InternalBackEndException, IOBackEndException;
+
+
+	Map<String, String> readSimple(String key) throws InternalBackEndException,
+			IOBackEndException;
 	
 }

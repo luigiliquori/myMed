@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Forts militaires", "Nom": "Castel d'Appio", "Description": "Antica fortificazione dominante la valle di Latte e del Roia. La denominazione Appio deriverebbe dal console dell'Impero romano Appio Claudio, che nel 185 a.C. sottomise la popolazione dei Liguri Intemeli, ponendo una guarnigione per la difesa dei territori.", "Addresse": "Via Monsignor d'Affra", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.793402", "Longitude": "7.596635" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Forts militaires", "Nom": "Forte dell'Annunziata", "Description": "Antica fortezza realizzata nei primi decenni del XIX secolo, durante la dominazione genovese e, successivamente, durante il periodo napoleonico. Dal 1990 il piano rialzato ospita il Museo civico archeologico Girolamo Rossi.", "Addresse": "Via Giuseppe Verdi, 41", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.844072", "Longitude": "7.602789" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}

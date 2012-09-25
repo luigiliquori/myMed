@@ -3,13 +3,13 @@
 
 <div data-role="page" id="about" >	
 
-	<div data-role="header" data-theme="b">
-		<h1>A propos</h1>
-	</div>
+	<? tab_bar_login("#about"); ?>
+	<? include("notifications.php"); ?>
+
 
 	<div data-role="content" class="content">
 	
-		<img alt="myMed" src="img/logo-mymed-250c.png" />
+		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" />
 		<br />
 		<h3> Réseau Social Transfrontalier </h3>
 		<br />
@@ -23,16 +23,7 @@
 		<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>
 		
 	</div>
-	
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>
-				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid" >Inscription</a></li>
-				<li><a href="#about" data-transition="none" data-icon="info" class="ui-btn-active ui-state-persist">A propos</a></li>
-			</ul>
-		</div>
-	</div>
+
 </div>
 
 <? require_once("LoginView.php"); ?>

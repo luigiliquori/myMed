@@ -24,7 +24,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
-import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.user.MUserBean;
 
 /**
@@ -52,6 +52,7 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
      * The social network ID field.
      */
     private static final String SOCIAL_NETWORK_ID = GENERAL.get("general.social.network.id");
+    private static final String SOCIAL_NETWORK_NAME = GENERAL.get("general.social.network.name");
 
     /**
      * Default constructor.
@@ -99,6 +100,17 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 
         return (MUserBean) introspection(MUserBean.class, args);
     }
+    
+    @Override
+    public final Map<String, String> readSimple(final String id) throws InternalBackEndException, IOBackEndException {
+        return storageManager.selectAllStr(CF_USER, id);
+    }
+    
+    
+    public final String readSimpleField(final String id, final String field) throws InternalBackEndException, IOBackEndException {
+        return storageManager.selectColumnStr(CF_USER, id, field);
+    }
+
 
     /**
      * @throws IOBackEndException
@@ -109,6 +121,11 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
         LOGGER.info("Updating user with FIELD_ID '{}'", user.getId());
         // create(user) will replace the current values of the user...
         return create(user);
+    }
+    
+    public final void update(final String id, final Map<String, String> args) throws InternalBackEndException, IOBackEndException {
+    	
+        storageManager.insertSliceStr(CF_USER, id, args);
     }
     
     public final void update(final String id, final String key, final String value) throws InternalBackEndException, IOBackEndException {
@@ -127,6 +144,14 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
 
         if (user.getSocialNetworkID().equals(SOCIAL_NETWORK_ID)) {
             storageManager.removeAll(CF_AUTHENTICATION, user.getLogin());
+        }
+    }
+    
+    @Override
+    public final void deleteSimple(final String id) throws InternalBackEndException, IOBackEndException {
+        storageManager.removeAll(CF_USER, id);
+        if (readSimpleField(id, "socialNetworkName").contains(SOCIAL_NETWORK_NAME)) {
+            storageManager.removeAll(CF_AUTHENTICATION, readSimpleField(id, "login"));
         }
     }
 }

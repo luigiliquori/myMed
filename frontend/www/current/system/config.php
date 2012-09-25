@@ -10,6 +10,12 @@
 	/** define minimum width of desktop design */
 	define('MOBILESWITCH_WIDTH', 737);
 	
+	/** define Rest methods codes */
+	define('CREATE'		, 0);
+	define('READ'		, 1);
+	define('UPDATE'		, 2);
+	define('DELETE'		, 3);
+	
 	/** define the backend's URL'*/
 	define('MOBILE_PARAMETER_SEPARATOR', '::');
 	define('BACKEND_URL', '@backendurl@');
@@ -17,7 +23,13 @@
 	//Social Networks Keys
 	define('Facebook_APP_ID', '@facebookappid@');
 	define('Facebook_APP_SECRET', '@facebookappsecret@');
+	
 	define('Google_APP_SECRET', '@googleappsecret@');
+	define('Google_APP_CLIENT_ID', '@googleappclientid@');
+	define('Google_APP_CLIENT_SECRET', '@googleappclientsecret@');
+	
+	define('Twitter_APP_KEY', '@twitterappkey@');
+	define('Twitter_APP_SECRET', '@twitterappsecret@');
 	
 	//CITYWAY Keys
 	define('Cityway_URL', '@citywayurl@');

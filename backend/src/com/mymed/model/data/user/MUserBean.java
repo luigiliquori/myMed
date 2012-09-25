@@ -58,7 +58,8 @@ public final class MUserBean extends AbstractMBean {
     private String buddyList = null;
 
     /** APPLICATION_LIST_ID */
-    private String subscribtionList = null;
+    //corrected the typo "subscribtionList" but actually changing it to applicationList
+    private String applicationList = null;
 
     /** REPUTATION_ID */
     private String reputation = null;
@@ -76,6 +77,7 @@ public final class MUserBean extends AbstractMBean {
     
     /** Prefered language: "fr", "en", "it", ... */
     private String lang = null;
+
 
     /* --------------------------------------------------------- */
     /* Constructors */
@@ -113,7 +115,7 @@ public final class MUserBean extends AbstractMBean {
         lastConnection = toClone.getLastConnection();
         profilePicture = toClone.getProfilePicture();
         buddyList = toClone.getBuddyList();
-        subscribtionList = toClone.getSubscribtionList();
+        applicationList = toClone.getApplicationList();
         reputation = toClone.getReputation();
         session = toClone.getSession();
         interactionList = toClone.getInteractionList();
@@ -408,16 +410,16 @@ public final class MUserBean extends AbstractMBean {
     /**
      * @return the subscriptionList
      */
-    public String getSubscribtionList() {
-        return subscribtionList;
+    public String getApplicationList() {
+        return applicationList;
     }
 
     /**
      * @param subscribtionList
      *            the subscriptionList to set
      */
-    public void setSubscribtionList(final String subscribtionList) {
-        this.subscribtionList = subscribtionList;
+    public void setApplicationList(final String applicationList) {
+        this.applicationList = applicationList;
     }
 
     /**

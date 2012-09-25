@@ -15,7 +15,7 @@
  */
 package com.mymed.controller.core.requesthandler.v2;
 
-import static com.mymed.utils.GsonUtils.gson;
+import static com.mymed.utils.MiscUtils.json_to_map;
 
 import java.util.Map;
 
@@ -27,10 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
+import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
-import com.mymed.model.data.user.MUserBean;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 
 /**
  * Servlet implementation class UsersRequestHandler
@@ -79,12 +79,12 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
 
         try {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
-            checkToken(parameters);
+            validateToken(parameters.get(JSON_ACCESS_TKN));
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String userID = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_ID);
@@ -96,12 +96,14 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
             switch (code) {
                 case READ :
                     message.setMethod(JSON_CODE_READ);
-                    final MUserBean userBean = profileManager.read(userID);
-                    message.addDataObject(JSON_USER, userBean);
+                    LOGGER.info("reading {}", userID);
+                    final Map<String, String> user = profileManager.readSimple(userID);
+                    LOGGER.info("found {}", user);
+                    message.addDataObject(JSON_USER, user);
                     break;
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);
-                    profileManager.delete(userID);
+                    profileManager.deleteSimple(userID);
                     message.setDescription("User " + userID + " deleted");
                     LOGGER.info("User '{}' deleted", userID);
                     break;
@@ -127,12 +129,11 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
      */
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessage<Object> message = new JsonMessage<Object>(200, this.getClass().getName());
-
+        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
         try {
             final Map<String, String> parameters = getParameters(request);
             // Check the access token
-            checkToken(parameters);
+            validateToken(parameters.get(JSON_ACCESS_TKN));
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String user = parameters.get(JSON_USER);
@@ -140,32 +141,49 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
             if (user == null) {
                 throw new InternalBackEndException("missing user argument!");
             }
-
             switch (code) {
                 case CREATE :
                     message.setMethod(JSON_CODE_CREATE);
                     try {
                         LOGGER.info("User:\n", user);
-                        MUserBean userBean = gson.fromJson(user, MUserBean.class);
-                        LOGGER.info("Trying to create a new user:\n {}", userBean.toString());
-                        userBean = profileManager.create(userBean);
+                        
+                        Map<String, String> usr = json_to_map(user);
+                        //MUserBean userBean = gson.fromJson(user, MUserBean.class);
+                        LOGGER.info("Trying to create a new user:\n {}", usr);
+                        profileManager.update(usr.get("id"), usr); //@TODO check if id
                         LOGGER.info("User created!");
                         message.setDescription("User created!");
-                        message.addDataObject(JSON_PROFILE, userBean);
+                        message.addDataObject(JSON_PROFILE, usr);
                     } catch (final JsonSyntaxException e) {
                         throw new InternalBackEndException("user jSon format is not valid");
                     }
                     break;
                 case UPDATE :
                     message.setMethod(JSON_CODE_UPDATE);
-                    try {
-                        MUserBean userBean = gson.fromJson(user, MUserBean.class);
-                        LOGGER.info("Trying to update user:\n {}", userBean.toString());
-                        userBean = profileManager.update(userBean);
-                        message.addDataObject(JSON_PROFILE, userBean);
+                    LOGGER.info("WTF -------------------");
+                    if (user.startsWith("{")) {
+                    	LOGGER.info("HELLO IM THERE");
+                    	Map<String, String> usr = json_to_map(user);
+                    	
+                    	if (usr.containsKey("socialNetworkName")){ //append all possible providers for knowing when merges has be done
+                    		String ssn = "";
+                    		try{
+                    			ssn = profileManager.readSimpleField(usr.get("id"), "socialNetworkName");
+                    		}catch (IOBackEndException e) {
+                    		}
+                    		if (!ssn.contains(usr.get("socialNetworkName"))){
+                    			usr.put("socialNetworkName", ssn+" "+usr.get("socialNetworkName"));
+                    		}
+                    	}
+                        LOGGER.info("Trying to update user:\n {}", usr);
+                        profileManager.update(usr.get("id"), usr);
+                        //message.addDataObject(JSON_PROFILE, userBean);
                         message.setDescription("User updated!");
                         LOGGER.info("User updated!");
-                    } catch (final JsonSyntaxException e) {
+                        
+                    } else { // one field update, should be removed now
+                    	LOGGER.info("HELLO IM ");
+                    	
                     	String key = parameters.get("key");
                     	String value = parameters.get("value");
                     	if (key == null) {

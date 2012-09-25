@@ -1,0 +1,17 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Sport", "SousType": "Club Sports", "Nom": "Unione Bocciofila Roverino", "Description": "", "Addresse": "Corso Limone Piemonte, 51                                       Tel: +39 0184 357009", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.803763", "Longitude": "7.597729" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Sport", "SousType": "Club Sports", "Nom": "Circolo Velico Ventimigliese", "Description": "", "Addresse": "Passeggiata Marconi, 13                                              Tel: +39 0184 34820                                                            ", "Link": "http:\/\/www.cvv1936.org\/", "E-mail": "info@cvv1936.org", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.789344", "Longitude": "7.603244" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Sport", "SousType": "Club Sports", "Nom": "Tennis Club Ventimiglia", "Description": "", "Addresse": "Via Freccero, 1                                                                 Tel: +39 0184 355224                                                ", "Link": "http:\/\/www.tennisclubventimiglia.it", "E-mail": "info@tennisclubventimiglia.it", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.793449", "Longitude": "7.602214" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Sport", "SousType": "Club Sports", "Nom": "Club Alpino Italiano", "Description": "", "Addresse": "Via Roma, 63                                                                      Tel: +39 0184 357784", "Link": "http:\/\/web.tiscalinet.it\/caiventimiglia\/", "E-mail": "caiventimiglia@libero.it", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.788306", "Longitude": "7.615475" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Sport", "SousType": "Club Sports", "Nom": "Sporting Club Tiro a Volo ", "Description": "", "Addresse": "Piazza Marconi, 4, Trucco                                             Tel: +39 0184 31414 ", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.870751", "Longitude": "7.554149" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}

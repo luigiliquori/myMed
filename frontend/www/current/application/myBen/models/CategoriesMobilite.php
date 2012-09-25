@@ -1,19 +1,17 @@
 <?php
 class CategoriesMobilite {
- 	static $values = array(
- 		"undef" => "-- Non défini --",
- 		"plaine_coteaux" => "Plaine et coteaux ",
-		"collines_nicoises" => "Collines niçoises ",
-		"trois_collines" => "Trois collines ",
-		"rives_paillon" => "Rives du Paillon ",
-		"est_littoral" => "Est littoral ",
-		"nord_centre_ville" => "Nord centre ville ",
-		"coeur_ville" => "Coeur de ville ",
-		"ouest_littoral" => "Ouest littoral"
- 	);
- 	
+ 	static $values = array();
  	static $values_no_undef;
 }
+CategoriesMobilite::$values["undef" ]=_("-- Non défini --");
+CategoriesMobilite::$values["plaine_coteaux" ]=_("Plaine et coteaux ");
+CategoriesMobilite::$values["collines_nicoises" ]=_("Collines niçoises ");
+CategoriesMobilite::$values["trois_collines" ]=_("Trois collines ");
+CategoriesMobilite::$values["rives_paillon" ]=_("Rives du Paillon ");
+CategoriesMobilite::$values["est_littoral" ]=_("Est littoral ");
+CategoriesMobilite::$values["nord_centre_ville" ]=_("Nord centre ville ");
+CategoriesMobilite::$values["coeur_ville" ]=_("Coeur de ville ");
+CategoriesMobilite::$values["ouest_littoral" ]=_("Ouest littoral");
 
 // Static block
 CategoriesMobilite::$values_no_undef = CategoriesMobilite::$values;

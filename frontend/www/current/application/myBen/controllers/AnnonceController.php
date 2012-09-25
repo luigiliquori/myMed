@@ -40,9 +40,8 @@ class AnnonceController extends GuestOrUserController {
 	 *  Throw error if not.
 	 */
 	function checkWriteAccess() {
-		if (!$this->hasWriteAccess()) throw new UserError("Vous n'avez pas les droits d'écriture sur cete annonce");
+		if (!$this->hasWriteAccess()) throw new UserError(_("Vous n'avez pas les droits d'écriture sur cette annonce"));
 	}
-	
 	
 	/** Populate from request */
 	function populateAnnonce() {
@@ -89,14 +88,14 @@ class AnnonceController extends GuestOrUserController {
 			}
 
 			// Add Nice Bénévolat
-			$this->associations[ProfileNiceBenevolat::$USERID] = "Nice Bénévolat";
+			$this->associations[ProfileNiceBenevolat::$USERID] = _("Nice Bénévolat");
 
 			// Sort them 
-			asort($this->associations, SORT_STRING | SORT_FLAG_CASE);
+			asort($this->associations, SORT_STRING);
 			
 			// Add empty option
 			$this->associations =array_merge(
-					array("" => "-- Choisir --"),
+					array("" => _("-- Choisir --")),
 					$this->associations);
 		}
 	} 
@@ -137,7 +136,7 @@ class AnnonceController extends GuestOrUserController {
 		$req->subscribe(ProfileNiceBenevolat::$USERID);
 		
 		// Succes message
-		$this->setSuccess("Votre annonce a bien été publiée");
+		$this->setSuccess(_("Votre annonce a bien été publiée"));
 		
 		// Show the new annonce
 		$this->forwardTo("annonce:details", array("id" => $this->annonce->id));
@@ -160,7 +159,7 @@ class AnnonceController extends GuestOrUserController {
 		$this->annonce->delete();
 			
 		// Fill success
-		$this->setSuccess("Annonce supprimée");
+		$this->setSuccess(_("Annonce supprimée"));
 		
 		// Redirect to list
 		$this->redirectTo("listAnnonces");
@@ -229,7 +228,7 @@ class AnnonceController extends GuestOrUserController {
 		$this->annonce->publish();
 		
 		// Success
-		$this->setSuccess("Annonce mise à jour");
+		$this->setSuccess(_("Annonce mise à jour"));
 		
 		// Redirect to the details
 		$this->details();
@@ -257,7 +256,7 @@ class AnnonceController extends GuestOrUserController {
 		$this->annonce->publish();
 	
 		// Success
-		$this->setSuccess("Annonce mise à jour");
+		$this->setSuccess(_("Annonce mise à jour"));
 	
 		// Redirect to the details
 		$this->details();

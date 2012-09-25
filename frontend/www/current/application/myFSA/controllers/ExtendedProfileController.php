@@ -13,57 +13,58 @@ class ExtendedProfileController extends AbstractController
 	 */
 	public /*void*/ function handleRequest(){
 		
-		/*
-		 * Determine the dehaviour :
-		 * POST data ->  Store the profile
-		 * No Post but ExtendedProfile in session -> show profile
-		 * Nothing -> show the form to fill the profile
-		 */
-		if (isset($_POST["companyName"]))
+		if (isset($_POST["profileFilled"]))
 			$this->storeProfile();
 		else if (isset($_SESSION['ExtendedProfile']) AND !empty($_SESSION['ExtendedProfile']))
 			$this->showProfile();
 		else
 			$this->renderView("ExtendedProfileForm");
+			$this->renderView("ExtendedProfileForm");
 		
-	}
-	
+	}	
 	
 	public /*void*/ function storeProfile(){
 
-		/*
-		 * Retrieve the POST datas
-		 */
 		//TODO : security checks
-			
-			$companyName = $_POST['companyName'];
-			
-			$doctor = array(
-						"name" => $_POST["DoctorName"],
-						"email" => $_POST["DoctorEmail"],
-						"phone" => $_POST["DoctorPhone"]
+		$_SESSION["profileFilled"] = $_POST["profileFilled"];
+		
+		if ($_SESSION["profileFilled"] == "company") {
+			$object = array(
+					"type" => $_POST["ctype"],
+					"name" => $_POST["cname"],
+					"address" => $_POST["caddress"],
+					"number" => $_POST["cnumber"]
 			);
-			
-			$extendedProfile = new ExtendedProfile($_SESSION['user'], $companyName, $doctor);
-			
-			$extendedProfile->storeProfile($this);
-			
-			
-			if (!empty($this->error))
+
+		}	
+		else if ($_SESSION["profileFilled"] == "employer") {
+			$object = array(
+					"type" => $_POST["occupation"],
+					"name" => $_POST["cname"],
+					"address" => $_POST["caddress"],
+					"number" => $_POST["tnumber"]
+			);
+		
+		}
+		else if ($_SESSION["profileFilled"] == "guest") {
+			$object = "guest";
+		}
+		$extendedProfile = new ExtendedProfile($_SESSION['user'], $object);
+		
+		$extendedProfile->storeProfile($this);
+		if (!empty($this->error))
 			$this->renderView("ExtendedProfileForm");
-			else {
-				$this->success = "Complément de profil enregistré avec succès!";
-				$this->redirectTo("main");
-			}
+		else {
+			$this->success = "Registration completed!";
+			$this->redirectTo("main");
+		}
 			
 	}
-	
 	
 	public /*void*/ function getExtendedProfile(){
 		
 		ExtendedProfile::getExtendedProfile($_SESSION['user']);
 	}
-	
 	
 	public /*void*/ function showProfile(){
 

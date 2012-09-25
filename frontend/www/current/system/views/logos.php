@@ -10,8 +10,10 @@
 <!-- 	<p>"Ensemble par-delà les frontières"</p> -->
 <!-- </div> -->
 
-<div class="logos" >
-	<h4>myMed - INTERREG IV - Alcotra</h4>
+
+<h4 class="logo">myMed - INTERREG IV - Alcotra</h4>
+
+<div  style="background: white">
 	<img alt="Alcotra" src="/system/img/logos/alcotra" />
 	<img alt="Conseil Général 06" src="/system/img/logos/cg06" />
 	<img alt="Regine Piemonte" src="/system/img/logos/regione"/>

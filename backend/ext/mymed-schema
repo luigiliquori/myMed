@@ -30,10 +30,23 @@ create column family Subscribers with column_type = 'Standard' and comparator = 
 create column family Subscribees with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family MailTemplates with column_type = 'Standard' and comparator = 'UTF8Type' and column_metadata = [{column_name: 'subject', validation_class: 'UTF8Type'}, {column_name: 'body', validation_class: 'UTF8Type'}] and comment = 'Column family storing mail templates, with key="appID:ns:lang"' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
 create column family Data with column_type = 'Standard' and comparator = 'UTF8Type' and rows_cached = 100.0 and keys_cached = 1000.0 and key_cache_save_period = 3600;
+create column family ApplicationList with column_type = 'Standard' and comparator = 'UTF8Type';
+
+set ApplicationList['launchpad']['myEurope'] = 'on';
+set ApplicationList['launchpad']['myMem'] = 'on';
+set ApplicationList['launchpad']['myRiviera'] = 'on';
+set ApplicationList['launchpad']['myFSA'] = 'on';
+set ApplicationList['launchpad']['myBen'] = 'on';
+set ApplicationList['launchpad']['myJob'] = 'on';
+
+set ApplicationList['launchpad']['myConsolato'] = 'off';
+set ApplicationList['launchpad']['myStudent'] = 'off';
+set ApplicationList['launchpad']['myAutoinsieme'] = 'off';
+set ApplicationList['launchpad']['myREADME'] = 'off';
+set ApplicationList['launchpad']['myAngel'] = 'off';
 
 /* Super columns necessary for mymed as general structure */
 create column family ApplicationController with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
-create column family ApplicationList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family ApplicationModel with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family DataList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 create column family OntologyList with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';

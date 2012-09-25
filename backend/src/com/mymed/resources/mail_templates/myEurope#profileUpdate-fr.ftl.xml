@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This is a mail template.
+"subject" and "body" content should be written with FreeMarker syntax.
+The following variables are available in the templates :
+   * base_url : "http://host:port/"
+   * application : ApplicationID
+   * publisher : The publisher (MUserBean)
+   * recipient : The suscriber (MuserBean)
+   * publication : The object published, with all data and predicates as attributes.
+   * predicate : Predicat 
+-->
+<mail-template>
+
+    <subject>[${application}] Votre Profil</subject>
+
+    <body><![CDATA[
+        Bonjour ${recipient.name},<br/>
+        <br/>
+        
+        Votre profil <a href="${base_url}application/${application}/?action=ExtendedProfile">${application}</a> a les modifications suivantes: <br/>
+        
+        
+        
+            <#list publication?keys as key>
+            	<#if key?starts_with("email_")>
+            		${publication[key]} s'est ajout&eacute; comme membre
+            	<#elseif key?starts_with("part")>
+            		Votre demande de partenariat a &eacute;t&eacute; accept&eacute;e
+            		<a href="${base_url}application/${application}/?action=Details&namespace=part&id=${publication[key]}"> voir </a>
+				<#else>
+		        	<b>${key}</b>: ${publication[key]!'N/A'}
+		        </#if>
+			</#list>
+        
+        <br />
+        --<br/>
+    
+        L'&eacute;quipe myMed<br/>
+        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
+]]></body>
+</mail-template>

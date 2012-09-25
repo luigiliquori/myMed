@@ -9,8 +9,8 @@ ob_start("ob_gzhandler");
 
 // Debugging in Chrome. Not in CLI mode 
 //if (php_sapi_name() != "cli") {
-	require('PhpConsole.php');
-	PhpConsole::start();
+require('PhpConsole.php');
+PhpConsole::start();
 // } else {
 //	function debug($msg) {		
 //		error_log($msg);
@@ -52,9 +52,11 @@ add_path(MYMED_ROOT . '/lib/dasp/request');
 add_path(MYMED_ROOT . '/system/controllers/');
 add_path(MYMED_ROOT . '/system/common/');
 add_path(MYMED_ROOT . '/lib/php-mobile-detect');
+add_path(MYMED_ROOT . '/lib/socialNetworkAPIs');
+add_path(MYMED_ROOT . '/lib/socialNetworkAPIs/facebook/src/');
 
 // Set autoload
-function autoload($className) {
+spl_autoload_register(function ($className) {
 
 	foreach(array(".class.php", ".php") as $x) {
 
@@ -69,9 +71,7 @@ function autoload($className) {
 	
 	error_log("Failed to find '$className' in " . get_include_path());
 	return false;
-}
-
-spl_autoload_register('autoload');
+});
 
 // ------------------------------------------------------------------------------------------------
 // Global Config

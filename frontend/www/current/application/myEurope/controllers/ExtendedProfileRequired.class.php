@@ -1,4 +1,5 @@
 <? 
+
 class ExtendedProfileRequired extends AuthenticatedController {
 	
 	public /*void*/ function handleRequest(){
@@ -12,44 +13,75 @@ class ExtendedProfileRequired extends AuthenticatedController {
 
 			$this->fetchExtendedProfile();
 		}
-		else if ($_SESSION['myEuropeProfile']->permission <= 0)
+		else if ($_SESSION['myEurope']->permission <= 0)
 			$this->renderView("WaitingForAccept");
 		
 	}
 	
 	/**
-	 * Fetch the user extendedProfile by using the static method getExtendedProfile of the class ExtendedProfile.
-	 * In case the profile is found, it is stored in$_SESSION['ExtendedProfile'] and the Main view is called.
-	 * Else, the ExtendedProfileNeeded viex is called.
-	 * @param implicit : use the current User Id stored in the session.
-	 * @see ExtendedProfile::getExtendedProfile()
+	 * 
+	 * @return multitype:unknown
 	 */
 	public /*void*/ function fetchExtendedProfile(){
 		
-		$find = new DetailRequestv2($this, "users", $_SESSION['user']->id);
-			
-		try{
-			$result = $find->send();
+		debug_r($_SESSION['user']);
+		
+		$user = new User($_SESSION['user']->id);
+		try {
+			$details = $user->read();
+		} catch (Exception $e) {
+			$this->showProfileList();
 		}
-		catch(Exception $e){
-			//return null;
+		$_SESSION['myEurope'] = (object) $details;
+		$profile = new Profile($details['profile']);
+		try {
+			$profile->details = $profile->read();
+		} catch (Exception $e) {
+			$this->showProfileList();
+		}
+		$profile->parseProfile();
+		$profile->reputation = pickFirst(parent::reputation(null, $profile->details['id']));
+		debug_r($profile->reputation);
+		
+		$_SESSION['myEuropeProfile'] =$profile;
+		
+		if ($_SESSION['myEurope']->permission <= 0){
+			$this->renderView("WaitingForAccept");
 		}
 		
-		if (empty($result)){
-			$this->error = "";
-			$this->renderView("ExtendedProfileCreate");
-		}
-		else {
+		$this->renderView("Main");
 		
-			$_SESSION['myEuropeProfile'] = new ExtendedProfile($result);
-			$this->success = "";
-			
-			if ($_SESSION['myEuropeProfile']->permission <= 0)
-				$this->renderView("WaitingForAccept");
-			$this->renderView("Main");
-		}
 	}
 	
 	
+	public function showProfileList(){
+		
+		$profile = new Profile();
+		try {
+			$res = $profile->search();
+		} catch (Exception $e) {
+		}
+		
+		$this->cats = Categories::$roles;
+		
+		function filterArray($array, $value){
+			$result = array();
+			foreach($array as $item) {
+				if ($item->role == $value) {
+					$result[] = $item;
+				}
+			}
+			return $result;
+		}
+		
+		foreach($this->cats as $k=>$v){
+			$this->cats[$k] = filterArray($res, $k);
+		}
+		debug_r($this->cats);
+		$this->renderView("ExtendedProfileCreate");
+		
+		
+	}
+
 }
 ?>

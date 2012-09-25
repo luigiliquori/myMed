@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Mairie", "Nom": "Comune di Ventimiglia", "Description": "Ventimiglia è comune con superficie di mq. 54 e n. 26.788 abitanti, sito in provincia di Imperia. La città è divisa in due parti dal fiume Roia: il centro storico medievale, che sorge su un colle alla sua destra, e l’area moderna, edificata sulla riva sinistra del fiume a partire dall'Ottocento. Il Palazzo Comunale nasce come Casa del Fascio.  Realizata negli anni '30  in stile Littorio con torre alta 32 m, dal 1945 è sede  del Municipio. ", "Addresse": "Piazza della Libertà, 3                         Tel: +39 0184 2801 ", "Link": "http:\/\/www.comune.ventimiglia.it", "E-mail": "comune.ventimiglia@legalmail.it", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.790862", "Longitude": "7.608069" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+
+]
+}

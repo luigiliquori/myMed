@@ -213,7 +213,9 @@ public abstract class AbstractMatchMaking extends AbstractRequestHandler {
     	// Gosper's hack, doesn't support level>= 64, there are other recursive functions to replace it without this limit
 		
     	// moves to the next combination (of n's bits) with the same number of 1 bits
-    	
+    	if (n == 0){
+    		return Long.MAX_VALUE;
+    	}
 		long u = n & (-n);
 		long v = u + n;
 		return v + (((v ^ n) / u) >> 2);

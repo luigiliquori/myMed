@@ -1,5 +1,71 @@
+/* big button first version */
+.mymed-big-button {
+	line-height : 150px;
+	vertical-align : middle;
+}
+.mymed-big-button .ui-btn-text, .mymed-huge-button .ui-btn-text{
+	font-size : 120%;
+	white-space: normal;
+}
+
+/* big button: use this one */
+
+.mymed-huge-button .ui-btn-inner{
+	padding-top: 75px;
+	padding-bottom: 75px;
+	white-space: normal;
+}
+@media all and (max-width: 600px){
+	 .mymed-huge-button .ui-btn-inner{
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+}
+
+.oauth_small_btn {
+	background: white url('/system/img/oauth-logos.png');
+	width: 24px;
+	height: 24px;
+	border: 2px solid #DDD;
+	border-right: 2px solid #CCC;
+	border-bottom: 2px solid #CCC;
+	margin: 3px;
+	display: inline-block;
+	vertical-align: middle;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow: 2px 2px 4px #ddd;
+	-moz-box-shadow: 2px 2px 4px #ddd;
+	-webkit-box-shadow: 2px 2px 4px #ddd;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.oauth_small_btn:hover {
+	border-color: #888;
+}
+
+.ui-li { /* mini li */
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+.ui-li-desc {
+	white-space: normal;
+	font-size: 14px;
+	clear: both;
+	margin-top: 0;
+	margin-bottom: .1em;
+}
+
+
+.ui-header .ui-title{
+	margin-right: 20%;
+	margin-left: 20%;
+}
+
 .ui-page {
- 	background-image: url("../img/background.png");
 	background-size: 100% 100%; 
 	text-shadow: none;
 }
@@ -33,7 +99,6 @@
 
 .content {
 	text-align: center;
-	padding: 10px;
 }
 
 .content h3 {
@@ -59,7 +124,7 @@
 	vertical-align	: middle;
 }
 
-.logos h4{
+h4.logo{
 	color: #313131;
 }
 

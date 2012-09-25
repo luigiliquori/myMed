@@ -20,10 +20,27 @@ class AuthenticatedController extends AbstractController {
 		
 		// Check for user in session
 		if( !isset($_SESSION['user']) ) {
-			// Redirect to "showLogin" view 
-			$this->redirectTo("login");
+			/*debug(':: '.$_SERVER['REQUEST_URI']);
+			//if we request a page, but are not connected, store it and put it back in loginController
+			if (!strcontain($_SERVER['REQUEST_URI'], "action=login")){
+				$_SESSION['redirect'] = substr($_SERVER['REQUEST_URI'], strlen('/application/'.APPLICATION_NAME.'/'));
+				debug('saved '.$_SESSION['redirect']);
+			}	*/			
+			
+			// Redirect to "showLogin" view
+			$this->redirectTo("login", $_REQUEST);
 		} else {
 			$this->user = $_SESSION['user'];
+		}
+	}
+	
+	public function reputation($producer=null, $id=null, $app=APPLICATION_NAME){
+		$rep =  new ReputationSimple($app, $producer, $id);
+		$res = $rep->send();
+		if($res->status != 200) {
+			throw new Exception($res->description);
+		} else {
+			return formatReputation($res->dataObject->reputation);
 		}
 	}
 }

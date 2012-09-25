@@ -21,6 +21,8 @@ class RegisterController extends AbstractController {
 				$this->error = "L'email ne peut pas être vide.";
 			} else if(!$_POST['checkCondition']){
 				$this->error = "Vous devez accepter les conditions d'utilisation.";
+			} else if (filter_var($_POST['email'], 'FILTER_VALIDATE_EMAIL') === false){
+				$this->error = _("Email not valid");
 			}
 			
 			// Error to show => show the register view
@@ -31,12 +33,13 @@ class RegisterController extends AbstractController {
 			
 			// Create the new user
 			$mUserBean = new MUserBean();
-			$mUserBean->id = "MYMED_" . $_POST["email"];
+			$email = strtolower(trim($_POST["email"]));
+			$mUserBean->id = "MYMED_" . $email;
 			$mUserBean->firstName = $_POST["prenom"];
 			$mUserBean->lastName = $_POST["nom"];
 			$mUserBean->name = $_POST["prenom"] . " " . $_POST["nom"];
-			$mUserBean->email = $_POST["email"];
-			$mUserBean->login = $_POST["email"];
+			$mUserBean->email = $email;
+			$mUserBean->login = $email;
 			$mUserBean->birthday = $_POST["birthday"];
 			$mUserBean->profilePicture = $_POST["thumbnail"];
 			
@@ -50,7 +53,7 @@ class RegisterController extends AbstractController {
 			 * Building the Authentication request to register the new account
 			 * This will create a temporary profile, waiting for e-mail confirmation
 			 */
-			$request = new Request("AuthenticationRequestHandler", CREATE);
+			$request = new Requestv2("v2/AuthenticationRequestHandler", CREATE);
 			$request->addArgument("authentication", json_encode($mAuthenticationBean));
 			$request->addArgument("user", json_encode($mUserBean));
 			$request->addArgument("application", APPLICATION_NAME);
@@ -69,8 +72,6 @@ class RegisterController extends AbstractController {
 				$this->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
 				$this->renderView("login");
 			}
-			
-			
 		}
 		
 		// Case where the user click the link on the e-mail to confirm registration 
@@ -102,7 +103,7 @@ class RegisterController extends AbstractController {
 		
 		// Building Authentication request
 		// This will confirm the temporary profile (if it exists)
-		$request = new Request("AuthenticationRequestHandler", CREATE);
+		$request = new Requestv2("v2/AuthenticationRequestHandler", CREATE);
 		$request->addArgument("accessToken", $accessToken);
 		
 		// Sending request
@@ -113,7 +114,7 @@ class RegisterController extends AbstractController {
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
 		} else {
-			$this->success = _("Votre compte à bien été validé. Vous pouvez vous loguer à présent");
+			$this->success = "Votre compte à bien été validé. Vous pouvez vous loguer à présent";
 		}
 		$this->renderView("login");
 		

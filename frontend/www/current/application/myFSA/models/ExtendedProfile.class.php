@@ -3,16 +3,6 @@
 //require_once '../../../lib/dasp/beans/DataBean.php';
 //require_once '../../../lib/dasp/beans/OntologyBean.php';
 
-/**
- *	This class extends the default myMed user profile, common to every applications, with a profile specific
- * for this application. Store anything you need.
- * Choices have been made that this extended profile will be stored as a Publication in the database.
- * Although, you can change it the way you want in your own application, as long as you use the column families
- * available in cassandra. 
- * 
- * @see ExtendedProfileController
- * 
- */
 class ExtendedProfile
 {
 
@@ -21,24 +11,19 @@ class ExtendedProfile
 	 */
 
 	/**
-	 * The ID of the myMed user to whom this ExtendedProfile is linked.
+	 * Id of the user
 	 */
 	public /*String*/ $user;
-	/**
-	 * Name of the company
-	 */
-	public /*String*/ $companyName;
 	
 	/**
-	 * Informations about the attending doctor.
-	 * Currently an array with Name, email, and phone number.
-	 * Could be replaced by a myMed User if needed.
+	 * Array object keeps informations about extended profile
+	 *
 	 */
-	public /*Array*/ $doctor;
+	public /*Array*/ $object;
 	
 	
 	
-	public function __construct(/*String*/ $user,/*String*/ $companyName,/*Array*/$doctor){
+	public function __construct(/*String*/ $user, /*Array*/$object){
 		
 		// Check if user is defined
 		if (empty($user))
@@ -46,18 +31,11 @@ class ExtendedProfile
 		else 
 			$this->user = $user;
 		
-		// check the companyName
-		if (empty($companyName))
-			throw new Exception("companyName must not be empty");
-		else
-			$this->companyName = $companyName;
-		
-		
 		// check the doctor
-		if ( empty($doctor) OR empty($doctor["name"]) OR empty($doctor["email"]) OR empty($doctor["phone"]))
-			throw new Exception("Doctor must not be empty");
+		if ( empty($object))
+			throw new Exception("Object can not be empty");
 		else		
-			$this->doctor = $doctor;
+			$this->object = $object;
 		
 	}
 	
@@ -72,15 +50,23 @@ class ExtendedProfile
 		
 		/*
 		 * Build the predicates Array
-		 */
+		*/
 		$predicates[] = new OntologyBean("role", "ExtendedProfile", KEYWORD);
 		
 		/*
-		 * Buid the datas Array
-		 */
-		$datas[] = new OntologyBean("doctor", json_encode($this->doctor));
-		$datas[] = new OntologyBean("companyName", json_encode($this->companyName));
-		
+		 * Build the datas Array using keyword depended from the storing object
+		*/
+		if($_SESSION["profileFilled"] = "company"){			
+			$datas[] = new OntologyBean("company", json_encode($this->object));
+		}
+		else if($_SESSION["profileFilled"] = "employer"){
+			
+			$datas[] = new OntologyBean("employer", json_encode($this->obect));
+		}
+		else if($_SESSION["profileFilled"] = "guest"){
+			
+			$datas[] = new OntologyBean("guest", json_encode($this->object));
+		}
 		// Build the DataBean
 		$dataBean = new DataBean($predicates, $datas);
 		
@@ -88,16 +74,11 @@ class ExtendedProfile
 		$publish = new PublishRequest($handler, $dataBean);
 		$publish->send();
 		
-		
-		
-		
 	}
 	
 	
 	/**
-	 * Retreive the ExtendedProfile of a user in the database
-	 * @param String $user_id
-	 * @return void. The result is put in the success of the Handled provided
+	 * This function is retrieving extended profile from the database
 	 */
 	public static /* List of ontologies */ function getExtendedProfile(IRequestHandler $handler, $user){
 		
@@ -115,24 +96,26 @@ class ExtendedProfile
 			return null;
 		}
 		
-		
-		$companyName = "";
-		$doctor = "";
+
+		$object = "";
 			
 		foreach ($result as $line){
 			switch($line->key){
 					
-				case "doctor" :
-					$doctor = json_decode($line->value, TRUE);
+				case "company" :
+					$object = json_decode($line->value, TRUE);
 					break;
-				case "companyName" :
-					$companyName = json_decode($line->value, TRUE);
+				case "employer" :
+					$object = json_decode($line->value, TRUE);
+					break;
+				case "guest" :
+					$object = json_decode($line->value, TRUE);
 					break;
 			}
 		
 		}
 			
-		return new ExtendedProfile($user, $companyName, $doctor);
+		return new ExtendedProfile($user, $object);
 		
 	}
 	

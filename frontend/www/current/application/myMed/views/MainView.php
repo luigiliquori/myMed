@@ -1,15 +1,17 @@
 <? include("header.php"); ?>
 
 <div id="home" data-role="page">
+	
+	<? tab_bar_main("?action=main"); ?>
+	<? include("notifications.php"); ?>
 
-<? include("header-bar.php"); ?>
-
-	<div data-role="content" class="content">
-
-		<div class="ui-grid-b" Style="padding: 10px;">
+	<div data-role="content" style="text-align: center;">
+		<br />
+		<br />
+		<div class="ui-grid-b">
 			<?php $column = "a"; ?>
-			<?php foreach ($this->applicationList as $applicationName) { ?>
-				<?php if ($this->applicationStatus[$applicationName] == "on") { ?>
+			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
+				<?php if ($status == "on") { ?>
 					<div class="ui-block-<?= $column ?>">
 						<a href="/application/<?= $applicationName ?>" rel="external" class="myIcon"><img
 							alt="<?= $applicationName ?>"
@@ -31,23 +33,8 @@
 		
 	</div>
 
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#home" data-transition="none" data-back="true" data-icon="grid" class="ui-btn-active ui-state-persist">Applications</a></li>
-				<li><a href="#profile" data-transition="none" data-icon="profile">Profil</a></li>
-				<li><a href="#store" data-transition="none" data-icon="star">Store</a></li>
-<!-- 				<li><a href="#" data-rel="dialog" data-icon="star" -->
-<!-- 					onClick="printDialog('hidden-sharethis', 'Partagez');">Partagez</a> -->
-<!-- 				</li> -->
-			</ul>
-		</div>
-	</div>
+
 
 </div>
 
-			<? include("ProfileView.php"); ?>
-			<? include("UpdateProfileView.php"); ?>
-			<? include("StoreView.php"); ?>
-
-			<? include("footer.php"); ?>
+<? include("footer.php"); ?>

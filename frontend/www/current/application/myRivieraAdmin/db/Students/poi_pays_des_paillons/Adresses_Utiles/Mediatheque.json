@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Adresses_Utiles", "Sous Type": "", "Nom": "Médiathèque municipale ", "Description": "La médiathèque  a été inaugurée le 19 juin 1999. Elle est un lieu ouvert à tous qui offre toutes les possibilités de réflexion, de questionnement, de recherche, de connaissance, de découvertes aussi bien littéraires, artistiques que scientifiques. Des expositions sont régulièrement organisées.", "Adresse": "20, place Jean Allardi 06390 Contes             Contact: 04 93 91 74 20   ", "E-mail": "mediatheque.contes@wanadoo.fr  ", "Link": "http:\/\/bib-contes.dnsalias.net\/", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.810035", "Longitude": "7.315736", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "Sous Type": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+
+]
+}

@@ -1,348 +1,117 @@
 <? include("header.php"); ?>
-<? include("notifications.php")?>
 
-<div data-role="page">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(APPLICATION_NAME) ?>
-	</div>
-	<div data-role="content" style="text-align:center;">
-		<br /><br />
-		Langue:<br />
-		<fieldset data-role="controlgroup" data-type="horizontal" style="display:inline-block;vertical-align: middle;">
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-a" value="fr" <?= $_SESSION["user"]->lang == "fr"?"checked='checked'":"" ?>/>
-			<label for="radio-view-a">Français</label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-b" value="it" <?= $_SESSION["user"]->lang == "it"?"checked='checked'":"" ?>/>
-			<label for="radio-view-b">Italiano</label>
-			<input onclick="updateProfile('lang', $(this).val());" type="radio" name="name" id="radio-view-e" value="en" <?= $_SESSION["user"]->lang == "en"?"checked='checked'":"" ?>/>
-			<label for="radio-view-e">English</label>
-		</fieldset>
-		<br />
-		<div style="text-align: center;" >
-			<a href="#role" type="button" data-inline="true" data-icon="arrow-r" data-theme="b" data-transition="slide">Suivant</a>
-		</div>
-		
-	</div>
+<? 
+ 
+ /** Definition of the Login / Register tabs */
+ function tab_bar($activeTab) {
+ 	tabs($activeTab, array(
+ 			array("#profiles", "Profils existants", "list"),
+ 			array("#new", 'Create', "pencil")
+ 		), '', 1);
+ }
+ 
+ ?>
+
+<div data-role="page" id="profiles">
+
 	
-</div>
-
-<div data-role="page" id="role">
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_2(APPLICATION_NAME) ?>
-	</div>
+	<? tab_bar("#profiles") ?>
+	<? include("notifications.php"); ?>
+<?php debug_r($_SESSION['user']); ?>
 	<div data-role="content">
 		<p>
+		<?= _("Hello, This is your first time on myEurope.<br/><br/>
+				 Please fill in your profile with an existing Organization profile or ") ?>
+		<a href='#new' data-transition="slidefade"><?= _("create a new one") ?>	</a> 
 		
-		Bonjour,<br/>
-			<br/>
-			C'est la première fois que vous venez sur myEurope.<br/>
-			Merci de renseigner votre profil.<br/>
-			<br/>
-			Vous êtes ?<br/>
-			<br/>
-			<ul data-role="listview" data-inset="true">
-				<li><a href="#Association">Association</a></li>
-				<li><a href="#Entreprise">Entreprise</a></li>
-				<li><a href="#EtabPublic">Etablissement public</a></li>
-				<li><a href="#Mairie">Mairie </a></li>
-				<li><a href="#Région">Région</a></li>
-				<li><a href="#Département">Département</a></li>
-			</ul> 
-		
-		</p>	
+		</p>
+		<br />
+		<ul data-role="listview" data-filter="true" data-inset="true" data-mini="true" data-filter-placeholder="<?= _("filter") ?>">
+		<? foreach ($this->cats as $k=>$v) :?>
+			<? if (!empty($v)) :?>
+				<li data-role="list-divider"><?= Categories::$roles[$k] ?></li>
+				<? foreach ($v as $ki=>$vi) :?>
+					<li><a href="?action=ExtendedProfile&id=<?= $vi->id ?>&link"><?= $vi->name ?></a></li>
+				<? endforeach ?>
+			<? endif ?>
+		<? endforeach ?>
+		</ul>
 	</div>
 	
 </div>
 
-<div data-role="page" id="Association" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
-				APPLICATION_NAME,
-				"Valider",
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
+<div data-role="page" id="new" >
+
+	<? tab_bar("#new") ?>
+	<? include("notifications.php"); ?>
 
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
+		<form action="?action=ExtendedProfile" method="post" id="ExtendedProfileForm" data-ajax="false">
 			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Association" />
-			
-			<label for="textinputu1"> Nom de l'association: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			
-			<label for="textinputu2"> Domaine d'action: </label>
-			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
-			
-			<label for="textinputu3"> N°SIRET: </label>
-			<input id="textinputu3" name="siret" placeholder="" value='' type="text" />
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> Email: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
-			
-			<label for="textinputu6"> Téléphone: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
-			</span><br />
-			
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
+			<div data-role="fieldcontain">
+				<label for="textinputu1"><?= _('Organization Name') ?>: </label>
+				<input id="textinputu1" name="name" placeholder="" value='' type="text" />
 			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="Entreprise" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
-				APPLICATION_NAME,
-				"Valider",
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Entreprise" />
-			
-			<label for="textinputu1"> Nom de l'entreprise: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			
-			<label for="textinputu2"> Activité commerciale: </label>
-			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
-			
-			<label for="textinputu3"> N°SIRET: </label>
-			<input id="textinputu3" name="siret" placeholder="" value='' type="text" />
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> Email: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
-			
-			<label for="textinputu6"> Téléphone: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="EtabPublic" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
-				APPLICATION_NAME,
-				"Valider",
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="EtabPublic" />
-			
-			<label for="textinputu1"> Nom de l’établissement: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			
-			<label for="textinputu2"> Type d’établissement: </label>
-			<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> Email: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
-			
-			<label for="textinputu6"> Téléphone: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="Mairie" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
-				APPLICATION_NAME,
-				"Valider",
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Mairie" />
-			
-			<label for="textinputu1"> Ville/Commune: </label>
-			<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> Email: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
-			
-			<label for="textinputu6"> Téléphone: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="Région" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
-				APPLICATION_NAME,
-				"Valider",
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Région" />
-			
-			<div data-role="fieldcontain" class="mySlider">
-				<label for="flip-a2">Vous êtes:</label>
-				<select data-theme="b" name="activity" id="flip-a2" data-role="slider"
-					onchange="">
-					<option value="cr">Conseil Régional</option>
-					<option value="pr">Préfecture de Région</option>
+			<div data-role="fieldcontain">
+				<label for="role" class="select"><?= _("Your category") ?>:</label>
+				<select name="role" id="role">
+				<? foreach ($this->cats as $k=>$v) :?>
+					<option value="<?= $k ?>"><?= Categories::$roles[$k] ?></option>
+				<? endforeach ?>
 				</select>
 			</div>
 			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup"  class="myCheck">
-					<input type="radio" name="name" id="radio-view-a" value="PACA" /> <label for="radio-view-a">PACA</label>
-					<input type="radio" name="name" id="radio-view-e" value="Rhône-Alpes" /><label for="radio-view-e">Rhône-Alpes</label>
-				</fieldset>
-			</div>
-			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> Email: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
-			
-			<label for="textinputu6"> Téléphone: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
-			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
-			</div>
-		</form>
-	</div>
-</div>
-
-<div data-role="page" id="Département" >
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<? tabs_3(
-				APPLICATION_NAME,
-				"Valider",
-				"$('#ExtendedProfileForm').submit();",
-				"check") ?>
-	</div>
-
-	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false" class="compact">
-			<input type="hidden" name="form" value="create" />
-			<input type="hidden" name="role" value="Département" />
-			
-			<div data-role="fieldcontain" class="mySlider">
-				<label for="flip-a2">Vous êtes:</label>
-				<select data-theme="b" name="activity" id="flip-a2" data-role="slider"
-					onchange="">
-					<option value="cg">Conseil Général</option>
-					<option value="pd">Préfecture de Département</option>
-				</select>
+				<label for="textinputu2">Domaine d'action: </label>
+				<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
 			</div>
 			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup" class="myCheck">
-
-					<input type="radio" name="name" id="radio-view-a" value="Alpes-Maritimes" /> <label for="radio-view-a">Alpes-Maritimes</label>
-					<input type="radio" name="name" id="radio-view-b" value="Alpes de Haute-Provence" /> <label for="radio-view-b">Alpes de Haute-Provence</label>
-					<input type="radio" name="name" id="radio-view-c" value="Hautes-Alpes" /> <label for="radio-view-c">Hautes-Alpes</label>
-					<input type="radio" name="name" id="radio-view-d" value="Savoie" /> <label for="radio-view-d">Savoie</label>
-					<input type="radio" name="name" id="radio-view-e" value="Haute-Savoie" /><label for="radio-view-e">Haute-Savoie</label>
-				</fieldset>
+				<label for="textinputu4"><?= _('Address') ?>: </label>
+				<input id="textinputu4" name="address" placeholder="" value='' type="text" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="area" class="select"><?= _("Territoire d'action") ?>:</label>
+				<select name="area" id="area">
+					<option value="local">local</option>
+					<option value="départemental">départemental</option>
+					<option value="régional">régional</option>
+					<option value="national">national</option>
+					<option value="international">international</option>
+				</select>
 			</div>
 			
-			<label for="textinputu4"> Adresse: </label>
-			<input id="textinputu4" name="address" placeholder="" value=''type="text" />
-
-			<label for="textinputu5"> Email: </label>
-			<input id="textinputu5" name="email" placeholder="" value='' type="email" />
-			
-			<label for="textinputu6"> Téléphone: </label>
-			<input id="textinputu6" name="phone" placeholder="" value='' type="text" />
+			<div data-role="fieldcontain">
+				<fieldset id="type" data-role="controlgroup">
+					<legend>Type de territoire:</legend>
+					<input type="checkbox" name="type-urbain" id="check-view-a" value="urbain" checked="checked"/> <label for="check-view-a">urbain</label>
+					<input type="checkbox" name="type-rural" id="check-view-b" value="rural" /> <label for="check-view-b">rural</label>
+					<input type="checkbox" name="type-montagnard" id="check-view-c" value="montagnard" /> <label for="check-view-c">montagnard</label>
+					<input type="checkbox" name="type-maritime" id="check-view-d" value="maritime" /> <label for="check-view-d">maritime</label>
+				</fieldset>
+			</div>
+			<div data-role="fieldcontain">
+				<label for="textinputu5"><?= _('Email') ?>: </label>
+				<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
+			</div>		
+			<div data-role="fieldcontain">
+				<label for="textinputu6"><?= _('Phone') ?>: </label>
+				<input id="textinputu6" name="phone" placeholder="" value='' type="tel" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="desc"><?= _('Description') ?>: </label>
+				<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+			</div>
 			<br/>
-				
-			<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
-			<span style="position: relative; left: 50px;">
+			<input id="service-term" type="checkbox" name="checkCondition" style="display: inline-block; top: 8px;"/>
+			<span style="display:inline-block;margin-left: 40px;">
 				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a> / 
-				I accept 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">the general terms and conditions</a>
-			</span><br />
-			<div style="text-align: center;" >
-				<input type="submit" data-inline="true" data-role="button" value="Valider"/>
+				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
+			</span>
+			<div style="text-align: center;">
+				<input type="submit" data-inline="true" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
 			</div>
 		</form>
 	</div>
 </div>
-
 
 
 <? include("footer.php"); ?>

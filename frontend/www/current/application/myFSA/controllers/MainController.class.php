@@ -14,7 +14,7 @@ class MainController extends AuthenticatedController {
 		 */
 		if( !isset($_SESSION['ExtendedProfile'])){
 			$this->fetchExtendedProfile();
-			//$this->redirectTo("ExtendedProfile");
+			$this->redirectTo("ExtendedProfile");
 
 		}
 		else
@@ -25,13 +25,7 @@ class MainController extends AuthenticatedController {
 					
 	}
 	
-	/**
-	 * Fetch the user extendedProfile by using the static method getExtendedProfile of the class ExtendedProfile.
-	 * In case the profile is found, it is stored in$_SESSION['ExtendedProfile'] and the Main view is called.
-	 * Else, the ExtendedProfileNeeded viex is called.
-	 * @param implicit : use the current User Id stored in the session.
-	 * @see ExtendedProfile::getExtendedProfile()
-	 */
+
 	public /*void*/ function fetchExtendedProfile(){
 	
 		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";

@@ -16,9 +16,11 @@
 package com.mymed.controller.core.manager.storage;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cassandra.thrift.ColumnOrSuperColumn;
 import org.apache.cassandra.thrift.ColumnParent;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 
@@ -84,6 +86,9 @@ public interface IStorageManager {
      */
     byte[] selectColumn(String tableName, String primaryKey, String columnName) throws IOBackEndException,
                     InternalBackEndException;
+    
+    String selectColumnStr(String tableName, String primaryKey, String columnName) throws IOBackEndException,
+    InternalBackEndException;
     
     /**
      * 
@@ -239,9 +244,12 @@ public interface IStorageManager {
     void removeAll(String tableName, String key) throws InternalBackEndException;
     
     
+    Map<ByteBuffer, List<ColumnOrSuperColumn>> batch_read(final String tableName,
+			final List<String> keys)throws InternalBackEndException;
+    
     public Map<String, Map<String, String>> multiSelectList(final String tableName, final List<String> keys,
     		final String start, final String finish) 
-    			throws IOBackEndException, InternalBackEndException, UnsupportedEncodingException;
+    			throws IOBackEndException, InternalBackEndException;
 
 
 	Map<String, String> selectSuperColumn(String tableName, String key,
@@ -262,6 +270,13 @@ public interface IStorageManager {
 			Map<String, String> args) 
 					throws InternalBackEndException;
 	
+	void insertSliceStr(
+			String tableName,
+			String primaryKey,
+			int ttl,
+			Map<String, String> args) 
+					throws InternalBackEndException;
+	
 	/** v2 */
 	void insertSuperSliceStr(
 			String superTableName,
@@ -269,4 +284,13 @@ public interface IStorageManager {
 			String superKey,
 			Map<String, String> args) 
 					throws InternalBackEndException;
+	
+	/** v2 fast indexes insertion */
+	void insertSuperSliceListStr(
+			String superTableName,
+			List<String> keys,
+			String superKey,
+			Map<String, String> args) 
+					throws InternalBackEndException;
+	
 }

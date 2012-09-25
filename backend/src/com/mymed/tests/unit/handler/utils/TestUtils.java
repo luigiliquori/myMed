@@ -33,7 +33,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mymed.controller.core.requesthandler.message.JsonMessage;
+import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.session.MSessionBean;
 import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.MLogger;
@@ -127,7 +127,7 @@ public class TestUtils {
     }
 
     /**
-     * Check that a JSON string is valid with regards to the Mymed JSON format defined in {@link JsonMessage}.
+     * Check that a JSON string is valid with regards to the Mymed JSON format defined in {@link JsonMessageOut}.
      * 
      * @param json
      *            the JSON string to be validated

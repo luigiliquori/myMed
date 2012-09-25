@@ -9,25 +9,24 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
+	<!-- CLE  -->
+	<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
+	<!--  Extra icons for jquery -->
+	<link rel="stylesheet" href="../../lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-test.css" />
-	<script src="../../lib/jquery/jquery-1.7.1.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-test.js"></script>
-	
-	<!-- add This or Share This -->
-	<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-500da6e72a4d4d2d"></script>
-	
-	<!-- MYMED JS -->
-	<script src="../myMed/javascript/app.js"></script>
-	<!-- APP JS -->
-	<script src="javascript/app.js"></script>
-	
+	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0-beta.1.css" />
 	<!-- MYMED css -->
 	<link href="../../system/css/common.css" rel="stylesheet" />
 	<!-- APP css -->
 	<link href="css/app.css" rel="stylesheet" />
 	
+	
+	<script src="../../lib/jquery/jquery-1.8.1.min.js"></script>
+	<script src="../../lib/jquery/jquery.mobile-1.2.0-beta.1.js"></script>
+	<!-- APP JS -->
+	<script src="javascript/app.js"></script>
+	
+
 	<!-- Google Analytics -->
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];

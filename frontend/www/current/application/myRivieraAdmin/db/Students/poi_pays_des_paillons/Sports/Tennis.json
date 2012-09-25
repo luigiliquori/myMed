@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "Type": "Sports", "Sous Type": "", "Nom": "Terrain de Tennis ", "Description": "", "Adresse": "D15, 06390 Bendejun", "E-mail": "", "Link": "", "IdMedia": "Terrain-Tennis-Bendejun.jpg", "ComUrbaine": "Pays des Paillons", "Latitude": "43.831911", "Longitude": "7.298189", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "Sous Type": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+
+]
+}

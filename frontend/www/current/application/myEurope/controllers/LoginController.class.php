@@ -21,11 +21,15 @@ class LoginController extends AbstractController {
 			if( empty($login) ){
 				// TODO i18n
 				$this->error = "eMail cannot be empty!";
-				$this->renderView("login");
+				include( MYMED_ROOT . "/application/myMed//views/LoginView.php");
+				exit();
+				//$this->renderView("login");
 			} else if( empty($pass) ){
 				// TODO i18n
 				$this->error = "Password cannot be empty!";
-				$this->renderView("login");
+				include( MYMED_ROOT . "/application/myMed//views/LoginView.php");
+				exit();
+				//$this->renderView("login");
 			}
 			
 			// Building the Authentication request
@@ -48,7 +52,9 @@ class LoginController extends AbstractController {
 				debug("error");	
 					
 				// Show the login form
-				$this->renderView("login");
+				include( MYMED_ROOT . "/application/myMed/views/LoginView.php");
+				exit();
+				//$this->renderView("login");
 				
 			} else {
 				
@@ -60,15 +66,31 @@ class LoginController extends AbstractController {
 				
 				debug("success");
 				
-				// Redirect to main page
-				$this->redirectTo("main");
+				if (!empty($_SESSION['redirect'])){
+					
+					$page = $_SESSION['redirect'];
+					unset($_SESSION['redirect']);
+					
+					debug("login redirect ".$page);
+					$this->redirectTo($page);
+					
+				}else{
+					debug("login main");
+					// Redirect to main page
+					$this->redirectTo("main");
+				}
+						
+				
+				
 			}
 			
 			
 			
 		} else { // Not a POST request : Simply show the login form 
-			
-			$this->renderView("login");
+			debug_r($_SERVER);
+			include( MYMED_ROOT . "/application/myMed/views/LoginView.php");
+			exit();
+			//$this->renderView("login");
 			
 		}
 
@@ -82,7 +104,7 @@ class LoginController extends AbstractController {
 		
 		// Building the Session Request
 		// This will check if the session exists in the backend and will return an User if it's the case.	
-		$request = new Requestv2("SessionRequestHandler", READ);
+		$request = new Requestv2("v2/SessionRequestHandler");
 		$request->addArgument("socialNetwork", "myMed");
 		
 		// The AccessToken is fetched from the $_SESSION
@@ -96,7 +118,7 @@ class LoginController extends AbstractController {
 			$_SESSION['error'] = $responseObject->description;
 		} else {
 			// Everything went fine, we now have an USER in our session
-			$_SESSION['user'] = json_decode($responseObject->data->user);
+			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject->dataObject->user);
 			if( !isset($_SESSION['friends']) ){
 				$_SESSION['friends'] = array();
 			}

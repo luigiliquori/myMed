@@ -19,10 +19,6 @@ class PublishController extends AuthenticatedController {
 		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
 				
 			// -- Publish
-			$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-			$debugtxt  .= var_export($_SESSION, TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
 				
 			$obj = new PublishObject();
 				
@@ -60,18 +56,31 @@ class PublishController extends AuthenticatedController {
 	
 	// Fill object with POST values
 	private function fillObj($obj) {
-		$obj->begin = $_POST['begin'];
-		$obj->end = $_POST['end'];
- 		$obj->wrapped1 ="";
-		$obj->wrapped2 ="";
+		
+		if(isset($_POST['begin']) && 
+		   isset($_POST['end']) &&
+		   isset($_POST['pred2']) &&
+		   isset($_POST['pred3']) &&
+		   isset($_POST['pred3'])){
+		
+			$obj->begin = $_POST['begin'];
+			$obj->end = $_POST['end'];
+			$obj->wrapped1 ="";
+			$obj->wrapped2 ="";
+			$obj->pred1 = "FSApublication";
+			$obj->pred2 = $_POST['pred2'];
+			$obj->pred3 = $_POST['pred3'];
+			
+			$obj->data1 = $_POST['data1'];
+			$obj->data2 = "";
+			$obj->data3 = "";
+		}
+		else {
+			$obj->pred1 = "FSApublication";
+		}
+
 	
-		$obj->pred1 = "FSApublication";
-		$obj->pred2 = $_POST['pred2'];
-		$obj->pred3 = $_POST['pred3'];
-	
-		$obj->data1 = $_POST['data1'];
- 		$obj->data2 = "";
-		$obj->data3 = "";
+
 	
 	}
 	

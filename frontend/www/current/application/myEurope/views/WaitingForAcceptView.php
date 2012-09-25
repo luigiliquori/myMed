@@ -1,20 +1,16 @@
 <? include("header.php"); ?>
 
 <div data-role="page">
-
-	<div data-role="header" data-theme="c" data-position="fixed">
-		<div data-role="navbar" data-theme="d" data-iconpos="left"> 
-  			<ul>
-  				<li><a href="?action=logout" rel="external" data-icon="back"><?= _('<?= _("Exit") ?>') ?></a></li>
-  				<li><a href="?action=extendedProfile" rel="external" data-icon="profile"><?= $_SESSION['user']->name ?></a></li>
-  			</ul>
-  		</div>
-	</div>
 	
-	<div data-role="content">
+	<? tabs_simple(null, false); ?>
+	<? include("notifications.php"); ?>
+	<div data-role="content" style="text-align: center;">
 	<br />
-	<b>Félicitation!</b> Votre profil est en attente de validation.<br />
-	Contactez-nous à cet <a href="mailto:myAlpMed@gmail.com" type="button" data-inline="true" data-mini="true"> Email</a>, pour toute demande d'information.
+	<?= _("<b>Congratulations!</b> Your profile has been sent to myEurope team  
+			<a href='mailto:myEuropeStaff@gmail.com'>myEuropeStaff@gmail.com</a>		
+			for validation") ?>
+	<br /><br /><br />
+	<a href="/application/myMed" data-role="button" data-inline=true rel="external" data-icon="signout" data-theme="r">myMed</a>
 	</div>
 
 </div>
