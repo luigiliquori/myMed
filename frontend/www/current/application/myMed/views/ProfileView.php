@@ -33,10 +33,10 @@
 				<a href="#updateProfile">Langue<p><?= $_SESSION['user']->lang ?></p></a>
 			</li>
 			
-			<li  data-role="list-divider">Profils</li>
+			<li  data-role="list-divider">Profils étendus</li>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 				<?php if ($status == "on") { ?>
-					<li data-icon="refresh" >
+					<li data-icon="user" >
 			    		<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" width="50" Style="margin-left: 5px; top:5px;"/>
 					    	<a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile" rel="external">
 						    	<?= $applicationName ?>

@@ -25,8 +25,8 @@
 			<label for="profilePicture" >Photo du profil (url): </label>
 			<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			
-			<label for="thumbnail" >Langue	: </label>
-			<select id="thumbnail" name="lang" data-native-menu="false">
+			<label for="lang" >Langue	: </label>
+			<select id="lang" name="lang">
 				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Francais</option>
 				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
 				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
