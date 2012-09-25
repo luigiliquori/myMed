@@ -21,7 +21,7 @@
 		
 		
 		
-		echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=callEnded&mobile_binary::call::'.$str_numbers.'";},5000);';
+		echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::call::'.$str_numbers.'";},5000);';
 	}	
 	else
 		echo 'setTimeout(function() {sendEmailsAlerts();},2000);';
