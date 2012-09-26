@@ -20,9 +20,8 @@ function tab_bar_login($activeTab) {
 	<? tab_bar_login("#login"); ?>
 	<? include("notifications.php"); ?>
 	
-	<div data-role="content" class="content">
-
-		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" width="200" />
+	<div data-role="content"  class="content">
+		<img alt="myMed" src="<?= MYMED_URL_ROOT ?>/application/myMed/img/logo-mymed-250c.png" width="200" />
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
 			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
