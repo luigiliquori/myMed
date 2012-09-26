@@ -98,9 +98,9 @@ class BlogController extends ExtendedProfileRequired {
 						$this->comments[$k][$ki] = json_decode($vi, true);
 					}
 					$repArr =  parent::getReputation(array_keys($this->comments[$k]));
-
 					$this->comments[$k] = array_replace_recursive($repArr, $this->comments[$k]);
 
+					
 					uasort($this->comments[$k], array($this, "repCmp"));
 					
 				}

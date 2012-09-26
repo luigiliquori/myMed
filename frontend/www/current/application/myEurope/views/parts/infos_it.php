@@ -15,7 +15,7 @@
 			<li><a href="#Spazio alpino">Programma transnazionale Spazio Alpino</a></li>
 			<li><a href="#Interreg">Programma interregionale Interreg IV C</a></li>
 		
-			<li data-role="list-divider"><b style="font-size: 120%">Fondi strutturali europei</b> ai quali potete rivolgervi per il finanziamento dei vostri progetti :</li>
+			<li data-role="list-divider"><b style="font-size: 120%">Fondi strutturali europei</b> ai quali potete rivolgervi per il finanziamento dei vostri progetti:</li>
 
 			<li><a href="#FESR">Programma operativo FESR </a></li>
 			<li ><a href="#FSE">Programma operativo FSE</a></li>

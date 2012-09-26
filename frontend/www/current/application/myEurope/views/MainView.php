@@ -69,22 +69,22 @@
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?>
-					<span class="ui-li-count">3</span>
+					<span class="ui-li-count">2</span>
 				</a>
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?>
-					<span class="ui-li-count">0</span>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&blog=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
 					<span class="ui-li-count">1</span>
 				</a>
 			</li>
 			<li>
+				<a href="?action=Blog&blog=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
+					<span class="ui-li-count">5</span>
+				</a>
+			</li>
+			<li>
 				<a href="?action=Blog&blog=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?>
-					<span class="ui-li-count">0</span>
+					<span class="ui-li-count">1</span>
 				</a>
 			</li>
 			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?></li>
@@ -100,7 +100,7 @@
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?>
-					<span class="ui-li-count">0</span>
+					<span class="ui-li-count">2</span>
 				</a>
 			</li>
 		</ul>

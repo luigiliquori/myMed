@@ -83,7 +83,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 				// if (producer == null)
 				// throw new
 				// InternalBackEndException("missing producer argument!");
-
+				
 				final Map<String, MReputationEntity> reputationMap =
 				reputationManager.read(app, producer, consumer);
 				message.addDataObject(JSON_REPUTATION, reputationMap);

@@ -162,7 +162,7 @@ class ExtendedProfileController extends AuthenticatedController {
 			$this->renderView("ExtendedProfileEdit");
 		else {
 			$this->success = "Complément de profil enregistré avec succès!";
-			$_SESSION['myEuropeProfile'] = (object) $_POST;
+			$_SESSION['myEuropeProfile']->details = $_POST;
 			$_SESSION['myEuropeProfile']->reputation = $myrep;
 			$_SESSION['myEuropeProfile']->users = $users;
 	
@@ -238,7 +238,7 @@ class ExtendedProfileController extends AuthenticatedController {
 			$this->redirectTo("main");
 		}
 		$this->profile->parseProfile();
-		$this->profile->reputation = pickFirst(parent::getReputation(array($id)));
+		$this->profile->reputation = pickFirst(parent::getReputation(array($details['profile'])));
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	

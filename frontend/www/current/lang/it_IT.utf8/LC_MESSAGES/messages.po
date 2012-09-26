@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-25 23:31+0200\n"
-"PO-Revision-Date: 2012-09-26 17:37+0100\n"
+"PO-Revision-Date: 2012-09-26 22:22+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -189,7 +189,7 @@ msgstr "Cancella profilo"
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:31
 #: ../application/myEurope/views/MainView.php:49
 msgid "Edit my profile"
-msgstr "Pubblica il mio profilo"
+msgstr "Modifica il mio profilo"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:23
 msgid ""
