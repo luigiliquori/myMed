@@ -25,24 +25,22 @@
 			<label for="profilePicture" >Photo du profil (url): </label>
 			<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			
-			<label for="lang" >Langue	: </label>
+			<label for="lang" >Langue : </label>
 			<select id="lang" name="lang">
 				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Francais</option>
 				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
 				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
 			</select>
 			
-			<label for="password" ><?= _("Password") ?> : </label>
+			<label for="password" ><?= _("Password") ?> :</label>
 			<input type="password" id="password" name="password" />
-			
-			<br />
-			
+
 			<? if (!isset($_SESSION['user']->email)): /*oauthed user have no password for the moment*/ ?>
+			<div data-role="fieldcontain">
 				<label for="passwordConfirm" ><?= _("Password Confirmation") ?> : </label>
 				<input type="password" id="passwordConfirm" name="passwordConfirm" />
+			</div>
 			<? endif; ?>
-			
-			<br />
 			
 			<center>
 				<div data-role="controlgroup" data-type="horizontal">
