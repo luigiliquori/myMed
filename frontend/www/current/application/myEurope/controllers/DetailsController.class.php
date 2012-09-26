@@ -10,6 +10,7 @@ class DetailsController extends AuthenticatedController {
 		parent::handleRequest();
 		
 		$this->id = $_GET['id'];
+		$this->namespace = "part"; //temp
 		
 		if (isset($_GET["rm"])){
 			$this->delData();
@@ -23,8 +24,6 @@ class DetailsController extends AuthenticatedController {
 			$this->addPartner();
 		}
 		
-		$this->namespace = "part"; //temp
-
 		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id));
 		
 		try{
@@ -35,7 +34,7 @@ class DetailsController extends AuthenticatedController {
 		if (isset($res->details)){
 			$this->details = $res->details;
 			
-			$this->reputation = pickFirst(parent::reputation($this->details->user, null, $this->id));
+			$this->reputation = pickFirst(parent::getReputation(array($this->id), array($this->details->user)));
 			
 			if (isset($this->details->user)){
 				
@@ -89,9 +88,9 @@ class DetailsController extends AuthenticatedController {
 	
 	public /*void*/ function delData(){
 		
-		$publish = new RequestJson($this, array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id']), DELETE);
+		$publish = new RequestJson($this, array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$_GET['id']), DELETE);
 		
-		debug('trying to delete '.$_GET['namespace']."..".$_GET['id']);
+		debug('trying to delete '.$this->namespace."..".$_GET['id']);
 
 		$publish->send();
 		
@@ -105,7 +104,7 @@ class DetailsController extends AuthenticatedController {
 			"tempPartner".$_SESSION['user']->id=>$_SESSION['user']->id
 		);
 		$publish = new RequestJson( $this, 
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id'], "user"=> $_SESSION['user']->id, "user"=>$_SESSION['user']->id, "data"=>$data ),
+				array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$_GET['id'], "user"=> $_SESSION['user']->id, "user"=>$_SESSION['user']->id, "data"=>$data ),
 				UPDATE);
 	
 		$rs = $publish->send();
@@ -119,12 +118,12 @@ class DetailsController extends AuthenticatedController {
 	public /*void*/ function addPartner(){
 
 		$publish = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "field"=>"tempPartner".$_GET["accept"] ),
+				array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id, "field"=>"tempPartner".$_GET["accept"] ),
 				DELETE);
 		$publish->send();
 		
 		$publish = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "user"=>"noNotification", "data"=>array("user_".$_GET["accept"]=>$_GET["accept"]) ),
+				array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id, "user"=>"noNotification", "data"=>array("user_".$_GET["accept"]=>$_GET["accept"]) ),
 				UPDATE);
 		$publish->send();
 		
@@ -150,21 +149,24 @@ class DetailsController extends AuthenticatedController {
 
 	
 	public /*void*/ function getProfile($id){
+		
+		$mapper = new DataMapper;
 	
 		$user = new User($id);
 		try {
-			$details = $user->read();
+			$details = $mapper->findById($user);
 		} catch (Exception $e) {
 		}
 		$profile = new Profile($details['profile']);
 		try {
-			$profile->details = $profile->read();
+			$profile->details = $mapper->findById($profile);
 		} catch (Exception $e) {
 		}
 		$profile->parseProfile();
-		$profile->reputation = pickFirst(parent::reputation(null, $id));
+		$profile->reputation = pickFirst(parent::getReputation( array($id)));
 		return $profile;
 	}
+	
 	
 	
 }

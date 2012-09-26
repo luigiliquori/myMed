@@ -37,7 +37,7 @@
 			
 			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->user ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
 			<a href="?action=details&id=<?= urlencode($item->id) ?>"><span
-					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?></span><span style="font-weight: lighter;float: right;font-size: 14px;"><?= date('j/n/Y G:i', $item->time) ?></span>
+					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?></span><p class="ui-li-aside"><?= date('j/n/Y G:i', $item->time) ?></p>
 				</a>
 			</li>
 			<? endforeach ?>

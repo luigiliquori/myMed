@@ -5,7 +5,7 @@
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
  	tabs($activeTab, array(
- 			array("#profiles", "Profils existants", "list"),
+ 			array("#profiles", "Existing Profiles", "list"),
  			array("#new", 'Create', "pencil")
  		), '', 1);
  }
@@ -21,8 +21,8 @@
 	<div data-role="content">
 		<p>
 		<?= _("Hello, This is your first time on myEurope.<br/><br/>
-				 Please fill in your profile with an existing Organization profile or ") ?>
-		<a href='#new' data-transition="slidefade"><?= _("create a new one") ?>	</a> 
+				 Please fill in your profile with an existing Organization profile") ?>
+		<?= _("or") ?> <a href='#new' data-transition="slidefade"><?= _("create a new one") ?>	</a> 
 		
 		</p>
 		<br />

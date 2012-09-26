@@ -63,29 +63,45 @@
 		<ul data-role="listview" data-inset="true" data-filter="true" >
 			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
 			<li>
-				<a href="?action=Blog&blog=Bonnes Pratiques" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?></a>
+				<a href="?action=Blog&blog=Bonnes Pratiques" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?>
+					<span class="ui-li-count">4</span>
+				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?></a>
+				<a href="?action=Blog&blog=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?>
+					<span class="ui-li-count">3</span>
+				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?></a>
+				<a href="?action=Blog&blog=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?>
+					<span class="ui-li-count">0</span>
+				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?></a>
+				<a href="?action=Blog&blog=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
+					<span class="ui-li-count">1</span>
+				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?></a>
+				<a href="?action=Blog&blog=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?>
+					<span class="ui-li-count">0</span>
+				</a>
 			</li>
 			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?></li>
 			<li>
-				<a href="?action=Blog&blog=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?></a>
+				<a href="?action=Blog&blog=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?>
+					<span class="ui-li-count">2</span>
+				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?></a>
+				<a href="?action=Blog&blog=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?>
+					<span class="ui-li-count">0</span>
+				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?></a>
+				<a href="?action=Blog&blog=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?>
+					<span class="ui-li-count">0</span>
+				</a>
 			</li>
 		</ul>
 		
@@ -109,7 +125,7 @@
 	<div data-role="content">
 		
 		<br />
-		<?= about() ?>
+		<?= _('myEuropeabout') ?>
 	</div>
 </div>
 
@@ -303,7 +319,7 @@
 				</div>
 			</div>
 			
-			<textarea id="CLEeditor" name="text"><h1>Votre partenariat</h1>  ...</textarea>
+			<textarea id="CLEeditor" name="text"><h1><?= _("Your partnership") ?></h1>  ...</textarea>
 
 			<div style="text-align: center;" >
 				<input type="submit" class="ui-btn-active ui-state-persist"  data-inline="true" data-icon="check" value="<?=_('Insert') ?>" />

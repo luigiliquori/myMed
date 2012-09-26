@@ -143,8 +143,8 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 					in.getData().put("user", in.getUser());
 					publisher = profileManager.readSimple(in.getUser());
 				}
-				
 				in.getData().put("id", id); // just for having publication link in mails
+				
 				mail_executor.execute(new MailDispatcher(
 						in.getApplication(),
 						rows,

@@ -7,516 +7,464 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-05 14:42+0200\n"
-"PO-Revision-Date: 2012-09-18 19:01+0100\n"
+"POT-Creation-Date: 2012-09-25 23:31+0200\n"
+"PO-Revision-Date: 2012-09-26 16:23+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../application/myMed/views/LoginView.php:11
-msgid "Social Network"
-msgstr "Réseau Social Transfrontalier"
+#: ../index.php:7
+#: ../application/myEurope/doc/trads.php:15
+msgid "Transborder social network"
+msgstr "Réseau Social Transfrontalier "
 
-#: ../application/myMed/views/LoginView.php:29
-msgid "Ensemble par-delà les frontières"
-msgstr ""
-
-#: ../application/myMed/views/LoginView.php:39
-#: ../application/myEurope/views/LoginView.php:41
-msgid "Log In"
-msgstr "Connexion"
-
-#: ../application/myMed/views/LoginView.php:40
-#: ../application/myEurope/views/LoginView.php:13
-msgid "Registration"
-msgstr "Inscription"
-
-#: ../application/myMed/views/LoginView.php:41
-#: ../application/myEurope/views/LoginView.php:47
-#: ../application/myEurope/views/MainView.php:7
-msgid "About"
-msgstr "A propos"
-
-#: ../application/myMed/views/MainView.php:8
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:11
-msgid "Choose a language"
-msgstr "Choisissez une langue"
-
-#: ../application/myMed/views/MainView.php:11
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:14
-#: ../application/myEurope/views/MainView.php:58
-msgid "French"
-msgstr "Français"
-
-#: ../application/myMed/views/MainView.php:13
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:16
-#: ../application/myEurope/views/MainView.php:60
-msgid "Italian"
-msgstr "Italien"
-
-#: ../application/myMed/views/MainView.php:15
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:18
-#: ../application/myEurope/views/MainView.php:62
-msgid "English"
-msgstr "Anglais"
-
-#: ../application/myMed/views/MainView.php:19
-msgid "Home"
-msgstr "Accueil"
-
-#: ../application/myMed/controllers/RegisterController.class.php:87
-msgid "Erreur interne d'enrgistrement"
-msgstr ""
-
-#: ../application/myMed/controllers/RegisterController.class.php:116
-msgid "Votre compte à bien été validé. Vous pouvez vous loguer à présent"
-msgstr ""
-
-#: ../application/myEurope/controllers/DetailsController.class.php:111
-msgid "Partnership request sent"
-msgstr "Demande de partenariat envoyée"
-
-#: ../application/myEurope/controllers/DetailsController.class.php:132
-msgid "Partnerships added"
-msgstr "Partenariat ajouté"
-
-#: ../application/myEurope/controllers/tes.php:16
-msgid "Association - Coopérative - Mutuelle"
-msgstr ""
-
-#: ../application/myEurope/views/AdminView.php:6
-msgid "Users"
-msgstr "Utilisateurs"
-
-#: ../application/myEurope/views/AdminView.php:24
-#: ../application/myEurope/views/ResultsView.php:30
-msgid "Subscribe"
-msgstr "S'abonner"
-
-#: ../application/myEurope/views/AdminView.php:29
-msgid "New users waiting for validation"
-msgstr "Nouveaux utilisateurs en attente de validation"
-
-#: ../application/myEurope/views/AdminView.php:50
-msgid "Normal users"
-msgstr "Utilisateurs normaux"
-
-#: ../application/myEurope/views/AdminView.php:72
-msgid "Admins"
-msgstr ""
-
-#: ../application/myEurope/views/BlogsView.php:11
-#: ../application/myEurope/views/MainView.php:100
-#: ../application/myEurope/views/PublishSuccessView.php:8
-#: ../application/myEurope/views/parts/utils.php:107
-#: ../application/myEurope/views/parts/utils.php:123
-#: ../application/myEurope/views/parts/utils.php:139
-#: ../application/myEurope/views/parts/utils.php:153
-#: ../application/myEurope/views/parts/utils.php:166
-#: ../application/myEurope/views/parts/utils.php:176
-msgid "Back"
-msgstr "Retour"
-
-#: ../application/myEurope/views/BlogsView.php:20
-msgid "Blog"
-msgstr ""
-
-#: ../application/myEurope/views/BlogsView.php:40
-msgid "comments"
-msgstr "commentaires"
-
-#: ../application/myEurope/views/BlogsView.php:44
+#: ../system/common/common-utils.php:129
+#: ../application/myEurope/views/BlogsView.php:35
 msgid "Reply"
 msgstr "Répondre"
 
-#: ../application/myEurope/views/BlogsView.php:70
+#: ../system/common/common-utils.php:152
+msgid "Tout / aucun"
+msgstr ""
+
+#: ../system/common/common-utils.php:263
+msgid "obligatoire"
+msgstr ""
+
+#: ../system/common/common-utils.php:266
+msgid "optionnel"
+msgstr ""
+
+#: ../system/common/common-utils.php:302
+#, php-format
+msgid "Le champ %s est obligatoire."
+msgstr "Le champs est obligatoire"
+
+#: ../system/common/common-utils.php:422
+#: ../system/common/common-utils.php:423
+msgid "Exit"
+msgstr "Quitter"
+
+#: ../system/common/common-utils.php:432
+msgid "Se connecter"
+msgstr ""
+
+#: ../system/common/common-utils.php:467
+msgid "Annuler"
+msgstr ""
+
+#: ../system/common/common-utils.php:470
+msgid "Précédent"
+msgstr ""
+
+#: ../system/common/common-utils.php:475
+msgid "Suivant"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:29
+#: ../application/myMed/views/UpdateProfileView.php:38
+#: ../application/myEurope/views/ExtendedProfileEditView.php:66
+msgid "Password"
+msgstr "Mot de passe"
+
+#: ../application/myMed/views/LoginView.php:36
+msgid "Options"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:40
+msgid "Register with"
+msgstr "S'inscrire en tant que"
+
+#: ../application/myMed/views/LoginView.php:50
+msgid "more options"
+msgstr "Plus d'options"
+
+#: ../application/myMed/views/LoginView.php:54
+msgid "We also support OpenId"
+msgstr "Nous supportons également OpenID"
+
+#: ../application/myMed/views/LoginView.php:57
+msgid "log in with openid"
+msgstr "Se connecter avec Openid"
+
+#: ../application/myMed/views/LoginView.php:150
+msgid "about"
+msgstr "A propos "
+
+#: ../application/myMed/views/LoginView.php:155
+msgid "More informations"
+msgstr "Plus d'informations"
+
+#: ../application/myMed/views/UpdateProfileView.php:43
+msgid "Password Confirmation"
+msgstr "Mot de passe (confirmation) "
+
+#: ../application/myMed/controllers/RegisterController.class.php:25
+#: ../application/myMed/controllers/ProfileController.class.php:22
+msgid "Email not valid"
+msgstr "Email non valide"
+
+#: ../application/myMed/controllers/RegisterController.class.php:88
+msgid "Erreur interne d'enrgistrement"
+msgstr "Erreur interne d'enregistrement"
+
+#: ../application/myMed/controllers/StoreController.class.php:35
+msgid "Echec de sauvegarde "
+msgstr ""
+
+#: ../application/myMed/controllers/ProfileController.class.php:28
+msgid "Passwords do not match"
+msgstr "Mauvaise confirmation du mot de passe"
+
+#: ../application/myMed/controllers/ProfileController.class.php:62
+msgid "Wrong password"
+msgstr "Mot de passe erroné"
+
+#: ../application/myEurope/controllers/DetailsController.class.php:113
+msgid "Partnership request sent"
+msgstr "Demande de partenariat envoyée"
+
+#: ../application/myEurope/controllers/DetailsController.class.php:144
+msgid "Partner added"
+msgstr "Partenariat ajouté "
+
+#: ../application/myEurope/views/BlogsView.php:31
+msgid "comments"
+msgstr "commentaires"
+
+#: ../application/myEurope/views/BlogsView.php:61
 msgid "New Message"
 msgstr "Nouveau message"
 
-#: ../application/myEurope/views/BlogsView.php:72
-#: ../application/myEurope/views/ResultsView.php:15
+#: ../application/myEurope/views/BlogsView.php:63
+#: ../application/myEurope/views/ResultsView.php:13
 msgid "title"
 msgstr "Titre"
 
-#: ../application/myEurope/views/BlogsView.php:75
+#: ../application/myEurope/views/BlogsView.php:66
 msgid "Post"
 msgstr "Poster"
 
-#: ../application/myEurope/views/BlogsView.php:94
-#: ../application/myEurope/views/DetailsView.php:41
+#: ../application/myEurope/views/BlogsView.php:85
+#: ../application/myEurope/views/DetailsView.php:49
 msgid "Sure?"
 msgstr "Etes-vous sûr?"
 
 #: ../application/myEurope/views/DetailsView.php:23
-msgid "Partners"
-msgstr "Partenaires"
-
-#: ../application/myEurope/views/DetailsView.php:33
-msgid "Delete my offer"
-msgstr "Supprimer mon offre"
-
-#: ../application/myEurope/views/DetailsView.php:35
-msgid "Partnership request"
-msgstr "Demande de partenariat"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:15
-msgid "Register in myEurope with this profile"
-msgstr "S'inscrire à myEurope avec ce profil"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:17
-msgid "Back to profiles list"
-msgstr "Retour à la liste de profils"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:24
-msgid "Delete user"
-msgstr "Supprimer l'utilisateur"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:26
-msgid "Delete profile"
-msgstr "Supprimer le profil"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:22
-msgid "Next"
-msgstr "Suivant"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:33
-#: ../application/myEurope/views/WaitingForAcceptView.php:8
-#: ../application/myEurope/views/parts/utils.php:17
-#: ../application/myEurope/views/parts/utils.php:46
-msgid "Exit"
-msgstr "Quitter"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:35
-msgid "Create a new profile"
-msgstr "Créer un nouveau profil"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:41
-msgid ""
-"Hello, This is your first time on myEurope.<br/><br/>\n"
-"\t\t\t\t Please fill in your profile with an existing Organization profile or <a href='#new'>create a new one</a>"
-msgstr ""
-"Bonjour, C'est la première fois que vous venez sur myEurope.<br/><br/>\n"
-"\t\t\t\t Merci de choisir un profil d'organisation  ou <a href='#new'> créez-en un nouveau</a>"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:45
-#: ../application/myEurope/views/ResultsView.php:34
-msgid "filter"
-msgstr "Filtrer"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:63
-msgid "Create"
-msgstr "Créer"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:72
-#: ../application/myEurope/views/ExtendedProfileEditView.php:17
-msgid "Organization Name"
-msgstr "Nom de l'organisation"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:76
-#: ../application/myEurope/views/ExtendedProfileEditView.php:21
-msgid "Your category"
-msgstr "Choisir une catégorie"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:88
-#: ../application/myEurope/views/ExtendedProfileEditView.php:33
-msgid "Address"
-msgstr "Adresse"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:92
-#: ../application/myEurope/views/ExtendedProfileEditView.php:37
-msgid "Territoire d'action"
-msgstr ""
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:112
-#: ../application/myEurope/views/ExtendedProfileEditView.php:57
-#: ../application/myEurope/views/LoginView.php:33
-#: ../application/myEurope/views/LoginView.php:76
-msgid "Email"
-msgstr ""
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:116
-#: ../application/myEurope/views/ExtendedProfileEditView.php:61
-msgid "Phone"
-msgstr "Téléphone"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:120
-#: ../application/myEurope/views/ExtendedProfileEditView.php:65
-msgid "Description"
-msgstr ""
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:130
-msgid "Create this profile"
-msgstr "Créer ce profil"
-
-#: ../application/myEurope/views/ExtendedProfileEditView.php:5
-#: ../application/myEurope/views/MainView.php:10
-msgid "Profile"
-msgstr "Profil"
-
-#: ../application/myEurope/views/ExtendedProfileEditView.php:6
-#: ../application/myEurope/views/ExtendedProfileEditView.php:74
-#: ../application/myEurope/views/LoginView.php:95
-msgid "Validate"
-msgstr "Valider"
-
-#: ../application/myEurope/views/ExtendedProfileEditView.php:70
-#: ../application/myEurope/views/LoginView.php:37
-#: ../application/myEurope/views/LoginView.php:79
-msgid "Password"
-msgstr "Mot de passe"
-
-#: ../application/myEurope/views/LoginView.php:70
-msgid "first name"
-msgstr "Prénom"
-
-#: ../application/myEurope/views/LoginView.php:73
-msgid "last name"
-msgstr "Nom"
-
-#: ../application/myEurope/views/LoginView.php:82
-msgid "Password (confirmation)"
-msgstr "Mot de passe (confirmation)"
-
-#: ../application/myEurope/views/MainView.php:9
-msgid "Admin"
-msgstr ""
-
-#: ../application/myEurope/views/MainView.php:24
-msgid "Search a partnership offer"
-msgstr "Rechercher un partenariat"
-
-#: ../application/myEurope/views/MainView.php:25
-msgid "Insert a partnership offer"
-msgstr "Déposer une offre de partenariat"
-
-#: ../application/myEurope/views/MainView.php:30
-msgid "About European programs"
-msgstr "S'informer sur les programmes"
-
-#: ../application/myEurope/views/MainView.php:32
-msgid "Alcotra Blog"
-msgstr "Blog Alcotra"
-
-#: ../application/myEurope/views/MainView.php:34
-msgid "Beta Testers Blog"
-msgstr "Blog Beta testeurs"
-
-#: ../application/myEurope/views/MainView.php:66
-msgid "Edit my profile"
-msgstr "Modifier mon profil"
-
-#: ../application/myEurope/views/MainView.php:69
-msgid "Log Out"
-msgstr "Déconnexion"
-
-#: ../application/myEurope/views/MainView.php:98
-msgid "Restricted page for admins"
-msgstr "Page réservée aux admins"
-
-#: ../application/myEurope/views/MainView.php:102
-msgid "Access"
-msgstr "Accéder"
-
-#: ../application/myEurope/views/MainView.php:112
-msgid "Search a partner"
-msgstr "Rechercher une offre"
-
-#: ../application/myEurope/views/MainView.php:127
-msgid "Offer Themes"
-msgstr "Thématiques de votre projet"
-
-#: ../application/myEurope/views/MainView.php:130
-#: ../application/myEurope/views/MainView.php:172
-#: ../application/myEurope/views/MainView.php:215
-#: ../application/myEurope/views/ResultsView.php:26
-#: ../application/myEurope/views/ResultsView.php:27
-#: ../application/myEurope/views/ResultsView.php:28
-msgid "All"
-msgstr "Tout"
-
-#: ../application/myEurope/views/MainView.php:133
-#: ../application/myEurope/views/MainView.php:324
-msgid "Education, culture and sport"
-msgstr "Education, culture et sport "
-
-#: ../application/myEurope/views/MainView.php:136
-#: ../application/myEurope/views/MainView.php:327
-msgid "Work and training"
-msgstr "Emploi et formation professionnelle"
-
-#: ../application/myEurope/views/MainView.php:139
-#: ../application/myEurope/views/MainView.php:330
-msgid "Enterprises, Research and Innovation"
-msgstr "Entreprises, innovation "
-
-#: ../application/myEurope/views/MainView.php:142
-#: ../application/myEurope/views/MainView.php:333
-msgid "Environment, Energies and Risk"
-msgstr "Environnement, risques et énergies"
-
-#: ../application/myEurope/views/MainView.php:145
-#: ../application/myEurope/views/MainView.php:336
-msgid "Transport, Facilities and Zoning"
-msgstr "Transports, insfrastructures, aménagement du territoire"
-
-#: ../application/myEurope/views/MainView.php:148
-#: ../application/myEurope/views/MainView.php:339
-msgid "Health and Consumer Protection"
-msgstr "Santé et protection des consommateurs"
-
-#: ../application/myEurope/views/MainView.php:151
-#: ../application/myEurope/views/MainView.php:342
-msgid "Social Affairs"
-msgstr "Affaires sociales"
-
-#: ../application/myEurope/views/MainView.php:154
-#: ../application/myEurope/views/MainView.php:345
-msgid "Agriculture"
-msgstr "Agriculture"
-
-#: ../application/myEurope/views/MainView.php:157
-#: ../application/myEurope/views/MainView.php:348
-msgid "Fishing"
-msgstr "Pêche"
-
-#: ../application/myEurope/views/MainView.php:164
-#: ../application/myEurope/views/MainView.php:355
-msgid "Areas"
-msgstr "Localisation du projet "
-
-#: ../application/myEurope/views/MainView.php:170
-#: ../application/myEurope/views/MainView.php:361
-msgid "France"
-msgstr "France"
-
-#: ../application/myEurope/views/MainView.php:213
-#: ../application/myEurope/views/MainView.php:402
-msgid "Italy"
-msgstr "Italie"
-
-#: ../application/myEurope/views/MainView.php:249
-#: ../application/myEurope/views/MainView.php:436
-msgid "Other"
-msgstr "Autre"
-
-#: ../application/myEurope/views/MainView.php:269
-msgid "Category of searched partners"
-msgstr "Type de partenaire recherché"
-
-#: ../application/myEurope/views/MainView.php:277
-#: ../application/myEurope/views/MainView.php:453
-msgid "Programme concerné par l'offre"
-msgstr ""
-
-#: ../application/myEurope/views/MainView.php:279
-#: ../application/myEurope/views/MainView.php:455
-msgid "proposition libre"
-msgstr ""
-
-#: ../application/myEurope/views/MainView.php:282
-#: ../application/myEurope/views/MainView.php:458
-msgid "Alpin Space"
-msgstr "Espace Alpin"
-
-#: ../application/myEurope/views/MainView.php:285
-#: ../application/myEurope/views/MainView.php:461
-msgid "Italy-France Maritime"
-msgstr ""
-
-#: ../application/myEurope/views/MainView.php:289
-msgid "keywords"
-msgstr "Mots-clés "
-
-#: ../application/myEurope/views/MainView.php:290
-#: ../application/myEurope/views/MainView.php:467
-msgid "separated by a space, comma, plus"
-msgstr "Séparés par un espace"
-
-#: ../application/myEurope/views/MainView.php:296
-msgid "Search"
-msgstr "Rechercher"
-
-#: ../application/myEurope/views/MainView.php:306
-msgid "Insert an offer"
-msgstr "Déposer une offre "
-
-#: ../application/myEurope/views/MainView.php:321
-#: ../application/myEurope/views/ResultsView.php:26
-msgid "Themes"
-msgstr "Thématiques"
-
-#: ../application/myEurope/views/MainView.php:466
-#: ../application/myEurope/views/ResultsView.php:28
+#: ../application/myEurope/views/MainView.php:310
 msgid "Keywords"
 msgstr "Mots-clés"
 
-#: ../application/myEurope/views/MainView.php:470
-msgid "Date of expiration"
-msgstr "Date d'expiration"
+#: ../application/myEurope/views/DetailsView.php:28
+msgid "Partners"
+msgstr "Partenaires"
 
-#: ../application/myEurope/views/MainView.php:471
-msgid "date in format year-month-day"
-msgstr "Date en format année-mois-jour"
+#: ../application/myEurope/views/DetailsView.php:41
+msgid "Delete my offer"
+msgstr "Supprimer mon offre"
 
-#: ../application/myEurope/views/MainView.php:474
+#: ../application/myEurope/views/DetailsView.php:43
+msgid "Partnership request"
+msgstr "Demande de partenariat"
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:14
+msgid "Register in myEurope with this profile"
+msgstr "S'inscrire à myEurope avec ce profil"
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:16
+msgid "Back to profiles list"
+msgstr "Retour à la liste de profils"
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:23
+msgid "Delete user"
+msgstr "Supprimer l'utilisateur"
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:25
+msgid "Delete profile"
+msgstr "Supprimer le profil"
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:31
+#: ../application/myEurope/views/MainView.php:49
+msgid "Edit my profile"
+msgstr "Modifier mon profil"
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:23
+msgid ""
+"Hello, This is your first time on myEurope.<br/><br/>\n"
+"\t\t\t\t Please fill in your profile with an existing Organization profile"
+msgstr ""
+"Bonjour, C'est la première fois que vous venez sur myEurope.<br/><br/>\n"
+"\t\t\t\t Merci de vous inscrire à un profil partagé"
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:25
+msgid "or"
+msgstr "ou"
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:25
+msgid "create a new one"
+msgstr "Créer un nouveau profil "
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:29
+#: ../application/myEurope/views/ResultsView.php:28
+msgid "filter"
+msgstr "Filtrer"
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:52
+#: ../application/myEurope/views/ExtendedProfileEditView.php:13
+msgid "Organization Name"
+msgstr "Nom de l'organisation"
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:56
+#: ../application/myEurope/views/ExtendedProfileEditView.php:17
+msgid "Your category"
+msgstr "Choisir une catégorie"
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:68
+#: ../application/myEurope/views/ExtendedProfileEditView.php:29
+msgid "Address"
+msgstr "Adresse"
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:72
+#: ../application/myEurope/views/ExtendedProfileEditView.php:33
+msgid "Territoire d'action"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:92
+#: ../application/myEurope/views/ExtendedProfileEditView.php:53
+msgid "Email"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:96
+#: ../application/myEurope/views/ExtendedProfileEditView.php:57
+msgid "Phone"
+msgstr "Téléphone"
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:100
+#: ../application/myEurope/views/ExtendedProfileEditView.php:61
+msgid "Description"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:110
+msgid "Create this profile"
+msgstr "Créer ce profil"
+
+#: ../application/myEurope/views/ExtendedProfileEditView.php:70
+#: ../application/myEurope/views/MainView.php:39
+msgid "Update"
+msgstr "Actualiser"
+
+#: ../application/myEurope/views/MainView.php:12
+msgid "Search a partnership offer"
+msgstr "Rechercher un partenariat"
+
+#: ../application/myEurope/views/MainView.php:16
+msgid "Insert a partnership offer"
+msgstr "Déposer une offre de partenariat"
+
+#: ../application/myEurope/views/MainView.php:52
+msgid "Admin"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:54
+msgid "Log Out"
+msgstr "Déconnexion"
+
+#: ../application/myEurope/views/MainView.php:64
+msgid "Journal des bonnes pratiques"
+msgstr "Journal"
+
+#: ../application/myEurope/views/MainView.php:66
+msgid "Bonnes Pratiques Générales"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:71
+msgid "Par quoi commencer ?"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:76
+msgid "Pourquoi chercher un partenariat européen ?"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:81
+msgid "Vos témoignages"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:86
+msgid "Quelques idées"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:90
+msgid "Journal des \"Beta\" testeurs de myEurope"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:92
+msgid "Bugs et problèmes rencontrés"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:97
+msgid "Améliorations proposées"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:102
+msgid "Discussion libre"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:110
+msgid "Create a new blog"
+msgstr "Créer un nouveau blog"
+
+#: ../application/myEurope/views/MainView.php:117
+#: ../application/myEurope/doc/trads.php:17
+msgid "Create"
+msgstr "Créer"
+
+#: ../application/myEurope/views/MainView.php:128
+#: ../application/myEurope/doc/trads.php:2
+msgid "myEuropeabout"
+msgstr "<b>MyEurope</b> est un réseau social s'appuyant sur le méta-réseau social <em>myMed</em>, à disposition des mairies, des institutions, des élus ou encore des réalités économiques (industrielles, touristiques…) du territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des trois régions italiennes du Nord Ouest de l'Italie, (Ligurie, Piémont, Vallée d'Aoste), c'est-à-dire des territoires éligibles au programme Alcotra (Alpes Latines Coopération Transfrontalière France-Italie). L'application permettra aux mairies de l'Eurorégion Alpes-Méditerranée (MedAlp) de trouver des	partenaires, bien évidemment inscrits au réseau myEurope, au sein de l'interregion afin de pouvoir monter ensemble des projets communs, dans le cadre de différents programmes européens : Interreg Alcotra, de Med, FP7 etc … <br /> <br /> Les objectifs principaux de myEurope sont donc les suivants :<ul>	<li>Aider, à travers le mécanisme de « Matchmaking » de myMed, à mettre en communs des idées mais aussi des moyens afin de pouvoir soumettre un		projet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER …).</li>	<li>Echanger des pratiques et des intérêts communs transfrontaliers dans le domaine du montage de projet</li>	<li>Informer des différents appels d'offres de projets européens les personnes inscrites au réseau social</li></ul><br />Ces échanges d'information seront utiles aux élus français ainsi qu'à leurs homologues italiens afin de pouvoir instaurer un contact permanent entreles habitants des régions françaises et ceux des régions italiennes limitrophes. Ce qui favorisera l'organisation d'activités transfrontalières(partenariat de projets européens, coopérations dans différents domaines …)."
+
+#: ../application/myEurope/views/MainView.php:139
+msgid "Restricted page for admins"
+msgstr "Page réservée aux admins"
+
+#: ../application/myEurope/views/MainView.php:141
+#: ../application/myEurope/views/parts/utils.php:60
+msgid "Back"
+msgstr "Retour"
+
+#: ../application/myEurope/views/MainView.php:143
+msgid "Access"
+msgstr "Accéder"
+
+#: ../application/myEurope/views/MainView.php:161
+msgid "Offer Themes"
+msgstr "Thématiques de votre projet"
+
+#: ../application/myEurope/views/MainView.php:170
+#: ../application/myEurope/views/MainView.php:270
+msgid "Areas"
+msgstr "Localisation du projet "
+
+#: ../application/myEurope/views/MainView.php:174
+#: ../application/myEurope/views/MainView.php:274
+msgid "France"
+msgstr "France"
+
+#: ../application/myEurope/views/MainView.php:181
+#: ../application/myEurope/views/MainView.php:281
+msgid "Italy"
+msgstr "Italie"
+
+#: ../application/myEurope/views/MainView.php:188
+#: ../application/myEurope/views/MainView.php:288
+msgid "Other"
+msgstr "Autre"
+
+#: ../application/myEurope/views/MainView.php:199
+msgid "Category of searched partners"
+msgstr "Type de partenaire recherché"
+
+#: ../application/myEurope/views/MainView.php:209
+#: ../application/myEurope/views/MainView.php:301
+msgid "Programme concerné par l'offre"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:218
+msgid "keywords"
+msgstr "Mots-clés "
+
+#: ../application/myEurope/views/MainView.php:219
+#: ../application/myEurope/views/MainView.php:311
+msgid "separated by a space, comma, plus"
+msgstr "Séparés par un espace"
+
+#: ../application/myEurope/views/MainView.php:235
+msgid "Help"
+msgstr "Aide"
+
+#: ../application/myEurope/views/MainView.php:236
+msgid "Search"
+msgstr "Rechercher"
+
+#: ../application/myEurope/views/MainView.php:252
 msgid "Title"
 msgstr "Titre "
 
-#: ../application/myEurope/views/MainView.php:475
+#: ../application/myEurope/views/MainView.php:253
 msgid "partnership or project name"
 msgstr "Titre du Partenariat ou Projet visé"
 
-#: ../application/myEurope/views/MainView.php:480
+#: ../application/myEurope/views/MainView.php:261
+msgid "Themes"
+msgstr "Thématiques"
+
+#: ../application/myEurope/views/MainView.php:298
+msgid "Other options"
+msgstr "Autres options"
+
+#: ../application/myEurope/views/MainView.php:314
+msgid "Date of expiration"
+msgstr "Date d'expiration"
+
+#: ../application/myEurope/views/MainView.php:315
+msgid "date in format year-month-day"
+msgstr "Date en format année-mois-jour"
+
+#: ../application/myEurope/views/MainView.php:322
+msgid "Your partnership"
+msgstr "Partenariat "
+
+#: ../application/myEurope/views/MainView.php:325
 msgid "Insert"
 msgstr "Déposer"
 
-#: ../application/myEurope/views/PublishSuccessView.php:17
+#: ../application/myEurope/views/PublishSuccessView.php:9
 msgid "Your partnership offer has been successfully published on"
 msgstr "Votre offre de partenariat a été publiée avec succès"
 
-#: ../application/myEurope/views/PublishSuccessView.php:21
+#: ../application/myEurope/views/PublishSuccessView.php:13
 msgid "See similar offers"
 msgstr "Voir les offres similaires"
 
-#: ../application/myEurope/views/ResultsView.php:5
-msgid "Results"
-msgstr "Résultats"
-
-#: ../application/myEurope/views/ResultsView.php:12
+#: ../application/myEurope/views/ResultsView.php:10
 msgid "Sort by"
 msgstr "Trier par"
 
-#: ../application/myEurope/views/ResultsView.php:17
+#: ../application/myEurope/views/ResultsView.php:15
 msgid "partner"
 msgstr "Partenaire"
 
-#: ../application/myEurope/views/ResultsView.php:19
+#: ../application/myEurope/views/ResultsView.php:17
 msgid "date"
 msgstr "Date"
 
-#: ../application/myEurope/views/ResultsView.php:21
+#: ../application/myEurope/views/ResultsView.php:19
 msgid "reputation"
 msgstr "réputation"
 
-#: ../application/myEurope/views/ResultsView.php:27
-msgid "Places"
-msgstr "Lieux"
+#: ../application/myEurope/views/ResultsView.php:23
+msgid "Subscrive to:"
+msgstr "S'abonner à"
 
-#: ../application/myEurope/views/ResultsView.php:38
+#: ../application/myEurope/views/ResultsView.php:24
+msgid "Subscribe"
+msgstr "S'abonner"
+
+#: ../application/myEurope/views/ResultsView.php:32
 msgid "Your search didn't match any result."
 msgstr "Votre recherche n'a abouti à aucun résultat"
 
-#: ../application/myEurope/views/UnsubscribeView.php:13
+#: ../application/myEurope/views/UnsubscribeView.php:11
 msgid "Unsubscribed"
 msgstr "Désabonné"
 
-#: ../application/myEurope/views/UnsubscribeView.php:15
+#: ../application/myEurope/views/UnsubscribeView.php:13
 msgid "You were not subscribed to these keywords"
-msgstr "Vous n'étiez pas souscrit à ces motc clés"
+msgstr "Vous n'aviez pas souscrits aux mots clés suivants"
 
-#: ../application/myEurope/views/WaitingForAcceptView.php:16
+#: ../application/myEurope/views/WaitingForAcceptView.php:9
 msgid ""
 "<b>Congratulations!</b> Your profile has been sent to myEurope team  \n"
 "\t\t\t<a href='mailto:myEuropeStaff@gmail.com'>myEuropeStaff@gmail.com</a>\t\t\n"
@@ -525,60 +473,373 @@ msgstr ""
 "<b>Félicitations!</b> Votre profil a été envoyé à l'équipe de myEurope <a href='mailto:myEuropeStaff@gmail.com'>myEuropeStaff@gmail.com</a>\t\t\n"
 " pour validation"
 
-#: ../application/myEurope/views/parts/utils.php:188
-msgid "<b>MyEurope</b> is a social network which is based on the meta-social network <b><em>myMed</em></b>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program."
-msgstr "<b>MyEurope</b> est un réseau social basé sur le méta-réseau social <em>myMed</em>, à disposition des mairies, des institutions, des élus ou encore des réalités économiques (industrielles, touristiques) du territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des trois régions italiennes du Nord-Ouest de l'Italie (Ligurie, Piémont, Vallée d'Aoste), c'est à dire des territoires éligibles au programme Alcotra (Alpes Latines Coopération Transfrontalière France-Italie)."
+#: ../application/myEurope/models/Categories.php:14
+msgid "Education, culture and sport"
+msgstr "Education, culture et sport "
 
-#: ../application/myEurope/views/parts/utils.php:193
-msgid ""
-"This \"sociapp\" will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.\n"
-"\tThe main targets of <b><em>myMed</em></b> are :\n"
-"\t<ul>\n"
-"\t\t<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>\n"
-"\t\t<li>Exchange practices and common cross-border interests in the area of European project creation.</li>\n"
-"\t\t<li>Inform users about different European calls.</li>\n"
-"\t</ul>"
+#: ../application/myEurope/models/Categories.php:15
+msgid "Work and training"
+msgstr "Emploi et formation professionnelle"
+
+#: ../application/myEurope/models/Categories.php:16
+msgid "Enterprises, Research and Innovation"
+msgstr "Entreprises, innovation "
+
+#: ../application/myEurope/models/Categories.php:17
+msgid "Environment, Energies and Risk"
+msgstr "Environnement, risques et énergies"
+
+#: ../application/myEurope/models/Categories.php:18
+msgid "Transport, Facilities and Zoning"
+msgstr "Transports, insfrastructures, aménagement du territoire"
+
+#: ../application/myEurope/models/Categories.php:19
+msgid "Health and Consumer Protection"
+msgstr "Santé et protection des consommateurs"
+
+#: ../application/myEurope/models/Categories.php:20
+msgid "Social Affairs"
+msgstr "Affaires sociales"
+
+#: ../application/myEurope/models/Categories.php:21
+msgid "Agriculture"
+msgstr "Agriculture"
+
+#: ../application/myEurope/models/Categories.php:22
+msgid "Fishing"
+msgstr "Pêche"
+
+#: ../application/myEurope/models/Categories.php:26
+msgid "Association - Coopérative - Mutuelle"
 msgstr ""
-"L'application permettra aux mairies de l'Eurorégion Alpes-Méditérranée (Med-Alp) de trouver des partenaires, bien évidemment inscrits au réseau myEurope, au sein de l'interrégion afin de pouvoir monter ensemble des projets communs, dans le cadre de différents programmes européens : Interreg Alcotra, Med etc.\tLes objectifs principaux sont donc les suivants :\n"
-"\t<ul>\n"
-"\t\t<li>Aider, à travers le mécanisme de \"matchmaking\" de myMed, à mettre en commun des idées mais aussi des moyens afin de pouvoir soumettre un projet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER).\t\t<li>Echanger des pratiques et des intérêts communs transfrontaliers dans le domaine du montage de projet.</li>\n"
-"\t\t<li>Informer des différents appels d'offres de projets européens les personnes inscrites au réseau social.</li>\n"
-"\t</ul>"
 
-#: ../application/myEurope/views/parts/utils.php:205
-msgid "These information exchanges will be useful to French elected representatives and their Italian counterparts in order to establish a permanent contact between French and Italian people. It will result in a better organization of cross-border activity."
-msgstr "Ces échanges d'information seront utiles aux élus français ainsi qu'à leurs homologues italiens afin de pouvoir instaurer un contact permanent entre les habitants des régions françaises et ceux des régions italiennes limitrophes. Ce qui favorisera l'organisation d'activités transfrontalières (partenariat de projet européen, coopération dans différents domaines, etc.)."
+#: ../application/myEurope/models/Categories.php:27
+msgid "Entreprise privée"
+msgstr ""
 
-#: ../application/myEurope/views/parts/utils.php:230
-#: ../application/myEurope/views/parts/utils.php:278
+#: ../application/myEurope/models/Categories.php:28
+msgid "Chambre consulaire - Groupement professionnel"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:29
+msgid "Université - Recherche"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:30
+msgid "Commune, intercommunalité - établissement public communal ou intercommunal"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:31
+msgid "Département - établissement public départemental"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:32
+msgid "Région - établissement public régional"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:33
+msgid "Service de l’Etat - établissement public de l'Etat"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:34
+msgid "Autre établissement ou groupement public"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:35
+msgid "Autre"
+msgstr "Autre"
+
+#: ../application/myEurope/models/Categories.php:39
+msgid "Proposition libre"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:40
+msgid "Alcotra"
+msgstr "Alcotra"
+
+#: ../application/myEurope/models/Categories.php:41
+msgid "MED"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:42
+msgid "Espace Alpin"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:43
+msgid "IEVP CT MED"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:44
+msgid "Interreg IV C"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:45
+msgid "Italie-France Maritime"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:50
+msgid "Ain"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:51
+msgid "Alpes-Maritimes"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:52
+msgid "Alpes de Haute-Provence"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:53
+msgid "Bouches-du-Rhône"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:54
+msgid "Drôme"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:55
+msgid "Hautes-Alpes"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:56
+msgid "Haute-Savoie"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:57
+msgid "Isère"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:58
+msgid "Rhône"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:59
+msgid "Savoie"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:60
+msgid "Var"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:61
+msgid "Vaucluse"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:66
+msgid "Alessandria"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:67
+msgid "Aosta"
+msgstr "Aosta"
+
+#: ../application/myEurope/models/Categories.php:68
+msgid "Asti"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:69
+msgid "Biella"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:70
+msgid "Cuneo"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:71
+msgid "Genova"
+msgstr "Gênes"
+
+#: ../application/myEurope/models/Categories.php:72
+msgid "Imperia"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:73
+msgid "Savona"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:74
+msgid "Torino"
+msgstr "Turin"
+
+#: ../application/myEurope/models/Categories.php:75
+msgid "Vercelli"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:80
+msgid "Monaco"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:81
+msgid "Switzerland"
+msgstr "Suisse"
+
+#: ../application/myEurope/models/Categories.php:82
+msgid "Corsica"
+msgstr "Corse"
+
+#: ../application/myEurope/models/Profile.php:45
 msgid "Role"
 msgstr "Rôle"
 
-#: ../application/myEurope/views/parts/utils.php:238
-#: ../application/myEurope/views/parts/utils.php:292
+#: ../application/myEurope/models/Profile.php:54
 msgid "email"
 msgstr ""
 
-#: ../application/myEurope/views/parts/utils.php:239
-#: ../application/myEurope/views/parts/utils.php:293
+#: ../application/myEurope/models/Profile.php:55
 msgid "phone"
 msgstr "tel"
 
-#: ../application/myEurope/views/parts/utils.php:240
-#: ../application/myEurope/views/parts/utils.php:294
+#: ../application/myEurope/models/Profile.php:56
 msgid "address"
 msgstr "adresse"
 
-#: ../application/myEurope/views/parts/utils.php:254
-#: ../application/myEurope/views/parts/utils.php:304
+#: ../application/myEurope/models/Profile.php:70
 msgid "Members list"
 msgstr "liste des membres"
 
-#: ../application/myEurope/views/parts/utils.php:257
-#: ../application/myEurope/views/parts/utils.php:307
+#: ../application/myEurope/models/Profile.php:73
 msgid "(You)"
 msgstr "(Vous)"
 
+#: ../application/myEurope/doc/trads.php:3
+msgid "myMedabout"
+msgstr "Le projet <b>myMed</b> est né d'une double constatation: l'existence d'un énorme potentiel de développement des activités économiques de la zone transfrontalière, objet de l'action Alcotra, et le manque criant d'infrastructures techniquement avancées en permettant un développement harmonieux. La proposition myMed est née d'une collaboration existante depuis plus de 15 ans entre l'Institut National de Recherche en Informatique et en Automatique (INRIA) de Sophia Antipolis et l'Ecole Polytechnique de Turin, auxquels viennent s'ajouter deux autres partenaires, l'Université de Turin et l'Université du Piémont Oriental."
+
+#: ../application/myEurope/doc/trads.php:4
+msgid "About myMed"
+msgstr "A propos de myMed"
+
+#: ../application/myEurope/doc/trads.php:5
+msgid "About myEurope"
+msgstr "A propos de \"myEurope\""
+
+#: ../application/myEurope/doc/trads.php:7
+msgid "About"
+msgstr "A propos  "
+
+#: ../application/myEurope/doc/trads.php:8
+msgid "Sign In"
+msgstr "Se logguer"
+
+#: ../application/myEurope/doc/trads.php:9
+msgid "Create an account"
+msgstr "Créer un compte"
+
+#: ../application/myEurope/doc/trads.php:10
+msgid "Partnerships"
+msgstr "Partenariats"
+
+#: ../application/myEurope/doc/trads.php:11
+msgid "Informations"
+msgstr "Informations"
+
+#: ../application/myEurope/doc/trads.php:12
+msgid "Blog"
+msgstr "Bonnes pratiques"
+
+#: ../application/myEurope/doc/trads.php:13
+msgid "Profile"
+msgstr "Profil"
+
+#: ../application/myEurope/doc/trads.php:16
+msgid "Existing Profiles"
+msgstr "Profils existants"
+
+#~ msgid "Choose a language"
+#~ msgstr "Choisissez une langue"
+#~ msgid "French"
+#~ msgstr "Français"
+#~ msgid "Italian"
+#~ msgstr "Italien"
+#~ msgid "English"
+#~ msgstr "Anglais"
+#~ msgid "Home"
+#~ msgstr "Accueil"
+#~ msgid "Users"
+#~ msgstr "Utilisateurs"
+#~ msgid "New users waiting for validation"
+#~ msgstr "Nouveaux utilisateurs en attente de validation"
+#~ msgid "Normal users"
+#~ msgstr "Utilisateurs normaux"
+#~ msgid "Next"
+#~ msgstr "Suivant"
+#~ msgid "Validate"
+#~ msgstr "Valider"
+#~ msgid "first name"
+#~ msgstr "Prénom"
+#~ msgid "last name"
+#~ msgstr "Nom"
+#~ msgid "Beta Testers Blog"
+#~ msgstr "Blog Beta testeurs"
+#~ msgid "Search a partner"
+#~ msgstr "Rechercher une offre"
+#~ msgid "All"
+#~ msgstr "Tout"
+#~ msgid "Alpin Space"
+#~ msgstr "Espace Alpin"
+#~ msgid "Insert an offer"
+#~ msgstr "Déposer une offre "
+#~ msgid "Results"
+#~ msgstr "Résultats"
+#~ msgid "Places"
+#~ msgstr "Lieux"
+#~ msgid ""
+#~ "<b>MyEurope</b> is a social network which is based on the meta-social "
+#~ "network <b><em>myMed</em></b>, available for City Halls, institutions or "
+#~ "economic realities (industrial, tourism industry...) of the French South-"
+#~ "East areas (PACA, Rhone-Alpes) and the three Italian North-Western "
+#~ "Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to "
+#~ "the Alcotra Program."
+#~ msgstr ""
+#~ "<b>MyEurope</b> est un réseau social basé sur le méta-réseau social "
+#~ "<em>myMed</em>, à disposition des mairies, des institutions, des élus ou "
+#~ "encore des réalités économiques (industrielles, touristiques) du "
+#~ "territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des "
+#~ "trois régions italiennes du Nord-Ouest de l'Italie (Ligurie, Piémont, "
+#~ "Vallée d'Aoste), c'est à dire des territoires éligibles au programme "
+#~ "Alcotra (Alpes Latines Coopération Transfrontalière France-Italie)."
+#~ msgid ""
+#~ "This \"sociapp\" will help the City Hall of the Alps-Mediterranean "
+#~ "Euroregion to find partners, among those who joined the social network, "
+#~ "in order to create projects together, within European Programs.\n"
+#~ "\tThe main targets of <b><em>myMed</em></b> are :\n"
+#~ "\t<ul>\n"
+#~ "\t\t<li>Help, through the mechanism of myMed's \"matchmaking\", to gather "
+#~ "ideas and resources for European project submission or obtain European "
+#~ "funds.</li>\n"
+#~ "\t\t<li>Exchange practices and common cross-border interests in the area "
+#~ "of European project creation.</li>\n"
+#~ "\t\t<li>Inform users about different European calls.</li>\n"
+#~ "\t</ul>"
+#~ msgstr ""
+#~ "L'application permettra aux mairies de l'Eurorégion Alpes-Méditérranée "
+#~ "(Med-Alp) de trouver des partenaires, bien évidemment inscrits au réseau "
+#~ "myEurope, au sein de l'interrégion afin de pouvoir monter ensemble des "
+#~ "projets communs, dans le cadre de différents programmes européens : "
+#~ "Interreg Alcotra, Med etc.\tLes objectifs principaux sont donc les "
+#~ "suivants :\n"
+#~ "\t<ul>\n"
+#~ "\t\t<li>Aider, à travers le mécanisme de \"matchmaking\" de myMed, à "
+#~ "mettre en commun des idées mais aussi des moyens afin de pouvoir "
+#~ "soumettre un projet Interreg Alcotra, Med ou d'obtenir des financements "
+#~ "provenant de l'Europe (crédits FEDER).\t\t<li>Echanger des pratiques et "
+#~ "des intérêts communs transfrontaliers dans le domaine du montage de "
+#~ "projet.</li>\n"
+#~ "\t\t<li>Informer des différents appels d'offres de projets européens les "
+#~ "personnes inscrites au réseau social.</li>\n"
+#~ "\t</ul>"
+#~ msgid ""
+#~ "These information exchanges will be useful to French elected "
+#~ "representatives and their Italian counterparts in order to establish a "
+#~ "permanent contact between French and Italian people. It will result in a "
+#~ "better organization of cross-border activity."
+#~ msgstr ""
+#~ "Ces échanges d'information seront utiles aux élus français ainsi qu'à "
+#~ "leurs homologues italiens afin de pouvoir instaurer un contact permanent "
+#~ "entre les habitants des régions françaises et ceux des régions italiennes "
+#~ "limitrophes. Ce qui favorisera l'organisation d'activités "
+#~ "transfrontalières (partenariat de projet européen, coopération dans "
+#~ "différents domaines, etc.)."
 #~ msgid "Increase"
 #~ msgstr "Augmenter"
 #~ msgid "Select your language"
@@ -603,10 +864,6 @@ msgstr "(Vous)"
 #~ msgstr "Nom"
 #~ msgid "Activity"
 #~ msgstr "Activité"
-#~ msgid "Partnership"
-#~ msgstr "Partenariat"
-#~ msgid "Work"
-#~ msgstr "Emploi"
 #~ msgid "Research"
 #~ msgstr "Recherche"
 #~ msgid "Active partnership"
@@ -627,8 +884,6 @@ msgstr "(Vous)"
 #~ msgstr "Partager"
 #~ msgid "Education"
 #~ msgstr "Education"
-#~ msgid "Culture"
-#~ msgstr "Culture"
 #~ msgid "Sport"
 #~ msgstr "Sport"
 #~ msgid "Add to contacts"

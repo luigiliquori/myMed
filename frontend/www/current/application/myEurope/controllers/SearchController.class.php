@@ -11,10 +11,12 @@ class SearchController extends AuthenticatedController {
 		parent::handleRequest();
 		
 		$this->part = new Partnership();
-		$this->part->initSearch($_GET);
+		$this->part->setIndex($_GET);
+		
+		$mapper = new DataMapper;
 
 		try {
-			$this->result = $this->part->search();
+			$this->result = $mapper->findByPredicate($this->part);
 		} catch (Exception $e) {
 			$this->result = array();
 		}

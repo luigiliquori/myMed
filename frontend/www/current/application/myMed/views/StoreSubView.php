@@ -61,7 +61,7 @@
 			
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				<h3 Style="color: lightblue;">Description</h3>
-				<p><?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description") ?></p>
+				<p><?php @include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description.php") ?></p>
 				<div id="hidden-sharethis">
 					<span class='st_facebook_large' displayText='Facebook'></span>
 					<span class='st_twitter_large' displayText='Tweet'></span>

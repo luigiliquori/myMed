@@ -382,6 +382,7 @@
 	color: 					#2f3e46 /*{c-bup-color}*/;
 }
 .ui-btn-hover-c {
+	opacity: 0.9;
 	border: 1px solid 		#bbb /*{c-bhover-border}*/;
 	background: 			#dfdfdf /*{c-bhover-background-color}*/;
 	font-weight: bold;

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -97,6 +98,22 @@ public class MiscUtils {
 	    		res.put(keyObj.toString(), "");
 	    	} else {
 	    		res.put(keyObj.toString(), obj.get(keyObj).toString());
+	    	}
+	    }
+		return res;
+	}
+	
+	public static List<String> json_to_list(String s) {
+		/*if (!s.startsWith("{")){
+			throw new InternalBackEndException("decoding error", " decoding error: not an Object");
+		}*/
+		
+		List<String> res = new ArrayList<String>();
+		JSONArray arr = (JSONArray) JSONValue.parse(s);
+		//cast obj Map in a Map<String, String>
+	    for (Object obj: arr) {
+	    	if (obj != null){
+	    		res.add(obj.toString());
 	    	}
 	    }
 		return res;

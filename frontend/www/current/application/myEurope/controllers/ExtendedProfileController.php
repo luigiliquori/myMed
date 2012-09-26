@@ -151,7 +151,7 @@ class ExtendedProfileController extends AuthenticatedController {
 				UPDATE);
 		$publish->send();
 		
-		if ($_POST['name']!=$_SESSION['myEuropeProfile']->name || $_POST['role']!=$_SESSION['myEuropeProfile']->role){ //also update profiles indexes
+		if ($_POST['name']!=$_SESSION['myEuropeProfile']->details['name'] || $_POST['role']!=$_SESSION['myEuropeProfile']->details['role']){ //also update profiles indexes
 			$publish =  new RequestJson($this,
 					array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
 					CREATE);
@@ -210,27 +210,36 @@ class ExtendedProfileController extends AuthenticatedController {
 	
 	public /*void*/ function showOtherProfile($id){
 		
+		$mapper = new DataMapper;
 		$this->profile = new Profile($id);
 		try {
-			$this->profile->details = $this->profile->read();
+			$this->profile->details = $mapper->findById($this->profile);
 		} catch (Exception $e) {
 			$this->redirectTo("main");
 		}
 		$this->profile->parseProfile();
-		$this->profile->reputation = pickFirst(parent::reputation(null, $id));
+		$this->profile->reputation = pickFirst(parent::getReputation(array($id)));
 
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
 	public /*void*/ function showUserProfile($user){
-		
+		$mapper = new DataMapper;
 		$user = new User($user);
 		try {
-			$details = $user->read();
+			$details = $mapper->findById($user);
 		} catch (Exception $e) {
 			$this->redirectTo("main");
-		}		
-		$this->showOtherProfile($details['profile']);
+		}
+		$this->profile = new Profile($details['profile']);
+		try {
+			$this->profile->details = $mapper->findById($this->profile);
+		} catch (Exception $e) {
+			$this->redirectTo("main");
+		}
+		$this->profile->parseProfile();
+		$this->profile->reputation = pickFirst(parent::getReputation(array($id)));
+		$this->renderView("ExtendedProfileDisplay");
 	}
 	
 	public /*void*/ function deleteUser($id){

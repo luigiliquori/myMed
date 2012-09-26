@@ -7,6 +7,9 @@
  */
 class Entry {
 	
+	/*
+	 * have to put them private later
+	 */
 	public $id;
 	public $namespace;
 	public $user;
@@ -90,6 +93,10 @@ class Entry {
 		if ($res->status != 200 ){
 			throw new Exception($res->description);
 		}
+	}
+	
+	public function setUser($user){
+		$this->user = $user;
 	}
 	
 	

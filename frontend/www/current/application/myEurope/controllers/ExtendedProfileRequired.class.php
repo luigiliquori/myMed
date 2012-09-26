@@ -26,21 +26,23 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		
 		debug_r($_SESSION['user']);
 		
+		$this->mapper = new DataMapper;
+		
 		$user = new User($_SESSION['user']->id);
 		try {
-			$details = $user->read();
+			$details = $this->mapper->findById($user);
 		} catch (Exception $e) {
 			$this->showProfileList();
 		}
 		$_SESSION['myEurope'] = (object) $details;
 		$profile = new Profile($details['profile']);
 		try {
-			$profile->details = $profile->read();
+			$profile->details = $this->mapper->findById($profile);
 		} catch (Exception $e) {
 			$this->showProfileList();
 		}
 		$profile->parseProfile();
-		$profile->reputation = pickFirst(parent::reputation(null, $profile->details['id']));
+		$profile->reputation = pickFirst(parent::getReputation(array($profile->details['id'])));
 		debug_r($profile->reputation);
 		
 		$_SESSION['myEuropeProfile'] =$profile;
@@ -58,7 +60,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		
 		$profile = new Profile();
 		try {
-			$res = $profile->search();
+			$res = $this->mapper->findByPredicate($profile);
 		} catch (Exception $e) {
 		}
 		

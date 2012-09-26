@@ -6,12 +6,14 @@
 require_once("header.php"); ?>
 
 <?php 
+
 function tab_bar_login($activeTab) {
 	tabs($activeTab, array(
-			array("#login", "Connexion", "signin"),
-			array("#register", "Inscription", "th-list"),
-			array("#about", "A propos", "info-sign")
+			array("#login", "Sign In", "signin"),
+			array("#register", "Create an account", "th-list"),
+			array("#about", "About", "info-sign")
 	));
+
 }
 ?>
 
@@ -142,12 +144,12 @@ function tab_bar_login($activeTab) {
 	
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" />
 		<br />
-		<h3><?= APPLICATION_LABEL ?></h3>
+		<h3><?= _(APPLICATION_LABEL) ?></h3>
 		<br />
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
 			<p>
-			<?= _(APPLICATION_NAME."about") ?>
+			<?= _(APPLICATION_NAME.'about') ?>
 			</p>
 			</li>
 		</ul>

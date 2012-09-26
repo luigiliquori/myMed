@@ -20,10 +20,10 @@
 				<? endif; ?>
 			</li>
 		</ul>
-		<b style="font-size:14px;"><?= _('Keywords') ?>:</b>
-			<?= str_replace('"', '', $this->details->keywords) ?>
-			 
+
 		<? if (isset($this->details->user)) :?>
+			<b style="font-size:14px;"><?= _('Keywords') ?>:</b>
+			<?= str_replace('"', '', $this->details->keywords) ?>
 			<br /><br />
 			<b style="font-size:14px;"><?= _('Partners') ?>:</b>
 			<? if (isset($this->details->userProfile)) :?>
@@ -33,8 +33,12 @@
 				<?= $item->renderProfile() ?>
 			<? endforeach ?>
 			<br />
-			<? if ($this->details->user == $_SESSION['user']->id) :?>
-				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
+			<?php 
+			debug_r(strlen($this->details->user));
+			debug_r(strlen($_SESSION['user']->id));
+			?>
+			<? if ( in_array(trim($_SESSION['user']->id), $this->details->userProfile->users)) :?>
+				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-icon="remove" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
 			<? else :?>
 				<a href="?action=Details&partnerRequest=&id=<?= urlencode($this->id) ?>" type="button" data-inline="true" data-mini="true" data-icon="check"> <?= _("Partnership request") ?> </a>
 			<? endif ?>
