@@ -6,10 +6,9 @@
 require_once("header.php"); ?>
 
 <?php 
-
 function tab_bar_login($activeTab) {
 	tabs($activeTab, array(
-			array("#login", "Sign In", "signin"),
+			array("#login", "Sign in", "signin"),
 			array("#register", "Create an account", "th-list"),
 			array("#about", "About", "info-sign")
 	));
@@ -39,10 +38,10 @@ function tab_bar_login($activeTab) {
 
 			<div data-role="fieldcontain">
 				<fieldset data-role="controlgroup">
-					<legend><?= _("Register with") ?><a href="http://oauth.net/2/" style="text-decoration: none;">*</a>:</legend>
+					<legend><?= _("Sign in with") ?><a href="http://oauth.net/2/" style="text-decoration: none;">*</a>:</legend>
 					<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external"><img src="/system/img/social/google_logo.png" /></a>
 					<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external" style="margin-left: 20px;"><img src="/system/img/social/facebook_logo.png" /></a>
-					<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external" style="margin-left: 20px;"><img src="/system/img/social/twitter_logo.png" /></a>
+					<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external" style="margin-left: 20px;"><img src="/system/img/social/twitter_logo.png" style="height: 42px;" /></a>
 				</fieldset>
 				
 			</div>
@@ -149,7 +148,7 @@ function tab_bar_login($activeTab) {
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
 			<p>
-			<?= _(APPLICATION_NAME.'about') ?>
+			<?= _(APPLICATION_NAME."about") ?>
 			</p>
 			</li>
 		</ul>

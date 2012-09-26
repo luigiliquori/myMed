@@ -128,12 +128,12 @@ setlocale(LC_ALL, $LOCALE);
 define('GLOBAL_MESSAGES', 'messages');
 
 // Define domain "<APPLICATION_NAME>"
-//bindtextdomain(APPLICATION_NAME, APP_ROOT.'/lang');
-//bind_textdomain_codeset(APPLICATION_NAME, 'UTF-8');
+bindtextdomain(APPLICATION_NAME, APP_ROOT.'/lang');
+bind_textdomain_codeset(APPLICATION_NAME, 'UTF-8');
 
 // Define global domain (MyMed wide messages)
 bindtextdomain(GLOBAL_MESSAGES, MYMED_ROOT.'/lang');
-bind_textdomain_codeset(APPLICATION_NAME, 'UTF-8');
+bind_textdomain_codeset(GLOBAL_MESSAGES, 'UTF-8');
 
 // Support for php-gettext as a replacement for native gettext :
 // This is a pure PHP implementation of gettext that does not reply on system installed locales.

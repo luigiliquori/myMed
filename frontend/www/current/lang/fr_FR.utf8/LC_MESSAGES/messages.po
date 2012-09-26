@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-25 23:31+0200\n"
-"PO-Revision-Date: 2012-09-26 16:23+0100\n"
+"PO-Revision-Date: 2012-09-26 17:38+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr ""
 #: ../system/common/common-utils.php:302
 #, php-format
 msgid "Le champ %s est obligatoire."
-msgstr "Le champs est obligatoire"
+msgstr "Le champs %s est obligatoire"
 
 #: ../system/common/common-utils.php:422
 #: ../system/common/common-utils.php:423
@@ -74,8 +74,8 @@ msgid "Options"
 msgstr ""
 
 #: ../application/myMed/views/LoginView.php:40
-msgid "Register with"
-msgstr "S'inscrire en tant que"
+msgid "Sign in with"
+msgstr "Se connecter par"
 
 #: ../application/myMed/views/LoginView.php:50
 msgid "more options"
@@ -718,7 +718,7 @@ msgid "About"
 msgstr "A propos  "
 
 #: ../application/myEurope/doc/trads.php:8
-msgid "Sign In"
+msgid "Sign in"
 msgstr "Se logguer"
 
 #: ../application/myEurope/doc/trads.php:9

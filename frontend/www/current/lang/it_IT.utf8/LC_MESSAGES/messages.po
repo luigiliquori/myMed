@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-25 23:31+0200\n"
-"PO-Revision-Date: 2012-09-26 16:03+0100\n"
+"PO-Revision-Date: 2012-09-26 17:37+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,8 +75,8 @@ msgid "Options"
 msgstr "Opzioni"
 
 #: ../application/myMed/views/LoginView.php:40
-msgid "Register with"
-msgstr "Registrazione"
+msgid "Sign in with"
+msgstr "Connessione con"
 
 #: ../application/myMed/views/LoginView.php:50
 msgid "more options"
@@ -719,7 +719,7 @@ msgid "About"
 msgstr "A proposito"
 
 #: ../application/myEurope/doc/trads.php:8
-msgid "Sign In"
+msgid "Sign in"
 msgstr "Connessione"
 
 #: ../application/myEurope/doc/trads.php:9
