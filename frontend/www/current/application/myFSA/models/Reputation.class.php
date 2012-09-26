@@ -13,18 +13,24 @@ class Reputation
 	 * The ID of the myMed user to whom this ExtendedProfile is linked.
 	 */
 	public /*String*/ $user;
-	public /*String*/ $producer;
-	public /*String*/ $consumer;	
+	public /*String*/ $consumer;
+	public /*String*/ $predicate;
 	public /*String*/ $feedback;
+
 	
 	
 	//public function __construct(/*String*/ $user, /*String*/ $producer, /*String*/ $consumer, /*String*/ $reputation){
-	public function __construct(/*String*/ $user){
+	public function __construct(/*String*/ $user,/*String*/ $consumer, /*String*/ $predicate, /*String*/ $feedback){
 		// Check if user is defined
 		if (empty($user))
 			throw new Exception("User ID not defined.");
-		else
+		else{
 			$this->user = $user;
+			$this->consumer = $consumer;
+			$this->predicate = $predicate;
+			$this->feedback = $feedback;
+		}
+			
 	}
 	
 

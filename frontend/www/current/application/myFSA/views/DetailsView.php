@@ -9,9 +9,7 @@
   //method will run each time when evaluation will be set
   function setRank(rank){
 	  
-	  votes++;
-	  setVotes(votes);
-	  
+	  votes++;	  
 	  var newValue = $(".Rate").text();		  
 	  average = (average+parseInt(newValue))/votes;	  
 	  $(".starsAverage").attr("id",average);  
@@ -38,7 +36,6 @@
 	$(".starsAverage").attr("id",average);
 	
     setNewAvaregeStars()
-	setVotes(votes);
 	
   });
 </script>
