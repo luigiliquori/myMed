@@ -24,15 +24,13 @@
 
 <? tab_bar_default("#profile") ?>
 	<div data-role="content" style="text-align: center;">
-
-	<?php if($_SESSION['user']->profilePicture != ""): ?>
-		<a href="#updatePicPopup" data-rel="popup"><img alt="thumbnail"
-			src="<?= $_SESSION['user']->profilePicture ?>" width="80"> </a>
-		
+		<a href="#updatePicPopup" data-rel="popup">
+		<?php if($_SESSION['user']->profilePicture != ""): ?>
+			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
 		<?php else: ?>
-			<a href="#updatePicPopup" data-rel="popup"><img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80"></a>
+			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
 		<?php endif; ?>
-		
+		</a>
 		
 		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
@@ -246,9 +244,7 @@
 							placeholder="<?= _('separated by a space, comma, plus') ?>"
 							value='' type="text" />
 					</div>
-
 				</div>
-
 			</div>
 
 			<br />
@@ -296,7 +292,7 @@
 			</div>
 
 			<div data-role="collapsible" data-collapsed="false" data-theme="b"
-				data-content-theme="d">
+				data-content-theme="d" data-mini="true">
 				<h3>Options</h3>
 
 				<div data-role="collapsible-set" data-theme="c"
@@ -389,7 +385,7 @@
 			</div>
 
 			<textarea id="CLEeditor" name="text">
-				<h1>Votre partenariat</h1>  ...</textarea>
+				<h1><?= _("Your partnership") ?></h1>  ...</textarea>
 
 			<div style="text-align: center;">
 				<input type="submit" class="ui-btn-active ui-state-persist"
