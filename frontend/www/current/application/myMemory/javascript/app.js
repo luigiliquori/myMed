@@ -171,6 +171,8 @@ function calcRoute(json) {
 	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
 		calcRouteByCityway(result);
 	} else {
+		alert(JSON.stringify(result.ItineraryObj));
+		alert("result.ItineraryObj.Status.code = " +result.ItineraryObj.Status.code );
 		alert("Erreur API Cityway");
 	}
 
