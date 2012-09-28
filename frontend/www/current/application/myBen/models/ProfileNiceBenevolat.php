@@ -10,7 +10,7 @@ class ProfileNiceBenevolat extends ProfileAssociation {
 	static private $instance;
 	
 	/** Singleton */
-	static public function getInstance() {
+	static public function getInstance(){
 		if (ProfileNiceBenevolat::$instance == null) {
 			ProfileNiceBenevolat::$instance = new ProfileNiceBenevolat();
 			ProfileNiceBenevolat::$instance->userID = ProfileNiceBenevolat::$USERID;

@@ -164,10 +164,17 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 		boxText.innerHTML = 
 			'<h4 style=" margin-top: 2px; margin-bottom: 2px;">' + title + '</h4>';
 		if(IdMedia) {
-			medias = IdMedia.split(".jpg");
-			for(var i=0 ; i<medias.length-1 ; i++) {
+			if (IdMedia.split("://").length > 1) {
 				boxText.innerHTML += 
-					'<a href="img/pois/pictures/' + $.trim(medias[i]) + '.jpg" target="blank"><img alt="' + $.trim(medias[i]) + '" src="img/pois/pictures/' + $.trim(medias[i]) + '.jpg" width="270px" /></a><br/>';
+					'<a href="' + $.trim(IdMedia) + '" target="blank"><img alt="' + IdMedia + '" src="' + $.trim(IdMedia) + '" width="270px" /></a><br/>';
+			} else {
+				medias = IdMedia.split(".jpg");
+				if(medias.length > 1) {
+					for(var i=0 ; i<medias.length-1 ; i++) {
+						boxText.innerHTML += 
+							'<a href="img/pois/pictures/' + $.trim(medias[i]) + '.jpg" target="blank"><img alt="' + $.trim(medias[i]) + '" src="img/pois/pictures/' + $.trim(medias[i]) + '.jpg" width="270px" /></a><br/>';
+					}
+				} 
 			}
 		}
 		boxText.innerHTML += '<p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
@@ -187,24 +194,22 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 		if(Link){
 			boxText.innerHTML +=  '<a href="http://' + $.trim(Link.replace(/http:\/\//g, '')) + '" target="blank">Plus d\'infos</a>';
 		}
-		
+
 		var myOptions = {
-				content: boxText
-				,disableAutoPan: false
-				,maxWidth: 0
-				,zIndex: null
-				,boxStyle: { 
-					opacity: 0.95
-					,width: "280px"
-
-				}
-		,closeBoxMargin: "2px 2px 2px 2px"
+			content: boxText
+			,disableAutoPan: false
+			,maxWidth: 0
+			,zIndex: null
+			,boxStyle: { 
+				opacity: 0.95
+				,width: "280px"
+			}
+			,closeBoxMargin: "2px 2px 2px 2px"
 			,closeBoxURL: "img/close.png"
-				,infoBoxClearance: new google.maps.Size(1, 1)
-		,isHidden: false
-		,pane: "floatPane"
+			,infoBoxClearance: new google.maps.Size(1, 1)
+			,isHidden: false
+			,pane: "floatPane"
 			,enableEventPropagation: false
-
 		};
 
 		marker.ib = new InfoBox(myOptions);

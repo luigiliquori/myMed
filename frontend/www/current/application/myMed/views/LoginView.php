@@ -21,13 +21,12 @@ function tab_bar_login($activeTab) {
 	<? tab_bar_login("#login"); ?>
 	<? include("notifications.php"); ?>
 	
-	<div data-role="content" class="content">
-
+	<div data-role="content"  class="content">
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" width="200" />
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
 			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
-		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>
+		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>  
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="Connexion" />
 			
 		</form>
@@ -64,11 +63,8 @@ function tab_bar_login($activeTab) {
 			</li>
 
 			</ul>
-
 			
 		</div>
-
-
 
 		<br /><br />
 		<img alt="Alcotra" src="/system/img/logos/alcotra.png" />
@@ -78,10 +74,8 @@ function tab_bar_login($activeTab) {
 		<img alt="Alcotra" src="/system/img/logos/europe.jpg" />
 		
 	</div>
-	
-
-	
 </div>
+
 	
 <div data-role="page" id="register">
 	

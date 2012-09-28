@@ -25,19 +25,16 @@
 			<label for="profilePicture" >Photo du profil (url): </label>
 			<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			
-			<label for="thumbnail" >Langue	: </label>
-			<select id="thumbnail" name="lang">
+			<label for="lang" >Langue : </label>
+			<select id="lang" name="lang">
 				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Francais</option>
 				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
 				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
 			</select>
 			
-			<br />
-			
-			<div data-role="fieldcontain">
-				<label for="password" ><?= _("Password") ?> : </label>
-				<input type="password" id="password" name="password" />
-			</div>
+			<label for="password" ><?= _("Password") ?> :</label>
+			<input type="password" id="password" name="password" />
+
 			<? if (!isset($_SESSION['user']->email)): /*oauthed user have no password for the moment*/ ?>
 			<div data-role="fieldcontain">
 				<label for="passwordConfirm" ><?= _("Password Confirmation") ?> : </label>
@@ -47,8 +44,8 @@
 			
 			<center>
 				<div data-role="controlgroup" data-type="horizontal">
-					<input type="submit" data-role="button" data-inline="true" data-theme="b" value="Mise à jour" />
-					<a href="#profile" data-inline="true" rel="external" data-role="button" data-theme="d">Annuler</a>
+					<input type="submit" data-role="button" data-inline="true" data-theme="b" value="Mise à jour" data-icon="refresh"/>
+					<a href="#profile" data-inline="true" rel="external" data-role="button" data-theme="d" data-icon="delete" data-iconpos="right">Annuler</a>
 				</div>
 			</center>
 			

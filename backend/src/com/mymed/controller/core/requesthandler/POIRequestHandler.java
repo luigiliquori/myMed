@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.GeoLocationOutOfBoundException;
 import com.mymed.controller.core.exception.InternalBackEndException;
@@ -158,8 +159,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
                                 convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude),
                                 Integer.parseInt(radius), true);
                 message.setDescription("POIs successfully read!");
-                //final Gson gson = new Gson();
-                //message.addData(JSON_POI, gson.toJson(pois));
+//                final Gson gson = new Gson();
+//                message.addData(JSON_POI, gson.toJson(pois));
                 message.addDataObject(JSON_POI, pois);
             } else if (code == RequestCode.DELETE) {
             	if ((application = parameters.get(JSON_APPLICATION)) == null) {
@@ -210,7 +211,7 @@ public class POIRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application, type, user, longitude, latitude, value;
+            String application, type, user, longitude, latitude, value;
             user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code == RequestCode.CREATE) {
@@ -230,7 +231,8 @@ public class POIRequestHandler extends AbstractRequestHandler {
                 } else if ((value = parameters.get(JSON_VALUE)) == null) {
                     throw new InternalBackEndException("missing value argument!");
                 }
-
+                System.out.println("\nVALUE: \n" +value);
+                
                 // CREATE THE NEW POI
                 geoLocationManager.create(application, type, user, convertDegreeToMicroDegree(latitude),
                                 convertDegreeToMicroDegree(longitude), value, 0);

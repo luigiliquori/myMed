@@ -149,8 +149,6 @@ class DetailsController extends AuthenticatedController {
 	public /*void*/ function getProfile($id){
 		
 		$mapper = new DataMapper;
-		
-		debug($id);
 	
 		$user = new User($id);
 		try {

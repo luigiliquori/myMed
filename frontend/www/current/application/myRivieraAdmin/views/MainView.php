@@ -17,7 +17,28 @@
 			Longitude: <input id="marker_longitude" type="text" value="" data-inline="true" /><br />
 		    Latitude: <input id="marker_latitude" type="text" value="" data-inline="true" /><br />
 		    Radius: <input id="marker_radius" type="text" value="" data-inline="true" /><br />
-		    Type: <input id="marker_type" type="text" value="" data-inline="true" /><br />
+		    Type:<select id="marker_type" >
+						<option value="Transports">Transports</option>
+						<option value="GARESSUD">Gares </option>
+						<option value="Santé">Santé</option>
+						<option value="MaisonsRetraites">Maisons de retraites</option>
+						<option value="TourismeCulture">Tourisme Culture</option>
+						<option value="AdressesUtiles">Adresses Utiles</option>
+						<option value="Mairie">Mairie</option>
+						<option value="Banques">Banques</option>
+						<option value="Policemunicipale">Police</option>
+						<option value="POSTES">Poste</option>
+						<option value="Sports">Sports</option>
+						<option value="STADES">Stades</option>
+						<option value="Restaurants">Restaurants</option>
+						<option value="PizzasEmporter">Pizzeria</option>
+						<option value="Education">Education</option>
+						<option value="Bibliotheques">Bibliotheques</option>
+						<option value="IUT">IUT</option>
+						<option value="colleges">Collèges</option>
+						<option value="Primaires">Primaires</option>
+						<option value="Maternelles">Maternelles</option>
+				</select>
 		    <center><a href="#" data-role="button" onclick="printMarkers($('#marker_type').val(), $('#marker_longitude').val(), $('#marker_latitude').val(), $('#marker_radius').val());" rel="external" data-theme="g" data-inline="true">Afficher</a></center>	
 		</div>
 	
@@ -43,7 +64,34 @@
 			 	Titre: <input name="title" type="text" value="" data-inline="true" /><br />
 				Longitude: <input name="longitude" type="text" value="" data-inline="true" /><br />
 			    Latitude: <input name="latitude" type="text" value="" data-inline="true" /><br />
-			    Type: <input name="type" type="text" value="" data-inline="true" /><br />
+			    Type:<select name="type">
+						<option value="Transports">Transports</option>
+						<option value="GARESSUD">Gares </option>
+						<option value="Santé">Santé</option>
+						<option value="MaisonsRetraites">Maisons de retraites</option>
+						<option value="TourismeCulture">Tourisme Culture</option>
+						<option value="AdressesUtiles">Adresses Utiles</option>
+						<option value="Mairie">Mairie</option>
+						<option value="Banques">Banques</option>
+						<option value="Policemunicipale">Police</option>
+						<option value="POSTES">Poste</option>
+						<option value="Sports">Sports</option>
+						<option value="STADES">Stades</option>
+						<option value="Restaurants">Restaurants</option>
+						<option value="PizzasEmporter">Pizzeria</option>
+						<option value="Education">Education</option>
+						<option value="Bibliotheques">Bibliotheques</option>
+						<option value="IUT">IUT</option>
+						<option value="colleges">Collèges</option>
+						<option value="Primaires">Primaires</option>
+						<option value="Maternelles">Maternelles</option>
+				</select>
+				<br />
+			    IdMedia (url): <input name="IdMedia" type="text" value="" data-inline="true" /><br />
+			    Icon (url): <input name="icon" type="text" value="" data-inline="true" /><br />
+			    Link: <input name="Link" type="text" value="" data-inline="true" /><br />
+			    Email: <input name="Email" type="text" value="" data-inline="true" /><br />
+			    Adresse: <input name="Adresse" type="text" value="" data-inline="true" /><br />
 			    Description: <textarea name="description" rows="" cols=""></textarea><br />
 				<center><a href="#" data-role="button" onclick="document.addSinglePOI.submit()" rel="external" data-theme="g" data-inline="true">Publier</a></center>
 			</form>

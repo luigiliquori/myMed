@@ -7,20 +7,8 @@
 
 	<div data-role="content">
 
-		<?php if($_SESSION['user']->profilePicture != "") { ?>
-			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
-		<?php } else { ?>
-			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
-		<?php } ?>
-		
-		<div style="display:inline-block; margin-left: 15px; vertical-align: 25%; font-weight: bold; font-size: 14pt; text-align: center;">
-			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> <br />
-			<a href="#updateProfile" data-role="button" data-inline="true" data-theme="b" data-icon="refresh" data-mini="true">mise à jour</a>
-		</div>
-		
-		<br /><br />
-		
 		<ul data-role="listview" data-mini="true">
+			<li  data-role="list-divider">Informations générales</li>
 			<li data-icon="refresh">
 				<a href="#updateProfile">
 				<?php if($_SESSION['user']->profilePicture != "") { ?>
@@ -32,7 +20,6 @@
 				<?= $_SESSION['user']->name ?></a>
 			</li>
 			
-			<li  data-role="list-divider">Informations générales</li>
 			<li data-icon="refresh">
 				<a href="#updateProfile">
 				<img class="ui-li-mymed" alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" width="50" Style="margin-left: 5px; top:5px;"/>
