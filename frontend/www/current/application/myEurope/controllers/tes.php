@@ -54,7 +54,7 @@ $res = $req->send();*/
 
 // -----------RS READ
 // _("Association - Coopérative - Mutuelle");
- $req = new Requestv2("v2/ReputationRequestHandler");
+$req = new Requestv2("v2/ReputationRequestHandler");
 $req->addArgument("application", "myEurope");
  //$req->addArgument("producer", "toto"); 
  $req->addArgument("id","teste112"); 

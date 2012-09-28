@@ -30,8 +30,7 @@ class Entry {
 	}
 	
 	public function search() {
-		debug(APPLICATION_NAME.$this->namespace." ");
-		debug_r($this->index);
+
 		$find = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$this->namespace, "predicates"=>$this->index));
 		

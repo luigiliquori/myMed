@@ -148,9 +148,9 @@
 
 <div data-role="page" id="search">
 
-	<? tabs_simple(array('Recherche de partenaire')); ?>
+	<? tabs_simple(array('Search')); ?>
 	<div data-role="content">
-		<form action="" id="searchForm" data-ajax="false">
+		<form action="" id="searchForm">
 		
 			<input type="hidden" name="action" value="Search" />
 			
@@ -241,7 +241,7 @@
 
 <div data-role="page" id="post">
 	
-	<? tabs_simple(array('Déposer une offre')) ?>
+	<? tabs_simple(array('Insert')) ?>
 	<div data-role="content">
 		<form action="./" method="post" id="publishForm">
 				

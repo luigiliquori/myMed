@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-25 23:31+0200\n"
-"PO-Revision-Date: 2012-09-26 22:22+0100\n"
+"POT-Creation-Date: 2012-09-27 12:45+0200\n"
+"PO-Revision-Date: 2012-09-27 13:04+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -64,31 +64,16 @@ msgstr "Indietro"
 msgid "Suivant"
 msgstr "Avanti"
 
-#: ../application/myMed/views/LoginView.php:29
+#: ../application/myMed/views/LoginView.php:31
 #: ../application/myMed/views/UpdateProfileView.php:38
 #: ../application/myEurope/views/ExtendedProfileEditView.php:66
 msgid "Password"
 msgstr "Password"
 
-#: ../application/myMed/views/LoginView.php:36
-msgid "Options"
-msgstr "Opzioni"
-
-#: ../application/myMed/views/LoginView.php:40
+#: ../application/myMed/views/LoginView.php:38
+#: ../application/myEurope/doc/trads.php:6
 msgid "Sign in with"
 msgstr "Connessione con"
-
-#: ../application/myMed/views/LoginView.php:50
-msgid "more options"
-msgstr "altre opzioni"
-
-#: ../application/myMed/views/LoginView.php:54
-msgid "We also support OpenId"
-msgstr "Supportiamo anche OpenId"
-
-#: ../application/myMed/views/LoginView.php:57
-msgid "log in with openid"
-msgstr "Registrarsi con openid"
 
 #: ../application/myMed/views/LoginView.php:150
 msgid "about"
@@ -97,6 +82,10 @@ msgstr "A proposito"
 #: ../application/myMed/views/LoginView.php:155
 msgid "More informations"
 msgstr "Informazioni"
+
+#: ../application/myMed/views/ProfileView.php:40
+msgid "Profiles"
+msgstr "Profili"
 
 #: ../application/myMed/views/UpdateProfileView.php:43
 msgid "Password Confirmation"
@@ -123,13 +112,25 @@ msgstr "Password non corrispondente"
 msgid "Wrong password"
 msgstr "Password errata"
 
-#: ../application/myEurope/controllers/DetailsController.class.php:113
+#: ../application/myEurope/controllers/DetailsController.class.php:112
 msgid "Partnership request sent"
 msgstr "Richiesta di partenariato inviata"
 
-#: ../application/myEurope/controllers/DetailsController.class.php:144
+#: ../application/myEurope/controllers/DetailsController.class.php:143
 msgid "Partner added"
 msgstr "Il partner è stato aggiunto"
+
+#: ../application/myEurope/views/AdminView.php:18
+msgid "New users waiting for validation"
+msgstr "Nuovo utente in attesa di validazione "
+
+#: ../application/myEurope/views/AdminView.php:29
+msgid "Normal users"
+msgstr "Utente normale "
+
+#: ../application/myEurope/views/AdminView.php:40
+msgid "Admins"
+msgstr ""
 
 #: ../application/myEurope/views/BlogsView.php:31
 msgid "comments"
@@ -149,24 +150,32 @@ msgid "Post"
 msgstr "Postare"
 
 #: ../application/myEurope/views/BlogsView.php:85
-#: ../application/myEurope/views/DetailsView.php:49
+#: ../application/myEurope/views/DetailsView.php:60
 msgid "Sure?"
 msgstr "Conferma?"
 
-#: ../application/myEurope/views/DetailsView.php:23
+#: ../application/myEurope/views/DetailsView.php:26
 #: ../application/myEurope/views/MainView.php:310
 msgid "Keywords"
 msgstr "Parole chiave"
 
-#: ../application/myEurope/views/DetailsView.php:28
+#: ../application/myEurope/views/DetailsView.php:31
+msgid "<b>Publication Date:</b> "
+msgstr "<b>Data pubblicazione:</b> "
+
+#: ../application/myEurope/views/DetailsView.php:34
+msgid "<b>Expiration Date:</b> "
+msgstr "<b>Data limite</b> "
+
+#: ../application/myEurope/views/DetailsView.php:38
 msgid "Partners"
 msgstr "Partner"
 
-#: ../application/myEurope/views/DetailsView.php:41
+#: ../application/myEurope/views/DetailsView.php:52
 msgid "Delete my offer"
 msgstr "Cancella la mia offerta"
 
-#: ../application/myEurope/views/DetailsView.php:43
+#: ../application/myEurope/views/DetailsView.php:54
 msgid "Partnership request"
 msgstr "Richiesta di partenariato"
 
@@ -446,7 +455,7 @@ msgid "reputation"
 msgstr "reputazione "
 
 #: ../application/myEurope/views/ResultsView.php:23
-msgid "Subscrive to:"
+msgid "Subscribe to:"
 msgstr "Abbonarsi"
 
 #: ../application/myEurope/views/ResultsView.php:24
@@ -704,7 +713,7 @@ msgstr "(Io)"
 
 #: ../application/myEurope/doc/trads.php:3
 msgid "myMedabout"
-msgstr "A proposito di myMed"
+msgstr "Il progetto <b>myMed</b> nasce da una duplice constatazione: l'esistenza di un enorme potenziale di sviluppo di attività economiche nella zona transfrontaliera, oggetto dell’azione Alcotra e la stridente mancanza d'infrastrutture tecnicamente avanzate che ne permettano uno sviluppo armonioso. L'iniziativa myMed é frutto di una  collaborazione preesistente da più di 15 anni tra l’Istituto Nazionale di Ricerca in Informatica e Automatica (INRIA) di Sophia Antipolis e il Politecnico di Torino ai quali si sono aggiunti altri due partner: l’Università di Torino e l’Università del Piemonte Orientale."
 
 #: ../application/myEurope/doc/trads.php:4
 msgid "About myMed"
@@ -736,7 +745,7 @@ msgstr "Informazioni"
 
 #: ../application/myEurope/doc/trads.php:12
 msgid "Blog"
-msgstr "Blog"
+msgstr "Buone prassi"
 
 #: ../application/myEurope/doc/trads.php:13
 msgid "Profile"
@@ -746,6 +755,14 @@ msgstr "Profilo"
 msgid "Existing Profiles"
 msgstr "Profilo già esistente"
 
+#~ msgid "Options"
+#~ msgstr "Opzioni"
+#~ msgid "more options"
+#~ msgstr "altre opzioni"
+#~ msgid "We also support OpenId"
+#~ msgstr "Supportiamo anche OpenId"
+#~ msgid "log in with openid"
+#~ msgstr "Registrarsi con openid"
 #~ msgid "Réseau social transfontalier"
 #~ msgstr "Rete sociale transfrontaliera"
 #~ msgid "Ensemble par-delà les frontières"
@@ -760,10 +777,6 @@ msgstr "Profilo già esistente"
 #~ msgstr "Inglese"
 #~ msgid "Users"
 #~ msgstr "Utenti"
-#~ msgid "New users waiting for validation"
-#~ msgstr "Nuovo utente in attesa di validazione "
-#~ msgid "Normal users"
-#~ msgstr "Utente normale "
 #~ msgid "Next"
 #~ msgstr "Avanti"
 #~ msgid "Validate"

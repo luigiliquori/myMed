@@ -176,26 +176,6 @@ function rate(el, id, usr, feedback) {
 	});
 }
 
-function ratemyEurope(el, id, usr, feedback) {
-	var succ = el.parents('[data-role=page]').find('#notification-success');  //should work on that
-	var data = {
-			application : "myEurope",
-			predicate: id,
-			producer : usr,
-			feedback : feedback
-		};
-	
-	//console.log(data);
-	$.get('../../lib/dasp/ajax/Interaction', data, function(res) {
-		//console.log(res);
-		var response = JSON.parse(res);
-		succ.find('h3').text(response.description);
-		succ.show();
-		//location.reload(0);
-		
-	});
-}
-
 function updateProfile(k, v) {
 	
 	var data = {};

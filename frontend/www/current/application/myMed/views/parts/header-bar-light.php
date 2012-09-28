@@ -33,7 +33,7 @@ function tabs($activeTab, $tabs, $buttonLeft = false) {
 			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
 		<? endif ?>
   		<h1>
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= APPLICATION_LABEL ?></span></a>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= _(APPLICATION_LABEL) ?></span></a>
   		</h1>
   		<div data-role="header" data-theme="d" style="display: none;" class="toptab">
 			<div data-role="navbar" data-role="footer" data-iconpos="bottom" >

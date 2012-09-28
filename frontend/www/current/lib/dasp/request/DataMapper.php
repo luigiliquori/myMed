@@ -8,8 +8,7 @@
 class DataMapper {
 	
 	public function findByPredicate( $data ){
-		debug(APPLICATION_NAME.$data->namespace." ");
-		debug_r($data->index);
+		
 		$find = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$data->namespace,
 						"predicates"=>$data->index));

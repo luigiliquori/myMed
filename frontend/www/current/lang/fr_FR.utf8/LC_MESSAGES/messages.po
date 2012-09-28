@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-25 23:31+0200\n"
-"PO-Revision-Date: 2012-09-26 17:38+0100\n"
+"POT-Creation-Date: 2012-09-27 12:56+0200\n"
+"PO-Revision-Date: 2012-09-28 13:57+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -63,31 +63,16 @@ msgstr ""
 msgid "Suivant"
 msgstr ""
 
-#: ../application/myMed/views/LoginView.php:29
+#: ../application/myMed/views/LoginView.php:31
 #: ../application/myMed/views/UpdateProfileView.php:38
 #: ../application/myEurope/views/ExtendedProfileEditView.php:66
 msgid "Password"
 msgstr "Mot de passe"
 
-#: ../application/myMed/views/LoginView.php:36
-msgid "Options"
-msgstr ""
-
-#: ../application/myMed/views/LoginView.php:40
+#: ../application/myMed/views/LoginView.php:38
+#: ../application/myEurope/doc/trads.php:6
 msgid "Sign in with"
 msgstr "Se connecter par"
-
-#: ../application/myMed/views/LoginView.php:50
-msgid "more options"
-msgstr "Plus d'options"
-
-#: ../application/myMed/views/LoginView.php:54
-msgid "We also support OpenId"
-msgstr "Nous supportons également OpenID"
-
-#: ../application/myMed/views/LoginView.php:57
-msgid "log in with openid"
-msgstr "Se connecter avec Openid"
 
 #: ../application/myMed/views/LoginView.php:150
 msgid "about"
@@ -96,6 +81,10 @@ msgstr "A propos "
 #: ../application/myMed/views/LoginView.php:155
 msgid "More informations"
 msgstr "Plus d'informations"
+
+#: ../application/myMed/views/ProfileView.php:40
+msgid "Profiles"
+msgstr "Profils"
 
 #: ../application/myMed/views/UpdateProfileView.php:43
 msgid "Password Confirmation"
@@ -122,13 +111,25 @@ msgstr "Mauvaise confirmation du mot de passe"
 msgid "Wrong password"
 msgstr "Mot de passe erroné"
 
-#: ../application/myEurope/controllers/DetailsController.class.php:113
+#: ../application/myEurope/controllers/DetailsController.class.php:112
 msgid "Partnership request sent"
 msgstr "Demande de partenariat envoyée"
 
-#: ../application/myEurope/controllers/DetailsController.class.php:144
+#: ../application/myEurope/controllers/DetailsController.class.php:143
 msgid "Partner added"
 msgstr "Partenariat ajouté "
+
+#: ../application/myEurope/views/AdminView.php:18
+msgid "New users waiting for validation"
+msgstr "Nouveaux utilisateurs en attente de validation"
+
+#: ../application/myEurope/views/AdminView.php:29
+msgid "Normal users"
+msgstr "Utilisateurs normaux"
+
+#: ../application/myEurope/views/AdminView.php:40
+msgid "Admins"
+msgstr ""
 
 #: ../application/myEurope/views/BlogsView.php:31
 msgid "comments"
@@ -148,24 +149,32 @@ msgid "Post"
 msgstr "Poster"
 
 #: ../application/myEurope/views/BlogsView.php:85
-#: ../application/myEurope/views/DetailsView.php:49
+#: ../application/myEurope/views/DetailsView.php:60
 msgid "Sure?"
 msgstr "Etes-vous sûr?"
 
-#: ../application/myEurope/views/DetailsView.php:23
+#: ../application/myEurope/views/DetailsView.php:26
 #: ../application/myEurope/views/MainView.php:310
 msgid "Keywords"
 msgstr "Mots-clés"
 
-#: ../application/myEurope/views/DetailsView.php:28
+#: ../application/myEurope/views/DetailsView.php:31
+msgid "<b>Publication Date:</b> "
+msgstr "<b>Date de publication:</b> "
+
+#: ../application/myEurope/views/DetailsView.php:34
+msgid "<b>Expiration Date:</b> "
+msgstr "<b>Date d'expiration:</b> "
+
+#: ../application/myEurope/views/DetailsView.php:38
 msgid "Partners"
 msgstr "Partenaires"
 
-#: ../application/myEurope/views/DetailsView.php:41
+#: ../application/myEurope/views/DetailsView.php:52
 msgid "Delete my offer"
 msgstr "Supprimer mon offre"
 
-#: ../application/myEurope/views/DetailsView.php:43
+#: ../application/myEurope/views/DetailsView.php:54
 msgid "Partnership request"
 msgstr "Demande de partenariat"
 
@@ -323,7 +332,7 @@ msgstr "Créer"
 #: ../application/myEurope/views/MainView.php:128
 #: ../application/myEurope/doc/trads.php:2
 msgid "myEuropeabout"
-msgstr "<b>MyEurope</b> est un réseau social s'appuyant sur le méta-réseau social <em>myMed</em>, à disposition des mairies, des institutions, des élus ou encore des réalités économiques (industrielles, touristiques…) du territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des trois régions italiennes du Nord Ouest de l'Italie, (Ligurie, Piémont, Vallée d'Aoste), c'est-à-dire des territoires éligibles au programme Alcotra (Alpes Latines Coopération Transfrontalière France-Italie). L'application permettra aux mairies de l'Eurorégion Alpes-Méditerranée (MedAlp) de trouver des	partenaires, bien évidemment inscrits au réseau myEurope, au sein de l'interregion afin de pouvoir monter ensemble des projets communs, dans le cadre de différents programmes européens : Interreg Alcotra, de Med, FP7 etc … <br /> <br /> Les objectifs principaux de myEurope sont donc les suivants :<ul>	<li>Aider, à travers le mécanisme de « Matchmaking » de myMed, à mettre en communs des idées mais aussi des moyens afin de pouvoir soumettre un		projet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER …).</li>	<li>Echanger des pratiques et des intérêts communs transfrontaliers dans le domaine du montage de projet</li>	<li>Informer des différents appels d'offres de projets européens les personnes inscrites au réseau social</li></ul><br />Ces échanges d'information seront utiles aux élus français ainsi qu'à leurs homologues italiens afin de pouvoir instaurer un contact permanent entreles habitants des régions françaises et ceux des régions italiennes limitrophes. Ce qui favorisera l'organisation d'activités transfrontalières(partenariat de projets européens, coopérations dans différents domaines …)."
+msgstr "<b>MyEurope</b> est un réseau social s'appuyant sur le méta-réseau social <em>myMed</em>, à disposition des mairies, des institutions, des élus ou encore des réalités économiques (industrielles, touristiques…) du territoire de la région française du Sud-Est (PACA, Rhône-Alpes) et des trois régions italiennes du Nord Ouest de l'Italie, (Ligurie, Piémont, Vallée d'Aoste), c'est-à-dire des territoires éligibles au programme Alcotra (Alpes Latines Coopération Transfrontalière France-Italie). L'application permettra aux mairies de l'Eurorégion Alpes-Méditerranée (MedAlp) de trouver des\tpartenaires, bien évidemment inscrits au réseau myEurope, au sein de l'interregion afin de pouvoir monter ensemble des projets communs, dans le cadre de différents programmes européens : Interreg Alcotra, de Med, FP7 etc … <br /> <br /> Les objectifs principaux de myEurope sont donc les suivants :<ul>\t<li>Aider, à travers le mécanisme de « Matchmaking » de myMed, à mettre en communs des idées mais aussi des moyens afin de pouvoir soumettre un\t\tprojet Interreg Alcotra, Med ou d'obtenir des financements provenant de l'Europe (crédits FEDER …).</li>\t<li>Echanger des pratiques et des intérêts communs transfrontaliers dans le domaine du montage de projet</li>\t<li>Informer des différents appels d'offres de projets européens les personnes inscrites au réseau social</li></ul><br />Ces échanges d'information seront utiles aux élus français ainsi qu'à leurs homologues italiens afin de pouvoir instaurer un contact permanent entreles habitants des régions françaises et ceux des régions italiennes limitrophes. Ce qui favorisera l'organisation d'activités transfrontalières(partenariat de projets européens, coopérations dans différents domaines …)."
 
 #: ../application/myEurope/views/MainView.php:139
 msgid "Restricted page for admins"
@@ -445,7 +454,7 @@ msgid "reputation"
 msgstr "réputation"
 
 #: ../application/myEurope/views/ResultsView.php:23
-msgid "Subscrive to:"
+msgid "Subscribe to:"
 msgstr "S'abonner à"
 
 #: ../application/myEurope/views/ResultsView.php:24
@@ -538,7 +547,7 @@ msgid "Région - établissement public régional"
 msgstr ""
 
 #: ../application/myEurope/models/Categories.php:33
-msgid "Service de l’Etat - établissement public de l'Etat"
+msgid "Service de l'Etat - établissement public de l'Etat"
 msgstr ""
 
 #: ../application/myEurope/models/Categories.php:34
@@ -719,7 +728,7 @@ msgstr "A propos  "
 
 #: ../application/myEurope/doc/trads.php:8
 msgid "Sign in"
-msgstr "Se logguer"
+msgstr "Connexion"
 
 #: ../application/myEurope/doc/trads.php:9
 msgid "Create an account"
@@ -745,6 +754,12 @@ msgstr "Profil"
 msgid "Existing Profiles"
 msgstr "Profils existants"
 
+#~ msgid "more options"
+#~ msgstr "Plus d'options"
+#~ msgid "We also support OpenId"
+#~ msgstr "Nous supportons également OpenID"
+#~ msgid "log in with openid"
+#~ msgstr "Se connecter avec Openid"
 #~ msgid "Choose a language"
 #~ msgstr "Choisissez une langue"
 #~ msgid "French"
@@ -757,10 +772,6 @@ msgstr "Profils existants"
 #~ msgstr "Accueil"
 #~ msgid "Users"
 #~ msgstr "Utilisateurs"
-#~ msgid "New users waiting for validation"
-#~ msgstr "Nouveaux utilisateurs en attente de validation"
-#~ msgid "Normal users"
-#~ msgstr "Utilisateurs normaux"
 #~ msgid "Next"
 #~ msgstr "Suivant"
 #~ msgid "Validate"

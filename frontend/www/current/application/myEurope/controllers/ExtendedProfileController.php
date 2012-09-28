@@ -99,10 +99,7 @@ class ExtendedProfileController extends AuthenticatedController {
 		//$profile->{"user".$_SESSION['user']->id} = $_SESSION['user']->id;
 		
 		//$_SESSION['myEurope']->profile = $profile;
-			//debug_r($_SESSION['myEurope']->profile);
 		$this->success = "Complément de profil enregistré avec succès!";
-
-		//debug_r($_SESSION['myEurope']);
 		
 		//subscribe to our profile changes (permission change - partnership req accepted)
 		$subscribe = new RequestJson( $this,
@@ -139,7 +136,6 @@ class ExtendedProfileController extends AuthenticatedController {
 			
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
-			debug("error");
 			$this->renderView("ExtendedProfileEdit");
 		}
 		
@@ -173,8 +169,6 @@ class ExtendedProfileController extends AuthenticatedController {
 	
 	public /*void*/ function storeProfile(){
 		
-		debug($_SESSION['user']->email);
-		
 		// we clear these ones
 		unset($_POST['form']);
 			
@@ -185,7 +179,7 @@ class ExtendedProfileController extends AuthenticatedController {
 		$_POST['id'] = hash("md5", time().$_POST['name']);
 		$_POST['desc'] = nl2br($_POST['desc']);
 		unset($_POST['checkCondition']);
-		//debug_r($_POST);
+
 		$publish =  new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "data"=>$_POST, "metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
 				CREATE);
@@ -259,7 +253,8 @@ class ExtendedProfileController extends AuthenticatedController {
 				DELETE);
 	
 		$publish->send();
-		exit();
+		$this->success = "done";
+		$this->renderView("main");
 	
 	}
 	
@@ -270,7 +265,8 @@ class ExtendedProfileController extends AuthenticatedController {
 				DELETE);
 	
 		$publish->send();
-		exit();
+		$this->success = "done";
+		$this->renderView("main");
 	
 	}
 	

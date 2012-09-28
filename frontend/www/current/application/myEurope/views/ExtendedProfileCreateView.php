@@ -17,7 +17,7 @@
 	
 	<? tab_bar("#profiles") ?>
 	<? include("notifications.php"); ?>
-<?php debug_r($_SESSION['user']); ?>
+
 	<div data-role="content">
 		<p>
 		<?= _("Hello, This is your first time on myEurope.<br/><br/>

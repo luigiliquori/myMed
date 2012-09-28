@@ -24,8 +24,6 @@ class ExtendedProfileRequired extends AuthenticatedController {
 	 */
 	public /*void*/ function fetchExtendedProfile(){
 		
-		debug_r($_SESSION['user']);
-		
 		$this->mapper = new DataMapper;
 		
 		$user = new User($_SESSION['user']->id);
@@ -43,7 +41,6 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		}
 		$profile->parseProfile();
 		$profile->reputation = pickFirst(parent::getReputation(array($profile->details['id'])));
-		debug_r($profile->reputation);
 		
 		$_SESSION['myEuropeProfile'] =$profile;
 		
@@ -65,6 +62,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		}
 		
 		$this->cats = Categories::$roles;
+		debug_r($res);
 		
 		function filterArray($array, $value){
 			$result = array();
@@ -79,9 +77,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		foreach($this->cats as $k=>$v){
 			$this->cats[$k] = filterArray($res, $k);
 		}
-		debug_r($this->cats);
 		$this->renderView("ExtendedProfileCreate");
-		
 		
 	}
 

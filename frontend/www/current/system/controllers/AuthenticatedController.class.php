@@ -35,6 +35,7 @@ class AuthenticatedController extends AbstractController implements IReputationM
 	}
 	
 	public function getReputation($app=array(APPLICATION_NAME), $producer=array()){
+
 		$rep =  new ReputationSimple($app, $producer);
 		$res = $rep->send();
 		if($res->status != 200) {

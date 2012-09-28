@@ -22,10 +22,21 @@
 		</ul>
 
 		<? if (isset($this->details->user)) :?>
-			<b style="font-size:14px;"><?= _('Keywords') ?>:</b>
+			<span style="font-size:14px;background-color: #eff;">
+			<b ><?= _('Keywords') ?>:</b>
 			<?= str_replace('"', '', $this->details->keywords) ?>
-			<br /><br />
+			</span>
+			<br />
+			<span style="font-size:14px;background-color: #eff;">
+			<?= _("<b>Publication Date:</b> ").date('j/n/Y G:i', $this->details->time) ?><br />
+			</span>
+			<span style="font-size:14px;background-color: #eff;">
+			<?= isset($this->details->expirationDate)?_("<b>Expiration Date:</b> ").date('j/n/Y G:i', strtotime($this->details->expirationDate)).'<br />':'' ?>
+			</span>
+			<br />
+			<span style="font-size:14px;background-color: #eff;">
 			<b style="font-size:14px;"><?= _('Partners') ?>:</b>
+			</span>
 			<? if (isset($this->details->userProfile)) :?>
 				<?= $this->details->userProfile->renderProfile() ?>
 			<? endif ?>
@@ -33,10 +44,7 @@
 				<?= $item->renderProfile() ?>
 			<? endforeach ?>
 			<br />
-			<?php 
-			debug_r(strlen($this->details->user));
-			debug_r(strlen($_SESSION['user']->id));
-			?>
+
 			<? if ( in_array(trim($_SESSION['user']->id), $this->details->userProfile->users)) :?>
 				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-icon="remove" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
 			<? else :?>

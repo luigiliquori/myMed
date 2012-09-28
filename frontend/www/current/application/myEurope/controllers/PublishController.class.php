@@ -43,7 +43,6 @@ class PublishController extends ExtendedProfileRequired {
 		try{
 			$res = $mapper->save($this->part);
 		}catch(Exception $e){
-			debug("post err".$e);
 			$this->setError($e);
 			$this->redirectTo("Main", null, "post");
 		}
@@ -67,7 +66,7 @@ class PublishController extends ExtendedProfileRequired {
 		unset($_POST['text']);
 		unset($_POST['action']);
 		$this->req = "";
-		debug("post suc");
+
 		debug(json_encode($_POST));
 		unset($_POST['r']);
 		$get_line = "";

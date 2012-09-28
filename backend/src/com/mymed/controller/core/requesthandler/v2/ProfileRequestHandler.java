@@ -189,7 +189,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                     	if (key == null) {
                             throw new InternalBackEndException("missing key argument!");
                         }
-                        LOGGER.info("Trying to update user {} with {}");
+                        LOGGER.info("Trying to update user {} with {}",user, key+"="+value );
                         profileManager.update(user, key, value);
                         message.setDescription("User "+user+" updated: "+key+"="+value);
                         LOGGER.info("User updated!");
