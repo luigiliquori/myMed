@@ -9,41 +9,41 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
-	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.1.0.min.css" />
-	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-1.1.0.min.js"></script>
+	<!--  Extra icons for jquery 
+	<link rel="stylesheet" href="../../lib/jquery/jqm-icon-pack-2.1.2-fa.css" />-->
 	
-	<!--  Extra icons for jquery -->
-	<link rel="stylesheet" href="../../lib/jquery/extra-icons/jqm-icon-pack-2.0-original.css" />
+	<!-- JQUERY (Beta)  -->
+	<link rel="stylesheet" href="/lib/jquery/jquery.mobile-1.2.0-beta.1.css" />
+	<script src="/lib/jquery/jquery-1.8.1.min.js"></script>
+	<script src="/lib/jquery/jquery.mobile-1.2.0-beta.1.js"></script>
+	
+	<!-- MYMED css -->
+	<link href="/system/css/common.css" rel="stylesheet" />	
+	
+	<!-- APP css -->
+	<link href="css/style.css" rel="stylesheet" />
+	
+	<!-- APP JS -->
+	<script src="javascript/app.js"></script>
 	
 	<!-- DateBox -->
-	<script src="../../lib/jquery/datebox/jqm-datebox-1.1.0.core.min.js"></script>
-	<script src="../../lib/jquery/datebox/jqm-datebox-1.1.0.comp.datebox.min.js"></script>
-	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.i18n.fr.utf8.js"></script>
-	<link href="../../lib/jquery/datebox/jqm-datebox-1.1.0.min.css" rel="stylesheet" />
+	<script src="/lib/jquery/datebox/jqm-datebox-1.1.0.core.min.js"></script>
+	<script src="/lib/jquery/datebox/jqm-datebox-1.1.0.comp.datebox.min.js"></script>
+	<script src="/lib/jquery/datebox/jquery.mobile.datebox.i18n.fr.utf8.js"></script>
+	<link href="/lib/jquery/datebox/jqm-datebox-1.1.0.min.css" rel="stylesheet" />
 	
 	<!-- Keyfilter  -->
-	<script src="../../lib/jquery/jquery.keyfilter.js" ></script>
+	<script src="/lib/jquery/jquery.keyfilter.js" ></script>
 	
 	<!--  SimpleDialog -->
-	<script src="../../lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
-	<link href="../../lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
+	<script src="/lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
+	<link href="/lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
 	
 	<!-- Localization -->
 	<script type="text/javascript">
 		msg={};
 		msg.FORM_ERROR = "<?= _("Il y a des erreurs dans le formulaire, merci de les corriger.") ?>";
 	</script>
-	
-	<!-- APP JS -->
-	<script src="javascript/app.js"></script>
-	
-	<!-- MYMED css -->
-	<!-- <link href="../myMed/css/style.css" rel="stylesheet" /> -->
-	
-	<!-- APP css -->
-	<link href="css/style.css" rel="stylesheet" />
 	
 	<!-- Google Analytics -->
 	<script type="text/javascript">
@@ -70,6 +70,59 @@
 		});
 	</script>
 <? endif ?>
+
+<?php 
+
+function tab_bar_main($activeTab, $opts=1) {
+	tabs($activeTab, array(
+			array("?action=main", "Applications", "tags"),
+			array("?action=login", "Profil", "user"),
+	), $opts);
+}
+
+define('SEP', '<span style="opacity: 0.7; font-size: 80%;"> &gt; </span>');
+
+function tabs($activeTab, $tabs, $buttonLeft = false) {
+
+	$reverse = true;
+	$tabsStr = "";
+	foreach ($tabs as $i){
+		$tabsStr .=
+		'<li><a href="'. $i[0] .'" data-transition="none" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
+		.($i[0][0]!='#'?'rel="external"':'')
+		.($activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '').'>'. _($i[1])
+		.'</a></li>';
+		if ($i[0] == $activeTab) {
+			$reverse = false;
+		}
+	}
+	?>
+	<div data-role="header" data-theme="b" data-position="fixed">
+  		<? if ($buttonLeft & 1): ?>
+			<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Déconnexion</a>
+		<? endif ?>
+		<? if ($buttonLeft & 2): ?>
+			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
+		<? endif ?>
+  		<h1>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= APPLICATION_LABEL ?></span></a>
+  		</h1>
+		<span style="position: absolute;right: 3px;top: -3px;opacity: 0.6;">
+			<a class="social" style="background-position: -33px 0px;" href="https://plus.google.com/u/0/101253244628163302593/posts" title="myBenevolat on Google+"></a>
+			<a class="social" style="background-position: -66px 0px;" href="http://www.facebook.com/pages/myEurope/274577279309326" title="myBenevolat on Facebook"></a>
+			<a class="social" style="background-position: 0px 0px;" href="https://twitter.com/my_europe" title="myBenevolat on Twitter"></a>
+		</span>
+  	</div>
+	
+	<div data-role="footer" data-theme="d" data-position="fixed">
+		<div data-role="navbar">
+			<ul><?= $tabsStr ?></ul>
+		</div>
+	</div>
+	<?
+}
+
+?>
 
 
 
