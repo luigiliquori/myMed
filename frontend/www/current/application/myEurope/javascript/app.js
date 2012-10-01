@@ -309,8 +309,9 @@ function prettyprintUser(id){
 
 $("[data-role=page]").live("pagecreate", function() {
 	if (isiPhoneoriPad()){
-		$(this).find('.toptab').hide();
 		$(this).find('.iostab').show();
+	} else{
+		$(this).find('.toptab').show();
 	}
 });
 
