@@ -8,7 +8,6 @@
 	<? include("notifications.php"); ?>
 
 	<div data-role="content" Style="padding: 0px; opacity: 0.9">
-		
 		<div class="ui-grid-a" style="position: relative;">
 			<?php $column = "a"; ?>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) {  ?>
@@ -50,5 +49,7 @@
 	</div>
 
 </div>
+
+<? include_once 'UpdateProfileView.php'; ?>
 
 <? include("footer.php"); ?>

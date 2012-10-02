@@ -37,4 +37,6 @@
 
 </div>
 
+<? include_once 'UpdateProfileView.php'; ?>
+
 <? include("footer.php"); ?>

@@ -6,7 +6,7 @@
 		
 		<ul data-role="listview" data-inset="true" data-filter="true">
 
-			<li data-role="list-divider"><b style="font-size: 120%">Programmi di cooperazione</b> dei quali possono beneficiare i territori dell'Euroregione Alpi-Mediterraneo:</li>
+			<li data-role="list-divider">Programmi di cooperazione dei quali possono beneficiare i territori dell'Euroregione Alpi-Mediterraneo:</li>
 		
 			<li><a href="#alcotra">Programma transfrontaliero Alcotra</a></li>
 			<li><a href="#Marittimo">Programma transfrontaliero Italia-Francia Marittimo</a></li>
@@ -15,13 +15,13 @@
 			<li><a href="#Spazio alpino">Programma transnazionale Spazio Alpino</a></li>
 			<li><a href="#Interreg">Programma interregionale Interreg IV C</a></li>
 		
-			<li data-role="list-divider"><b style="font-size: 120%">Fondi strutturali europei</b> ai quali potete rivolgervi per il finanziamento dei vostri progetti:</li>
+			<li data-role="list-divider">Fondi strutturali europei ai quali potete rivolgervi per il finanziamento dei vostri progetti:</li>
 
 			<li><a href="#FESR">Programma operativo FESR </a></li>
 			<li ><a href="#FSE">Programma operativo FSE</a></li>
 			<li ><a href="#FEASR">Fondo Europeo Agricolo di Sviluppo Rurale FEASR</a></li>
 	
-			<li data-role="list-divider">Informazioni relative ai futuri programmi <b style="font-size: 120%">2014-2020</b>:</li>
+			<li data-role="list-divider">Informazioni relative ai futuri programmi 2014-2020:</li>
 
 			<li><a href="#Ricerca"> Orizzonte 2020-Il futuro programma quadro per la Ricerca e l'Innovazione </a></li>
 		</ul> 

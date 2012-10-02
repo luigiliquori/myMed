@@ -4,7 +4,7 @@
 
 <div data-role="page">
 
-	<? tab_bar_main("?action=store"); ?>
+	<? tab_bar_main("?action=store", 2); ?>
 	<? include("notifications.php"); ?>
 	
 	<div data-role="content">

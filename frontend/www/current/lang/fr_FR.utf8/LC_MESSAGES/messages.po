@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-27 12:56+0200\n"
-"PO-Revision-Date: 2012-10-01 22:32+0100\n"
+"PO-Revision-Date: 2012-10-07 12:21+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -159,12 +159,12 @@ msgid "Keywords"
 msgstr "Mots-clés"
 
 #: ../application/myEurope/views/DetailsView.php:31
-msgid "<b>Publication Date:</b> "
-msgstr "<b>Date de publication:</b> "
+msgid "Publication Date"
+msgstr "Date de publication"
 
 #: ../application/myEurope/views/DetailsView.php:34
-msgid "<b>Expiration Date:</b> "
-msgstr "<b>Date d'expiration:</b> "
+msgid "Expiration Date"
+msgstr "Date d'expiration"
 
 #: ../application/myEurope/views/DetailsView.php:38
 msgid "Partners"
@@ -200,12 +200,8 @@ msgid "Edit my profile"
 msgstr "Modifier mon profil"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:23
-msgid ""
-"Hello, This is your first time on myEurope.<br/><br/>\n"
-"\t\t\t\t Please fill in your profile with an existing Organization profile"
-msgstr ""
-"Bonjour, C'est la première fois que vous venez sur myEurope.<br/><br/>\n"
-"\t\t\t\t Merci de vous inscrire à un profil partagé"
+msgid "Hello, This is your first time on myEurope! Please register with an existing profile or create yours"
+msgstr "Bonjour, c'est votre première venue sur myEurope! Merci de vous inscrire avec un des profils existants ci-dessous, ou de créer le votre."
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:25
 msgid "or"

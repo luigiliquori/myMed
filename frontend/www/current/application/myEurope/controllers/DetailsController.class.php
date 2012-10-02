@@ -49,7 +49,7 @@ class DetailsController extends AuthenticatedController {
 			}
 			
 			$this->partnersProfiles = array();
-			debug_r($this->details);
+			//debug_r($this->details);
 			foreach ($this->details as $k => $v){
 				if (strpos($k, "user_") === 0){
 					$p = $this->getProfile($v);
@@ -166,8 +166,6 @@ class DetailsController extends AuthenticatedController {
 		$profile->reputation = pickFirst(parent::getReputation( array($details['profile'])));
 		return $profile;
 	}
-	
-	
 	
 }
 ?>

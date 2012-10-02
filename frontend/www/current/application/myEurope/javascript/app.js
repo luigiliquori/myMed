@@ -320,3 +320,36 @@ function isiPhoneoriPad(){
 	return true; //deviceStr.match(/(iphone|ipod|ipad)/);
 }
 
+$("#login").live("swipeleft", function() {
+  $.mobile.changePage("#register", {transition : "slide"});
+});
+
+$("#register").live("swipeleft", function() {
+  $.mobile.changePage("#about", {transition : "slide"});
+}).live("swiperight", function() {
+  $.mobile.changePage("#login"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#about").live("swiperight", function() {
+  $.mobile.changePage("#register"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#home").live("swipeleft", function() {
+  $.mobile.changePage("#infos", {transition : "slide"});
+});
+
+$("#infos").live("swipeleft", function() {
+  $.mobile.changePage("#blogs", {transition : "slide"});
+}).live("swiperight", function() {
+  $.mobile.changePage("#home"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#blogs").live("swipeleft", function() {
+  $.mobile.changePage("#profile", {transition : "slide"});
+}).live("swiperight", function() {
+  $.mobile.changePage("#infos"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#profile").live("swiperight", function() {
+  $.mobile.changePage("#blogs"/*, {transition : "slide",reversed : true}*/);
+});
