@@ -2,7 +2,7 @@
 
 <? define('STORE_PREFIX' , '_store'); ?>
 
-<div data-role="page">
+<div data-role="page" id="store" data-dom-cache="true">
 
 	<? tab_bar_main("?action=store"); ?>
 	<? include("notifications.php"); ?>

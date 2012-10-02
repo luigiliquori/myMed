@@ -1,6 +1,6 @@
 <? include("header.php"); ?>
 
-<div id="home" data-role="page">
+<div id="home" data-role="page" data-dom-cache="true">
 	
 	<? tab_bar_main("?action=main"); ?>
 	<? include("notifications.php"); ?>

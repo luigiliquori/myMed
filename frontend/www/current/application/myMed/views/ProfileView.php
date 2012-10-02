@@ -1,6 +1,6 @@
 <? include_once 'header.php'; ?>
 
-<div id="profile" data-role="page">
+<div id="profile" data-role="page" data-dom-cache="true">
 
 	<? tab_bar_main("?action=profile"); ?>
 	<? include 'notifications.php'; ?>
