@@ -33,22 +33,13 @@ function tabs($activeTab, $tabs, $buttonLeft = false) {
 			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
 		<? endif ?>
   		<h1>
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= APPLICATION_LABEL ?></span></a>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= _(APPLICATION_LABEL) ?></span></a>
   		</h1>
-  		<div data-role="header" data-theme="d" style="display: none;" class="toptab">
-			<div data-role="navbar" data-role="footer" data-iconpos="bottom" >
-				<ul><?= $tabsStr ?></ul>
-			</div>
-		</div>
-		<span style="position: absolute;right: 3px;top: -3px;opacity: 0.6;">
-			<a class="social" style="background-position: -33px 0px;" href="https://plus.google.com/u/0/101253244628163302593/posts" title="myEurope on Google+"></a>
-			<a class="social" style="background-position: -66px 0px;" href="http://www.facebook.com/pages/myEurope/274577279309326" title="myEurope on Facebook"></a>
-			<a class="social" style="background-position: 0px 0px;" href="https://twitter.com/my_europe" title="myEurope on Twitter"></a>
-		</span>
+
   	</div>
 	
 	<div data-role="footer" data-theme="d" data-position="fixed" style="display: none;" class="iostab">
-		<div data-role="navbar" data-role="footer">
+		<div data-role="navbar">
 			<ul><?= $tabsStr ?></ul>
 		</div>
 	</div>

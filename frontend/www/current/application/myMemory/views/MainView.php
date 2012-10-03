@@ -22,7 +22,7 @@
 		<ul>
 			<li><a href="?action=main" data-icon="home" class="ui-btn-active"><?= _('Homescreen') ?></a></li>
 			<li><a href="?action=ExtendedProfile" data-icon="profile" ><?= _('Profile'); ?></a></li>
-			<li><a href="#" data-icon="star" ><?= _('Social'); ?></a></li>
+			<li><a href="?action=Social" data-icon="star" ><?= _('Social'); ?></a></li>
 	<?php 
 //	if ($_SESSION['isMobile'])
 //		echo '<li><a href="../../index.php?mobile_binary::logout" rel="external" data-icon="delete">'._('Exit').'</a></li>';

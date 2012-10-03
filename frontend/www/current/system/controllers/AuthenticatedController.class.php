@@ -6,7 +6,7 @@
  * 
  * @author David Da Silva
  */
-class AuthenticatedController extends AbstractController {
+class AuthenticatedController extends AbstractController implements IReputationMapper {
 
 	/** The complete user */
 	public $user;
@@ -34,8 +34,9 @@ class AuthenticatedController extends AbstractController {
 		}
 	}
 	
-	public function reputation($producer=null, $id=null, $app=APPLICATION_NAME){
-		$rep =  new ReputationSimple($app, $producer, $id);
+	public function getReputation($app=array(APPLICATION_NAME), $producer=array()){
+
+		$rep =  new ReputationSimple($app, $producer);
 		$res = $rep->send();
 		if($res->status != 200) {
 			throw new Exception($res->description);
@@ -43,4 +44,7 @@ class AuthenticatedController extends AbstractController {
 			return formatReputation($res->dataObject->reputation);
 		}
 	}
+	
+	
+	
 }

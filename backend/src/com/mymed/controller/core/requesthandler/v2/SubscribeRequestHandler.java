@@ -157,8 +157,9 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 			case DELETE:
 				out.setMethod(JSON_CODE_DELETE);
 	
-				if (id == null)
+				if (id == null){
 					id = "ALL";
+				}
 	
 				LOGGER.info("in ." + application + in.getUser() +" . "  +id);
 				String keywordsStr = subscriptionManager.read(application + in.getUser(), id);

@@ -31,6 +31,12 @@
 	<!-- DASP -->
 	<script src='../../lib/dasp/javascript/dasp.js'></script>
 
+	<!-- SHARE THIS -->
+	<script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher: "ur-b15a84d0-7eba-6da9-6138-d1bb56bffbb6"}); </script>
+
+
 	<!-- Google Analytics -->
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];

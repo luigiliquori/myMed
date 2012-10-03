@@ -35,7 +35,7 @@ public class JsonMessageIn {
 	private String application;
 	private String id;
 	private String field;
-	private String user;
+	private String user;  //@TODO rename in publisher
 	private String mailTemplate;
 	private String lengthMax;
 	private Map<String, String> data;

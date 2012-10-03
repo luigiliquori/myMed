@@ -74,7 +74,7 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
             validateToken(parameters.get(JSON_ACCESS_TKN));
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
             final String 
-            	id = parameters.get("id"), 
+            	app = parameters.get(JSON_APPLICATION) /* or represents data Id also */, 
             	producer = parameters.get(JSON_PRODUCER),
             	consumer = parameters.get(JSON_CONSUMER);
 
@@ -83,9 +83,9 @@ public class ReputationRequestHandler extends AbstractRequestHandler {
 				// if (producer == null)
 				// throw new
 				// InternalBackEndException("missing producer argument!");
-
+				
 				final Map<String, MReputationEntity> reputationMap =
-				reputationManager.read(id, producer, consumer);
+				reputationManager.read(app, producer, consumer);
 				message.addDataObject(JSON_REPUTATION, reputationMap);
 				
 				break;

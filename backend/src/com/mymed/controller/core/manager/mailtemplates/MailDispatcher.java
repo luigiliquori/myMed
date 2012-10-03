@@ -79,32 +79,33 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 		
 		for (String predicate : predicates) {
 			
-			Map<String, MUserBean> recipients = new HashMap<String, MUserBean>();
+			Map<String, Map<String, String>> recipients = new HashMap<String, Map<String, String>>();
 	        
             final Map<String, String> subscribers = storageManager.selectAllStr(CF_SUBSCRIBEES, predicate);
             for (final Entry<String, String> entry : subscribers.entrySet()) {
-                MUserBean recipient = null;
+            	Map<String, String> recipient = null;
                 try {
-                    recipient = profileManager.read(entry.getKey());
-                } catch (IOBackEndException e) {}
+                    recipient = profileManager.readSimple(entry.getKey());
+                } catch (IOBackEndException e) {
+                }
                 if (recipient != null) {
                     recipients.put(entry.getKey(), recipient);
                 }
             }
 	        
 	        // Loop on recipients
-	        for (MUserBean recipient : recipients.values()) {
+	        for (Map<String, String> recipient : recipients.values()) {
 	            
 	            // Update the current recipient in the data map
 	            data.put("recipient", recipient);
 	            data.put("predicate", extractId(predicate, application));  // to put the Unsubscribe link
 	            
 	            // Get the prefered language of the user
-	            String language = recipient.getLang();
+	            String language = recipient.get("lang");
 	            
 	            // Get the mail template from the manager
-	            String app = extractApplication(subscribers.get(recipient.getId()));
-	            String namespace = extractNamespace(subscribers.get(recipient.getId()));
+	            String app = extractApplication(subscribers.get(recipient.get("id")));
+	            String namespace = extractNamespace(subscribers.get(recipient.get("id")));
 	            
 	            data.put("application", app);
 	            
@@ -120,7 +121,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	            // Create the mail
 	            final MailMessage message = new MailMessage();
 	            message.setSubject(subject);
-	            message.setRecipients(asList(recipient.getEmail()));
+	            message.setRecipients(asList(recipient.get("email")));
 	            message.setText(body);
 
 	            // Send it
@@ -130,7 +131,7 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	            mail.send();
 	            
 	            LOGGER.info(String.format(">>>>>>>>>>>>>>>>>>>>>>>Mail sent to '%s' with title '%s' for predicate '%s'", 
-	                    recipient.getEmail(), 
+	                    recipient.get("email"), 
 	                    subject,
 	                    predicate));
 	            

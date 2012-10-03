@@ -30,32 +30,20 @@ class ReputationSimple extends Requestv2 {
 	/* --------------------------------------------------------- */
 	/* Constructors */
 	/* --------------------------------------------------------- */
-	public function __construct($application, $producer = null, $id = null) {
+	public function __construct($application, $producer) {
 		parent::__construct("v2/ReputationRequestHandler", READ);
-		$this->producer = $producer;
-		$this->id = $id;
 		$this->application = $application;
+		$this->producer = $producer;
 	}
 
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
 	public /*String*/ function send(){
-		parent::addArgument("application", $this->application);
-		parent::addArgument("consumer", $_SESSION['user']->id );
-		if (!empty($this->producer)){
-			if ( is_array($this->producer))
-				parent::addArgument("producer", json_encode($this->producer));
-			else
-				parent::addArgument("producer", $this->producer);
-		}
-		if (!empty($this->id)){
-			if ( is_array($this->id))
-				parent::addArgument("id", json_encode($this->id));
-			else
-				parent::addArgument("id", $this->id);
-		}
 		
+		parent::addArgument("application", json_encode($this->application)); //json_encode coz can be a list
+		parent::addArgument("consumer", $_SESSION['user']->id );
+		parent::addArgument("producer", json_encode($this->producer)); //json_encode coz can be a list
 
 		$responsejSon = parent::send();
 		return json_decode($responsejSon);

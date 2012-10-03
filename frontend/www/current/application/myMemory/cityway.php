@@ -18,6 +18,7 @@ if($_POST)
 							(isset($_POST['optimize'])?"&optimize=". $_POST['optimize']:"") .
 							(isset($_POST['transitModes'])?"&transitModes=". $_POST['transitModes']:"") .
 							"&departureTime=" . $_POST['date'];
+	
 	echo file_get_contents(Cityway_URL . "/tripplanner/v1/detailedtrip/json?key=" . Cityway_APP_ID . $args);
 }else { }
 

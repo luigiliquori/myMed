@@ -87,11 +87,7 @@ class DetailsController extends AuthenticatedController {
 		$rep->storeReputation();
 			
 	}
-	
-	public /*void*/ function getReputation(){
-		Reputation::getReputation($_SESSION['user'], $this->author);
 
-	}
 	
 	
 }

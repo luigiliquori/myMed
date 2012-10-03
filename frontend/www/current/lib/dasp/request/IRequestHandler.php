@@ -12,5 +12,7 @@ interface IRequestHandler {
 	 */
 	public /*String*/ function handleRequest();
 
+
+	
 }
 ?>

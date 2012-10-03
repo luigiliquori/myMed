@@ -39,8 +39,8 @@
 					<img id="screenshot3" alt="<?= $_REQUEST["applicationStore"] ?>" src="<?= APP_ROOT . "/../" . $_REQUEST["applicationStore"] . "/doc/screenshot3.png" ?>" class="myScreenshot" />
 					<br /><br />
 					<div data-role="controlgroup" data-type="horizontal">
-						<a href="#" onclick="prevScreenshot()" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-inline="true"></a>
-						<a href="#" onclick="nextScreenshot()" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-inline="true"></a>
+						<a href="#" onclick="prevScreenshot()" data-role="button" data-icon="arrow-l" data-iconpos="notext"></a>
+						<a href="#" onclick="nextScreenshot()" data-role="button" data-icon="arrow-r" data-iconpos="notext"></a>
 					</div>
 				</center>
 				
@@ -61,7 +61,7 @@
 			
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				<h3 Style="color: lightblue;">Description</h3>
-				<p><?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description") ?></p>
+				<p><?php @include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description.php") ?></p>
 				<div id="hidden-sharethis">
 					<span class='st_facebook_large' displayText='Facebook'></span>
 					<span class='st_twitter_large' displayText='Tweet'></span>

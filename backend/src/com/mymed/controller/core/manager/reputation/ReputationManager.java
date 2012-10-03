@@ -18,6 +18,7 @@ import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.reputation.MReputationEntity;
 import com.mymed.utils.GsonUtils;
 import com.mymed.utils.MConverter;
+import com.mymed.utils.MiscUtils;
 
 public class ReputationManager extends AbstractManager{
 	
@@ -32,23 +33,18 @@ public class ReputationManager extends AbstractManager{
 		super(storageManager);
 	}
 	
-
-	public Map<String, MReputationEntity> read(String app, String producer, String consumer){
+	/*
+	 * @param consumer 
+	 *  not necessary now, was used before to return also if you had voted or not
+	 *  but since you can't update vote with this API, it's not useful
+	 */
+	public Map<String, MReputationEntity> read(String app, String producer, String consumer){ 
 		
 		LOGGER.info(" >>reps>> {}, {}",app, producer);
 		
-		Map<ByteBuffer, List<ColumnOrSuperColumn>> map = null;
-		if (app!=null && producer !=null){
-			map = storageManager.batch_read("ReputationEntity", getAppUserKeys(app, producer));
-		} else if (app!=null){
-			map = storageManager.batch_read("ReputationEntity", getAppKeys(app));
-		} else if (producer!=null){
-			map = storageManager.batch_read("ReputationEntity", getUserKeys(producer));
-		}
-
-		if (map==null){
-			throw new InternalBackEndException("missing some arguments!");
-		}
+		Map<ByteBuffer, List<ColumnOrSuperColumn>> map = 
+				storageManager.batch_read("ReputationEntity", getKeys(app, producer));
+		
 		Map<String, MReputationEntity> res = new HashMap<String, MReputationEntity>();
 		for (Entry<ByteBuffer, List<ColumnOrSuperColumn>> entry : map.entrySet()) {
 			Map<byte[], byte[]> args = MConverter.columnsToMap(entry.getValue());
@@ -60,42 +56,20 @@ public class ReputationManager extends AbstractManager{
 
 		return res;
 	}
-	
-	
-	private List<String> getAppKeys(String s){
+
+	private List<String> getKeys(String app, String producer){
 		List<String> keysStr = new ArrayList<String>();
-		if (s.startsWith("[")) { // list of id's
-			List<String> ids = GsonUtils.json_to_list(s);
-			for (String i : ids){
-				keysStr.add(MymedRepId.MakeAppId(i));
-			}
-		} else {
-			keysStr.add(MymedRepId.MakeAppId(s));
-		}
-		return keysStr;
-	}
-	private List<String> getUserKeys(String s){
-		List<String> keysStr = new ArrayList<String>();
-		if (s.startsWith("[")) { // list of id's
-			List<String> ids = GsonUtils.json_to_list(s);
-			for (String i : ids){
-				keysStr.add(MymedRepId.MakeUserId(i));
-			}
-		} else {
-			keysStr.add(MymedRepId.MakeUserId(s));
-		}
-		return keysStr;
-	}
-	private List<String> getAppUserKeys(String app, String producer){
-		List<String> keysStr = new ArrayList<String>();
-		if (app.startsWith("[")) { // list of id's
-			List<String> ids = GsonUtils.json_to_list(app);
-			for (String i : ids){
-				keysStr.add(MymedRepId.MakeId(i, producer, ReputationRole.Producer));
-			}
-		} else {
-			keysStr.add(MymedRepId.MakeId(app, producer, ReputationRole.Producer));
-		}
+		List<String> apps = MiscUtils.json_to_list(app);
+		List<String> prods = MiscUtils.json_to_list(producer);
+		
+		if (apps.size() !=0 && prods.size() !=0){
+			for (String i : apps){keysStr.add(MymedRepId.MakeId(i, producer, ReputationRole.Producer));}
+		} else if (prods.size() == 0){
+			for (String i : apps){keysStr.add(MymedRepId.MakeAppId(i));}
+		} else if (apps.size() == 0){
+			for (String i : prods){keysStr.add(MymedRepId.MakeUserId(i));}
+		} 
+
 		return keysStr;
 	}
 

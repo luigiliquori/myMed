@@ -8,10 +8,11 @@ require_once("header.php"); ?>
 <?php 
 function tab_bar_login($activeTab) {
 	tabs($activeTab, array(
-			array("#login", "Connexion", "signin"),
-			array("#register", "Inscription", "th-list"),
-			array("#about", "A propos", "info-sign")
+			array("#login", "Sign in", "signin"),
+			array("#register", "Create an account", "th-list"),
+			array("#about", "About", "info-sign")
 	));
+
 }
 ?>
 
@@ -21,38 +22,47 @@ function tab_bar_login($activeTab) {
 	<? include("notifications.php"); ?>
 	
 	<div data-role="content" class="content">
-
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" width="200" />
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
 			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
-		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>
-		    
-			<div data-role="collapsible" data-mini="true" data-collapsed="true" data-content-theme="d" Style="text-align: left;">
-				<h3><?= _("Options") ?></h3>
-				<?= _("Register with") ?><a href="http://oauth.net/2/" style="text-decoration: none;"> (?) </a>:<br />
-				<ul data-role="listview" data-inset="true">
-				 	<li><img src="/system/img/social/google_32.png" /><a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">Google</a></li>
-				  	<li><img src="/system/img/social/facebook_32.png" /><a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external">Facebook</a></li>
-					<li><img src="/system/img/social/twitter_32.png" /><a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external">Twitter</a></li>
-					<li><img src="/system/img/social/openID_32.png" /><a href="#openID" title="OpenID" data-rel="popup">OpenID</a></li>
-				</ul>
-				
-			</div>
-		    
+		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>  
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="Connexion" />
 			
 		</form>
-		
-		<div data-role="popup" id="openID" Style="padding: 10px;">
-					
-			<form id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
-				<label><?= _("We also support OpenId") ?><a href="http://openid.net/" style="text-decoration: none;">*</a>: </label>
-				<input id="openIdProvider" type="text" style="max-width:250px;display:inline-block;" data-mini="true" name="openid_identifier" data-inline="true" value="https://www.google.com/accounts/o8/id" placeholder="" />
-				<div style="display:inline-block;vertical-align: middle;width: 45px;">
-					<input type="submit" value="ok" data-theme="b" data-mini="true" title="<?= _("log in with openid") ?>" />
-				</div>
-			</form>
+	
+		<br />
+		<div data-role="collapsible" data-mini="true" data-content-theme="d" data-inline="true" style="width:70%; min-width:280px; margin: auto;">
+			<h3><?= _("Sign in with") ?>: </h3>
+
+			<ul data-role="listview">
+
+			<li>
+				<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">
+				<img class="ui-li-mymed" src="/system/img/social/google_32.png" />
+				Google</a>
+			</li>
+			<li>
+				<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external">
+					<img class="ui-li-mymed" src="/system/img/social/facebook_32.png" />
+				Facebook</a>
+			</li>
+			<li>
+				<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external">
+				<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
+				Twitter</a>
+			</li>
+			<li>
+				<a onclick="$('#openIdForm').submit();" title="OpenID">
+				<img class="ui-li-mymed" src="/system/img/social/openID_32.png" />
+				<form onclick="event.stopPropagation();/* for clicking above and below thetext input without submitting*/" style="padding:8px 0; margin: -15px 0;" id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
+					<input id="openIdProvider" type="text"  name="openid_identifier" value="https://www.google.com/accounts/o8/id" placeholder="" />
+				</form>
+				</a>
+				
+			</li>
+
+			</ul>
 			
 		</div>
 
@@ -129,7 +139,7 @@ function tab_bar_login($activeTab) {
 	
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" />
 		<br />
-		<h3><?= APPLICATION_LABEL ?></h3>
+		<h3><?= _(APPLICATION_LABEL) ?></h3>
 		<br />
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>

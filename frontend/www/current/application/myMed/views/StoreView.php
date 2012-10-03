@@ -31,7 +31,7 @@
 								<div style="position: relative; font-size: 9pt; font-weight: bold; left: 80px; top:-70px; width: 50%; ">
 									<?= $applicationName ?>
 									<p style="color: black; font-size: 7pt; " >
-										<?php include (MYMED_ROOT . "/application/" . $applicationName . "/doc/description") ?>
+										<?php @include (MYMED_ROOT . "/application/" . $applicationName . "/doc/description.php") ?>
 									</p>
 								</div>
 								
