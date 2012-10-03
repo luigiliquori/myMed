@@ -38,7 +38,7 @@ function tabs($activeTab, $tabs, $buttonLeft = false) {
   	</div>
 	
 	<div data-role="footer" data-theme="d" data-position="fixed" style="display: none;" class="iostab">
-		<div data-role="navbar" data-role="footer">
+		<div data-role="navbar">
 			<ul><?= $tabsStr ?></ul>
 		</div>
 	</div>
