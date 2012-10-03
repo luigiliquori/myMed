@@ -27,45 +27,34 @@ function tab_bar_login($activeTab) {
 			<input type="hidden" name="signin" value="1" />
 			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
 		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>
+		    
+			<div data-role="collapsible" data-mini="true" data-collapsed="true" data-content-theme="d" Style="text-align: left;">
+				<h3><?= _("Options") ?></h3>
+				<?= _("Register with") ?><a href="http://oauth.net/2/" style="text-decoration: none;"> (?) </a>:<br />
+				<ul data-role="listview" data-inset="true">
+				 	<li><img src="/system/img/social/google_32.png" /><a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">Google</a></li>
+				  	<li><img src="/system/img/social/facebook_32.png" /><a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external">Facebook</a></li>
+					<li><img src="/system/img/social/twitter_32.png" /><a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external">Twitter</a></li>
+					<li><img src="/system/img/social/openID_32.png" /><a href="#openID" title="OpenID" data-rel="popup">OpenID</a></li>
+				</ul>
+				
+			</div>
+		    
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="Connexion" />
 			
 		</form>
 		
-		
-		<div data-role="collapsible" data-mini="true" data-collapsed="false" data-content-theme="d" data-inline="true" style="width:70%; min-width:280px; margin: auto;">
-			<h3><?= _("Options") ?></h3>
-
-			<div data-role="fieldcontain">
-				<fieldset data-role="controlgroup">
-					<legend><?= _("Register with") ?><a href="http://oauth.net/2/" style="text-decoration: none;">*</a>:</legend>
-					<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external"><img src="/system/img/social/google_logo.png" /></a>
-					<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external" style="margin-left: 20px;"><img src="/system/img/social/facebook_logo.png" /></a>
-					<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external" style="margin-left: 20px;"><img src="/system/img/social/twitter_logo.png" /></a>
-				</fieldset>
-				
-			</div>
-			
-			
-			<div data-role="collapsible" data-mini="true" data-content-theme="c" data-inline="true">
-				<h3><?= _("more options") ?></h3>
-				
-				<div data-role="fieldcontain">
-					<form id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
-						<label><?= _("We also support OpenId") ?><a href="http://openid.net/" style="text-decoration: none;">*</a>: </label>
-						<input id="openIdProvider" type="text" style="max-width:250px;display:inline-block;" data-mini="true" name="openid_identifier" data-inline="true" value="https://www.google.com/accounts/o8/id" placeholder="" />
-						<div style="display:inline-block;vertical-align: middle;width: 45px;">
-							<input type="submit" value="ok" data-theme="b" data-mini="true" title="<?= _("log in with openid") ?>" />
-						</div>
-						
-					</form>
+		<div data-role="popup" id="openID" Style="padding: 10px;">
 					
+			<form id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
+				<label><?= _("We also support OpenId") ?><a href="http://openid.net/" style="text-decoration: none;">*</a>: </label>
+				<input id="openIdProvider" type="text" style="max-width:250px;display:inline-block;" data-mini="true" name="openid_identifier" data-inline="true" value="https://www.google.com/accounts/o8/id" placeholder="" />
+				<div style="display:inline-block;vertical-align: middle;width: 45px;">
+					<input type="submit" value="ok" data-theme="b" data-mini="true" title="<?= _("log in with openid") ?>" />
 				</div>
-				
-			</div>
+			</form>
 			
 		</div>
-
-
 
 		<br /><br />
 		<img alt="Alcotra" src="/system/img/logos/alcotra.png" />
@@ -75,10 +64,8 @@ function tab_bar_login($activeTab) {
 		<img alt="Alcotra" src="/system/img/logos/europe.jpg" />
 		
 	</div>
-	
-
-	
 </div>
+
 	
 <div data-role="page" id="register">
 	

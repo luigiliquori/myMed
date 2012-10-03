@@ -31,26 +31,18 @@ class Reputation
 			$this->feedback = $feedback;
 		}
 			
-	}
-	
+	}	
 
 	public /*void*/ function storeReputation(){
-		// Get the reputation of the user in each the application
 		
 		$request = new Request("InteractionRequestHandler", 2);
-		$request->addArgument("application",  "myFSA");
-		$request->addArgument("producer",  "Pub1");					// Reputation of data
-		$request->addArgument("consumer", $_SESSION['user']->id);
+		$request->addArgument("application",  $this->predicate);
+		$request->addArgument("producer",  $this->user->id);
+		$request->addArgument("consumer", $this->consumer);
 		$request->addArgument("start",  time());
 		$request->addArgument("end",  time());
-		$request->addArgument("predicate",  "PUB_REP");
-		$request->addArgument("feedback",  0.5);
-		/*
-		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-		$debugtxt  .= var_export(UPDATE, TRUE);
-		$debugtxt .= "</pre>";
-		debug($debugtxt);
-		* */
+		$request->addArgument("predicate",  $this->predicate);
+		$request->addArgument("feedback",  $this->feedback);
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		
@@ -62,7 +54,20 @@ class Reputation
 	 * @param String $user_id
 	 * @return void. The result is put in the success of the Handled provided
 	 */
-	public static /* List of ontologies */ function getReputation(IRequestHandler $handler, $user){
+	public static /* List of ontologies */ function getReputation(/*String*/ $user, /*String*/ $consumer){
+		
+		// Get the reputation of the user in each the application
+		$request = new Request("ReputationRequestHandler", READ);
+		$request->addArgument("application",  'myFSA');
+		$request->addArgument("producer",  $user->id);					// Reputation of data
+		$request->addArgument("consumer",  '');	
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		
+		$debugtxt  =  "<pre>getReeeeeeeeeeeeeeeeputation";
+		$debugtxt  .= var_export($responseObject, TRUE);
+		$debugtxt .= "</pre>";
+		debug($debugtxt);
 
 		
 	}

@@ -5,7 +5,7 @@ define('SEP', '<span style="opacity: 0.7; font-size: 80%;"> &gt; </span>');
 function tab_bar_main($activeTab, $opts=1) {
 	tabs($activeTab, array(
 			array("?action=main", "Applications", "tags"),
-			array("?action=profile", "Profile", "user"),
+			array("?action=profile", "Profil", "user"),
 			array("?action=store", "Store", "shopping-cart")
 	), $opts);
 }
@@ -16,7 +16,7 @@ function tabs($activeTab, $tabs, $buttonLeft = false) {
 	$tabsStr = "";
 	foreach ($tabs as $i){
 		$tabsStr .=
-		'<li><a href="'. $i[0] .'" data-transition="slidefade" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
+		'<li><a href="'. $i[0] .'" data-transition="none" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
 		.($i[0][0]!='#'?'rel="external"':'')
 		.($activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '').'>'. _($i[1])
 		.'</a></li>';
@@ -40,6 +40,11 @@ function tabs($activeTab, $tabs, $buttonLeft = false) {
 				<ul><?= $tabsStr ?></ul>
 			</div>
 		</div>
+		<span style="position: absolute;right: 3px;top: -3px;opacity: 0.6;">
+			<a class="social" style="background-position: -33px 0px;" href="https://plus.google.com/u/0/101253244628163302593/posts" title="myEurope on Google+"></a>
+			<a class="social" style="background-position: -66px 0px;" href="http://www.facebook.com/pages/myEurope/274577279309326" title="myEurope on Facebook"></a>
+			<a class="social" style="background-position: 0px 0px;" href="https://twitter.com/my_europe" title="myEurope on Twitter"></a>
+		</span>
   	</div>
 	
 	<div data-role="footer" data-theme="d" data-position="fixed" style="display: none;" class="iostab">
@@ -47,8 +52,6 @@ function tabs($activeTab, $tabs, $buttonLeft = false) {
 			<ul><?= $tabsStr ?></ul>
 		</div>
 	</div>
-	
-	
 	<?
 }
 
