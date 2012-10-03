@@ -28,6 +28,7 @@ class AdminController extends ExtendedProfileRequired {
 			$this->success = "";
 			
 			$this->users = $res->results;
+			debug_r($this->users);
 			
 			$this->blocked = array();
 			$this->normals = array();

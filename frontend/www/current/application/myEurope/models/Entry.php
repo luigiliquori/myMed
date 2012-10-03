@@ -7,9 +7,6 @@
  */
 class Entry {
 	
-	/*
-	 * have to put them private later
-	 */
 	public $id;
 	public $namespace;
 	public $user;
@@ -30,7 +27,8 @@ class Entry {
 	}
 	
 	public function search() {
-
+		debug(APPLICATION_NAME.$this->namespace." ");
+		debug_r($this->index);
 		$find = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$this->namespace, "predicates"=>$this->index));
 		
@@ -92,10 +90,6 @@ class Entry {
 		if ($res->status != 200 ){
 			throw new Exception($res->description);
 		}
-	}
-	
-	public function setUser($user){
-		$this->user = $user;
 	}
 	
 	

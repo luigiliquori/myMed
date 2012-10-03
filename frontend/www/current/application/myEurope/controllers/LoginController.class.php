@@ -49,6 +49,7 @@ class LoginController extends AbstractController {
 				
 				// Save the error
 				$this->error = $responseObject->description;
+				debug("error");	
 					
 				// Show the login form
 				include( MYMED_ROOT . "/application/myMed/views/LoginView.php");
@@ -63,6 +64,8 @@ class LoginController extends AbstractController {
 				// Set user into $_SESSION
 				$this->getUserFromSession();
 				
+				debug("success");
+				
 				if (!empty($_SESSION['redirect'])){
 					
 					$page = $_SESSION['redirect'];
@@ -72,17 +75,19 @@ class LoginController extends AbstractController {
 					$this->redirectTo($page);
 					
 				}else{
+					debug("login main");
 					// Redirect to main page
 					$this->redirectTo("main");
 				}
 						
-					
+				
+				
 			}
 			
 			
 			
 		} else { // Not a POST request : Simply show the login form 
-
+			debug_r($_SERVER);
 			include( MYMED_ROOT . "/application/myMed/views/LoginView.php");
 			exit();
 			//$this->renderView("login");

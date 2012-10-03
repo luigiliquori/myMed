@@ -99,7 +99,10 @@ class ExtendedProfileController extends AuthenticatedController {
 		//$profile->{"user".$_SESSION['user']->id} = $_SESSION['user']->id;
 		
 		//$_SESSION['myEurope']->profile = $profile;
+			//debug_r($_SESSION['myEurope']->profile);
 		$this->success = "Complément de profil enregistré avec succès!";
+
+		//debug_r($_SESSION['myEurope']);
 		
 		//subscribe to our profile changes (permission change - partnership req accepted)
 		$subscribe = new RequestJson( $this,
@@ -136,6 +139,7 @@ class ExtendedProfileController extends AuthenticatedController {
 			
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
+			debug("error");
 			$this->renderView("ExtendedProfileEdit");
 		}
 		
@@ -147,7 +151,7 @@ class ExtendedProfileController extends AuthenticatedController {
 				UPDATE);
 		$publish->send();
 		
-		if ($_POST['name']!=$_SESSION['myEuropeProfile']->details['name'] || $_POST['role']!=$_SESSION['myEuropeProfile']->details['role']){ //also update profiles indexes
+		if ($_POST['name']!=$_SESSION['myEuropeProfile']->name || $_POST['role']!=$_SESSION['myEuropeProfile']->role){ //also update profiles indexes
 			$publish =  new RequestJson($this,
 					array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
 					CREATE);
@@ -158,7 +162,7 @@ class ExtendedProfileController extends AuthenticatedController {
 			$this->renderView("ExtendedProfileEdit");
 		else {
 			$this->success = "Complément de profil enregistré avec succès!";
-			$_SESSION['myEuropeProfile']->details = $_POST;
+			$_SESSION['myEuropeProfile'] = (object) $_POST;
 			$_SESSION['myEuropeProfile']->reputation = $myrep;
 			$_SESSION['myEuropeProfile']->users = $users;
 	
@@ -168,6 +172,8 @@ class ExtendedProfileController extends AuthenticatedController {
 	}
 	
 	public /*void*/ function storeProfile(){
+		
+		debug($_SESSION['user']->email);
 		
 		// we clear these ones
 		unset($_POST['form']);
@@ -179,7 +185,7 @@ class ExtendedProfileController extends AuthenticatedController {
 		$_POST['id'] = hash("md5", time().$_POST['name']);
 		$_POST['desc'] = nl2br($_POST['desc']);
 		unset($_POST['checkCondition']);
-
+		//debug_r($_POST);
 		$publish =  new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "data"=>$_POST, "metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
 				CREATE);
@@ -204,36 +210,27 @@ class ExtendedProfileController extends AuthenticatedController {
 	
 	public /*void*/ function showOtherProfile($id){
 		
-		$mapper = new DataMapper;
 		$this->profile = new Profile($id);
 		try {
-			$this->profile->details = $mapper->findById($this->profile);
+			$this->profile->details = $this->profile->read();
 		} catch (Exception $e) {
 			$this->redirectTo("main");
 		}
 		$this->profile->parseProfile();
-		$this->profile->reputation = pickFirst(parent::getReputation(array($id)));
+		$this->profile->reputation = pickFirst(parent::reputation(null, $id));
 
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
 	public /*void*/ function showUserProfile($user){
-		$mapper = new DataMapper;
+		
 		$user = new User($user);
 		try {
-			$details = $mapper->findById($user);
+			$details = $user->read();
 		} catch (Exception $e) {
 			$this->redirectTo("main");
-		}
-		$this->profile = new Profile($details['profile']);
-		try {
-			$this->profile->details = $mapper->findById($this->profile);
-		} catch (Exception $e) {
-			$this->redirectTo("main");
-		}
-		$this->profile->parseProfile();
-		$this->profile->reputation = pickFirst(parent::getReputation(array($details['profile'])));
-		$this->renderView("ExtendedProfileDisplay");
+		}		
+		$this->showOtherProfile($details['profile']);
 	}
 	
 	public /*void*/ function deleteUser($id){
@@ -253,8 +250,7 @@ class ExtendedProfileController extends AuthenticatedController {
 				DELETE);
 	
 		$publish->send();
-		$this->success = "done";
-		$this->renderView("main");
+		exit();
 	
 	}
 	
@@ -265,8 +261,7 @@ class ExtendedProfileController extends AuthenticatedController {
 				DELETE);
 	
 		$publish->send();
-		$this->success = "done";
-		$this->renderView("main");
+		exit();
 	
 	}
 	

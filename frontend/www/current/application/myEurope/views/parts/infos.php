@@ -5,24 +5,24 @@
 	<div data-role="content">
 		<ul data-role="listview" data-inset="true" data-filter="true" >
 		
-			<li data-role="list-divider"><b style="font-size: 120%">Programmes de coopération</b> dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée:</li>
+			<li data-role="list-divider"><b>Programmes de coopération</b> dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée:</li>
 		
-			<li><a href="#alcotra">Programme transfrontalier Alcotra</a></li>
-			<li><a href="#Maritime">Programme transfrontalier Italie-France Maritime</a></li>
-		    <li><a href="#IEVP">Programme transfrontalier IEVP CT MED</a></li>
-			<li><a href="#MED">Programme transnational MED</a></li>
-			<li><a href="#Espace Alpin">Programme transnational Espace Alpin</a></li>
-			<li><a href="#Interreg">Programme interrégional Interreg IV C</a></li>
+			<li><a class="ULitem" href="#alcotra"><h3>Programme transfrontalier Alcotra</h3><p>Programmes de coopération</p></a></li>
+			<li><a class="ULitem" href="#Maritime"><h3>Programme transfrontalier Italie-France Maritime</h3><p>Programmes de coopération</p></a></li>
+		    <li><a class="ULitem" href="#IEVP"><h3>Programme transfrontalier IEVP CT MED</h3><p>Programmes de coopération</p></a></li>
+			<li><a class="ULitem" href="#MED"><h3>Programme transnational MED</h3><p>Programmes de coopération</p></a></li>
+			<li><a class="ULitem" href="#Espace Alpin"><h3>Programme transnational Espace Alpin</h3><p>Programmes de coopération</p></a></li>
+			<li><a class="ULitem" href="#Interreg"><h3>Programme interrégional Interreg IV C</h3><p>Programmes de coopération</p></a></li>
 			
-			<li data-role="list-divider"><b style="font-size: 120%">Fonds structurels européens</b> que vous pouvez saisir pour bénéficier d'un financement de vos projets: </li>
+			<li data-role="list-divider"><b>Fonds structurels européens</b> que vous pouvez saisir pour bénéficier d'un financement de vos projets: </li>
 		
-			<li><a href="#FEDER">Programme opérationnel FEDER</a></li>
-			<li><a href="#FSE">Programme opérationnel FSE</a></li>
-			<li><a href="#FEADER">Programme de développement Rural Hexagonal FEADER</a></li>
+			<li><a class="ULitem" href="#FEDER"><h3>Programme opérationnel FEDER </h3><p>Fonds structurels européens</p></a></li>
+			<li><a class="ULitem" href="#FSE"><h3>Programme opérationnel FSE</h3><p>Fonds structurels européens</p></a></li>
+			<li><a class="ULitem" href="#FEADER"><h3>Programme de développement Rural Hexagonal FEADER</h3><p>Fonds structurels européens</p></a></li>
 			
-			<li data-role="list-divider">Informations relatives aux futurs programmes <b style="font-size: 120%">2014-2020</b>:</li>
+			<li data-role="list-divider">Informations relatives aux futurs programmes 2014-2020:</li>
 
-			<li><a href="#Recherche">Horizon 2020-Le futur Programme Cadre pour la Recherche et l'Innovation</a></li>
+			<li><a class="ULitem" href="#Recherche"><h3>Horizon 2020-Le futur Programme Cadre pour la Recherche et l'Innovation </h3><p>futurs programmes 2014-2020</p></a></li>
 		</ul>
 	</div>
 </div>

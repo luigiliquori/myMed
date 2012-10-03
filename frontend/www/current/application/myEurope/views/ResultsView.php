@@ -1,7 +1,8 @@
 <? include("header.php"); ?>
 
 <div data-role="page" id="results">
-	<? tabs_simple(array("search", $this->title)); ?>
+
+	<? tabs_simple(array("Results")); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content">
 
@@ -19,7 +20,7 @@
 		</fieldset>
 		
 		<? if ($this->part->isIndexNotEmpty()) :?>
-			<a id="subscribeButton" style="float: right;" title="<?= _("Subscribe to:").' '.$this->part->renderSearchIndex(); ?>" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
+			<a id="subscribeButton" style="float: right;" title="<?= _("Subscrive to:").' '.$this->part->renderSearchIndex(); ?>" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
 			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$this->part->namespace ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
 		<? endif ?>
 		</div>
@@ -36,7 +37,7 @@
 			
 			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->user ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
 			<a href="?action=details&id=<?= urlencode($item->id) ?>"><span
-					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?></span><p class="ui-li-aside"><?= date('j/n/Y', $item->time) ?></p>
+					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?></span><span style="font-weight: lighter;float: right;font-size: 14px;"><?= date('j/n/Y G:i', $item->time) ?></span>
 				</a>
 			</li>
 			<? endforeach ?>

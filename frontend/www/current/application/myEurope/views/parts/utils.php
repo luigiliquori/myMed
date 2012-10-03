@@ -4,9 +4,9 @@ define('SEP', '<span style="opacity: 0.7; font-size: 80%;"> &gt; </span>');
 
 function tab_bar_default($activeTab) {
 	tabs($activeTab, array(
-			array("#home", "Partnerships", "retweet"),
-			array("#infos", "Informations", "info-sign"),
-			array("#blogs", "Blog", "comments"),
+			array("#home", "Partenariats", "retweet"),
+			array("#infos", "About European programs", "info-sign"),
+			array("#blogs", "Bonnes pratiques", "comments"),
 			array("#profile", "Profile", "user")
 	));
 }
@@ -16,7 +16,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
 	$reverse = true;
 	$tabsStr = "";
 	foreach ($tabs as $i){
-		$tabsStr .=
+		$tabsStr .= // C'est moche le slide effect!
 		'<li><a href="'. $i[0] .'" data-transition="none" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
 		.($i[0][0]!='#'?'rel="external"':'')
 		.($activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '').'>'. _($i[1])
@@ -33,7 +33,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
   			<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="signout" data-iconpos="notext">Deconnexion</a>
   		<? } ?>
   		<h1>
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"> <?= _(APPLICATION_LABEL) ?></span></a>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"> Réseau social transfontalier</span></a>
   		</h1>
   		
   		<? include("social.php"); ?>
@@ -76,7 +76,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
 }
 
    
-/*function about(){
+function about(){
        	?>
 <div style="text-align: justify;margin-left:20px;margin-right:20px;">
 	<p>
@@ -104,6 +104,105 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
 </div>
 
 <?
-}*/
+}
        
-?>
+       
+	function printProfile($profile){
+       	switch($profile->role){
+       		
+       		default:
+       			?>
+
+				<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d" style="margin-top: 2px;">
+					<li>
+						<h2>
+							<?= $profile->name ?>
+						</h2>
+						<p>
+							<?= _("Role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
+						</p>
+						<p>
+							<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
+						</p>
+						<p>
+							<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
+							<?=
+							(empty($profile->email)?" ": _("email").": <a href='mailto:".$profile->email."'>".$profile->email."</a>")." - ".
+							(empty($profile->phone)?" ":_("phone").": <a href='tel:".$profile->phone."'>".$profile->phone."</a>")." - ".
+							(empty($profile->address)?" ":_("address").": ".$profile->address)
+							?>
+						</p>
+						<br />
+						<p>
+							<?= empty($profile->desc)?" ":$profile->desc ?>
+						</p>
+						<p class="ui-li-aside">
+							réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $profile->reputation['up'] ?> votes +, <?= $profile->reputation['down'] ?> votes -"><?= $profile->reputation['up'] - $profile->reputation['down'] ?></a>
+						</p>
+						<br />
+							
+					</li>
+					<? if( count($profile->users)>0) :?>
+						<li data-role="list-divider"><?= _("Members list") ?></li>
+					<? endif ?>
+					<? foreach($profile->users as $item) :?>
+						<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
+					<? endforeach ?>
+				</ul>
+				<?
+				break;
+		}
+       	 
+	}
+	
+	
+	function printMyProfile($profile){
+		switch($profile->role){
+			 
+			default:
+				?>
+				<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
+					<li>
+						<h3>
+							<?= $profile->name ?>
+						</h3>
+						<p>
+							<?= _("Role") ?>: <strong style="color:#444;"><?= $profile->role ?></strong>
+						</p>
+						<p>
+							<strong style="color:#444;"><?= (empty($profile->activity)?" ":$profile->activity) ?></strong>
+						</p>
+						
+						<p class="ui-li-aside">
+							réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $profile->reputation['up'] ?> votes +, <?= $profile->reputation['down'] ?> votes -"><?= $profile->reputation['up'] - $profile->reputation['down'] ?></a>
+						</p>
+						<br />
+						<p>
+							<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
+							<?=
+							(empty($profile->email)?" ": _("email").": <a href='mailto:".$profile->email."'>".$profile->email."</a>")." - ".
+							(empty($profile->phone)?" ":_("phone").": <a href='tel:".$profile->phone."'>".$profile->phone."</a>")." - ".
+							(empty($profile->address)?" ":_("address").": ".$profile->address)
+							?>
+						</p>
+						<br />
+						<p>
+							<?= empty($profile->desc)?" ":$profile->desc ?>
+						</p>
+						<br />
+					</li>
+					<? if( count($profile->users)>0) :?>
+						<li data-role="list-divider"><?= _("Members list") ?></li>
+					<? endif ?>
+					<? foreach($profile->users as $item) :?>
+						<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
+					<? endforeach ?>
+				</ul>
+					
+					<?
+					break;
+			}
+	       	 
+		}
+
+       ?>
