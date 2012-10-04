@@ -1,16 +1,16 @@
 <? include("header.php") ?>
 
 <div data-role="page" id="association" >	
+	<? tab_bar_main("?action=extendedProfile"); ?>
 
-
-	<? if ($this->getUserType() == USER_NICE_BENEVOLAT): ?>
+	<!--<? if ($this->getUserType() == USER_NICE_BENEVOLAT): ?>
 		<? header_bar(array(
 			_("Associations") => url("listAssociations"),
 			_("Nouvelle association") => null)) ?>
 	<? else: ?>
 		<? header_bar(array(
 			_("Création de profil association") => null)) ?>
-	<? endif ?>
+	<? endif ?>-->
 			
 	<form data-role="content" method="post" data-ajax="false" 
 		action="<?= url("extendedProfile:doCreate", array("type" => ASSOCIATION)) ?>" >

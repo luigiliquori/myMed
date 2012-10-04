@@ -2,6 +2,7 @@
 
 <div data-role="page"  >	
 
+	<? tab_bar_main("?action=extendedProfile"); ?>
 	<?
 	// Build breadcrumb
 	$bc = array();
@@ -17,7 +18,7 @@
 	$bc[_("Édition")] = null;
 	
 	// header bar
-	header_bar($bc); ?>
+	//header_bar($bc); ?>
 
 	<form 
 		data-role="content" 

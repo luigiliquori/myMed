@@ -16,10 +16,10 @@ $filters[ANN_ALL] = _("toutes");
 	<? tab_bar_main("?action=main"); ?>
 
 	<div data-role="content" class="content">
-			 <?php if(!isset($_SESSION['user'])):
-			 include("LoginView.php");
+		<?php if(!isset($_SESSION['user'])):
+		include("LoginView.php");
 				endif?>
-		<? if (!isset($this->extendedProfile)) : ?>
+		<? if (isset($_SESSION['user']) && !isset($this->extendedProfile)) : ?>
 		<?= _("Veuillez indiquer dans votre profil si vous êtes un bénévole ou une association") ?>
 		<? endif ?>
 
@@ -44,7 +44,7 @@ $filters[ANN_ALL] = _("toutes");
 		<? if ($this->canPost()) : ?>
 		<div class="ui-grid-a">
 			<div class="ui-block-a">
-			<? endif?>
+				<? endif?>
 				<a data-role="button" data-inline="true"
 					href="<?= url("listAnnonces", array("filter" => ANN_ALL)) ?>"> <?= _("Afficher toutes les annonces") ?>
 				</a>

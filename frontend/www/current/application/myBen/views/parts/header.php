@@ -76,9 +76,27 @@
 <?php 
 
 function tab_bar_main($activeTab, $opts=1) {
+	if(!isset($_SESSION['user'])){
+		$arrayProfile =array("?action=extendedProfile","Inscription","user");
+	}
+	else{
+		$arrayProfile=array("?action=extendedProfile","Profil","user");
+	}
+	//it can be useful one day: NICE_BENEVOLAT
+	if($_SESSION[EXTENDED_PROFILE]  instanceof ProfileBenevole){ 
+		$arrayCandidat = array("?action=candidature","Candidater","user");
+	}
+	elseif ($_SESSION[EXTENDED_PROFILE]  instanceof ProfileAssociation){
+		$arrayCandidat=array("?action=candidature","Déposer une annonce","user");
+	}
+	else{
+		$arrayCandidat = array("?action=candidature","Candidater/Déposer une annonce","user");
+	}
 	tabs($activeTab, array(
-			array("?action=main", "Applications", "tags"),
-			array("?action=login", "Profil", "user"),
+			array("?action=main", "Liste des annonces", "tags"),
+			$arrayProfile,
+			$arrayCandidat,
+			array("?action=about","A propos","user")
 	), $opts);
 }
 
