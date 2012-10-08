@@ -54,6 +54,7 @@ function printMarkers(type, lon, lat, rad) {
 			if ( data && data.dataObject.pois.length){
 				$.each(data.dataObject.pois, function(i, poi) {
 					try {
+						
 						value = JSON.parse(poi.value);
 						id = poi.id;
 						var Address, Email, Link, IdMedia, Altitude = null;
