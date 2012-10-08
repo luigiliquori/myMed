@@ -32,11 +32,9 @@ function tab_bar_login($activeTab) {
 		</form>
 	
 		<br />
-		<div data-role="collapsible" data-mini="true" data-content-theme="d" data-inline="true" style="width:70%; min-width:280px; margin: auto;">
-			<h3><?= _("Sign in with") ?>: </h3>
-
+		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="width:70%; margin: auto;">
+			<h3 style="width: 170px; margin: auto;"><?= _("Sign in with") ?>: </h3>
 			<ul data-role="listview">
-
 			<li>
 				<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">
 				<img class="ui-li-mymed" src="/system/img/social/google_32.png" />
@@ -61,9 +59,7 @@ function tab_bar_login($activeTab) {
 				</a>
 				
 			</li>
-
 			</ul>
-			
 		</div>
 
 		<br /><br />

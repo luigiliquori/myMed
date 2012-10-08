@@ -1,8 +1,8 @@
 <? include("header.php"); ?>
 
-<div data-role="page" id="results">
+<div data-role="page" id="results" data-dom-cache="true">
+	<? tabs_simple(array("search", $this->title)); ?>
 
-	<? tabs_simple(array("Results")); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content">
 

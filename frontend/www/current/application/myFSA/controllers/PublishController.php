@@ -88,6 +88,7 @@ class PublishController extends AuthenticatedController {
 					$debugtxt  .= var_export($_SESSION['data2'], TRUE);
 					$debugtxt .= "</pre>";
 					debug($debugtxt);
+					
 			$this->renderView("details");
 		} 
 		else {
@@ -140,7 +141,9 @@ class PublishController extends AuthenticatedController {
 		else {
 			$obj->pred1 = "FSApublication";
 		}
-
+		$debugtxt  =  "<pre>I am in the fillObj1";
+		$debugtxt .= "</pre>";
+		debug($debugtxt);
 	
 
 	
@@ -154,9 +157,16 @@ class PublishController extends AuthenticatedController {
 			$obj->pred1 = "FSApublication";
 			$obj->pred2 = $_SESSION['pred2'];
 			$obj->pred3 = $_SESSION['pred3'];
+			
+			//the field is needed otherwise will sign session user and create new article
+			$obj->publisherID = $_SESSION['author'];
 				
 			//main text
 			$obj->data1 = $_SESSION['data1'];
+			
+			if ($_SESSION['user']->profilePicture == NULL){
+				$_SESSION['user']->profilePicture = "http://www.kyivpost.com/static//default_user.png";
+			}
 			
 			//this code is needed for storing user's comment :)
 			$_POST['data2'] = $_POST['data2'].'"'.$_SESSION['user']->name.'"'.$_SESSION['user']->profilePicture;			
@@ -171,6 +181,10 @@ class PublishController extends AuthenticatedController {
 				
 			$obj->wrapped1 ="";
 			$obj->wrapped2 ="";	
+			
+			$debugtxt  =  "<pre>I am in the fillObj2";
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
 	
 	}
 	
