@@ -1,6 +1,6 @@
 <? include_once 'header.php'; ?>
 
-<div id="profile" data-role="page">
+<div id="profile" data-role="page" data-dom-cache="true">
 
 	<? tab_bar_main("?action=profile"); ?>
 	<? include 'notifications.php'; ?>
@@ -9,6 +9,17 @@
 
 		<ul data-role="listview" data-mini="true">
 			<li  data-role="list-divider">Informations générales</li>
+			
+			<li data-icon="refresh">
+				<?php if($_SESSION['user']->profilePicture != "") { ?>
+					<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="60">
+				<?php } else { ?>
+					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60">
+				<?php } ?>
+				
+				<a href="#updateProfile"><?= $_SESSION['user']->name ?></a>
+			</li>
+			
 			<li data-icon="refresh">
 				<a href="#updateProfile">
 				<?php if($_SESSION['user']->profilePicture != "") { ?>
@@ -60,14 +71,11 @@
 		
 		<br /><br />
 		
-		<br /><br />
-		
 	</div>
-
 
 </div>
 
-<? include 'UpdateProfileView.php'; ?>
+<? include_once 'UpdateProfileView.php'; ?>
 
-<? include 'footer.php'; ?>
+<? include_once 'footer.php'; ?>
 

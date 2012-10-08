@@ -5,7 +5,7 @@ define('SEP', '<span style="opacity: 0.7; font-size: 80%;"> &gt; </span>');
 function tab_bar_main($activeTab, $opts=1) {
 	tabs($activeTab, array(
 			array("?action=main", "Applications", "tags"),
-			array("?action=profile", "Profile", "user"),
+			array("?action=profile", "Profil", "user"),
 			array("?action=store", "Store", "shopping-cart")
 	), $opts);
 }
@@ -17,7 +17,6 @@ function tabs($activeTab, $tabs, $buttonLeft = false) {
 	foreach ($tabs as $i){
 		$tabsStr .=
 		'<li><a href="'. $i[0] .'" data-transition="none" data-icon="'. $i[2].'" '.($reverse? 'data-direction="reverse"' : '')
-		.($i[0][0]!='#'?'rel="external"':'')
 		.($activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '').'>'. _($i[1])
 		.'</a></li>';
 		if ($i[0] == $activeTab) {
@@ -35,6 +34,7 @@ function tabs($activeTab, $tabs, $buttonLeft = false) {
   		<h1>
   			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= _(APPLICATION_LABEL) ?></span></a>
   		</h1>
+
   	</div>
 	
 	<div data-role="footer" data-theme="d" data-position="fixed" style="display: none;" class="iostab">

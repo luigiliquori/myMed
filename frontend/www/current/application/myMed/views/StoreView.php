@@ -1,8 +1,8 @@
-<? include("header.php"); ?>
+<? include_once("header.php"); ?>
 
 <? define('STORE_PREFIX' , '_store'); ?>
 
-<div data-role="page">
+<div data-role="page" id="store" data-dom-cache="true">
 
 	<? tab_bar_main("?action=store"); ?>
 	<? include("notifications.php"); ?>
@@ -51,4 +51,6 @@
 
 </div>
 
-<? include("footer.php"); ?>
+<? include_once 'StoreSubView.php'; ?>
+
+<? include_once 'footer.php'; ?>

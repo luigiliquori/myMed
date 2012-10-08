@@ -23,8 +23,8 @@ public class Mobile extends Activity {
 	
 
 	public static final String TAG = "*********MyMed";
-	public static final String MYMED_FRONTEND_URL = "http://mymed20.sophia.inria.fr/";
-	public static final String MYMED_BACKEND_URL = "http://mymed20.sophia.inria.fr:8080/backend";
+	public static final String MYMED_FRONTEND_URL = "http://www.mymed.fr/";
+	public static final String MYMED_BACKEND_URL = "http://www.mymed.fr:8080/backend";
 
 	public Mobile() {
 		this.webClient = new WebClient(this);
@@ -67,13 +67,13 @@ public class Mobile extends Activity {
 		webView.setWebChromeClient(chromeWebClient);
 
 		
-		if (!isOnline()) {
+		/*if (!isOnline()) {
 
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setMessage("Aucune connexion détectée");
 			alertDialog.show();
 			//webView.loadUrl("file:///android_asset/www/indexOffline.html");
-		}
+		}*/
 	}
 	
 	@Override
@@ -89,12 +89,12 @@ public class Mobile extends Activity {
 		return webView;
 	}
 	
-	public boolean isOnline() {
+	/*public boolean isOnline() {
 		ConnectivityManager cm =
 				(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		return cm.getActiveNetworkInfo() != null && 
 				cm.getActiveNetworkInfo().isConnectedOrConnecting();
-	}
+	}*/
 
 }

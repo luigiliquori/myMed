@@ -144,7 +144,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
 				} catch (final JsonSyntaxException e) {
 					userID = user;
 				}
-
+				
 				try {
 					final Type dataType = new TypeToken<List<MDataBean>>() {
 					}.getType();
@@ -211,6 +211,8 @@ public class PublishRequestHandler extends AbstractMatchMaking {
 
 			// get userID
 			user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
+			
+			System.out.println("\n\n userID = " + user);
 
 			if (code.equals(RequestCode.CREATE)) {
 

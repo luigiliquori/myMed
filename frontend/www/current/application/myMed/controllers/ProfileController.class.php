@@ -119,10 +119,6 @@ class ProfileController extends AuthenticatedController {
 				$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $_POST);
 			}
 			
-
-			
-			
-			
 		}
 		
 		$this->renderView("profile");

@@ -70,8 +70,9 @@ function updateProfile(k, v) {
 
 $("[data-role=page]").live("pageshow", function() {
 	if (isiPhoneoriPad()){
-		$(this).find('.toptab').hide();
 		$(this).find('.iostab').show();
+	} else {
+		$(this).find('.toptab').show();
 	}
 });
 
@@ -96,4 +97,32 @@ $("#updateProfile").live("pagecreate", function() {
 		}
 		return true;
 	});
+});
+
+$("#login").live("swipeleft", function() {
+	$.mobile.changePage("#register", {transition : "slide"});
+});
+
+$("#register").live("swipeleft", function() {
+	$.mobile.changePage("#about", {transition : "slide"});
+}).live("swiperight", function() {
+	$.mobile.changePage("#login"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#about").live("swiperight", function() {
+	$.mobile.changePage("#register"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#home").live("swipeleft", function() {
+	$.mobile.changePage("?action=profile", {transition : "slide"});
+});
+
+$("#profile").live("swipeleft", function() {
+	$.mobile.changePage("?action=store", {transition : "slide"});
+}).live("swiperight", function() {
+	$.mobile.changePage("?action=main"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#store").live("swiperight", function() {
+	$.mobile.changePage("?action=profile"/*, {transition : "slide",reversed : true}*/);
 });
