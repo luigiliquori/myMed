@@ -488,22 +488,19 @@ function wizard_footbar($commit_label) { ?>
 	</ul>
 	</div>->
 <!-- </div>-->
-<div data-role="content" id="wizard">
-	<div class="ui-grid-a" id="wizard">
-			<div   class="ui-block-a" id="wizard">
-				<a href="#" id="wizard-start" data-rel="back" data-role="button"data-icon="delete" data-theme="r">
-					<?= _("Annuler") ?> 
-				</a> 
-				<a href="#" id="wizard-previous" data-role="button" data-icon="arrow-l" data-theme="e">
-					<?= _("Précédent") ?>
-				</a> 
-			</div>
+<div class="ui-grid-a" id="wizard">
+	<div class="ui-block-a" id="wizard">
+		<a href="#" id="wizard-start" data-rel="back" data-role="button"
+			data-icon="delete" data-theme="r"> <?= _("Annuler") ?>
+		</a> <a href="#" id="wizard-previous" data-role="button"
+			data-icon="arrow-l" data-theme="e"> <?= _("Précédent") ?>
+		</a>
+	</div>
 	<div class="ui-block-b" id="wizard">
-		<a href="#" id="wizard-next" data-role="button" data-icon="arrow-r"	data-theme="e">
-			<?= _("Suivant") ?> 
-		</a> 
-		<a href="#"	data-role="button" data-role="submit" id="wizard-end" data-icon="check" data-theme="g">
-			<?= $commit_label ?>
+		<a href="#" id="wizard-next" data-role="button" data-icon="arrow-r"
+			data-theme="e"> <?= _("Suivant") ?>
+		</a> <a href="#" data-role="button" data-role="submit" id="wizard-end"
+			data-icon="check" data-theme="g"> <?= $commit_label ?>
 		</a>
 	</div>
 </div>

@@ -255,7 +255,7 @@ class ExtendedProfileController extends GuestOrUserController {
 
 	/** Show the form to create a profile */
 	public function create() {
-
+		echo("create profil");
 		// Used by the view
 		$this->mode = MODE_CREATE;
 
@@ -271,6 +271,7 @@ class ExtendedProfileController extends GuestOrUserController {
 				$this->_extendedProfile->disponibilites = array_keys(CategoriesDisponibilites::$values);
 				$this->_extendedProfile->missions = array_keys(CategoriesMissions::$values);
 			} else {
+				
 				$this->_extendedProfile = new ProfileAssociation();
 				$this->_extendedProfile->missions = array_keys(CategoriesMissions::$values);
 			}
@@ -321,7 +322,6 @@ class ExtendedProfileController extends GuestOrUserController {
 			$profile = new ProfileBenevole();
 
 		} else if ($type == ASSOCIATION) {
-
 			// Create a association profile
 			$profile = new ProfileAssociation();
 

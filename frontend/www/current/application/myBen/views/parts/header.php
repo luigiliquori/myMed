@@ -84,13 +84,13 @@ function tab_bar_main($activeTab, $opts=1) {
 	}
 	//it can be useful one day: NICE_BENEVOLAT
 	if($_SESSION[EXTENDED_PROFILE]  instanceof ProfileBenevole){ 
-		$arrayCandidat = array("?action=candidature","Candidater","user");
+		$arrayCandidat = array("?action=infosCandidatures","Infos Candidatures","user");
 	}
 	elseif ($_SESSION[EXTENDED_PROFILE]  instanceof ProfileAssociation){
-		$arrayCandidat=array("?action=candidature","Déposer une annonce","user");
+		$arrayCandidat=array("?action=about","Déposer une annonce","user");
 	}
 	else{
-		$arrayCandidat = array("?action=candidature","Candidater/Déposer une annonce","user");
+		$arrayCandidat = array("?action=about","Infos Candidatures/Déposer une annonce","user");
 	}
 	tabs($activeTab, array(
 			array("?action=main", "Liste des annonces", "tags"),

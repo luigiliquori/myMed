@@ -27,11 +27,8 @@
 		</p>
 		
 		<? include('ProfileBenevoleForm.php') ?>
-		
-	</form>
-	
-	 <? wizard_footbar(_("Créer le profil")) ?>
-	
+		<? wizard_footbar(_("Créer le profil")) ?>
+	</form>	
 </div>
 
 <? include("footer.php"); ?>

@@ -1,6 +1,7 @@
-<? include("header.php") ?>
+<? include("header.php"); ?>
 
-<div data-role="page" id="association" >	
+<div data-role="page" id="association" >
+
 	<? tab_bar_main("?action=extendedProfile"); ?>
 
 	<!--<? if ($this->getUserType() == USER_NICE_BENEVOLAT): ?>
@@ -28,9 +29,9 @@
 		<? include('ProfileAssociationForm.php') ?>
 		
 		<? wizard_footbar(_("Créer le profil")) ?>
-
+		
 	</form>
 
 </div>
 
-<? include("footer.php") ?>
+<? include("footer.php"); ?>
