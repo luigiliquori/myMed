@@ -1,13 +1,14 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
 { "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Musées", "Nom": "Città Romana di Albintimilium-Antiquarium", "Description": "Scavi archeologici della Città romana che comprende le terme, il teatro, le insulae, alcune domus, mosaici , il decumano maximo. Ancora oggetto di scavo  anche a seguito delle costruzioni di epoca successiva che ne hanno probabilmente occupato una  parte rilevante: foro, cardine massimo ecc. I reperti ritrovati nel corso degli scavi sono conservati presso il Museo Antiquarium.", "Addresse": "Corso Genova, 134", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.790107", "Longitude": "7.625721" }, "geometry": null }
 ,
 { "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Musées", "Nom": "Museo Archeologico Girolamo Rossi", "Description": "Museo di archeologia,  intitolato a Girolamo Rossi, erudito locale e scopritore del teatro e della città di Albintimilium.  Si sviluppa in sette sale in cui sono esposti significativi reperti archeologici provenienti dagli scavi dell'antica città romana.", "Addresse": "Via Giuseppe Verdi, 41", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.791.324", "Longitude": "759767" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Musées", "Nom": "Museo Preistorico Balzi Rossi", "Description": "Tra i maggiori siti preistorici in Europa, i Balzi Rossi devono il loro nome al colore della parete rocciosa in cui si aprono. Il complesso è composto da grotte e ripari, al cui interno sono stati scoperti numerosi reperti risalenti al paleolitico superiore. ", "Addresse": "Località Grimaldi-Ponte San Ludovico                  Tel: +39 0184 38113", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.786316", "Longitude": "7.533203" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Musées", "Nom": "Museo Preistorico Balzi Rossi", "Description": "Tra i maggiori siti preistorici in Europa, i Balzi Rossi devono il loro nome al colore della parete rocciosa in cui si aprono. Il complesso è composto da grotte e ripari, al cui interno sono stati scoperti numerosi reperti risalenti al paleolitico superiore. ", "Addresse": "Località Grimaldi-Ponte San Ludovico                  Tel: +39 0184 38113", "Link": "", "E-mail": "", "Id-Media": "Ventimiglia_grotte Balzi Rossi", "Comm Urb": "Vintimille", "Latitude": "43.786316", "Longitude": "7.533203" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 
 ]
 }

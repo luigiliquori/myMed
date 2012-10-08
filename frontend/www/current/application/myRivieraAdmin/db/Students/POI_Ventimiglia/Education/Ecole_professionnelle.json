@@ -1,11 +1,12 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
 { "type": "Feature", "properties": { "Type": "Education", "SousType": "Ecole professionnelle", "Nom": "Istituto Statale \"Enrico Fermi\"", "Description": "Istituto Tecnico Commerciale per Geometri - Ragioneria", "Addresse": "Via Roma, 61 \nTel: +39 0184 351716 ", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.78843", "Longitude": "7.615432" }, "geometry": null }
 ,
 { "type": "Feature", "properties": { "Type": "Education", "SousType": "Ecole professionnelle", "Nom": "Istituto Professionale Statale \"Marco Polo\"", "Description": "Istituto Professionale per i Servizi Commerciali e Turistici ", "Addresse": "Via Roma, 61\nTel: +39 0184 231887 ", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.78843", "Longitude": "7.615432" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 
 ]
 }

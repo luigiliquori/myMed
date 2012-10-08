@@ -1,7 +1,8 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
-{ "type": "Feature", "properties": { "Type": "Tourisme_Culture ", "SousType": "Monuments", "Nom": "Porta Canarda", "Description": "A doppio arco gotico, eretta nel XIII secolo, costituiva la porta d'accesso occidentale alla città murata, dove controllava una posizione strategica, sul mare e sull'antica strada romana, la via Iulia Augusta. ", "Addresse": "Via Iulia Augusta", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.820296", "Longitude": "7.591802" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture ", "SousType": "Monuments", "Nom": "Porta Canarda", "Description": "A doppio arco gotico, eretta nel XIII secolo, costituiva la porta d'accesso occidentale alla città murata, dove controllava una posizione strategica, sul mare e sull'antica strada romana, la via Iulia Augusta. ", "Addresse": "Via Iulia Augusta", "Link": "", "E-mail": "", "Id-Media": "246px-Porta_Canarda", "Comm Urb": "Vintimille", "Latitude": "43.820296", "Longitude": "7.591802" }, "geometry": null }
 ,
 { "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Monuments", "Nom": "Porta Marina e Porta del Cioùssu", "Description": "Sono le uniche Porte che presentano ancora tracce delle precedenti mura del XII secolo . La porta  della Marina consentiva l'accesso al borgo marinaro e attraverso Via Falerina lo collegava alle principali sedi cittadine: il Castello, la cattedrale, il battistero, il palazzo vescovile. ", "Addresse": "Via Trossarelli", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.790196", "Longitude": "7.605197" }, "geometry": null }
 ,
@@ -9,7 +10,7 @@
 ,
 { "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Monuments", "Nom": "Porta Piemonte o di S. Michele ", "Description": "Presenta una cornice a bugnato in puddinga ottocentesca che conserva ancora i suoi antichi battenti in legno, ricoperti da lamine di ferro fissate con chiodi. Accanto si ammira una fontana cinquecentesca con mascheroni", "Addresse": "Piazza Colletta", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.79326", "Longitude": "7.599473" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "Tourisme_Culture ", "SousType": "Monuments", "Nom": "Teatro Romano", "Description": "Edificata tra II e III secolo, la struttura di forma semicircolare è rivestita, in gran parte, con  pietra calcarea bianca proveniente dalle cave da La Turbie. Si accedeva nel teatro dall'entrata ovest che oggi rappresenta la parte meglio conservata del monumento. Il sito fu abbandonato nel IV secolo.", "Addresse": "Corso Genova", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.78914", "Longitude": "7.621424" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture ", "SousType": "Monuments", "Nom": "Teatro Romano", "Description": "Edificata tra II e III secolo, la struttura di forma semicircolare è rivestita, in gran parte, con  pietra calcarea bianca proveniente dalle cave da La Turbie. Si accedeva nel teatro dall'entrata ovest che oggi rappresenta la parte meglio conservata del monumento. Il sito fu abbandonato nel IV secolo.", "Addresse": "Corso Genova", "Link": "", "E-mail": "", "Id-Media": "teatro_romano", "Comm Urb": "Vintimille", "Latitude": "43.78914", "Longitude": "7.621424" }, "geometry": null }
 ,
 { "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Monuments", "Nom": "Palazzi storici e Giardini pensili della Città Medioevale - Palazzo Galleani e Palazzo Orengo", "Description": "I Palazzi nobiliari siti nel lato sud di Via Garibaldi, celano incredibili giardini pensili affacciati sulle mura cinquecentesche verso il mare, ricchi di piante esotiche.  Il Palazzo Galleani  con facciata tardo rinascimentale, il Palazzo del Banco di S. Giorgio, il Palazzo Orengo-Cottavino, il Palazzo Biancheri. ", "Addresse": "Via Garibaldi", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.791032", "Longitude": "7.601763" }, "geometry": null }
 ,
@@ -19,7 +20,7 @@
 ,
 { "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 
 ]
 }

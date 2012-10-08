@@ -1,5 +1,6 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
 { "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Offices de Tourisme", "Nom": "Office de Tourisme", "Description": "Découvrez les places, les placettes, les pontis, les façades rudes ou colorées de cette commune qui a garde intact son  aspect médiéval. \nEgalement les manifestations culturelles dont le festival CoartJazz.", "Adresse": "7, Montada dal Portal, 06390 Coaraze Contact:\n04 93 79 37 47 ‎ ", "E-mail": "", "Link": "", "IdMedia": "Coaraze-Office-Tourisme.jpg", "ComUrbaine": "Pays des Paillons", "Latitude": "43.86468", "Longitude": "7.29430", "Altitude": "" }, "geometry": null }
 ,
@@ -15,7 +16,7 @@
 ,
 { "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Offices de Tourisme", "Nom": "Syndicat d'initiative de Contes", "Description": "", "Adresse": "5 Place Jean Allardi    06390 Contes", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.809868 ", "Longitude": "7.315749", "Altitude": "" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Adresse": null, "E-mail": null, "Link": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null, "Altitude": null }, "geometry": null }
 
 ]
 }
