@@ -499,7 +499,7 @@ function wizard_footbar($commit_label) { ?>
 	<div class="ui-block-b" id="wizard">
 		<a href="#" id="wizard-next" data-role="button" data-icon="arrow-r"
 			data-theme="e"> <?= _("Suivant") ?>
-		</a> <a href="#" data-role="button" data-role="submit" id="wizard-end"
+		</a><a href="#" data-role="button" onclick="document.forms['benForm'].submit();" id="wizard-end"
 			data-icon="check" data-theme="g"> <?= $commit_label ?>
 		</a>
 	</div>

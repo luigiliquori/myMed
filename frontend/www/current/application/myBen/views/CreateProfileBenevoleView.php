@@ -13,7 +13,7 @@
 			_("Création de profil bénévole") => null)) ?>
 	<? endif ?>-->
 	
-	<form data-role="content" method="post" data-ajax="false" 
+	<form data-role="content" method="post" data-ajax="false" id="benForm"
 		action="<?= url("extendedProfile:doCreate", array("type" => BENEVOLE)) ?>" >
 		
 		<p>
