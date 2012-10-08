@@ -12,11 +12,12 @@ class ReputationController extends AbstractController
 			
 		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Reputation") {
 				//$this->storeReputation();
-				
+			
 				$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
 				$debugtxt  .= var_export($_REQUEST['rate'], TRUE);
 				$debugtxt  .= var_export($_SESSION['user'], TRUE);
 				$debugtxt .= "</pre>";
+				$debugtxt  .= var_export(htmlspecialchars($_GET["action"]), TRUE);
 				debug($debugtxt);
 	
 		}
@@ -43,8 +44,9 @@ class ReputationController extends AbstractController
 // 	}	
 	
 	public /*void*/ function storeReputation(){
+		
 			
-			$rep = new Reputation($_SESSION['user']);
+			$rep = new Reputation('myFSA',$_SESSION['user']);
 			
 			$rep->storeReputation();
 			

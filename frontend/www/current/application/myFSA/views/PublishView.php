@@ -53,20 +53,20 @@
 <!-- 			<input type="text" name="wrapped2" placeholder="wrapped2"/> -->
 			<br/>
 			<script type="text/javascript">
-			 // Dictionnary of already initliazed pages
-gInitialized = {}
-// Initialization made on each page 
-$('[data-role=page]').live("pagebeforeshow", function() {
- var page = $(this);
- var id = page.attr("id");
-  // Don't initialize twice
-if (id in gInitialized) return;
- gInitialized[id] = true;
-//debug("init-page : " + page.attr("id"));
-console.log('hello');
-$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
-});
-</script>			
+			 	// Dictionnary of already initliazed pages
+				gInitialized = {}
+				// Initialization made on each page 
+				$('[data-role=page]').live("pagebeforeshow", function() {
+ 				var page = $(this);
+ 				var id = page.attr("id");
+			 	// Don't initialize twice
+				if (id in gInitialized) return;
+ 				gInitialized[id] = true;
+				//debug("init-page : " + page.attr("id"));
+				console.log('hello');
+				$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
+				});
+			</script>			
 			<textarea id="CLEeditor" name="data1"></textarea>
 <!-- 			<input type="text" name="data2" placeholder="data2"/> -->
 <!-- 			<input type="text" name="data3" placeholder="data3"/> -->

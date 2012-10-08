@@ -1,8 +1,8 @@
 <? 
 class MainController extends AuthenticatedController {
 
-// 	//$this->renderView("Main");
-// 	//$this->renderView("search");
+//$this->renderView("Main");
+//$this->renderView("search");
 // 	$this->redirectTo("publish");
 	
 	public /*void*/ function handleRequest(){
