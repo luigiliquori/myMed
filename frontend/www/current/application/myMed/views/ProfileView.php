@@ -11,21 +11,11 @@
 			<li  data-role="list-divider">Informations générales</li>
 			
 			<li data-icon="refresh">
-				<?php if($_SESSION['user']->profilePicture != "") { ?>
-					<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="60">
-				<?php } else { ?>
-					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60">
-				<?php } ?>
-				
-				<a href="#updateProfile"><?= $_SESSION['user']->name ?></a>
-			</li>
-			
-			<li data-icon="refresh">
 				<a href="#updateProfile">
 				<?php if($_SESSION['user']->profilePicture != "") { ?>
-					<img class="ui-li-mymed" alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="60">
+					<img class="ui-li-mymed" alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="60" height="60">
 				<?php } else { ?>
-					<img class="ui-li-mymed" alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60">
+					<img class="ui-li-mymed" alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60" height="60">
 				<?php } ?>
 				
 				<?= $_SESSION['user']->name ?></a>
