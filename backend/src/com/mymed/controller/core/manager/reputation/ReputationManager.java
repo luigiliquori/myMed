@@ -59,6 +59,7 @@ public class ReputationManager extends AbstractManager{
 
 	private List<String> getKeys(String app, String producer){
 		List<String> keysStr = new ArrayList<String>();
+		
 		List<String> apps = MiscUtils.json_to_list(app);
 		List<String> prods = MiscUtils.json_to_list(producer);
 		

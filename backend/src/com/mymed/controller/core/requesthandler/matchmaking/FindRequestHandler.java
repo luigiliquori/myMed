@@ -20,8 +20,9 @@ import static com.mymed.utils.MiscUtils.makePrefix;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URI;
+import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -118,6 +119,9 @@ public class FindRequestHandler extends AbstractMatchMaking {
 				}
 
 				if (user != null) { // GET DETAILS
+					
+					System.out.println("\n\n userID = " + user);
+					
 					final List<Map<String, String>> details = pubsubManager.read(makePrefix(application, namespace), predicate, user);
 					if (details.isEmpty()) {
 						throw new IOBackEndException("no results found!", 404);

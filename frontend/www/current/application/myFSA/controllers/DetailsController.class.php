@@ -13,6 +13,7 @@ class DetailsController extends AuthenticatedController {
 		
 		parent::handleRequest();
 		
+		//keyword is set in the jquery file
 		if (isset($_REQUEST['keyword']) && $_REQUEST['keyword'] == "Reputation") {
 			$this->feedback = $_REQUEST['rate']/5;
 			$this->storeReputation();
@@ -50,30 +51,7 @@ class DetailsController extends AuthenticatedController {
 				$_SESSION['data2']= $this->result->data2;
 				//end needed for comments
 				
-				
-				$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR details";
-				$debugtxt  .= var_export($_SESSION['author'], TRUE);
-				$debugtxt  .= var_export($_SESSION['pred2'], TRUE);
-				$debugtxt  .= var_export($_SESSION['pred3'], TRUE);
-				$debugtxt  .= var_export($_SESSION['begin'], TRUE);
-				$debugtxt  .= var_export($_SESSION['end'], TRUE);
-				$debugtxt  .= var_export($_SESSION['data1'], TRUE);
-				$debugtxt  .= var_export($_SESSION['data2'], TRUE);
-				$debugtxt .= "</pre>";
-				debug($debugtxt);
-			}else{
-					$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR details";
-					$debugtxt  .= var_export($_SESSION['author'], TRUE);
-					$debugtxt  .= var_export($_SESSION['pred2'], TRUE);
-					$debugtxt  .= var_export($_SESSION['pred3'], TRUE);
-					$debugtxt  .= var_export($_SESSION['begin'], TRUE);
-					$debugtxt  .= var_export($_SESSION['end'], TRUE);
-					$debugtxt  .= var_export($_SESSION['data1'], TRUE);
-					$debugtxt  .= var_export($_SESSION['data2'], TRUE);
-					$debugtxt .= "</pre>";
-					debug($debugtxt);
-			}
-			
+			}			
 			// Render the view
 			//$this->getReputation();
 			$this->renderView("details");

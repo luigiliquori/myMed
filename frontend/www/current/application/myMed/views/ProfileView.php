@@ -71,14 +71,11 @@
 		
 		<br /><br />
 		
-		<br /><br />
-		
 	</div>
-
 
 </div>
 
-<? include 'UpdateProfileView.php'; ?>
+<? include_once 'UpdateProfileView.php'; ?>
 
-<? include 'footer.php'; ?>
+<? include_once 'footer.php'; ?>
 

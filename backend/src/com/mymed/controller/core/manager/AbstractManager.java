@@ -186,18 +186,8 @@ public abstract class AbstractManager {
 		try {
 			ctor = clazz.getConstructor();
 			mbean = (AbstractMBean) ctor.newInstance();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new InternalBackEndException(e);
 		}
 
 		for (final Entry<byte[], byte[]> arg : args.entrySet()) {
@@ -221,18 +211,8 @@ public abstract class AbstractManager {
 
 				method.invoke(mbean, argument);
 
-			} catch (final NoSuchFieldException e) {
-				LOGGER.info("WARNING: {} is not a bean field", fieldName);
-			} catch (final SecurityException ex) {
-				throw new InternalBackEndException(ex);
-			} catch (final NoSuchMethodException ex) {
-				throw new InternalBackEndException(ex);
-			} catch (final IllegalArgumentException ex) {
-				throw new InternalBackEndException(ex);
-			} catch (final IllegalAccessException ex) {
-				throw new InternalBackEndException(ex);
-			} catch (final InvocationTargetException ex) {
-				throw new InternalBackEndException(ex);
+			} catch (final Exception e) {
+				LOGGER.info("WARNING: {} error with field", fieldName);
 			} 
 		}
 
