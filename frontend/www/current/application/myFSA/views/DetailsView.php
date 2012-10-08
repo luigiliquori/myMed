@@ -72,9 +72,9 @@ rank:
  	 	//needed for displaying comments with user
 			$string = $this->result->data2;
 			$_SESSION['data2'] = $this->result->data2;
-			preg_match_all('/#([a-zA-Z0-9: \r\s]+)"/', $string, $this->comments);
+			preg_match_all('/#([a-zA-Z0-9 \r\s\~\`\!\@\$\%\^\&\*\(\)\_\-\+\=\{\}\[\]\:\;\'\<\,\>\.\?\/]+)"/', $string, $this->comments);
 			preg_match_all('/"([a-zA-Z0-9: ]+)"/', $string, $this->users);
-			preg_match_all('/"([a-zA-Z0-9\_\/\.\&\:\+\-]+)#/', $string, $this->pictures);
+			preg_match_all('/"([a-zA-Z0-9\~\`\!\@\$\%\^\&\*\(\)\_\-\+\=\{\}\[\]\:\;\'\<\,\>\.\?\/]+)#/', $string, $this->pictures);
 			
  	 	///needed for displaying comments with user
 	 	?>
