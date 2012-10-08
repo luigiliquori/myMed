@@ -1,5 +1,3 @@
-
-
 <div id="updateProfile" data-role="page">
 
 	<? tab_bar_main("?action=profile", 2); ?>

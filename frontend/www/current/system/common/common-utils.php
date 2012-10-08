@@ -485,7 +485,4 @@ function wizard_footbar($commit_label) { ?>
 }
 
 
-
-
-
 ?>

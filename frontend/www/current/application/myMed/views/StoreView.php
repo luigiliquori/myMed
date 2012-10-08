@@ -1,4 +1,4 @@
-<? include("header.php"); ?>
+<? include_once("header.php"); ?>
 
 <? define('STORE_PREFIX' , '_store'); ?>
 
@@ -51,4 +51,6 @@
 
 </div>
 
-<? include("footer.php"); ?>
+<? include_once 'StoreSubView.php'; ?>
+
+<? include_once 'footer.php'; ?>

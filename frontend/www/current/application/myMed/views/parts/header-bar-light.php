@@ -34,15 +34,10 @@ function tabs($activeTab, $tabs, $buttonLeft = false) {
   		<h1>
   			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= _(APPLICATION_LABEL) ?></span></a>
   		</h1>
-  		<div data-role="header" data-theme="d" style="display: none;" class="toptab">
-			<div data-role="navbar" data-role="footer" data-iconpos="bottom" >
-				<ul><?= $tabsStr ?></ul>
-			</div>
-		</div>
   	</div>
 	
 	<div data-role="footer" data-theme="d" data-position="fixed" style="display: none;" class="iostab">
-		<div data-role="navbar" data-role="footer">
+		<div data-role="navbar">
 			<ul><?= $tabsStr ?></ul>
 		</div>
 	</div>

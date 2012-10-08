@@ -91,6 +91,7 @@ class Publish extends Request {
 		} else {
 			$user = json_encode($_SESSION['user']);
 		}
+		
 		$predicate = json_encode($predicateArray);
 		$data = json_encode($dataArray);
 

@@ -11,12 +11,10 @@ class SearchController extends AuthenticatedController {
 		parent::handleRequest();
 		
 		$this->part = new Partnership();
-		$this->part->setIndex($_GET);
-		
-		$mapper = new DataMapper;
+		$this->part->initSearch($_GET);
 
 		try {
-			$this->result = $mapper->findByPredicate($this->part);
+			$this->result = $this->part->search();
 		} catch (Exception $e) {
 			$this->result = array();
 		}
@@ -27,24 +25,16 @@ class SearchController extends AuthenticatedController {
 			$o->value = addslashes($o->value);
 			return $o;
 		}
-		
 		$this->part->index = array_map("addvaluelashes", $this->part->index); //for ajax subscribe
-		
-		$this->title = "";
-		array_walk($this->part->index, array($this, "getValues"));
-		if (empty($this->title)){
-			$this->title = "all";
-		}
 
 		// Render the view			
 		$this->renderView("Results");
 		
+
 	}
 	
-	function getValues($o){
-		if (!empty($o->value)){
-			$this->title .= $o->key.'='.$o->value.' ';
-		}
+	function smallWords($w){
+		return strlen($w) > 2;
 	}
 	
 	

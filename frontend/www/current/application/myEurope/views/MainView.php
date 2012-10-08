@@ -24,13 +24,15 @@
 
 <? tab_bar_default("#profile") ?>
 	<div data-role="content" style="text-align: center;">
-		<a href="#updatePicPopup" data-rel="popup">
-		<?php if($_SESSION['user']->profilePicture != ""): ?>
-			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
+
+	<?php if($_SESSION['user']->profilePicture != ""): ?>
+		<a href="#updatePicPopup" data-rel="popup"><img alt="thumbnail"
+			src="<?= $_SESSION['user']->profilePicture ?>" width="80"> </a>
+		
 		<?php else: ?>
-			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
+			<a href="#updatePicPopup" data-rel="popup"><img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80"></a>
 		<?php endif; ?>
-		</a>
+		
 		
 		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
@@ -59,50 +61,43 @@
 
 <div data-role="page" id="blogs">
 
-	<? tab_bar_default("#blogs") ?>
-	<div data-role="content" style="text-align:center;">
-		<ul data-role="listview" data-inset="true" data-filter="true" >
-			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
-			<li>
-				<a href="?action=Blog&blog=Bonnes Pratiques" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?>
-					<span class="ui-li-count">4</span>
-				</a>
+<? tab_bar_default("#blogs") ?>
+	<div data-role="content" style="text-align: center;">
+		<ul data-role="listview" data-inset="true" data-filter="true">
+			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?>
 			</li>
-			<li>
-				<a href="?action=Blog&blog=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?>
-					<span class="ui-li-count">2</span>
-				</a>
+			<li><a href="?action=Blog&blog=Bonnes Pratiques" rel="external"
+				data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?>
+			</a>
 			</li>
-			<li>
-				<a href="?action=Blog&blog=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?>
-					<span class="ui-li-count">1</span>
-				</a>
+			<li><a href="?action=Blog&blog=Par quoi commencer ?" rel="external"
+				data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?>
+			</a>
 			</li>
-			<li>
-				<a href="?action=Blog&blog=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
-					<span class="ui-li-count">5</span>
-				</a>
+			<li><a
+				href="?action=Blog&blog=Pourquoi chercher un partenariat europeen ?"
+				rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?>
+			</a>
 			</li>
-			<li>
-				<a href="?action=Blog&blog=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?>
-					<span class="ui-li-count">1</span>
-				</a>
+			<li><a href="?action=Blog&blog=Vos temoignages" rel="external"
+				data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
+			</a>
 			</li>
-			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?></li>
-			<li>
-				<a href="?action=Blog&blog=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?>
-					<span class="ui-li-count">2</span>
-				</a>
+			<li><a href="?action=Blog&blog=Quelques idees" rel="external"
+				data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?>
+			</a>
 			</li>
-			<li>
-				<a href="?action=Blog&blog=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?>
-					<span class="ui-li-count">0</span>
-				</a>
+			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?>
 			</li>
-			<li>
-				<a href="?action=Blog&blog=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?>
-					<span class="ui-li-count">2</span>
-				</a>
+			<li><a href="?action=Blog&blog=myEurope" rel="external"
+				class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?> </a>
+			</li>
+			<li><a href="?action=Blog&blog=Ameliorations proposees"
+				rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?>
+			</a>
+			</li>
+			<li><a href="?action=Blog&blog=Discussion libre" rel="external"
+				class="mymed-huge-button"><?= _('Discussion libre') ?> </a>
 			</li>
 		</ul>
 
@@ -131,7 +126,7 @@
 	<div data-role="content">
 
 		<br />
-		<?= _('myEuropeabout') ?>
+		<?= about() ?>
 	</div>
 </div>
 
@@ -156,23 +151,28 @@
 
 <div data-role="page" id="search">
 
-	<? tabs_simple(array('Search')); ?>
+<? tabs_simple(array('Recherche de partenaire')); ?>
 	<div data-role="content">
-		<form action="" id="searchForm">
+		<form action="" id="searchForm" data-ajax="false">
+
 			<input type="hidden" name="action" value="Search" /> <br />
-			
-			<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
-				<div  data-role="collapsible" data-collapsed="false">
+
+			<div data-role="collapsible-set" data-theme="b"
+				data-content-theme="d">
+				<div data-role="collapsible" data-collapsed="false">
 					<h3>
-					<?= _('Offer Themes') ?>:
+					<?= _('Offer Themes') ?>
+						:
 					</h3>
-				 	<fieldset data-role="controlgroup">
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
 						<? foreach (Categories::$themes as $k=>$v): ?>
 							<input type="checkbox" name="t[]" value="<?= $k ?>"
 								id="checkbox-<?= $k ?>" /> <label for="checkbox-<?= $k ?>"><?= $v ?>
 							</label>
-						<? endforeach; ?>
-					</fieldset>
+							<? endforeach; ?>
+						</fieldset>
+					</div>
 				</div>
 				<div data-role="collapsible" data-collapsed="true">
 					<h3>
@@ -220,6 +220,9 @@
 					<?= _('Category of searched partners') ?>
 					</h3>
 					<fieldset data-role="controlgroup">
+						<legend>
+						<?= _('Category of searched partners') ?>
+						</legend>
 						<? foreach (Categories::$roles as $k=>$v): ?>
 						<input type="checkbox" name="r[]" value="<?= $k ?>"
 							id="checkbox-<?= $k ?>" /> <label for="checkbox-<?= $k ?>"><?= $v ?>
@@ -244,7 +247,9 @@
 							placeholder="<?= _('separated by a space, comma, plus') ?>"
 							value='' type="text" />
 					</div>
+
 				</div>
+
 			</div>
 
 			<br />
@@ -269,46 +274,50 @@
 					data-icon="question-sign" data-iconpos="right"><?= _("Help") ?>
 				</a> 
 			</div>
+			
 		</form>
 	</div>
 </div>
 
 <div data-role="page" id="post">
+
+<? tabs_simple(array('Déposer une offre')) ?>
+
+	<form action="./" method="post" id="publishForm">
 	
-	<? tabs_simple(array('Insert')) ?>
-	<div data-role="content">
-		<form action="./" method="post" id="publishForm">
-
-			<input type="hidden" name="action" value="Publish" /> <input
-				type="hidden" name="r"
-				value="<?= $_SESSION['myEuropeProfile']->details['role'] ?>" />
-
-			<div data-role="fieldcontain">
-				<label for="textinputp3" class="postTitle"><b><?= _('Title') ?> </b>
-				</label> <input id="textinputp3" class="postTitle"
-					data-inline="true" name="title"
-					placeholder="<?= _("partnership or project name") ?>" value=''
-					type="text" />
-			</div>
-
-			<div data-role="collapsible" data-collapsed="false" data-theme="b"
-				data-content-theme="d" data-mini="true">
-				<h3>Options</h3>
-
-				<div data-role="collapsible-set" data-theme="c"
+		<div data-role="content">
+	
+				<input type="hidden" name="action" value="Publish" /> <input
+					type="hidden" name="r"
+					value="<?= $_SESSION['myEuropeProfile']->details['role'] ?>" />
+	
+				<div data-role="fieldcontain">
+					<label for="textinputp3" class="postTitle"><b><?= _('Title') ?> </b>
+					</label> <input id="textinputp3" class="postTitle"
+						data-inline="true" name="title"
+						placeholder="<?= _("partnership or project name") ?>" value=''
+						type="text" />
+				</div>
+	
+				<div data-role="collapsible" data-collapsed="false" data-theme="b"
 					data-content-theme="d">
-					<div data-role="collapsible" data-collapsed="false">
-						<h3>
-						<?= _('Themes') ?>
-							:
-						</h3>
-						<fieldset data-role="controlgroup">
-						<? foreach (Categories::$themes as $k=>$v): ?>
-							<input type="checkbox" name="t[]" value="<?= $k ?>"
-								id="checkbox-<?= $k ?>" /> <label for="checkbox-<?= $k ?>"><?= $v ?>
-							</label>
-							<? endforeach; ?>
-						</fieldset>
+					<h3>Options</h3>
+	
+					<div data-role="collapsible-set" data-theme="c"
+						data-content-theme="d">
+						<div data-role="collapsible" data-collapsed="false">
+							<h3>
+							<?= _('Themes') ?>
+								:
+							</h3>
+							<fieldset data-role="controlgroup">
+							<? foreach (Categories::$themes as $k=>$v): ?>
+								<input type="checkbox" name="t[]" value="<?= $k ?>"
+									id="checkbox-<?= $k ?>" /> <label for="checkbox-<?= $k ?>"><?= $v ?>
+								</label>
+								<? endforeach; ?>
+							</fieldset>
+						</div>
 					</div>
 					<div data-role="collapsible" data-collapsed="true">
 						<h3>
@@ -355,7 +364,7 @@
 						<?= _('Other options') ?>
 							:
 						</h3>
-
+	
 						<div data-role="fieldcontain">
 							<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
 							<select name="c" id="call">
@@ -366,7 +375,7 @@
 								<? endforeach; ?>
 							</select>
 						</div>
-
+	
 						<div data-role="fieldcontain">
 							<label for="textinputp1"><?= _('Keywords') ?>: </label> <input
 								id="textinputp1" name="k"
@@ -380,21 +389,20 @@
 								type="date" />
 						</div>
 					</div>
-				</div>
 	
+				</div>
+		
 			</div>
-
+		
 			<textarea id="CLEeditor" name="text">
-				<h1><?= _("Your partnership") ?></h1>  ...</textarea>
-
+				<h1>Votre partenariat</h1>  ...</textarea>
+		
 			<div style="text-align: center;">
 				<input type="submit" class="ui-btn-active ui-state-persist"
 					data-inline="true" data-icon="check" value="<?=_('Insert') ?>" />
 			</div>
-		</form>
-	</div>
+	</form>
 </div>
-
 
 <?php 
 function tabs_info($item){

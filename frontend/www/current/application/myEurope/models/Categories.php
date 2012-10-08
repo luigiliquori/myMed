@@ -30,7 +30,7 @@ Categories::$roles = array(
 		"commune"         => _("Commune, intercommunalité - établissement public communal ou intercommunal"),
 		"departement"     => _("Département - établissement public départemental"),
 		"region"          => _("Région - établissement public régional"),
-		"etat"            => _("Service de l'Etat - établissement public de l'Etat"),
+		"etat"            => _("Service de l’Etat - établissement public de l’Etat"),
 		"autreEtPublic"   => _("Autre établissement ou groupement public"),
 		"autre"           => _("Autre")
 );

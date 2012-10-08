@@ -11,32 +11,32 @@
 			<input type="hidden" name="id" value="<?= $_SESSION['myEurope']->profile ?>" />
 			<div data-role="fieldcontain">
 				<label for="textinputu1"><?= _('Organization Name') ?>: </label>
-				<input id="textinputu1" name="name" placeholder="" value="<?= $_SESSION['myEuropeProfile']->details['name'] ?>" type="text" />
+				<input id="textinputu1" name="name" placeholder="" value="<?= $_SESSION['myEuropeProfile']->name ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="role" class="select"><?= _("Your category") ?>:</label>
 				<select name="role" id="role">
 				<? foreach (Categories::$roles as $v) :?>
-					<option value="<?= $v ?>" <?= $_SESSION['myEuropeProfile']->details['role']==$v?'selected="selected"':'' ?>><?= $v ?></option>
+					<option value="<?= $v ?>" <?= $_SESSION['myEuropeProfile']->role==$v?'selected="selected"':'' ?>><?= $v ?></option>
 				<? endforeach ?>
 				</select>
 			</div>
 			<div data-role="fieldcontain">
 				<label for="textinputu2">Domaine d'action: </label>
-				<input id="textinputu2" name="activity" placeholder="" value="<?= $_SESSION['myEuropeProfile']->details['activity'] ?>" type="text" />
+				<input id="textinputu2" name="activity" placeholder="" value="<?= $_SESSION['myEuropeProfile']->activity ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="textinputu4"><?= _('Address') ?>: </label>
-				<input id="textinputu4" name="address" placeholder="" value="<?= $_SESSION['myEuropeProfile']->details['address'] ?>" type="text" />
+				<input id="textinputu4" name="address" placeholder="" value="<?= $_SESSION['myEuropeProfile']->address ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="area" class="select"><?= _("Territoire d'action") ?>:</label>
 				<select name="area" id="area">
-					<option value="local" <?= $_SESSION['myEuropeProfile']->details['area']=="local"?'selected="selected"':'' ?>>local</option>
-					<option value="départemental" <?= $_SESSION['myEuropeProfile']->details['area']=="départemental"?'selected="selected"':'' ?>>départemental</option>
-					<option value="régional" <?= $_SESSION['myEuropeProfile']->details['area']=="régional"?'selected="selected"':'' ?>>régional</option>
-					<option value="national" <?= $_SESSION['myEuropeProfile']->details['area']=="national"?'selected="selected"':'' ?>>national</option>
-					<option value="international" <?= $_SESSION['myEuropeProfile']->details['area']=="international"?'selected="selected"':'' ?>>international</option>
+					<option value="local" <?= $_SESSION['myEuropeProfile']->area=="local"?'selected="selected"':'' ?>>local</option>
+					<option value="départemental" <?= $_SESSION['myEuropeProfile']->area=="départemental"?'selected="selected"':'' ?>>départemental</option>
+					<option value="régional" <?= $_SESSION['myEuropeProfile']->area=="régional"?'selected="selected"':'' ?>>régional</option>
+					<option value="national" <?= $_SESSION['myEuropeProfile']->area=="national"?'selected="selected"':'' ?>>national</option>
+					<option value="international" <?= $_SESSION['myEuropeProfile']->area=="international"?'selected="selected"':'' ?>>international</option>
 				</select>
 			</div>
 			
@@ -51,15 +51,15 @@
 			</div>	
 			<div data-role="fieldcontain">
 				<label for="textinputu5"><?= _('Email') ?>: </label>
-				<input id="textinputu5" name="email" placeholder="" value="<?= $_SESSION['myEuropeProfile']->details['email'] ?>" type="email" />
+				<input id="textinputu5" name="email" placeholder="" value="<?= $_SESSION['myEuropeProfile']->email ?>" type="email" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="textinputu6"><?= _('Phone') ?>: </label>
-				<input id="textinputu6" name="phone" placeholder="" value="<?= $_SESSION['myEuropeProfile']->details['phone'] ?>" type="tel" />
+				<input id="textinputu6" name="phone" placeholder="" value="<?= $_SESSION['myEuropeProfile']->phone ?>" type="tel" />
 			</div>
 			<div data-role="fieldcontain">
 				<label for="desc"><?= _('Description') ?>: </label>
-				<textarea id="desc" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEuropeProfile']->details['desc'] ?></textarea>
+				<textarea id="desc" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEuropeProfile']->desc ?></textarea>
 			</div>
 			<br />
 			<div data-role="fieldcontain">
