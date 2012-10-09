@@ -19,8 +19,8 @@
 #pragma mark - const definitions
 
 // URL'S
-static NSString * const M_URL_AUTH = @"http://mymed2.sophia.inria.fr:8080/backend/AuthenticationRequestHandler";
-static NSString * const M_URL_SESSION = @"http://mymed2.sophia.inria.fr:8080/backend/SessionRequestHandler";
+static NSString * const M_URL_AUTH = @"http://www.mymed.fr:8080/backend/AuthenticationRequestHandler";
+static NSString * const M_URL_SESSION = @"http://www.mymed.fr:8080/backend/SessionRequestHandler";
 
 // CODES for Backend/Frontend
 static const unsigned M_CODE_CREATE = 0;

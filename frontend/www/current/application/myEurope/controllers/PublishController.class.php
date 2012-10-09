@@ -35,12 +35,14 @@ class PublishController extends ExtendedProfileRequired {
 		$id = hash("md5", $t.$_SESSION['user']->id);
 		
 		$this->part = new Partnership($id, $data, $metadata);
-		$this->part->initCreate($_POST);
+		$this->part->setUser($_SESSION['user']->id);
+		$this->part->setBroadcastIndex($_POST);
+		
+		$mapper = new DataMapper;
 		
 		try{
-			$res = $this->part->create();
+			$res = $mapper->save($this->part);
 		}catch(Exception $e){
-			debug("post err".$e);
 			$this->setError($e);
 			$this->redirectTo("Main", null, "post");
 		}
@@ -64,7 +66,7 @@ class PublishController extends ExtendedProfileRequired {
 		unset($_POST['text']);
 		unset($_POST['action']);
 		$this->req = "";
-		debug("post suc");
+
 		debug(json_encode($_POST));
 		unset($_POST['r']);
 		$get_line = "";
