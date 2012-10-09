@@ -45,7 +45,7 @@ function printMarkers(type, lon, lat, rad) {
 			'accessToken': $("#accessToken").val(),
 			'code': 1
 	};
-
+	
 	$.ajax({
 		url: "../../lib/dasp/ajax/POI.php",
 		data: params,
@@ -54,7 +54,6 @@ function printMarkers(type, lon, lat, rad) {
 			if ( data && data.dataObject.pois.length){
 				$.each(data.dataObject.pois, function(i, poi) {
 					try {
-						
 						value = JSON.parse(poi.value);
 						id = poi.id;
 						var Address, Email, Link, IdMedia, Altitude = null;
