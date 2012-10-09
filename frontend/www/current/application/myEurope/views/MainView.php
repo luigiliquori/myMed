@@ -24,12 +24,11 @@
 
 <? tab_bar_default("#profile") ?>
 	<div data-role="content" style="text-align: center;">
-		<a href="#updatePicPopup" data-rel="popup">
-		<?php if($_SESSION['user']->profilePicture != ""): ?>
-			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80"></a>
-		<?php else: ?>
-			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80"></a>
-		<?php endif; ?>
+	<?php if($_SESSION['user']->profilePicture != ""): ?>
+		<a title="<?= $_SESSION['user']->name ?>"><img src="<?= $_SESSION['user']->profilePicture ?>" width="80"></a>
+	<?php else: ?>
+		<a href="#updatePicPopup" data-rel="popup"><img src="http://graph.facebook.com//picture?type=large" width="80"></a>
+	<?php endif; ?>
 		
 		
 		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">

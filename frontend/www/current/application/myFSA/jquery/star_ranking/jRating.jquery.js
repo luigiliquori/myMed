@@ -15,7 +15,7 @@
 			/** String vars **/
 			bigStarsPath : 'jquery/star_ranking/icons/stars.png', // path of the icon stars.png
 			smallStarsPath : 'jquery/star_ranking/icons/small.png', // path of the icon small.png
-			phpPath : 'index.php?action=Reputation',
+			phpPath : 'index.php?action=Details',
 			type : 'big', // can be set to 'small' or 'big'
 			
 			/** Boolean vars **/
@@ -149,7 +149,7 @@
 //						},
 //						'json'
 //					);
-					$.post("index.php?action=Reputation", { 'method': "Reputation", 'rate' : rate } );
+					$.post("index.php?action=Details", { 'keyword': "Reputation", 'rate' : rate } );
 					
 //					var url = "index.php?action=Reputation";    
 //					$(location).attr('href',url);	

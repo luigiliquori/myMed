@@ -39,14 +39,14 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
   		<? include("social.php"); ?>
   		
   		<div data-role="header" data-theme="d" style="display: none;" class="toptab">
-			<div data-role="navbar" data-role="footer" data-iconpos="bottom" >
+			<div data-role="navbar" data-iconpos="bottom" >
 				<ul><?= $tabsStr ?></ul>
 			</div>
 		</div>
   	</div>
 	
 	<div data-role="footer" data-theme="d" data-position="fixed" style="display: none;" class="iostab">
-		<div data-role="navbar" data-role="footer" data-iconpos="top" >
+		<div data-role="navbar" data-iconpos="top" >
 			<ul><?= $tabsStr ?></ul>
 		</div>
 	</div>

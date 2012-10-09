@@ -8,11 +8,13 @@
 	<div data-role="content">
 
 		<ul data-role="listview" data-mini="true">
-			<li data-role="list-divider">Informations générales</li>
-			<li data-icon="picture"><a><?php if($_SESSION['user']->profilePicture != "") { ?> <img class="ui-li-mymed" alt="thumbnail"
-				src="<?= $_SESSION['user']->profilePicture ?>" width="60"> <?php } else { ?> <img class="ui-li-mymed" alt="thumbnail"
-				src="http://graph.facebook.com//picture?type=large" width="60"> <?php } ?> <?= $_SESSION['user']->name ?>
-			</a>
+			<li data-role="list-divider"><?= _("Informations générales") ?></li>
+			<li data-icon="picture"><a><?php if($_SESSION['user']->profilePicture != "") { ?>
+					<img class="ui-li-mymed" alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="60" height="60">
+				<?php } else { ?>
+					<img class="ui-li-mymed" alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60" height="60">
+				<?php } ?>
+				<?= $_SESSION['user']->name ?></a>
 			</li>
 
 			<li data-icon="refresh"><a><img class="ui-li-mymed" alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" width="50"
@@ -55,16 +57,14 @@
 			</li>
 			<?php } 
 		    } ?>
-		</ul>
-
-		<br /> <br /> <br /> <br />
-
+	    </ul>
+		
+		<br /><br />
 	</div>
-
 
 </div>
 
 <? include_once 'UpdateProfileView.php'; ?>
 
-<? include 'footer.php'; ?>
+<? include_once 'footer.php'; ?>
 

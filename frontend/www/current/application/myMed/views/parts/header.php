@@ -14,6 +14,7 @@
 	
 	<!--  Extra icons for jquery -->
 	<link rel="stylesheet" href="../../lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
+	
 	<!-- JQUERY  -->
 	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0-beta.1.css" />
 	<!-- APP css -->

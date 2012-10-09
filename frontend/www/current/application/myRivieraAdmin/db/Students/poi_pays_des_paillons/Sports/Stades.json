@@ -1,5 +1,6 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
 { "type": "Feature", "properties": { "Type": "Sports", "SousType": "Stade", "Nom": "Stade Jean ANDERLONI", "Description": "Ce stade représente le premier équipement sportif  réalisé par  la Communauté de Communes du Pays des Paillons.\n \n", "Adresse": "Quartier du Fontanil 06340 Drap      Contact: 06 47 81 56 72", "E-mail": "", "Link": "http:\/\/www.drapfootball.com\/", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.763501", "Longitude": "7.341496", "Altitude": "" }, "geometry": null }
 ,
@@ -7,7 +8,7 @@
 ,
 { "type": "Feature", "properties": { "Type": "Sports", "SousType": "Stade", "Nom": "Stade municipal de Blausasc", "Description": "La Commune de Blausasc met à la\ndisposition de ses habitants et des associations un grand choix d'équipements sportifs et de loisirs dont le stade municipal situé col de Pelletier.", "Adresse": "Col de Pelletier route de la Pallarea      06440 Blausasc", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.804677", "Longitude": "7.401166", "Altitude": "" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Adresse": null, "E-mail": null, "Link": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null, "Altitude": null }, "geometry": null }
 
 ]
 }

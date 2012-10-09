@@ -109,6 +109,7 @@ public class MiscUtils {
 		}*/
 		
 		List<String> res = new ArrayList<String>();
+		
 		JSONArray arr = (JSONArray) JSONValue.parse(s);
 		//cast obj Map in a Map<String, String>
 	    for (Object obj: arr) {

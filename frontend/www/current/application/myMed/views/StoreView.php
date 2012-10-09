@@ -1,4 +1,4 @@
-<? include("header.php"); ?>
+<? include_once("header.php"); ?>
 
 <? define('STORE_PREFIX' , '_store'); ?>
 
@@ -52,4 +52,4 @@
 
 <? include_once 'UpdateProfileView.php'; ?>
 
-<? include("footer.php"); ?>
+<? include_once 'footer.php'; ?>

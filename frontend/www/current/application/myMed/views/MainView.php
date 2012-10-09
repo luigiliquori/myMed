@@ -1,9 +1,9 @@
-<? include("header.php"); ?>
+<? include_once("header.php"); ?>
 
 <div id="home" data-role="page" data-dom-cache="true">
 	
 	<? tab_bar_main("?action=main"); ?>
-	<? include("notifications.php"); ?>
+	<? include_once("notifications.php"); ?>
 
 	<div data-role="content" style="text-align: center;">
 		<br />
@@ -33,10 +33,8 @@
 		
 	</div>
 
-
-
 </div>
 
 <? include_once 'UpdateProfileView.php'; ?>
 
-<? include("footer.php"); ?>
+<? include_once 'footer.php'; ?>

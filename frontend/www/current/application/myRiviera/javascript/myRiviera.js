@@ -377,6 +377,8 @@ function otherMarkers(index, type, lat, lon, rad) {
 							}
 							if(value.IdMedia) {
 								IdMedia = value.IdMedia;
+								IdMedia = IdMedia.replace(/\s/g, '');
+								IdMedia = IdMedia.replace('_', '');
 							}
 							if(value.Altitude) {
 								Altitude = value.Altitude;
