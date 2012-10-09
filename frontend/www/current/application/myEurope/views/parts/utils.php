@@ -26,7 +26,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
 		}
 	}
 	?>
-	<div data-role="header" data-theme="b" data-position="fixed">
+	<div data-role="header" data-theme="b">
   		<? if ($buttonLeft & 1) { ?>
 			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
 		<? } else if ($buttonLeft & 2) { ?>
@@ -38,7 +38,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
   		
   		<? include("social.php"); ?>
   		
-  		<div data-role="header" data-theme="d" style="display: none;" class="toptab">
+  		<div data-role="header" data-theme="d" data-position="fixed" style="display: none;" class="toptab">
 			<div data-role="navbar" data-iconpos="bottom" >
 				<ul><?= $tabsStr ?></ul>
 			</div>
@@ -55,7 +55,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
  
  function tabs_simple($title=null, $useback=true, $action=null) {
  	?>
- 	<div data-role="header" data-theme="b" data-position="fixed">
+ 	<div data-role="header" data-theme="b">
  		<? if ($useback): ?>
  			<a data-rel="back" rel="external" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
  		<? endif; ?>

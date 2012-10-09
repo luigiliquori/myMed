@@ -12,8 +12,9 @@
 		
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li style="font-weight: normal;">
-				<?= $this->details->text ?>
-
+				<div data-role="none">
+					<?= $this->details->text ?>
+				</div>
 				<p class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
 					<a data-role="button" data-icon="faplus" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->user ?>', 1);">
 						<span style="color: blue;font-size: 14px;"><?= $this->reputation['up'] ?></span> <span style="font-weight: normal;">"J'aime"</span>
