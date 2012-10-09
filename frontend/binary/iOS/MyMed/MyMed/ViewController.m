@@ -20,8 +20,8 @@ enum CameraAlertButtonIndex {
 };
 
 #pragma mark - Static Definitions
-static NSString * const MY_MED_INDEX_URL = @"http://mymed2.sophia.inria.fr/index.php";
-static NSString * const MY_MED_PUBLISH_URL = @"http://mymed2.sophia.inria.fr:8080/backend/PublishRequestHandler";
+static NSString * const MY_MED_INDEX_URL = @"http://www.mymed.fr/index.php";
+static NSString * const MY_MED_PUBLISH_URL = @"http://www.mymed.fr:8080/backend/PublishRequestHandler";
 
 #pragma mark -
 #pragma mark - Private Methods for Notification Handling
@@ -129,7 +129,7 @@ static NSString * const MY_MED_PUBLISH_URL = @"http://mymed2.sophia.inria.fr:808
     webView.delegate = self;
     webView.scalesPageToFit = NO; 
     [self startObservingNotifications];
-    trustedHosts = [NSArray arrayWithObjects:@"138.96.242.2", nil];
+    trustedHosts = [NSArray arrayWithObjects:@"138.96.242.100", nil];
 }
 
 - (void)viewDidUnload
