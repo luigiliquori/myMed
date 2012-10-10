@@ -82,10 +82,17 @@ class MainController extends AuthenticatedController {
 								'"description" : "'. str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Description) . '",' .
 								'"icon" : ""';
 								
-							if(isset($feature->properties->SousType)){
+							if(isset($feature->properties->ComUrbaine)){
+								
+								if(isset($feature->properties->SousType)) {
+									$SousType = $feature->properties->SousType;
+								} else {
+									$SousType = "";
+								}
+								
 								// Students POIs
 								$value .= ',' .
-								'"SousType" : "'.	$feature->properties->SousType.'",' .
+								'"SousType" : "'.	$SousType .'",' .
 								'"Adresse" : "'. 	str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Adresse).'",' .
 								'"Email" : "'. 		$feature->properties->Email.'",' .
 								'"Link" : "'. 		$feature->properties->Link.'",' .

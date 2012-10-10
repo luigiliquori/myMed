@@ -158,10 +158,12 @@ public class POIRequestHandler extends AbstractRequestHandler {
                 final List<MSearchBean> pois = geoLocationManager.read(application, type,
                                 convertDegreeToMicroDegree(latitude), convertDegreeToMicroDegree(longitude),
                                 Integer.parseInt(radius), true);
+                
                 message.setDescription("POIs successfully read!");
 //                final Gson gson = new Gson();
 //                message.addData(JSON_POI, gson.toJson(pois));
                 message.addDataObject(JSON_POI, pois);
+                
             } else if (code == RequestCode.DELETE) {
             	if ((application = parameters.get(JSON_APPLICATION)) == null) {
                     throw new InternalBackEndException("missing application argument!");
@@ -231,7 +233,6 @@ public class POIRequestHandler extends AbstractRequestHandler {
                 } else if ((value = parameters.get(JSON_VALUE)) == null) {
                     throw new InternalBackEndException("missing value argument!");
                 }
-                System.out.println("\nVALUE: \n" +value);
                 
                 // CREATE THE NEW POI
                 geoLocationManager.create(application, type, user, convertDegreeToMicroDegree(latitude),
