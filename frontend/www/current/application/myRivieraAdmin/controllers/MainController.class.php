@@ -60,6 +60,7 @@ class MainController extends AuthenticatedController {
 					if(isset($poi->features)) {
 						foreach ($poi->features as $feature) {
 								
+							// needed parameters
 							if(isset($feature->geometry)) {
 								// CARF POIs
 								$longitude = $feature->geometry->coordinates[0];
@@ -68,45 +69,48 @@ class MainController extends AuthenticatedController {
 								$longitude = $feature->properties->Longitude;
 								$latitude  = $feature->properties->Latitude;
 							}
-							$longitude = str_replace(',', '.', $longitude);
 							$latitude = str_replace(',', '.', $latitude);
-								
+							$longitude = str_replace(',', '.', $longitude);
+							$type = 		isset($feature->properties->Type) ? $feature->properties->Type : "";
+
+							// other parameters
+							$title = 		isset($feature->properties->Nom) ? 			str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Nom) : "";
+							$sousType = 	isset($feature->properties->SousType) ? 	str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->SousType) : "";
+							$description =  isset($feature->properties->Description) ? 	str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Description) : "";
+							$icon =  		isset($feature->properties->Icon) ? 		str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Icon) : "";
+							$address = 		isset($feature->properties->Adresse) ? 		str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Adresse) : "";
+							$email = 		isset($feature->properties->Email) ? 		str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Email) : "";
+							$link = 		isset($feature->properties->Link) ? 		str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Link) : "";
+							$idMedia = 		isset($feature->properties->IdMedia) ? 		str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->IdMedia) : "";
+							$comUrbaine = 	isset($feature->properties->ComUrbaine) ? 	str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->ComUrbaine) : "";
+							$altitude = 	isset($feature->properties->Altitude) ?		str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Altitude) : "";
+							
 							$request->addArgument("longitude", $longitude);
 							$request->addArgument("latitude", $latitude);
-							$request->addArgument("type", $feature->properties->Type);
+							$request->addArgument("type", $type);
 								
 							$value = '{' .
-								'"longitude" : "'. 	$longitude .'",' .
-								'"latitude" : "'. 	$latitude .'",' .
-								'"title" : "'. 		str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Nom) .'",' .
-								'"description" : "'. str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Description) . '",' .
-								'"icon" : ""';
-								
-							if(isset($feature->properties->ComUrbaine)){
-								
-								if(isset($feature->properties->SousType)) {
-									$SousType = $feature->properties->SousType;
-								} else {
-									$SousType = "";
-								}
-								
-								// Students POIs
-								$value .= ',' .
-								'"SousType" : "'.	$SousType .'",' .
-								'"Adresse" : "'. 	str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Adresse).'",' .
-								'"Email" : "'. 		$feature->properties->Email.'",' .
-								'"Link" : "'. 		$feature->properties->Link.'",' .
-								'"IdMedia" : "'. 	$feature->properties->IdMedia.'",' . 
-								'"ComUrbaine" : "'.	$feature->properties->ComUrbaine.'",' .  
-								'"Altitude" : "'.	$feature->properties->Altitude.'"' .
+								'"longitude" : "'. 		$longitude 	 	.'",' .
+								'"latitude" : "'. 		$latitude 		.'",' .
+								'"type" : "'.			$type 			.'",' .
+								'"sousType" : "'.		$sousType 		.'",' .
+								'"title" : "'. 			$title 		  	.'",' .
+								'"description" : "'. 	$description	.'",' .
+								'"icon" : "' . 			$icon 			.'",' .
+								'"adresse" : "'. 		$address 		.'",' .
+								'"email" : "'. 			$email 			.'",' .
+								'"link" : "'. 			$link 			.'",' .
+								'"idMedia" : "'. 		$idMedia 		.'",' . 
+								'"comUrbaine" : "'.		$comUrbaine 	.'",' .  
+								'"altitude" : "'.		$altitude		.'"' .
 								'}';
-							} else {
-								$value .= '}';
-							}
+							
 							$request->addArgument("value", $value);
+							
 							try {
 								$request->send();
 							} catch (Exception $e) {
+								debug("Err: Poi not insered!");
 							}
 								
 						}
