@@ -5,7 +5,7 @@
 	<? tabs_simple(array($this->profile->details['name'])); ?>
 	<? include("notifications.php"); ?>
 	
-	<div data-role="content" style="text-align:center;">
+	<div data-role="content">
 		<br />
 		<? $this->profile->renderProfile(); ?>
 		<? if (isset($_GET['link'])) :?>
@@ -17,20 +17,21 @@
 		</div>
 		<? endif ?>
 		
-		<? if (isset($_GET['admin'])) :/*should check permission*/?>
-		<br />
 		<div style="text-align: center;">
-		<a href="?action=ExtendedProfile&rmUser=<?= $_GET['id'] ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete user') ?></a>
-		<br />
-		<a href="?action=ExtendedProfile&rmProfile=<?= $_GET['id'] ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete profile') ?></a>
+			<? if (isset($_GET['admin']) && $_SESSION['myEurope']->permission > 1 ) :/*should check permission*/?>
+			<br />
+			
+			<a href="?action=ExtendedProfile&rmUser=<?= $this->profile->details->id ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete user') ?></a>
+			<br />
+			<a href="?action=ExtendedProfile&rmProfile=<?= $this->profile->details->id ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete profile') ?></a>
+			
+			<? endif ?>
+			
+			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
+			<br />
+			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+			<? endif; ?>
 		</div>
-		<? endif ?>
-		
-		<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
-		<br />
-		<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
-		<? endif; ?>
-		
 	</div>
 </div>
 <? include("footer.php"); ?>

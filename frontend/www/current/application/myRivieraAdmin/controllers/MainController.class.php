@@ -78,15 +78,22 @@ class MainController extends AuthenticatedController {
 							$value = '{' .
 								'"longitude" : "'. 	$longitude .'",' .
 								'"latitude" : "'. 	$latitude .'",' .
-								'"title" : "'. 		$feature->properties->Nom .'",' .
-								'"description" : "'. $feature->properties->Description . '",' .
+								'"title" : "'. 		str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Nom) .'",' .
+								'"description" : "'. str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Description) . '",' .
 								'"icon" : ""';
 								
-							if(isset($feature->properties->SousType)){
+							if(isset($feature->properties->ComUrbaine)){
+								
+								if(isset($feature->properties->SousType)) {
+									$SousType = $feature->properties->SousType;
+								} else {
+									$SousType = "";
+								}
+								
 								// Students POIs
 								$value .= ',' .
-								'"SousType" : "'.	$feature->properties->SousType.'",' .
-								'"Adresse" : "'. 	$feature->properties->Adresse.'",' .
+								'"SousType" : "'.	$SousType .'",' .
+								'"Adresse" : "'. 	str_replace(array("\r", "\r\n", "\n", "\""), '',$feature->properties->Adresse).'",' .
 								'"Email" : "'. 		$feature->properties->Email.'",' .
 								'"Link" : "'. 		$feature->properties->Link.'",' .
 								'"IdMedia" : "'. 	$feature->properties->IdMedia.'",' . 
@@ -119,11 +126,11 @@ class MainController extends AuthenticatedController {
 
 				$value = '{'.
 					'"longitude" : "'. $_POST['longitude'] .'",' .
-					'"latitude" : "'. $_POST['latitude'] .'",' .
-					'"title" : "'. $_POST['title'] .'",' .
+					'"latitude" : "'.  $_POST['latitude'] .'",' .
+					'"title" : "'. str_replace(array("\r", "\r\n", "\n", "\""), '',$_POST['title']) .'",' .
 					'"description" : "'. str_replace(array("\r", "\r\n", "\n", "\""), '',$_POST['description']).'",' .
-					'"icon" : "'. $_POST['icon'] .'",' .
-					'"Adresse" : "'. 	$_POST['Adresse'].'",' .
+					'"icon" : "'.		$_POST['icon'] .'",' .
+					'"Adresse" : "'. 	str_replace(array("\r", "\r\n", "\n", "\""), '',$_POST['Adresse']).'",' .
 					'"Email" : "'. 		$_POST['Email'].'",' . 
 					'"Link" : "'. 		$_POST['Link'].'",' .
 					'"IdMedia" : "'. 	$_POST['IdMedia'].'"' . 

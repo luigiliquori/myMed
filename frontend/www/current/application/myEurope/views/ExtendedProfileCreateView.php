@@ -19,12 +19,10 @@
 	<? include("notifications.php"); ?>
 
 	<div data-role="content">
-		<p>
-		<?= _("Hello, This is your first time on myEurope.<br/><br/>
-				 Please fill in your profile with an existing Organization profile") ?>
-		<?= _("or") ?> <a href='#new' data-transition="slidefade"><?= _("create a new one") ?>	</a> 
-		
-		</p>
+		<div data-role="header" data-theme="e">
+		<h1 style="white-space: normal;"><?= _("Hello, This is your first time on myEurope! Please register with an existing profile or create yours") ?></h1>
+		</div>
+		<br />
 		<br />
 		<ul data-role="listview" data-filter="true" data-inset="true" data-mini="true" data-filter-placeholder="<?= _("filter") ?>">
 		<? foreach ($this->cats as $k=>$v) :?>

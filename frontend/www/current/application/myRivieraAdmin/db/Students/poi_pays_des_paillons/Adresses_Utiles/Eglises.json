@@ -1,5 +1,6 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
 { "type": "Feature", "properties": { "Type": "Adresses_Utiles", "SousType": "Eglises", "Nom": "Eglise Saint Laurent", "Description": "L'église de style baroque a été entièrement remaniée en 1804. On peut y admirer de magnifiques statues de la Vierge à l’Enfant datant du XVème siècle ainsi qu'une statue en bois de Saint Sébastien datant de 1620. Sur le même parvis, se trouve la chapelle Sainte-Croix des Pénitents Blancs.", "Adresse": "Rue de l'Eglise      06390 Berre les Alpes", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.830392", "Longitude": "7.329479", "Altitude": "" }, "geometry": null }
 ,
@@ -25,7 +26,7 @@
 ,
 { "type": "Feature", "properties": { "Type": "Adresses_Utiles", "SousType": "Eglises", "Nom": "Chapelle Sainte Catherine ", "Description": "Chapelle du XIII ème siècle  située sur la colline de Drap à 360 mètres d'altitude (un des plus beaux panorama des AM). Edifice dont la nef fut remaniée plusieurs fois. ", "Adresse": "Chemin de la Chapelle 06340 Drap  Service de la Culture: 04 93 01 45 55", "E-mail": "", "Link": "", "IdMedia": "Chapelle-St-Catherine-Drap.jpg", "ComUrbaine": "Pays des Paillons", "Latitude": "43.761114", "Longitude": "7.32924", "Altitude": "360 m." }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Adresse": null, "E-mail": null, "Link": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null, "Altitude": null }, "geometry": null }
 
 ]
 }

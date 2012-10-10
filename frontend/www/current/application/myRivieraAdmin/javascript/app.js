@@ -45,7 +45,7 @@ function printMarkers(type, lon, lat, rad) {
 			'accessToken': $("#accessToken").val(),
 			'code': 1
 	};
-
+	
 	$.ajax({
 		url: "../../lib/dasp/ajax/POI.php",
 		data: params,

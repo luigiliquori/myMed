@@ -5,44 +5,47 @@
 	<? tabs_simple(array('results', $this->details->title)); ?>
 	<? include("notifications.php"); ?>
 
-	<div data-role="content" >		
+	<div data-role="content" >	
+		<div data-role="header" data-theme="e">
 		<h1><?= $this->details->title ?></h1>
+		</div>	
+		
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
-			<li>
-				<?= $this->details->text ?>
-				
-				<? if (isset($this->reputation)): ?>
+			<li style="font-weight: normal;">
+				<div data-role="none">
+					<?= $this->details->text ?>
+				</div>
 				<p class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
 					<a data-role="button" data-icon="faplus" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->user ?>', 1);">
 						<span style="color: blue;font-size: 14px;"><?= $this->reputation['up'] ?></span> <span style="font-weight: normal;">"J'aime"</span>
 					</a>
 				</p>
-				<? endif; ?>
+				
 			</li>
+			<li style="font-weight: normal; font-size: 14px;">
+				<b><?= _("Keywords") ?>:</b> <?= str_replace(array('{','}','"r":','"p":','"",','"c":','"t":','"k":'), '', $this->details->keywords)  ?>
+			</li>
+			<li style="font-weight: normal; font-size: 14px;">
+				<b><?= _("Publication Date") ?>:</b> <?= date('j/n/Y G:i', $this->details->time) ?>
+			</li>
+			<? if (isset($this->details->expirationDate)) :?>
+				<li style="font-weight: normal; font-size: 14px;">
+					<b><?= _("Expiration Date") ?>:</b> <?= date('j/n/Y G:i', strtotime($this->details->expirationDate)) ?>
+				</li>	
+			<? endif ?>	
 		</ul>
-
-		<? if (isset($this->details->user)) :?>
-			<span style="font-size:14px;background-color: #eff;">
-			<b ><?= _('Keywords') ?>:</b>
-			<?= str_replace('"', '', $this->details->keywords) ?>
-			</span>
-			<br />
-			<span style="font-size:14px;background-color: #eff;">
-			<?= _("<b>Publication Date:</b> ").date('j/n/Y G:i', $this->details->time) ?><br />
-			</span>
-			<span style="font-size:14px;background-color: #eff;">
-			<?= isset($this->details->expirationDate)?_("<b>Expiration Date:</b> ").date('j/n/Y G:i', strtotime($this->details->expirationDate)).'<br />':'' ?>
-			</span>
-			<br />
-			<span style="font-size:14px;background-color: #eff;">
-			<b style="font-size:14px;"><?= _('Partners') ?>:</b>
-			</span>
-			<? if (isset($this->details->userProfile)) :?>
+		
+		<? if (isset($this->details->user)) :?>			
+			<div data-role="collapsible" data-mini="true">
+				<h3><?= _('Partners') ?>:</h3>
+				
 				<?= $this->details->userProfile->renderProfile() ?>
-			<? endif ?>
-			<? foreach($this->partnersProfiles as $item) : ?>
-				<?= $item->renderProfile() ?>
-			<? endforeach ?>
+					
+				<? foreach($this->partnersProfiles as $item) : ?>
+					<?= $item->renderProfile() ?>
+				<? endforeach ?>
+			</div>
+
 			<br />
 
 			<? if ( in_array(trim($_SESSION['user']->id), $this->details->userProfile->users)) :?>

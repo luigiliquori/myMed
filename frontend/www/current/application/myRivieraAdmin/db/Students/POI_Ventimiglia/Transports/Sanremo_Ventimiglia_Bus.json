@@ -1,0 +1,116 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Bartolomeo Asquasciati 20", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.817653", "Longitude": "7.778471", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Roma 149", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.816838", "Longitude": "7.777947", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Roma 49", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.815594", "Longitude": "7.77493", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Piazza Cesare Battisti 16", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.814231", "Longitude": "7.771947", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Lungomare Imperatrice 130", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.812396", "Longitude": "7.766621", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Matuzia 10", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.811119", "Longitude": "7.762334", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Matuzia 183", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.8105", "Longitude": "7.759867", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Guglielmo Marconi 53", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.808843", "Longitude": "7.755597", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Guglielmo Marconi 54", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.808343", "Longitude": "7.754368", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Montà dei Gusci 1", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.807681", "Longitude": "7.752606", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Guglielmo Marcono Incrocio Via Al Sole 1", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.806086", "Longitude": "7.749728", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Guglielmo Marconi 144", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.805047", "Longitude": "7.747207", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Guglielmo Marconi 254", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.801754", "Longitude": "7.743926", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Guglielmo Marconi 304", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.799892", "Longitude": "7.741585", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Guglielmo Marconi 360", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Sanremo", "Latitude": "43.798281", "Longitude": "7.740619", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Guglielmo Marconi 434", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Caponero", "Latitude": "43.796175", "Longitude": "7.736955", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Aurelia Levante 37", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ospedaletti", "Latitude": "43.796761", "Longitude": "7.733702", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Aurelia Levante ", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ospedaletti", "Latitude": "43.79734", "Longitude": "7.731505", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Aurelia Levante Incrocio Via Cavalieri di Malta", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ospedaletti", "Latitude": "43.798606", "Longitude": "7.727576", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Regina Margherita 12", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ospedaletti", "Latitude": "43.799611", "Longitude": "7.724869", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Regina Margherita Incrocio Via Giacomo Matteotti", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ospedaletti", "Latitude": "43.800976", "Longitude": "7.721986", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Regina Margherita 53", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ospedaletti", "Latitude": "43.801975", "Longitude": "7.717981", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Regina Margherita Incrocio Via degli Ulivi", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ospedaletti", "Latitude": "43.802246", "Longitude": "7.713743", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Regina Margherita Incrocio Via XX Settembre", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ospedaletti", "Latitude": "43.801586", "Longitude": "7.710785", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Aurelia Ponente 30", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ospedaletti", "Latitude": "43.801032", "Longitude": "7.705383", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Madonna della Ruota ", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.799888", "Longitude": "7.700402", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Madonna della Ruota 42", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.796308", "Longitude": "7.694751", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Madonna della Ruota 37", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.793991", "Longitude": "7.693198", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Arziglia 102", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.785409", "Longitude": "7.681782", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Arziglia Incrocio Via al Camposanto", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.783411", "Longitude": "7.677501", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Arziglia 23", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.780994", "Longitude": "7.675517", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Arziglia Incrocio Via Sant'Ampello", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.77775", "Longitude": "7.673851", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Piazza Garibaldi", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.77844", "Longitude": "7.668736", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via della Libertà 56", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.778682", "Longitude": "7.666706", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Vittorio Emanuele 203 Incrocio Via Primo Maggio", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.779317", "Longitude": "7.662846", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Vittorio Emanuele 292", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.780696", "Longitude": "7.657573", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Aurelia 13", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.781523", "Longitude": "7.653447", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Aurelia 77", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.782148", "Longitude": "7.651084", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Aurelia 143", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Bordighera", "Latitude": "43.782977", "Longitude": "7.648158", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Colonnello Aprosio 564", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Vallecrosia", "Latitude": "43.784102", "Longitude": "7.644199", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Colonnello Aprosio Incrocio Via Fondeghe", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Vallecrosia", "Latitude": "43.78674", "Longitude": "7.638143", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Colonnello Aprosio 40", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Vallecrosia", "Latitude": "43.787495", "Longitude": "7.636466", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Aurelia Incrocio Via Alcide de Gasperi", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Camporosso", "Latitude": "43.78897", "Longitude": "7.633132", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Corso Genova 17", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.790277", "Longitude": "7.614019", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Cavour 48 Incrocio Via Giuseppe Mazzini", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791057", "Longitude": "7.610926", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Camillo Benso Cavour 44", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791782", "Longitude": "7.608791", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Via Camillo Benso Cavour 11", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.792937", "Longitude": "7.606367", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus ", "Nom": "Fermata", "Description": "", "Adresse": "Piazza della Costituente", "E-mail": "", "Link": "", "IdMedia": "Horaires_Bus_Sanremo_Ventimiglia_ Aller.jpg Horaires_Bus_Sanremo_Ventimiglia_Retour.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791733", "Longitude": "7.603333", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Adresse": null, "E-mail": null, "Link": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null, "Altitude": null }, "geometry": null }
+
+]
+}

@@ -126,3 +126,7 @@ $("#profile").live("swipeleft", function() {
 $("#store").live("swiperight", function() {
 	$.mobile.changePage("?action=profile"/*, {transition : "slide",reversed : true}*/);
 });
+
+$("#updateProfile").live("swipe", function() {
+  $.mobile.changePage("?action=profile");
+});

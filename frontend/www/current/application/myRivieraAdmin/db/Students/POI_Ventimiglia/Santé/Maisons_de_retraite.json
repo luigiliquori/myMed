@@ -1,31 +1,32 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
 { "type": "Feature", "properties": { "Type": "Santé", "SousType": "Maisons de retraite ", "Nom": "Centro diurno anziani \"A braccia aperte\"", "Description": "Struttura semiresidenziale rivolta a persone anziane di età superiore ai 65 anni, affette da forme psicoinvolutive cerebrali severe  che richiedono assistenza specifica, ma non necessitano di ricovero in struttura residenziale.", "Addresse": "Via al Capo, 2                                         Tel: +39 0184 357027", "Link": "http:\/\/www.centroalzheimerventimiglia.com\/", "E-mail": "centroalzheimer@comune.ventimiglia.it", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.790304", "Longitude": "7.603802" }, "geometry": null }
 ,
 { "type": "Feature", "properties": { "Type": "Santé", "SousType": "Maisons de retraite ", "Nom": "Ricovero Ernesto Chiappori", "Description": "", "Addresse": "Via del Ricovero-Latte, 3                  Tel: +39 0184 229465 ", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.791931", "Longitude": "7.564169" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 
 ]
 }

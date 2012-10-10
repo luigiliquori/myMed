@@ -1,9 +1,10 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
 { "type": "Feature", "properties": { "Type": "Education", "SousType": "Lycée public", "Nom": "Lycée René Goscinny ", "Description": "Lycée général d'une capacité de 1000 élèves avec gymnase. Ouverture en septembre 2012. Une halte ferroviaire s'inscrivant sur la ligne Nice-Breil desservira le lycée.", "Adresse": "Chemin du Fontanil 06340 Drap                 Contact:04 93 53 72 36", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.764338", "Longitude": "7.339547", "Altitude": "" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Adresse": "", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "", "Altitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Adresse": null, "E-mail": null, "Link": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null, "Altitude": null }, "geometry": null }
 
 ]
 }

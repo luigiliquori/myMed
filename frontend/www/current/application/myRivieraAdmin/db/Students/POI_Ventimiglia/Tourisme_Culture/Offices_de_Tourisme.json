@@ -1,9 +1,10 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
-{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Offices de Tourisme", "Nom": "Ufficio IAT", "Description": "Ufficio di informazione turistica. Di recente inaugurazione la nuova sede sita nel chiostro al centro della rotonda del Lungo Roia . ", "Addresse": "Via Roma Angolo Lungo Roja                                    Tel: +39 0184 351183", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.791907", "Longitude": "7.606168" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Offices de Tourisme", "Nom": "Ufficio IAT", "Description": "Ufficio di informazione turistica. Di recente inaugurazione la nuova sede sita nel chiostro al centro della rotonda del Lungo Roia . ", "Addresse": "Via Roma Angolo Lungo Roja                                    Tel: +39 0184 351183", "Link": "", "E-mail": "", "Id-Media": "iat-ufficio-turismo-ventimiglia", "Comm Urb": "Vintimille", "Latitude": "43.791907", "Longitude": "7.606168" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 
 ]
 }

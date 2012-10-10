@@ -5,7 +5,7 @@
 	<div data-role="content">
 		<ul data-role="listview" data-inset="true" data-filter="true" >
 		
-			<li data-role="list-divider"><b style="font-size: 120%">Programmes de coopération</b> dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée:</li>
+			<li data-role="list-divider">Programmes de coopération dont peuvent bénéficier les territoires de l'Eurorégion Alpes-Méditerranée:</li>
 		
 			<li><a href="#alcotra">Programme transfrontalier Alcotra</a></li>
 			<li><a href="#Maritime">Programme transfrontalier Italie-France Maritime</a></li>
@@ -14,13 +14,13 @@
 			<li><a href="#Espace Alpin">Programme transnational Espace Alpin</a></li>
 			<li><a href="#Interreg">Programme interrégional Interreg IV C</a></li>
 			
-			<li data-role="list-divider"><b style="font-size: 120%">Fonds structurels européens</b> que vous pouvez saisir pour bénéficier d'un financement de vos projets: </li>
+			<li data-role="list-divider">Fonds structurels européens que vous pouvez saisir pour bénéficier d'un financement de vos projets: </li>
 		
 			<li><a href="#FEDER">Programme opérationnel FEDER</a></li>
 			<li><a href="#FSE">Programme opérationnel FSE</a></li>
 			<li><a href="#FEADER">Programme de développement Rural Hexagonal FEADER</a></li>
 			
-			<li data-role="list-divider">Informations relatives aux futurs programmes <b style="font-size: 120%">2014-2020</b>:</li>
+			<li data-role="list-divider">Informations relatives aux futurs programmes 2014-2020:</li>
 
 			<li><a href="#Recherche">Horizon 2020-Le futur Programme Cadre pour la Recherche et l'Innovation</a></li>
 		</ul>

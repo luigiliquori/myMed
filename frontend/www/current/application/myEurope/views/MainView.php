@@ -24,13 +24,12 @@
 
 <? tab_bar_default("#profile") ?>
 	<div data-role="content" style="text-align: center;">
-		<a href="#updatePicPopup" data-rel="popup">
-		<?php if($_SESSION['user']->profilePicture != ""): ?>
-			<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="80">
-		<?php else: ?>
-			<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="80">
-		<?php endif; ?>
-		</a>
+	<?php if($_SESSION['user']->profilePicture != ""): ?>
+		<a title="<?= $_SESSION['user']->name ?>"><img src="<?= $_SESSION['user']->profilePicture ?>" width="80"></a>
+	<?php else: ?>
+		<a href="#updatePicPopup" data-rel="popup"><img src="http://graph.facebook.com//picture?type=large" width="80"></a>
+	<?php endif; ?>
+		
 		
 		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
@@ -40,7 +39,7 @@
 			<a onclick="$('#updatePicPopup').popup('close');updateProfile('profilePicture', $('#picUrl').val());" data-role="button" data-theme="d" data-mini="true" data-icon="ok" data-inline="true"><?= _("Update") ?></a>
 		</div>
 		
-		<div style="display:inline-block; margin-left: 15px; vertical-align: 25%; color: white; font-weight: bold; font-size: 14pt; text-align: center;">
+		<div style="display:inline-block; margin-left: 15px; vertical-align: 100%; color: white; font-weight: bold; font-size: 14pt; text-align: center;">
 			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> 
 		</div>
 		
@@ -154,7 +153,7 @@
 	</div>
 </div>
 
-<div data-role="page" id="search">
+<div data-role="page" id="search" data-dom-cache="true">
 
 	<? tabs_simple(array('Search')); ?>
 	<div data-role="content">
