@@ -22,7 +22,8 @@
 
 	<form 
 		data-role="content" 
-		method="post" data-ajax="false" 
+		method="post" data-ajax="false"
+		id="benForm"
 		action="<?= url("extendedProfile:update", array("id" => $this->_extendedProfile->userID)) ?>" >
 		
 		<? require('ProfileAssociationForm.php') ?>

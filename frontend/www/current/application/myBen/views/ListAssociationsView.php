@@ -2,8 +2,10 @@
 
 <div data-role="page" id="login">
 
-	<? header_bar(array(
-			_("Associations") => null)) ?>
+	<!--<? header_bar(array(
+			_("Associations") => null)) ?>-->
+			
+	<? tab_bar_main("?action=main"); ?>
 	
 	<div data-role="content">
 	

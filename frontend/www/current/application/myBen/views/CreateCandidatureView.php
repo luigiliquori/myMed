@@ -8,10 +8,11 @@ $annonce = $candidature->getAnnonce();
 <div data-role="page">
 
 
-	<? header_bar(array(
+	<!--<? header_bar(array(
 			_("Annonces") => url("listAnnonces"),
 			$annonce->titre => url("annonce:details", array("id" => $annonce->id)),
-			_("Candidater") => null)) ?>
+			_("Candidater") => null)) ?>-->
+	<? tab_bar_main("?action=main"); ?>
 	
 	<div data-theme="e" data-role="header" class="left" >
 		<h3><?= sprintf(_("Réponse à l'annonce '%s'"), $annonce->titre) ?></h3>

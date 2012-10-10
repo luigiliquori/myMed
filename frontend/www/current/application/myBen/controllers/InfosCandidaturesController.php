@@ -6,3 +6,4 @@ class InfosCandidaturesController extends ProfileBenevoleRequired{
 		$this->renderView("InfosCandidatures");
 	}
 }
+?>

@@ -12,8 +12,15 @@ $filters[ANN_ALL] = _("toutes");
 ?>
 
 <div data-role="page" id="login">
-
-	<? tab_bar_main("?action=main"); ?>
+	
+	<!-- main action is different for admin. for tab bar admin will have action?=main as admin tab-->
+	<?php if(isset($this->extendedProfile) && $this->extendedProfile instanceof ProfileNiceBenevolat){
+		tab_bar_main("?action=listAnnonces");
+		}
+		else{
+			tab_bar_main("?action=main");
+		}
+	?>
 
 	<div data-role="content" class="content">
 		<?php if(!isset($_SESSION['user'])):

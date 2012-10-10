@@ -2,7 +2,8 @@
 
 <div data-role="page" id="login">
 
-	<? include("header-bar.php") ?>
+	<!--<? include("header-bar.php") ?>-->
+	<? tab_bar_main("?action=main"); ?>
 	
 	<div data-role="content">
 	

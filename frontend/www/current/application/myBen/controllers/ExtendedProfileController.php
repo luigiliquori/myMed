@@ -146,6 +146,7 @@ class ExtendedProfileController extends GuestOrUserController {
 
 		$this->_user->firstName = $_POST["firstName"];
 		$this->_user->name = $this->_user->firstName . " " . $this->_user->lastName;
+		$this->_user->lastConnection = 0;
 		if (in_request("birthday")) {
 			$this->_user->birthday = $_POST["birthday"];
 		}
@@ -368,7 +369,6 @@ class ExtendedProfileController extends GuestOrUserController {
 
 	/** Update the profile */
 	function update() {
-
 		$this->mode = MODE_EDIT;
 
 		// Profile needed
