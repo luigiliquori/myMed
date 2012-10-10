@@ -134,10 +134,10 @@ class MainController extends AuthenticatedController {
 					'"title" : "'. str_replace(array("\r", "\r\n", "\n", "\""), '',$_POST['title']) .'",' .
 					'"description" : "'. str_replace(array("\r", "\r\n", "\n", "\""), '',$_POST['description']).'",' .
 					'"icon" : "'.		$_POST['icon'] .'",' .
-					'"Adresse" : "'. 	str_replace(array("\r", "\r\n", "\n", "\""), '',$_POST['Adresse']).'",' .
-					'"Email" : "'. 		$_POST['Email'].'",' . 
-					'"Link" : "'. 		$_POST['Link'].'",' .
-					'"IdMedia" : "'. 	$_POST['IdMedia'].'"' . 
+					'"adresse" : "'. 	str_replace(array("\r", "\r\n", "\n", "\""), '',$_POST['Adresse']).'",' .
+					'"email" : "'. 		$_POST['Email'].'",' . 
+					'"link" : "'. 		$_POST['Link'].'",' .
+					'"idMedia" : "'. 	$_POST['IdMedia'].'"' . 
 				'}';
 				$request->addArgument("value", $value);
 				$request->send();
