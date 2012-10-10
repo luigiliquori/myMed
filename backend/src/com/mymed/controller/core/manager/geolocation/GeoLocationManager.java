@@ -113,15 +113,6 @@ public class GeoLocationManager extends AbstractManager {
             searchBean.setValue(value);
             searchBean.setDate(timestamp);
             
-            System.out.println("\n applicationId " + applicationId);
-            System.out.println("\n itemType " + itemType);
-            System.out.println("\n userLogin " + userLogin);
-            System.out.println("\n latitude " + latitude);
-            System.out.println("\n longitude " + longitude);
-            System.out.println("\n value " + value);
-            System.out.println("\n permTime " + permTime);
-            
-            
             /** If the TTL has been specified, the expiration time is set on the bean. */
             if (permTime != 0) {
                 searchBean.setExpirationDate(timestamp + (A_MILLION * permTime));
@@ -165,13 +156,6 @@ public class GeoLocationManager extends AbstractManager {
                     final int longitude, final int radius, final boolean filterFlag) throws InternalBackEndException,
                     IOBackEndException {
         try {
-        	
-            System.out.println("\n applicationId " + applicationId);
-            System.out.println("\n itemType " + itemType);
-            System.out.println("\n latitude " + latitude);
-            System.out.println("\n longitude " + longitude);
-            System.out.println("\n filterFlag " + filterFlag);
-            System.out.println("\n radius " + radius);
         	
             final List<MSearchBean> resultReports = new LinkedList<MSearchBean>();
             final Map<byte[], Map<byte[], byte[]>> reports = new HashMap<byte[], Map<byte[], byte[]>>();

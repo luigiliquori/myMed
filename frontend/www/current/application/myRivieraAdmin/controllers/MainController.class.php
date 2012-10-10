@@ -70,6 +70,7 @@ class MainController extends AuthenticatedController {
 								$latitude  = $feature->properties->Latitude;
 							}
 							$latitude = str_replace(',', '.', $latitude);
+							$longitude = str_replace(',', '.', $longitude);
 							$type = 		isset($feature->properties->Type) ? $feature->properties->Type : "";
 
 							// other parameters
@@ -103,8 +104,6 @@ class MainController extends AuthenticatedController {
 								'"comUrbaine" : "'.		$comUrbaine 	.'",' .  
 								'"altitude" : "'.		$altitude		.'"' .
 								'}';
-							
-							echo $value . "<br />" . "<br />";
 							
 							$request->addArgument("value", $value);
 							
