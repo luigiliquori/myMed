@@ -45,7 +45,7 @@ function tabs($activeTab, $tabs, $subtitle = APPLICATION_LABEL, $buttonLeft = 1)
 		</div>
   	</div>
 	
-	<div data-role="footer" data-theme="d" data-position="fixed" style="display: none;" class="iostab">
+	<div data-role="footer" data-theme="d" data-position="fixed" class="iostab">
 		<div data-role="navbar" data-iconpos="top" >
 			<ul><?= $tabsStr ?></ul>
 		</div>
