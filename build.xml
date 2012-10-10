@@ -334,6 +334,7 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
         <!-- Copy the configuration files into the resources/ dir -->
         <copy failonerror="false" encoding="UTF-8" outputencoding="UTF-8" todir="${website.dir}">
             <fileset dir="${frontend.www.current.dir}">
+		<exclude name="**/myRivieraAdmin/db/"/>
                 <exclude name="**/system/config.php"/>
             </fileset>
         </copy>
