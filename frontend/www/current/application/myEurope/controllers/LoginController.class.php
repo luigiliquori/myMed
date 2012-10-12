@@ -9,14 +9,14 @@ class LoginController extends AbstractController {
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*String*/ function handleRequest() {
-		
+
 		/* Typical login : we received a POST with login and password */
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		
-			// Get arguments 
+
+			// Get arguments
 			$login	= $_POST['login'];
 			$pass	= hash("sha512", $_POST['password']);
-		
+
 			// Login and password should not be empty
 			if( empty($login) ){
 				// TODO i18n
@@ -31,62 +31,63 @@ class LoginController extends AbstractController {
 				exit();
 				//$this->renderView("login");
 			}
-			
+				
 			// Building the Authentication request
 			$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
 			$request->addArgument("login", trim(strtolower($login)));
 			$request->addArgument("password", $pass);
-			
+				
 			// Argument code filled by Request
-			
+				
 			// Sending request
 			$responsejSon = $request->send();
-			
-			$responseObject = json_decode($responsejSon);
-		
-			// In case of errors
-			if($responseObject->status != 200) {
 				
-				// Save the error
-				$this->error = $responseObject->description;
+			$responseObject = json_decode($responsejSon);
+
+			if($responseObject->status != 200) {
+
+				if($responseObject->status == 403) {
+					$this->error = "Mot de pass incorrect! <a href='?action=resetPassword&login=" . urlencode($login) . "' rel='external'>Pertes identifiants?</a>";
+				} else {
+					$this->error = $responseObject->description;
+				}
 					
 				// Show the login form
 				include( MYMED_ROOT . "/application/myMed/views/LoginView.php");
 				exit();
-				//$this->renderView("login");
-				
+
 			} else {
-				
+
 				// Everything went fine, we have now an accessToken in the session
 				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
-				
+
 				// Set user into $_SESSION
 				$this->getUserFromSession();
-				
+
 				if (!empty($_SESSION['redirect'])){
-					
+						
 					$page = $_SESSION['redirect'];
 					unset($_SESSION['redirect']);
-					
+						
 					debug("login redirect ".$page);
 					$this->redirectTo($page);
-					
+						
 				}else{
 					// Redirect to main page
 					$this->redirectTo("main");
 				}
-						
+
 					
 			}
-			
-			
-			
-		} else { // Not a POST request : Simply show the login form 
+				
+				
+				
+		} else { // Not a POST request : Simply show the login form
 
 			include( MYMED_ROOT . "/application/myMed/views/LoginView.php");
 			exit();
 			//$this->renderView("login");
-			
+				
 		}
 
 	}
@@ -96,18 +97,18 @@ class LoginController extends AbstractController {
 	 * Returns nothing but populate $_SESSION['user']
 	 */
 	public /*user*/ function getUserFromSession() {
-		
+
 		// Building the Session Request
-		// This will check if the session exists in the backend and will return an User if it's the case.	
+		// This will check if the session exists in the backend and will return an User if it's the case.
 		$request = new Requestv2("v2/SessionRequestHandler");
 		$request->addArgument("socialNetwork", "myMed");
-		
+
 		// The AccessToken is fetched from the $_SESSION
-		
+
 		// Sending request
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
-	
+
 		// In case of errors
 		if($responseObject->status != 200) {
 			$_SESSION['error'] = $responseObject->description;
