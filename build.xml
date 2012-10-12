@@ -332,12 +332,13 @@ Milo Casagrande <milo.casagrande@inria.fr>, 2011, 2012
          ================================= -->
     <target name="frontend" depends="websiteinit, checkbackend, checkproperties" description="Create mymed website directory structure">
         <!-- Copy the configuration files into the resources/ dir -->
-        <copy todir="${website.dir}">
+        <copy failonerror="false" encoding="UTF-8" outputencoding="UTF-8" todir="${website.dir}">
             <fileset dir="${frontend.www.current.dir}">
+		<exclude name="**/myRivieraAdmin/db/"/>
                 <exclude name="**/system/config.php"/>
             </fileset>
         </copy>
-        <copy todir="${website.dir}/system" file="${frontend.www.current.dir}/system/config.php">
+        <copy failonerror="false" encoding="UTF-8" outputencoding="UTF-8" todir="${website.dir}/system" file="${frontend.www.current.dir}/system/config.php">
             <!-- This is necessary for variable substitution in the config.xml file -->
             <filterchain>
                 <replacetokens>
