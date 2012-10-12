@@ -355,7 +355,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 							value = JSON.parse(poi.value);
 							id = poi.id;
 	
-							// GET ICON
+							// SETUP ICON
 							iconAvailable = $('#poiIcon').val().split(",");
 							if(value.icon) {
 								icon = value.icon;
@@ -365,31 +365,32 @@ function otherMarkers(index, type, lat, lon, rad) {
 								icon = null;
 							}
 							
-							var Address, Email, Link, IdMedia, Altitude = null;
-							if(value.Adresse) {
-								Address = value.Adresse;
+							// SETUP DESCRIPTION
+							adresse = 	value.adresse ? 	value.adresse : null;
+							email = 	value.email ? 		value.email : null;
+							link = 		value.link ? 		value.link : null;
+							idMedia = 	value.idMedia ? 	value.idMedia : null;
+							altitude = 	value.altitude ? 	value.altitude : null;
+							description = "<p>Type: " + type + "</p>";
+							description += value.description;
+							
+							// SETUP PICTURE
+							if(idMedia) {
+								idMedia = idMedia.replace(/\s/g, '');
+								idMedia = idMedia.replace('_', '');
 							}
-							if(value.Email) {
-								Email = value.Email;
-							}
-							if(value.Link) {
-								Link = value.Link;
-							}
-							if(value.IdMedia) {
-								IdMedia = value.IdMedia;
-							}
-							if(value.Altitude) {
-								Altitude = value.Altitude;
-							}
+							
 							var marker = addMarker(new google.maps.LatLng(value.latitude,
-									value.longitude), icon, value.title,
-									"<p><b>Type</b> : " + type + "</p>" + value.description, null, false, id,
-									Address, Email, Link, IdMedia, Altitude);
+									value.longitude), icon, value.title,description, null, false, id,
+									adresse, email, link, idMedia, altitude);
+							
 							google.maps.event.addListener(marker, "click", function(e) {
 								closeMarkersBox();
 								marker.ib.open(map, this);
 							});
+							
 							markers[type][index].push(marker);
+							
 						} catch (err) {
 //							alert("ERR : " + poi.value);
 						}

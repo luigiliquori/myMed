@@ -1,0 +1,512 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0C0700121623B02C00D9B92D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0700111623B02C00D9B92D /* UIKit.framework */; };
+		0C0700141623B02C00D9B92D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0700131623B02C00D9B92D /* Foundation.framework */; };
+		0C0700161623B02C00D9B92D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0700151623B02C00D9B92D /* CoreGraphics.framework */; };
+		0C07001C1623B02C00D9B92D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0C07001A1623B02C00D9B92D /* InfoPlist.strings */; };
+		0C07001E1623B02C00D9B92D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C07001D1623B02C00D9B92D /* main.m */; };
+		0C0700221623B02C00D9B92D /* iMedAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0700211623B02C00D9B92D /* iMedAppDelegate.m */; };
+		0C0700251623B02C00D9B92D /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0700231623B02C00D9B92D /* MainStoryboard_iPhone.storyboard */; };
+		0C0700281623B02C00D9B92D /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0700261623B02C00D9B92D /* MainStoryboard_iPad.storyboard */; };
+		0C07002B1623B02C00D9B92D /* iMedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C07002A1623B02C00D9B92D /* iMedViewController.m */; };
+		0C0700331623B02C00D9B92D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0700321623B02C00D9B92D /* SenTestingKit.framework */; };
+		0C0700341623B02C00D9B92D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0700111623B02C00D9B92D /* UIKit.framework */; };
+		0C0700351623B02C00D9B92D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0700131623B02C00D9B92D /* Foundation.framework */; };
+		0C07003D1623B02C00D9B92D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0C07003B1623B02C00D9B92D /* InfoPlist.strings */; };
+		0C0700401623B02C00D9B92D /* iMedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C07003F1623B02C00D9B92D /* iMedTests.m */; };
+		0C07004F1623BC9500D9B92D /* iMed-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0700491623BC9500D9B92D /* iMed-57x57.png */; };
+		0C0700501623BC9500D9B92D /* iMed-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C07004A1623BC9500D9B92D /* iMed-72x72.png */; };
+		0C0700511623BC9500D9B92D /* iMed-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C07004B1623BC9500D9B92D /* iMed-114x114.png */; };
+		0C0700521623BC9500D9B92D /* iMed-144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C07004C1623BC9500D9B92D /* iMed-144x144.png */; };
+		0C0700531623BC9500D9B92D /* iMed-512x512.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C07004D1623BC9500D9B92D /* iMed-512x512.png */; };
+		0C0700541623BC9500D9B92D /* iMed-1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C07004E1623BC9500D9B92D /* iMed-1024x1024.png */; };
+		0C0700561623BCEE00D9B92D /* iMed-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0700551623BCEE00D9B92D /* iMed-57x57.png */; };
+		0C0700581623BCF600D9B92D /* iMed-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0700571623BCF600D9B92D /* iMed-114x114.png */; };
+		0C07005A1623BD0100D9B92D /* iMed-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0700591623BD0100D9B92D /* iMed-72x72.png */; };
+		0C07005C1623BD0600D9B92D /* iMed-144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C07005B1623BD0600D9B92D /* iMed-144x144.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0C0700361623B02C00D9B92D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C0700041623B02C00D9B92D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0C07000C1623B02C00D9B92D;
+			remoteInfo = iMed;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0C07000D1623B02C00D9B92D /* iMed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iMed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C0700111623B02C00D9B92D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0C0700131623B02C00D9B92D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0C0700151623B02C00D9B92D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0C0700191623B02C00D9B92D /* iMed-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iMed-Info.plist"; sourceTree = "<group>"; };
+		0C07001B1623B02C00D9B92D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0C07001D1623B02C00D9B92D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0C07001F1623B02C00D9B92D /* iMed-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iMed-Prefix.pch"; sourceTree = "<group>"; };
+		0C0700201623B02C00D9B92D /* iMedAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iMedAppDelegate.h; sourceTree = "<group>"; };
+		0C0700211623B02C00D9B92D /* iMedAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iMedAppDelegate.m; sourceTree = "<group>"; };
+		0C0700241623B02C00D9B92D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		0C0700271623B02C00D9B92D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		0C0700291623B02C00D9B92D /* iMedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iMedViewController.h; sourceTree = "<group>"; };
+		0C07002A1623B02C00D9B92D /* iMedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iMedViewController.m; sourceTree = "<group>"; };
+		0C0700311623B02C00D9B92D /* iMedTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iMedTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C0700321623B02C00D9B92D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		0C07003A1623B02C00D9B92D /* iMedTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iMedTests-Info.plist"; sourceTree = "<group>"; };
+		0C07003C1623B02C00D9B92D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0C07003E1623B02C00D9B92D /* iMedTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iMedTests.h; sourceTree = "<group>"; };
+		0C07003F1623B02C00D9B92D /* iMedTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iMedTests.m; sourceTree = "<group>"; };
+		0C0700491623BC9500D9B92D /* iMed-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-57x57.png"; sourceTree = "<group>"; };
+		0C07004A1623BC9500D9B92D /* iMed-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-72x72.png"; sourceTree = "<group>"; };
+		0C07004B1623BC9500D9B92D /* iMed-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-114x114.png"; sourceTree = "<group>"; };
+		0C07004C1623BC9500D9B92D /* iMed-144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-144x144.png"; sourceTree = "<group>"; };
+		0C07004D1623BC9500D9B92D /* iMed-512x512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-512x512.png"; sourceTree = "<group>"; };
+		0C07004E1623BC9500D9B92D /* iMed-1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-1024x1024.png"; sourceTree = "<group>"; };
+		0C0700551623BCEE00D9B92D /* iMed-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-57x57.png"; sourceTree = SOURCE_ROOT; };
+		0C0700571623BCF600D9B92D /* iMed-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-114x114.png"; sourceTree = SOURCE_ROOT; };
+		0C0700591623BD0100D9B92D /* iMed-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-72x72.png"; sourceTree = SOURCE_ROOT; };
+		0C07005B1623BD0600D9B92D /* iMed-144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iMed-144x144.png"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0C07000A1623B02C00D9B92D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C0700121623B02C00D9B92D /* UIKit.framework in Frameworks */,
+				0C0700141623B02C00D9B92D /* Foundation.framework in Frameworks */,
+				0C0700161623B02C00D9B92D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0C07002D1623B02C00D9B92D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C0700331623B02C00D9B92D /* SenTestingKit.framework in Frameworks */,
+				0C0700341623B02C00D9B92D /* UIKit.framework in Frameworks */,
+				0C0700351623B02C00D9B92D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0C0700021623B02C00D9B92D = {
+			isa = PBXGroup;
+			children = (
+				0C0700171623B02C00D9B92D /* iMed */,
+				0C0700381623B02C00D9B92D /* iMedTests */,
+				0C0700101623B02C00D9B92D /* Frameworks */,
+				0C07000E1623B02C00D9B92D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0C07000E1623B02C00D9B92D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0C07000D1623B02C00D9B92D /* iMed.app */,
+				0C0700311623B02C00D9B92D /* iMedTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0C0700101623B02C00D9B92D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C0700111623B02C00D9B92D /* UIKit.framework */,
+				0C0700131623B02C00D9B92D /* Foundation.framework */,
+				0C0700151623B02C00D9B92D /* CoreGraphics.framework */,
+				0C0700321623B02C00D9B92D /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0C0700171623B02C00D9B92D /* iMed */ = {
+			isa = PBXGroup;
+			children = (
+				0C0700201623B02C00D9B92D /* iMedAppDelegate.h */,
+				0C0700211623B02C00D9B92D /* iMedAppDelegate.m */,
+				0C0700231623B02C00D9B92D /* MainStoryboard_iPhone.storyboard */,
+				0C0700261623B02C00D9B92D /* MainStoryboard_iPad.storyboard */,
+				0C0700291623B02C00D9B92D /* iMedViewController.h */,
+				0C07002A1623B02C00D9B92D /* iMedViewController.m */,
+				0C0700181623B02C00D9B92D /* Supporting Files */,
+			);
+			path = iMed;
+			sourceTree = "<group>";
+		};
+		0C0700181623B02C00D9B92D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0C07005D1623BDA300D9B92D /* Icons */,
+				0C0700491623BC9500D9B92D /* iMed-57x57.png */,
+				0C07004A1623BC9500D9B92D /* iMed-72x72.png */,
+				0C07004B1623BC9500D9B92D /* iMed-114x114.png */,
+				0C07004C1623BC9500D9B92D /* iMed-144x144.png */,
+				0C07004D1623BC9500D9B92D /* iMed-512x512.png */,
+				0C07004E1623BC9500D9B92D /* iMed-1024x1024.png */,
+				0C0700191623B02C00D9B92D /* iMed-Info.plist */,
+				0C07001A1623B02C00D9B92D /* InfoPlist.strings */,
+				0C07001D1623B02C00D9B92D /* main.m */,
+				0C07001F1623B02C00D9B92D /* iMed-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0C0700381623B02C00D9B92D /* iMedTests */ = {
+			isa = PBXGroup;
+			children = (
+				0C07003E1623B02C00D9B92D /* iMedTests.h */,
+				0C07003F1623B02C00D9B92D /* iMedTests.m */,
+				0C0700391623B02C00D9B92D /* Supporting Files */,
+			);
+			path = iMedTests;
+			sourceTree = "<group>";
+		};
+		0C0700391623B02C00D9B92D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0C07003A1623B02C00D9B92D /* iMedTests-Info.plist */,
+				0C07003B1623B02C00D9B92D /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0C07005D1623BDA300D9B92D /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				0C07005B1623BD0600D9B92D /* iMed-144x144.png */,
+				0C0700591623BD0100D9B92D /* iMed-72x72.png */,
+				0C0700571623BCF600D9B92D /* iMed-114x114.png */,
+				0C0700551623BCEE00D9B92D /* iMed-57x57.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0C07000C1623B02C00D9B92D /* iMed */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C0700431623B02C00D9B92D /* Build configuration list for PBXNativeTarget "iMed" */;
+			buildPhases = (
+				0C0700091623B02C00D9B92D /* Sources */,
+				0C07000A1623B02C00D9B92D /* Frameworks */,
+				0C07000B1623B02C00D9B92D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iMed;
+			productName = iMed;
+			productReference = 0C07000D1623B02C00D9B92D /* iMed.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0C0700301623B02C00D9B92D /* iMedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C0700461623B02C00D9B92D /* Build configuration list for PBXNativeTarget "iMedTests" */;
+			buildPhases = (
+				0C07002C1623B02C00D9B92D /* Sources */,
+				0C07002D1623B02C00D9B92D /* Frameworks */,
+				0C07002E1623B02C00D9B92D /* Resources */,
+				0C07002F1623B02C00D9B92D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0C0700371623B02C00D9B92D /* PBXTargetDependency */,
+			);
+			name = iMedTests;
+			productName = iMedTests;
+			productReference = 0C0700311623B02C00D9B92D /* iMedTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0C0700041623B02C00D9B92D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = iMed;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = MyMed;
+			};
+			buildConfigurationList = 0C0700071623B02C00D9B92D /* Build configuration list for PBXProject "iMed" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0C0700021623B02C00D9B92D;
+			productRefGroup = 0C07000E1623B02C00D9B92D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0C07000C1623B02C00D9B92D /* iMed */,
+				0C0700301623B02C00D9B92D /* iMedTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0C07000B1623B02C00D9B92D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C07001C1623B02C00D9B92D /* InfoPlist.strings in Resources */,
+				0C0700251623B02C00D9B92D /* MainStoryboard_iPhone.storyboard in Resources */,
+				0C0700281623B02C00D9B92D /* MainStoryboard_iPad.storyboard in Resources */,
+				0C07004F1623BC9500D9B92D /* iMed-57x57.png in Resources */,
+				0C0700501623BC9500D9B92D /* iMed-72x72.png in Resources */,
+				0C0700511623BC9500D9B92D /* iMed-114x114.png in Resources */,
+				0C0700521623BC9500D9B92D /* iMed-144x144.png in Resources */,
+				0C0700531623BC9500D9B92D /* iMed-512x512.png in Resources */,
+				0C0700541623BC9500D9B92D /* iMed-1024x1024.png in Resources */,
+				0C0700561623BCEE00D9B92D /* iMed-57x57.png in Resources */,
+				0C0700581623BCF600D9B92D /* iMed-114x114.png in Resources */,
+				0C07005A1623BD0100D9B92D /* iMed-72x72.png in Resources */,
+				0C07005C1623BD0600D9B92D /* iMed-144x144.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0C07002E1623B02C00D9B92D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C07003D1623B02C00D9B92D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0C07002F1623B02C00D9B92D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0C0700091623B02C00D9B92D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C07001E1623B02C00D9B92D /* main.m in Sources */,
+				0C0700221623B02C00D9B92D /* iMedAppDelegate.m in Sources */,
+				0C07002B1623B02C00D9B92D /* iMedViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0C07002C1623B02C00D9B92D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C0700401623B02C00D9B92D /* iMedTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0C0700371623B02C00D9B92D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0C07000C1623B02C00D9B92D /* iMed */;
+			targetProxy = 0C0700361623B02C00D9B92D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0C07001A1623B02C00D9B92D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0C07001B1623B02C00D9B92D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0C0700231623B02C00D9B92D /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0C0700241623B02C00D9B92D /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		0C0700261623B02C00D9B92D /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0C0700271623B02C00D9B92D /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		0C07003B1623B02C00D9B92D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0C07003C1623B02C00D9B92D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0C0700411623B02C00D9B92D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0C0700421623B02C00D9B92D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0C0700441623B02C00D9B92D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iMed/iMed-Prefix.pch";
+				INFOPLIST_FILE = "iMed/iMed-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0C0700451623B02C00D9B92D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iMed/iMed-Prefix.pch";
+				INFOPLIST_FILE = "iMed/iMed-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		0C0700471623B02C00D9B92D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iMed.app/iMed";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iMed/iMed-Prefix.pch";
+				INFOPLIST_FILE = "iMedTests/iMedTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		0C0700481623B02C00D9B92D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iMed.app/iMed";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iMed/iMed-Prefix.pch";
+				INFOPLIST_FILE = "iMedTests/iMedTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0C0700071623B02C00D9B92D /* Build configuration list for PBXProject "iMed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C0700411623B02C00D9B92D /* Debug */,
+				0C0700421623B02C00D9B92D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0C0700431623B02C00D9B92D /* Build configuration list for PBXNativeTarget "iMed" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C0700441623B02C00D9B92D /* Debug */,
+				0C0700451623B02C00D9B92D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0C0700461623B02C00D9B92D /* Build configuration list for PBXNativeTarget "iMedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0C0700471623B02C00D9B92D /* Debug */,
+				0C0700481623B02C00D9B92D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0C0700041623B02C00D9B92D /* Project object */;
+}

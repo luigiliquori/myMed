@@ -1,11 +1,12 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
 { "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Postes", "Nom": "Poste ", "Description": "", "Addresse": "Piazza Cesare Battisti, 1 ", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.792442", "Longitude": "7.609574" }, "geometry": null }
 ,
 { "type": "Feature", "properties": { "Type": "Addresses_Utiles", "SousType": "Postes", "Nom": "Poste ", "Description": "", "Addresse": "Corso Repubblica, 8", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "Vintimille", "Latitude": "43.790335", "Longitude": "7.608458" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "CommUrb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "Id-Media": null, "CommUrb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 
 ]
 }

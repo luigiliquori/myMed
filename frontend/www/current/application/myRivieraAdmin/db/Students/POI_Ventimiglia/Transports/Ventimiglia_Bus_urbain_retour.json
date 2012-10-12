@@ -1,0 +1,50 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via caduti del Lavoro 20", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia (Roverino)", "Latitude": "43.80844", "Longitude": "7.594017" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via Eugenio Montale 5", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia (Roverino)", "Latitude": "43.807356", "Longitude": "7.595326" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Corso Limone Piemonte 118", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.805637", "Longitude": "7.595755" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Corso Limone Piemonte 65", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.80398", "Longitude": "7.597193" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via Tenda 43_Centro commerciale", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.802075", "Longitude": "7.598352" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via Tenda 5_Cimitero", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.799659", "Longitude": "7.600562" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Piazza Costituente", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.791791", "Longitude": "7.60333" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via Roma 5", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.791667", "Longitude": "7.606591" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via Roma 14", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.791558", "Longitude": "7.606978" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via Roma 23", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.790319", "Longitude": "7.60981" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via Dante Alighieri 35", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.787639", "Longitude": "7.616312" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Corso Genova 88", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.788739", "Longitude": "7.621869" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Corso Genova 120", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.789235", "Longitude": "7.624766" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via Emilio Basso", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.789127", "Longitude": "7.62586" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Via Lamboglia 33", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.787376", "Longitude": "7.62659" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_retour", "Nom": "Fermata", "Description": "", "Addresse": "Rotonda Lungomare Varaldo 2", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia ", "Latitude": "43.785269", "Longitude": "7.628071" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "IdMedia": "", "ComUrbaine": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null }, "geometry": null }
+
+]
+}

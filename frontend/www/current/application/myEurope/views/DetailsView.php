@@ -5,36 +5,51 @@
 	<? tabs_simple(array('results', $this->details->title)); ?>
 	<? include("notifications.php"); ?>
 
-	<div data-role="content" >		
+	<div data-role="content" >	
+		<div data-role="header" data-theme="e">
 		<h1><?= $this->details->title ?></h1>
+		</div>	
+		
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
-			<li>
-				<?= $this->details->text ?>
-				
-				<? if (isset($this->reputation)): ?>
+			<li style="font-weight: normal;">
+				<div data-role="none">
+					<?= $this->details->text ?>
+				</div>
 				<p class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
 					<a data-role="button" data-icon="faplus" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->user ?>', 1);">
 						<span style="color: blue;font-size: 14px;"><?= $this->reputation['up'] ?></span> <span style="font-weight: normal;">"J'aime"</span>
 					</a>
 				</p>
-				<? endif; ?>
+				
 			</li>
+			<li style="font-weight: normal; font-size: 14px;">
+				<b><?= _("Keywords") ?>:</b> <?= str_replace(array('{','}','"r":','"p":','"",','"c":','"t":','"k":'), '', $this->details->keywords)  ?>
+			</li>
+			<li style="font-weight: normal; font-size: 14px;">
+				<b><?= _("Publication Date") ?>:</b> <?= date('j/n/Y G:i', $this->details->time) ?>
+			</li>
+			<? if (isset($this->details->expirationDate)) :?>
+				<li style="font-weight: normal; font-size: 14px;">
+					<b><?= _("Expiration Date") ?>:</b> <?= date('j/n/Y G:i', strtotime($this->details->expirationDate)) ?>
+				</li>	
+			<? endif ?>	
 		</ul>
-		<b style="font-size:14px;"><?= _('Keywords') ?>:</b>
-			<?= str_replace('"', '', $this->details->keywords) ?>
-			 
-		<? if (isset($this->details->user)) :?>
-			<br /><br />
-			<b style="font-size:14px;"><?= _('Partners') ?>:</b>
-			<? if (isset($this->details->userProfile)) :?>
+		
+		<? if (isset($this->details->user)) :?>			
+			<div data-role="collapsible" data-mini="true">
+				<h3><?= _('Partners') ?>:</h3>
+				
 				<?= $this->details->userProfile->renderProfile() ?>
-			<? endif ?>
-			<? foreach($this->partnersProfiles as $item) : ?>
-				<?= $item->renderProfile() ?>
-			<? endforeach ?>
+					
+				<? foreach($this->partnersProfiles as $item) : ?>
+					<?= $item->renderProfile() ?>
+				<? endforeach ?>
+			</div>
+
 			<br />
-			<? if ($this->details->user == $_SESSION['user']->id) :?>
-				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
+
+			<? if ( in_array(trim($_SESSION['user']->id), $this->details->userProfile->users)) :?>
+				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-icon="remove" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
 			<? else :?>
 				<a href="?action=Details&partnerRequest=&id=<?= urlencode($this->id) ?>" type="button" data-inline="true" data-mini="true" data-icon="check"> <?= _("Partnership request") ?> </a>
 			<? endif ?>

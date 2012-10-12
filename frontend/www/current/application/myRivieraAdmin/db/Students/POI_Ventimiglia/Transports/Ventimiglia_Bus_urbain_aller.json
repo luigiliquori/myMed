@@ -1,0 +1,36 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Rotonda Lungomare Varaldo 2", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.785129", "Longitude": "7.62839" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Lungomare Varaldo 27", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.784991", "Longitude": "7.62438" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Lungomare Trento Trieste 29", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.785982", "Longitude": "7.618157" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via Roma 55", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.7886", "Longitude": "7.614273" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via Roma 21 F", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791001", "Longitude": "7.608243" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via della Repubblica 3", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791141", "Longitude": "7.608694" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via Cavour_Stazione FS", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.792024", "Longitude": "7.608673" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via Cavour 11", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.793154", "Longitude": "7.606033" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via Tenda_Centro commerciale", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.799706", "Longitude": "7.600583" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via Tenda 11_Cimitero", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.798507", "Longitude": "7.601332" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via Tenda ", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.796219", "Longitude": "7.602861" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Corso Limone Piemonte 104", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia (Roverino)", "Latitude": "43.806303", "Longitude": "7.595004" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via Caduti del Lavoro ", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia (Roverino)", "Latitude": "43.808936", "Longitude": "7.593009" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_aller", "Nom": "Fermata", "Description": "", "Addresse": "Via Caduti del Lavoro 6", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Urbain_Ventimiglia.jpg", "ComUrbaine": "Ventimiglia (Roverino)", "Latitude": "43.809276", "Longitude": "7.593373" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null }, "geometry": null }
+
+]
+}

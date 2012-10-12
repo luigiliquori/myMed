@@ -10,6 +10,7 @@ class DetailsController extends AuthenticatedController {
 		parent::handleRequest();
 		
 		$this->id = $_GET['id'];
+		$this->namespace = "part"; //temp
 		
 		if (isset($_GET["rm"])){
 			$this->delData();
@@ -23,8 +24,6 @@ class DetailsController extends AuthenticatedController {
 			$this->addPartner();
 		}
 		
-		$this->namespace = "part"; //temp
-
 		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id));
 		
 		try{
@@ -35,8 +34,7 @@ class DetailsController extends AuthenticatedController {
 		if (isset($res->details)){
 			$this->details = $res->details;
 			
-			//$this->reputation = pickFirst(parent::reputation($this->details->user, $this->id));
-			$this->reputation = pickFirst(parent::getReputation(array(APPLICATION_NAME), array($this->details->user)));
+			$this->reputation = pickFirst(parent::getReputation(array($this->id)));
 			
 			if (isset($this->details->user)){
 				
@@ -51,11 +49,12 @@ class DetailsController extends AuthenticatedController {
 			}
 			
 			$this->partnersProfiles = array();
-			
+			//debug_r($this->details);
 			foreach ($this->details as $k => $v){
 				if (strpos($k, "user_") === 0){
 					$p = $this->getProfile($v);
-					$this->partnersProfiles[$p->id]= $p;
+					if (!empty($p))
+						$this->partnersProfiles[$p->id]= $p;
 				}
 			}
 			if (isset($this->details->userProfile))
@@ -90,9 +89,9 @@ class DetailsController extends AuthenticatedController {
 	
 	public /*void*/ function delData(){
 		
-		$publish = new RequestJson($this, array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id']), DELETE);
+		$publish = new RequestJson($this, array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$_GET['id']), DELETE);
 		
-		debug('trying to delete '.$_GET['namespace']."..".$_GET['id']);
+		debug('trying to delete '.$this->namespace."..".$_GET['id']);
 
 		$publish->send();
 		
@@ -106,26 +105,24 @@ class DetailsController extends AuthenticatedController {
 			"tempPartner".$_SESSION['user']->id=>$_SESSION['user']->id
 		);
 		$publish = new RequestJson( $this, 
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$_GET['id'], "user"=> $_SESSION['user']->id, "user"=>$_SESSION['user']->id, "data"=>$data ),
+				array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$_GET['id'], "user"=> $_SESSION['user']->id, "user"=>$_SESSION['user']->id, "data"=>$data ),
 				UPDATE);
 	
 		$rs = $publish->send();
 		if (empty($this->error))
 			$this->success = _("Partnership request sent");
-		
-		debug_r($rs);
-		debug_r($this->success);
+
 	}
 	
 	public /*void*/ function addPartner(){
 
 		$publish = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "field"=>"tempPartner".$_GET["accept"] ),
+				array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id, "field"=>"tempPartner".$_GET["accept"] ),
 				DELETE);
 		$publish->send();
 		
 		$publish = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":".$_GET['namespace'],"id"=>$this->id, "user"=>"noNotification", "data"=>array("user_".$_GET["accept"]=>$_GET["accept"]) ),
+				array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id, "user"=>"noNotification", "data"=>array("user_".$_GET["accept"]=>$_GET["accept"]) ),
 				UPDATE);
 		$publish->send();
 		
@@ -143,30 +140,32 @@ class DetailsController extends AuthenticatedController {
 			$rs = $publish->send();
 			if (empty($this->error))
 				$this->success = _("Partner added");
-			debug_r($rs);
-			debug_r($this->error);
+
 		}
 		
 	}
 
 	
 	public /*void*/ function getProfile($id){
+		
+		$mapper = new DataMapper;
 	
 		$user = new User($id);
 		try {
-			$details = $user->read();
+			$details = $mapper->findById($user);
 		} catch (Exception $e) {
+			return null;
 		}
 		$profile = new Profile($details['profile']);
 		try {
-			$profile->details = $profile->read();
+			$profile->details = $mapper->findById($profile);
 		} catch (Exception $e) {
+			return null;
 		}
 		$profile->parseProfile();
-		$profile->reputation = pickFirst(parent::getReputation(array(APPLICATION_NAME), array($id)));
+		$profile->reputation = pickFirst(parent::getReputation( array($details['profile'])));
 		return $profile;
 	}
-	
 	
 }
 ?>
