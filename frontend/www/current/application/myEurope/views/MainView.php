@@ -4,10 +4,10 @@
 <div data-role="page" id="home">
 
 <? tab_bar_default("#home") ?>
+
 <? include("notifications.php"); ?>
 	<div data-role="content" style="text-align: center;">
 
-		<br />
 		<div data-role="fieldcontain">
 			<a href="#search" type="button" class="mymed-huge-button"><?= _('Search a partnership offer') ?>
 			</a>
@@ -64,43 +64,35 @@
 			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
 			<li>
 				<a href="?action=Blog&blog=Bonnes Pratiques" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?>
-					<span class="ui-li-count">4</span>
 				</a>
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?>
-					<span class="ui-li-count">2</span>
 				</a>
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?>
-					<span class="ui-li-count">1</span>
 				</a>
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
-					<span class="ui-li-count">5</span>
 				</a>
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?>
-					<span class="ui-li-count">1</span>
 				</a>
 			</li>
 			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?></li>
 			<li>
 				<a href="?action=Blog&blog=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?>
-					<span class="ui-li-count">2</span>
 				</a>
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?>
-					<span class="ui-li-count">0</span>
 				</a>
 			</li>
 			<li>
 				<a href="?action=Blog&blog=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?>
-					<span class="ui-li-count">2</span>
 				</a>
 			</li>
 		</ul>
@@ -261,10 +253,9 @@
 			</div>
 			
 			<div style="text-align: center;" data-role="controlgroup" data-type="horizontal">
-				<input type="submit" class="ui-btn-active ui-state-persist"
-					data-icon="search" data-theme="g" data-inline="true" value="<?=_('Search') ?>" />
+				<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>" />
 				<a href="#helpPopup" data-rel="popup" data-position-to="window"
-					data-inline="true" data-theme="e" type="button"
+					data-theme="e" data-role="button"
 					data-icon="question-sign" data-iconpos="right"><?= _("Help") ?>
 				</a> 
 			</div>

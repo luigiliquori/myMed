@@ -103,6 +103,8 @@
 
 .content h3 {
 	font-style: italic;
+}
+.content h1, .content h3 {
 	color: #588fbe;
 }
 
@@ -126,6 +128,7 @@
 
 h4.logo{
 	color: #313131;
+	margin-bottom: 0;
 }
 
 .social {
