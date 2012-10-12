@@ -14,13 +14,13 @@ if ($this->getUserType() != USER_MYMED) :
 		<h3><?= _("Profil MyMed") ?></h3>
 	</div>
 	
-	<? $firtNameLabel = ($TYPE == ASSOCIATION) ? _("Nom de l'association") : _("Prénom") ?>
-	<? input("text", "firstName", $firtNameLabel, $user->firstName, "", true) ?> 
+	<!--<? $firtNameLabel = ($TYPE == ASSOCIATION) ? _("Nom de l'association") : _("Prénom") ?>-->
+	<? input("text", "firstName", $firtNameLabel, $user->firstName, "", true) ?>
 	
-	<? if ($TYPE == BENEVOLE) :?>
+	<? //if ($TYPE == BENEVOLE) :?>
 		<? input("text", "lastName", _("Nom"), $user->lastName, "", true) ?>
 		<? input("date", "birthday", _("Date de naissance"), $user->birthday) ?>
-	<? endif ?>
+	<? //endif ?>
 	
 	<? input("email", "email", _("email"), $user->email, "", true) ?>
 	

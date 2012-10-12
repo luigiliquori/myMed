@@ -83,7 +83,7 @@
 	function tab_bar_main($activeTab, $opts=1) {
 		$arrayListAnounce = array("?action=main", "Liste des annonces", "tags");
 		if(!isset($_SESSION['user'])){
-			$arrayProfile =array("?action=extendedProfile","Inscription","user");
+			$arrayProfile =array("?action=createMyMedProfile","Inscription","user");
 		}
 		else{
 			$arrayProfile=array("?action=extendedProfile","Profil","user");
