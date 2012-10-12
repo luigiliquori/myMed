@@ -1,4 +1,6 @@
 <? include_once('view-utils.php'); ?>
+<?php  include('notifications.php');?>
+
 <!doctype html>
 <html lang="fr"
 <? if (defined("DEMO")) print 'manifest="cache.manifest"' ?>>
