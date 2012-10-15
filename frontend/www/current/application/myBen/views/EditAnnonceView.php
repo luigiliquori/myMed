@@ -9,10 +9,12 @@ $annonce = $this->annonce;
 
 <div data-role="page" >
 
-	<? header_bar(array(
+	<!--<? header_bar(array(
 			_("Annonces") => url("listAnnonces"),
 			$annonce->titre => url("annonce:details", array("id" => $annonce->id)),
-			_("Edition") => null)) ?>
+			_("Edition") => null)) ?>-->
+	
+	<? tab_bar_main("?action=main"); ?>
 	
 	<form data-role="content" data-ajax="false" method="post"
 		action="<?= url("annonce:doEdit", array("id" => $annonce->id)) ?>"  >

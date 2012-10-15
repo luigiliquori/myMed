@@ -11,18 +11,42 @@ $filters[ANN_PAST] = _("passées / promues");
 $filters[ANN_ALL] = _("toutes");
 ?>
 
-<div data-role="page" id="login">
+<div
+	data-role="page" id="login">
 
-	<? tab_bar_main("?action=main"); ?>
+	<!-- main action is different for admin. for tab bar admin will have action?=main as admin tab-->
+	<?php if(isset($this->extendedProfile) && $this->extendedProfile instanceof ProfileNiceBenevolat){
+		tab_bar_main("?action=listAnnonces");
+	}
+	else{
+		tab_bar_main("?action=main");
+	}
+	?>
 
 	<div data-role="content" class="content">
-			 <?php if(!isset($_SESSION['user'])):
-			 include("LoginView.php");
-				endif?>
-		<? if (!isset($this->extendedProfile)) : ?>
+		<?php if(!isset($_SESSION['user'])):?>
+		<div data-role="content" class="content">
+			<img alt="myBenevolat" src="img/icon.png" width="110">
+			<!-- Login form -->
+			<form data-role="content" action="<?= url("login:doLogin") ?>"
+				method="post" data-ajax="false">
+
+				<input type="text" name="login" placeholder="Login (email)" /> <input
+					type="password" name="password" placeholder="Password" /> <input
+					type="submit" value="<?= _("Connexion") ?>" data-role="button"
+					data-inline="true" data-theme="b" data-icon="signin" />
+			</form>
+		</div>
+		<?endif?>
+		<? if (isset($_SESSION['user']) && !isset($this->extendedProfile)) : ?>
 		<?= _("Veuillez indiquer dans votre profil si vous êtes un bénévole ou une association") ?>
 		<? endif ?>
-
+		<? if ($this->canPost()) : ?>
+		<a data-inline="true" data-role="button" data-icon="add"
+			data-theme="g" data-ajax="false" href="<?= url("annonce:create") ?>">
+			<?= _("Poster une annonce") ?>
+		</a>
+		<?php endif;?>
 		<div data-role="header" data-theme="e">
 			<div style="display: inline-block">
 				<h3 style="margin-left: 1em">
@@ -44,7 +68,7 @@ $filters[ANN_ALL] = _("toutes");
 		<? if ($this->canPost()) : ?>
 		<div class="ui-grid-a">
 			<div class="ui-block-a">
-			<? endif?>
+				<? endif?>
 				<a data-role="button" data-inline="true"
 					href="<?= url("listAnnonces", array("filter" => ANN_ALL)) ?>"> <?= _("Afficher toutes les annonces") ?>
 				</a>
