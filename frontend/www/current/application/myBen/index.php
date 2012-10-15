@@ -22,7 +22,7 @@ if (PHP_GETTEXT) {
 }
 
 // IE DETECTION - FORBIDEN
-if (ereg("MSIE", $_SERVER["HTTP_USER_AGENT"]) && !$ieok) {
+if (ereg("MSIE", $_SERVER["HTTP_USER_AGENT"])) {
 	include 'IeView.php';
 } else {
 	// Call the main controller
