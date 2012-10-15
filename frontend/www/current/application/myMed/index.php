@@ -16,9 +16,10 @@ textdomain(GLOBAL_MESSAGES);
 
 // IE DETECTION - FORBIDEN
 if (ereg("MSIE", $_SERVER["HTTP_USER_AGENT"])) {
-	include 'IeView.php';
-} else {
-	main_controller();
+	//include 'IeView.php';
+	// a popup _("please download other browser, for better quality")
 }
+
+main_controller();
 
 ?>
