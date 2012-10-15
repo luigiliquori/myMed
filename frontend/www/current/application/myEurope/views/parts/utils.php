@@ -6,7 +6,7 @@ function tab_bar_default($activeTab) {
 	tabs($activeTab, array(
 			array("#home", "Partnerships", "retweet"),
 			array("#infos", "Informations", "info-sign"),
-			array("#blogs", "Blog", "comments"),
+			array("#blogs", "Journal", "comments"),
 			array("#profile", "Profile", "user")
 	));
 }
