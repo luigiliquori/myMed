@@ -7,12 +7,6 @@
 	// Include main controller : Dispatches actions to individual controllers
 	include(MYMED_ROOT . '/system/controllers/index-controller.php');
 
-	// IE DETECTION - FORBIDEN
-	if (ereg("MSIE", $_SERVER["HTTP_USER_AGENT"])) {
-		//include 'IeView.php';
-		// a popup _("please download other browser, for better quality")
-	}
-
 	main_controller();
 ?>
 
