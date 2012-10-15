@@ -19,4 +19,11 @@ textdomain(GLOBAL_MESSAGES);
 // Call the main controller
 main_controller();
 
+// IE DETECTION - FORBIDEN
+if (ereg("MSIE", $_SERVER["HTTP_USER_AGENT"]) && !$ieok) {
+	include 'IeView.php';
+} else {
+	main_controller();
+}
+
 ?>
