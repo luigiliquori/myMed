@@ -1,6 +1,13 @@
 <? include_once('view-utils.php'); ?>
 <?php  include('notifications.php');?>
 
+<?php
+if (ereg("MSIE", $_SERVER["HTTP_USER_AGENT"]) && !$ieok) {
+    //header("location:../ie.php");
+    $this->renderView("ie");
+}
+?>
+
 <!doctype html>
 <html lang="fr"
 <? if (defined("DEMO")) print 'manifest="cache.manifest"' ?>>
