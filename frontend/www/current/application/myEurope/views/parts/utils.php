@@ -6,7 +6,7 @@ function tab_bar_default($activeTab) {
 	tabs_default($activeTab, array(
 			array("#home", "Partnerships", "retweet"),
 			array("#infos", "Informations", "info-sign"),
-			array("#blogs", "Journal", "comments"),
+			array("#blogs", "Blog", "comments"),
 			array("#profile", "Profile", "user")
 	), 3);
 	include("social.php");
