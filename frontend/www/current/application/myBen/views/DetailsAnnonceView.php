@@ -3,10 +3,7 @@
 ?>
 
 <div data-role="page" >
-
-	<? header_bar(array(
-			_("Annonces") => url("listAnnonces"),
-			$annonce->titre => null)) ?>
+	<? tab_bar_main("?action=main"); ?>
 			
 	<div data-role="content">
 

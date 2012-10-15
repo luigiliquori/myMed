@@ -117,6 +117,7 @@ class Request {
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
 
+
 // 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments) . "<br /><br />";
 		
 		// SSL CONNECTION
@@ -126,6 +127,7 @@ class Request {
 		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 
 		$result = curl_exec($curl);
+
 
 // 		debug($result);
 //  		echo $result . "<br /><br />";

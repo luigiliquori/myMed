@@ -15,7 +15,7 @@ if ($this->getUserType() != USER_MYMED) :
 	</div>
 	
 	<? $firtNameLabel = ($TYPE == ASSOCIATION) ? _("Nom de l'association") : _("Prénom") ?>
-	<? input("text", "firstName", $firtNameLabel, $user->firstName, "", true) ?> 
+	<? input("text", "firstName", $firtNameLabel, $user->firstName, "", true) ?>
 	
 	<? if ($TYPE == BENEVOLE) :?>
 		<? input("text", "lastName", _("Nom"), $user->lastName, "", true) ?>

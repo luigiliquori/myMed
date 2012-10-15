@@ -21,7 +21,12 @@ if (PHP_GETTEXT) {
 	_textdomain(APPLICATION_NAME);
 }
 
-// Call the main controller
-main_controller();
+// IE DETECTION - FORBIDEN
+if (ereg("MSIE", $_SERVER["HTTP_USER_AGENT"])) {
+	include 'IeView.php';
+} else {
+	// Call the main controller
+	main_controller();
+}
 
 ?>
