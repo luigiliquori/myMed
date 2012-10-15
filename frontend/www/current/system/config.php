@@ -1,6 +1,8 @@
 <?php
 	ini_set('xdebug.var_display_max_depth', 5);
 	
+	define('APPLICATION_LABEL', _("Transborder social network"));
+	
 	/** true if you want to send page wind XHTML mimetype */
 	define('MIMETYPE_XHTML', false&&isset($_SERVER["HTTP_ACCEPT"])&&stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml"));
 	

@@ -62,7 +62,8 @@
 }
 
 h4.logo{
-	color: white;
+	background-color: white;
+	opacity: 0.9;
 }
 
 @media all and (max-width: 600px){

@@ -7,12 +7,16 @@ require_once("header.php"); ?>
 
 <?php 
 function tab_bar_login($activeTab) {
+	if(!function_exists('tabs')) {
+		function tabs($activeTab, $tabs, $opts = false){
+			return tabs_default($activeTab, $tabs, $opts);
+		}
+	}
 	tabs($activeTab, array(
-			array("#login", "Sign in", "signin"),
-			array("#register", "Create an account", "th-list"),
-			array("#about", "About", "info-sign")
+		array("#login", "Sign in", "signin"),
+		array("#register", "Create an account", "th-list"),
+		array("#about", "About", "info-sign")
 	));
-
 }
 ?>
 
@@ -22,7 +26,14 @@ function tab_bar_login($activeTab) {
 	<? include("notifications.php"); ?>
 	
 	<div data-role="content" class="content">
+	
+	<? if (APPLICATION_NAME == 'myMed'): ?>
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" width="200" />
+	<? else: ?>
+	 	<img alt="title" src="img/icon.png" height="50" />
+		<h1 style="display: inline-block;vertical-align: 20%;"><?= APPLICATION_NAME ?></h1>
+	<? endif; ?>
+	
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
 			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
@@ -133,7 +144,8 @@ function tab_bar_login($activeTab) {
 
 	<div data-role="content" class="content">
 	
-		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" />
+		
+		<a href="/application/myMed/" rel="external"><img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" /></a>
 		<br />
 		<h3><?= _(APPLICATION_LABEL) ?></h3>
 		<br />

@@ -262,6 +262,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					} else {
 						LOGGER.info("######user already registered");
 						message.setDescription("user already registered");
+						message.setStatus(409);
 					}
 
 				}

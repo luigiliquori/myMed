@@ -4,10 +4,10 @@
  
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
- 	tabs($activeTab, array(
+ 	tabs_default($activeTab, array(
  			array("#profiles", "Existing Profiles", "list"),
  			array("#new", 'Create', "pencil")
- 		), '', 1);
+ 		), 3);
  }
  
  ?>

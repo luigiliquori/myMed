@@ -1,7 +1,7 @@
 
 <? require_once("header.php"); ?>
 
-<div data-role="page" id="register" >	
+<div data-role="dialog" data-overlay-theme="b" id="resetpass" >	
 
 	<div data-role="header" data-theme="b">
 		<h1>Réinitialisation du mot de passe</h1>
@@ -28,18 +28,6 @@
 		</form>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>
-				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid"  class="ui-btn-active ui-state-persist">Inscription</a></li>
-				<li><a href="#about" data-transition="none" data-icon="info">A propos</a></li>
-			</ul>
-		</div>
-	</div>
-	
 </div>
-
-<? require_once("LoginView.php"); ?>
 
 <? require_once("footer.php"); ?>
