@@ -244,12 +244,14 @@
 				data-overlay-theme="e" data-theme="d">
 				<a href="#" data-rel="back" data-role="button" data-theme="d"
 					data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<p>
-					Si vous laissez tous les champs <b>vides</b> (non cochés), vous
-					obtenez toutes les offres publiées à ce jour<br> <br> Lorsque vous
-					laissez un ensemble de champs de recherche <b>vide</b>, la
-					recherche est globale sur cette partie.
-				</p>
+				<ul data-role="listview">
+					<li>Si vous laissez tous les champs <b>vides</b> (non cochés), vous
+					obtenez toutes les offres publiées à ce jour</li>
+					<li>Lorsque vous
+					laissez une categorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</li>
+					<li>Lorsque vous cochez plusieurs champs dans une catégorie, les 
+						résultats matcheront au moins un des critères.</li>
+				</ul>
 			</div>
 			
 			<div style="text-align: center;" data-role="controlgroup" data-type="horizontal">
