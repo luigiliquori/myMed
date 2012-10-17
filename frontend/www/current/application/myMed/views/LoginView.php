@@ -135,7 +135,7 @@ require_once("footer-bar.php");
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
 			<p>
-			<?= translate('About') ?>
+			<?= translate('About text') ?>
 			</p>
 			</li>
 		</ul>

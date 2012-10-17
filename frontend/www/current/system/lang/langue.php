@@ -2,6 +2,7 @@
 
 define('FR', 'fr');
 define('IT', 'it');
+define('EN', 'en');
 $_SESSION['dictionary'] = array();
 
 /**
@@ -11,7 +12,7 @@ $_SESSION['dictionary'] = array();
  */
 function /*String*/ translate($word) {
 	global $LANG;
-	if(isset($_SESSION['dictionary'][$word])) {
+	if($LANG != EN && isset($_SESSION['dictionary'][$word])) {
 		return $_SESSION['dictionary'][$word][$LANG];
 	} else {
 		return $word;
@@ -27,6 +28,15 @@ function /*String*/ translate($word) {
 /_____/___/\____/ /_/ /___/\____/_/ |_/_/  |_/_/ |_| /_/   
  
  */
+
+// COMMON
+$word = 'Update';
+$_SESSION['dictionary'][$word][FR] = "Mise à jour";
+$_SESSION['dictionary'][$word][IT] = "";
+
+$word = 'Cancel';
+$_SESSION['dictionary'][$word][FR] = "Annuler";
+$_SESSION['dictionary'][$word][IT] = "";
 
 // HEADER BAR
 $word = 'Logout';
@@ -81,6 +91,18 @@ $word = 'Last Name';
 $_SESSION['dictionary'][$word][FR] = "Name";
 $_SESSION['dictionary'][$word][IT] = "";
 
+$word = 'Birthday';
+$_SESSION['dictionary'][$word][FR] = "Date de naissance";
+$_SESSION['dictionary'][$word][IT] = "";
+
+$word = 'Language';
+$_SESSION['dictionary'][$word][FR] = "Langue";
+$_SESSION['dictionary'][$word][IT] = "";
+
+$word = 'Profile picture';
+$_SESSION['dictionary'][$word][FR] = "Photo du profil";
+$_SESSION['dictionary'][$word][IT] = "";
+
 $word = 'Confirm';
 $_SESSION['dictionary'][$word][FR] = "Confirmation";
 $_SESSION['dictionary'][$word][IT] = "";
@@ -95,7 +117,7 @@ $_SESSION['dictionary'][$word][IT] = "";
 
 // ABOUT VIEW
 $word = 'About';
-$_SESSION['dictionary'][$word][FR] = "Le projet myMed est né d’une double constatation: l’existence d’un énorme potentiel de développement des activités économiques de la zone transfrontalière, objet de l’action Alcotra, et le manque criant d’infrastructures techniquement avancées en permettant un développement harmonieux. La proposition myMed est née d’une collaboration existante depuis plus de 15 ans entre l’Institut National de Recherche en Informatique et en Automatique (INRIA) de Sophia Antipolis et l’Ecole Polytechnique de Turin, auxquels viennent s’ajouter deux autres partenaires, l’Université de Turin et l’Université du Piémont Oriental.";
+$_SESSION['dictionary'][$word][FR] = "A propos";
 $_SESSION['dictionary'][$word][IT] = "";
 
 $word = 'More informations';
