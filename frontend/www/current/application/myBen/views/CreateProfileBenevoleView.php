@@ -3,6 +3,7 @@
 <div data-role="page" id="benevole" >	
 
 	<? tab_bar_main("?action=extendedProfile"); ?>
+	<?php  include('notifications.php');?>
 	
 	<!--<? if ($this->getUserType() == USER_NICE_BENEVOLAT): ?>
 		<? header_bar(array(

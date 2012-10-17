@@ -3,6 +3,7 @@
 <div data-role="page" >
 
 	<? require("header-bar.php")?>
+	<?php  include('notifications.php');?>
 	
 	<div data-role="content" >
 	

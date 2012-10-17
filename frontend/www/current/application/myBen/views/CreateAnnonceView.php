@@ -10,6 +10,7 @@ $annonce = $this->annonce;
 			_("Création") => null)) ?>-->
 			
 	<? tab_bar_main("?action=main"); ?>
+	<?php  include('notifications.php');?>
 
 	
 	<form data-role="content" action="<?= url("annonce:doCreate") ?>" data-ajax="false" method="post" >

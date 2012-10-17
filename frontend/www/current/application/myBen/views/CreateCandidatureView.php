@@ -13,6 +13,7 @@ $annonce = $candidature->getAnnonce();
 			$annonce->titre => url("annonce:details", array("id" => $annonce->id)),
 			_("Candidater") => null)) ?>-->
 	<? tab_bar_main("?action=main"); ?>
+	<?php  include('notifications.php');?>
 	
 	<div data-theme="e" data-role="header" class="left" >
 		<h3><?= sprintf(_("Réponse à l'annonce '%s'"), $annonce->titre) ?></h3>
