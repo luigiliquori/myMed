@@ -10,7 +10,11 @@ class LoginController extends AbstractController {
 	 */
 	public /*String*/ function handleRequest() {
 		
-		
+		if (strpos($_SERVER["HTTP_USER_AGENT"], "MSIE") !== false) {
+			$this->setError(_("You are using Internet Explorer, the interface is not optimized for it,
+			 please download Chrome or Firefox for a better experience"));
+		}
+
 		/** authed by social networks apis*/
 		if (isset($_SESSION['user'])) { 
 

@@ -2,7 +2,10 @@
 
 <div id="profile" data-role="page" data-dom-cache="true">
 
-	<? tab_bar_main("?action=profile", 5); ?>
+	<? tab_bar_main("?action=profile"); ?>
+	<div data-role="header" data-theme="none" data-position="fixed">
+		<a href="?action=profile#updateProfile" class="ui-btn-right" data-theme="e" data-mini="true" data-icon="pencil"><?= _("Edit") ?></a>
+	</div>
 	<? include 'notifications.php'; ?>
 
 	<div data-role="content">

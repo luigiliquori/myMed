@@ -48,6 +48,40 @@ function url($action, $args=array()) {
 	return "?" . http_build_query($args);
 }
 
+
+//  tabs bar
+function tabs_default($activeTab, $tabs, $opts = false) {
+	?>
+	<div data-role="header" data-theme="b">
+  		<? if ($opts == 1): ?>
+			<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Déconnexion</a>
+		<? elseif ($opts == 2): ?>
+			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
+		<? elseif ($opts == 3): ?>
+			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
+		<? endif; ?>
+		
+  		<h1>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= _(APPLICATION_LABEL) ?></span></a>
+  		</h1>
+
+  	</div>
+	
+	<div data-role="footer" data-theme="d" data-position="fixed" class="iostab">
+		<div data-role="navbar">
+			<ul>
+			<? foreach ($tabs as $i): ?>
+				<li><a href="<?= $i[0] ?>" data-icon="<?= $i[2] ?>"
+				<?= $activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '' ?>> <?= _($i[1]) ?>
+				</a></li>
+			<? endforeach; ?>
+			</ul>
+		</div>
+	</div>
+	<?
+}
+
+
 // Global prefix for "id"
 $PREFIX_ID="";
 

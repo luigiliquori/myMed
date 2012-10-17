@@ -235,7 +235,7 @@ function reply(el){
 function profile(user){
 	$.get('../../lib/dasp/ajax/ExtendedProfile', {
 		application: application,
-		id : user,
+		id : user
 	}, function(res) {
 		//console.log(res);
 		$('#popupInfo').html(res);
