@@ -16,6 +16,7 @@ $profCandidat = ProfileBenevole::getFromUserID($candidature->publisherID);
 			_("Candidature de " . $candidature->publisherName) => null)) ?>-->
 		
 	<? tab_bar_main("?action=main"); ?>
+	<?php  include('notifications.php');?>
 	
 	<? global $READ_ONLY; $READ_ONLY=true ?>
 	<form data-role="content" action="#" >

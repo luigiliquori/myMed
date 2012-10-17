@@ -4,6 +4,7 @@
 
 <div data-role="page" >
 	<? tab_bar_main("?action=main"); ?>
+	<?php  include('notifications.php');?>
 			
 	<div data-role="content">
 

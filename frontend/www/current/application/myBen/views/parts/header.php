@@ -1,5 +1,4 @@
 <? include_once('view-utils.php'); ?>
-<?php  include('notifications.php');?>
 
 <!doctype html>
 <html lang="fr"
@@ -80,6 +79,7 @@
 	</script>
 	<? endif ?>
 
+	
 	<?php 
 
 	function tab_bar_main($activeTab, $opts=1) {
@@ -98,7 +98,7 @@
 			$arrayCandidat=array("?action=infosSubmitAd","Infos Dépot Annonce","user");
 		}
 		else{
-			$arrayCandidat = array("?action=about","Infos Candidatures/Dépot d'une annonce","user");
+			$arrayCandidat = array("?action=infosAnnCan","Infos Candidatures/Dépot d'une annonce","user");
 		}
 		if ($_SESSION[EXTENDED_PROFILE] instanceof ProfileNiceBenevolat){
 			$arrayListAnounce = array("?action=listAnnonces","Liste des annonces","tags");

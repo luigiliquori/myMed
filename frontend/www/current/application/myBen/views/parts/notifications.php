@@ -7,7 +7,7 @@
 		<p>
 		<img alt="Warning: " src="<?= APP_ROOT ?>/img/warning-icon.png" class="ui-li-icon" />
 		<span Style="position: relative; top: -10px;"><?= $this->error ?></span>
-		<a href="." data-action="close" data-role="button" data-ajax="false">ok</a>
+		<!-- <a href="." data-action="close" data-role="button" data-ajax="false">ok</a>-->
 		</p>
 		
 	</div>
@@ -21,7 +21,7 @@
 		
 		<p>
 		<span Style="position: relative; top: -10px;"><?= $this->success ?></span>
-		<a href="." data-action="close" data-role="button" data-ajax="false">ok</a>
+		<!-- <a href="." data-action="close" data-role="button" data-ajax="false">ok</a>-->
 		</p>
 			
 	</div>

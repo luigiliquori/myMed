@@ -15,6 +15,7 @@ $annonce = $this->annonce;
 			_("Edition") => null)) ?>-->
 	
 	<? tab_bar_main("?action=main"); ?>
+	<?php  include('notifications.php');?>
 	
 	<form data-role="content" data-ajax="false" method="post"
 		action="<?= url("annonce:doEdit", array("id" => $annonce->id)) ?>"  >
