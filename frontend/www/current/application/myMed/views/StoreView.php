@@ -1,11 +1,16 @@
-<? include_once("header.php"); ?>
+<?php
 
-<? define('STORE_PREFIX' , '_store'); ?>
+require_once("header.php");
+require_once("header-bar.php");
+require_once("footer-bar.php");
+define('STORE_PREFIX' , '_store');
+
+?>
 
 <div data-role="page" id="store" data-dom-cache="true">
 
-	<? tab_bar_main("?action=store"); ?>
-	<? include("notifications.php"); ?>
+	<?php print_header_bar(false, true) ?>
+	<?php include 'notifications.php'; ?>
 
 	<div data-role="content" Style="padding: 0px; opacity: 0.9">
 		<div class="ui-grid-a" style="position: relative;">
@@ -47,6 +52,8 @@
 		</div>
 			
 	</div>
+	
+	<? print_footer_bar_main("?action=store"); ?>
 
 </div>
 

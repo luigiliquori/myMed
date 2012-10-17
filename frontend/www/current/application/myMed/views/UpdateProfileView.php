@@ -1,7 +1,15 @@
+<?php
+
+require_once("header.php");
+require_once("header-bar.php");
+require_once("footer-bar.php");
+
+?>
+
 <div id="updateProfile" data-role="page">
 
-	<? tab_bar_main("?action=profile", 2); ?>
-	<? include 'notifications.php'; ?>
+	<?php print_header_bar(false, true) ?>
+	<?php include 'notifications.php'; ?>
 	
 	<div data-role="content" class="content" Style="text-align: left;">
 		<form action="?action=profile" id="updateProfileForm" method="post" data-ajax="false">
@@ -30,23 +38,10 @@
 				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
 				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
 			</select>
-			
 
-			
+			<label for="password" ><?= _("Password") ?> : </label>
+			<input type="password" id="password" name="password" />
 
-			<div data-role="fieldcontain">
-				<label for="password" ><?= _("Password") ?> : </label>
-				<input type="password" id="password" name="password" />
-			</div>
-
-
-			<? if (!isset($_SESSION['user']->email)): /*oauthed user have no password for the moment*/ ?>
-			<div data-role="fieldcontain">
-				<label for="passwordConfirm" ><?= _("Password Confirmation") ?> : </label>
-				<input type="password" id="passwordConfirm" name="passwordConfirm" />
-			</div>
-			<? endif; ?>
-			
 			<center>
 				<div data-role="controlgroup" data-type="horizontal">
 					<input type="submit" data-role="button" data-inline="true" data-theme="b" value="Mise à jour" data-icon="refresh"/>
@@ -56,5 +51,7 @@
 			
 		</form>
 	</div>
+		
+	<? print_footer_bar_main("?action=profile"); ?>
 		
 </div>

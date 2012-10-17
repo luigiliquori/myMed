@@ -48,7 +48,6 @@ function url($action, $args=array()) {
 	return "?" . http_build_query($args);
 }
 
-
 //  tabs bar
 function tabs_default($activeTab, $tabs, $opts = false) {
 	?>

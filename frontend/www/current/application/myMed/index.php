@@ -14,6 +14,12 @@ include(MYMED_ROOT . '/system/controllers/index-controller.php');
 // Use the application specific locales
 textdomain(GLOBAL_MESSAGES);
 
+// use the common dictionary
+include(MYMED_ROOT . '/system/lang/langue.php');
+
+// use the specific dictionary
+include('lang/langue.php');
+
 main_controller();
 
 ?>
