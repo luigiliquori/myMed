@@ -1,64 +1,48 @@
 <? include("header.php"); ?>
-			<!-- FRIENDS -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="d"
-				data-content-theme="c">
-				<h3>Réseau social</h3>
-				<?php $i=0; ?>
-				<?php foreach ($_SESSION['friends'] as $friend ) { ?>
-					<a href="<?= $friend["link"] ?>"><img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" alt="<?= $friend["name"] ?>" /></a>
-					<?php $i++; ?>
-				<?php } 
-				if($i == 0) { 
-// 					$socialNetworkConnection =  new SocialNetworkConnection();
-// 					foreach($socialNetworkConnection->getWrappers() as $wrapper) {
-// 						$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
-// 						echo "<a href='" . $url . "' onClick='showLoadingBar(\"redirecton en cours...\")'>" . $wrapper->getSocialNetworkButton() . "</a>";
-// 					}
-					?>
-					<!-- CONNECTION FACEBOOK -->
-			 	    <div id="fb-root"></div>
-				    <script>
-				        window.fbAsyncInit = function() {
-				          FB.init({
-				            appId      : '<?= Facebook_APP_ID ?>',
-				            status     : true, 
-				            cookie     : true,
-				            xfbml      : true,
-				            oauth      : true,
-				          });
-				          FB.Event.subscribe('auth.login', function(response) {
-				              window.location.reload();
-				            });
-				        };
-				        (function(d){
-				           var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-				           js = d.createElement('script'); js.id = id; js.async = true;
-				           js.src = "//connect.facebook.net/en_US/all.js";
-				           d.getElementsByTagName('head')[0].appendChild(js);
-				         }(document));
-				    </script>
-				    <div class="fb-login-button" scope="email,read_stream">Facebook</div>
-				    <!-- END CONNECTION FACEBOOK -->
-				<?php } else { ?>
-					<!-- LIKE BUTTON -->
-					<br /><br />
-					<script>(function(d, s, id) {
-						var js, fjs = d.getElementsByTagName(s)[0];
-						if (d.getElementById(id)) return;
-						js = d.createElement(s); js.id = id;
-						js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
-						fjs.parentNode.insertBefore(js, fjs);
-					}(document, 'script', 'facebook-jssdk'));</script>
-					<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
-					<br /><br />
-				<?php } ?>
+
+
+<div data-role="page" data-theme="b">
+<div data-role="header" data-theme="b" data-position="fixed">
+	
+	<h1><?= APPLICATION_NAME ?></h1>
+	
+	<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext">Deconnexion</a>
+	
+	<? include("notifications.php")?>
+	
+</div>
+
+			<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="width:70%; margin: auto;">
+			<h3 style="width: 170px; margin: auto;"><?= _("Sign in with") ?>: </h3>
+			<ul data-role="listview">
+			<li>
+				<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">
+				<img class="ui-li-mymed" src="/system/img/social/google_32.png" />
+				Google</a>
+			</li>
+			<li>
+				<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external">
+					<img class="ui-li-mymed" src="/system/img/social/facebook_32.png" />
+				Facebook</a>
+			</li>
+			<li>
+				<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external">
+				<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
+				Twitter</a>
+			</li>
+			<li>
+				<a onclick="$('#openIdForm').submit();" title="OpenID">
+				<img class="ui-li-mymed" src="/system/img/social/openID_32.png" />
+				<form onclick="event.stopPropagation();/* for clicking above and below thetext input without submitting*/" style="padding:8px 0; margin: -15px 0;" id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
+					<input id="openIdProvider" type="text"  name="openid_identifier" value="https://www.google.com/accounts/o8/id" placeholder="" />
+				</form>
+				</a>
 				
-				<!-- SHARE THIS -->
-				<div id="hidden-sharethis">
-					<span class='st_facebook_large' displayText='Facebook'></span>
-					<span class='st_twitter_large' displayText='Tweet'></span>
-					<span class='st_linkedin_large' displayText='LinkedIn'></span>
-					<span class='st_email_large' displayText='Email'></span>
-				</div>
-				
-			</div>
+			</li>
+			</ul>
+		</div>
+
+	
+<? include("footer.php"); ?>
+</div>
+</body>

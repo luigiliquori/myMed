@@ -48,6 +48,42 @@
 			</div>
 		</li>		
 		<?php }?>
+		<?php if ($_SESSION["profileFilled"] == "employer") {?>
+		<li class="ui-li ui-li-static ui-body-a">
+			<h3 class="ui-li-heading"> Profil etendu</h3>
+			<div>
+						
+				<!-- 	displaying array:
+				
+						$object = array( 
+						"type" => $_POST["ctype"],
+						"name" => $_POST["cname"],
+						"address" => $_POST["caddress"],
+						"number" => $_POST["cnumber"]); -->
+			
+					<br> Campus : <br/>
+					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['type']?></a>
+					
+					<br> Universite :<br/>
+					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['name']?></a>
+					
+					<br> Filiere : <br/>
+					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['address']?></a>
+					
+					<br> Soumettre :<br/>
+					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['number']?></a>
+			</div>
+		</li>		
+		<?php }?>
+		
+				<?php if ($_SESSION["profileFilled"] == "guest") {?>
+		<li class="ui-li ui-li-static ui-body-a">
+			<h3 class="ui-li-heading"> Full profile information</h3>
+			<div>
+						Vous etes connectes en tant qu'invite.
+			</div>
+		</li>		
+		<?php }?>
 	</ul>	
 </div>
 <? include("footer.php"); ?>

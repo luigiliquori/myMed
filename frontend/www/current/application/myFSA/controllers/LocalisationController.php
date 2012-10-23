@@ -54,11 +54,6 @@
 		<link href="../css/style.css" rel="stylesheet" />
 		<script type="text/javascript" src="../javascript/myRivieraCopy.js"></script>
 		
-			<!-- Cleeditor -->
-	<link rel="stylesheet" type="text/css" href="jquery/CLEeditor/jquery.cleditor.css" />
-    <script type="text/javascript" src="jquery/CLEeditor/jquery.cleditor.min.js"></script>
-    <script type="text/javascript" src="jquery/CLEeditor/startCLE.js"> </script>
-		
 
 <?php 
 
