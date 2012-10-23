@@ -18,7 +18,7 @@ class DetailsController extends AuthenticatedController {
 			//$this->feedback = 0.5;
 			$this->feedback = $_REQUEST['rate']/5;
 			$this->storeReputation();
-			$this->getMark();
+			//$this->getMark();
 			$this->renderView("main");
 		
 		}
