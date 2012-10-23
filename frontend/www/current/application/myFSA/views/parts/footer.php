@@ -1,16 +1,9 @@
-<div data-role="navbar" data-iconpos="top" data-position="fixed" data-theme="b"  >
- 	<ul>
-		<li>
-			<a href="?action=main" data-icon="home" data-theme="b" ></a>
-		</li>
-		<li>
-			<a href="#page1" data-icon="star" data-theme="b" ></a>
-		</li>
-        <li>
-			<a href="?action=ExtendedProfile" data-theme="b"></a>
-        </li>
-        <li>
-			<a href="../../index.php" data-icon="delete" data-theme="b" ></a>
-		</li>
-	</ul>
-</div>
+	<div data-role="footer" data-position="fixed" data-theme="a">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="?action=main" data-transition="none" data-back="true" data-icon="home">Page d'acceuil</a></li>
+				<li><a href="?action=social" data-icon="star" >Social</a></li>
+				<li><a href="?action=ExtendedProfile" data-icon="profile" >Profil</a></li>
+			</ul>
+		</div>
+	</div>

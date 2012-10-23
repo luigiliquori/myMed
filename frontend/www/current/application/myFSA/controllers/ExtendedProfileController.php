@@ -67,8 +67,17 @@ class ExtendedProfileController extends AbstractController
 	}
 	
 	public /*void*/ function showProfile(){
+		if ($_SESSION["profileFilled"] == "company"){
+			$this->renderView("ExtendedProfileDisplayCompany");
+		}
+		elseif ($_SESSION["profileFilled"] == "employer"){
+			$this->renderView("ExtendedProfileDisplayEmployer");
+		}
+		elseif ($_SESSION["profileFilled"] == "guest"){	
+		
+			$this->renderView("ExtendedProfileDisplayGuest");
+		}
 
-		$this->renderView("ExtendedProfileDisplay");
 	}
 
 }

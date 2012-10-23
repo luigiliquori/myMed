@@ -13,16 +13,21 @@ class DetailsController extends AuthenticatedController {
 		
 		parent::handleRequest();
 		
-		//keyword is set in the jquery file
+		//keyword is set in the jquery file when user set rank on jquery plugin
 		if (isset($_REQUEST['keyword']) && $_REQUEST['keyword'] == "Reputation") {
+			//$this->feedback = 0.5;
 			$this->feedback = $_REQUEST['rate']/5;
 			$this->storeReputation();
+			$this->getMark();
 			$this->renderView("main");
 		
 		}
 		else {
+			$_SESSION['test']=(isset($_SESSION['disabled']))?true:false;
+						
 			// Get arguments of the query
 			$this->predicate = $_GET['predicate'];
+			$_SESSION['predicate'] = $_GET['predicate'];
 			$this->author = $_GET['author'];
 			
 			// Create an object
@@ -39,7 +44,7 @@ class DetailsController extends AuthenticatedController {
 				//needed for comments
 				$string = $_GET['predicate'];
 				preg_match_all('/pred2([a-z0-9-_]+)pred3/', $string, $matches);
-				preg_match_all('/pred3([a-z0-9-_]+)/', $string, $matches2);
+				preg_match_all('/pred3([a-zA-Z0-9-_]+)/', $string, $matches2);
 				
 				$_SESSION['author'] = $this->author;
 				$_SESSION['pred2'] = $matches[1][0];
@@ -54,15 +59,23 @@ class DetailsController extends AuthenticatedController {
 			}			
 			// Render the view
 			//$this->getReputation();
+			$this->getMark();
 			$this->renderView("details");
 			
 		}
 	}
 	public /*void*/ function storeReputation(){
 			
-		$rep = new Reputation($_SESSION['user'],$this->author,$this->predicate, $this->feedback);
-			
+		$rep = new Ranking($_SESSION['user']->id,$_SESSION['predicate'], $this->feedback);
+		//$rep = new Ranking(array($_SESSION['user']->id,$_SESSION['predicate'], $this->feedback));
 		$rep->storeReputation();
+			
+	}
+	public /*void*/ function getMark(){
+			
+		$rep2 = new Ranking($_SESSION['user']->id,$_SESSION['predicate'],'');
+		//$rep = new Ranking(array('name' => 'John'));
+		$rep2->getMark();
 			
 	}
 

@@ -1,8 +1,9 @@
-<? include("header.php"); ?>
+<? include("header.php");
+?>
 
 <script type="text/javascript">
 
-	var average = 4;
+	var average = '<?=$_SESSION['rank']?>';
 	var votes = 0;
 	var r = 0
 	
@@ -40,34 +41,37 @@
   });
 </script>
 
-<div data-role="page" data-theme="a">
-	<div data-role="header" data-theme="a">
-	<a data-rel="back" data-role="button"  data-icon="back">Back</a>
-	<h3>myFSA</h3>
-	<a href="?action=ExtendedProfile" data-icon="gear" class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
-	</div>
+<div data-role="page" data-theme="b">
+
+<div data-role="header" data-theme="b" data-position="fixed">
+	
+	<h1><?= APPLICATION_NAME ?></h1>
+	
+	<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext">Deconnexion</a>
+	
+	<? include("notifications.php")?>
+	
+</div>
 	
 	<!-- stars rating -->
-rank:
+<!-- rank: -->
 	<div class="starsAverage"></div>
-			nb of votes:
-		<div class="votes"></div>
-		<div class="yourRank">
-			Your rank is:
-		<div class="rankValue"></div>
-	</div>
+<!-- 			nb of votes: -->
+<!-- 		<div class="votes"></div> -->
+<!-- 		<div class="yourRank"> -->
+<!-- 			Your rank is: -->
+<!-- 		<div class="rankValue"></div> -->
+<!-- 	</div> -->
 
 	<!-- stars rating -->
 	
-	<div data-role="content" >
-		<b>Author</b> : <?= $this->result->publisherID ?><br/>
-		<b>Cathegory</b>: <?= $_SESSION['pred2'] ?><br/>
-		<b>Title</b>: <?= $_SESSION['pred3'] ?><br/>
-		<b>field1</b>: <?= $this->result->begin ?><br/>
-		<b>field2</b>: <?= $this->result->end ?><br/>
+	<div data-role="content">
+		<b>Auteur</b> : <?= $this->result->publisherID ?><br/>
+		<b>Catégorie</b>: <?= $_SESSION['pred2'] ?><br/>
+		<b>Titre</b>: <?= $_SESSION['pred3'] ?><br/>
 	<!--  	<b>Wrapped1</b>:--> <?//= $this->result->wrapped1 ?>
 	<!-- 	<b>Wrapped2</b>: --><?//= $this->result->wrapped2 ?>
-	 	<b>Content</b>: <?= $this->result->data1 ?><br/>
+	 	<b>Text</b>: <?= $this->result->data1 ?><br/>
 	 	<?
  	 	//needed for displaying comments with user
 			$string = $this->result->data2;
@@ -81,7 +85,7 @@ rank:
 	 	<!-- displaying comments -->	 	
 	 	<?	if(isset($this->comments[1])) {	
 	 	?>
-	 	<b>comments:</b><br/>
+	 	<b>Commentaires:</b><br/>
 	 	<?
 	 			foreach ($this->comments[1] as  $key=>$value){
 	 	?>

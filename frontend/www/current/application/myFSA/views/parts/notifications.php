@@ -1,26 +1,28 @@
 <? if (!empty($this->error)): ?>
 	<div  
 		data-role="navbar" 
-		data-theme="a"
+		data-theme="e"
 		class="ui-bar ui-bar-e error-box" >
 	
-		<h3><?= _("Error") ?></h3>
-		<p><?= $this->error ?></p>
+		<p>
+		<img alt="Warning: " src="<?= APP_ROOT ?>/img/warning-icon.png" class="ui-li-icon" />
+		<span Style="position: relative; top: -10px;"><?= $this->error ?></span>
+		<a href="." data-action="close" data-role="button" data-ajax="false">ok</a>
+		</p>
+		
 	</div>
 <? endif ?>
 
 <? if (!empty($this->success)): ?>
 	<div 
 		data-role="navbar"
-		data-theme="g"
-		class="ui-bar ui-bar-g success-box" >
+		data-theme="e"
+		class="ui-bar ui-bar-e error-box" >
 		
-		<h3><?= _("Message") ?></h3>
-		<p><?= $this->success ?></p>
-		
-		<div style="float:right; margin-top:4px;">
-			<a href=".error-box" data-role="button" data-icon="delete" data-iconpos="notext" data-action="close" >Button</a>
-		</div>
-		
+		<p>
+		<span Style="position: relative; top: -10px;"><?= $this->success ?></span>
+		<a href="." data-action="close" data-role="button" data-ajax="false">ok</a>
+		</p>
+			
 	</div>
 <? endif ?>

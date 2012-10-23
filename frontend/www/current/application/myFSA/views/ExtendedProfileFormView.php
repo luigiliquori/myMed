@@ -1,21 +1,19 @@
-<? 
-
-include("header.php"); ?>
+<? include("header.php"); ?>
 
 <? 
  
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
  	tabs(array(
- 			"company" => "Company",
- 			"employer" => "Employer/Student", 
- 			"guest" => "Guest"),
+ 			"company" => "Entreprise",
+ 			"employer" => "Employer/Etudiant", 
+ 			"guest" => "Invité"),
  		$activeTab);
  }
  
  ?>
 
-<div data-role="page" id="company" data-theme="a">	
+<div data-role="page" id="company" data-theme="b">	
 
 	<? include("header-bar.php") ?>
 
@@ -27,30 +25,30 @@ include("header.php"); ?>
 		<form  data-role="content" action="index.php?action=ExtendedProfile" method="post" data-ajax="false">
 				<input type="hidden" name="profileFilled" id="profileFilled" value="company" />
 				
-				<label for="ctype" ><?= _("Company type") ?></label>
+				<label for="ctype" ><?= _("Type d'entreprise") ?></label>
 				<input type="text" name="ctype" id="ctype" />
 				<br/>
 		
-				<label for="cname"><?= _("Company name") ?></label>
+				<label for="cname"><?= _("Nom de l'entreprise") ?></label>
 				<input id="cname" type="text" name="cname" value="" />
 				<br/>
 				
-				<label for="caddress"><?= _("Company address") ?></label>
+				<label for="caddress"><?= _("Adresse de l'entreprise") ?></label>
 				<input id="caddress" type="text" name="caddress" value="" />
 				<br/>
 				
-				<label for="cnumber" ><?= _("Security number") ?></label>
+				<label for="cnumber" ><?= _("SIRET") ?></label>
 				<input type="text" name="cnumber" />
 				<br/>
 				
-				<input type="submit" value="<?= _("Submit") ?>" data-theme="a" />
+				<input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" />
 		
 		</form>
 	</div>
-	
+<? include("footer.php"); ?>	
 </div>
 	
-<div data-role="page" id="employer" data-theme="a">	
+<div data-role="page" id="employer" data-theme="b">	
 
 	<? include("header-bar.php") ?>
 
@@ -62,30 +60,30 @@ include("header.php"); ?>
 		<form  data-role="content" action="index.php?action=ExtendedProfile" method="post" data-ajax="false">
 				<input type="hidden" name="profileFilled" id="profileFilled" value="employer" />
 				
-				<label for="occupation" ><?= _("Occupation") ?></label>
+				<label for="occupation" ><?= _("Campus") ?></label>
 				<input type="text" name="occupation" id="occupation" />
 				<br/>
 		
-				<label for="cname"><?= _("Company name") ?></label>
+				<label for="cname"><?= _("Universite") ?></label>
 				<input id="cname" type="text" name="cname" value="" />
 				<br/>
 				
-				<label for="caddress"><?= _("Company address") ?></label>
+				<label for="caddress"><?= _("Filiere") ?></label>
 				<input id="caddress" type="text" name="caddress" value="" />
 				<br/>
 				
-				<label for="tnumber" ><?= _("Telephone number") ?></label>
+				<label for="tnumber" ><?= _("Numero Etudiant") ?></label>
 				<input type="text" name="tnumber" />
 				<br/>
 				
-				<input type="submit" value="<?= _("Submit") ?>" data-theme="a" />
+				<input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" />
 		
 		</form>
 	</div>
-	
+<? include("footer.php"); ?>	
 </div>
 
-<div data-role="page" id="guest" data-theme="a">
+<div data-role="page" id="guest" data-theme="b">
 
 	<? include("header-bar.php") ?>
 	
@@ -99,17 +97,16 @@ include("header.php"); ?>
 				<input type="hidden" name="profileFilled" id="profileFilled" value="guest" />		
 				
 				<fieldset data-role="controlgroup">
-	    			After registering as a guest You can use only some option in myFSA
+	    			Après une inscription comme invité vous pourrez seulement utiliser quelques options de myFSA
 	    			<input id="service-term" type="checkbox" name="checkCondition" />
-					<label for="service-term"><?= _("Accept") ?></label>
+					<label for="service-term"><?= _("Accepter") ?></label>
 				</fieldset>	 		
 				<br/>
 				
-				<input type="submit" value="<?= _("Register") ?>" data-theme="a" />
+				<input type="submit" value="Soumettre" data-theme="b" />
 		
 		</form>
 		
 	</div>
-	
+<? include("footer.php"); ?>	
 </div>
-<? include("footer.php"); ?>

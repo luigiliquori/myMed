@@ -46,13 +46,18 @@
 		</script>
 		<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
 		
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
-		
+		<!-- GOOGLE MAP -->
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>	
 		<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 
 		<script type="text/javascript" src='../../../lib/dasp/javascript/dasp.js'></script>
 		<link href="../css/style.css" rel="stylesheet" />
 		<script type="text/javascript" src="../javascript/myRivieraCopy.js"></script>
+		
+			<!-- Cleeditor -->
+	<link rel="stylesheet" type="text/css" href="jquery/CLEeditor/jquery.cleditor.css" />
+    <script type="text/javascript" src="jquery/CLEeditor/jquery.cleditor.min.js"></script>
+    <script type="text/javascript" src="jquery/CLEeditor/startCLE.js"> </script>
 		
 
 <?php 

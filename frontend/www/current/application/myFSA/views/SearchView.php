@@ -1,13 +1,18 @@
 <? include("header.php"); ?>
 <div data-role="page" id="Search">
 	<div class="wrapper">
-		<div data-role="header" data-theme="a">
-			<a data-rel="back" data-role="button"  data-icon="back" data-transition="slide">Back</a>
-			<h2>myFSA</h2>
-			<a href="?action=ExtendedProfile" data-icon="gear" class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
-<!-- 			<a data-ajax="false" href="?action=Localisate" type="button" data-transition="slide" >Publish</a> -->
-		</div>
-		<div data-role="content" data-theme="a">
+	
+<div data-role="header" data-theme="b" data-position="fixed">
+	
+	<h1><?= APPLICATION_NAME ?></h1>
+	
+	<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext">Deconnexion</a>
+	
+	<? include("notifications.php")?>
+	
+</div>
+		
+		<div data-role="content" data-theme="b">
 			<br />
 			<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
 				<!-- petla koncze! -->		
@@ -31,23 +36,29 @@
 				<? endforeach ?>
 				<!-- petla koncze! -->
 			</ul>
-			<div data-role="collapsible" data-collapsed="true" data-theme="a" data-icon="plus">
-				<h3>Recherche avancée</h3>
-				<form action="#" id="subscribeForm">
-				<div>
+				
+				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-icon="plus">
+				<h3>Recherche avancee</h3>
+				<form action="index.php?action=publish" method="POST" data-ajax="false">
+				
 					<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
 						<fieldset data-role="controlgroup" >
-							<label for="textinputs1"> Cathegory: </label> <input id="textinputs1"  name="nom" placeholder="" value="" type="text" />
-							</fieldset>
-					</div>
-					<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
-						<fieldset data-role="controlgroup" >
-						<label for="textinputs2"> Title: </label> <input id="textinputs2"  name="lib" placeholder="" value="" type="text" />
+							<label for="textinputs1"> Categorie </label> 
+							<input id="textinputs1" name="pred2" placeholder="" type="text" />
 						</fieldset>
 					</div>
-						<a href="" type="button" data-icon="gear" onclick="$('#subscribeForm').submit();" style="width:280px;margin-left: auto;margin-right: auto;">rechercher</a></div>
+					
+					<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
+						<fieldset data-role="controlgroup" >
+						<label for="textinputs2"> Titre </label> 
+						<input id="textinputs2"  name="pred3" placeholder="" type="text" />
+						</fieldset>
+					</div>
+						<input type="submit" name="method" value="Rechercher" data-icon="gear"/>
 						</form>
-				</div>
+				</div>	
+				
+				
 				<div class="push"></div>
 				</div>
 			</div>

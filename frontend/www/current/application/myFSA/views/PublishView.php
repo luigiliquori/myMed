@@ -1,11 +1,33 @@
 <? include("header.php"); ?>
-<div data-role="page" id="PublishView" data-theme="a">
+
+<script type="text/javascript">
+	// Dictionnary of already initliazed pages
+	gInitialized = {}
+	// Initialization made on each page 
+	$('[data-role=page]').live("pagebeforeshow", function() {
+	var page = $("PublishView");
+	var id = page.attr("id");
+	// Don't initialize twice
+	if (id in gInitialized) return;
+	gInitialized[id] = true;
+	//debug("init-page : " + page.attr("id"));
+	console.log('hello');
+	$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
+	});
+</script>	
+<div data-role="page" id="PublishView" data-theme="b">
 <div class="wrapper">
-<div data-role="header" data-theme="a">
-<a data-theme="a" data-rel="back" data-role="button"  data-icon="back" >Back</a>
-<h3>myFSA</h3>
-<a href="?action=ExtendedProfile" data-icon="gear" class="ui-btn-right" data-transition="slide"><?= $_SESSION['user']?$_SESSION['user']->name:"Connexion" ?></a>
+
+<div data-role="header" data-theme="b" data-position="fixed">
+	
+	<h1><?= APPLICATION_NAME ?></h1>
+	
+	<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext">Deconnexion</a>
+	
+	<? include("notifications.php")?>
+	
 </div>
+
 <div data-role="content">
 <!-- tutaj halo-->
 			<form action="index.php?action=publish" method="POST" data-ajax="false">
@@ -13,7 +35,7 @@
 <!-- 			<input type="text" name="pred1" placeholder="pred1"/> -->
 			    <div data-role="fieldcontain">
                     <label for="selectmenu1">
-                        cathegory:
+                        Catégorie:
                     </label>
                     <select name="pred2" id="selectmenu1">
                         <option value="evenement">
@@ -44,34 +66,17 @@
                 </div>
 			
 <!-- 		<input type="text" name="pred2" placeholder="pred2"/> -->
-			<input type="text" name="pred3" placeholder="title"/>			
+			<input type="text" name="pred3" placeholder="Titre"/>			
 						
-			<input type="text" name="begin"placeholder="field1"/>
-			<input type="text" name="end" placeholder="field2"/>
 			
 <!-- 			<input type="text" name="wrapped1" placeholder="wrapped1"/> -->
 <!-- 			<input type="text" name="wrapped2" placeholder="wrapped2"/> -->
 			<br/>
-			<script type="text/javascript">
-			 	// Dictionnary of already initliazed pages
-				gInitialized = {}
-				// Initialization made on each page 
-				$('[data-role=page]').live("pagebeforeshow", function() {
- 				var page = $(this);
- 				var id = page.attr("id");
-			 	// Don't initialize twice
-				if (id in gInitialized) return;
- 				gInitialized[id] = true;
-				//debug("init-page : " + page.attr("id"));
-				console.log('hello');
-				$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
-				});
-			</script>			
+		
 			<textarea id="CLEeditor" name="data1"></textarea>
 <!-- 			<input type="text" name="data2" placeholder="data2"/> -->
 <!-- 			<input type="text" name="data3" placeholder="data3"/> -->
-			
-			<input type="submit" name="method" value="Publish"/>
+			<input type="submit" name="method" value="Publier"/>
 			<!--<input type="submit" name="method" value="Search" />-->
 			
 		</form>
