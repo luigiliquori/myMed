@@ -11,7 +11,7 @@ define('STORE_PREFIX' , '_store');
 class MainController extends AuthenticatedController {
 
 	public static $bootstrapApplication = array("myEurope", "myRiviera", "myFSA", "myMemory", "myBen", "myEuroCIN");
-	public static $otherApplication = array("myJob", "myConsolato", "myStudent", "myAutoinsieme", "myREADME", "myAngel");
+	public static $otherApplication = array("myJob", "myConsolato", "myStudent", "myAutoinsieme", "myREADME", "myAngel", "myHyperbase");
 
 	protected $currentSuccessMess = null;
 	protected $currentErrorMess = null;

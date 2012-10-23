@@ -1,5 +1,4 @@
 <?php 
-echo "*******************************";
 /**
  * Print the header bar
  * @param boolean $print_back_button, add the back button to the header bar
