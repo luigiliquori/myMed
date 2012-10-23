@@ -68,6 +68,7 @@ require_once("footer-bar.php");
 				<select name="select-application" id="select-application">
 					<option value="All">Application</option>
 					<option value="All">All</option>
+					<!-- All applications from myMed panel -->
 					<?php
 					foreach (statistic\MainController::getBootstrapApplication() as $key => $app){
 						echo '<option value="'.$app.'">'.$app.'</option>';
