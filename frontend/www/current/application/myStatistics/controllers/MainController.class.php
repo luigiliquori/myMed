@@ -25,9 +25,12 @@ class MainController extends \AuthenticatedController {
 		$this->renderView("main");
 	}
 
-	public function generateGraph(){
+	function generateGraph(){
 		echo "generate graph";
-		
+		//My brain to me :"use JSON"
+		//Yep good idea brain
+		$this->response = '{"name" : "curve1","type" : "month", "curve" : [[1,1],[2,2],[3,3],[4,4]]}';
+		$this->renderView("main");
 	}
 }
 ?>
