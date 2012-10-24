@@ -54,7 +54,19 @@
 	 text-align: left;
 	 color: #313131;
 }
-
+.social {
+	cursor: pointer;
+	text-indent: -9999em;
+	font-size: 1px;
+	display: inline-block;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-right: 3px;
+	width: 32px;
+	height: 32px;
+	background-image: url('/system/img/footer-sprite2.png');
+	background-repeat: no-repeat;
+}
 .myScreenshot {
 	display: none;
 	position: relative;

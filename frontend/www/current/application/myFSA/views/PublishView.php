@@ -1,38 +1,15 @@
 <? include("header.php"); ?>
 
-<script type="text/javascript">
-	// Dictionnary of already initliazed pages
-	gInitialized = {}
-	// Initialization made on each page 
-	$('[data-role=page]').live("pagebeforeshow", function() {
-	var page = $("PublishView");
-	var id = page.attr("id");
-	// Don't initialize twice
-	if (id in gInitialized) return;
-	gInitialized[id] = true;
-	//debug("init-page : " + page.attr("id"));
-	console.log('hello');
-	$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
-	});
-</script>	
 <div data-role="page" id="PublishView" data-theme="b">
-<div class="wrapper">
+	<div class="wrapper">
 
-<div data-role="header" data-theme="b" data-position="fixed">
-	
-	<h1><?= APPLICATION_NAME ?></h1>
-	
-	<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext">Deconnexion</a>
-	
-	<? include("notifications.php")?>
-	
-</div>
+	<? include("header-bar.php"); ?>
 
-<div data-role="content">
-<!-- tutaj halo-->
+	<div data-role="content">
+
 			<form action="index.php?action=publish" method="POST" data-ajax="false">
 			
-<!-- 			<input type="text" name="pred1" placeholder="pred1"/> -->
+				<!-- 			<input type="text" name="pred1" placeholder="pred1"/> -->
 			    <div data-role="fieldcontain">
                     <label for="selectmenu1">
                         Catégorie:
@@ -73,6 +50,22 @@
 <!-- 			<input type="text" name="wrapped2" placeholder="wrapped2"/> -->
 			<br/>
 		
+			<script type="text/javascript">
+				// Dictionnary of already initliazed pages
+				gInitialized = {}
+				// Initialization made on each page 
+				$('[data-role=page]').live("pagebeforeshow", function() {
+				var page = $("PublishView");
+				var id = page.attr("id");
+				// Don't initialize twice
+				if (id in gInitialized) return;
+				gInitialized[id] = true;
+				//debug("init-page : " + page.attr("id"));
+				console.log('hello');
+				$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
+				});
+			</script>
+			
 			<textarea id="CLEeditor" name="data1"></textarea>
 <!-- 			<input type="text" name="data2" placeholder="data2"/> -->
 <!-- 			<input type="text" name="data3" placeholder="data3"/> -->

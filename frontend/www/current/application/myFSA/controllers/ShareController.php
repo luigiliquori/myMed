@@ -9,9 +9,7 @@ class ShareController extends AuthenticatedController {
 		 * ExtendedProfile stored in the $_SESSION while using the app
 		 */
 		if(true)
-			$this->renderView("share");
-
-					
+			$this->renderView("share");					
 	}	
 	
 }
