@@ -1,0 +1,22 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_Ventimiglia_Alta", "Nom": "Fermata", "Description": "", "Addresse": "Via Cavour 39_Stazione FS", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Ventimiglia_Alta.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791961", "Longitude": "7.608651" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_Ventimiglia_Alta", "Nom": "Fermata", "Description": "", "Addresse": "Via Cavour 21", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Ventimiglia_Alta.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.793138", "Longitude": "7.605969" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_Ventimiglia_Alta", "Nom": "Fermata", "Description": "", "Addresse": "Via Giovanni Biancheri 10", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Ventimiglia_Alta.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791775", "Longitude": "7.60333" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_Ventimiglia_Alta", "Nom": "Fermata", "Description": "", "Addresse": "Via Collabassa 2", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Ventimiglia_Alta.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.790768", "Longitude": "7.601849" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_Ventimiglia_Alta", "Nom": "Fermata", "Description": "", "Addresse": "Via Roma 4", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Ventimiglia_Alta.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791713", "Longitude": "7.60672" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_Ventimiglia_Alta", "Nom": "Fermata", "Description": "", "Addresse": "Corso Repubblica ", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Ventimiglia_Alta.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791125", "Longitude": "7.608565" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Bus_urbain_Ventimiglia_Alta", "Nom": "Fermata", "Description": "", "Addresse": "Via Cavour 39_Stazione FS", "Link": "", "E-mail": "", "IdMedia": "Horaires_Bus_Ventimiglia_Alta.jpg", "ComUrbaine": "Ventimiglia", "Latitude": "43.791961", "Longitude": "7.608651" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null }, "geometry": null }
+
+]
+}

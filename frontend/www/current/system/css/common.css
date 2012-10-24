@@ -47,8 +47,8 @@
 }
 
 .ui-li { /* mini li */
-	padding-top: 1px;
-	padding-bottom: 1px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
 .ui-li-desc {
@@ -103,6 +103,8 @@
 
 .content h3 {
 	font-style: italic;
+}
+.content h1, .content h3 {
 	color: #588fbe;
 }
 
@@ -126,6 +128,7 @@
 
 h4.logo{
 	color: #313131;
+	margin-bottom: 0;
 }
 
 .social {

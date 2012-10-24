@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-27 12:45+0200\n"
-"PO-Revision-Date: 2012-10-01 22:36+0100\n"
+"PO-Revision-Date: 2012-10-14 12:44+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -160,12 +160,12 @@ msgid "Keywords"
 msgstr "Parole chiave"
 
 #: ../application/myEurope/views/DetailsView.php:31
-msgid "<b>Publication Date:</b> "
-msgstr "<b>Data pubblicazione:</b> "
+msgid "Publication Date"
+msgstr "Data pubblicazione"
 
 #: ../application/myEurope/views/DetailsView.php:34
-msgid "<b>Expiration Date:</b> "
-msgstr "<b>Data limite</b> "
+msgid "Expiration Date"
+msgstr "Data limite"
 
 #: ../application/myEurope/views/DetailsView.php:38
 msgid "Partners"
@@ -201,12 +201,8 @@ msgid "Edit my profile"
 msgstr "Modifica il mio profilo"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:23
-msgid ""
-"Hello, This is your first time on myEurope.<br/><br/>\n"
-"\t\t\t\t Please fill in your profile with an existing Organization profile"
-msgstr ""
-"Buongiorno<br/>,<br/>E' la sua prima connessione a  myEurope.<br/>\n"
-"\t\t\t\t Grazie di completare il vostro profilo imputandolo ad un'organizzazione già presente"
+msgid "Hello, This is your first time on myEurope! Please register with an existing profile or create yours"
+msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Grazie di completare il vostro profilo imputandolo ad un'organizzazione già presente"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:25
 msgid "or"
@@ -333,7 +329,7 @@ msgstr "Crea"
 #: ../application/myEurope/views/MainView.php:128
 #: ../application/myEurope/doc/trads.php:2
 msgid "myEuropeabout"
-msgstr "<b>MyEurope</b> è una rete sociale che si appoggia al meta-social network <em>myMed</em>, a disposizione dei sindaci, delle istituzioni, degli esponenti politici nonché delle realtà economiche (industriali, turistiche...) del territorio della regione francese del sud est (PACA, Rhône-Alpes) e delle tre regioni italiane del nord ovest (Piemonte, Liguria, Valle d'Aosta), ovvero dei territori ammessi al programma Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia).L'applicazione permetterà ai sindaci dell'Euroregione Alpi-Mediterraneo (MedAlp) di trovare dei partner all'interno de'interregione stessa, a condizione che quest'ultimi siano iscritti alla rete myEurope, cosicché possano montare assieme dei progetti comuni, nell'ambito dei differenti programmi europei : Interreg Alcotra, di Med, FP7 ecc … <br /><br />\tGli obbiettivi principali di myEurope sono dunque i seguenti :\t<ol>\t\t<li><span style=\"font-weight:normal;font-size:14px;\">Aiutare attraverso il meccanismo di « Matchmaking » di myMed a mettere in comune delle idee ma anche delle risorse cosi  da poter sottomettere un progetto Interreg-Alcotra Med oppure ottenere dei finanziamenti europei (crediti FESR...)</span></li>\t\t<li><span style=\"font-weight:normal;font-size:14px;\">Scambiare delle pratiche e degli interessi comuni transfrontalieri per quanto riguarda il montaggio dei progetti </span></li>\t\t<li><span style=\"font-weight:normal;font-size:14px;\">Informare le persone iscritte alla rete sociale riguardo le differenti gare d'appalto dei progetti europei </span></li>\t<li><a data-rel=\"back\"><span style=\"font-weight:normal;font-size:14px;white-space:normal;\">Questi scambi d'informazione saranno utili ai rappresentanti delle istituzioni francesi cosi come ai loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e italiane limitrofe, cosa che favorirà l'organizzazione delle attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti …)</span></a></li></ol>"
+msgstr "<b>MyEurope</b> è una rete sociale che si appoggia al meta-social network <em>myMed</em>, a disposizione dei sindaci, delle istituzioni, degli esponenti politici nonché delle realtà economiche (industriali, turistiche...) del territorio della regione francese del sud est (PACA, Rhône-Alpes) e delle tre regioni italiane del nord ovest (Piemonte, Liguria, Valle d'Aosta), ovvero dei territori ammessi al programma Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia).L'applicazione permetterà ai sindaci dell'Euroregione Alpi-Mediterraneo (MedAlp) di trovare dei partner all'interno de'interregione stessa, a condizione che quest'ultimi siano iscritti alla rete myEurope, cosicché possano montare assieme dei progetti comuni, nell'ambito dei differenti programmi europei : Interreg Alcotra, di Med, FP7 ecc … <br /><br /> </li><li><span style=\"font-weight:normal;font-size:14px;white-space:normal;\">Gli obbiettivi principali di myEurope sono dunque i seguenti :</span><ol><li><a data-rel=\"back\"><span style=\"font-weight:normal;font-size:14px;white-space:normal;\">Aiutare attraverso il meccanismo di « Matchmaking » di myMed a mettere in comune delle idee ma anche delle risorse cosi  da poter sottomettere un progetto Interreg-Alcotra Med oppure ottenere dei finanziamenti europei (crediti FESR...)</span></a></li><li><a data-rel=\"back\"><span style=\"font-weight:normal;font-size:14px;white-space:normal;\">Scambiare delle pratiche e degli interessi comuni transfrontalieri per quanto riguarda il montaggio dei progetti </span></a></li><li><a data-rel=\"back\"><span style=\"font-weight:normal;font-size:14px;white-space:normal;\">Informare le persone iscritte alla rete sociale riguardo le differenti gare d'appalto dei progetti europei </span></a></li><li><a data-rel=\"back\"><span style=\"font-weight:normal;font-size:14px;white-space:normal;\">Questi scambi d'informazione saranno utili ai rappresentanti delle istituzioni francesi cosi come ai loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e italiane limitrofe, cosa che favorirà l'organizzazione delle attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti …)</span></a></li></ol>"
 
 #: ../application/myEurope/views/MainView.php:139
 msgid "Restricted page for admins"

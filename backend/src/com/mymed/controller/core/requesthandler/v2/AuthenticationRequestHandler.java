@@ -90,16 +90,14 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 		} catch (final InternalBackEndException e) {
 			LOGGER.debug("AuthenticationManager not accessible!", e);
 			throw new ServletException(
-					"AuthenticationManager is not accessible because: "
-							+ e.getMessage()); // NOPMD
+					"AuthenticationManager is not accessible because: " + e.getMessage()); // NOPMD
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
+	 * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doGet
 	 * (javax.servlet.http.HttpServletRequest,
 	 * javax.servlet.http.HttpServletResponse)
 	 */
@@ -112,9 +110,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 		try {
 			final Map<String, String> parameters = getParameters(request);
 
-			final RequestCode code = REQUEST_CODE_MAP.get(parameters
-					.get(JSON_CODE));
-			
+			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+
 			final String login = parameters.get(JSON_LOGIN);
 			final String password = parameters.get(JSON_PASSWORD);
 			final String passwordCheck = parameters.get("passwordCheck");
@@ -123,25 +120,23 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 			case READ:
 				message.setMethod(JSON_CODE_READ);
 				if (login == null) {
-					throw new InternalBackEndException(
-							"login argument missing!");
+					throw new InternalBackEndException("login argument missing!");
 				} else if (password == null) {
-					throw new InternalBackEndException(
-							"password argument missing!");
+					throw new InternalBackEndException("password argument missing!");
 				} else {
 					String usrId = authenticationManager.readSimple(login, password);
 
 					message.setDescription("Successfully authenticated");
 
 					message.addDataObject(JSON_USER, usrId);
-					if (passwordCheck != null){ //for fast password check only
+					if (passwordCheck != null) { // for fast password check only
 						break;
 					}
-					
+
 					final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
 					String accessToken = h.SHA1ToString(login + password
 							+ System.currentTimeMillis());
-					
+
 					Map<String, String> session = new HashMap<String, String>();
 					session.put("user", usrId);
 					session.put("ip", request.getRemoteAddr());
@@ -165,8 +160,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 			case DELETE:
 				throw new InternalBackEndException("not implemented yet...");
 			default:
-				throw new InternalBackEndException(
-						"AuthenticationRequestHandler(" + code + ") not exist!");
+				throw new InternalBackEndException("AuthenticationRequestHandler("
+						+ code + ") not exist!");
 			}
 		} catch (final AbstractMymedException e) {
 			LOGGER.debug("Error in doGet operation", e);
@@ -180,8 +175,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
+	 * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
 	 * (javax.servlet.http.HttpServletRequest,
 	 * javax.servlet.http.HttpServletResponse)
 	 */
@@ -193,8 +187,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 		try {
 			final Map<String, String> parameters = getParameters(request);
-			final RequestCode code = REQUEST_CODE_MAP.get(parameters
-					.get(JSON_CODE));
+			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 			final String authentication = parameters.get(JSON_AUTH);
 			final String user = parameters.get(JSON_USER);
 			final String oldPassword = parameters.get(JSON_OLD_PWD);
@@ -208,17 +201,18 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				// Finalize the registration
 				String accessToken = parameters.get(JSON_ACCESS_TKN);
 				if (accessToken != null) {
-					//registrationManager.read(application, accessToken);
-					Map<String, String> auth = 
-			        		authenticationManager.readSimple("_to_validate_" + accessToken);
-					
-					Map<String, String> usr = profileManager.readSimple(auth.get("user"));
-					profileManager.update(usr.get("id"), "socialNetworkID", SOCIAL_NET_ID);
-					
-					Map<String, String> auth2 = authenticationManager.readSimple(
-							auth.get("login"));
+					// registrationManager.read(application, accessToken);
+					Map<String, String> auth = authenticationManager
+							.readSimple("_to_validate_" + accessToken);
 
-					if (auth2.size()<3){ // only if the user does not exist
+					Map<String, String> usr = profileManager.readSimple(auth.get("user"));
+					profileManager
+							.update(usr.get("id"), "socialNetworkID", SOCIAL_NET_ID);
+
+					Map<String, String> auth2 = authenticationManager.readSimple(auth
+							.get("login"));
+
+					if (auth2.size() < 3) { // only if the user does not exist
 						authenticationManager.updateSimple(auth.get("login"), auth, "_to_validate_" + accessToken);
 						message.setDescription("user profile created");
 						break;
@@ -226,10 +220,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					message.setStatus(AuthenticationManager.ERROR_CONFLICT);
 					message.setDescription("The login already exist");
 					break;
-					
+
 				} else if (authentication == null) {
-					throw new InternalBackEndException(
-							"authentication argument missing!");
+					throw new InternalBackEndException("authentication argument missing!");
 				} else if (user == null) {
 					throw new InternalBackEndException("user argument missing!");
 				} else {
@@ -237,73 +230,78 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 					Map<String, String> usr = json_to_map(user);
 					usr.put("socialNetworkID", SOCIAL_NET_ID + "_not_validated");
-        		    usr.put("socialNetworkName", SOCIAL_NET_NAME);
-					
+					usr.put("socialNetworkName", SOCIAL_NET_NAME);
+
 					Map<String, String> auth = json_to_map(authentication);
-        		    
-        		    LOGGER.info("Trying to create a new user:\n {}",
-							usr);
-        		    LOGGER.info("Trying to create a new auth:\n {}",
-							auth);
-        		    
-        		    Map<String, String> auth2 = authenticationManager.readSimple(
-							auth.get("login"));
-        		    
-        		    if (auth2.size()<3){ //the login does not exist yet
-        		    	
-        		    	// We use the APP_NAME as the epsilon for the hash function
-				        final HashFunction hashFunc = new HashFunction(application);
-				        final String accToken = hashFunc.SHA1ToString(usr.get("login") 
-				        		+ System.currentTimeMillis());
-						
-				        LOGGER.info("there....."+accToken);
-						authenticationManager.updateSimple("_to_validate_" + accToken, auth, null);
-						LOGGER.info("ok....."+usr.get("id"));
-						profileManager.update(usr.get("id"), usr);//TODO check user contains id
-						
-						/* send confirmation mail   */  
-						authenticationManager.sendRegistrationEmailSimple( application, usr, accToken);
-						
+
+					LOGGER.info("Trying to create a new user:\n {}", usr);
+					LOGGER.info("Trying to create a new auth:\n {}", auth);
+
+					Map<String, String> auth2 = authenticationManager.readSimple(auth.get("login"));
+
+					if (auth2.size() < 3) { // the login does not exist yet
+
+						// We use the APP_NAME as the epsilon for the hash function
+						final HashFunction hashFunc = new HashFunction(application);
+						final String accToken = hashFunc.SHA1ToString(usr.get("login")
+								+ System.currentTimeMillis());
+
+						LOGGER.info("there....." + accToken);
+						authenticationManager.updateSimple("_to_validate_" + accToken,
+								auth, null);
+						LOGGER.info("ok....." + usr.get("id"));
+						profileManager.update(usr.get("id"), usr);// TODO check user
+																											// contains id
+
+						/* send confirmation mail */
+						authenticationManager.sendRegistrationEmailSimple(application, usr,
+								accToken);
+
 						LOGGER.info("registration email sent");
 						message.setDescription("registration email sent");
-        		    }  
+					} else {
+						LOGGER.info("######user already registered");
+						message.setDescription("user already registered");
+						message.setStatus(409);
+					}
 
 				}
 				break;
 
 			case UPDATE:
 				if (authentication == null) {
-					throw new InternalBackEndException(
-							"Missing authentication argument!");
+					throw new InternalBackEndException("Missing authentication argument!");
 				} else if (oldPassword == null || oldLogin == null) {
-					//throw new InternalBackEndException("oldPassword argument missing!");
-					
+					// throw new
+					// InternalBackEndException("oldPassword argument missing!");
+
 					LOGGER.info("----oauthed user, @TODO this should go in create ");
 					Map<String, String> auth = json_to_map(authentication);
 					Map<String, String> auth2 = authenticationManager.readSimple(oldLogin);
-					if (!auth.containsKey("user")){
+					if (!auth.containsKey("user")) {
 						auth.put("user", auth2.get("user"));
 					}
-					if (!auth.containsKey("password")){
+					if (!auth.containsKey("password")) {
 						auth.put("password", auth2.get("password"));
 					}
 					authenticationManager.updateSimple(auth.get("login"), auth, oldLogin);
-					
+
 				} else {
-					
+
 					Map<String, String> auth = json_to_map(authentication);
-					String oldUser = authenticationManager.readSimple(oldLogin, oldPassword); //check pw
+					String oldUser = authenticationManager.readSimple(oldLogin,
+							oldPassword); // check pw
 					auth.put("user", oldUser);
-        		    // no exception = update the Authentication
-					LOGGER.info("Trying to update authentication:\n {}",auth);
-					authenticationManager.updateSimple(auth.get("login"), auth, oldLogin); // @TODO check for login
+					// no exception = update the Authentication
+					LOGGER.info("Trying to update authentication:\n {}", auth);
+					authenticationManager.updateSimple(auth.get("login"), auth, oldLogin); /* @TODO check for login*/
 					LOGGER.info("Authentication updated!");
-					
+
 				}
 				break;
 			default:
-				throw new InternalBackEndException(
-						"AuthenticationRequestHandler(" + code + ") not exist!");
+				throw new InternalBackEndException("AuthenticationRequestHandler("
+						+ code + ") not exist!");
 			}
 		} catch (final AbstractMymedException e) {
 			LOGGER.debug("Error in doPost operation", e);

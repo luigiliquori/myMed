@@ -1,18 +1,20 @@
-<? include("header.php") ?>
+<? include("header.php"); ?>
 
-<div data-role="page" id="association" >	
+<div data-role="page" id="association" >
 
+	<? tab_bar_main("?action=extendedProfile"); ?>
+	<?php  include('notifications.php');?>
 
-	<? if ($this->getUserType() == USER_NICE_BENEVOLAT): ?>
+	<!--<? if ($this->getUserType() == USER_NICE_BENEVOLAT): ?>
 		<? header_bar(array(
 			_("Associations") => url("listAssociations"),
 			_("Nouvelle association") => null)) ?>
 	<? else: ?>
 		<? header_bar(array(
 			_("Création de profil association") => null)) ?>
-	<? endif ?>
+	<? endif ?>-->
 			
-	<form data-role="content" method="post" data-ajax="false" 
+	<form data-role="content" method="post" data-ajax="false" id="benForm"
 		action="<?= url("extendedProfile:doCreate", array("type" => ASSOCIATION)) ?>" >
 				
 		<p>
@@ -28,9 +30,9 @@
 		<? include('ProfileAssociationForm.php') ?>
 		
 		<? wizard_footbar(_("Créer le profil")) ?>
-
+		
 	</form>
 
 </div>
 
-<? include("footer.php") ?>
+<? include("footer.php"); ?>

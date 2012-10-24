@@ -109,9 +109,10 @@ public class GeoLocationManager extends AbstractManager {
             searchBean.setId(id.toString());
             searchBean.setLocationId(locId);
             searchBean.setLatitude(latitude);
-            searchBean.setLatitude(longitude);
+            searchBean.setLongitude(longitude);
             searchBean.setValue(value);
             searchBean.setDate(timestamp);
+            
             /** If the TTL has been specified, the expiration time is set on the bean. */
             if (permTime != 0) {
                 searchBean.setExpirationDate(timestamp + (A_MILLION * permTime));
@@ -155,6 +156,7 @@ public class GeoLocationManager extends AbstractManager {
                     final int longitude, final int radius, final boolean filterFlag) throws InternalBackEndException,
                     IOBackEndException {
         try {
+        	
             final List<MSearchBean> resultReports = new LinkedList<MSearchBean>();
             final Map<byte[], Map<byte[], byte[]>> reports = new HashMap<byte[], Map<byte[], byte[]>>();
             final List<long[]> covId = Locator.getCoveringLocationId(latitude, longitude, radius);

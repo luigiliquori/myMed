@@ -45,7 +45,7 @@ function printMarkers(type, lon, lat, rad) {
 			'accessToken': $("#accessToken").val(),
 			'code': 1
 	};
-
+	
 	$.ajax({
 		url: "../../lib/dasp/ajax/POI.php",
 		data: params,
@@ -55,48 +55,33 @@ function printMarkers(type, lon, lat, rad) {
 				$.each(data.dataObject.pois, function(i, poi) {
 					try {
 						value = JSON.parse(poi.value);
-						id = poi.id;
-						var Address, Email, Link, IdMedia, Altitude = null;
 						
-						// GET ICON
-						if(value.icon) {
-							icon = value.icon;
-						} else {
-							icon = null;
-						}
-
-						if(value.Adresse) {
-							Address = value.Adresse;
-						}
-						if(value.Email) {
-							Email = value.Email;
-						}
-						if(value.Link) {
-							Link = value.Link;
-						}
-						if(value.IdMedia) {
-							IdMedia = value.IdMedia;
-						}
-						if(value.Altitude) {
-							Altitude = value.Altitude;
-						}
-						// type
+						id = poi.id;
+						icon = 		value.icon ? 		value.icon : null;
+						adresse = 	value.adresse ? 	value.adresse : null;
+						email = 	value.email ? 		value.email : null;
+						link = 		value.link ? 		value.link : null;
+						idMedia = 	value.idMedia ? 	value.idMedia : null;
+						altitude = 	value.altitude ? 	value.altitude : null;
+						
 						description = "<p>Type: " + type + "</p>";
-						// description
 						description += value.description;
-						// delete button;
+						// TO DELETE THE POI
 						description += "<br /><br /><a href='#' onClick='deleteMarker(\"" + value.latitude + "\", \"" + value.longitude + "\", \"" + poi.id + "\", \"" + type +"\")' data-role='button' data-theme='r' >Delete</a>";
-						var marker = addMarker(new google.maps.LatLng(value.latitude, value.longitude), icon, value.title, description, null, false, id, Address, Email, Link, IdMedia, Altitude);
+						
+						// add marker
+						var marker = addMarker(new google.maps.LatLng(value.latitude, value.longitude), icon, value.title, description, null, false, id, adresse, email, link, idMedia, altitude);
 						google.maps.event.addListener(marker, "click", function(e) {
 							marker.ib.open(map, this);
 						});
+						
 					} catch (err) {
 //						alert("ERR : " + poi.value);
 					}
 				});
 			}
 		},
-		error: function(data){
+		error: function(data) {
 			alert("error: " + data)	;
 		}
 	});

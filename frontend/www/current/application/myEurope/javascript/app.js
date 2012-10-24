@@ -176,26 +176,6 @@ function rate(el, id, usr, feedback) {
 	});
 }
 
-function ratemyEurope(el, id, usr, feedback) {
-	var succ = el.parents('[data-role=page]').find('#notification-success');  //should work on that
-	var data = {
-			application : "myEurope",
-			predicate: id,
-			producer : usr,
-			feedback : feedback
-		};
-	
-	//console.log(data);
-	$.get('../../lib/dasp/ajax/Interaction', data, function(res) {
-		//console.log(res);
-		var response = JSON.parse(res);
-		succ.find('h3').text(response.description);
-		succ.show();
-		//location.reload(0);
-		
-	});
-}
-
 function updateProfile(k, v) {
 	
 	var data = {};
@@ -255,7 +235,7 @@ function reply(el){
 function profile(user){
 	$.get('../../lib/dasp/ajax/ExtendedProfile', {
 		application: application,
-		id : user,
+		id : user
 	}, function(res) {
 		//console.log(res);
 		$('#popupInfo').html(res);
@@ -340,3 +320,36 @@ function isiPhoneoriPad(){
 	return true; //deviceStr.match(/(iphone|ipod|ipad)/);
 }
 
+$("#login").live("swipeleft", function() {
+  $.mobile.changePage("#register", {transition : "slide"});
+});
+
+$("#register").live("swipeleft", function() {
+  $.mobile.changePage("#about", {transition : "slide"});
+}).live("swiperight", function() {
+  $.mobile.changePage("#login"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#about").live("swiperight", function() {
+  $.mobile.changePage("#register"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#home").live("swipeleft", function() {
+  $.mobile.changePage("#infos", {transition : "slide"});
+});
+
+$("#infos").live("swipeleft", function() {
+  $.mobile.changePage("#blogs", {transition : "slide"});
+}).live("swiperight", function() {
+  $.mobile.changePage("#home"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#blogs").live("swipeleft", function() {
+  $.mobile.changePage("#profile", {transition : "slide"});
+}).live("swiperight", function() {
+  $.mobile.changePage("#infos"/*, {transition : "slide",reversed : true}*/);
+});
+
+$("#profile").live("swiperight", function() {
+  $.mobile.changePage("#blogs"/*, {transition : "slide",reversed : true}*/);
+});

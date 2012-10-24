@@ -64,7 +64,6 @@ public class PublishRequestHandler extends AbstractMatchMaking {
 	protected PubSubManager pubsubManager;
 	protected ProfileManager profileManager;
 	protected StatisticsManager statisticsManager;
-	protected static final String PUBLISH_ARG = "pub";
 
 	public PublishRequestHandler() throws InternalBackEndException {
 		super();
@@ -295,7 +294,7 @@ public class PublishRequestHandler extends AbstractMatchMaking {
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
-							statisticsManager.update(application, PUBLISH_ARG);
+							statisticsManager.update(application, StatisticsManager.PUBLISH_ARG);
 						}}).start();
 
 

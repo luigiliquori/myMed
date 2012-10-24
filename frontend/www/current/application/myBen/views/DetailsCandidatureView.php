@@ -10,10 +10,13 @@ $profCandidat = ProfileBenevole::getFromUserID($candidature->publisherID);
 
 <div data-role="page">
 
-	<? header_bar(array(
+	<!--<? header_bar(array(
 			_("Annonces") => url("listAnnonces"),
 			$annonce->titre => url("annonce:details", array("id" => $annonce->id)),
-			_("Candidature de " . $candidature->publisherName) => null)) ?>
+			_("Candidature de " . $candidature->publisherName) => null)) ?>-->
+		
+	<? tab_bar_main("?action=main"); ?>
+	<?php  include('notifications.php');?>
 	
 	<? global $READ_ONLY; $READ_ONLY=true ?>
 	<form data-role="content" action="#" >

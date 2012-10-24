@@ -2,16 +2,19 @@
 
 <div data-role="page" id="benevole" >	
 
-	<? if ($this->getUserType() == USER_NICE_BENEVOLAT): ?>
+	<? tab_bar_main("?action=extendedProfile"); ?>
+	<?php  include('notifications.php');?>
+	
+	<!--<? if ($this->getUserType() == USER_NICE_BENEVOLAT): ?>
 		<? header_bar(array(
 			_("Bénévoles") => url("listBenevoles"),
 			_("Nouveau bénévole") => null)) ?>
 	<? else: ?>
 		<? header_bar(array(
 			_("Création de profil bénévole") => null)) ?>
-	<? endif ?>
+	<? endif ?>-->
 	
-	<form data-role="content" method="post" data-ajax="false" 
+	<form data-role="content" method="post" data-ajax="false" id="benForm"
 		action="<?= url("extendedProfile:doCreate", array("type" => BENEVOLE)) ?>" >
 		
 		<p>
@@ -25,11 +28,8 @@
 		</p>
 		
 		<? include('ProfileBenevoleForm.php') ?>
-	
 		<? wizard_footbar(_("Créer le profil")) ?>
-		
-	</form>
-	
+	</form>	
 </div>
 
 <? include("footer.php"); ?>

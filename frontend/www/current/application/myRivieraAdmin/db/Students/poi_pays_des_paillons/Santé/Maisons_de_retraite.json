@@ -1,0 +1,16 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Type": "Santé", "SousType": "Maison de retraite", "Nom": "Maison de retraite \"La Fontouna\"", "Description": "Le bâtiment en forme de E, entièrement  humanisé et restructuré, comprend 3 étages sur rez de chaussée.  Locaux d'hébergement avec exposition Est Sud-Ouest et loggia à chaque chambre. Etablissement médicalisé.  ", "Adresse": "187 Av Comte de Saissi   06390 Bendejun \nContact: 04 93 91 72 00 \/ 04 93 55 06 77", "E-mail": "", "Link": "", "IdMedia": "Maison-Retraite-La-Fontouna-Bendejun.jpg", "ComUrbaine": "Pays des Paillons", "Latitude": "43.83527", "Longitude": "7.294321", "Altitude": "" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Santé", "SousType": "Maison de retraite", "Nom": "Maison de retraite \"L'Olivier\"", "Description": "La résidence \"L'Olivier\" à l'Escarène\noffre à ses résidents un environnement unique. L’établissement développe une prise en charge individualisée et personnalisée, qui tient compte des besoins et des désirs de chaque résident.\n ", "Adresse": "201 Quartier L'Olivier  06440 L'Escarène        Contact: 04 93 91 65 65", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.834155", "Longitude": "7.35648", "Altitude": "360 m" }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "Santé", "SousType": "Maison de retraite", "Nom": "Maison de retraite \"Au Savel\"", "Description": "La résidence « AU SAVEL », située au coeur d'un parc verdoyant et tranquille, jouit d’une situation géographique priviligiée et particulièrement propice à la retraite.L'établissement, dont tous les niveaux sont desservis par 2 ascenseurs, peut accueillir jusqu'à 190 résidents. \n ", "Adresse": "59 route de Berre  06390 Contes              Contact: 04 93 91 66 70", "E-mail": "", "Link": "", "IdMedia": "", "ComUrbaine": "Pays des Paillons", "Latitude": "43.817436", "Longitude": "7.30805", "Altitude": "210 m " }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": null, "Description": null, "Adresse": null, "E-mail": null, "Link": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null, "Altitude": null }, "geometry": null }
+,
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Adresse": null, "E-mail": null, "Link": null, "IdMedia": null, "ComUrbaine": null, "Latitude": null, "Longitude": null, "Altitude": null }, "geometry": null }
+
+]
+}

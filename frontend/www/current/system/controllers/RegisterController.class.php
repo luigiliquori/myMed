@@ -21,7 +21,7 @@ class RegisterController extends AbstractController {
 				$this->error = "L'email ne peut pas être vide.";
 			} else if(!$_POST['checkCondition']){
 				$this->error = "Vous devez accepter les conditions d'utilisation.";
-			} else if (filter_var($_POST['email'], 'FILTER_VALIDATE_EMAIL') === false){
+			} else if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false){
 				$this->error = _("Email not valid");
 			}
 			

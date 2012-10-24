@@ -2,8 +2,11 @@
 
 <div data-role="page" id="login">
 
-	<? header_bar(array(
-			_("Bénévoles") => null)) ?>
+	<!--<? header_bar(array(
+			_("Bénévoles") => null)) ?>-->
+			
+	<? tab_bar_main("?action=main"); ?>
+	<?php  include('notifications.php');?>
 	
 	<div data-role="content">
 	

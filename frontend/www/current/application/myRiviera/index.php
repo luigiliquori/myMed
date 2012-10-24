@@ -13,7 +13,11 @@ include(MYMED_ROOT . '/system/controllers/index-controller.php');
 
 textdomain(GLOBAL_MESSAGES);
 
-// Call the main controller
-main_controller();
+// IE DETECTION - FORBIDEN
+if (ereg("MSIE", $_SERVER["HTTP_USER_AGENT"])) {
+	include 'IeView.php';
+} else {
+	main_controller();
+}
 
 ?>

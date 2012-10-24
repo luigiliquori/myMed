@@ -1,11 +1,12 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
-{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Gares", "Nom": "Stazione di Ventimiglia", "Description": "Inaugurata nel 1871, è una stazione internazionale di diramazione a cui fanno capo quattro linee ferroviarie: la Marsiglia - Ventimiglia, la Ventimiglia - Genova, la Cuneo - Ventimiglia, e la linea merci che la collega con la stazione di smistamento internazionale Ventimiglia Parco Roja.", "Addresse": "Piazza Cesare Battisti, 1 ", "Link": "http:\/\/www.fsitaliane.it\/", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.7923", "Longitude": "7.609708" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "Transports", "SousType": "Gares", "Nom": "Stazione di Ventimiglia", "Description": "Inaugurata nel 1871, è una stazione internazionale di diramazione a cui fanno capo quattro linee ferroviarie: la Marsiglia - Ventimiglia, la Ventimiglia - Genova, la Cuneo - Ventimiglia, e la linea merci che la collega con la stazione di smistamento internazionale Ventimiglia Parco Roja.", "Addresse": "Piazza Cesare Battisti, 1 ", "Link": "http:\/\/www.fsitaliane.it\/", "E-mail": "", "Id-Media": "260px-Gare_de_Ventimiglia", "Comm Urb": "Vintimille", "Latitude": "43.7923", "Longitude": "7.609708" }, "geometry": null }
 ,
 { "type": "Feature", "properties": { "Type": "", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 
 ]
 }

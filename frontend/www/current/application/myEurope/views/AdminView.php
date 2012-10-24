@@ -15,7 +15,7 @@
 		<input id="user_permission" name="permission" value="" type="hidden" />
 		<input id="user_id" name="id" value="" type="hidden" />
 		
-		<p><?= "New users waiting for validation" ?>: <?= count($this->blocked) ?></p>
+		<p><?= _("New users waiting for validation") ?>: <?= count($this->blocked) ?></p>
 		<ul data-role="listview" data-inset="true">
 		<? foreach( $this->blocked as $i => $item ) : ?>
 			<li>		
@@ -26,7 +26,7 @@
 		<? endforeach ?>
 		</ul>
 		
-		<p><?= "Normal users" ?>: <?= count($this->normals) ?></p>
+		<p><?= _("Normal users") ?>: <?= count($this->normals) ?></p>
 		<ul data-role="listview" data-inset="true">
 		<? foreach( $this->normals as $i => $item ) : ?>
 			<li>
@@ -37,7 +37,7 @@
 		<? endforeach ?>	
 		</ul>
 		
-		<p><?= "Admins" ?>: <?= count($this->admins) ?></p>
+		<p><?= _("Admins") ?>: <?= count($this->admins) ?></p>
 		<ul data-role="listview" data-inset="true">
 		<? foreach( $this->admins as $i => $item ) : ?>
 			<li>

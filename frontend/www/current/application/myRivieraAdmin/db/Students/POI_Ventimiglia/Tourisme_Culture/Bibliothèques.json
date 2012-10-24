@@ -1,9 +1,10 @@
 {
 "type": "FeatureCollection",
+                                                                                
 "features": [
-{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Bibliothèques", "Nom": "Biblioteca civica Aprosiana", "Description": "Fondata nel 1648 da Angelico Aprosio, fu la prima biblioteca pubblica ad essere aperta in Liguria ed una fra le più antiche d'Italia. All'interno conserva il Fondo antico  che comprende circa 7.000 volumi tra manoscritti ed incunaboli  di  inestimabile valore storico e scientifico. Il Fondo Moderno  di circa 10.000 volumi tra saggistica, narrativa, letteratura , filosofia, è invece conservato nella nuova sede recentemente riallestita in Via Cavour, nella città moderna, ed inaugurata nel 2010.", "Addresse": "Via Garibaldi, 10                  Tel: +39 0184 351209", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "Vintimille", "Latitude": "43.790856", "Longitude": "7.608036" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "Tourisme_Culture", "SousType": "Bibliothèques", "Nom": "Biblioteca civica Aprosiana", "Description": "Fondata nel 1648 da Angelico Aprosio, fu la prima biblioteca pubblica ad essere aperta in Liguria ed una fra le più antiche d'Italia. All'interno conserva il Fondo antico  che comprende circa 7.000 volumi tra manoscritti ed incunaboli  di  inestimabile valore storico e scientifico. Il Fondo Moderno  di circa 10.000 volumi tra saggistica, narrativa, letteratura , filosofia, è invece conservato nella nuova sede recentemente riallestita in Via Cavour, nella città moderna, ed inaugurata nel 2010.", "Addresse": "Via Garibaldi, 10                  Tel: +39 0184 351209", "Link": "", "E-mail": "", "Id-Media": "biblioteca", "Comm Urb": "Vintimille", "Latitude": "43.790856", "Longitude": "7.608036" }, "geometry": null }
 ,
-{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": "", "Nom": "", "Description": "", "Addresse": "", "Link": "", "E-mail": "", "Id-Media": "", "Comm Urb": "", "Latitude": "", "Longitude": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "Type": "\u000c", "SousType": null, "Nom": null, "Description": null, "Addresse": null, "Link": null, "E-mail": null, "Id-Media": null, "Comm Urb": null, "Latitude": null, "Longitude": null }, "geometry": null }
 
 ]
 }

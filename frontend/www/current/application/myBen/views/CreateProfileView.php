@@ -7,6 +7,8 @@ include("header.php"); ?>
 <div data-role="page" id="switch">
 
 	<? include("header-bar.php") ?>
+	<? tab_bar_main("?action=extendedProfile"); ?>
+	<?php  include('notifications.php');?>
 	
 	<div data-role="content">
 

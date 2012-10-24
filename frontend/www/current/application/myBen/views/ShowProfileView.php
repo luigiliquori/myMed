@@ -1,5 +1,7 @@
 <? require("header.php"); ?>
-<div data-role="page"  >	
+<div data-role="page"  >
+<? tab_bar_main("?action=extendedProfile"); ?>	
+<?php  include('notifications.php');?>
 
 	<? 
 	// Build breadcrumb
@@ -22,7 +24,7 @@
 	}
 	
 	// header bar
-	header_bar($bc);
+	//header_bar($bc);
 	
 	?>
 	
@@ -69,3 +71,4 @@
 	</form>
 	
 </div>
+<?php include("footer.php"); ?>

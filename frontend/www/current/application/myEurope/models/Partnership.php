@@ -17,7 +17,7 @@ class Partnership extends Entry {
 	}
 	 
 	
-	public function initSearch($request) {
+	public function setIndex($request) {
 		$this->index = array();
 		foreach (array('t', 'pf', 'pi', 'po', 'r') as $el){
 			if (!isset($request[$el])){
@@ -36,7 +36,7 @@ class Partnership extends Entry {
 		$this->index[] = new DataBeanv2("k", ENUM, join("|", $this->makeKeywords($request['k']))); // keywords
 	}
 	
-	public function initCreate($request) {
+	public function setBroadcastIndex($request) {
 		$this->index = array();
 		foreach (array('t', 'pf', 'pi', 'po') as $el){
 			if (!isset($request[$el])){

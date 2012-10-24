@@ -3,27 +3,26 @@
 
 	<? tab_bar_default("#infos") ?>
 	<div data-role="content">
-		<br />
-		<b>Programmi di cooperazione</b> dei quali possono beneficiare i territori dell'Euroregione Alpi-Mediterraneo:
 		
-		<ul data-role="listview" data-inset="true">
+		<ul data-role="listview" data-inset="true" data-filter="true">
+
+			<li data-role="list-divider">Programmi di cooperazione dei quali possono beneficiare i territori dell'Euroregione Alpi-Mediterraneo:</li>
+		
 			<li><a href="#alcotra">Programma transfrontaliero Alcotra</a></li>
 			<li><a href="#Marittimo">Programma transfrontaliero Italia-Francia Marittimo</a></li>
 			<li><a href="#ENPI CBC">Programma transfrontaliero ENPI CBC Bacino Mediterraneo</a></li>
 			<li><a href="#MED">Programma transnazionale MED</a></li>
 			<li><a href="#Spazio alpino">Programma transnazionale Spazio Alpino</a></li>
 			<li><a href="#Interreg">Programma interregionale Interreg IV C</a></li>
-		</ul>
-		<br>
-		<b>Fondi strutturali europei</b> ai quali potete rivolgervi per il finanziamento dei vostri progetti :
-		<ul data-role="listview" data-inset="true">
+		
+			<li data-role="list-divider">Fondi strutturali europei ai quali potete rivolgervi per il finanziamento dei vostri progetti:</li>
+
 			<li><a href="#FESR">Programma operativo FESR </a></li>
 			<li ><a href="#FSE">Programma operativo FSE</a></li>
 			<li ><a href="#FEASR">Fondo Europeo Agricolo di Sviluppo Rurale FEASR</a></li>
-        </ul>			
-		<br>
-		Informazioni relative ai futuri programmi 2014-2020:
-		<ul data-role="listview" data-inset="true">
+	
+			<li data-role="list-divider">Informazioni relative ai futuri programmi 2014-2020:</li>
+
 			<li><a href="#Ricerca"> Orizzonte 2020-Il futuro programma quadro per la Ricerca e l'Innovazione </a></li>
 		</ul> 
 	</div>
