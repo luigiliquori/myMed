@@ -37,10 +37,7 @@ class MainController extends AuthenticatedController {
 		
 		$result = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
 
-// 		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-// 		$debugtxt  .= var_export($_SESSION["profileFilled"], TRUE);
-// 		$debugtxt .= "</pre>";
-// 		debug($debugtxt);
+
 		
 		if (empty($result)){
 			$this->error = "";

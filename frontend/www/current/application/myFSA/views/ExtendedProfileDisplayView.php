@@ -1,10 +1,21 @@
-<? include("header.php"); ?>
+<?include('../../system/lang/langue.php');
+ include("header.php"); ?>
 <div data-role="page" id="PublishView" data-theme="b">
 <div class="wrapper">
 
 <? include("header-bar.php"); ?>
 
 <div data-role="content" data-theme="b">
+	<!-- langue -->
+	<form action="?action=extendedProfile" method="post" data-ajax="false">
+			<label for="lang" ><?= translate("Language") ?>	: </label>
+			<select id="lang" name="lang">
+				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Francais</option>
+				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
+				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
+			</select>
+	<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" data-icon="refresh"/>
+	</form>
 	
 	<ul data-role="listview" class="ui-listview">
 		<li class="ui-li ui-li-static ui-body-a ui-li-has-thumb">
