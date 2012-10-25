@@ -123,5 +123,4 @@ $word = 'More informations';
 $_SESSION['dictionary'][$word][FR] = "Plus d'informations";
 $_SESSION['dictionary'][$word][IT] = "Maggiori Informazioni";
 
-
 ?>

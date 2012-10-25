@@ -1,12 +1,72 @@
-<?include('../../system/lang/langue.php');
+<?
  include("header.php"); ?>
 <div data-role="page" id="PublishView" data-theme="b">
-<div class="wrapper">
+
 
 <? include("header-bar.php"); ?>
+<div data-role="content">
 
-<div data-role="content" data-theme="b">
-	<!-- langue -->
+			<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<img src="<?=$_SESSION['user']->profilePicture?>" alt="Your photo here" class="ext-profile-photo"/>
+					<h3 class="ui-li-heading"><?=$_SESSION['user']->name?></h3>
+					<p class="ui-li-desc"><?=$_SESSION['user']->login?></p>
+				</div>
+
+
+
+		<?php if ($_SESSION["profileFilled"] == "company") {?>
+			<div class="ui-block-b">
+			<h3 class="ui-li-heading"><?= translate("About you") ?> </h3>		
+					<br> <?= translate("Company type") ?> : <br/>
+					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['type']?></a>
+					
+					<br> <?= translate("Company name") ?> :<br/>
+					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['name']?></a>
+					
+					<br> <?= translate("Company address") ?> : <br/>
+					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['address']?></a>
+					
+					<br> <?= translate("SIRET") ?> :<br/>
+					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['number']?></a>
+			</div>
+		<?php }?>
+		<?php if ($_SESSION["profileFilled"] == "employer") {?>
+			<div class="ui-block-b">
+			<h3 class="ui-li-heading"> <?= translate("About you") ?> </h3>
+
+						
+				<!-- 	displaying array:
+				
+						$object = array( 
+						"type" => $_POST["ctype"],
+						"name" => $_POST["cname"],
+						"address" => $_POST["caddress"],
+						"number" => $_POST["cnumber"]); -->
+			
+					<br> <?= translate("Campus") ?> : <br/>
+					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['type']?></a>
+					
+					<br> <?= translate("University") ?> :<br/>
+					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['name']?></a>
+					
+					<br> <?= translate("Field of Studies") ?> : <br/>
+					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['address']?></a>
+					
+					<br> <?= translate("Student number") ?> :<br/>
+					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['number']?></a>
+				</div>
+		<?php }?>
+		
+				<?php if ($_SESSION["profileFilled"] == "guest") {?>
+			<div class="ui-block-b">
+			<h3 class="ui-li-heading"> <?= translate("About you") ?> </h3>
+
+						Vous etes connectes en tant qu'invite.
+			</div>
+		<?php }?>
+					<div class="ui-block-c">
+				<!-- langue -->
 	<form action="?action=extendedProfile" method="post" data-ajax="false">
 			<label for="lang" ><?= translate("Language") ?>	: </label>
 			<select id="lang" name="lang">
@@ -16,77 +76,10 @@
 			</select>
 	<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" data-icon="refresh"/>
 	</form>
-	
-	<ul data-role="listview" class="ui-listview">
-		<li class="ui-li ui-li-static ui-body-a ui-li-has-thumb">
-			<img src="<?=$_SESSION['user']->profilePicture?>" alt="Your photo here" class="ui-li-thumb"/>
-			<h3 class="ui-li-heading"><?=$_SESSION['user']->name?></h3>
-			<p class="ui-li-desc"><?=$_SESSION['user']->login?></p>
-		</li>
-
-		<?php if ($_SESSION["profileFilled"] == "company") {?>
-		<li class="ui-li ui-li-static ui-body-a">
-			<h3 class="ui-li-heading"> Full profile information</h3>
-			<div>
-						
-				<!-- 	displaying array:
-				
-						$object = array( 
-						"type" => $_POST["ctype"],
-						"name" => $_POST["cname"],
-						"address" => $_POST["caddress"],
-						"number" => $_POST["cnumber"]); -->
 			
-					<br> Company type : <br/>
-					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['type']?></a>
-					
-					<br> Company name :<br/>
-					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['name']?></a>
-					
-					<br> Company address : <br/>
-					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['address']?></a>
-					
-					<br> Company number :<br/>
-					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['number']?></a>
 			</div>
-		</li>		
-		<?php }?>
-		<?php if ($_SESSION["profileFilled"] == "employer") {?>
-		<li class="ui-li ui-li-static ui-body-a">
-			<h3 class="ui-li-heading"> Profil etendu</h3>
-			<div>
-						
-				<!-- 	displaying array:
-				
-						$object = array( 
-						"type" => $_POST["ctype"],
-						"name" => $_POST["cname"],
-						"address" => $_POST["caddress"],
-						"number" => $_POST["cnumber"]); -->
-			
-					<br> Campus : <br/>
-					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['type']?></a>
-					
-					<br> Universite :<br/>
-					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['name']?></a>
-					
-					<br> Filiere : <br/>
-					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['address']?></a>
-					
-					<br> Soumettre :<br/>
-					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['number']?></a>
 			</div>
-		</li>		
-		<?php }?>
-		
-				<?php if ($_SESSION["profileFilled"] == "guest") {?>
-		<li class="ui-li ui-li-static ui-body-a">
-			<h3 class="ui-li-heading"> Full profile information</h3>
-			<div>
-						Vous etes connectes en tant qu'invite.
-			</div>
-		</li>		
-		<?php }?>
-	</ul>	
 </div>
+
 <? include("footer.php"); ?>
+</div>

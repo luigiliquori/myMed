@@ -58,12 +58,16 @@
 	<!-- stars rating -->
 	
 	<div data-role="content">
-		<b>Auteur</b> : <?= $this->result->publisherID ?><br/>
-		<b>Catégorie</b>: <?= $_SESSION['pred2'] ?><br/>
-		<b>Titre</b>: <?= $_SESSION['pred3'] ?><br/>
+	<?php  $truncated = substr($this->result->publisherID, 6)?>
+	<div class="ui-grid-b">
+		<div class="ui-block-a"><b><?= translate('Author') ?>:</b></div> <div class="ui-block-b"> <?= $truncated ?></div>
+		<div class="ui-block-a"><b><?= translate('Cathegory') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred2'] ?></div>
+		<div class="ui-block-a"><b><?= translate('Tittle') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred3'] ?></div>
 	<!--  	<b>Wrapped1</b>:--> <?//= $this->result->wrapped1 ?>
 	<!-- 	<b>Wrapped2</b>: --><?//= $this->result->wrapped2 ?>
-	 	<b>Text</b>: <?= $this->result->data1 ?><br/>
+	</div>
+	<br></br>
+	 	<div class="ui-grid-b"><b><?= translate('Text') ?></b>: <?= $this->result->data1 ?><br/>
 	 	<?
  	 	//needed for displaying comments with user
 			$string = $this->result->data2;
@@ -77,7 +81,7 @@
 	 	<!-- displaying comments -->	 	
 	 	<?	if(isset($this->comments[1])) {	
 	 	?>
-	 	<b>Commentaires:</b><br/>
+	 	<b><?= translate('Comments') ?>:</b><br/>
 	 	<?
 	 			foreach ($this->comments[1] as  $key=>$value){
 	 	?>
@@ -89,10 +93,13 @@
 	 		}
 	 	?>
 	 	<!-- place for comments -->
+	 	<div class="ui-grid-b">
+		<div class="ui-block-a">
 	 	<form action="index.php?action=publish" method="POST" data-ajax="false">
 	 		<textarea name="data2"></textarea>
-	 		<input type="submit" name="method" value="Comment"/>
-	 	</form>
+	 		<input type="hidden" name="method" value="Comment" />
+			<input type="submit" value="<?= translate('Comment') ?>" />
+	 	</form></div></div>
 	 	<!-- place for comments -->
 	 	
 	<!-- 	<b>Data2</b>: --><?//= $this->result->data2 ?><br/>

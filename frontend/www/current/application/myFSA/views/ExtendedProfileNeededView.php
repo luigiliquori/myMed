@@ -6,8 +6,8 @@
 					
 				<div data-role="content">
 					<br />
-					<p>Pour utiliser toutes les fonctionnalités de myFSA remplissez s'il vous plait votre profil étendu 
- 						<a href="?action=ExtendedProfile" data-role="button">Compléter votre profil</a>
+					<p><?= translate("To use all options of myFSA please fill your profile") ?>
+ 						<a href="?action=ExtendedProfile" data-role="button"><?= translate("Fill your profile") ?></a>
 					</p>
 				</div>
 			</div>

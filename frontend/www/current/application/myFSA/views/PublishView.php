@@ -12,7 +12,7 @@
 				<!-- 			<input type="text" name="pred1" placeholder="pred1"/> -->
 			    <div data-role="fieldcontain">
                     <label for="selectmenu1">
-                        Catégorie:
+                        <?= translate("Cathegory") ?>:
                     </label>
                     <select name="pred2" id="selectmenu1">
                         <option value="evenement">
@@ -22,10 +22,10 @@
                             Actualité
                         </option>
                         <option value="Offre d’emploi">
-                            Offre d’emploi
+                            <?= translate("Internship offers") ?>
                         </option>
                         <option value="Offre de stage">
-                            Offre de stage
+                            <?= translate("Job offers") ?>
                         </option>
                          <option value="Location bureaux">
                             Location bureaux
@@ -43,7 +43,7 @@
                 </div>
 			
 <!-- 		<input type="text" name="pred2" placeholder="pred2"/> -->
-			<input type="text" name="pred3" placeholder="Titre"/>			
+			<input type="text" name="pred3" placeholder="<?= translate('Tittle') ?>"/>			
 						
 			
 <!-- 			<input type="text" name="wrapped1" placeholder="wrapped1"/> -->
@@ -69,7 +69,9 @@
 			<textarea id="CLEeditor" name="data1"></textarea>
 <!-- 			<input type="text" name="data2" placeholder="data2"/> -->
 <!-- 			<input type="text" name="data3" placeholder="data3"/> -->
-			<input type="submit" name="method" value="Publier"/>
+			
+			<input type="hidden" name="method" value="Publier" />
+			<input type="submit" value="<?= translate('Publish') ?>" />
 			<!--<input type="submit" name="method" value="Search" />-->
 			
 		</form>
