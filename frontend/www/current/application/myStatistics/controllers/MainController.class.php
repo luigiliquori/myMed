@@ -11,6 +11,9 @@ require(MYMED_ROOT."/application/myMed/controllers/MainController.class.php");
 
 class MainController extends \AuthenticatedController {
 	
+	public $response="blabla";
+	public $helloooo="wtf";
+	
 	public static function getBootstrapApplication(){
 	 	return \MainController::$bootstrapApplication;
 	}
@@ -20,9 +23,12 @@ class MainController extends \AuthenticatedController {
 	* ?action=main in the address
 	*/
 	public function handleRequest() {
-
 		parent::handleRequest();
-		$this->renderView("main");
+		//if(isset($_POST['first-select-curve'])){
+			generateGraph();
+			$this->$helloooo = "hellooooooooo";
+		//}
+		//$this->renderView("main");
 	}
 
 	function generateGraph(){

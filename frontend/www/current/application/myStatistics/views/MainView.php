@@ -15,9 +15,10 @@ require_once("footer-bar.php");
 
 	<!-- Main part of the page -->
 	<div data-role="content">
+		<?php echo 'hello: '. $this->{statistic\response}  ?>
 
 		<!-- Parameters choice -->
-		<form action="<?= url("main:generateGraph");?>" method="post" data-ajax="false">
+		<form action="?action=main" method="post" data-ajax="false">
 			<fieldset data-role="controlgroup" data-type="horizontal" style="text-align:center">
 				<!-- <legend>Statistics for:</legend>-->
 
@@ -78,23 +79,30 @@ require_once("footer-bar.php");
 				<!-- Validate -->
 				<input type="submit" button data-icon="check" data-iconpos="right" value="Validate" data-inline="true" />
 			</fieldset>
+			<input type="hidden" name="first-select-curve" id="first-select-curve" value="ok"/>
 		</form>
 
 		<!-- Chart -->
-
+		<?php 
+		if(empty($this->response)){
+			echo "empty response";
+		}
+		echo 'response: '.$this->response;
+		?>
+		
 		<!-- Plot graph -->
 		<script type="text/javascript" language="javascript">
 			//get informations about curves 
 			<?php
-				if($this->response!=""){
+				//if(empty($this->response)){
 				//	echo 'var curve1= new Array('.implode(',',$curve1).');';
 					$curveObj = json_decode($this->response);
 					$curve = $curveObj->curve;
 					echo 'var curve1='.$curve.';';
-				}
-				else{
-					echo 'var curve1 = [[1,3],[2,7],[3,9],[4,1],[5,4],[6,6],[7,8],[8,2],[9,5],[10,1],[11,8],[12,3]];';
-				}
+				//}
+				//else{
+				//	echo 'var curve1 = [[1,3],[2,7],[3,9],[4,1],[5,4],[6,6],[7,8],[8,2],[9,5],[10,1],[11,8],[12,3]];';
+				//}
 			?>
 			
 			//create an array of curves 
