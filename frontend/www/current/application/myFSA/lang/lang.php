@@ -8,20 +8,20 @@ $_SESSION['dictionary'][$word][IT] = "Il progetto myMed nasce da una duplice con
 //Home View
 $word = 'Localise';
 $_SESSION['dictionary'][$word][FR] = "Localiser";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Localizza";
 
 $word = 'Publish';
 $_SESSION['dictionary'][$word][FR] = "Publier";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Pubblica";
 
 $word = 'Search';
 $_SESSION['dictionary'][$word][FR] = "Rechercher";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Ricerca";
 
 // Footer bar
 $word = 'Home';
 $_SESSION['dictionary'][$word][FR] = "Page d'acceuil";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Home";
 
 $word = 'Profile';
 $_SESSION['dictionary'][$word][FR] = "Profil";
@@ -30,122 +30,122 @@ $_SESSION['dictionary'][$word][IT] = "Profilo";
 // Extended profile display view
 $word = 'Company';
 $_SESSION['dictionary'][$word][FR] = "Entreprise";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Aienda";
 
 $word = 'Company type';
 $_SESSION['dictionary'][$word][FR] = "Type d'entreprise";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Tipo d'azienda";
 
 $word = 'Company name';
 $_SESSION['dictionary'][$word][FR] = "Nom de l'entreprise";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Nome dell'azienda";
 
 $word = 'Company Address';
 $_SESSION['dictionary'][$word][FR] = "Adresse de l'entreprise";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Indirizzo dell'azienda";
 
-$word = 'SIRET';
+$word = 'Trade Reg. No.-SIRET';
 $_SESSION['dictionary'][$word][FR] = "SIRET";
-$_SESSION['dictionary'][$word][IT] = "SIRET";
+$_SESSION['dictionary'][$word][IT] = "Partita IVA";
 
 $word = 'Campus';
 $_SESSION['dictionary'][$word][FR] = "Campus";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Campo";
 
 $word = 'University';
-$_SESSION['dictionary'][$word][FR] = "Universite";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][FR] = "Université";
+$_SESSION['dictionary'][$word][IT] = "Università";
 
 $word = 'Field of Studies';
-$_SESSION['dictionary'][$word][FR] = "Filiere";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][FR] = "Filière";
+$_SESSION['dictionary'][$word][IT] = "Branca studi";
 
 $word = 'Student number';
-$_SESSION['dictionary'][$word][FR] = "Numero d'etudiante";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][FR] = "Numero d'étudiant";
+$_SESSION['dictionary'][$word][IT] = "Numero matricola";
 
 $word = 'About you';
 $_SESSION['dictionary'][$word][FR] = "Informations générales";
 $_SESSION['dictionary'][$word][IT] = "Informazioni generali";
 
 $word = 'University';
-$_SESSION['dictionary'][$word][FR] = "Universite";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][FR] = "Université";
+$_SESSION['dictionary'][$word][IT] = "Università";
 
 // Extended profile form view
 $word = 'Submit';
 $_SESSION['dictionary'][$word][FR] = "Soumettre";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Inoltra";
 
 // Extended profile form view
 $word = 'To use all options of myFSA please add your profile informations';
 $_SESSION['dictionary'][$word][FR] = "Pour utiliser toutes les fonctionnalités de myFSA remplissez s'il vous plait votre profil étendu";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Per utilizzare tutte le funzionalità di myFSA vogliate perfavore completare il vostro profilo";
 
 $word = 'Fill your profile';
 $_SESSION['dictionary'][$word][FR] = "Compléter votre profil";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Completare profilo";
 
 //Publish view
 $word = 'Submit';
 $_SESSION['dictionary'][$word][FR] = "Soumettre";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Inoltra";
 
 $word = 'Cathegory';
 $_SESSION['dictionary'][$word][FR] = "Catégorie";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Categoria";
 
-$word = '';
+$word = 'Events';
 $_SESSION['dictionary'][$word][FR] = "Evénement";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Eventi";
 
-$word = '';
+$word = 'News';
 $_SESSION['dictionary'][$word][FR] = "Actualité";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "News";
 
 $word = 'Job offers';
-$_SESSION['dictionary'][$word][FR] = "Offre d’emploi";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][FR] = "Offres d’emploi";
+$_SESSION['dictionary'][$word][IT] = "Offerte d'impiego";
 
 $word = 'Internship offers';
-$_SESSION['dictionary'][$word][FR] = "Offre de stage";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][FR] = "Offres de stage";
+$_SESSION['dictionary'][$word][IT] = "Offerte tirocinio";
 
-$word = '';
+$word = 'Rent Offices';
 $_SESSION['dictionary'][$word][FR] = "Location bureaux";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Uffici in affitto";
 
-$word = '';
+$word = 'Partnerships';
 $_SESSION['dictionary'][$word][FR] = "Partenariats";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Partenariato";
 
-$word = '';
+$word = 'Organization';
 $_SESSION['dictionary'][$word][FR] = "Organisme";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Ente/azienda";
 
-$word = '';
+$word = 'Company visits';
 $_SESSION['dictionary'][$word][FR] = "Visite d’entreprise";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Visite in azienda";
 
-$word = 'Tittle';
+$word = 'Title';
 $_SESSION['dictionary'][$word][FR] = "Titre";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Titolo";
 
 //Search view
 $word = 'Advanced searching';
-$_SESSION['dictionary'][$word][FR] = "Recherche avancee";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][FR] = "Recherche avancée";
+$_SESSION['dictionary'][$word][IT] = "Ricerca avanzata";
 
 //Details view
 $word = 'Author';
 $_SESSION['dictionary'][$word][FR] = "Auteur";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Autore";
 
 $word = 'Text';
 $_SESSION['dictionary'][$word][FR] = "Text";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Testo";
 
 $word = 'Comments';
 $_SESSION['dictionary'][$word][FR] = "Commentaires";
-$_SESSION['dictionary'][$word][IT] = "";
+$_SESSION['dictionary'][$word][IT] = "Commenti";
 ?>
