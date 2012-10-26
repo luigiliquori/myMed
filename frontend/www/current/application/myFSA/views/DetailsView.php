@@ -82,21 +82,39 @@
 			
  	 	///needed for displaying comments with user
 	 	?>
-	 	<!-- displaying comments -->	 	
+	 	<!-- displaying comments -->
+	 	<div class="ui-grid-a">
+	 	<div class="ui-block-a">
 	 	<?	if(isset($this->comments[1])) {	
 	 	?>
 	 	<b><?= translate('Comments') ?>:</b><br/><br/>
 	 	<?
+	 			//$isthefirst=true;
 	 			foreach ($this->comments[1] as  $key=>$value){
+	 			/*if($isthefirst==true){
+	 				echo '<div data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true" data-collapsed="false">';
+	 				$isthefirst =false;
+	 			}
+	 			else{
+	 				echo '<div data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true">';
+	 			}*/
 	 	?>
-	 				<div class="ui-grid-a">
-	 				<div class="ui-block-a"><img src="<?=$this->pictures[1][$key]?>" align=left alt="Your photo here" width="100px" height="100px"/>
-	 				<b><?= $this->users[1][$key] ?></b><br/> 
-	 				<?= $this->comments[1][$key] ?></div>
-	 				</div><br/>
+	 				<div data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true" data-collapsed="false">
+	 					<h3><?= $this->users[1][$key] ?></h3>
+	 					<div class="ui-grid-a">
+	 					<div class="ui-block-a"><img src="<?=$this->pictures[1][$key]?>" align=left alt="Your photo here" width="100px" height="100px"/>
+	 					<!--  <b><?= $this->users[1][$key] ?></b><br/>-->
+	 					</div>
+	 						<div data-role="content">
+	 							<?= $this->comments[1][$key] ?>
+	 					</div>
+	 					</div>
+	 				</div>
 	 	<?		}
 	 		}
 	 	?>
+	 	</div>
+	 	</div> 
 	 	<!-- place for comments -->
 	 	<div class="ui-grid-b">
 		<div class="ui-block-a">
