@@ -34,13 +34,35 @@ require_once("header.php"); ?>
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
 		</form>
 
-		<div style="position: relative; top: -100px;">
+		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="width:70%; margin: auto;">
+			<h3 style="width: 170px; margin: auto;"><?= translate("Sign in with") ?>: </h3>
+			<ul data-role="listview">
+			<li>
+				<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">
+				<img class="ui-li-mymed" src="/system/img/social/google_32.png" />
+				Google</a>
+			</li>
+			<li>
+				<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external">
+					<img class="ui-li-mymed" src="/system/img/social/facebook_32.png" />
+				Facebook</a>
+			</li>
+			<li>
+				<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external">
+				<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
+				Twitter</a>
+			</li>
+			</ul>
+		</div>
+
+		<br /><br />
+		
 			<img alt="Alcotra" src="../../system/img/logos/alcotra.png" />
 			<br />
 			<i>"Ensemble par-delà les frontières"</i>
 			<br /><br />
 			<img alt="Alcotra" src="../../system/img/logos/europe.jpg" />
-		</div>
+		
 		
 	</div>
 	
