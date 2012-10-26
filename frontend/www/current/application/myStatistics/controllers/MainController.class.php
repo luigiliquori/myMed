@@ -5,17 +5,13 @@
  * it shows the statistics about publish and subscribe in myMed applications
  *
  */
-namespace statistic;
 
-require(MYMED_ROOT."/application/myMed/controllers/MainController.class.php");
+//require(MYMED_ROOT."/application/myMed/controllers/MainController.class.php");
 
-class MainController extends \AuthenticatedController {
-	
-	public $response="blabla";
-	public $helloooo="wtf";
+class MainController extends AuthenticatedController {
 	
 	public static function getBootstrapApplication(){
-	 	return \MainController::$bootstrapApplication;
+	 	return MainController::$bootstrapApplication;
 	}
 
 	/**
@@ -24,19 +20,17 @@ class MainController extends \AuthenticatedController {
 	*/
 	public function handleRequest() {
 		parent::handleRequest();
-		//if(isset($_POST['first-select-curve'])){
-			generateGraph();
-			$this->$helloooo = "hellooooooooo";
-		//}
-		//$this->renderView("main");
+		if(isset($_POST['first-select-curve'])){
+			$this->generateGraph();
+		}
+		$this->renderView("main");
 	}
 
 	function generateGraph(){
 		echo "generate graph";
 		//My brain to me :"use JSON"
 		//Yep good idea brain
-		$this->response = '{"name" : "curve1","type" : "month", "curve" : [[1,1],[2,2],[3,3],[4,4]]}';
-		$this->renderView("main");
+		$this->response = "{\"name\" : \"curve1\",\"type\" : \"month\", \"curve\" : \"[[1,5000],[2,5500],[3,10000],[4,500]]\"}";
 	}
 }
 ?>

@@ -28,27 +28,27 @@
  * @param labely String name
  */
 function createPlotGraph(conteneur,serie,name,padding,labelx,labely){
-  	$(document).ready(function(){
-  		courbe = $.jqplot(conteneur, serie, {
-  			//graph title
-  			title: name,
-  			//axis style
-  			axesDefaults: {
-  				labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-  		     },
-  		     axes: {
-  		    	 xaxis: {
-  		    		 //x axis
-  		    		 label: labelx,
-  		    		 pad: padding
-  		    	 },
-  		    	 yaxis: {
-  		    		 //y axis
-  		    		 label: labely
-  		    	 }
-  		     },
-  		     series: createPlotGraphCurveStyle(serie.length)
-  	  	});
+	$(document).ready(function(){
+		courbe = $.jqplot(conteneur, serie, {
+			//graph title
+			title: name,
+			//axis style
+			axesDefaults: {
+				labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+			},
+			axes: {
+				xaxis: {
+					//x axis
+					label: labelx,
+					pad: padding
+				},
+				yaxis: {
+					//y axis
+					label: labely
+				}
+			},
+			series: createPlotGraphCurveStyle(serie.length)
+		});
 	});
 }
 
@@ -64,38 +64,101 @@ function createPlotGraphCurveStyle(curveNumber){
 		//style curve 0
 		case 0:
 			curveStyleArray.push({
-				 // Change our line width and use a diamond shaped marker.
-	            //lineWidth:2,
-	            //markerOptions: { style:'dimaond' }
+				// Change our line width and use a diamond shaped marker.
+				//lineWidth:2,
+				//markerOptions: { style:'dimaond' }
 			});
 			break;
-		//style curve 1
+			//style curve 1
 		case 1:
 			curveStyleArray.push({
 				// Use (open) circlular markers.
 				markerOptions: { style:"circle" }
 			});
 			break;
-		//style curve 2
+			//style curve 2
 		case 2:
 			curveStyleArray.push({
 				// Don't show a line, just show markers.
-	            // Make the markers 7 pixels with an 'x' style
-	            showLine:false,
-	            markerOptions: { size: 7, style:"x" }
+				// Make the markers 7 pixels with an 'x' style
+				showLine:false,
+				markerOptions: { size: 7, style:"x" }
 
 			});
 			break;
-		//style curve 3
+			//style curve 3
 		case 3:
 			curveStyleArray.push({
 				// Use a thicker, 5 pixel line and 10 pixel
-	            // filled square markers.
-	            lineWidth:5,
-	            markerOptions: { style:"filledSquare", size:10 }
+				// filled square markers.
+				lineWidth:5,
+				markerOptions: { style:"filledSquare", size:10 }
 			});
 			break;
 		}
 	}
 	return curveStyleArray;
+}
+
+
+function createBarGraph(container,series,labels,names,title){
+	$(document).ready(function(){
+		$.jqplot.config.enablePlugins = true;
+		plot1 = $.jqplot(container, series , {
+
+			//graph title
+			title: title,
+
+			// The "seriesDefaults" option is an options object that will
+			// be applied to all series in the chart.
+			seriesDefaults:{
+				renderer:$.jqplot.BarRenderer,
+				rendererOptions: {
+					barPadding: 1,
+					barMargin: 15,
+					barDirection: 'vertical',
+					barWidth: 50
+				},
+				pointLabels: { show: true }
+			},
+
+			// Custom labels for the series are specified with the "label"
+			// option on the series option.  Here a series option object
+			// is specified for each series.
+			series: createLabelBarGraph(labels),
+
+			// Show the legend and put it outside the grid, but inside the
+			// plot container, shrinking the grid to accomodate the legend.
+			// A value of "outside" would not shrink the grid and allow
+			// the legend to overflow the container.
+			legend: {
+				show: true,
+				placement: 'outsideGrid'
+			},
+			axes: {
+				// Use a category axis on the x axis and use our custom ticks.
+				xaxis: {
+					renderer: $.jqplot.CategoryAxisRenderer,
+					ticks: names
+				},
+				// Pad the y axis just a little so bars can get close to, but
+				// not touch, the grid boundaries.  1.2 is the default padding.
+				yaxis: {
+					pad: 1.05,
+					//tickOptions: {formatString: '$%d'}
+				}
+			}
+		});
+	});
+}
+
+
+function createLabelBarGraph(labels){
+	arrayLabel = new Array();
+	for(var i=0;i<labels.length;i++){
+		arrayLabel.push({
+			label: labels[i]
+		});
+	}
+	return arrayLabel;
 }

@@ -10,6 +10,7 @@ class AuthenticatedController extends AbstractController implements IReputationM
 
 	/** The complete user */
 	public $user;
+	public static $bootstrapApplication = array("myEurope", "myRiviera", "myFSA", "myMemory", "myBen", "myEuroCIN");
 	
 	/**
 	 * Handle the request.

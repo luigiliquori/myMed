@@ -4,6 +4,8 @@ require_once("header-bar.php");
 require_once("footer-bar.php");
 ?>
 
+
+
 <!-- Main View of the statistic application -->
 <div id="home" data-role="page" data-dom-cache="true">
 
@@ -15,7 +17,6 @@ require_once("footer-bar.php");
 
 	<!-- Main part of the page -->
 	<div data-role="content">
-		<?php echo 'hello: '. $this->{statistic\response}  ?>
 
 		<!-- Parameters choice -->
 		<form action="?action=main" method="post" data-ajax="false">
@@ -71,7 +72,7 @@ require_once("footer-bar.php");
 					<option value="All">All</option>
 					<!-- All applications from myMed panel -->
 					<?php
-					foreach (statistic\MainController::getBootstrapApplication() as $key => $app){
+					foreach (MainController::getBootstrapApplication() as $key => $app){
 						echo '<option value="'.$app.'">'.$app.'</option>';
 					}
 					?>
@@ -83,32 +84,28 @@ require_once("footer-bar.php");
 		</form>
 
 		<!-- Chart -->
-		<?php 
-		if(empty($this->response)){
-			echo "empty response";
-		}
-		echo 'response: '.$this->response;
-		?>
-		
 		<!-- Plot graph -->
 		<script type="text/javascript" language="javascript">
 			//get informations about curves 
 			<?php
-				//if(empty($this->response)){
-				//	echo 'var curve1= new Array('.implode(',',$curve1).');';
+				if(!empty($this->response)){
 					$curveObj = json_decode($this->response);
 					$curve = $curveObj->curve;
 					echo 'var curve1='.$curve.';';
-				//}
-				//else{
-				//	echo 'var curve1 = [[1,3],[2,7],[3,9],[4,1],[5,4],[6,6],[7,8],[8,2],[9,5],[10,1],[11,8],[12,3]];';
-				//}
+				}
+				else{
+					//echo 'var curve1 = [[1,3],[2,7],[3,9],[4,1],[5,4],[6,6],[7,8],[8,2],[9,5],[10,1],[11,8],[12,3]];';
+					echo 'var series=[[1,2,3,4,5],[5,4,3,2,1]];';
+					echo 'var labels= ["push","pop"];';
+					echo 'var names=[\'janvier\',\'fevrier\',\'mars\',\'avril\',\'mai\'];';
+				}
 			?>
 			
 			//create an array of curves 
-			var serie = [curve1];
+			//var serie = [curve1];
 			//draw plot graph 
-			createPlotGraph("conteneur",serie,"Pub/Sub requests",0);
+			//createPlotGraph("conteneur",serie,"Pub/Sub requests",0);
+			createBarGraph("conteneur", series, labels, names,"Pub/Sub requests");
 		</script>
 		<br /> 
 		<br /> 
