@@ -4,7 +4,7 @@
 <div data-role="page" id="register" >	
 	
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<h1>Création d'un compte</h1>
+		<h1 style="color: white;">Création d'un compte</h1>
 		<span style="position: absolute;right: 3px;top: -3px;opacity: 0.6;">
 			<a class="social" style="background-position: -33px 0px;" href="https://plus.google.com/u/0/101253244628163302593/posts" title="myFSA on Google+"></a>
 			<a class="social" style="background-position: -66px 0px;" href="http://www.facebook.com/pages/MyFSA/122386814581009" title="myFSA on Facebook"></a>
@@ -53,7 +53,7 @@
 		</form>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="a">
+	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>
