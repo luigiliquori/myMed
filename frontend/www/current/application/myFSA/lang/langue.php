@@ -72,6 +72,10 @@ $word = 'University';
 $_SESSION['dictionary'][$word][FR] = "Université";
 $_SESSION['dictionary'][$word][IT] = "Università";
 
+$word = 'Update';
+$_SESSION['dictionary'][$word][FR] = "Mise à jour";
+$_SESSION['dictionary'][$word][IT] = "Aggiornatos";
+
 // Extended profile form view
 $word = 'Submit';
 $_SESSION['dictionary'][$word][FR] = "Soumettre";
