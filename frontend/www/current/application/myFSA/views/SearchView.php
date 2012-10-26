@@ -28,10 +28,10 @@
 				<!-- petla koncze! -->
 			</ul>
 				
-				<div data-role="collapsible" data-collapsed="true" data-theme="b" data-icon="plus">
+			<div data-role="collapsible" data-collapsed="true" data-content-theme="d">
 				<h3><?= translate('Advanced searching') ?></h3>
 				<form action="index.php?action=publish" method="POST" data-ajax="false">
-				
+			
 					<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
 						<fieldset data-role="controlgroup" >
 							<label for="textinputs1"> <?= translate('Cathegory') ?> </label> 
@@ -45,14 +45,13 @@
 						<input id="textinputs2"  name="pred3" placeholder="" type="text" />
 						</fieldset>
 					</div>
-						
-						<input type="hidden" name="method" value="Rechercher" />
-						<input type="submit" value="<?= translate('Search') ?>" data-icon="gear"/>
-						</form>
-				</div>	
+					
+					<input type="hidden" name="method" value="Rechercher" />
+					<input type="submit" value="<?= translate('Search') ?>" data-icon="gear"/>
+				</form>
+			</div>	
+			
+			<div class="push"></div>
 				
-				
-				<div class="push"></div>
-				
-			</div>
+	</div>
 </div>

@@ -9,10 +9,9 @@
 
 			<form action="index.php?action=publish" method="POST" data-ajax="false">
 			
-				<!-- 			<input type="text" name="pred1" placeholder="pred1"/>
-                    <label for="selectmenu1">
-                        <?= translate("Cathegory") ?>:
-                    </label><br />-->
+					<input type="text" name="pred3" placeholder="<?= translate('Title') ?>"/>
+					<br>
+			
                     <select name="pred2" id="selectmenu1">
                         <option value="evenement">
                             Evénement
@@ -42,13 +41,9 @@
 			
 <!-- 		<input type="text" name="pred2" placeholder="pred2"/> -->
             <br />
-			<input type="text" name="pred3" placeholder="<?= translate('Tittle') ?>"/>			
-						
 			
 <!-- 			<input type="text" name="wrapped1" placeholder="wrapped1"/> -->
 <!-- 			<input type="text" name="wrapped2" placeholder="wrapped2"/> -->
-			<br/>
-		
 			<script type="text/javascript">
 				// Dictionnary of already initliazed pages
 				gInitialized = {}
