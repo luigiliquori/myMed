@@ -7,7 +7,7 @@ class LocalisationView {
 		<!-- header -->
 		<div data-role="header" data-theme="b" data-position="fixed">
 			<h1>myFSA</h1>
-			<a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext">Deconnexion</a>
+			<a href="/application/myFSA/index.php?action=main" data-inline="true" rel="external" data-role="button" data-icon="back">Back</a>
 		</div>		
 <!-- 			<div data-role="header" data-theme="a"> -->
 <!-- 				<h1>Feuille de route</h1> -->
@@ -21,17 +21,7 @@ class LocalisationView {
 				<a id="ceparou06" style="position: absolute;bottom: -40px;right: 20px;z-index: 10;" href="http://www.ceparou06.fr/"><img alt="ceparou 06" src="../img/logos/ceparou06.png" style="max-height:35px;max-width:100px;" /></a>
 			</div>
 		</div>
-		
-		<!-- footer -->
-		<div data-role="footer" data-position="fixed" data-theme="a">
-			<div data-role="navbar">
-			<ul>
-				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=main" data-transition="none" data-back="true" data-icon="home">Page d'acceuil</a></li>
-				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=ExtendedProfile" data-icon="profile" >Profil</a></li>
-			</ul>
-			</div>
-		</div>
-		<!-- endOffooter -->
+
 		</div>
 		<?php }
 	
@@ -43,7 +33,7 @@ class LocalisationView {
 		<!-- header -->
 		<div data-role="header" data-theme="b" data-position="fixed">
 			<h1>myFSA</h1>
-			<a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext">Deconnexion</a>
+			<a href="/application/myFSA/index.php?action=main" data-inline="true" rel="external" data-role="button" data-icon="back">Back</a>
 			<a href="#Search" data-icon="search" data-iconpos="right" class="ui-btn-right">Rechercher</a>
 		</div>		
 		<!-- end of header -->
@@ -59,16 +49,6 @@ class LocalisationView {
 				</div>
 			</div>
 			
-		<!-- footer -->
-		<div data-role="footer" data-position="fixed" data-theme="a">
-			<div data-role="navbar">
-			<ul>
-				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=main" data-transition="none" data-back="true" data-icon="home">Page d'acceuil</a></li>
-				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=ExtendedProfile" data-icon="profile" >Profil</a></li>
-			</ul>
-			</div>
-		</div>
-		<!-- endOffooter -->
 			</div>
 		<?php }
 
@@ -109,7 +89,7 @@ class LocalisationView {
 		<!-- header -->
 		<div data-role="header" data-theme="b" data-position="fixed">
 			<h1>myFSA</h1>
-			<a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext">Deconnexion</a>
+			<a href="/application/myFSA/index.php?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="power" data-iconpos="notext">Deconnexion</a>
 		</div>
 		<!-- end of header -->
 		
@@ -284,8 +264,8 @@ class LocalisationView {
 	<div data-role="footer" data-position="fixed" data-theme="b">
 		<div data-role="navbar">
 			<ul>
-				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=main" data-transition="none" data-back="true" data-icon="home">Page d'acceuil</a></li>
-				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=ExtendedProfile" data-icon="profile" >Profil</a></li>
+				<li><a href="/application/myFSA/index.php?action=main" data-transition="none" data-back="true" data-icon="home">Page d'acceuil</a></li>
+				<li><a href="/application/myFSA/index.php?action=ExtendedProfile" data-icon="profile" >Profil</a></li>
 			</ul>
 		</div>
 	</div>

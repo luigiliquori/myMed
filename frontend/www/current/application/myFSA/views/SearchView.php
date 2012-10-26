@@ -55,5 +55,4 @@
 				<div class="push"></div>
 				
 			</div>
-<? include("footer.php"); ?>
 </div>

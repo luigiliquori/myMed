@@ -795,5 +795,3 @@ function changeEndMarkerIcon() {
 	EndMarkerIcon = true;
 	
 }
-
-

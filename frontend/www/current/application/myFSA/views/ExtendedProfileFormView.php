@@ -17,7 +17,7 @@
 
 	<? include("header-bar.php") ?>
 
-	<div data-role="content">
+	<div data-role="content" style="padding: 0px;">
 	
 		<!-- Tabs -->
 		<? tab_bar("company") ?>
@@ -41,7 +41,7 @@
 				<input type="text" name="cnumber" />
 				<br/>
 				
-				<input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" />
+				<center><input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" data-inline="true" /></center>
 		
 		</form>
 	</div>
@@ -52,7 +52,7 @@
 
 	<? include("header-bar.php") ?>
 
-	<div data-role="content">
+	<div data-role="content" style="padding: 0px;">
 	
 		<!-- Tabs -->
 		<? tab_bar("employer") ?>
@@ -76,7 +76,7 @@
 				<input type="text" name="tnumber" />
 				<br/>
 				
-				<input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" />
+				<center><input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" data-inline="true" /></center>
 		
 		</form>
 	</div>
@@ -87,7 +87,7 @@
 
 	<? include("header-bar.php") ?>
 	
-	<div data-role="content">
+	<div data-role="content" style="padding: 0px;">
 	
 		<!-- Tabs -->
 		<? tab_bar("guest") ?>
@@ -103,7 +103,7 @@
 				</fieldset>	 		
 				<br/>
 				
-				<input type="submit" value="Soumettre" data-theme="b" />
+				<center><input type="submit" value="Soumettre" data-theme="b" data-inline="true" /></center>
 		
 		</form>
 		

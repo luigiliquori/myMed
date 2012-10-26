@@ -9,11 +9,10 @@
 
 			<form action="index.php?action=publish" method="POST" data-ajax="false">
 			
-				<!-- 			<input type="text" name="pred1" placeholder="pred1"/> -->
-			    <div data-role="fieldcontain">
+				<!-- 			<input type="text" name="pred1" placeholder="pred1"/>
                     <label for="selectmenu1">
                         <?= translate("Cathegory") ?>:
-                    </label>
+                    </label><br />-->
                     <select name="pred2" id="selectmenu1">
                         <option value="evenement">
                             Evénement
@@ -40,9 +39,9 @@
                             Visite d’entreprise
                          </option>
                     </select>
-                </div>
 			
 <!-- 		<input type="text" name="pred2" placeholder="pred2"/> -->
+            <br />
 			<input type="text" name="pred3" placeholder="<?= translate('Tittle') ?>"/>			
 						
 			
@@ -71,11 +70,11 @@
 <!-- 			<input type="text" name="data3" placeholder="data3"/> -->
 			
 			<input type="hidden" name="method" value="Publier" />
-			<input type="submit" value="<?= translate('Publish') ?>" />
+			<center><input type="submit" value="<?= translate('Publish') ?>" data-inline="true" data-icon="check"/></center>
 			<!--<input type="submit" name="method" value="Search" />-->
 			
 		</form>
-<!-- tutaj koniec ehehe -->
+<!-- tutaj koniec ehehe 
 	<div class="push"></div>
 				</div>
 			</div>
@@ -83,8 +82,7 @@
 			<div style="text-align: center;">
 				
 			</div>
-		</div>
-<? include("footer.php"); ?>
+		</div>-->
 		</div>
 	</body>
 </html>
