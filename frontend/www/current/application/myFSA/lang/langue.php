@@ -77,6 +77,27 @@ $word = 'Submit';
 $_SESSION['dictionary'][$word][FR] = "Soumettre";
 $_SESSION['dictionary'][$word][IT] = "Inoltra";
 
+$word = 'Company';
+$_SESSION['dictionary'][$word][FR] = "Entreprise";
+$_SESSION['dictionary'][$word][IT] = "";
+
+$word = 'Employer/Student';
+$_SESSION['dictionary'][$word][FR] = "Employer/Etudiant";
+$_SESSION['dictionary'][$word][IT] = "";
+
+$word = 'Guest';
+$_SESSION['dictionary'][$word][FR] = "Invité";
+$_SESSION['dictionary'][$word][IT] = "";
+
+$word = 'After sign in as a guest you cannot use all options in myFSA';
+$_SESSION['dictionary'][$word][FR] = "Après une inscription comme invité vous pourrez seulement utiliser quelques options de myFSA";
+$_SESSION['dictionary'][$word][IT] = "";
+
+$word = 'Accept';
+$_SESSION['dictionary'][$word][FR] = "Accepter";
+$_SESSION['dictionary'][$word][IT] = "";
+
+
 // Extended profile form view
 $word = 'To use all options of myFSA please add your profile informations';
 $_SESSION['dictionary'][$word][FR] = "Pour utiliser toutes les fonctionnalités de myFSA remplissez s'il vous plait votre profil étendu";
