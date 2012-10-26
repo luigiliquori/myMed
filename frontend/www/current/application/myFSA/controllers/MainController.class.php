@@ -19,11 +19,13 @@ class MainController extends AuthenticatedController {
 		}elseif($_SESSION["profileFilled"] == "guest"){
 			$this->renderView("main2");
 		}
-		else
-			$this->renderView("main");
+		else{
+			$this->redirectTo("search");
 			//$p = new PublishController();
 			//$p->search();
 			//$this->renderView("search");
+		}
+
 					
 	}
 	

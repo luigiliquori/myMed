@@ -4,78 +4,23 @@
  *  This controller shows the search/publish form and receives "search" and "publish" queries.
  *  It renders the views "main" or "results".
  */
-class PublishController extends AuthenticatedController {
+class SearchController extends AuthenticatedController {
 	
 	public /*Array*/ $object;
 	public function handleRequest() {
 	
 		parent::handleRequest();
 			
-		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publier") {
-				
+		if(true) {
 			
 			//this field is to get info if DetailsView is redirect from publish controller or details controller
-			$_SESSION['controller'] = "Publish";
-			
-			// -- Publish
-			
-			$obj = new PublishObject();
-				
-			// Fill the object
-			$this->fillObj($obj);
-			$obj->publish();
-			
-			$this->result = $obj;
-			$_SESSION['author'] = $_SESSION['user']->id;
-			$this->result->publisherID = $_SESSION['user']->id;
-			$this->renderView("details");
-			
-
-				
-		}	elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Comment") {
+			$_SESSION['controller'] = "Search";
 	
-			// -- Publish
+			// -- Search
+			$this->search();	
+			$this->renderView("main");
 			
-			$obj = new PublishObject();
-				
-			// Fill the object
-			$this->fillObj2($obj);
-			$obj->publish();
-			
-			$this->result = $obj;
-
-			$this->result->publisherID = $_SESSION['author'];			
-			$this->renderView("details");
-			
-		} elseif(isset($_REQUEST['keyword']) && $_REQUEST['keyword'] == "Reputation") {
-// 			$_POST['data3'] = $_REQUEST['rate'];
-// 			$obj = new PublishObject();
-				
-// 			// Fill the object
-// 			$this->fillObj_rep($obj);
-// 			$obj->publish();
-			
-// 			$this->result = $obj;
-// 			$this->result->publisherID = $_SESSION['author'];
-
-// 			$this->object = array(
-// 					"reputation" => $_REQUEST['rate'],
-// 					"uselessfield" => '2'
-// 			);
-// 			$this->storeReputation($this);
-
-// 			$this->getReputation($this, $_SESSION['user']);
-// 			$this->renderView("details");
-		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
-			
-			
-		}
-		else {
-				
-			// -- Show the form
-		}
-	
-		$this->renderView("publish");
+		} 
 	}
 	
 	public function search() {
