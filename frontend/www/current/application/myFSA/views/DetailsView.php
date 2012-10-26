@@ -47,7 +47,7 @@
 	
 	<!-- stars rating -->
 <!-- rank: -->
-	<div class="starsAverage"></div>
+	<!--  <div class="starsAverage"></div>-->
 <!-- 			nb of votes: -->
 <!-- 		<div class="votes"></div> -->
 <!-- 		<div class="yourRank"> -->
@@ -59,15 +59,19 @@
 	
 	<div data-role="content">
 	<?php  $truncated = substr($this->result->publisherID, 6)?>
-	<div class="ui-grid-b">
+	<!-- <div class="ui-grid-b">
 		<div class="ui-block-a"><b><?= translate('Author') ?>:</b></div> <div class="ui-block-b"> <?= $truncated ?></div>
 		<div class="ui-block-a"><b><?= translate('Cathegory') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred2'] ?></div>
-		<div class="ui-block-a"><b><?= translate('Tittle') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred3'] ?></div>
-	<!--  	<b>Wrapped1</b>:--> <?//= $this->result->wrapped1 ?>
-	<!-- 	<b>Wrapped2</b>: --><?//= $this->result->wrapped2 ?>
-	</div>
-	<br></br>
-	 	<div class="ui-grid-b"><b><?= translate('Text') ?></b>: <?= $this->result->data1 ?><br/>
+		<div class="ui-block-a"><b><?= translate('Tittle') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred3'] ?></div>-->
+		<!--  	<b>Wrapped1</b>:--> <?//= $this->result->wrapped1 ?>
+		<!-- 	<b>Wrapped2</b>: --><?//= $this->result->wrapped2 ?>
+	<!--  </div>-->
+	<center><H1><?= translate('Tittle') ?></H1><div class="starsAverage"></div> </center>
+		 <div data-role="content" data-mini="true" style="text-align:center">
+	 		<h4><?= translate('Author') ?>: <?= $truncated ?></h4>
+	 		<h4><?= translate('Cathegory') ?>: <?= $_SESSION['pred2'] ?></h4>
+	 	</div>
+	 	<div class="ui-grid-b"><?= $this->result->data1 ?><br/>
 	 	<?
  	 	//needed for displaying comments with user
 			$string = $this->result->data2;
@@ -78,20 +82,39 @@
 			
  	 	///needed for displaying comments with user
 	 	?>
-	 	<!-- displaying comments -->	 	
+	 	<!-- displaying comments -->
+	 	<div class="ui-grid-a">
+	 	<div class="ui-block-a">
 	 	<?	if(isset($this->comments[1])) {	
 	 	?>
-	 	<b><?= translate('Comments') ?>:</b><br/>
+	 	<b><?= translate('Comments') ?>:</b><br/><br/>
 	 	<?
+	 			//$isthefirst=true;
 	 			foreach ($this->comments[1] as  $key=>$value){
+	 			/*if($isthefirst==true){
+	 				echo '<div data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true" data-collapsed="false">';
+	 				$isthefirst =false;
+	 			}
+	 			else{
+	 				echo '<div data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true">';
+	 			}*/
 	 	?>
-	 				<div class="ui-grid-a">
-	 				<div class="ui-block-a"><img src="<?=$this->pictures[1][$key]?>" align=left alt="Your photo here" width="100px" height="100px"/>
-	 				<b><?= $this->users[1][$key] ?></b> <?= $this->comments[1][$key] ?></div>
+	 				<div data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true" data-collapsed="false">
+	 					<h3><?= $this->users[1][$key] ?></h3>
+	 					<div class="ui-grid-a">
+	 					<div class="ui-block-a"><img src="<?=$this->pictures[1][$key]?>" align=left alt="Your photo here" width="100px" height="100px"/>
+	 					<!--  <b><?= $this->users[1][$key] ?></b><br/>-->
+	 					</div>
+	 						<div data-role="content">
+	 							<?= $this->comments[1][$key] ?>
+	 					</div>
+	 					</div>
 	 				</div>
 	 	<?		}
 	 		}
 	 	?>
+	 	</div>
+	 	</div> 
 	 	<!-- place for comments -->
 	 	<div class="ui-grid-b">
 		<div class="ui-block-a">
