@@ -48,7 +48,7 @@ class MainController extends AuthenticatedController {
 		else {
 			$_SESSION['ExtendedProfile'] = $result;
 			$this->success = "";
-			$this->renderView("main");
+			$this->redirectTo("search");
 		}
 
 	}
