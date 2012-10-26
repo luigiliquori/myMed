@@ -1,7 +1,7 @@
 	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
-				<li><a href="?action=main" data-transition="none" data-icon="home" <?= !isset($_GET['action']) || $_GET['action'] == "main" ? 'data-theme="b"' : '' ?>><?= translate("Search") ?></a></li>
+				<li><a href="?action=main" data-transition="none" data-icon="home" <?= !isset($_GET['action']) || $_GET['action'] == "details"|| $_GET['action'] == "search" ? 'data-theme="b"' : '' ?>><?= translate("Search") ?></a></li>
 				<?php if (isset($_SESSION["profileFilled"]) && $_SESSION["profileFilled"] != "guest") {?>
 				<li><a data-role="button" data-transition="fade" href="?action=Publish" data-icon="plus" <?= isset($_GET['action']) && $_GET['action'] == "Publish" ? 'data-theme="b"' : '' ?>> <?= translate("Publish") ?></a></li>
 				<?php } ?>
