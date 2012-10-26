@@ -1,9 +1,8 @@
 <? include("header.php"); ?>
-<div data-role="page" id="Search">
-	<div class="wrapper">
+<div data-role="page" id="Search" data-theme="b">
 	<? include("header-bar.php"); ?>
 		
-		<div data-role="content" data-theme="b">
+		<div data-role="content">
 			<br />
 			<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
 				<!-- petla koncze! -->		
@@ -54,7 +53,7 @@
 				
 				
 				<div class="push"></div>
-				</div>
+				
 			</div>
 <? include("footer.php"); ?>
 </div>

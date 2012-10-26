@@ -40,8 +40,8 @@ class Ranking
 		
 		$request = new Request("InteractionRequestHandler", 2);
 		$request->addArgument("application",  'myFSA');
-		$request->addArgument("producer",  $this->user);
-		$request->addArgument("consumer", $this->consumer);
+		$request->addArgument("producer",  $this->consumer);
+		$request->addArgument("consumer", $this->user);
 		$request->addArgument("start",  time());
 		$request->addArgument("end",  time());
 		$request->addArgument("predicate",  "ReputationOfPub");
@@ -57,13 +57,13 @@ class Ranking
 	 * @param String $user_id
 	 * @return void. The result is put in the success of the Handled provided
 	 */
-	public static /* List of ontologies */ function getMark(){
+	public /* List of ontologies */ function getMark(){
 		
 		// Get the reputation of the user in each the application
 		$request = new Request("ReputationRequestHandler", READ);
 		$request->addArgument("application",  'myFSA');
-		$request->addArgument("producer",  $_SESSION['user']->id);					// Reputation of data
-		$request->addArgument("consumer",  '');	
+		$request->addArgument("producer",  $this->consumer);					// Reputation of data
+		$request->addArgument("consumer",  $this->user);	
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		

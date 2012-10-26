@@ -124,6 +124,7 @@ class PublishController extends AuthenticatedController {
 			$_SESSION['pred3'] = $obj->pred3;
 			$_SESSION['data1'] = $obj->data1;
 			$_SESSION['data2'] = NULL;
+			$_SESSION['rank'] = 5;
 		} elseif(isset($_POST['pred2'])&&isset($_POST['pred3'])){
 			$obj->pred2 = $_POST['pred2'];
 			$obj->pred3 = $_POST['pred3'];

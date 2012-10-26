@@ -27,7 +27,6 @@ class LocalisationView {
 			<div data-role="navbar">
 			<ul>
 				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=main" data-transition="none" data-back="true" data-icon="home">Page d'acceuil</a></li>
-				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=social" data-icon="star" >Social</a></li>
 				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=ExtendedProfile" data-icon="profile" >Profil</a></li>
 			</ul>
 			</div>
@@ -65,7 +64,6 @@ class LocalisationView {
 			<div data-role="navbar">
 			<ul>
 				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=main" data-transition="none" data-back="true" data-icon="home">Page d'acceuil</a></li>
-				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=social" data-icon="star" >Social</a></li>
 				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=ExtendedProfile" data-icon="profile" >Profil</a></li>
 			</ul>
 			</div>
@@ -287,7 +285,6 @@ class LocalisationView {
 		<div data-role="navbar">
 			<ul>
 				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=main" data-transition="none" data-back="true" data-icon="home">Page d'acceuil</a></li>
-				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=social" data-icon="star" >Social</a></li>
 				<li><a href="http://mymed21.sophia.inria.fr/application/myFSA/index.php?action=ExtendedProfile" data-icon="profile" >Profil</a></li>
 			</ul>
 		</div>

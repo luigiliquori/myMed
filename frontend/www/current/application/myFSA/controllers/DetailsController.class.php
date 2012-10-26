@@ -15,7 +15,6 @@ class DetailsController extends AuthenticatedController {
 		
 		//keyword is set in the jquery file when user set rank on jquery plugin
 		if (isset($_REQUEST['keyword']) && $_REQUEST['keyword'] == "Reputation") {
-			//$this->feedback = 0.5;
 			$this->feedback = $_REQUEST['rate']/5;
 			$this->storeReputation();
 			//$this->getMark();
