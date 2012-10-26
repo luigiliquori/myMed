@@ -1,9 +1,5 @@
 <? 
 class MainController extends AuthenticatedController {
-
-//$this->renderView("Main");
-//$this->renderView("search");
-// 	$this->redirectTo("publish");
 	
 	public /*void*/ function handleRequest(){
 		
@@ -16,8 +12,6 @@ class MainController extends AuthenticatedController {
 			$this->fetchExtendedProfile();
 			$this->redirectTo("ExtendedProfile");
 
-		}elseif($_SESSION["profileFilled"] == "guest"){
-			$this->renderView("main2");
 		}
 		else{
 			$this->redirectTo("search");
