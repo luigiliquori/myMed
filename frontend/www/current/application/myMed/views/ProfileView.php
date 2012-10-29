@@ -2,7 +2,12 @@
 
 <div id="profile" data-role="page" data-dom-cache="true">
 
-	<? tab_bar_main("?action=profile"); ?>
+	<? if (isset($_SESSION['user']->is_guest)): ?>
+		<? tab_bar_main("?action=profile", 4); ?>
+	<? else: ?>
+		<? tab_bar_main("?action=profile"); ?>
+	<? endif; ?>
+
 	<div data-role="header" data-theme="none" data-position="fixed">
 		<a href="?action=profile#updateProfile" class="ui-btn-right" data-theme="e" data-mini="true" data-icon="pencil"><?= _("Edit") ?></a>
 	</div>
@@ -46,7 +51,7 @@
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 			<?php if ($status == "on") { ?>
 			<li data-icon="user"><a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile" rel="external"> <img class="ui-li-mymed"
-					alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" width="50" Style="margin-left: 5px; top: 5px;" /> <?= $applicationName ?>
+					alt="<?= $applicationName ?>" src="../../<?= $applicationName ?>/img/icon.png" width="50" Style="margin-left: 5px; top: 5px;" /> <?= $applicationName ?>
 					<div Style="position: relative; left: 0px;">
 						<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 						<?php if($i*20-20 < $_SESSION['reputation'][$applicationName . EXTENDED_PROFILE_PREFIX] ) { ?>

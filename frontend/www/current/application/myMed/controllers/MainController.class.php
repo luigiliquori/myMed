@@ -13,6 +13,8 @@ class MainController extends AuthenticatedController {
 	public static $bootstrapApplication = array("myEurope", "myRiviera", "myFSA", "myMemory", "myBen", "myEuroCIN");
 	public static $otherApplication = array("myJob", "myConsolato", "myStudent", "myAutoinsieme", "myREADME", "myAngel");
 
+	public $applicationUrls = array("myEurope"=>"europe", "myRiviera"=>"riviera");
+	
 	protected $currentSuccessMess = null;
 	protected $currentErrorMess = null;
 	
@@ -39,6 +41,11 @@ class MainController extends AuthenticatedController {
 	public function handleRequest() {
 
 		parent::handleRequest();
+		
+		if (strpos($_SERVER["HTTP_USER_AGENT"], "MSIE") !== false) {
+			$this->setError(_("You are using Internet Explorer, the interface is not optimized for it,
+				please download Chrome or Firefox for a better experience"));
+		}
 
 		// Set the flag
 		$_SESSION["launchpad"] = true;
@@ -64,7 +71,7 @@ class MainController extends AuthenticatedController {
 		debug_r($_SESSION['user']);
 
 		// REPUTATION
-		if (!isset($_SESSION['reputation'])){	// NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE
+		/*if (!isset($_SESSION['reputation'])){	// NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE
 
 			foreach($_SESSION['applicationList'] as $app => $status){
 				
@@ -100,7 +107,7 @@ class MainController extends AuthenticatedController {
 					$_SESSION['reputation'][$app . STORE_PREFIX] = 100;
 				}
 			}
-		}
+		}*/
 
 		$this->renderView("main");
 	}

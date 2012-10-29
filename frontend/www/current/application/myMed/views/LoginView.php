@@ -30,7 +30,7 @@ function tab_bar_login($activeTab) {
 	<? if (APPLICATION_NAME == 'myMed'): ?>
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" width="200" />
 	<? else: ?>
-	 	<img alt="title" src="img/icon.png" height="50" />
+	 	<img alt="<?= APPLICATION_NAME ?>" src="img/icon.png" height="50" />
 		<h1 style="display: inline-block;vertical-align: 20%;"><?= APPLICATION_NAME ?></h1>
 	<? endif; ?>
 	

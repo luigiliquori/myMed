@@ -58,7 +58,7 @@
 					<a href="?action=store&applicationStore=<?= $_REQUEST["applicationStore"] ?>&reputation=0#storeSub" data-role="button" data-inline="true" rel="external">-1</a>
 				</div>
 			</div>
-			
+			<a id="desc"></a>
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				<h3 Style="color: lightblue;">Description</h3>
 				<p><?php @include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description.php") ?></p>

@@ -3,8 +3,11 @@
 <? define('STORE_PREFIX' , '_store'); ?>
 
 <div data-role="page" id="store" data-dom-cache="true">
-
-	<? tab_bar_main("?action=store"); ?>
+	<? if (isset($_SESSION['user']->is_guest)): ?>
+		<? tab_bar_main("?action=store", 4); ?>
+	<? else: ?>
+		<? tab_bar_main("?action=store"); ?>
+	<? endif; ?>
 	<? include("notifications.php"); ?>
 
 	<div data-role="content" Style="padding: 0px; opacity: 0.9">
@@ -15,7 +18,7 @@
 						<div class="ui-bar-c" style="height:120px; text-align: left; overflow: hidden;">
 							<a href="?action=store&applicationStore=<?= $applicationName ?>" rel="external" class="myIcon" style="text-decoration: none;">
 								
-								<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" width="50px" Style="position: relative; left:8px; top:5px;">
+								<img alt="<?= $applicationName ?>" src="../../<?= $applicationName ?>/img/icon.png" width="50px" Style="position: relative; left:8px; top:5px;">
 								
 								<div Style="position: relative; left: 0px; top: 0px;">
 							    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
