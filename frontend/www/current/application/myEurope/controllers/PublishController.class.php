@@ -2,21 +2,15 @@
 
 class PublishController extends ExtendedProfileRequired {
 	
-	public $namespace;
-	
-	public function handleRequest() {
-		
-		parent::handleRequest();
+	function create() {
 
 		$t = time();
-		
 		$data = array(
 				"title" => $_POST['title'],
 				"time"=>$t,
 				"user" => $_SESSION['user']->id,
 				"partner" => $_SESSION['myEurope']->profile,
 				"text" => !empty($_POST['text'])?$_POST['text']:"contenu vide",
-				
 			);
 		
 		$metadata = array(
@@ -54,10 +48,10 @@ class PublishController extends ExtendedProfileRequired {
 		
 		$publish->send();
 		//push it in session
-		array_push($_SESSION['myEuropeProfile']->partnerships, $id);
+		array_push($_SESSION['myEurope']->partnerships, $id);
 		
 		$subscribe = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":".$this->namespace, "id"=>$id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileParts"),
+				array("application"=>APPLICATION_NAME.":part", "id"=>$id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileParts"),
 				CREATE, "v2/SubscribeRequestHandler");
 		$subscribe->send();
 		
@@ -65,6 +59,7 @@ class PublishController extends ExtendedProfileRequired {
 		//redirect to search with the indexes
 		unset($_POST['text']);
 		unset($_POST['action']);
+		unset($_POST['method']);
 		$this->req = "";
 
 		debug(json_encode($_POST));
@@ -77,7 +72,6 @@ class PublishController extends ExtendedProfileRequired {
 		//$this->renderView("Main", "post");
 		
 	}
-	
-	
+
 }
 ?>

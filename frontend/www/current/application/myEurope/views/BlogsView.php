@@ -5,17 +5,19 @@
 
 <div data-role="page" id="Blog">
 
-	<? tabs_simple(array($this->blog.' '."Blog")); ?>
+	<? tabs_simple(array($this->blog)); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content">
-	<br />
-		
+	<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"
+		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:blogs", "<?= APPLICATION_NAME ?>:blogMessage", null, "<?= $this->blog ?>"); $(this).addClass("ui-disabled");'><?= _("Subscribe")."<br>"._("to new messages") ?></a>
+	<br><br><br>
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>
 	<div data-role="collapsible" <? if($first){echo('data-collapsed="false"');$first=false;} ?>>
 		<h2><?= $v['title'] ?><time style="font-weight: lighter; font-size: 14px; font-style: italic; float: right;"><?= date('j/n/Y', $v['time']) ?></time></h2>
 		<ul data-role="listview" data-theme="d" data-divider-theme="d">
 			<li id="<?= $k ?>">
+			
 				<div style="position: absolute;">
 				<a class="vote-up-off" onclick="rate($(this), '<?= $k ?>', '<?= $v['user'] ?>', 1);" title="<?= $v['up'] ?> up votes (click again to undo)">up vote</a>
 				<p style="text-align: center;font-weight: bold;"><?= $v['up']-$v['down'] ?></p>
@@ -23,8 +25,9 @@
 				</div>
 				<div style="padding-left: 40px; padding-top: 5px; font-weight: initial;"><?= $v['text'] ?></div>
 				<p class="ui-li-aside"><a href="?action=extendedProfile&user=<?= $v['user'] ?>" data-transition="slidedown" class="user-sig"><?= prettyprintUser($v['user']) ?></a> le <time><?= date('j/n/y G:i', $v['time']) ?></time>
-				 <a href="" onclick="reply($(this));">reply</a>
-				 <a href="#deletePopup" data-rel="popup" data-position-to="origin" onclick="setIds($(this));" class="delete-icon" title=""></a>
+				 <a onclick="reply($(this));"><span class="highlighted">reply</span></a>
+				 <a title="<?= _("Subscribe") ?>" onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:blogs", "<?= APPLICATION_NAME ?>:blogComment", null, "<?= $this->blog.'comments'.$k ?>");'><span class="highlighted">subscribe</span></a>
+				 <? if($v['user']==$_SESSION['user']->id || $_SESSION['myEurope']->permission > 1) : ?><a href="#deletePopup" data-rel="popup" data-position-to="origin" onclick="setIds($(this));" class="delete-icon" title=""></a><? endif; ?>
 				</p>
 				<br />
 				<div data-role="collapsible" data-mini="true" data-inset="false">
@@ -59,16 +62,12 @@
 		<br />
 		<div data-role="collapsible" class="loadCLE" data-mini="true" data-inline="true" style="margin-bottom: -.5em;" data-collapsed-icon="edit" data-expanded-icon="faminus">
 			<h3 style="margin:auto;margin-left: 0;width:165px;"><?= _('New Message') ?></h3>
-			<form method="post" action="?action=Blog&blog=<?= $this->blog ?>"  style="text-align:right;">
+			<form method="post" action="?action=Blog&method=create&id=<?= $this->blog ?>"  style="text-align:right;">
 				<input type="text" name="title" placeholder="<?= _('title') ?>" data-mini="true" data-inline="true" value="" />
 				
 				<textarea id="CLEeditor" id="textBlog" name="text"></textarea>
 				<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('Post') ?>" />
 			</form>
-		</div>
-		
-		<div data-role="popup" id="popupInfo" data-theme="c" style="padding:10px;max-width:350px;">
-          <p>Here is a <strong>tiny popup</strong> being used like a tooltip. The text will wrap to multiple lines as needed.</p>
 		</div>
 
 		<div data-role="popup" id="commentPopup" data-theme="none">
@@ -85,11 +84,6 @@
 			<?= _('Sure?') ?><br />
 			<a onclick="commentRm();" data-role="button" data-theme="d" data-icon="remove" data-inline="true">Yes</a>
 		</div>
-		
-		<form method="post" id="deleteMessageForm" action="?action=Blog&blog=<?= $this->blog ?>" style="display:none;">
-			<input type="hidden" id="deleteField" name="field" value=""/>
-			<input type="hidden" id="deleteRm" name="rm" value=""/>
-		</form>
 		 
 	</div>
 </div>

@@ -7,16 +7,23 @@
 
 <? include("notifications.php"); ?>
 	<div data-role="content" style="text-align: center;">
-
-		<div data-role="fieldcontain">
-			<a href="#search" type="button" class="mymed-huge-button"><?= _('Search a partnership offer') ?>
+		
+		<div style="margin: -15px;padding: 40px 0;">
+			<a href="#search" type="button" class="mymed-huge-button" data-icon="fasearch" style="display: inline-block;"><?= _('Search a partnership offer') ?>
+			</a>
+			<span style="padding: 0 20px;"></span>
+			<a href="#post" type="button" class="mymed-huge-button" data-icon="edit" style="display: inline-block;"><?= _('Insert a partnership offer') ?>
 			</a>
 		</div>
-
-		<div data-role="fieldcontain">
-			<a href="#post" type="button" class="mymed-huge-button"><?= _('Insert a partnership offer') ?>
-			</a>
+		
+		<a href="/?action=store&applicationStore=myEurope#desc" rel="external" type="button" data-icon="question-sign" data-iconpos="notext" data-theme="g" style="position: absolute; top: -3px; left: 44px;"><?= _('About') ?>
+		</a>
+		<br><br>
+		<div data-role="controlgroup"  data-type="horizontal">
+			<a type="button" href="?action=ExtendedProfile&list" rel="external" data-theme="d" data-icon="list" ><?= _('Profiles list') ?></a>
+			<a href="?action=Admin" data-role="button" data-icon="gear"><?= _('Users list') ?></a>
 		</div>
+	
 	</div>
 </div>
 
@@ -29,8 +36,7 @@
 	<?php else: ?>
 		<a href="#updatePicPopup" data-rel="popup"><img src="http://graph.facebook.com//picture?type=large" width="80"></a>
 	<?php endif; ?>
-		
-		
+	
 		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<div style="display: inline-block;">
@@ -39,19 +45,20 @@
 			<a onclick="$('#updatePicPopup').popup('close');updateProfile('profilePicture', $('#picUrl').val());" data-role="button" data-theme="d" data-mini="true" data-icon="ok" data-inline="true"><?= _("Update") ?></a>
 		</div>
 		
-		<div style="display:inline-block; margin-left: 15px; vertical-align: 100%; color: white; font-weight: bold; font-size: 14pt; text-align: center;">
-			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> 
+		<div style="display:inline-block; margin-left: 15px; vertical-align: 100%; font-weight: bold; font-size: 14pt; text-align: center;">
+			<?= $_SESSION['user']->name ?> 
 		</div>
 		
-		<? $_SESSION['myEuropeProfile']->renderProfile(); ?>
-
-		<br />
-		<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
-		<br />
-		<? if ($_SESSION['myEurope']->permission > 1): ?>
-			<a href="?action=Admin" data-role="button" data-icon="gear" data-inline="true"><?= _('Admin') ?></a>
+		<? if (isset($_SESSION['myEurope'])) :?>
+			
+			 <br>
+			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>			
+		<? else: ?>
+			<a type="button" href="?action=ExtendedProfile&list" rel="external" data-theme="d" data-icon="faplus" ><?= _('Create my profile') ?></a>
 		<? endif; ?>
-		<!-- <a data-role="button" href="?action=logout" rel="external" data-icon="signout" data-inline="true"><?= _('Log Out') ?></a>  -->
+		<br><br>
+		
+
 		
 	</div>
 </div>
@@ -60,39 +67,40 @@
 
 	<? tab_bar_default("#blogs") ?>
 	<div data-role="content" style="text-align:center;">
+		<br>
 		<ul data-role="listview" data-inset="true" data-filter="true" >
 			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
 			<li>
-				<a href="?action=Blog&blog=Bonnes Pratiques" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?>
+				<a href="?action=Blog&id=Bonnes Pratiques" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?>
 				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?>
+				<a href="?action=Blog&id=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?>
 				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?>
+				<a href="?action=Blog&id=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?>
 				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
+				<a href="?action=Blog&id=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
 				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?>
+				<a href="?action=Blog&id=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?>
 				</a>
 			</li>
 			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?></li>
 			<li>
-				<a href="?action=Blog&blog=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?>
+				<a href="?action=Blog&id=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?>
 				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?>
+				<a href="?action=Blog&id=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?>
 				</a>
 			</li>
 			<li>
-				<a href="?action=Blog&blog=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?>
+				<a href="?action=Blog&id=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?>
 				</a>
 			</li>
 		</ul>
@@ -149,9 +157,32 @@
 
 	<? tabs_simple(array('Search')); ?>
 	<div data-role="content">
+		<br>
 		<form action="" id="searchForm">
-			<input type="hidden" name="action" value="Search" /> <br />
+			<input type="hidden" name="action" value="Search" />
+			<div data-role="popup" id="helpPopup" class="ui-content"
+				data-overlay-theme="e" data-theme="d">
+				<a href="#" data-rel="back" data-role="button" data-theme="d"
+					data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<ul data-role="listview" data-theme="d">
+					<li>Si vous laissez tous les champs <b>vides</b> (non cochés), vous
+					obtenez toutes les offres publiées à ce jour</li>
+					<li>Lorsque vous
+					laissez une categorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</li>
+					<li>Lorsque vous cochez plusieurs champs dans une catégorie, les 
+						résultats matcheront au moins un des critères.</li>
+				</ul>
+			</div>
 			
+			<div style="text-align: center;" data-role="controlgroup" data-type="horizontal">
+				<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>" />
+				<a href="#helpPopup" data-rel="popup" data-position-to="window"
+					data-theme="e" data-role="button"
+					data-icon="question-sign" data-iconpos="right"><?= _("Help") ?>
+				</a> 
+			</div>
+			 
+			<br>
 			<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
 				<div  data-role="collapsible" data-collapsed="false">
 					<h3>
@@ -238,29 +269,6 @@
 				</div>
 			</div>
 
-			<br />
-			
-			<div data-role="popup" id="helpPopup" class="ui-content"
-				data-overlay-theme="e" data-theme="d">
-				<a href="#" data-rel="back" data-role="button" data-theme="d"
-					data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<ul data-role="listview">
-					<li>Si vous laissez tous les champs <b>vides</b> (non cochés), vous
-					obtenez toutes les offres publiées à ce jour</li>
-					<li>Lorsque vous
-					laissez une categorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</li>
-					<li>Lorsque vous cochez plusieurs champs dans une catégorie, les 
-						résultats matcheront au moins un des critères.</li>
-				</ul>
-			</div>
-			
-			<div style="text-align: center;" data-role="controlgroup" data-type="horizontal">
-				<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>" />
-				<a href="#helpPopup" data-rel="popup" data-position-to="window"
-					data-theme="e" data-role="button"
-					data-icon="question-sign" data-iconpos="right"><?= _("Help") ?>
-				</a> 
-			</div>
 		</form>
 	</div>
 </div>
@@ -271,9 +279,10 @@
 	<div data-role="content">
 		<form action="./" method="post" id="publishForm">
 
-			<input type="hidden" name="action" value="Publish" /> <input
+			<input type="hidden" name="action" value="Publish" />
+			<input type="hidden" name="method" value="create" /> <input
 				type="hidden" name="r"
-				value="<?= $_SESSION['myEuropeProfile']->details['role'] ?>" />
+				value="<?= $_SESSION['myEurope']->details['role'] ?>" />
 
 			<div data-role="fieldcontain">
 				<label for="textinputp3" class="postTitle"><b><?= _('Title') ?> </b>
@@ -394,9 +403,9 @@ function tabs_info($item){
 }
 ?>
 <? if($_SESSION['user']->lang=="it"): ?>
-<? include("infos_it.php"); ?>
+	<? include("infos_it.php"); ?>
 <? else: ?>
-<? include("infos.php"); ?>
+	<? include("infos.php"); ?>
 <? endif; ?>
 
 <? include("footer.php"); ?>

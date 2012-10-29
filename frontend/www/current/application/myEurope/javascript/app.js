@@ -141,14 +141,19 @@ function sortBy( i ){
 	$('#matchinglist').listview('refresh');
 }
 
-function subscribe(el, application, mailTemplate, predicates) {
+function subscribe(el, application, mailTemplate, predicates, id) {
 	var page = el.parents('[data-role=page]').attr('id');
-	$.post('../../lib/dasp/ajax/Subscribe', {
+	var data = {
 		//code : 0,
-		application : application,
-		mailTemplate: mailTemplate,
-		predicates : JSON.stringify(predicates)
-	}, function(res) {
+			application : application,
+			mailTemplate: mailTemplate
+	};
+	if (predicates != null){
+		data.predicates = JSON.stringify(predicates);
+	} else {
+		data.id = id;
+	}
+	$.post('../../lib/dasp/ajax/Subscribe', data, function(res) {
 		//console.log(res);
 		var response = JSON.parse(res);
 		$('#'+page+' #notification-success h3').text(response.description);
@@ -278,11 +283,12 @@ function commentAdd(el){
 			field.find('.comment').fadeOut('fast');
 		}
 	});
+	
 }
 
 function commentRm(){
 	if (rm==""){
-		$.mobile.changePage('?action=Blog&blog='+blog+'&field='+field.attr("id"));
+		$.mobile.changePage('?action=Blog&method=delete&id='+blog+'&field='+field.attr("id"));
 		return;
 	}
 		
@@ -334,22 +340,17 @@ $("#about").live("swiperight", function() {
   $.mobile.changePage("#register"/*, {transition : "slide",reversed : true}*/);
 });
 
+
 $("#home").live("swipeleft", function() {
-  $.mobile.changePage("#infos", {transition : "slide"});
+  $.mobile.changePage("#blogs", {transition : "slide"});
 });
 
-$("#infos").live("swipeleft", function() {
-  $.mobile.changePage("#blogs", {transition : "slide"});
+$("#blogs").live("swipeleft", function() {
+  $.mobile.changePage("#infos", {transition : "slide"});
 }).live("swiperight", function() {
   $.mobile.changePage("#home"/*, {transition : "slide",reversed : true}*/);
 });
 
-$("#blogs").live("swipeleft", function() {
-  $.mobile.changePage("#profile", {transition : "slide"});
-}).live("swiperight", function() {
-  $.mobile.changePage("#infos"/*, {transition : "slide",reversed : true}*/);
-});
-
-$("#profile").live("swiperight", function() {
+$("#infos").live("swiperight", function() {
   $.mobile.changePage("#blogs"/*, {transition : "slide",reversed : true}*/);
 });

@@ -3,12 +3,17 @@
 define('SEP', '<span style="opacity: 0.7; font-size: 80%;"> &gt; </span>');
 
 function tab_bar_default($activeTab) {
-	tabs_default($activeTab, array(
+	tabs_default(
+		$activeTab,
+		array(
 			array("#home", "Partnerships", "retweet"),
-			array("#infos", "Informations", "info-sign"),
 			array("#blogs", "Blog", "comments"),
-			array("#profile", "Profile", "user")
-	), 3);
+			array("#infos", "Informations", "info-sign"),
+			//array("#profile", "Profile", "user")
+		),
+		3,
+		$_SESSION['user']->name
+	);
 	include("social.php");
 }
 
@@ -18,7 +23,7 @@ function tab_bar_default($activeTab) {
  	?>
  	<div data-role="header" data-theme="b">
  		<? if ($useback): ?>
- 			<a data-rel="back" rel="external" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
+ 			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
  		<? endif; ?>
   		<h1>
   			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?></a>

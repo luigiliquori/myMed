@@ -1,12 +1,8 @@
 <? 
 
-//require_once dirname(__FILE__) . '/../../../lib/dasp/beans/DataBeanv2.php';
+class SearchController extends ExtendedProfileRequired {
 
-class SearchController extends AuthenticatedController {
-	
-	public $part;
-
-	public function handleRequest() {
+	function defaultMethod() {
 		
 		parent::handleRequest();
 		
@@ -46,7 +42,6 @@ class SearchController extends AuthenticatedController {
 			$this->title .= $o->key.'='.$o->value.' ';
 		}
 	}
-	
 	
 }
 ?>

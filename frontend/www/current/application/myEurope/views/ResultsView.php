@@ -20,7 +20,7 @@
 		
 		<? if ($this->part->isIndexNotEmpty()) :?>
 			<a id="subscribeButton" style="float: right;" title="<?= _("Subscribe to:").' '.$this->part->renderSearchIndex(); ?>" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
-			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$this->part->namespace ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
+			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":part" ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
 		<? endif ?>
 		</div>
 		

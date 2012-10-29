@@ -2,83 +2,54 @@
 
 class ExtendedProfileRequired extends AuthenticatedController {
 	
-	public /*void*/ function handleRequest(){
+	function handleRequest(){
 		
 		parent::handleRequest();
 		/*
 		 * Try to get the User ExtendedProfile if it exist
 		 * ExtendedProfile stored in the $_SESSION while using the app
 		 */
-		if (!array_key_exists('myEuropeProfile', $_SESSION)) {
-
-			$this->fetchExtendedProfile();
-		}
-		else if ($_SESSION['myEurope']->permission <= 0)
-			$this->renderView("WaitingForAccept");
 		
-	}
-	
-	/**
-	 * 
-	 * @return multitype:unknown
-	 */
-	public /*void*/ function fetchExtendedProfile(){
-		
-		$this->mapper = new DataMapper;
-		
-		$user = new User($_SESSION['user']->id);
-		try {
-			$details = $this->mapper->findById($user);
-		} catch (Exception $e) {
-			$this->showProfileList();
-		}
-		$_SESSION['myEurope'] = (object) $details;
-		$profile = new Profile($details['profile']);
-		try {
-			$profile->details = $this->mapper->findById($profile);
-		} catch (Exception $e) {
-			$this->showProfileList();
-		}
-		$profile->parseProfile();
-		$profile->reputation = pickFirst(parent::getReputation(array($profile->details['id'])));
-		
-		$_SESSION['myEuropeProfile'] =$profile;
-		
-		if ($_SESSION['myEurope']->permission <= 0){
-			$this->renderView("WaitingForAccept");
-		}
-		
-		$this->renderView("Main");
-		
-	}
-	
-	
-	public function showProfileList(){
-		
-		$profile = new Profile();
-		try {
-			$res = $this->mapper->findByPredicate($profile);
-		} catch (Exception $e) {
-		}
-		
-		$this->cats = Categories::$roles;
-		debug_r($res);
-		
-		function filterArray($array, $value){
-			$result = array();
-			foreach($array as $item) {
-				if ($item->role == $value) {
-					$result[] = $item;
-				}
+		if (!isset($_SESSION['myEurope'])){
+			$this->mapper = new DataMapper;
+				
+			$user = new User($_SESSION['user']->id);
+			try {
+				$details = $this->mapper->findById($user);
+			} catch (Exception $e) {
 			}
-			return $result;
+			$_SESSION['myEurope'] = (object) $details;
+			$profile = new Profile($details['profile']);
+			try {
+				$profile->details = $this->mapper->findById($profile);
+			} catch (Exception $e) {
+			}
+			$profile->parseProfile();
+			$profile->reputation = pickFirst(parent::getReputation(array($profile->details['id'])));
+				
+			$_SESSION['myEurope'] = (object) array_merge((array) $_SESSION['myEurope'],  (array) $profile);
+			debug_r($_SESSION['myEurope']->permission);
+			if ($_SESSION['myEurope']->permission <= 0){
+				// set as guest
+				$_SESSION['user']->acl = array('defaultMethod', 'read');
+			} else if ($_SESSION['myEurope']->permission == 1){
+				$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
+			} else {
+				$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create', 'updatePermission');
+			}
 		}
 		
-		foreach($this->cats as $k=>$v){
-			$this->cats[$k] = filterArray($res, $k);
-		}
-		$this->renderView("ExtendedProfileCreate");
+	}
+	
+	public function error($arguments) {
+		debug('>>>>>>>>>> er');
+		debug_r($_SESSION['myEurope']);
+		if ($_SESSION['myEurope']->permission <= 0)
+			$this->setError(_("Your profile is not yet validated by admins"));
+		else if ($_SESSION['myEurope']->permission == 1)
+			$this->setError(_("This feature is restricted to Admin users"));
 		
+		$this->forwardTo($this->name);
 	}
 
 }

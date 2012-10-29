@@ -1,11 +1,9 @@
-.aloha-ui .aloha-sidebar-bar .aloha-sidebar-right, .aloha-sidebar-handle {
-	display: none;
-}
-
-
 .ui-page {
- 	background-image: url("../img/background.png");
+ 	background-image: url("../../../application/myMed/img/background.png");
  	/** the rest is in system/css/common.css **/
+ 	background-position: center 38px;
+ 	background-size: 100% 100%;
+ 	background-repeat: no-repeat;
 }
 
 .ui-controlgroup-last {
@@ -32,6 +30,13 @@
 .blog .ui-li-heading{
 	margin-top: 0;
 	margin-bottom: 1em;
+}
+
+.highlighted{
+	color:lightgray;
+}
+.highlighted:hover{
+	color:#d85;
 }
 
 .comment{
@@ -86,8 +91,7 @@ h4.logo{
 	display: inline-block;
 	margin: 0 auto;
 	overflow: hidden;
-	margin-right: 3px;
-	width: 32px;
+	width: 30px;
 	height: 32px;
 	background-image: url('/system/img/footer-sprite2.png');
 	background-repeat: no-repeat;

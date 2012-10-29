@@ -6,6 +6,7 @@
 	<? include("notifications.php"); ?>
 
 	<div data-role="content" >	
+		<br>
 		<div data-role="header" data-theme="e">
 		<h1><?= $this->details->title ?></h1>
 		</div>	
@@ -51,14 +52,14 @@
 			<? if ( in_array(trim($_SESSION['user']->id), $this->details->userProfile->users)) :?>
 				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-icon="remove" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
 			<? else :?>
-				<a href="?action=Details&partnerRequest=&id=<?= urlencode($this->id) ?>" type="button" data-inline="true" data-mini="true" data-icon="check"> <?= _("Partnership request") ?> </a>
+				<a href="?action=Details&method=update&partnerRequest=&id=<?= urlencode($this->id) ?>" type="button" data-inline="true" data-mini="true" data-icon="check"> <?= _("Partnership request") ?> </a>
 			<? endif ?>
 		<? endif ?>
 		
 		 <div data-role="popup" id="deletePopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<?= _('Sure?') ?><br />
-			<a href="?action=Details&rm=&id=<?= urlencode($this->id) ?>" data-role="button" data-theme="d" data-icon="remove" data-inline="true">Yes</a>
+			<a href="?action=Details&method=delete&id=<?= urlencode($this->id) ?>" data-role="button" data-theme="d" data-icon="remove" data-inline="true">Yes</a>
 		</div>
 		
 	</div>

@@ -10,7 +10,7 @@
 			<a href='mailto:myEuropeStaff@gmail.com'>myEuropeStaff@gmail.com</a>		
 			for validation") ?>
 	<br /><br /><br />
-	<a href="/application/myMed" data-role="button" data-inline=true rel="external" data-icon="signout" data-theme="r">myMed</a>
+	<a href="/europe" data-role="button" data-inline=true  data-icon="back"><?= APPLICATION_NAME ?></a>
 	</div>
 
 </div>

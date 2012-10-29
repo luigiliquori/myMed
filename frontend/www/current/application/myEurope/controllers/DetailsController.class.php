@@ -1,31 +1,32 @@
 <? 
 
-
-class DetailsController extends AuthenticatedController {
+class DetailsController extends ExtendedProfileRequired {
 	
-	public $delete = false;
+	private $delete = false;
 	
-	public function handleRequest() {
-		
+	function handleRequest() {
 		parent::handleRequest();
-		
 		$this->id = $_GET['id'];
 		$this->namespace = "part"; //temp
-		
-		if (isset($_GET["rm"])){
-			$this->delData();
-		}
+	}
+	
+	function delete(){
+		$this->delData();
+		$this->forwardTo("details", array('id'=>$this->id));
+	}
+	
+	function update(){
 		if (isset($_GET["partnerRequest"])){
 			$this->addTempPartner();
 		}
-		
-		// put
 		if (isset($_GET["accept"])){
 			$this->addPartner();
 		}
+		$this->forwardTo("details", array('id'=>$this->id));
+	}
 		
+	function defaultMethod() {
 		$req = new RequestJson( $this, array("application"=>APPLICATION_NAME.":".$this->namespace,"id"=>$this->id));
-		
 		try{
 			$res = $req->send();
 		}
@@ -78,12 +79,6 @@ class DetailsController extends AuthenticatedController {
 			$this->details->title = "effacé";
 			$this->renderView("details");
 		}
-			
-			//$this->redirectTo("search");
-		// @todo errors
-		
-		// Render the view
-		
 	}
 	
 	

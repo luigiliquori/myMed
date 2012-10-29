@@ -7,6 +7,7 @@ class Categories {
  	static $places_fr;
  	static $places_it;
  	static $places_ot;
+ 	static $keywords;
  	
 }
 
@@ -80,6 +81,11 @@ Categories::$places_ot = array(
 		_("Monaco"),
 		_("Switzerland"),
 		_("Corsica"),
+);
+
+Categories::$keywords = array(
+		"water",
+		"sky",
 );
 
 ?>
