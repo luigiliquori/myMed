@@ -23,18 +23,18 @@ The following variables are available in the templates :
         <#else>
         	non pr&eacute;cis&eacute;
         </#if>
-        demande &agrave; joindre votre <a href="${base_url}application/${application}/?action=Details&namespace=part&id=${predicate}">appel &agrave; partenaire</a> <br/>
+        demande &agrave; joindre votre <a href="${base_url}${application}/?action=Details&id=${predicate}">appel &agrave; partenaire</a> <br/>
         <br />
         <br />
         <br />
         <#if publisher??>
-      		<a href="${base_url}application/${application}/?action=Details&namespace=part&id=${predicate}&accept=${publisher.id}">Pour accepter cette demande, cliquez ce lien</a>
+      		<a href="${base_url}${application}/?action=Details&method=update&id=${predicate}&accept=${publisher.id}">Pour accepter cette demande, cliquez ce lien</a>
       	 </#if>
       	<br />
        
         --<br/>
     
         L'&eacute;quipe myMed<br/>
-        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
+        Cliquez <a href="${base_url}${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
 ]]></body>
 </mail-template>

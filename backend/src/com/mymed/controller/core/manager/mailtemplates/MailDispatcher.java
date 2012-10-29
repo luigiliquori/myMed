@@ -16,7 +16,6 @@ import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
-import com.mymed.model.data.user.MUserBean;
 import com.mymed.utils.mail.Mail;
 import com.mymed.utils.mail.MailMessage;
 import com.mymed.utils.mail.SubscribeMailSession;
@@ -51,12 +50,11 @@ public class MailDispatcher extends AbstractManager implements Runnable {
         mailTemplateManager = new MailTemplateManager(storageManager);
     }
     
-    
     public MailDispatcher(
-		final String application,
-		final List<String> predicates,
-		final Map<String, String> details,
-		final Map<String, String> publisher) 
+			final String application,
+			final List<String> predicates,
+			final Map<String, String> details,
+			final Map<String, String> publisher) 
             throws InternalBackEndException 
     {
     	this();
@@ -70,6 +68,9 @@ public class MailDispatcher extends AbstractManager implements Runnable {
         data.put("namespace", application);
         data.put("publication", details);
         data.put("publisher", publisher );
+        data.put("predicates", predicates);
+        
+        LOGGER.info("#### {}", data.get("publication"));
     }
 	
 	

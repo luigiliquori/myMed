@@ -17,18 +17,19 @@ The following variables are available in the templates :
     <body><![CDATA[
         Bonjour ${recipient.name},<br/>
         <br/>
-        
-        Votre profil <a href="${base_url}application/${application}/?action=ExtendedProfile">${application}</a> a les modifications suivantes: <br/>
-        
-        
-        
+
             <#list publication?keys as key>
-            	<#if key?starts_with("email_")>
-            		${publication[key]} s'est ajout&eacute; comme membre
+            	<#if key?starts_with("user_")>
+            		
+            	<#elseif key?starts_with("email_")>
+            		Un nouvel utilisateur vient de s'inscrire &agrave; votre profil 
+            		<a href="${base_url}${application}/?action=ExtendedProfile">${application}</a> 
+            		${publication[key]}
             	<#elseif key?starts_with("part")>
             		Votre demande de partenariat a &eacute;t&eacute; accept&eacute;e
-            		<a href="${base_url}application/${application}/?action=Details&namespace=part&id=${publication[key]}"> voir </a>
+            		<a href="${base_url}${application}/?action=Details&id=${publication[key]}"> voir </a>
 				<#else>
+					Votre profil <a href="${base_url}${application}/?action=ExtendedProfile">${application}</a> a les modifications suivantes: <br/>
 		        	<b>${key}</b>: ${publication[key]!'N/A'}
 		        </#if>
 			</#list>
@@ -37,6 +38,6 @@ The following variables are available in the templates :
         --<br/>
     
         L'&eacute;quipe myMed<br/>
-        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
+        Cliquez <a href="${base_url}${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
 ]]></body>
 </mail-template>

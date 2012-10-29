@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -169,12 +170,12 @@ public class SubscribeRequestHandler extends AbstractRequestHandler {
 					keywords = GsonUtils.json_to_keywords(keywordsStr);
 				}
 	
-				LOGGER.info("in ." + keywords.size());
-	
-				List<String> rows = new CombiLine(keywords).expand();
-	
-				for (String i : rows) {
-					subscriptionManager.delete(application, i, in.getUser());
+				LOGGER.info("in ." + keywords.size() + " . "+application+" "+in.getUser());
+				
+				for (Entry<String, List<String>> entry : keywords.entrySet()){
+					for (String i : entry.getValue()){
+						subscriptionManager.delete(application, i, in.getUser());
+					}
 				}
 	
 				LOGGER.info("  deleted subscriptions for {}: {} ", in.getUser()+id, keywords);

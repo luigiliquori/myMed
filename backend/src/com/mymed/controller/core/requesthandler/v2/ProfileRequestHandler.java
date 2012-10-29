@@ -136,7 +136,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
             validateToken(parameters.get(JSON_ACCESS_TKN));
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String user = parameters.get(JSON_USER);
+            final String user = parameters.get(JSON_USER), temporary = parameters.get("temporary");
 
             if (user == null) {
                 throw new InternalBackEndException("missing user argument!");
@@ -176,7 +176,8 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                     		}
                     	}
                         LOGGER.info("Trying to update user:\n {}", usr);
-                        profileManager.update(usr.get("id"), usr);
+                        profileManager.update(usr.get("id"), usr, temporary == null);
+    
                         //message.addDataObject(JSON_PROFILE, userBean);
                         message.setDescription("User updated!");
                         LOGGER.info("User updated!");

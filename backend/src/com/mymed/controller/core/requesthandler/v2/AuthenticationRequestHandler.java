@@ -17,7 +17,6 @@ package com.mymed.controller.core.requesthandler.v2;
 
 import static com.mymed.utils.MiscUtils.json_to_map;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -32,8 +31,6 @@ import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
 import com.mymed.controller.core.manager.profile.IProfileManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.session.ISessionManager;
-import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.utils.HashFunction;
 
@@ -49,7 +46,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 	private static final long serialVersionUID = 8762837510508354509L;
 
 	private IAuthenticationManager authenticationManager;
-	private ISessionManager sessionManager;
 	private IProfileManager profileManager;
 
 	/**
@@ -85,7 +81,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 		try {
 			authenticationManager = new AuthenticationManager();
-			sessionManager = new SessionManager();
 			profileManager = new ProfileManager();
 		} catch (final InternalBackEndException e) {
 			LOGGER.debug("AuthenticationManager not accessible!", e);
@@ -114,7 +109,6 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 			final String login = parameters.get(JSON_LOGIN);
 			final String password = parameters.get(JSON_PASSWORD);
-			final String passwordCheck = parameters.get("passwordCheck");
 
 			switch (code) {
 			case READ:
@@ -125,11 +119,11 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					throw new InternalBackEndException("password argument missing!");
 				} else {
 					String usrId = authenticationManager.readSimple(login, password);
-
 					message.setDescription("Successfully authenticated");
-
 					message.addDataObject(JSON_USER, usrId);
-					if (passwordCheck != null) { // for fast password check only
+					
+					//unnecessary stuff
+					/*if (passwordCheck != null) { // for fast password check only
 						break;
 					}
 
@@ -154,7 +148,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					urlBuffer.trimToSize();
 
 					message.addDataObject("url", urlBuffer.toString());
-					message.addDataObject(JSON_ACCESS_TKN, accessToken);
+					message.addDataObject(JSON_ACCESS_TKN, accessToken);*/
+					
 				}
 				break;
 			case DELETE:
@@ -271,7 +266,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 			case UPDATE:
 				if (authentication == null) {
 					throw new InternalBackEndException("Missing authentication argument!");
-				} else if (oldPassword == null || oldLogin == null) {
+				} /*else if (oldPassword == null || oldLogin == null) {
 					// throw new
 					// InternalBackEndException("oldPassword argument missing!");
 
@@ -286,7 +281,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					}
 					authenticationManager.updateSimple(auth.get("login"), auth, oldLogin);
 
-				} else {
+				}*/ else {
+					
+					//update the password
 
 					Map<String, String> auth = json_to_map(authentication);
 					String oldUser = authenticationManager.readSimple(oldLogin,
@@ -294,9 +291,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					auth.put("user", oldUser);
 					// no exception = update the Authentication
 					LOGGER.info("Trying to update authentication:\n {}", auth);
-					authenticationManager.updateSimple(auth.get("login"), auth, oldLogin); /* @TODO check for login*/
+					authenticationManager.updateSimple(auth.get("login"), auth, oldLogin);
 					LOGGER.info("Authentication updated!");
-
 				}
 				break;
 			default:
