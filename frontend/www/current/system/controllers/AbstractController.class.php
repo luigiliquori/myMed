@@ -4,10 +4,12 @@ abstract class AbstractController implements IRequestHandler {
 
 	public /*string*/ $error;
 	public /*string*/ $success;
+	public /*string*/ $name; // without 'Controller'
 	
-	public function __construct() {
+	public function __construct($name) {
 		$this->error	= false;
 		$this->success	= false;
+		$this->name = $name;
 	}
 	
 	/** 
@@ -99,17 +101,66 @@ abstract class AbstractController implements IRequestHandler {
 	// Handlers
 
 	/** No action by default */
-	public function handleRequest() {
+	public function handleRequest(){
 		
 	}
 	
 	/** Default method called after each request*/
-	public function defaultMethod() {
+	/*public function defaultMethod() {
 		// Should be overridden for controller that use the "method" parameter 
+	}*/
+	
+	/** Default fallback method called after an access denied, an error...*/
+	public function error($arguments) {
+		debug('>>>> error !');
+		debug_r($arguments);
+		// Should be overridden for controller that use the "method" parameter
+	}
+
+	
+		
+	public function getReputation($app=array(APPLICATION_NAME), $producer=array()){
+	
+		$rep =  new ReputationSimple($app, $producer);
+		$res = $rep->send();
+		if($res->status != 200) {
+			throw new Exception($res->description);
+		} else {
+			return formatReputation($res->dataObject->reputation);
+		}
 	}
 	
+	public function insertUser($user, $accessToken, $is_guest=false) {
 	
+		$request = new Requestv2("v2/SessionRequestHandler", UPDATE , array("user"=>$user->id, "accessToken"=>$accessToken));
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
 	
+		if($responseObject->status != 200) {
+			$this->error = $responseObject->description;
+			return;
+		} else {
+			$_SESSION['accessToken'] = $responseObject->dataObject->accessToken; // in case was not set yet
+		}
+	
+		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($user)));
+		if ($is_guest) $request->addArgument("temporary", "");
+		$responsejSon = $request->send();
+		//$responseObject2 = json_decode($responsejSon);
+	
+		//fetch profile, since it can be completed from  a previous different auth way with same login
+		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$user->id));
+		$responsejSon = $request->send();
+		$responseObject3 = json_decode($responsejSon);
+		
+		return (object) array_map('trim', (array) $responseObject3->dataObject->user);
+		/*if($responseObject3->status == 200) {
+			$prevEmail = isset($_SESSION['user']->email);
+			$_SESSION['user2'] = $_SESSION['user']; //keep it just for seeing the diff (debug)
+			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject3->dataObject->user);
+	
+		}*/
+	}
 	
 	
 }

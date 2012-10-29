@@ -2,7 +2,6 @@
 
 require(__DIR__ . "/../common/init.php");
 
-
 // ---------------------------------------------------------------------
 // Call a controller (reused in AbstractController#forward)
 // ---------------------------------------------------------------------
@@ -14,25 +13,48 @@ function callController(
 {
 	try {
 		
+		if (empty($method)) $method = "defaultMethod";
+		
 		// Name/Path of view and controllers
 		$className = ucfirst($action) . "Controller";
 
 		// Create controller
-		$controller = new $className();
+		$controller = new $className($action);
 		
 		// Set succes/error
 		$controller->setSuccess($success);
 		$controller->setError($error);
 		
-		// Process the request
+		
+		// Process the request, Access Control is checked there
 		$controller->handleRequest();
-
-		if ($method == null) $method = "defaultMethod";
+		
+		debug('call '.$className.' '.$method);
+		/*return call_user_func(
+			array( $controller, $method )
+		);*/
+		// invoke controller method after checking access control
+		//$controller->accessControl( $method, $_SESSION['user']->acl);
+		
+		if (!isset($_SESSION['user']->acl)){
+			debug('--------------shhould not happen-');
+			$_SESSION['user']->acl = array('defaultMethod', 'read');
+		}
+			
+		// create an Access Control object
+		$acl = new Acl($controller, $_SESSION['user']->acl);
+		
+		//call the controller with it
+		return call_user_func_array(
+			array( $acl, $method ),
+			array()
+		);
+		//$acl->$method();
 
 		// ---------------------------------------------
 		// Use introspection to fill out parameters
 		// ---------------------------------------------
-		$ref = new ReflectionClass($controller);
+		/*$ref = new ReflectionClass($controller);
 		$refMethod = $ref->getMethod($method);
 		$refParams = $refMethod->getParameters();
 		$params = array();
@@ -51,7 +73,14 @@ function callController(
 		}
 		
 		// Call the methods
-		$refMethod->invokeArgs($controller, $params);
+		$refMethod->invokeArgs($controller, $params);*/
+		debug('rg');
+		/*if ( method_exists( $controller, $method )){
+			debug('g');
+			return call_user_func(
+				array( $controller, $method )
+			);
+		}*/
 
 		// We should not reach that point (view already rendered by the controller)
 		throw new InternalError("${className}:  #handleRequest() followed by ${method}() should never return");
@@ -62,6 +91,7 @@ function callController(
 		$controller->renderView("error");
 	}
 }
+
 
 // ---------------------------------------------------------------------
 // 	Main process

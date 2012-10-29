@@ -24,7 +24,7 @@ if ($response->status == Auth_OpenID_SUCCESS) {
 	
 	require_once ROOT.'lib/dasp/beans/MUserBean.class.php';
 	
-	$_SESSION['user'] = MUserBean::constructFromOpenId($obj->data);
+	$_SESSION['userFromExternalAuth'] = MUserBean::constructFromOpenId($obj->data);
 	$_SESSION['accessToken'] = sha1($_SESSION['user']->email . time());
 	
 	
@@ -93,11 +93,6 @@ if ($response->status == Auth_OpenID_SUCCESS) {
 	}
 	// end of useless
 	$_SESSION['user3'] = $success;
-	
-	
-	
-	
-	
 	
 	
 	header('Location: '.getTrustRoot().'?action=login');

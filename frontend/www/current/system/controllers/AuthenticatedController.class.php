@@ -4,12 +4,8 @@
  * This class will verify, before handling any request, that the user is authenticated.
  * Requests that need an authenticated user should inhérit from this.
  * 
- * @author David Da Silva
  */
 class AuthenticatedController extends AbstractController implements IReputationMapper {
-
-	/** The complete user */
-	public $user;
 	
 	/**
 	 * Handle the request.
@@ -28,22 +24,30 @@ class AuthenticatedController extends AbstractController implements IReputationM
 			}	*/			
 			
 			// Redirect to "showLogin" view
-			$this->redirectTo("login", $_REQUEST);
-		} else {
-			$this->user = $_SESSION['user'];
+			
+			/* Guest access provided */
+			$id = rand(100000, 999999);
+			$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
+			$_SESSION['user'] = $this->insertUser($user, null, true);
+			$_SESSION['user']->acl = array('defaultMethod', 'read');
+			$_SESSION['user']->is_guest = 1;
+			//$this->redirectTo("login", $_REQUEST);
+			
+		} else if ( !isset($_SESSION['user']->acl) ){
+			$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
 		}
 	}
 	
-	public function getReputation($app=array(APPLICATION_NAME), $producer=array()){
+	
 
-		$rep =  new ReputationSimple($app, $producer);
-		$res = $rep->send();
-		if($res->status != 200) {
-			throw new Exception($res->description);
-		} else {
-			return formatReputation($res->dataObject->reputation);
-		}
+	/** Default fallback method called after an access denied, an error...*/
+	public function error($arguments) {
+		debug('>>>>>>>>>> error !');
+		debug_r($arguments);
+		// Should be overridden for controller that use the "method" parameter
 	}
+	
+	
 	
 	
 	

@@ -50,19 +50,25 @@ function url($action, $args=array()) {
 
 
 //  tabs bar
-function tabs_default($activeTab, $tabs, $opts = false) {
+function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) {
 	?>
 	<div data-role="header" data-theme="b">
-  		<? if ($opts == 1): ?>
-			<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Déconnexion</a>
-		<? elseif ($opts == 2): ?>
-			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
-		<? elseif ($opts == 3): ?>
-			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
+  		<? if ($leftopts == 1): ?>
+			<a href="?action=logout" class="ui-btn-left" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Déconnexion</a>
+		<? elseif ($leftopts == 2): ?>
+			<a data-rel="back" data-icon="arrow-left" class="ui-btn-left" style="max-width: 15%;"><?= _("Back") ?></a>
+		<? elseif ($leftopts == 3): ?>
+			<a href="/" class="ui-btn-left" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
+		<? elseif ($leftopts == 4): ?>
+			<a href="/?action=logout" class="ui-btn-left" data-role="button" rel="external" data-icon="signin" data-iconpos="notext" data-theme="g">Log In</a>
+		<? endif; ?>
+		
+		<? if (!empty($rightopts)): ?>
+			<a href="?action=extendedProfile" class="ui-btn-right" data-role="button" data-icon="user" data-mini="true" data-theme="d"><?= $rightopts ?></a>
 		<? endif; ?>
 		
   		<h1>
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= _(APPLICATION_LABEL) ?></span></a>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?></a>
   		</h1>
 
   	</div>
@@ -165,9 +171,10 @@ function comment(
 		<time>
 			<?= date('j/n/y G:i', $v['time'] ) ?>
 		</time>
-		<a href="" onclick="reply($(this));">reply</a> <a href="#deletePopup"
+		<a href="" onclick="reply($(this));">reply</a> 
+		<? if($v['user']==$_SESSION['user']->id || $_SESSION['myEurope']->permission > 1) : ?><a href="#deletePopup"
 			data-rel="popup" data-position-to="origin" onclick="setIds($(this));"
-			class="delete-icon" title=""></a>
+			class="delete-icon" title=""></a><? endif ?>
 	</p>
 	<div id="<?= 'comment'.$id ?>" class='comment'
 		style='margin-top: 30px; display: none;'>

@@ -8,11 +8,10 @@
 interface IRequestHandler {
 
 	/**
-	 * handle POST and GET Request
+	 * handle HTTP Request
 	 */
-	public /*String*/ function handleRequest();
-
-
 	
+	public function handleRequest();
+
 }
 ?>
