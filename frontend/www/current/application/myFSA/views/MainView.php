@@ -30,7 +30,7 @@
 				
 			<div data-role="collapsible" data-collapsed="true" data-content-theme="d">
 				<h3><?= translate('Advanced searching') ?></h3>
-				<form action="index.php?action=publish" method="POST" data-ajax="false">
+				<form action="index.php?action=search" method="POST" data-ajax="false">
 			
 					<label for="textinputs1"> <?= translate('Cathegory') ?> </label> 
 					<input id="textinputs1" name="pred2" placeholder="" type="text" />

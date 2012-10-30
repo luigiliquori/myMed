@@ -14,10 +14,10 @@
 			
                     <select name="pred2" id="selectmenu1">
                         <option value="evenement">
-                            Evénement
+                            <?= translate("Events") ?>
                         </option>
                         <option value="actualite">
-                            Actualité
+                            <?= translate("News") ?>
                         </option>
                         <option value="Offre d’emploi">
                             <?= translate("Internship offers") ?>
@@ -26,16 +26,16 @@
                             <?= translate("Job offers") ?>
                         </option>
                          <option value="Location bureaux">
-                            Location bureaux
+                            <?= translate("Rent Offices") ?>
                          </option>
                          <option value="Partenariats">
-                            Partenariats
+                            <?= translate("Partnerships") ?>
                          </option>
                          <option value="Organisme">
-                            Organisme
+                            <?= translate("Organization") ?>
                          </option>
                          <option value="Visite d’entreprise">
-                            Visite d’entreprise
+                            <?= translate("Company visits") ?>
                          </option>
                     </select>
 			

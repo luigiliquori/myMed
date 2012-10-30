@@ -30,7 +30,7 @@
 				
 			<div data-role="collapsible" data-collapsed="true" data-content-theme="d">
 				<h3><?= translate('Advanced searching') ?></h3>
-				<form action="index.php?action=publish" method="POST" data-ajax="false">
+				<form action="index.php?action=search" method="POST" data-ajax="false">
 			
 					<div data-role="fieldcontain" style="margin-left: auto;margin-right: auto;">
 						<fieldset data-role="controlgroup" >
