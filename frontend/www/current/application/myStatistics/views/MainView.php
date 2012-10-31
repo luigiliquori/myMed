@@ -112,9 +112,25 @@ require_once("footer-bar.php");
 		<br /> 
 		<br /> 
 		<br />
-		<div id="conteneur" data-role="content"></div>
-
 		
+		<!-- <div id="conteneur"></div>  -->
+		
+		<?php 
+			$sizeGraph = 90;
+			$sizeBar = $sizeGraph / 12;
+			$sizeBar = $sizeBar + "";
+			$sizeBar = str_replace(",", ".", $sizeBar);
+		?>
+		
+		<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: 500px; border: thin black solid;">
+		
+			<!-- Janvier -->
+			<div Style="position: absolute; top: 150px; width: <?= $sizeBar?>%; height: 350px; background-color: red; border: thin black solid;"></div>
+			
+			<!-- Fev -->
+			<div Style="position: absolute; top: 50px; left: <?= $sizeBar ?>%; width: <?= $sizeBar ?>%; height: 450px; background-color: yellow; border: thin black solid;"></div>
+		
+		</div>
 		
 	</div>
 

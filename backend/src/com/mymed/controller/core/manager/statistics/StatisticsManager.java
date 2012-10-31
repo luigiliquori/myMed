@@ -46,10 +46,10 @@ public class StatisticsManager extends AbstractManager {
 	 */
 	public void update(String application, String method) {
 
-		Calendar now = Calendar.getInstance();
-		String year = (now.get(Calendar.YEAR)) + "";
-		String month = (now.get(Calendar.MONTH) + 1) + "";
-		String day = (now.get(Calendar.DAY_OF_MONTH)) + "";
+		Calendar now 	= Calendar.getInstance();
+		String year 	= (now.get(Calendar.YEAR)) + "";
+		String month 	= (now.get(Calendar.MONTH) + 1) + "";
+		String day 		= (now.get(Calendar.DAY_OF_MONTH)) + "";
 
 		List<String> keys = new ArrayList<String>();
 		keys.add(application 	+ method);
@@ -101,5 +101,11 @@ public class StatisticsManager extends AbstractManager {
 			storageManager.insertSuperSlice(SC_STATICTICS, key, year, argsYears);
 			storageManager.insertSuperSlice(SC_STATICTICS, key, month, argsMonth);
 		}
+	}
+	
+	public Map<String, Integer> read(String application, String year, String month, String day) {
+		Map<String, Integer> res = new HashMap<String, Integer>();
+		
+		return res;
 	}
 }
