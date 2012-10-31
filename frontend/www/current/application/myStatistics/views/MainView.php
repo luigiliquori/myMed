@@ -16,7 +16,7 @@ require_once("footer-bar.php");
 	<?php include('notifications.php'); ?>
 
 	<!-- Main part of the page -->
-	<div data-role="content">
+	<div data-role="content" >
 
 		<!-- Parameters choice -->
 		<form action="?action=main" method="post" data-ajax="false">
@@ -114,24 +114,28 @@ require_once("footer-bar.php");
 		<br />
 		
 		<!-- <div id="conteneur"></div>  -->
-		
 		<?php 
-			$sizeGraph = 90;
-			$sizeBar = $sizeGraph / 12;
-			$sizeBar = $sizeBar + "";
-			$sizeBar = str_replace(",", ".", $sizeBar);
+				$sizeGraph = 90;
+				$height = 500;
 		?>
-		
-		<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: 500px; border: thin black solid;">
-		
-			<!-- Janvier -->
-			<div Style="position: absolute; top: 150px; width: <?= $sizeBar?>%; height: 350px; background-color: red; border: thin black solid;"></div>
-			
-			<!-- Fev -->
-			<div Style="position: absolute; top: 50px; left: <?= $sizeBar ?>%; width: <?= $sizeBar ?>%; height: 450px; background-color: yellow; border: thin black solid;"></div>
-		
-		</div>
-		
+			<?php
+				$tabrep=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
+				//$tabrep=array(10,25);
+				$nbcol = count($tabrep);
+				$sizeBar = 100/$nbcol;
+				$sizeBar = str_replace(",", ".", $sizeBar);
+				$max_tab=31;
+			?>
+			<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: <?php echo $height ?>px; border: thin black solid; margin-left:3.5%; background-color:white">
+				<?php for($i=0;$i<$nbcol;$i++){
+					$red = ceil(255-(255*$tabrep[$i])/$max_tab);
+					$green = ceil((255*$tabrep[$i])/$max_tab);
+					$height_column = ceil(($height * $tabrep[$i])/$max_tab);
+					$top = $height - $height_column;
+				?>
+					<div Style="position: absolute; top: <?php echo $top ?>px; left: <?= str_replace(",", ".",$i*$sizeBar) ?>%; width: <?= $sizeBar ?>%; height: <?php echo $height_column?>px; background-color:rgb(<?php echo $red ?>,<?php echo $green ?>,0); border: thin black solid;"></div>		
+				<?php }?>
+			</div>
 	</div>
 
 	<!-- Footer page with tab bar ?action=main to highlight the tab -->
