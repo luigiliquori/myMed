@@ -11,13 +11,16 @@ class MainController extends AuthenticatedController {
 		if( !isset($_SESSION['ExtendedProfile'])){
 			$this->fetchExtendedProfile();
 			$this->redirectTo("ExtendedProfile");
-
+			
 		}
 		else{
+			$debugtxt  =  "<pre>DAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAA";
+			$debugtxt  .= var_export(time(), TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+			
 			$this->redirectTo("search");
-			//$p = new PublishController();
-			//$p->search();
-			//$this->renderView("search");
+			
 		}
 
 					
@@ -25,11 +28,6 @@ class MainController extends AuthenticatedController {
 	
 
 	public /*void*/ function fetchExtendedProfile(){
-	
-		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-		$debugtxt  .= var_export("przed", TRUE);
-		$debugtxt .= "</pre>";
-		debug($debugtxt);
 		
 		$result = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
 
@@ -47,10 +45,6 @@ class MainController extends AuthenticatedController {
 
 	}
 	
-// 	$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-// 	$debugtxt  .= var_export("bla", TRUE);
-// 	$debugtxt .= "</pre>";
-// 	debug($debugtxt);
 	
 }
 ?>

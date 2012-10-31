@@ -1,12 +1,11 @@
 <?
 
-/** This class is used to storing a publication of myFSA */
-class PublishObject extends GenericDataBean {
+/** This class is used to storing a comment to a publication of myFSA */
+class CommentObject extends GenericDataBean {
 	
 	/** Some predicates */
 	public $pred1;
 	public $pred2;
-	public $pred3;
 	public $date;
 	
 	/**
@@ -19,9 +18,7 @@ class PublishObject extends GenericDataBean {
 	
 	/** Some data (got after a "details" query).
 	 *  Register them in the contructor with appropriate ontologyID */
-	public $data1;
-	public $data2;
-	public $data3;
+	public $data;
 	
 	/** Register the attributes either as predicates / data fields */
 	public function __construct(
@@ -30,16 +27,14 @@ class PublishObject extends GenericDataBean {
 	parent::__construct(
 	
 	// Predicate attributes
+	// Predicate attributes
 		array(
 			"pred1" => KEYWORD,
-			"pred2" => KEYWORD,
-			"pred3" => KEYWORD),
+			"pred2" => KEYWORD),
 	
 		// Data attributes
 		array(
-			"data1" => TEXT,
-			"data2" => TEXT,
-			"data3" => TEXT),
+			"data" => TEXT),
 	
 		// Wrapped attributes
 		array("wrapped1", "wrapped2"),
