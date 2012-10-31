@@ -9,7 +9,7 @@ require_once("header.php"); ?>
 	
 	<div data-role="header" data-theme="b" data-position="fixed">
 	
-	<h1 style="color: white;">Réseau Social Transfrontalier </h1>	
+	<h1 style="color: white;"><?= APPLICATION_NAME ?> - Réseau Social Transfrontalier </h1>	
 	<span style="position: absolute;right: 3px;top: -3px;opacity: 0.6;">
 		<a class="social" style="background-position: -33px 0px;" href="https://plus.google.com/u/0/101253244628163302593/posts" title="myFSA on Google+"></a>
 		<a class="social" style="background-position: -66px 0px;" href="http://www.facebook.com/pages/MyFSA/122386814581009" title="myFSA on Facebook"></a>
@@ -20,13 +20,6 @@ require_once("header.php"); ?>
 	
 	<div data-role="content"  class="content">
 	
-		<div style="position: absolute; left: 50%; top: 90px;">
-			<img alt="title" src="img/icon.png" height="50"  style="position: relative; margin-left: -150px;" />
-		</div>
-		<div style="position: absolute; left: 50%; top: 73px;">
-			<h1 style="position: relative; left: -40px;"><?= APPLICATION_NAME ?></h1>
-		</div>
-	
 		<form action="?action=login" method="post" data-ajax="false" style="position: relative; top: 120px; height: 400px;">
 			<input type="hidden" name="signin" value="1" />
 		    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/><br />
@@ -34,7 +27,7 @@ require_once("header.php"); ?>
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
 		</form>
 
-		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="position: relative; top: -80px; width:70%; margin: auto;">
+		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="position: relative; top: -50px; width:70%; margin: auto;">
 			<h3 style="width: 170px; margin: auto;"><?= translate("Sign in with") ?>: </h3>
 			<ul data-role="listview">
 			<li>
