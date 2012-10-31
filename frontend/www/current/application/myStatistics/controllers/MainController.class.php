@@ -32,5 +32,17 @@ class MainController extends AuthenticatedController {
 		//Yep good idea brain
 		$this->response = "{\"name\" : \"curve1\",\"type\" : \"month\", \"curve\" : \"[[1,5000],[2,5500],[3,10000],[4,500]]\"}";
 	}
+	
+	function analyzeBackendResponse($tab_resp){
+		foreach(tab_resp as $value => $rep_json){
+			$point = json_decode($rep_json);
+			if($point->day != ""){
+				
+			}
+			if($point->month !=""){
+				
+			}
+		}
+	}
 }
 ?>

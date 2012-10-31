@@ -101,6 +101,14 @@ function createPlotGraphCurveStyle(curveNumber){
 }
 
 
+/**
+ * create bar graph
+ * @param container
+ * @param series
+ * @param labels
+ * @param names
+ * @param title
+ */
 function createBarGraph(container,series,labels,names,title){
 	$(document).ready(function(){
 		$.jqplot.config.enablePlugins = true;
@@ -153,6 +161,11 @@ function createBarGraph(container,series,labels,names,title){
 }
 
 
+/**
+ * create label for bar graph
+ * @param labels
+ * @returns
+ */
 function createLabelBarGraph(labels){
 	arrayLabel = new Array();
 	for(var i=0;i<labels.length;i++){

@@ -94,24 +94,28 @@ require_once("footer-bar.php");
 					echo 'var curve1='.$curve.';';
 				}
 				else{
-					//echo 'var curve1 = [[1,3],[2,7],[3,9],[4,1],[5,4],[6,6],[7,8],[8,2],[9,5],[10,1],[11,8],[12,3]];';
-					echo 'var series=[[1,2,3,4,5],[5,4,3,2,1]];';
-					echo 'var labels= ["push","pop"];';
-					echo 'var names=[\'janvier\',\'fevrier\',\'mars\',\'avril\',\'mai\'];';
+					echo 'var curve1 = [[1,3],[2,7],[3,9],[4,1],[5,4],[6,6],[7,8],[8,2],[9,5],[10,1],[11,8],[12,3]];';
+					//for bar graph
+					//echo 'var series=[[1,2,3,4,5],[5,4,3,2,1]];';
+					//echo 'var labels= ["push","pop"];';
+					//echo 'var names=[\'janvier\',\'fevrier\',\'mars\',\'avril\',\'mai\'];';
 				}
 			?>
 			
 			//create an array of curves 
-			//var serie = [curve1];
+			var serie = [curve1];
 			//draw plot graph 
-			//createPlotGraph("conteneur",serie,"Pub/Sub requests",0);
-			createBarGraph("conteneur", series, labels, names,"Pub/Sub requests");
+			createPlotGraph("conteneur",serie,"Pub/Sub requests",0);
+			//draw bar graph
+			//createBarGraph("conteneur", series, labels, names,"Pub/Sub requests");
 		</script>
 		<br /> 
 		<br /> 
 		<br />
 		<div id="conteneur" data-role="content"></div>
 
+		
+		
 	</div>
 
 	<!-- Footer page with tab bar ?action=main to highlight the tab -->
