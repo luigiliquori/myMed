@@ -20,8 +20,8 @@
 		</a>
 		<br><br>
 		<div data-role="controlgroup"  data-type="horizontal">
-			<a type="button" href="?action=ExtendedProfile&list" rel="external" data-theme="d" data-icon="list" ><?= _('Profiles list') ?></a>
-			<a href="?action=Admin" data-role="button" data-icon="gear"><?= _('Users list') ?></a>
+			<a type="button" href="?action=ExtendedProfile&list" rel="external" data-theme="d" data-icon="list" title="<?= _('list of organizations profiles in myEurope') ?>"><?= _('Profiles list') ?></a>
+			<a href="?action=Admin" data-role="button" data-icon="gear" title="<?= $_SESSION['myEurope']->permission >=2 ? _('You are a full-powered Admin, have fun!') : _('users list') ?>"><?= _('Users list') ?></a>
 		</div>
 	
 	</div>
@@ -67,30 +67,38 @@
 
 	<? tab_bar_default("#blogs") ?>
 	<div data-role="content" style="text-align:center;">
+		<br><br>
+		<select name="flip-1" id="flip-1" data-role="slider" onchange="$('#themes_ul, #phases_ul').toggle();">
+			<option value="topic"><?= _("By topic") ?></option>
+			<option value="phase"><?= _("By phase") ?></option>
+		</select> 
+		<br><br>
+		<div id="themes_ul">
+		<ul data-role="listview" data-inset="true" data-filter="true">
+			<li data-role="list-divider"><?= _('Thèmes de projet') ?></li>
+			<? foreach (Categories::$themes as $k=>$v): ?>
+			<li>
+				<a href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
+			</li>
+			<? endforeach; ?>
+		</ul>
+		</div>
+		<div id="phases_ul" style="display: none;">
+		<ul data-role="listview" data-inset="true" data-filter="true">
+			<li data-role="list-divider"><?= _('Phases du projet') ?></li>
+			<? foreach (Categories::$phases as $k=>$v): ?>
+			<li>
+				<a href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
+			</li>
+			<? endforeach; ?>
+		</ul>
+		</div>
+		
+		
+		
 		<br>
-		<ul data-role="listview" data-inset="true" data-filter="true" >
-			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
-			<li>
-				<a href="?action=Blog&id=Bonnes Pratiques" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&id=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&id=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&id=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&id=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?>
-				</a>
-			</li>
-			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?></li>
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider"><?= _('"Beta" testeurs de myEurope') ?></li>
 			<li>
 				<a href="?action=Blog&id=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?>
 				</a>
@@ -153,7 +161,7 @@
 	</div>
 </div>
 
-<div data-role="page" id="search" data-dom-cache="true">
+<div data-role="page" id="search">
 
 	<? tabs_simple(array('Search')); ?>
 	<div data-role="content">
@@ -256,7 +264,7 @@
 							<option value="<?= $k ?>">
 							<?= $v ?>
 							</option>
-							<? endforeach; ?>
+						<? endforeach; ?>
 						</select>
 					</div>
 
@@ -264,12 +272,19 @@
 						<label for="textinputs1"><?= _('keywords') ?>:</label> <input
 							id="textinputs1" name="k"
 							placeholder="<?= _('separated by a space, comma, plus') ?>"
-							value='' type="text" />
+							value='' type="text" list="keywords"/>
 					</div>
 				</div>
 			</div>
 
 		</form>
+		
+		<datalist id="keywords">
+		<? foreach (Categories::$keywords as $v): ?>
+			<option value="<?= _($v) ?>"/>
+		<? endforeach; ?>
+		</datalist>
+		  
 	</div>
 </div>
 
@@ -372,7 +387,7 @@
 							<label for="textinputp1"><?= _('Keywords') ?>: </label> <input
 								id="textinputp1" name="k"
 								placeholder="<?= _('separated by a space, comma, plus') ?>"
-								value='' type="text" />
+								value='' type="text" list="keywords" />
 						</div>
 						<div data-role="fieldcontain">
 							<label for="textinputp2"><?= _('Date of expiration') ?>: </label>

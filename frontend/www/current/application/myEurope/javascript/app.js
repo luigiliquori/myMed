@@ -123,17 +123,17 @@ function sortBy( i ){
 	switch(i){
 	case "partner":
 		lis.sort(function(a, b){
-		    return $(a).attr('data-partner').toLowerCase() > $(b).attr('data-partner').toLowerCase() ? 1 : -1;
+		    return $(a).data('partner').toLowerCase() > $(b).data('partner').toLowerCase() ? 1 : -1;
 		});
 		break;
 	case "date":
 		lis.sort(function(a, b){
-		    return $(a).attr('data-time') < $(b).attr('data-time') ? 1 : -1;
+		    return $(a).data('time') < $(b).data('time') ? 1 : -1;
 		});
 		break;
 	case "title":
 		lis.sort(function(a, b){
-		    return $(a).attr('data-title').toLowerCase() > $(b).attr('data-title').toLowerCase() ? 1 : -1;
+		    return $(a).data('title').toLowerCase() > $(b).data('title').toLowerCase() ? 1 : -1;
 		});
 		break;
 	}

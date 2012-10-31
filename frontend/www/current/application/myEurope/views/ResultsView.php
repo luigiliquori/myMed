@@ -1,6 +1,6 @@
 <? include("header.php"); ?>
 
-<div data-role="page" id="results" data-dom-cache="true">
+<div data-role="page" id="results">
 	<? tabs_simple(array("search", $this->title)); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content">
@@ -35,7 +35,7 @@
 			<? foreach($this->result as $item) : ?>
 			
 			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->user ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
-			<a href="?action=details&id=<?= urlencode($item->id) ?>"><span
+			<a href="?action=details&id=<?= urlencode($item->id) ?>" rel="external"><span
 					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?></span><p class="ui-li-aside"><?= date('j/n/Y', $item->time) ?></p>
 				</a>
 			</li>

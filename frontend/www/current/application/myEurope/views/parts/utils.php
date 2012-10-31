@@ -19,18 +19,20 @@ function tab_bar_default($activeTab) {
 
 
  
- function tabs_simple($title=null, $useback=true, $action=null) {
+ function tabs_simple($paths=null, $useback=true, $action=null) {
  	?>
  	<div data-role="header" data-theme="b">
  		<? if ($useback): ?>
  			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
  		<? endif; ?>
   		<h1>
-  			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?></a>
-  			<? if (!is_null($title)): ?>
-  				<? foreach($title as $path): ?>
-					<?= SEP ?><a href="#<?= $path ?>" style="text-decoration: none; color: white;font-size: 80%;"><?= _($path) ?></a>
+  			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none;"><?= APPLICATION_NAME ?></a>
+  			<? if ($paths): ?>
+  				<? $title = array_pop($paths); ?>
+  				<? foreach($paths as $path): ?>
+					<?= SEP ?><a data-rel="back" style="text-decoration: none; font-size: 80%;"><?= _($path) ?></a>
 				<? endforeach; ?>
+				<?= SEP ?><a style="text-decoration: none; color: white;font-size: 80%;"><?= _($title) ?></a>
 			<? endif; ?>
   		</h1>
   		<? if (!is_null($action)): ?>
