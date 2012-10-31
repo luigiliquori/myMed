@@ -25,46 +25,65 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.position.PositionManager;
+import com.mymed.controller.core.manager.statistics.StatisticsManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
-import com.mymed.model.data.user.MPositionBean;
 
 /**
  * Servlet implementation class PositionRequestHandler
  */
-@WebServlet("/PositionRequestHandler")
-public class PositionRequestHandler extends AbstractRequestHandler {
+@WebServlet("/StatisticsRequestHandler")
+public class StatisticsRequestHandler extends AbstractRequestHandler {
 
     /**
      * Generated serial ID.
      */
     private static final long serialVersionUID = -1545024147681413957L;
 
-    private PositionManager positionManager;
+    private StatisticsManager statisticsManager;
 
+	
     /**
-     * JSON 'position' attribute.
+     * JSON 'application' attribute.
      */
-    private static final String JSON_POSITION = JSON.get("json.position");
-
+    private static final String JSON_APPLICATION = JSON.get("json.application");
+    
     /**
-     * JSON 'userID' attribute.
+     * JSON 'method' attribute.
      */
-    private static final String JSON_USER_ID = JSON.get("json.user.id");
-
+    private static final String JSON_METHOD = "method";
+    
+    /**
+     * JSON 'year' attribute.
+     */
+    private static final String JSON_YEAR = "year";
+    
+    /**
+     * JSON 'month' attribute.
+     */
+    private static final String JSON_MONTH = "month";
+    
+    /**
+     * JSON 'day' attribute.
+     */
+    private static final String JSON_DAY = "day";
+    
+    /**
+     * JSON 'statistics' attribute.
+     */
+    private static final String JSON_STATISTICS = "statistics";
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PositionRequestHandler() throws ServletException {
+    public StatisticsRequestHandler() throws ServletException {
         super();
 
         try {
-            positionManager = new PositionManager();
+        	statisticsManager = new StatisticsManager();
         } catch (final InternalBackEndException e) {
-            throw new ServletException("PositionManager is not accessible because: " + e.getMessage());
+            throw new ServletException("StatisticsManager is not accessible because: " + e.getMessage());
         }
     }
 
@@ -82,19 +101,35 @@ public class PositionRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String userID = parameters.get(JSON_USER_ID);
-
-            if (userID == null) {
-                throw new InternalBackEndException("userID argument missing!");
+            final String application = parameters.get(JSON_APPLICATION);
+            final String method = parameters.get(JSON_METHOD);
+            final String year = parameters.get(JSON_YEAR);
+            String month = parameters.get(JSON_MONTH);
+            String day = parameters.get(JSON_DAY);
+            
+            if (application == null) {
+                throw new InternalBackEndException("application argument missing!");
+            }
+            if (method == null) {
+                throw new InternalBackEndException("method argument missing!");
+            }
+            if (year == null) {
+                throw new InternalBackEndException("year argument missing!");
+            }
+            if (month == null) {
+            	month = "";
+            }
+            if (day == null) {
+            	day = "";
             }
 
             if (code.equals(RequestCode.READ)) {
-                message.setMethod(JSON_CODE_READ);
-                final MPositionBean position = positionManager.read(userID);
-                message.addData(JSON_POSITION, gson.toJson(position));
-                message.addDataObject(JSON_POSITION, position);
+            	message.setMethod(JSON_CODE_READ);
+            	Map<String, String> stats = statisticsManager.read(application, method, year, month, day);
+//                message.addData(JSON_STATISTICS, gson.toJson(stats));
+                message.addDataObject(JSON_STATISTICS, stats);
             } else {
-                throw new InternalBackEndException("PositionRequestHandler.doGet(" + code + ") not exist!");
+                throw new InternalBackEndException("StatisticsRequestHandler.doGet(" + code + ") not exist!");
             }
         } catch (final AbstractMymedException e) {
             LOGGER.debug("Error in doGet", e);
@@ -119,26 +154,9 @@ public class PositionRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String position = parameters.get(JSON_POSITION);
 
-            if (position == null) {
-                throw new InternalBackEndException("missing position argument!");
-            }
-
-            if (code.equals(RequestCode.UPDATE)) {
-                message.setMethod(JSON_CODE_UPDATE);
-                try {
-                    final MPositionBean positionBean = gson.fromJson(position, MPositionBean.class);
-                    LOGGER.info("Trying to update position:\n {}", positionBean.toString());
-                    positionManager.update(positionBean);
-                    message.setDescription("Position updated!");
-                    LOGGER.info("Position updated!");
-                } catch (final JsonSyntaxException e) {
-                    throw new InternalBackEndException("position jSon format is not valid");
-                }
-            } else {
-                throw new InternalBackEndException("PositionRequestHandler.doPost(" + code + ") not exist!");
-            }
+            throw new InternalBackEndException("StatisticsRequestHandler.doPost(" + code + ") not exist!");
+            
         } catch (final AbstractMymedException e) {
             LOGGER.debug("Error in doPost operation", e);
             message.setStatus(e.getStatus());
