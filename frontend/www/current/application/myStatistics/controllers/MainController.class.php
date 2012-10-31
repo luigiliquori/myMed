@@ -4,7 +4,7 @@
  * This controller is the main controller of the statistics application.
  * it shows the statistics about publish and subscribe in myMed applications
  *
- */
+ */ 
 
 //require(MYMED_ROOT."/application/myMed/controllers/MainController.class.php");
 
