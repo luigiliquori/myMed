@@ -1,4 +1,4 @@
-<div data-role="header" data-theme="b" data-position="fixed">
+<div data-role="header" data-theme="b">
 	
 	<h1><?= APPLICATION_NAME ?></h1>
 	

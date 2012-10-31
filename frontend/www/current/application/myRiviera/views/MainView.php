@@ -10,8 +10,6 @@
 		<!-- MAP -->
 		<div id="<?= APPLICATION_NAME ?>Map"></div>
 	
-		<script type="text/javascript">var mobile = '<?php echo TARGET ?>';</script>
-	
 		<div id="steps" data-role="controlgroup" data-type="horizontal">
 			<a id="prev-step" data-role="button" data-icon="arrow-l" style="opacity:.8;">&nbsp;</a>
 			<a href="#roadMap" data-role="button" style="opacity:.8;">Détails</a>
@@ -19,7 +17,7 @@
 		</div>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="d">
+	<div data-role="footer" style="position:absolute;bottom:0;width:100%" data-theme="d">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#Map" data-transition="none" data-back="true" data-icon="home" class="ui-btn-active ui-state-persist">Carte</a></li>

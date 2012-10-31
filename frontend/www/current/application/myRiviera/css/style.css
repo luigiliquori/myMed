@@ -12,6 +12,7 @@
 	background-image: url("../img/thumb.png");
 }
 
+
 #myMap { 
 	top:  0px;
 	left:0px;
@@ -187,9 +188,10 @@
 }
 
 
+/* why
 h1 {
 	color: #3b6ea0;
-}
+}*/
 
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.

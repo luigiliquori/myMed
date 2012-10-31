@@ -45,7 +45,7 @@
 // 						$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
 // 						echo "<a href='" . $url . "' onClick='showLoadingBar(\"redirecton en cours...\")'>" . $wrapper->getSocialNetworkButton() . "</a>";
 // 					}
-					?>
+									?>
 					<!-- CONNECTION FACEBOOK -->
 			 	    <div id="fb-root"></div>
 				    <script>
@@ -55,7 +55,7 @@
 				            status     : true, 
 				            cookie     : true,
 				            xfbml      : true,
-				            oauth      : true,
+				            oauth      : true
 				          });
 				          FB.Event.subscribe('auth.login', function(response) {
 				              window.location.reload();
@@ -134,27 +134,24 @@
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
 				data-content-theme="c" style="text-align: left;">
 				<h3>Aide</h3>
-				<h3>Bouton Rechercher, au dessus de la carte</h3>
+				<h2>Rechercher</h2>
 				<p>
-					Ce bouton permet la recherche d'itinéraire via les transports
-					publics, nous utilisons l'API <a href="http://www.ceparou06.fr/">Ceparou06</a>
-					, en cas d'échec vous serez redirigé vers un itinéraire Google Maps
-					classique.
+					La recherche d'itinéraire utilise <a href="http://www.ceparou06.fr/">Ceparou06</a>
+					, en cas d'échec vous serez redirigé vers un itinéraire Google Maps.
+					<br>
+					<b>Rayon de recherche</b>:
+					Les points d'intérêts sont affichés à l'intérieur de cette zone.
+					<br>
+					<b>Points d'intérêts</b>:
+					Ils désignent les types d'établissements, d'évênements que vous
+					souhaitez afficher sur la carte.
+					<br>
+					<b>Types de Trajet Cityway</b>
+					Ces champs permettent de paramétrer votre recherche d'itinéraire.
 				</p>
-				<h3>Points d'intérêts</h3>
-				<p>Ils désignent les types d'établissements, d'évênements que vous
-					souhaitez afficher sur la carte.</p>
-				<h3>Persistence des points d'intérêts</h3>
-				<p>Cette préférence permet ou non de conserver les points d'intérêts
-					visités visibles.</p>
-				<h3>Rayon de recherche</h3>
-				<p>La valeur, en mètres, autours de la position actuelle pour
-					laquelle vous souhaitez rechercher des points d'intérêts.</p>
-				<h3>Types de Trajet Cityway</h3>
-				<p>Ces champs permettent de paramétrer votre recherche d'itinéraire.</p>
-				<h3>Profil</h3>
-				<p>Ce champ donne accès à votre profil myRiviera.</p>
-				<h3>Réseau social</h3>
+				<h2>Profil</h2>
+				<p>Ce champ donne accès à votre profil myMed.</p>
+				<h2>Réseau social</h2>
 				<p>En vous connectant avec Facebook, vous chargerez les positions de
 					vos amis (acceptant la géolocalisation), disponibles dans la
 					recherche d'itinéraire par le bouton + du champs Arrivée.</p>

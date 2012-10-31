@@ -17,7 +17,8 @@ var poiIterator;
 
 var steps = []; 
 var currentSegmentID = 0, prevSegmentID = 0;
-var autocompleteDepart, autocompleteArrivee, useautocompletion = true;
+var autocompleteDepart, autocompleteArrivee;
+var useautocompletion = true;
 
 var start = null, end = null;
 var circle;
@@ -143,7 +144,7 @@ function initialize() {
 }
 
 function resizeMap() {
-	$("#" + $("#applicationName").val() + "Map").height($("body").height() );
+	$("#" + $("#applicationName").val() + "Map").height($("body").height()-$("[data-role=header]").outerHeight());
 }
 
 function displayPosition(position) {
@@ -331,7 +332,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 				'type': type,
 				'latitude': lat || steps[index - 1].position.lat(),
 				'longitude': lon || steps[index - 1].position.lng(),
-				'radius': rad || $('#slider-radius').val(),
+				'radius': rad || $('#slider-radius').val()
 				//'accessToken': $("#accessToken").val(),
 				//'code': 1
 		};
@@ -802,14 +803,8 @@ function validateIt() {
 				startmarker.setPosition(start);
 				endmarker.setPosition(end);
 
-				var date = $('#select-year').val() + "-"
-				+ ("0" + ($('#select-month').val())).slice(-2) + "-"
-				+ ("0" + ($('#select-day').val())).slice(-2) + "_"
-				+ ("0" + ($('#select-hour').val())).slice(-2) + "-"
-				+ ("0" + ($('#select-minute').val())).slice(-2);
-
+				var date = $('#date').val() + "_" + $('#time').val().replace(':', '-');
 				var optimize = $("#cityway-search input:radio:checked").val();
-
 				var tModes0 = $('#cityway-search input:checkbox:not(:checked)');
 				var transitModes = 0;
 				if (tModes0.length) {
