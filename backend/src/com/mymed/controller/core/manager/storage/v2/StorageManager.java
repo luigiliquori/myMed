@@ -145,6 +145,8 @@ public class StorageManager extends
             final String columnName) throws InternalBackEndException 
     {
 
+//		System.out.println("\nREAD: " + tableName + ", " + key + "," + columnName);
+		
     	Map<String, String> resultValue = new HashMap<String, String>();
 
         final ColumnPath colPathName = new ColumnPath(tableName);
