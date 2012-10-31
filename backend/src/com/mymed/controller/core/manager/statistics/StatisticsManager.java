@@ -17,7 +17,7 @@ import com.mymed.utils.MConverter;
 
 public class StatisticsManager extends AbstractManager {
 
-	protected static final String ALL_ARG = "all";
+	public static final String ALL_ARG = "all";
 	public static final String PUBLISH_ARG = "pub";
 	public static final String SUBSCRIBE_ARG = "sub";
 	public static final String FIND_ARG = "find";
@@ -95,13 +95,10 @@ public class StatisticsManager extends AbstractManager {
 			argsYears.put(month, encode(++countMonth));
 			argsMonth.put(day, encode(++countDay));
 			
-//			System.out.println("\n countYear = " + countYear);
-//			System.out.println("\n countMonth = " + countMonth);
-//			System.out.println("\n countDay = " + countDay);
-			
 			storageManager.insertSuperSlice(SC_STATICTICS, key, ALL_ARG, argsAll);
 			storageManager.insertSuperSlice(SC_STATICTICS, key, year, argsYears);
-			storageManager.insertSuperSlice(SC_STATICTICS, key, month, argsMonth);
+			storageManager.insertSuperSlice(SC_STATICTICS, key, year+month, argsMonth);
+			
 		}
 	}
 	
@@ -116,7 +113,14 @@ public class StatisticsManager extends AbstractManager {
 	 * 		could be empty (will return all the days)
 	 * @return
 	 */
-	public Map<String, String> read(String application, String method, String year, String month, String day) {
-		return storageManager.selectSuperColumn(SC_STATICTICS, application+method, year+month+day);
+	public Map<String, String> read(String application, String method, String year, String month) {
+		String when = ALL_ARG;
+		if(year != null) {
+			when = year;
+			if(month != null) {
+				when += month;
+			}
+		}
+		return storageManager.selectSuperColumn(SC_STATICTICS, application+method, when);
 	}
 }

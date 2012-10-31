@@ -101,32 +101,22 @@ public class StatisticsRequestHandler extends AbstractRequestHandler {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            final String application = parameters.get(JSON_APPLICATION);
-            final String method = parameters.get(JSON_METHOD);
-            final String year = parameters.get(JSON_YEAR);
+            String application = parameters.get(JSON_APPLICATION);
+            String method = parameters.get(JSON_METHOD);
+            String year = parameters.get(JSON_YEAR);
             String month = parameters.get(JSON_MONTH);
-            String day = parameters.get(JSON_DAY);
             
             if (application == null) {
-                throw new InternalBackEndException("application argument missing!");
+            	application = StatisticsManager.ALL_ARG;
             }
             if (method == null) {
-                throw new InternalBackEndException("method argument missing!");
-            }
-            if (year == null) {
-                throw new InternalBackEndException("year argument missing!");
-            }
-            if (month == null) {
-            	month = "";
-            }
-            if (day == null) {
-            	day = "";
+            	method = StatisticsManager.ALL_ARG;
             }
 
             if (code.equals(RequestCode.READ)) {
             	message.setMethod(JSON_CODE_READ);
-            	Map<String, String> stats = statisticsManager.read(application, method, year, month, day);
-//                message.addData(JSON_STATISTICS, gson.toJson(stats));
+            	Map<String, String> stats = statisticsManager.read(application, method, year, month);
+//              message.addData(JSON_STATISTICS, gson.toJson(stats));
                 message.addDataObject(JSON_STATISTICS, stats);
             } else {
                 throw new InternalBackEndException("StatisticsRequestHandler.doGet(" + code + ") not exist!");
