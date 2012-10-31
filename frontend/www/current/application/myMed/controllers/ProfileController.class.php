@@ -56,9 +56,11 @@ class ProfileController extends AuthenticatedController {
 				$request = new Requestv2(
 					"v2/AuthenticationRequestHandler",
 					READ,
-					array("login"=>$_POST['email'],
-								"password"=>hash('sha512', $_POST['password']), 
-								"passwordCheck"=>1)
+					array(
+						"login"=>$_POST['email'],
+						"password"=>hash('sha512', $_POST['password']), 
+						"passwordCheck"=>1 //fast yes/no password check instead of delivering an accesstoken
+						)
 				);
 				try {
 					$res = $request->send();

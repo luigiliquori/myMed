@@ -1,8 +1,7 @@
 
-## run (after installing poedit)
-## xgettext -f translations
-## then open it and merge with fr and it .po
-## finally replace the old with it
+## run (after installing poedit) xgettext -f translations
+## then open the generated po file, click catalog in podeit menu, and update from pot file and choose the previous dictionnary po file
+## then enter the translations for the new added keywords
 
 
 ##
@@ -11,7 +10,7 @@
 
 ../index.php
 ../system/common/common-utils.php
-
+../lib/dasp/ajax/Subscribe.php
 
 #########
 # myMed #

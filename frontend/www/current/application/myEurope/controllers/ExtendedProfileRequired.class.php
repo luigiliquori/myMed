@@ -2,24 +2,26 @@
 
 class ExtendedProfileRequired extends AuthenticatedController {
 	
-	function handleRequest(){
+	public function handleRequest(){
 		
 		parent::handleRequest();
+
 		/*
 		 * Try to get the User ExtendedProfile if it exist
 		 * ExtendedProfile stored in the $_SESSION while using the app
 		 */
 		
-		if (!isset($_SESSION['myEurope'])){
+		if (!isset($_SESSION['myEurope'], $_SESSION['myEurope']->permission)){
 			$this->mapper = new DataMapper;
 				
 			$user = new User($_SESSION['user']->id);
 			try {
-				$details = $this->mapper->findById($user);
+				$usr = $this->mapper->findById($user);
 			} catch (Exception $e) {
+				//ignore the error for the moment
 			}
-			$_SESSION['myEurope'] = (object) $details;
-			$profile = new Profile($details['profile']);
+
+			$profile = new Profile($usr['profile']);
 			try {
 				$profile->details = $this->mapper->findById($profile);
 			} catch (Exception $e) {
@@ -27,8 +29,8 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			$profile->parseProfile();
 			$profile->reputation = pickFirst(parent::getReputation(array($profile->details['id'])));
 				
-			$_SESSION['myEurope'] = (object) array_merge((array) $_SESSION['myEurope'],  (array) $profile);
-			debug_r($_SESSION['myEurope']->permission);
+			$_SESSION['myEurope'] = (object) array_merge( $usr, (array) $profile);
+
 			if ($_SESSION['myEurope']->permission <= 0){
 				// set as guest
 				$_SESSION['user']->acl = array('defaultMethod', 'read');

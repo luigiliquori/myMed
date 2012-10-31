@@ -37,7 +37,7 @@ function callController(
 		//$controller->accessControl( $method, $_SESSION['user']->acl);
 		
 		if (!isset($_SESSION['user']->acl)){
-			debug('--------------shhould not happen-');
+			debug('-----!!!!!!!!---------shhould not happen but make sure to give sth to Acl--');
 			$_SESSION['user']->acl = array('defaultMethod', 'read');
 		}
 			
@@ -74,9 +74,8 @@ function callController(
 		
 		// Call the methods
 		$refMethod->invokeArgs($controller, $params);*/
-		debug('rg');
+
 		/*if ( method_exists( $controller, $method )){
-			debug('g');
 			return call_user_func(
 				array( $controller, $method )
 			);

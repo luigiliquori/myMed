@@ -16,6 +16,7 @@ class LoginController extends AbstractController {
 			$token = isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null;
 			debug_r($_SESSION['user']);
 			$_SESSION['user'] = $this->insertUser($_SESSION['userFromExternalAuth'], $token);
+			$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
 			
 			// Redirect to main page
 			$this->redirectTo("main");
@@ -23,8 +24,7 @@ class LoginController extends AbstractController {
 		}
 		
 		/* Typical login : we received a POST with login and password */
-		else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Get arguments 
 			$login	= trim($_POST['login']);
 			$pass	= hash("sha512", $_POST['password']);
@@ -106,6 +106,7 @@ class LoginController extends AbstractController {
 				}
 				
 				// Redirect to main page
+				
 				$this->redirectTo("main");
 			}
 			
@@ -140,6 +141,7 @@ class LoginController extends AbstractController {
 		} else {
 			// Everything went fine, we now have an USER in our session
 			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject->dataObject->user);
+			$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
 			if( !isset($_SESSION['friends']) ){
 				$_SESSION['friends'] = array();
 			}

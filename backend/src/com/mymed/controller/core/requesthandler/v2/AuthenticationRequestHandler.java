@@ -17,6 +17,7 @@ package com.mymed.controller.core.requesthandler.v2;
 
 import static com.mymed.utils.MiscUtils.json_to_map;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -31,6 +32,8 @@ import com.mymed.controller.core.manager.authentication.AuthenticationManager;
 import com.mymed.controller.core.manager.authentication.IAuthenticationManager;
 import com.mymed.controller.core.manager.profile.IProfileManager;
 import com.mymed.controller.core.manager.profile.ProfileManager;
+import com.mymed.controller.core.manager.session.ISessionManager;
+import com.mymed.controller.core.manager.session.SessionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.utils.HashFunction;
 
@@ -47,6 +50,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 	private IAuthenticationManager authenticationManager;
 	private IProfileManager profileManager;
+	private ISessionManager sessionManager;
 
 	/**
 	 * JSON 'login' attribute.
@@ -82,6 +86,8 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 		try {
 			authenticationManager = new AuthenticationManager();
 			profileManager = new ProfileManager();
+			sessionManager = new SessionManager();
+			
 		} catch (final InternalBackEndException e) {
 			LOGGER.debug("AuthenticationManager not accessible!", e);
 			throw new ServletException(
@@ -107,8 +113,9 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 
 			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
 
-			final String login = parameters.get(JSON_LOGIN);
-			final String password = parameters.get(JSON_PASSWORD);
+			final String login = parameters.get(JSON_LOGIN), 
+					password = parameters.get(JSON_PASSWORD),
+					passwordCheck = parameters.get("passwordCheck");
 
 			switch (code) {
 			case READ:
@@ -122,8 +129,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					message.setDescription("Successfully authenticated");
 					message.addDataObject(JSON_USER, usrId);
 					
-					//unnecessary stuff
-					/*if (passwordCheck != null) { // for fast password check only
+					if (passwordCheck != null) { // for fast password check only
 						break;
 					}
 
@@ -148,7 +154,7 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 					urlBuffer.trimToSize();
 
 					message.addDataObject("url", urlBuffer.toString());
-					message.addDataObject(JSON_ACCESS_TKN, accessToken);*/
+					message.addDataObject(JSON_ACCESS_TKN, accessToken);
 					
 				}
 				break;

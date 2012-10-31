@@ -61,8 +61,6 @@ class PublishController extends ExtendedProfileRequired {
 		unset($_POST['action']);
 		unset($_POST['method']);
 		$this->req = "";
-
-		debug(json_encode($_POST));
 		unset($_POST['r']);
 		$get_line = "";
 		$this->req = http_build_query($_POST);

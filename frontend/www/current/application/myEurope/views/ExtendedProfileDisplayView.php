@@ -27,7 +27,6 @@
 		<div style="text-align: center;">
 			<? if (isset($_GET['admin']) ): ?>
 			<br />
-			<?php debug_r($this->profile); ?>
 			<a href="?action=ExtendedProfile&method=delete&rmUser=<?= $_GET['user'] ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete user') ?></a>
 			<br />
 			<a href="?action=ExtendedProfile&method=delete&rmProfile=<?= $this->profile->id ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete profile') ?></a>

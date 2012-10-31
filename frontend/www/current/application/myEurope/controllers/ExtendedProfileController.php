@@ -2,7 +2,7 @@
 
 class ExtendedProfileController extends ExtendedProfileRequired {
 
-	function handleRequest(){
+	public function handleRequest(){
 		parent::handleRequest();
 		$this->mapper = new DataMapper;
 	}
@@ -36,7 +36,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	
 	function create(){
 		$profile = $this->storeProfile();
-		debug_r($profile);
+		//debug_r($profile);
 		$this->redirectTo("ExtendedProfile", array("id"=>$profile->id, "link"=>""));
 	}
 	
@@ -64,7 +64,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				'profile'=> $profile
 		);
 		
-		debug_r($user);
+		//debug_r($user);
 		
 		$publish = new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>$user, "metadata"=>$user),
@@ -201,7 +201,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		} catch (Exception $e) {
 			$this->redirectTo("main");
 		}
-		debug_r($details);
+		//debug_r($details);
 		$this->profile->parseProfile();
 		if (!empty($details['profile'])) $this->profile->reputation = pickFirst(parent::getReputation(array($details['profile'])));
 		$this->renderView("ExtendedProfileDisplay");
@@ -215,7 +215,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 	
 		$this->cats = Categories::$roles;
-		debug_r($res);
+		//debug_r($res);
 	
 		function filterArray($array, $value){
 			$result = array();
