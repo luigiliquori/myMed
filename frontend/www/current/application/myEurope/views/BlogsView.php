@@ -14,7 +14,7 @@
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>
 	<div data-role="collapsible" <? if($first){echo('data-collapsed="false"');$first=false;} ?>>
-		<h2><?= $v['title'] ?><time style="font-weight: lighter; font-size: 14px; font-style: italic; float: right;"><?= date('j/n/Y', $v['time']) ?></time></h2>
+		<h2><?= $v['title'] ?><p class="ui-li-aside ui-li-desc"><?= date('j/n/Y', $v['time']) ?></p></h2>
 		<ul data-role="listview" data-theme="d" data-divider-theme="d">
 			<li id="<?= $k ?>">
 			

@@ -216,7 +216,7 @@ function comment(
 <?= $indent?'style="margin-left: 50px;"':'' ?>>
 	<p style="display: inline-block;">
 		<a href="#votePopup<?= $id ?>" data-rel="popup"
-			data-position-to="origin"><?= $v['up'] - $v['down'] ?> </a> &nbsp;
+			data-position-to="origin"><?= $v['up'] - $v['down'] ?></a> &nbsp;
 		<?= $v['text'] ?>
 		<? if(!empty($userCommented)) : ?>
 		&ndash; in reply of <span class="ui-link"

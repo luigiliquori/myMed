@@ -35,6 +35,8 @@ class DetailsController extends ExtendedProfileRequired {
 		if (isset($res->details)){
 			$this->details = $res->details;
 			
+			$this->tags = $this->format($this->details->keywords);
+			
 			$this->reputation = pickFirst(getReputation(array($this->id)));
 			
 			if (isset($this->details->user)){
@@ -160,6 +162,11 @@ class DetailsController extends ExtendedProfileRequired {
 		$profile->parseProfile();
 		$profile->reputation = pickFirst(getReputation( array($details['profile'])));
 		return $profile;
+	}
+	
+	function format($w){
+		$w = str_replace(array('"r":','"p":','"c":','"t":','"k":'), array('roles: ','places: ','call: ','themes: ','keywords: '), $w);
+		return str_replace(array('{','}','"",'), '', $w);
 	}
 	
 }

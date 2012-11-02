@@ -30,42 +30,6 @@
 	</div>
 </div>
 
-<div data-role="page" id="profile">
-
-<? tab_bar_default("#profile") ?>
-	<div data-role="content" style="text-align: center;">
-	<?php if($_SESSION['user']->profilePicture != ""): ?>
-		<a title="<?= $_SESSION['user']->name ?>"><img src="<?= $_SESSION['user']->profilePicture ?>" width="80"></a>
-	<?php else: ?>
-		<a href="#updatePicPopup" data-rel="popup"><img src="http://graph.facebook.com//picture?type=large" width="80"></a>
-	<?php endif; ?>
-	
-		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
-			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<div style="display: inline-block;">
-				<input type="text" id="picUrl" placeholder="Picture's url" value="http://cdn.walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg" data-inline="true" />
-			</div>
-			<a onclick="$('#updatePicPopup').popup('close');updateProfile('profilePicture', $('#picUrl').val());" data-role="button" data-theme="d" data-mini="true" data-icon="ok" data-inline="true"><?= _("Update") ?></a>
-		</div>
-		
-		<div style="display:inline-block; margin-left: 15px; vertical-align: 100%; font-weight: bold; font-size: 14pt; text-align: center;">
-			<?= $_SESSION['user']->name ?> 
-		</div>
-		
-		<? if (isset($_SESSION['myEurope'])) :?>
-			
-			 <br>
-			<a type="button" href="?action=ExtendedProfile&edit=false" data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>			
-		<? else: ?>
-			<a type="button" href="?action=ExtendedProfile&list" rel="external" data-theme="d" data-icon="faplus" ><?= _('Create my profile') ?></a>
-		<? endif; ?>
-		<br><br>
-		
-
-		
-	</div>
-</div>
-
 <div data-role="page" id="blogs">
 
 	<? tab_bar_default("#blogs") ?>
@@ -116,52 +80,6 @@
 			</ul>
 		</div>
 		
-
-		<? if ($_SESSION['myEurope']->permission > 1): ?>
-		<div data-role="fieldcontain">
-			<a href="#createPopup" data-rel="popup" data-inline="true"
-				type="button" data-icon="faplus"> <?= _("Create a new blog") ?> </a>
-		</div>
-		<? endif; ?>
-
-		<div data-role="popup" id="createPopup" class="ui-content"
-			data-overlay-theme="e" data-theme="d">
-			<a href="#" data-rel="back" data-role="button" data-theme="d"
-				data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<input type="text" id="blogName" placeholder="Blog's name"
-				data-inline="true" /> <a onclick="$('#createPopup').popup('close');"
-				data-role="button" data-theme="d" data-icon="ok" data-inline="true"><?= _("Create") ?>
-			</a>
-		</div>
-	</div>
-</div>
-
-<div data-role="page" id="about">
-
-<? tab_bar_default("#about") ?>
-	<div data-role="content">
-
-		<br />
-		<?= _('myEuropeabout') ?>
-	</div>
-</div>
-
-<div data-role="page" id="admin">
-	<div data-role="header" data-theme="c" data-position="fixed">
-	<? tab_bar_default("#admin") ?>
-	</div>
-	<div data-role="content">
-		<br />
-		<div style="text-align: center;">
-			<span><?= _('Restricted page for admins') ?> </span><br />
-			<? if ($_SESSION['myEurope']->permission<=1) {?>
-			<a data-rel="back" data-icon="back" type="button" data-inline="true"
-				data-theme="e"><?= _('Back') ?> </a>
-				<? } else { ?>
-			<a href="./?action=Admin" type="button" data-inline="true"
-				data-theme="g"><?= _('Access') ?> </a>
-				<? } ?>
-		</div>
 	</div>
 </div>
 
@@ -177,14 +95,22 @@
 				<a href="#" data-rel="back" data-role="button" data-theme="d"
 					data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
 				<ul data-role="listview" data-theme="d">
-					<li>Si vous laissez tous les champs <b>vides</b> (non cochés), vous
+					<li>Si vous laissez tous les champs <b>vides</b>, vous
 					obtenez toutes les offres publiées à ce jour</li>
 					<li>Lorsque vous
 					laissez une categorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</li>
-					<li>Lorsque vous cochez plusieurs champs dans une catégorie, les 
+					<li>Lorsque vous cochez/ remplissez plusieurs champs dans une catégorie, les 
 						résultats matcheront au moins un des critères.</li>
 				</ul>
 			</div>
+			
+			<div data-role="fieldcontain" id="tagsContainer">
+				<label for="textinput1"><?= _('keywords') ?>:</label>
+				<input id="textinput1" class="tagInput" name="k[]"
+					placeholder="<?= _('separated by a space') ?>"
+					list="keywords" style="width: 50%;min-width: 300px;margin-bottom: 5px;"/>
+			</div>
+			
 			
 			<div style="text-align: center;" data-role="controlgroup" data-type="horizontal">
 				<input type="submit" id="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>" />
@@ -272,14 +198,7 @@
 						</select>
 					</div>
 
-					<div data-role="fieldcontain" id="tagsContainer">
-						<label for="textinputs1"><?= _('keywords') ?>:</label>
-  						<span class="tagsSpan"></span>
-						<input id="textinputs1" class="tagInput"
-							placeholder="<?= _('separated by a space, comma, plus') ?>"
-							value='' type="text" list="keywords"/>
-					</div>
-					<div id="submitResult"></div>
+				
 				</div>
 			</div>
 
@@ -390,13 +309,12 @@
 						</div>
 
 						<div data-role="fieldcontain" id="tagsContainer2">
-							<label for="textinputp1"><?= _('Keywords') ?>: </label>
-  							<span class="tagsSpan"></span>
- 							 <input id="textinputp1" class="tagInput"
-								placeholder="<?= _('separated by a space, comma, plus') ?>"
-								value='' type="text" list="keywords"/>
+							<label for="textinput1"><?= _('Keywords') ?>: </label>
+ 							 <input id="textinput1" class="tagInput"
+								placeholder="<?= _('separated by a space') ?>"
+								name="k[]" list="keywords" style="width: 50%;min-width: 300px;margin-bottom: 5px;"/>
 						</div>
-						<div id="submitResult2"></div>
+
 						<div data-role="fieldcontain">
 							<label for="textinputp2"><?= _('Date of expiration') ?>: </label>
 							<input id="textinputp2" name="date"

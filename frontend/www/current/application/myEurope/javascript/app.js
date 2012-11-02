@@ -37,6 +37,23 @@ var CLEloaded = false;
 	//console.log("__ "+isSub+" "+tags);
 });*/
 
+var inputStr = '<input name="k[]" list="keywords" class="tagInput" style="width: 100px; margin-left: 10px; margin-bottom: 5px;"/>';
+
+$('.tagInput').live('keyup', function(e){
+	var ctId = '#'+ this.parentNode.id;
+	if (e.keyCode == 32){
+		this.value = this.value.trim();
+		$(ctId).append(inputStr);
+		$(ctId + ' .tagInput').last().textinput();
+		$(ctId + ' .tagInput').last().focus();		
+	} else if (e.keyCode == 8 && this.value == '' && this.id != 'textinput1'){
+		if ($(ctId + ' .tagInput').length > 1){
+			$(this).remove();
+			$(ctId + ' .tagInput').last().focus();
+		}
+	}
+});
+
 $("#Blog, #post").live("pagecreate", function() {
 	CLEloaded = false;
 		
@@ -265,7 +282,7 @@ function commentAdd(el){
 		id: blog+"comments"+post.attr('id'),
 		replyTo: replyTo,
 		userCommented: userCommented,
-		text: text,
+		text: text
 	}, function(li) {
 		//console.log(li);
 		if (li != null){//insert the comment

@@ -17,14 +17,14 @@
 					<?= $this->details->text ?>
 				</div>
 				<p class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
-					<a data-role="button" data-icon="plus-sign" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->user ?>', 1);">
+					<a data-role="button" data-icon="arrow-up" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->user ?>', 1);">
 						<span style="color: blue;font-size: 14px;"><?= $this->reputation['up'] ?></span> <span style="font-weight: normal;">"J'aime"</span>
 					</a>
 				</p>
 				
 			</li>
 			<li style="font-weight: normal; font-size: 14px;">
-				<b><?= _("Keywords") ?>:</b> <?= str_replace(array('{','}','"r":','"p":','"",','"c":','"t":','"k":'), '', $this->details->keywords)  ?>
+				<b><?= _("Keywords") ?>:</b> <?= $this->tags  ?>
 			</li>
 			<li style="font-weight: normal; font-size: 14px;">
 				<b><?= _("Publication Date") ?>:</b> <?= date('j/n/Y G:i', $this->details->time) ?>

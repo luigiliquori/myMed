@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-02 18:00+0100\n"
-"PO-Revision-Date: 2012-11-02 19:20+0100\n"
+"PO-Revision-Date: 2012-11-03 17:24+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -424,7 +424,7 @@ msgstr "Mots-clés "
 
 #: ../application/myEurope/views/MainView.php:278
 #: ../application/myEurope/views/MainView.php:395
-msgid "separated by a space, comma, plus"
+msgid "separated by a space"
 msgstr "Séparés par un espace"
 
 #: ../application/myEurope/views/MainView.php:308

@@ -39,7 +39,7 @@ class SearchController extends ExtendedProfileRequired {
 	
 	function getValues($o){
 		if (!empty($o->value)){
-			$this->title .= $o->key.'='.$o->value.' ';
+			$this->title .= str_replace('|', '+', $o->value).' ';
 		}
 	}
 	
