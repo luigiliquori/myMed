@@ -13,6 +13,33 @@ class ExtendedProfileController extends AbstractController
 	 */
 	public /*void*/ function handleRequest(){
 		
+		if(isset($_POST['lang'])){
+			$_POST['id'] = $_SESSION['user']->id;
+			$_POST['firstName'] = $_SESSION['user']->firstName;
+			$_POST['lastName'] = $_SESSION['user']->lastName;
+			$_POST['email'] = $_SESSION['user']->email;
+			$_POST['birthday'] = $_SESSION['user']->birthday;
+			$_POST['profilePicture'] = $_SESSION['user']->profilePicture;
+				
+			$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($_POST)));
+				
+			$responsejSon = $request->send();
+			$responseObject2 = json_decode($responsejSon);
+				
+			if($responseObject2->status != 200) {
+				$this->error = $responseObject2->description;
+			} else{
+					
+				$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $_POST);
+			}
+				
+				
+				
+			$debugtxt  =  "<pre>LANGUUUUUUAGE";
+			$debugtxt  .= var_export($_POST['lang'], TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+		}
 		if (isset($_POST["profileFilled"]))
 			$this->storeProfile();
 		else if (isset($_SESSION['ExtendedProfile']) AND !empty($_SESSION['ExtendedProfile']))
@@ -68,7 +95,9 @@ class ExtendedProfileController extends AbstractController
 	
 	public /*void*/ function showProfile(){
 
-		$this->renderView("ExtendedProfileDisplay");
+		
+			$this->renderView("ExtendedProfileDisplay");
+
 	}
 
 }

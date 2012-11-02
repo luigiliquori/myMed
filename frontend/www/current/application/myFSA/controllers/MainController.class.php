@@ -16,12 +16,16 @@ class MainController extends AuthenticatedController {
 			$this->fetchExtendedProfile();
 			$this->redirectTo("ExtendedProfile");
 
+		}elseif($_SESSION["profileFilled"] == "guest"){
+			$this->renderView("main2");
 		}
-		else
-			$this->renderView("main");
+		else{
+			$this->redirectTo("search");
 			//$p = new PublishController();
 			//$p->search();
 			//$this->renderView("search");
+		}
+
 					
 	}
 	
@@ -32,12 +36,11 @@ class MainController extends AuthenticatedController {
 		$debugtxt  .= var_export("przed", TRUE);
 		$debugtxt .= "</pre>";
 		debug($debugtxt);
+		
 		$result = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
 
-		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-		$debugtxt  .= var_export("po", TRUE);
-		$debugtxt .= "</pre>";
-		debug($debugtxt);
+
+		
 		if (empty($result)){
 			$this->error = "";
 			$this->renderView("ExtendedProfileNeeded");

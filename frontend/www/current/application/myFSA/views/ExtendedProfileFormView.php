@@ -1,25 +1,23 @@
-<? 
-
-include("header.php"); ?>
+<? include("header.php"); ?>
 
 <? 
  
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
  	tabs(array(
- 			"company" => "Company",
- 			"employer" => "Employer/Student", 
- 			"guest" => "Guest"),
+ 			"company" => translate('Company'),
+ 			"employer" => translate('Employer/Student'), 
+ 			"guest" => translate('Guest')),
  		$activeTab);
  }
  
  ?>
 
-<div data-role="page" id="company" data-theme="a">	
+<div data-role="page" id="company" data-theme="b">	
 
 	<? include("header-bar.php") ?>
 
-	<div data-role="content">
+	<div data-role="content" style="padding: 0px;">
 	
 		<!-- Tabs -->
 		<? tab_bar("company") ?>
@@ -27,34 +25,34 @@ include("header.php"); ?>
 		<form  data-role="content" action="index.php?action=ExtendedProfile" method="post" data-ajax="false">
 				<input type="hidden" name="profileFilled" id="profileFilled" value="company" />
 				
-				<label for="ctype" ><?= _("Company type") ?></label>
+				<label for="ctype" ><?= translate("Company type") ?></label>
 				<input type="text" name="ctype" id="ctype" />
 				<br/>
 		
-				<label for="cname"><?= _("Company name") ?></label>
+				<label for="cname"><?= translate("Company name") ?></label>
 				<input id="cname" type="text" name="cname" value="" />
 				<br/>
 				
-				<label for="caddress"><?= _("Company address") ?></label>
+				<label for="caddress"><?= translate("Company Address") ?></label>
 				<input id="caddress" type="text" name="caddress" value="" />
 				<br/>
 				
-				<label for="cnumber" ><?= _("Security number") ?></label>
+				<label for="cnumber" ><?= translate("SIRET") ?></label>
 				<input type="text" name="cnumber" />
 				<br/>
 				
-				<input type="submit" value="<?= _("Submit") ?>" data-theme="a" />
+				<center><input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" data-inline="true" /></center>
 		
 		</form>
 	</div>
-	
+<? include("footer.php"); ?>	
 </div>
 	
-<div data-role="page" id="employer" data-theme="a">	
+<div data-role="page" id="employer" data-theme="b">	
 
 	<? include("header-bar.php") ?>
 
-	<div data-role="content">
+	<div data-role="content" style="padding: 0px;">
 	
 		<!-- Tabs -->
 		<? tab_bar("employer") ?>
@@ -62,34 +60,34 @@ include("header.php"); ?>
 		<form  data-role="content" action="index.php?action=ExtendedProfile" method="post" data-ajax="false">
 				<input type="hidden" name="profileFilled" id="profileFilled" value="employer" />
 				
-				<label for="occupation" ><?= _("Occupation") ?></label>
+				<label for="occupation" ><?= translate("Campus") ?></label>
 				<input type="text" name="occupation" id="occupation" />
 				<br/>
 		
-				<label for="cname"><?= _("Company name") ?></label>
+				<label for="cname"><?= translate("University") ?></label>
 				<input id="cname" type="text" name="cname" value="" />
 				<br/>
 				
-				<label for="caddress"><?= _("Company address") ?></label>
+				<label for="caddress"><?= translate("Field of Studies") ?></label>
 				<input id="caddress" type="text" name="caddress" value="" />
 				<br/>
 				
-				<label for="tnumber" ><?= _("Telephone number") ?></label>
+				<label for="tnumber" ><?= translate("Student number") ?></label>
 				<input type="text" name="tnumber" />
 				<br/>
 				
-				<input type="submit" value="<?= _("Submit") ?>" data-theme="a" />
+				<center><input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" data-inline="true" /></center>
 		
 		</form>
 	</div>
-	
+<? include("footer.php"); ?>	
 </div>
 
-<div data-role="page" id="guest" data-theme="a">
+<div data-role="page" id="guest" data-theme="b">
 
 	<? include("header-bar.php") ?>
 	
-	<div data-role="content">
+	<div data-role="content" style="padding: 0px;">
 	
 		<!-- Tabs -->
 		<? tab_bar("guest") ?>
@@ -99,17 +97,16 @@ include("header.php"); ?>
 				<input type="hidden" name="profileFilled" id="profileFilled" value="guest" />		
 				
 				<fieldset data-role="controlgroup">
-	    			After registering as a guest You can use only some option in myFSA
+	    			<?= translate('After sign in as a guest you cannot use all options in myFSA')?>
 	    			<input id="service-term" type="checkbox" name="checkCondition" />
 					<label for="service-term"><?= _("Accept") ?></label>
 				</fieldset>	 		
 				<br/>
 				
-				<input type="submit" value="<?= _("Register") ?>" data-theme="a" />
+				<center><input type="submit" value="Soumettre" data-theme="b" data-inline="true" /></center>
 		
 		</form>
 		
 	</div>
-	
+<? include("footer.php"); ?>	
 </div>
-<? include("footer.php"); ?>

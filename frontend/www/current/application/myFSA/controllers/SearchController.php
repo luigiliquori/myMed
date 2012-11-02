@@ -1,0 +1,168 @@
+<? 
+
+/**
+ *  This controller shows the search/publish form and receives "search" and "publish" queries.
+ *  It renders the views "main" or "results".
+ */
+class SearchController extends AuthenticatedController {
+	
+	public /*Array*/ $object;
+	public function handleRequest() {
+	
+		parent::handleRequest();
+			
+		if(true) {
+			
+			//this field is to get info if DetailsView is redirect from publish controller or details controller
+			$_SESSION['controller'] = "Search";
+	
+			// -- Search
+			$this->search();	
+			$this->renderView("main");
+			
+		} 
+	}
+	
+	public function search() {
+	
+			// -- Search
+	
+			$search = new PublishObject();
+			$this->fillObj($search);
+			$this->result = $search->find();			
+	}
+	
+	// Fill object with POST values
+	private function fillObj($obj) {
+		
+		if(
+		   isset($_POST['pred2']) &&
+		   isset($_POST['pred3']) &&
+		   isset($_POST['data1'])
+			){
+		
+			$obj->begin = "";
+			$obj->end = "";
+			$obj->pred1 = "FSApublication";
+			$obj->pred2 = $_POST['pred2'];
+			$obj->pred3 = $_POST['pred3'];
+			
+			//main text
+			$obj->data1 = $_POST['data1'];
+			$obj->data3 = "";
+
+			$obj->wrapped1 ="";
+			$obj->wrapped2 ="";
+			
+			$_SESSION['begin'] = $obj->begin;
+			$_SESSION['end'] = $obj->end;
+			$_SESSION['pred2'] = $obj->pred2;
+			$_SESSION['pred3'] = $obj->pred3;
+			$_SESSION['data1'] = $obj->data1;
+			$_SESSION['data2'] = NULL;
+			$_SESSION['rank'] = 5;
+		} elseif(isset($_POST['pred2'])&&isset($_POST['pred3'])){
+			$obj->pred2 = $_POST['pred2'];
+			$obj->pred3 = $_POST['pred3'];
+			
+			$debugtxt  =  "<pre>I am in the fillObj1 second if";
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+			
+		} 
+		else {
+			$obj->pred1 = "FSApublication";
+		}
+	
+	}
+	
+	// Fill object2 is used only for storing comments
+	private function fillObj2($obj) {
+				
+			$obj->begin = $_SESSION['begin'];
+			$obj->end = $_SESSION['end'];
+			$obj->pred1 = "FSApublication";
+			$obj->pred2 = $_SESSION['pred2'];
+			$obj->pred3 = $_SESSION['pred3'];
+			
+			//the field is needed otherwise will sign session user and create new article
+			$obj->publisherID = $_SESSION['author'];
+				
+			//main text
+			$obj->data1 = $_SESSION['data1'];
+			
+			if ($_SESSION['user']->profilePicture == NULL){
+				$_SESSION['user']->profilePicture = "http://www.kyivpost.com/static//default_user.png";
+			}
+			
+			//this code is needed for storing user's comment :)
+			$_POST['data2'] = $_POST['data2'].'"'.$_SESSION['user']->name.'"'.$_SESSION['user']->profilePicture;			
+			if (isset($_SESSION['data2'])){
+				$obj->data2 = $_SESSION['data2'].$_POST['data2']."#";
+			}
+			else {
+				$obj->data2 = "#".$_POST['data2']."#";
+			}
+			$_SESSION['data2'] = $obj->data2;
+			$obj->data3 = "";
+				
+			$obj->wrapped1 ="";
+			$obj->wrapped2 ="";	
+			
+			$debugtxt  =  "<pre>I am in the fillObj2";
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+	
+	}
+	
+	
+	// fillObj_rep is used for adding reputation
+	private function fillObj_rep($obj) {
+	
+			$obj->begin = $_SESSION['begin'];
+			$obj->end = $_SESSION['end'];
+			$obj->pred1 = "FSApublication";
+			$obj->pred2 = $_SESSION['pred2'];
+			$obj->pred3 = $_SESSION['pred3'];			
+			//the field is needed otherwise will sign session user and create new article
+			$obj->publisherID = $_SESSION['author'];				
+			//main text
+			$obj->data1 = $_SESSION['data1'];
+			//comment
+			$obj->data2 = $_SESSION['data2'];
+
+			
+			//storing user's reputation
+			
+			//changing value of user for float
+			$rep_new = floatval($_POST['data3']);
+			if (isset($_SESSION['data3'])){
+				/* rep is stored as "rep#vot 
+				 * where rep is a float value of reputations of user 
+				 * and vot is int value of number of votes
+				 * */
+				preg_match_all('/"([0-9/./,]+)/', $string, $m);
+				preg_match_all('/#([0-9/./,]+)/', $string, $m2);
+				
+				$rep = floatval($m[1][0]);
+				$votes = intval($m2[1][0]);
+				
+				$rep = $rep+$rep_new;
+				$votes = $votes + 1;
+				
+				$obj->data3 = '"'.$rep."#".$votes;
+			}
+			else {
+				$obj->data3 = '"'.$_POST['data3']."#".'1';
+			}
+					
+			$debugtxt  =  "<pre>REEEEEEPUTAAAATION";
+			$debugtxt  .= var_export($_REQUEST['rate'], TRUE);
+			$debugtxt  .= var_export($obj->data3, TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+			
+	}
+ 	
+}
+?>

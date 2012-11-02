@@ -2,7 +2,7 @@
 //require_once '../../../lib/dasp/request/Request.class.php';
 
 
-class Reputation
+class Ranking
 {
 
 	/*
@@ -20,14 +20,17 @@ class Reputation
 	
 	
 	//public function __construct(/*String*/ $user, /*String*/ $producer, /*String*/ $consumer, /*String*/ $reputation){
-	public function __construct(/*String*/ $user,/*String*/ $consumer, /*String*/ $predicate, /*String*/ $feedback){
+	public function __construct(/*String*/ $user,/*String*/ $consumer, /*String*/ $feedback){
 		// Check if user is defined
-		if (empty($user))
+		if (empty($user)){
 			throw new Exception("User ID not defined.");
+		
+		$debugtxt  =  "<pre>EEEEEEEEEEErrrrror";
+		$debugtxt .= "</pre>";
+		debug($debugtxt);}
 		else{
 			$this->user = $user;
 			$this->consumer = $consumer;
-			$this->predicate = $predicate;
 			$this->feedback = $feedback;
 		}
 			
@@ -36,12 +39,12 @@ class Reputation
 	public /*void*/ function storeReputation(){
 		
 		$request = new Request("InteractionRequestHandler", 2);
-		$request->addArgument("application",  $this->predicate);
-		$request->addArgument("producer",  $this->user->id);
-		$request->addArgument("consumer", $this->consumer);
+		$request->addArgument("application",  'myFSA');
+		$request->addArgument("producer",  $this->consumer);
+		$request->addArgument("consumer", $this->user);
 		$request->addArgument("start",  time());
 		$request->addArgument("end",  time());
-		$request->addArgument("predicate",  $this->predicate);
+		$request->addArgument("predicate",  "ReputationOfPub");
 		$request->addArgument("feedback",  $this->feedback);
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
@@ -54,16 +57,19 @@ class Reputation
 	 * @param String $user_id
 	 * @return void. The result is put in the success of the Handled provided
 	 */
-	public static /* List of ontologies */ function getReputation(/*String*/ $user, /*String*/ $consumer){
+	public /* List of ontologies */ function getMark(){
 		
 		// Get the reputation of the user in each the application
 		$request = new Request("ReputationRequestHandler", READ);
 		$request->addArgument("application",  'myFSA');
-		$request->addArgument("producer",  $user->id);					// Reputation of data
-		$request->addArgument("consumer",  '');	
+		$request->addArgument("producer",  $this->consumer);					// Reputation of data
+		$request->addArgument("consumer",  $this->user);	
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
 		
+		
+		$tmp_rank = $responseObject->data->reputation;
+		$_SESSION['rank'] = $tmp_rank*5;
 		$debugtxt  =  "<pre>getReeeeeeeeeeeeeeeeputation";
 		$debugtxt  .= var_export($responseObject, TRUE);
 		$debugtxt .= "</pre>";

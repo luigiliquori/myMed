@@ -1,11 +1,7 @@
-<? 
+<?php
 
-//
-// This view shows both the login and register forms, with two tabs
-//
-require_once("header.php"); ?>
+require_once("header.php");
 
-<?php 
 function tab_bar_login($activeTab) {
 	if(!function_exists('tabs')) {
 		function tabs($activeTab, $tabs, $opts = false){
@@ -22,8 +18,8 @@ function tab_bar_login($activeTab) {
 
 <div data-role="page" id="login">
 
-	<? tab_bar_login("#login"); ?>
-	<? include("notifications.php"); ?>
+	<?php tab_bar_login("#login"); ?>
+	<?php include('notifications.php'); ?>
 	
 	<div data-role="content" class="content">
 	
@@ -37,14 +33,14 @@ function tab_bar_login($activeTab) {
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
 			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
-		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>  
- 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="Connexion" />
+		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= translate("Password") ?>"  data-theme="c"/>  
+ 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="<?= translate("Login") ?>" />
 			
 		</form>
 	
 		<br />
 		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="width:70%; margin: auto;">
-			<h3 style="width: 170px; margin: auto;"><?= _("Sign in with") ?>: </h3>
+			<h3 style="width: 170px; margin: auto;"><?= translate("Sign in with") ?>: </h3>
 			<ul data-role="listview">
 			<li>
 				<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">
@@ -76,21 +72,20 @@ function tab_bar_login($activeTab) {
 		<br /><br />
 		<img alt="Alcotra" src="/system/img/logos/alcotra.png" />
 		<br />
-		<i>"Ensemble par-delà les frontières"</i>
+		<i><?= translate("Together") ?></i>
 		<br /><br />
 		<img alt="Alcotra" src="/system/img/logos/europe.jpg" />
 		
 	</div>
+	
 </div>
 
 	
 <div data-role="page" id="register">
 	
-
-	<? tab_bar_login("#register") ?>
-	<? include("notifications.php"); ?>
-
-
+	<?php tab_bar_login("#register"); ?>
+	<?php include('notifications.php'); ?>
+	
 	<div data-role="content">
 	
 		<!--  Register form -->
@@ -98,11 +93,11 @@ function tab_bar_login($activeTab) {
 		
 			<br />
 			
-				<label for="prenom">Prénom / Activité commerciale : </label>
+				<label for="prenom"><?= translate("First Name") ?> : </label>
 				<input type="text" name="prenom" value="" />
 				<br />
 				
-				<label for="nom">Nom : </label>
+				<label for="nom"><?= translate("Last Name") ?> : </label>
 				<input type="text" name="nom" value="" />
 				<br />
 				
@@ -110,54 +105,48 @@ function tab_bar_login($activeTab) {
 				<input type="text" name="email" value="" />
 				<br />
 				
-				<label for="password" >Mot de passe : </label>
+				<label for="password" ><?= translate("Password") ?> : </label>
 				<input type="password" name="password" />
 				<br />
 				
-				<label for="password" >Confirmation : </label>
+				<label for="password" ><?= translate("Confirm") ?> : </label>
 				<input type="password" name="confirm" />
 				<br />
 				
 				<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 				<span style="position: relative; left: 50px;">
-					J'accepte les 
-					<a href="application/myMed/doc/CGU_fr.pdf" rel="external">conditions d'utilisation</a> / 
-					I accept 
-					<a href="application/myMed/doc/CGU_en.pdf" rel="external">the general terms and conditions</a>
+					<a href="application/myMed/doc/CGU_fr.pdf" rel="external"><?= translate('I accept the general terms and conditions'); ?></a>
 				</span><br />
 				
 				<center>
-					<input type="submit" data-role="button" data-theme="b" data-inline="true" value="Valider" />
+					<input type="submit" data-role="button" data-theme="b" data-inline="true" value="<?= translate('Send') ?>" />
 				</center>
 		
 		</form>
 	</div>
-
 	
 </div>
 
 <div data-role="page" id="about" >	
 
-	<? tab_bar_login("#about"); ?>
-	<? include("notifications.php"); ?>
-
+	<?php tab_bar_login("#about"); ?>
+	<?php include('notifications.php'); ?>
 
 	<div data-role="content" class="content">
 	
-		
 		<a href="/application/myMed/" rel="external"><img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" /></a>
 		<br />
-		<h3><?= _(APPLICATION_LABEL) ?></h3>
+		<h3><?= translate('Social Network') ?></h3>
 		<br />
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
 			<p>
-			<?= _(APPLICATION_NAME."about") ?>
+			<?= translate('About text') ?>
 			</p>
 			</li>
 		</ul>
 		<p>
-		<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= _("More informations") ?></a>
+		<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= translate("More informations") ?></a>
 		</p>
 		<br />
 		<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>
@@ -166,4 +155,4 @@ function tab_bar_login($activeTab) {
 
 </div>
 
-<? require_once("footer.php"); ?>
+<? include_once("footer.php"); ?>

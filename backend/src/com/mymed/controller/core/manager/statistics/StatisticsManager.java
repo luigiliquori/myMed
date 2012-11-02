@@ -18,7 +18,8 @@ import com.mymed.utils.MConverter;
 public class StatisticsManager extends AbstractManager {
 
 	protected static final String ALL_ARG = "all";
-
+	public static final String PUBLISH_ARG = "pub";
+	
 	/**
 	 * The application controller super column.
 	 */
@@ -46,18 +47,20 @@ public class StatisticsManager extends AbstractManager {
 	public void update(String application, String method) {
 
 		Calendar now = Calendar.getInstance();
-		int year = now.get(Calendar.YEAR);
-		int month = now.get(Calendar.MONTH);
-		int day = now.get(Calendar.DAY_OF_MONTH);
+		String year = (now.get(Calendar.YEAR)) + "";
+		String month = (now.get(Calendar.MONTH) + 1) + "";
+		String day = (now.get(Calendar.DAY_OF_MONTH)) + "";
 
 		List<String> keys = new ArrayList<String>();
-		keys.add(ALL_ARG);
-		keys.add("" + year);
-		keys.add("" + year + ++month);
-		keys.add("" + year + month + day);
+		keys.add(application 	+ method);
+		keys.add(ALL_ARG		+ method);
+		keys.add(application 	+ ALL_ARG);
+		keys.add(ALL_ARG 		+ ALL_ARG);
 
 		for (String key : keys) {
-			int count = 0;
+			int countYear = 0;
+			int countMonth = 0;
+			int countDay = 0;
 
 			// read
 			final List<Map<String, String>> statisticsStringList = new ArrayList<Map<String, String>>();
@@ -71,21 +74,32 @@ public class StatisticsManager extends AbstractManager {
 				statisticsStringList.add(resMap);
 			}
 			for(Map<String, String> statistics : statisticsStringList) {
-				if(statistics.containsValue(application)) {
-					count = Integer.parseInt(statistics.get(method));
+				
+				if(statistics.containsKey(year)) {
+					countYear = Integer.parseInt(statistics.get(year));
+				} else if (statistics.containsKey(month)) {
+					countMonth = Integer.parseInt(statistics.get(month));
+				} else if (statistics.containsKey(day)) {
+					countDay = Integer.parseInt(statistics.get(day));
 				}
 			}
-
-			count++;
-
+			
 			// update
-			final Map<String, byte[]> args = new HashMap<String, byte[]>();
-			args.put("application", encode(application));
-			args.put(method, encode(count));
-			storageManager.insertSuperSlice(SC_STATICTICS, key, application, args);
-			args.put("application", encode(ALL_ARG));
-			storageManager.insertSuperSlice(SC_STATICTICS, key, ALL_ARG, args);
-
+			final Map<String, byte[]> argsAll = new HashMap<String, byte[]>();
+			final Map<String, byte[]> argsYears = new HashMap<String, byte[]>();
+			final Map<String, byte[]> argsMonth = new HashMap<String, byte[]>();
+			
+			argsAll.put(year, encode(++countYear));
+			argsYears.put(month, encode(++countMonth));
+			argsMonth.put(day, encode(++countDay));
+			
+			System.out.println("\n countYear = " + countYear);
+			System.out.println("\n countMonth = " + countMonth);
+			System.out.println("\n countDay = " + countDay);
+			
+			storageManager.insertSuperSlice(SC_STATICTICS, key, ALL_ARG, argsAll);
+			storageManager.insertSuperSlice(SC_STATICTICS, key, year, argsYears);
+			storageManager.insertSuperSlice(SC_STATICTICS, key, month, argsMonth);
 		}
 	}
 }

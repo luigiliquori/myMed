@@ -1,11 +1,14 @@
-<? include("header.php"); ?>
+<?php
 
-<? define('STORE_PREFIX' , '_store'); ?>
+require_once("header.php");
+define('STORE_PREFIX' , '_store');
+
+?>
 
 <div data-role="page">
 
-	<? tab_bar_main("?action=store", 2); ?>
-	<? include("notifications.php"); ?>
+	<?php tab_bar_main("?action=store", 2); ?>
+	<?php include 'notifications.php'; ?>
 	
 	<div data-role="content">
 		

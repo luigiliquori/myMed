@@ -18,10 +18,9 @@ function tabs($tabs, $activeTab) {
 		<li>
 			<a 
 				href="#<?= $id ?>"    
-				data-transition="slide" 
-				data-theme="b" 
+				data-transition="none" 
 				<?= ($reverse) ? 'data-direction="reverse"' : '' ?>
-				<?= ($activeTab == $id) ? 'class="ui-btn-active ui-state-persist"' : '' ?> >
+				<?= ($activeTab == $id) ? 'data-theme="e" ' : 'data-theme="d" ' ?> >
 				<?= $label ?>
 			</a>
 		</li><? 

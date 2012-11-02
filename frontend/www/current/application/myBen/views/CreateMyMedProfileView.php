@@ -3,6 +3,8 @@
 <div data-role="page">
 	<? tab_bar_main("?action=createMyMedProfile"); ?>
 	<?php $this->mode = MODE_CREATE?>
+	<?php  include('notifications.php');?>
+	
 	<div data-role="content" class="content">
 		<!-- <form data-role="content" method="post" data-ajax="false" id="benForm" action="<?= url('createMyMedProfile:create') ?>" >-->
 		<form data-role="content" method="post" data-ajax="false" id="benForm" action="?action=register" >

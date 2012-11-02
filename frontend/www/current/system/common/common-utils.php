@@ -18,6 +18,10 @@ function is_true($value) {
 // View utils (views)
 // ---------------------------------------------------------------------
 
+function translate($word){
+	return $word;
+}
+
 /**
  *  Build an URL with "<action>[:<method>]".
  *  For example :
@@ -47,7 +51,6 @@ function url($action, $args=array()) {
 	// Build url
 	return "?" . http_build_query($args);
 }
-
 
 //  tabs bar
 function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) {

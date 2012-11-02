@@ -56,14 +56,14 @@ class ExtendedProfile
 		/*
 		 * Build the datas Array using keyword depended from the storing object
 		*/
-		if($_SESSION["profileFilled"] = "company"){			
+		if($_SESSION["profileFilled"] == "company"){			
 			$datas[] = new OntologyBean("company", json_encode($this->object));
 		}
-		else if($_SESSION["profileFilled"] = "employer"){
+		else if($_SESSION["profileFilled"] == "employer"){
 			
-			$datas[] = new OntologyBean("employer", json_encode($this->obect));
+			$datas[] = new OntologyBean("employer", json_encode($this->object));
 		}
-		else if($_SESSION["profileFilled"] = "guest"){
+		else if($_SESSION["profileFilled"] == "guest"){
 			
 			$datas[] = new OntologyBean("guest", json_encode($this->object));
 		}
@@ -95,7 +95,10 @@ class ExtendedProfile
 			// which means the user don't have a ExtendedProfile yet
 			return null;
 		}
-		
+		$debugtxt  =  "<pre>PROOOOFILE FILLLED!!!!!!!!!!!!";
+		$debugtxt  .= var_export($result, TRUE);
+		$debugtxt .= "</pre>";
+		debug($debugtxt);
 
 		$object = "";
 			
@@ -103,12 +106,15 @@ class ExtendedProfile
 			switch($line->key){
 					
 				case "company" :
+					$_SESSION["profileFilled"] = "company";
 					$object = json_decode($line->value, TRUE);
 					break;
 				case "employer" :
+					$_SESSION["profileFilled"] = "employer";
 					$object = json_decode($line->value, TRUE);
 					break;
 				case "guest" :
+					$_SESSION["profileFilled"] = "guest";
 					$object = json_decode($line->value, TRUE);
 					break;
 			}

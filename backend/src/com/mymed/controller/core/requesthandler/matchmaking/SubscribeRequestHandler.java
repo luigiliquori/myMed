@@ -34,6 +34,7 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.profile.ProfileManager;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.manager.statistics.StatisticsManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.model.data.user.MUserBean;
@@ -150,7 +151,8 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
             checkToken(parameters);
 
             final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String application, singlePredicate, predicateList = null, user, namespace = parameters.get(JSON_NAMESPACE);
+            final String application, singlePredicate, user, namespace = parameters.get(JSON_NAMESPACE);
+            String predicateList = null;
             user = parameters.get(JSON_USERID) != null ? parameters.get(JSON_USERID) : parameters.get(JSON_USER);
 
             if (code.equals(RequestCode.CREATE)) {
@@ -203,6 +205,14 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
                 } catch (final JsonSyntaxException e) {
                     throw new InternalBackEndException("jSon format is not valid");
                 }
+                
+				// ASCYN EXEC - update statistics
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						new StatisticsManager().update(application, StatisticsManager.PUBLISH_ARG);
+					}}).start();
+                
             } else {
                 throw new InternalBackEndException("SubscribeRequestHandler.doPost(" + code + ") not exist!");
             }

@@ -117,8 +117,8 @@ class Request {
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
 
+		//echo $this->url.$this->ressource.'?' . http_build_query($this->arguments) . "<br /><br />";
 
-// 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments) . "<br /><br />";
 		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
@@ -130,7 +130,9 @@ class Request {
 
 
 // 		debug($result);
-//  		echo $result . "<br /><br />";
+
+// 		echo $result . "<br /><br />";
+
 // 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 
 		$info = curl_getinfo($curl);

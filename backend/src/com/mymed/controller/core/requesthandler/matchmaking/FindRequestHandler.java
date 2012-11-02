@@ -20,8 +20,6 @@ import static com.mymed.utils.MiscUtils.makePrefix;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.net.URI;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +34,7 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.pubsub.PubSubManager;
+import com.mymed.controller.core.manager.statistics.StatisticsManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.application.MDataBean;
 import com.mymed.utils.PublicationSet;
@@ -59,7 +58,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 	 * JSON 'details' attribute.
 	 */
 	private static final String JSON_DETAILS = JSON.get("json.details");
-
+	
 	private final PubSubManager pubsubManager;
 
 	public FindRequestHandler() throws InternalBackEndException {
@@ -85,7 +84,8 @@ public class FindRequestHandler extends AbstractMatchMaking {
 			checkToken(parameters);
 
 			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-			String application, user, predicate, predicateList = null, namespace = parameters.get(JSON_NAMESPACE);
+			final String application, user, namespace = parameters.get(JSON_NAMESPACE);
+			String predicate,predicateList = null;
 
 			if (code == RequestCode.READ) { 
 
@@ -163,6 +163,14 @@ public class FindRequestHandler extends AbstractMatchMaking {
 					message.addDataObject(JSON_RESULTS, resList);
 
 				}
+				
+				// ASCYN EXEC - update statistics
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						new StatisticsManager().update(application, StatisticsManager.PUBLISH_ARG);
+					}}).start();
+				
 			} else {
 				throw new InternalBackEndException("FindRequestHandler(" + code + ") not exist!");
 			}

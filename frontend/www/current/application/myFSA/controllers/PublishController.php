@@ -6,17 +6,12 @@
  */
 class PublishController extends AuthenticatedController {
 	
-	
-// 	$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-// 	$debugtxt  .= var_export($this->result, TRUE);
-// 	$debugtxt .= "</pre>";
-// 	debug($debugtxt);
-	
+	public /*Array*/ $object;
 	public function handleRequest() {
 	
 		parent::handleRequest();
 			
-		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
+		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publier") {
 				
 			
 			//this field is to get info if DetailsView is redirect from publish controller or details controller
@@ -33,39 +28,11 @@ class PublishController extends AuthenticatedController {
 			$this->result = $obj;
 			$_SESSION['author'] = $_SESSION['user']->id;
 			$this->result->publisherID = $_SESSION['user']->id;
-			$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR publish";
-			$debugtxt  .= var_export($_SESSION['author'], TRUE);
-			$debugtxt  .= var_export($_SESSION['pred2'], TRUE);
-			$debugtxt  .= var_export($_SESSION['pred3'], TRUE);
-			$debugtxt  .= var_export($_SESSION['begin'], TRUE);
-			$debugtxt  .= var_export($_SESSION['end'], TRUE);
-			$debugtxt  .= var_export($_SESSION['data1'], TRUE);
-			$debugtxt  .= var_export($_SESSION['data2'], TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
 			$this->renderView("details");
 			
 
 				
-		}	elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
-			
-			//this field is to get info if DetailsView is redirect from publish controller or details controller
-			$_SESSION['controller'] = "Search";
-	
-			// -- Search
-			$this->search();	
-			$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR search";
-			$debugtxt  .= var_export($_SESSION['author'], TRUE);
-			$debugtxt  .= var_export($_SESSION['pred2'], TRUE);
-			$debugtxt  .= var_export($_SESSION['pred3'], TRUE);
-			$debugtxt  .= var_export($_SESSION['begin'], TRUE);
-			$debugtxt  .= var_export($_SESSION['end'], TRUE);
-			$debugtxt  .= var_export($_SESSION['data1'], TRUE);
-			$debugtxt  .= var_export($_SESSION['data2'], TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
-			$this->renderView("search");
-		} 	elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Comment") {
+		}	elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Comment") {
 	
 			// -- Publish
 			
@@ -76,20 +43,33 @@ class PublishController extends AuthenticatedController {
 			$obj->publish();
 			
 			$this->result = $obj;
+
 			$this->result->publisherID = $_SESSION['author'];			
 			$this->renderView("details");
-		} elseif(isset($_REQUEST['keyword']) && $_REQUEST['keyword'] == "Reputation") {
-			$_REQUEST['rate']/5;
-			$obj = new PublishObject();
-				
-			// Fill the object
-			$this->fillObj_rep($obj);
-			$obj->publish();
 			
-			$this->result = $obj;
-			$this->result->publisherID = $_SESSION['author'];			
-			$this->renderView("details");
-		} 
+		} elseif(isset($_REQUEST['keyword']) && $_REQUEST['keyword'] == "Reputation") {
+// 			$_POST['data3'] = $_REQUEST['rate'];
+// 			$obj = new PublishObject();
+				
+// 			// Fill the object
+// 			$this->fillObj_rep($obj);
+// 			$obj->publish();
+			
+// 			$this->result = $obj;
+// 			$this->result->publisherID = $_SESSION['author'];
+
+// 			$this->object = array(
+// 					"reputation" => $_REQUEST['rate'],
+// 					"uselessfield" => '2'
+// 			);
+// 			$this->storeReputation($this);
+
+// 			$this->getReputation($this, $_SESSION['user']);
+// 			$this->renderView("details");
+		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
+			
+			
+		}
 		else {
 				
 			// -- Show the form
@@ -110,15 +90,14 @@ class PublishController extends AuthenticatedController {
 	// Fill object with POST values
 	private function fillObj($obj) {
 		
-		if(isset($_POST['begin']) && 
-		   isset($_POST['end']) &&
+		if(
 		   isset($_POST['pred2']) &&
 		   isset($_POST['pred3']) &&
 		   isset($_POST['data1'])
 			){
 		
-			$obj->begin = $_POST['begin'];
-			$obj->end = $_POST['end'];
+			$obj->begin = "";
+			$obj->end = "";
 			$obj->pred1 = "FSApublication";
 			$obj->pred2 = $_POST['pred2'];
 			$obj->pred3 = $_POST['pred3'];
@@ -136,15 +115,19 @@ class PublishController extends AuthenticatedController {
 			$_SESSION['pred3'] = $obj->pred3;
 			$_SESSION['data1'] = $obj->data1;
 			$_SESSION['data2'] = NULL;
-		}  
+			$_SESSION['rank'] = 5;
+		} elseif(isset($_POST['pred2'])&&isset($_POST['pred3'])){
+			$obj->pred2 = $_POST['pred2'];
+			$obj->pred3 = $_POST['pred3'];
+			
+			$debugtxt  =  "<pre>I am in the fillObj1 second if";
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+			
+		} 
 		else {
 			$obj->pred1 = "FSApublication";
 		}
-		$debugtxt  =  "<pre>I am in the fillObj1";
-		$debugtxt .= "</pre>";
-		debug($debugtxt);
-	
-
 	
 	}
 	
@@ -227,11 +210,14 @@ class PublishController extends AuthenticatedController {
 			else {
 				$obj->data3 = '"'.$_POST['data3']."#".'1';
 			}
-				
-			$obj->wrapped1 ="";
-			$obj->wrapped2 ="";		
+					
+			$debugtxt  =  "<pre>REEEEEEPUTAAAATION";
+			$debugtxt  .= var_export($_REQUEST['rate'], TRUE);
+			$debugtxt  .= var_export($obj->data3, TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+			
 	}
-	
  	
 }
 ?>

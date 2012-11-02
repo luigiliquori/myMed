@@ -40,12 +40,19 @@ class ExtendedProfileRequired extends GuestOrUserController {
 			// Nothing found => redirect to create profile form
 			if ($this->user == null || $extProfile == null) {
 				
-				$this->error = _("Pour cette action, vous avez besoin d'un compte myBénévolat");
-				if ($this->profileType != null) {
+				//$this->error = _("Pour cette action, vous avez besoin d'un compte myBénévolat");
+				/*if ($this->profileType != null) {
 					$this->error .= _(" de type ") . $this->profileType;
+				}*/
+				
+				if($this->user != null){
+					$this->error = "Pour realiser cette action vous devez remplir votre profil";
+					$this->forwardTo("extendedProfile:create", array("type" => $this->profileType));
 				}
-				$this->forwardTo("extendedProfile:create", array("type" => $this->profileType));
-					
+				else{
+					$this->error = "Pour realiser cette action vous devez vous inscrire";
+					$this->forwardTo("createMyMedProfile:defaultMethod");
+				}	
 			} else {
 					
 				// Set the extended profile (both in session and current controller)

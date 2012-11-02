@@ -1,4 +1,10 @@
-<? include_once("header.php"); ?>
+<?php
+
+require_once("header.php");
+require_once("header-bar.php");
+require_once("footer-bar.php");
+
+?>
 
 <div id="home" data-role="page" data-dom-cache="true">
 	
@@ -36,9 +42,7 @@
 		</div>
 		
 	</div>
-
+	
 </div>
-
-<? include_once 'UpdateProfileView.php'; ?>
 
 <? include_once 'footer.php'; ?>

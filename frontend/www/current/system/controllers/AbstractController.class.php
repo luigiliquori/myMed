@@ -49,11 +49,11 @@ abstract class AbstractController implements IRequestHandler {
 	
 		$view = ucfirst($view);
 
-		if ($view == "Login" || $view == "Register"){
-			$viewPath = MYMED_ROOT . "/application/myMed/views/${view}View.php";
-		}else{
+ 		if ($view == "Login" || $view == "Register"){
+ 			$viewPath = MYMED_ROOT . "/application/myMed/views/${view}View.php";
+ 		} else {
 			$viewPath = APP_ROOT . "/views/${view}View.php";
-		}
+ 		}
 		
 		// Set ERROR and SUCCESS
 		global $ERROR; 

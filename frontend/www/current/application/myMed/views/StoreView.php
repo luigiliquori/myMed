@@ -1,6 +1,9 @@
-<? include_once("header.php"); ?>
+<?php
 
-<? define('STORE_PREFIX' , '_store'); ?>
+require_once("header.php");
+define('STORE_PREFIX' , '_store');
+
+?>
 
 <div data-role="page" id="store" data-dom-cache="true">
 	<? if (isset($_SESSION['user']->is_guest)): ?>
