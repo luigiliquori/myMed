@@ -84,48 +84,29 @@ require_once("footer-bar.php");
 		</form>
 
 		<!-- Chart -->
-		<!-- Plot graph -->
-		<script type="text/javascript" language="javascript">
-			//get informations about curves 
-			<?php
-				if(!empty($this->response)){
-					$curveObj = json_decode($this->response);
-					$curve = $curveObj->curve;
-					echo 'var curve1='.$curve.';';
-				}
-				else{
-					echo 'var curve1 = [[1,3],[2,7],[3,9],[4,1],[5,4],[6,6],[7,8],[8,2],[9,5],[10,1],[11,8],[12,3]];';
-					//for bar graph
-					//echo 'var series=[[1,2,3,4,5],[5,4,3,2,1]];';
-					//echo 'var labels= ["push","pop"];';
-					//echo 'var names=[\'janvier\',\'fevrier\',\'mars\',\'avril\',\'mai\'];';
-				}
-			?>
-			
-			//create an array of curves 
-			var serie = [curve1];
-			//draw plot graph 
-			createPlotGraph("conteneur",serie,"Pub/Sub requests",0);
-			//draw bar graph
-			//createBarGraph("conteneur", series, labels, names,"Pub/Sub requests");
-		</script>
-		<br /> 
-		<br /> 
-		<br />
-		
-		<!-- <div id="conteneur"></div>  -->
+		<!-- Bar graph -->
+		<?php if(isset($this->array_resp_return)){?>
 		<?php 
 				$sizeGraph = 90;
 				$height = 500;
 		?>
 			<?php
-				$tabrep=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
-				//$tabrep=array(10,25);
+				//title of the graph
+				$title = "test";
+				//column values
+				$tabrep = $this->array_resp_return;
+				//$tabrep=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
+				//column name when I will find how to write vertically
+				$tabinfo=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
+				//max value of the array
+				//$max_tab=31;
+				$max_tab = $this->max_array_value;
+				
 				$nbcol = count($tabrep);
 				$sizeBar = 100/$nbcol;
 				$sizeBar = str_replace(",", ".", $sizeBar);
-				$max_tab=31;
 			?>
+			<center><h1><?php echo $title;?></h1></center>
 			<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: <?php echo $height ?>px; border: thin black solid; margin-left:3.5%; background-color:white">
 				<?php for($i=0;$i<$nbcol;$i++){
 					$red = ceil(255-(255*$tabrep[$i])/$max_tab);
@@ -137,6 +118,7 @@ require_once("footer-bar.php");
 				<?php }?>
 			</div>
 	</div>
+	<?php }?>
 
 	<!-- Footer page with tab bar ?action=main to highlight the tab -->
 	<? print_footer_bar_main("?action=main"); ?>
