@@ -83,7 +83,7 @@ function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 		});
 
 		// geolocaliseUser
-		if (navigator.geolocation) {
+		/*if (navigator.geolocation) {
 			if(watchPosition) {
 				navigator.geolocation.watchPosition(displayPosition, displayError,
 						{ timeout: 60000, maximumAge: 0});
@@ -93,7 +93,7 @@ function setupDASPMap(mapID, displayPosition, displayError, watchPosition) {
 			}
 		} else {
 			alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
-		}
+		}*/
 	}
 }
 
@@ -283,7 +283,7 @@ function updatePosition(params){
 		type: "POST",
 		data: params,
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 		}
 	});
 }

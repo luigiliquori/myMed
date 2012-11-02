@@ -126,7 +126,7 @@ function initialize() {
 	// initialize the filter for the markers
 	initFilter();
 
-	resizeMap();
+	//resizeMap();
 
 	$('#depart').keyup(function(event) {
 		if (event.keyCode == 13) {

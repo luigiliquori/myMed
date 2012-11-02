@@ -1,6 +1,6 @@
 <? include("header.php"); ?>
 
-<div id="Map" data-role="page">
+<div id="Map" data-role="page" class="page-map">
 
 <? include("header-bar.php"); ?>
 
@@ -8,7 +8,8 @@
 	<div data-role="content" style="padding: 0px;">
 	
 		<!-- MAP -->
-		<div id="<?= APPLICATION_NAME ?>Map"></div>
+		<div id="myRivieraMap"></div>
+		
 	
 		<div id="steps" data-role="controlgroup" data-type="horizontal">
 			<a id="prev-step" data-role="button" data-icon="arrow-l" style="opacity:.8;">&nbsp;</a>
