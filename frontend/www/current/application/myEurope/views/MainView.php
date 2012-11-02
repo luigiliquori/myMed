@@ -20,7 +20,10 @@
 		</a>
 		<br><br>
 		<div data-role="controlgroup"  data-type="horizontal">
-			<a type="button" href="?action=ExtendedProfile&list" rel="external" data-theme="d" data-icon="list" title="<?= _('list of organizations profiles in myEurope') ?>"><?= _('Profiles list') ?></a>
+		<? if(!$_SESSION['user']->is_guest): ?>
+			<a type="button" href="?action=ExtendedProfile&list" rel="external" data-theme="<?= $_SESSION['myEurope']->permission <= 0 && !$_SESSION['user']->is_guest?'g':'d' ?>" data-icon="list" title="<?= _('list of organizations profiles in myEurope') ?>">
+				<?= $_SESSION['myEurope']->permission <= 0 && !$_SESSION['user']->is_guest?_('Membership application'):_('Profiles list') ?></a>
+		<? endif; ?>
 			<a href="?action=Admin" data-role="button" data-icon="gear" title="<?= $_SESSION['myEurope']->permission >=2 ? _('You are a full-powered Admin, have fun!') : _('users list') ?>"><?= _('Users list') ?></a>
 		</div>
 	
@@ -52,7 +55,7 @@
 		<? if (isset($_SESSION['myEurope'])) :?>
 			
 			 <br>
-			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>			
+			<a type="button" href="?action=ExtendedProfile&edit=false" data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>			
 		<? else: ?>
 			<a type="button" href="?action=ExtendedProfile&list" rel="external" data-theme="d" data-icon="faplus" ><?= _('Create my profile') ?></a>
 		<? endif; ?>
@@ -97,21 +100,22 @@
 		
 		
 		<br>
-		<ul data-role="listview" data-inset="true">
-			<li data-role="list-divider"><?= _('"Beta" testeurs de myEurope') ?></li>
-			<li>
-				<a href="?action=Blog&id=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&id=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&id=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?>
-				</a>
-			</li>
-		</ul>
+		<div data-role="collapsible" data-collapsed="true" data-mini="true" data-content-theme="c">
+			<h3>Beta tests</h3>
+			<ul data-role="listview" >
+				<li data-role="list-divider"></li>
+				<li>
+					<a href="?action=Blog&id=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?></a>
+				</li>
+				<li>
+					<a href="?action=Blog&id=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?></a>
+				</li>
+				<li>
+					<a href="?action=Blog&id=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?></a>
+				</li>
+			</ul>
+		</div>
+		
 
 		<? if ($_SESSION['myEurope']->permission > 1): ?>
 		<div data-role="fieldcontain">
@@ -183,7 +187,7 @@
 			</div>
 			
 			<div style="text-align: center;" data-role="controlgroup" data-type="horizontal">
-				<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>" />
+				<input type="submit" id="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>" />
 				<a href="#helpPopup" data-rel="popup" data-position-to="window"
 					data-theme="e" data-role="button"
 					data-icon="question-sign" data-iconpos="right"><?= _("Help") ?>
@@ -268,12 +272,14 @@
 						</select>
 					</div>
 
-					<div data-role="fieldcontain">
-						<label for="textinputs1"><?= _('keywords') ?>:</label> <input
-							id="textinputs1" name="k"
+					<div data-role="fieldcontain" id="tagsContainer">
+						<label for="textinputs1"><?= _('keywords') ?>:</label>
+  						<span class="tagsSpan"></span>
+						<input id="textinputs1" class="tagInput"
 							placeholder="<?= _('separated by a space, comma, plus') ?>"
 							value='' type="text" list="keywords"/>
 					</div>
+					<div id="submitResult"></div>
 				</div>
 			</div>
 
@@ -292,7 +298,7 @@
 	
 	<? tabs_simple(array('Insert')) ?>
 	<div data-role="content">
-		<form action="./" method="post" id="publishForm">
+		<form action="./" method="post" id="publishForm" data-ajax="false">
 
 			<input type="hidden" name="action" value="Publish" />
 			<input type="hidden" name="method" value="create" /> <input
@@ -383,12 +389,14 @@
 							</select>
 						</div>
 
-						<div data-role="fieldcontain">
-							<label for="textinputp1"><?= _('Keywords') ?>: </label> <input
-								id="textinputp1" name="k"
+						<div data-role="fieldcontain" id="tagsContainer2">
+							<label for="textinputp1"><?= _('Keywords') ?>: </label>
+  							<span class="tagsSpan"></span>
+ 							 <input id="textinputp1" class="tagInput"
 								placeholder="<?= _('separated by a space, comma, plus') ?>"
-								value='' type="text" list="keywords" />
+								value='' type="text" list="keywords"/>
 						</div>
+						<div id="submitResult2"></div>
 						<div data-role="fieldcontain">
 							<label for="textinputp2"><?= _('Date of expiration') ?>: </label>
 							<input id="textinputp2" name="date"
@@ -404,12 +412,12 @@
 				<h1><?= _("Your partnership") ?></h1>  ...</textarea>
 
 			<div style="text-align: center;">
-				<input type="submit" class="ui-btn-active ui-state-persist"
+				<input id="submit2" type="submit" class="ui-btn-active ui-state-persist"
 					data-inline="true" data-icon="check" value="<?=_('Insert') ?>" />
 			</div>
 		</form>
 	</div>
-</div>
+</div>​
 
 
 <?php 

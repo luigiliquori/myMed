@@ -10,7 +10,7 @@
 	<div data-role="content">
 	<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"
 		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:blogs", "<?= APPLICATION_NAME ?>:blogMessage", null, "<?= $this->blog ?>"); $(this).addClass("ui-disabled");'><?= _("Subscribe")."<br>"._("to new messages") ?></a>
-	<br><br><br>
+	<br><br><br><br>
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>
 	<div data-role="collapsible" <? if($first){echo('data-collapsed="false"');$first=false;} ?>>

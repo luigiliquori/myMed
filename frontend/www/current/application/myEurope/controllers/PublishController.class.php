@@ -70,6 +70,19 @@ class PublishController extends ExtendedProfileRequired {
 		//$this->renderView("Main", "post");
 		
 	}
+	
+	public function error($arguments) {
+		//override's parent
+		
+		debug('>>>>>>>>>> er');
+		debug_r($_SESSION['myEurope']);
+		if ($_SESSION['myEurope']->permission <= 0)
+			$this->setError(_("Your profile is not yet validated by admins"));
+		else if ($_SESSION['myEurope']->permission == 1)
+			$this->setError(_("This feature is restricted to Admin users"));
+	
+		$this->forwardTo('main');
+	}
 
 }
 ?>

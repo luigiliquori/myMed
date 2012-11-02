@@ -2,7 +2,7 @@
 
 <div data-role="page">
 
-	<? tabs_simple(array('results', $this->details->title)); ?>
+	<? tabs_simple(array($this->details->title)); ?>
 	<? include("notifications.php"); ?>
 
 	<div data-role="content" >	
@@ -17,7 +17,7 @@
 					<?= $this->details->text ?>
 				</div>
 				<p class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
-					<a data-role="button" data-icon="faplus" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->user ?>', 1);">
+					<a data-role="button" data-icon="plus-sign" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->user ?>', 1);">
 						<span style="color: blue;font-size: 14px;"><?= $this->reputation['up'] ?></span> <span style="font-weight: normal;">"J'aime"</span>
 					</a>
 				</p>

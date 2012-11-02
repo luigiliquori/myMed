@@ -19,12 +19,14 @@
 	<link href="../../system/css/common.css" rel="stylesheet" />
 	<!-- APP css -->
 	<link href="css/app.css" rel="stylesheet" />
+	<link href="css/tagsPlugin.css" rel="stylesheet" />
 	
 	
 	<script src="../../lib/jquery/jquery-1.8.2.min.js"></script>
 	<script src="../../lib/jquery/jquery.mobile-1.2.0.js"></script>
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
+	<script src="javascript/tagsPlugin.js"></script>
 	
 
 	<!-- Google Analytics -->

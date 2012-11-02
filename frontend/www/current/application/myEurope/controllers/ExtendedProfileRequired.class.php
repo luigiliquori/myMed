@@ -18,26 +18,32 @@ class ExtendedProfileRequired extends AuthenticatedController {
 			try {
 				$usr = $this->mapper->findById($user);
 			} catch (Exception $e) {
-				//ignore the error for the moment
+				//$this->setError($e->getMessage());
 			}
-
-			$profile = new Profile($usr['profile']);
-			try {
-				$profile->details = $this->mapper->findById($profile);
-			} catch (Exception $e) {
-			}
-			$profile->parseProfile();
-			$profile->reputation = pickFirst(parent::getReputation(array($profile->details['id'])));
-				
-			$_SESSION['myEurope'] = (object) array_merge( $usr, (array) $profile);
-
-			if ($_SESSION['myEurope']->permission <= 0){
-				// set as guest
-				$_SESSION['user']->acl = array('defaultMethod', 'read');
-			} else if ($_SESSION['myEurope']->permission == 1){
-				$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
-			} else {
-				$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create', 'updatePermission');
+			if (isset($usr)){
+				$profile = new Profile($usr['profile']);
+				try {
+					$profile->details = $this->mapper->findById($profile);
+				} catch (Exception $e) {
+					$this->setError(_("Your organization profile could not be found, make sure to have a valid one in the profiles list section"));
+				}
+				if (isset($profile->details)){
+					$profile->parseProfile();
+					$profile->reputation = pickFirst(parent::getReputation(array($profile->details['id'])));
+					
+					$_SESSION['myEurope'] = (object) array_merge( $usr, (array) $profile);
+					
+					if ($_SESSION['myEurope']->permission <= 0){
+						// set as guest
+						$_SESSION['user']->acl = array('defaultMethod', 'read');
+					} else if ($_SESSION['myEurope']->permission == 1){
+						$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
+					} else {
+						$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create', 'updatePermission');
+					}
+					
+					debug('fetched');
+				}
 			}
 		}
 		

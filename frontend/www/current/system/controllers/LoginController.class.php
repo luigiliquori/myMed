@@ -17,6 +17,7 @@ class LoginController extends AbstractController {
 			debug_r($_SESSION['user']);
 			$_SESSION['user'] = $this->insertUser($_SESSION['userFromExternalAuth'], $token);
 			$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
+			$_SESSION['user']->is_guest = 0;
 			
 			// Redirect to main page
 			$this->redirectTo("main");
@@ -142,6 +143,7 @@ class LoginController extends AbstractController {
 			// Everything went fine, we now have an USER in our session
 			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject->dataObject->user);
 			$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
+			$_SESSION['user']->is_guest = 0;
 			if( !isset($_SESSION['friends']) ){
 				$_SESSION['friends'] = array();
 			}

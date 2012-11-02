@@ -241,7 +241,7 @@
 .ui-icon-eject:before                { content: "\f052"; }
 .ui-icon-chevron-left:before         { content: "\f053"; margin-top: 2px; }
 .ui-icon-chevron-right:before        { content: "\f054"; margin-top: 2px; }
-.ui-icon-plus-sign:before            { content: "\f055"; margin-top: 2px; }
+.ui-icon-plus-sign:before            { content: "\f055"; margin-top: 1px; }
 .ui-icon-minus-sign:before           { content: "\f056"; margin-top: 2px; }
 .ui-icon-remove-sign:before          { content: "\f057"; margin-top: 2px; }
 .ui-icon-ok-sign:before              { content: "\f058"; margin-top: 2px; }

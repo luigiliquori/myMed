@@ -21,10 +21,10 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->createUser($_GET['link']);
 		else if (isset($_GET['user']))
 			$this->showUserProfile($_GET['user']);
-		else if (isset($_SESSION['user'], $_SESSION['user']->is_guest) )
-			$this->forwardTo('login');
-		else if (isset($_SESSION['user']))
-			$this->forwardTo("extendedProfile", array("user"=>$_SESSION['user']->id));
+		else if (isset($_SESSION['user'])){
+			$this->forwardTo($_SESSION['user']->is_guest?'login':'extendedProfile', array("user"=>$_SESSION['user']->id));
+		}
+			
 		else
 			$this->forwardTo("logout");
 		

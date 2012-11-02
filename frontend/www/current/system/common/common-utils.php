@@ -64,7 +64,7 @@ function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) 
 		<? endif; ?>
 		
 		<? if (!empty($rightopts)): ?>
-			<a href="?action=extendedProfile" class="ui-btn-right" data-role="button" data-icon="user" data-mini="true" data-theme="d"><?= $rightopts ?></a>
+			<a href="?action=extendedProfile" rel="external" class="ui-btn-right" data-role="button" data-icon="user" data-mini="true" data-theme="d"><?= $rightopts ?></a>
 		<? endif; ?>
 		
   		<h1>

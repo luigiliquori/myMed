@@ -13,7 +13,7 @@
 			
 			<h1 style="white-space: normal;"><?= _("Hello, This is your first time on myEurope! Please register with an already existing profile or create yours") ?></h1>
 			</div>
-			<br />
+			<br />			
 		<? endif; ?>
 		<a href="?action=ExtendedProfile&new" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="pencil" style="float: right;"><?= _("Create") ?></a>
 		

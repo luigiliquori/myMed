@@ -4,7 +4,8 @@
 
 	<? tabs_simple(null, false); ?>
 	<? include("notifications.php"); ?>
-	<div data-role="content" >
+	<div data-role="content" style="text-align: center;">
+		<span style="height: 50px;"></span>
 		<br />
 		<?= _("Your partnership offer has been successfully published") ?>
 		 <br /><br />
