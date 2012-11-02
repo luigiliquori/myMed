@@ -5,9 +5,9 @@
 
 	<!-- CONTENT -->
 	<div data-role="content"
-		Style="font-size: 10pt; width: 90%; margin-left: auto; margin-right: auto;">
+		style="font-size: 10pt; margin: 50px auto 0 auto; width: 90%;">
 		<!-- UPDATE POIs -->
-		<div data-role="collapsible-set">
+		<div data-role="collapsible-set" data-inset="true">
 
 			<!-- Profile -->
 			<div data-role="collapsible" data-collapsed="false" data-theme="d"
@@ -48,38 +48,12 @@
 									?>
 					<!-- CONNECTION FACEBOOK -->
 			 	    <div id="fb-root"></div>
-				    <script>
-				        window.fbAsyncInit = function() {
-				          FB.init({
-				            appId      : '<?= Facebook_APP_ID ?>',
-				            status     : true, 
-				            cookie     : true,
-				            xfbml      : true,
-				            oauth      : true
-				          });
-				          FB.Event.subscribe('auth.login', function(response) {
-				              window.location.reload();
-				            });
-				        };
-				        (function(d){
-				           var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-				           js = d.createElement('script'); js.id = id; js.async = true;
-				           js.src = "//connect.facebook.net/en_US/all.js";
-				           d.getElementsByTagName('head')[0].appendChild(js);
-				         }(document));
-				    </script>
+
 				    <div class="fb-login-button" scope="email,read_stream">Facebook</div>
 				    <!-- END CONNECTION FACEBOOK -->
 				<?php } else { ?>
 					<!-- LIKE BUTTON -->
 					<br /><br />
-					<script>(function(d, s, id) {
-						var js, fjs = d.getElementsByTagName(s)[0];
-						if (d.getElementById(id)) return;
-						js = d.createElement(s); js.id = id;
-						js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
-						fjs.parentNode.insertBefore(js, fjs);
-					}(document, 'script', 'facebook-jssdk'));</script>
 					<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
 					<br /><br />
 				<?php } ?>

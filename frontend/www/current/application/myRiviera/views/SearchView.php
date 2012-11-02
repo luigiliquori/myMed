@@ -3,7 +3,7 @@
 
 <? include("header-bar.php"); ?>
 
-	<div id="Itin" data-theme="c">
+	<div id="Itin" style="margin-top: 50px;">
 		<form action="" name="<?= APPLICATION_NAME ?>FindForm"
 			id="<?= APPLICATION_NAME ?>FindForm">
 			<input type="hidden" name="application"

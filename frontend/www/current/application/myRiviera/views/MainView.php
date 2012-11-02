@@ -5,7 +5,7 @@
 	<? include("header-bar.php"); ?>
 
 	<!-- CONTENT -->
-	<div data-role="content" style="padding: 0px;">
+	<div data-role="content" style="padding: 0px; margin-top: -20px;">
 		
 		<!-- MAP -->
 		<div id="myRivieraMap"></div>
