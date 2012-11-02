@@ -71,9 +71,23 @@ class MainController extends AuthenticatedController {
 		debug_r($_SESSION['user']);
 
 		// REPUTATION
-		/*if (!isset($_SESSION['reputation'])){	// NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE
+		if (!isset($_SESSION['apps_reputation'])){	// NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE
 
-			foreach($_SESSION['applicationList'] as $app => $status){
+			//use that instead @see getReputation()
+			$appsRep =  new ReputationSimple(array_keys($_SESSION['applicationList']), array());
+			$res = $appsRep->send();
+			if($res->status == 200) {
+				$_SESSION['apps_reputation'] = formatReputation($res->dataObject->reputation);
+				debug_r($_SESSION['apps_reputation']);
+			}
+			$userRep =  new ReputationSimple(array_keys($_SESSION['applicationList']), array($_SESSION['user']->id));
+			$res = $userRep->send();
+			if($res->status == 200) {
+				$_SESSION['user_reputation'] = formatReputation($res->dataObject->reputation);
+				debug_r($_SESSION['user_reputation']);
+			}
+
+			/*foreach($_SESSION['applicationList'] as $app => $status){
 				
 				// Get the reputation of the user in each the application
 				$request = new Request("ReputationRequestHandler", READ);
@@ -106,8 +120,8 @@ class MainController extends AuthenticatedController {
 				} else {
 					$_SESSION['reputation'][$app . STORE_PREFIX] = 100;
 				}
-			}
-		}*/
+			}*/
+		}
 
 		$this->renderView("main");
 	}

@@ -1,4 +1,4 @@
-<div data-role="header" data-theme="b">
+<div data-role="header" style="position: absolute;top: 0;width: 100%;z-index: 200;" data-theme="b">
 	
 	<h1><?= APPLICATION_NAME ?></h1>
 	

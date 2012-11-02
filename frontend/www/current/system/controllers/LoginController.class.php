@@ -15,7 +15,7 @@ class LoginController extends AbstractController {
 
 			$token = isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null;
 			debug_r($_SESSION['user']);
-			$_SESSION['user'] = $this->insertUser($_SESSION['userFromExternalAuth'], $token);
+			$_SESSION['user'] = insertUser($_SESSION['userFromExternalAuth'], $token);
 			$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
 			$_SESSION['user']->is_guest = 0;
 			

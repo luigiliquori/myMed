@@ -35,7 +35,7 @@ class DetailsController extends ExtendedProfileRequired {
 		if (isset($res->details)){
 			$this->details = $res->details;
 			
-			$this->reputation = pickFirst(parent::getReputation(array($this->id)));
+			$this->reputation = pickFirst(getReputation(array($this->id)));
 			
 			if (isset($this->details->user)){
 				
@@ -158,7 +158,7 @@ class DetailsController extends ExtendedProfileRequired {
 			return null;
 		}
 		$profile->parseProfile();
-		$profile->reputation = pickFirst(parent::getReputation( array($details['profile'])));
+		$profile->reputation = pickFirst(getReputation( array($details['profile'])));
 		return $profile;
 	}
 	

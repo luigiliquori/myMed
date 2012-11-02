@@ -2,11 +2,11 @@
 
 <div id="Map" data-role="page" class="page-map">
 
-<? include("header-bar.php"); ?>
+	<? include("header-bar.php"); ?>
 
 	<!-- CONTENT -->
 	<div data-role="content" style="padding: 0px;">
-	
+		
 		<!-- MAP -->
 		<div id="myRivieraMap"></div>
 		

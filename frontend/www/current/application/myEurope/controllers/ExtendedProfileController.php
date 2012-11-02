@@ -183,7 +183,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->redirectTo("main");
 		}
 		$this->profile->parseProfile();
-		$this->profile->reputation = pickFirst(parent::getReputation(array($id)));
+		$this->profile->reputation = pickFirst(getReputation(array($id)));
 
 		$this->renderView("ExtendedProfileDisplay");
 	}
@@ -203,7 +203,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		//debug_r($details);
 		$this->profile->parseProfile();
-		if (!empty($details['profile'])) $this->profile->reputation = pickFirst(parent::getReputation(array($details['profile'])));
+		if (!empty($details['profile'])) $this->profile->reputation = pickFirst(getReputation(array($details['profile'])));
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	

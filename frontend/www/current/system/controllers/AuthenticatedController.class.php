@@ -5,7 +5,7 @@
  * Requests that need an authenticated user should inhérit from this.
  * 
  */
-class AuthenticatedController extends AbstractController implements IReputationMapper {
+class AuthenticatedController extends AbstractController {
 	
 	/**
 	 * Handle the request.
@@ -28,7 +28,7 @@ class AuthenticatedController extends AbstractController implements IReputationM
 			/* Guest access provided */
 			$id = rand(100000, 999999);
 			$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
-			$_SESSION['user'] = $this->insertUser($user, null, true);
+			$_SESSION['user'] = insertUser($user, null, true);
 			$_SESSION['user']->acl = array('defaultMethod', 'read');
 			$_SESSION['user']->is_guest = 1;
 			//$this->redirectTo("login", $_REQUEST);
@@ -40,7 +40,7 @@ class AuthenticatedController extends AbstractController implements IReputationM
 
 	/** Default fallback method called after an access denied, an error...*/
 	public function error($arguments) {
-		debug('>>>>>>>>>> error !');
+		debug('>>>>>>>>>> error access denied!');
 		debug_r($arguments);
 		// Should be overridden for controller that use the "method" parameter
 	}

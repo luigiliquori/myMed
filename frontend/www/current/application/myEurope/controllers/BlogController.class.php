@@ -58,7 +58,7 @@ class BlogController extends ExtendedProfileRequired {
 			
 			
 
-			$repArr =  parent::getReputation(array_keys($this->messages));
+			$repArr =  getReputation(array_keys($this->messages));
 			
 			$this->messages = array_replace_recursive($this->messages, $repArr);
 			
@@ -81,7 +81,7 @@ class BlogController extends ExtendedProfileRequired {
 					foreach ($r->details as $ki=>$vi){
 						$this->comments[$k][$ki] = json_decode($vi, true);
 					}
-					$repArr =  parent::getReputation(array_keys($this->comments[$k]));
+					$repArr = getReputation(array_keys($this->comments[$k]));
 					$this->comments[$k] = array_replace_recursive($repArr, $this->comments[$k]);
 
 					

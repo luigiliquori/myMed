@@ -29,7 +29,7 @@ class ExtendedProfileRequired extends AuthenticatedController {
 				}
 				if (isset($profile->details)){
 					$profile->parseProfile();
-					$profile->reputation = pickFirst(parent::getReputation(array($profile->details['id'])));
+					$profile->reputation = pickFirst(getReputation(array($profile->details['id'])));
 					
 					$_SESSION['myEurope'] = (object) array_merge( $usr, (array) $profile);
 					

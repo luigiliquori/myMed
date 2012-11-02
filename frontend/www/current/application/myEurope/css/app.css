@@ -66,11 +66,6 @@
 	vertical-align: middle;
 }
 
-h4.logo{
-	background-color: white;
-	opacity: 0.9;
-}
-
 @media all and (max-width: 600px){
 	 .logos > img {margin: 5px 10px;}
 	 .logos {position: relative;textalign:center;}
