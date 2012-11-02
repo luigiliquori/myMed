@@ -9,7 +9,7 @@ require_once("header.php");
 	<?php tab_bar_main("?action=profile", 2); ?>
 	<?php include 'notifications.php'; ?>
 	
-	<div data-role="content" class="content" Style="text-align: left;">
+	<div data-role="content">
 		<form action="?action=profile" id="updateProfileForm" method="post" data-ajax="false">
 		
 			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
@@ -37,6 +37,7 @@ require_once("header.php");
 				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
 			</select>
 
+			<br>
 			<div data-role="fieldcontain">
 				<label for="password" ><?= _("Password") ?> : </label>
 				<input type="password" id="password" name="password" />
@@ -50,14 +51,14 @@ require_once("header.php");
 			</div>
 			<? endif; ?>
 
-			<center>
-				<div data-role="controlgroup" data-type="horizontal">
-					<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" data-icon="refresh"/>
-					<a href="#profile" data-inline="true" rel="external" data-role="button" data-theme="d" data-icon="delete" data-iconpos="right"><?= translate("Cancel") ?></a>
-				</div>
-			</center>
+			<div style="text-align: center;">
+				<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" data-icon="refresh"/>
+			</div>
+			
 			
 		</form>
 	</div>
 		
 </div>
+
+<? include_once 'footer.php'; ?>

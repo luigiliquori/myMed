@@ -6,7 +6,7 @@ define('STORE_PREFIX' , '_store');
 ?>
 
 <div data-role="page" id="store" data-dom-cache="true">
-	<? if (isset($_SESSION['user']->is_guest)): ?>
+	<? if ($_SESSION['user']->is_guest): ?>
 		<? tab_bar_main("?action=store", 4); ?>
 	<? else: ?>
 		<? tab_bar_main("?action=store"); ?>
@@ -55,7 +55,5 @@ define('STORE_PREFIX' , '_store');
 	</div>
 
 </div>
-
-<? include_once 'UpdateProfileView.php'; ?>
 
 <? include_once 'footer.php'; ?>

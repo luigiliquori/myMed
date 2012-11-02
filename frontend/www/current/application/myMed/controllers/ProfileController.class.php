@@ -6,11 +6,16 @@ define('STORE_PREFIX' , '_store');
 // TODO: Should be a common controller in /system/controllers/
 class ProfileController extends AuthenticatedController {
 	
-	/**
-	 * This will create a temporary Profile with the informations submited by POST and send a confirmation-email.
-	 * @see IRequestHandler::handleRequest()
-	 */
-	public /*String*/ function handleRequest() { 
+
+	public function update() {
+		$this->renderView('updateProfile');
+	}
+	
+	public function defaultMethod() {
+		$this->renderView("profile");
+	}
+	
+	public function handleRequest() { 
 		
 		parent::handleRequest();
 		
@@ -129,8 +134,6 @@ class ProfileController extends AuthenticatedController {
 				$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $_POST);
 			}
 		}
-		
-		$this->renderView("profile");
 
 	}
 

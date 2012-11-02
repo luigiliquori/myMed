@@ -1,14 +1,8 @@
-<?php
-
-require_once("header.php");
-require_once("header-bar.php");
-require_once("footer-bar.php");
-
-?>
+<?php require_once("header.php");?>
 
 <div id="home" data-role="page" data-dom-cache="true">
 	
-	<? if (isset($_SESSION['user']->is_guest)): ?>
+	<? if ($_SESSION['user']->is_guest): ?>
 		<? tab_bar_main("?action=main", 4); ?>
 	<? else: ?>
 		<? tab_bar_main("?action=main"); ?>

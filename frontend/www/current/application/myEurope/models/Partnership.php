@@ -86,7 +86,6 @@ class Partnership extends Entry {
 		$all = array_map("gettext", Categories::$keywords);
 		foreach ($keywords as $k=>$v){
 			$i = array_search($v, $all);
-			var_dump($i);
 			if ( $i !== false ){
 				$keywords[$k] = Categories::$keywords[$i];
 			}

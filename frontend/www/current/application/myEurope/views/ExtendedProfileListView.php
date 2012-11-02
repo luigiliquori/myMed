@@ -16,7 +16,7 @@
 			<br />			
 		<? endif; ?>
 		<a href="?action=ExtendedProfile&new" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="pencil" style="float: right;"><?= _("Create") ?></a>
-		
+		<div style="margin-top: 30px;"></div>
 		<ul data-role="listview" data-filter="true" data-inset="true" data-mini="true" data-filter-placeholder="<?= _("filter") ?>">
 		<? foreach ($this->cats as $k=>$v) :?>
 			<? if (!empty($v)) :?>

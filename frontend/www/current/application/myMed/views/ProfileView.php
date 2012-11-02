@@ -6,15 +6,17 @@ require_once("header.php");
 
 <div id="profile" data-role="page" data-dom-cache="true">
 
-	<? if (isset($_SESSION['user']->is_guest)): ?>
+	<? if ($_SESSION['user']->is_guest): ?>
 		<? tab_bar_main("?action=profile", 4); ?>
 	<? else: ?>
 		<? tab_bar_main("?action=profile"); ?>
 	<? endif; ?>
 
+	<? if (!$_SESSION['user']->is_guest): ?>
 	<div data-role="header" data-theme="none" data-position="fixed">
-		<a href="?action=profile#updateProfile" class="ui-btn-right" data-theme="e" data-mini="true" data-icon="pencil"><?= _("Edit") ?></a>
+		<a href="?action=profile&method=update" rel="external" class="ui-btn-right" data-theme="e" data-mini="true" data-icon="pencil"><?= _("Edit") ?></a>
 	</div>
+	<? endif; ?>
 	<? include 'notifications.php'; ?>
 
 	<div data-role="content">
@@ -51,7 +53,7 @@ require_once("header.php");
 				</a>
 			</li>
 
-			<li data-role="list-divider"><?= translate("You and your applications") ?></li>
+			<li data-role="list-divider"><?= translate("Your applications") ?></li>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 			<?php if ($status == "on") { ?>
 			<li><a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile" rel="external"> <img class="ui-li-mymed"
@@ -75,8 +77,6 @@ require_once("header.php");
 	</div>
 	
 </div>
-
-<? include_once 'UpdateProfileView.php'; ?>
 
 <? include_once 'footer.php'; ?>
 

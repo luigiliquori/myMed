@@ -10,11 +10,11 @@
 	<div data-role="content">
 	<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"
 		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:blogs", "<?= APPLICATION_NAME ?>:blogMessage", null, "<?= $this->blog ?>"); $(this).addClass("ui-disabled");'><?= _("Subscribe")."<br>"._("to new messages") ?></a>
-	<br><br><br><br>
-<div data-role="collapsible-set" data-theme="d" data-content-theme="d">
+		
+<div data-role="collapsible-set" data-theme="d" data-content-theme="d" style="padding-top: 60px;">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>
 	<div data-role="collapsible" <? if($first){echo('data-collapsed="false"');$first=false;} ?>>
-		<h2><?= $v['title'] ?><p class="ui-li-aside ui-li-desc"><?= date('j/n/Y', $v['time']) ?></p></h2>
+		<h2><?= $v['title'] ?></h2>
 		<ul data-role="listview" data-theme="d" data-divider-theme="d">
 			<li id="<?= $k ?>">
 			
@@ -23,7 +23,7 @@
 				<p style="text-align: center;font-weight: bold;"><?= $v['up']-$v['down'] ?></p>
 				<a class="vote-down-off" onclick="rate($(this), '<?= $k ?>', '<?= $v['user'] ?>', 0);" title="<?= $v['down']?> down votes, (click again to undo)">down vote</a>
 				</div>
-				<div style="padding-left: 40px; padding-top: 5px; font-weight: initial;"><?= $v['text'] ?></div>
+				<div style="padding-left: 40px; padding-top: 5px; font-weight: lighter;"><?= $v['text'] ?></div>
 				<p class="ui-li-aside"><a href="?action=extendedProfile&user=<?= $v['user'] ?>" data-transition="slidedown" class="user-sig"><?= prettyprintUser($v['user']) ?></a> le <time><?= date('j/n/y G:i', $v['time']) ?></time>
 				 <a onclick="reply($(this));"><span class="highlighted">reply</span></a>
 				 <a title="<?= _("Subscribe") ?>" onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:blogs", "<?= APPLICATION_NAME ?>:blogComment", null, "<?= $this->blog.'comments'.$k ?>");'><span class="highlighted">subscribe</span></a>
