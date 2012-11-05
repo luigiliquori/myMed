@@ -1,3 +1,4 @@
+<? include("header.php"); ?>
 
 <div id="option" data-role="page">
 
@@ -30,43 +31,7 @@
 				</div>
 			</div>
 
-			<!-- FRIENDS -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="d"
-				data-content-theme="c">
-				<h3>Réseau social</h3>
-				<?php $i=0; ?>
-				<?php foreach ($_SESSION['friends'] as $friend ) { ?>
-					<a href="<?= $friend["link"] ?>"><img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" alt="<?= $friend["name"] ?>" /></a>
-					<?php $i++; ?>
-				<?php } 
-				if($i == 0) { 
-// 					$socialNetworkConnection =  new SocialNetworkConnection();
-// 					foreach($socialNetworkConnection->getWrappers() as $wrapper) {
-// 						$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
-// 						echo "<a href='" . $url . "' onClick='showLoadingBar(\"redirecton en cours...\")'>" . $wrapper->getSocialNetworkButton() . "</a>";
-// 					}
-									?>
-					<!-- CONNECTION FACEBOOK -->
-			 	    <div id="fb-root"></div>
-
-				    <div class="fb-login-button" scope="email,read_stream">Facebook</div>
-				    <!-- END CONNECTION FACEBOOK -->
-				<?php } else { ?>
-					<!-- LIKE BUTTON -->
-					<br /><br />
-					<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
-					<br /><br />
-				<?php } ?>
-				
-				<!-- SHARE THIS -->
-				<div id="hidden-sharethis">
-					<span class='st_facebook_large' displayText='Facebook'></span>
-					<span class='st_twitter_large' displayText='Tweet'></span>
-					<span class='st_linkedin_large' displayText='LinkedIn'></span>
-					<span class='st_email_large' displayText='Email'></span>
-				</div>
-				
-			</div>
+			<?php //include 'facebook.php'; ?>
 
 			<!-- COMMENT -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
@@ -145,11 +110,13 @@
 	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#Map" data-transition="none" data-back="true" data-icon="home">Carte</a></li>
-				<li><a href="#search" data-transition="none" data-icon="search">Rechercher</a></li>
-				<li><a href="#option" data-transition="none" data-icon="gear" class="ui-btn-active ui-state-persist">Option</a></li>
+				<li><a href="?action=main#Map" data-transition="none" data-back="true" data-icon="home">Carte</a></li>
+				<li><a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a></li>
+				<li><a href="?action=option" data-transition="none" data-icon="gear" class="ui-btn-active ui-state-persist">Option</a></li>
 			</ul>
 		</div>
 	</div>
 
 </div>
+
+<? include("footer.php"); ?>

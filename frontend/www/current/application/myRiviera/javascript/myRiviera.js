@@ -40,7 +40,7 @@ var radius;
 
 function initialize() {
 
-	showLoadingBar("chargement de la carte..."); 
+	//showLoadingBar("chargement de la carte..."); 
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
@@ -59,17 +59,6 @@ function initialize() {
 			}
 	);
 
-
-	// autocompletes Google Maps Places API
-	if (useautocompletion) {
-		autocompleteDepart = new google.maps.places.Autocomplete(document
-				.getElementById('depart'));
-		autocompleteArrivee = new google.maps.places.Autocomplete(document
-				.getElementById('arrivee'));
-		autocompleteArrivee.bindTo('bounds', map);
-		autocompleteDepart.bindTo('bounds', map);
-	}
-
 	// setup the marker for the itinerary
 	startmarker = new google.maps.Marker({
 		animation : google.maps.Animation.DROP,
@@ -84,49 +73,16 @@ function initialize() {
 		title : 'Arrivée',
 		zIndex : -1
 	});
-
-	// resize the map on page change
-	$("#Map").live("pageshow", function(event, ui) {
-		google.maps.event.trigger(map, 'resize');
-
-		// refocus on lastest position
-		focusOnLatLng(pos);
-
-		old = filterArray;
-		updateFilter();
-
-		// if the user changed the POIS type, compute missing and hide others
-		for ( var i in array_diff(filterArray, old)) {
-			markers[filterArray[i]][currentSegmentID] = null;
-			otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
-		}
-		for ( var i in array_diff(old, filterArray)) {
-			if(markers[old[i]][currentSegmentID]) {
-				for ( var j=0 ; j< markers[old[i]][currentSegmentID].length ; j++) {
-					markers[old[i]][currentSegmentID][j].setMap(null);
-				}
-			}
-		}
-		// if the user changed the radius, recompute POIS
-		if ( $('#slider-radius').val() != radius){
-			radius=$('#slider-radius').val();
-			for ( var i in filterArray) {
-				if(markers[filterArray[i]][currentSegmentID]) {
-					for ( var j=0 ; j< markers[filterArray[i]][currentSegmentID].length ; j++) {
-						markers[filterArray[i]][currentSegmentID][j].setMap(null);
-					}
-				}
-				markers[filterArray[i]][currentSegmentID] = null;
-				otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
-			}
-		}
-
-	});
-
-	// initialize the filter for the markers
-	initFilter();
-
-	//resizeMap();
+	
+	//autocompletes Google Maps Places API
+	if (useautocompletion) {
+		autocompleteDepart = new google.maps.places.Autocomplete(document
+				.getElementById('depart'));
+		autocompleteArrivee = new google.maps.places.Autocomplete(document
+				.getElementById('arrivee'));
+		autocompleteArrivee.bindTo('bounds', map);
+		autocompleteDepart.bindTo('bounds', map);
+	}
 
 	$('#depart').keyup(function(event) {
 		if (event.keyCode == 13) {
@@ -141,7 +97,53 @@ function initialize() {
 		}
 	});
 
+	// resize the map on page change
+	
+
+	// initialize the filter for the markers
+	initFilter();
+
+	//resizeMap();
+$("#Map").live("pageshow", function() {
+	google.maps.event.trigger(map, 'resize');
+
+	// refocus on lastest position
+	focusOnLatLng(pos);
+
+	old = filterArray;
+	updateFilter();
+
+	// if the user changed the POIS type, compute missing and hide others
+	for ( var i in array_diff(filterArray, old)) {
+		markers[filterArray[i]][currentSegmentID] = null;
+		otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
+	}
+	for ( var i in array_diff(old, filterArray)) {
+		if(markers[old[i]][currentSegmentID]) {
+			for ( var j=0 ; j< markers[old[i]][currentSegmentID].length ; j++) {
+				markers[old[i]][currentSegmentID][j].setMap(null);
+			}
+		}
+	}
+	// if the user changed the radius, recompute POIS
+	if ( $('#slider-radius').val() != radius){
+		radius=$('#slider-radius').val();
+		for ( var i in filterArray) {
+			if(markers[filterArray[i]][currentSegmentID]) {
+				for ( var j=0 ; j< markers[filterArray[i]][currentSegmentID].length ; j++) {
+					markers[filterArray[i]][currentSegmentID][j].setMap(null);
+				}
+			}
+			markers[filterArray[i]][currentSegmentID] = null;
+			otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
+		}
+	}
+
+});
 }
+
+
+
 
 function resizeMap() {
 	$("#" + $("#applicationName").val() + "Map").height($("body").height()-$("[data-role=header]").outerHeight());
@@ -743,7 +745,7 @@ function myRivieraShowTrip(start, end, icon) {
 	endmarker.setMap(map);
 
 	// SHOW ITINERAIRE
-	$("#itineraire, #steps, #prev-step").delay(1000).fadeIn("slow");
+	$("#steps").css('top', '50px');
 	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(1)');
 	$('#next-step')
 	.click(

@@ -25,6 +25,7 @@
 }
 
 
+
 #loading {
 	position: absolute;
 	left:0px;
@@ -80,21 +81,21 @@
 	vertical-align	: middle;
 }
 
-.ui-btn-text img {
+/*.ui-btn-text img {
 	position: absolute;
-}
+}*/
 
-.ui-link-inherit {
+/*.ui-link-inherit {
 	position: relative;
 	left: 70px;
 	height: 40px;
-} 
+} */
 
-.ui-icon img {
+/*.ui-icon img {
 	position: absolute;
 	right:-5px;
 	top:-5px;
-}
+}*/
 
 .tabMask {
 	position: relative;
@@ -128,12 +129,17 @@
 
 #steps {
 	position: absolute;
-	top: 50px;
+	top: -50px;
 	width: 100%;
+	opacity:.8;
 	text-align: center;
-	display: none;
 }
-
+#prev-step > span {
+	height: 19px;
+}
+#next-step .ui-btn-inner {
+	height: 19px;
+}
 
 #depart::-webkit-input-placeholder {
   color: LightBlue;

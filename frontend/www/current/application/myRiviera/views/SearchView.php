@@ -112,9 +112,9 @@
 	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#Map" data-transition="none" data-back="true" data-icon="home">Carte</a></li>
-				<li><a href="#search" data-transition="none" data-icon="search" class="ui-btn-active ui-state-persist">Rechercher</a></li>
-				<li><a href="#option" data-transition="none" data-icon="gear">Option</a></li>
+				<li><a href="?action=main#Map" data-transition="none" data-back="true" data-icon="home">Carte</a></li>
+				<li><a href="?action=main#search" data-transition="none" data-icon="search" class="ui-btn-active ui-state-persist">Rechercher</a></li>
+				<li><a href="?action=option" data-transition="none" data-icon="gear">Option</a></li>
 			</ul>
 		</div>
 	</div>

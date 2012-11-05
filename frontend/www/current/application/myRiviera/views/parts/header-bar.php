@@ -10,4 +10,6 @@
 	
 	<? include("notifications.php")?>
 	
+	
+	
 </div>

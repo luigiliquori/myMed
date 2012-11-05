@@ -26,7 +26,7 @@
 	<script type="text/javascript" src="<?= MYMED_URL_ROOT ?>/lib/dasp/javascript/dasp.js"></script>
 	
 	<!-- GOOGLE MAP -->
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&amp;libraries=places"></script>
 	<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 	
 	<!-- Google Analytics -->
@@ -46,8 +46,13 @@
 		
 <body <?= isset($_SESSION['user']) ? 'onload="initialize();"' : ''?> >
 
+<?php 
+//no html input should be inserted there in dom
+?>
 <input type='hidden' id='userID' value='<?= $_SESSION['user']->id ?>' />
 <input type='hidden' id='applicationName' value='<?= APPLICATION_NAME ?>' />
 <input type='hidden' id='accessToken' value='<?= $_SESSION['accessToken'] ?>' />
+
+
 
 
