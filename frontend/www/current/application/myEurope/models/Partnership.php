@@ -28,6 +28,7 @@ class Partnership extends Entry {
 			$request['c'] = ""; //equivalent to all choices
 		}
 		
+		$request['k'] = array_map('strtolower', $request['k']);
 		$this->untranslate($request['k']);
 		
 		//the order matters because I was too lazy to sort it backend-side
@@ -49,6 +50,7 @@ class Partnership extends Entry {
 			$request['c'] = ""; //equivalent to all choices
 		}
 		
+		$request['k'] = array_map('strtolower', $request['k']);
 		$this->untranslate($request['k']);
 		
 		//the order matters because I was too lazy to sort it backend-side

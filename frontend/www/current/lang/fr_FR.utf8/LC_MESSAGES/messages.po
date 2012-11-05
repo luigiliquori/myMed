@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-02 18:00+0100\n"
-"PO-Revision-Date: 2012-11-03 17:24+0100\n"
+"PO-Revision-Date: 2012-11-04 17:51+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -274,7 +274,7 @@ msgstr "Créer ce profil"
 
 #: ../application/myEurope/views/ExtendedProfileListView.php:14
 msgid "Hello, This is your first time on myEurope! Please register with an already existing profile or create yours"
-msgstr "Bonjour, c'est votre première venue sur myEurope! Joignez un des profils d'organismes ci-dessous pour lequel vous travaillez, ou créer le votre."
+msgstr "Bonjour, c'est votre première venue sur myEurope! Joignez un des profils d'organismes ci-dessous pour lequel vous travaillez, ou créez le votre."
 
 #: ../application/myEurope/views/ExtendedProfileListView.php:18
 #: ../application/myEurope/views/MainView.php:132

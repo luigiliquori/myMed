@@ -15,7 +15,16 @@ $request->addArgument("user", $_SESSION['user']->id);
 	
 $responsejSon = $request->send();
 
-$responsejSon->description = _("Subscribed to ").(count($_POST["predicates"])?$_POST['predicates']:$_POST['id']);
+$pStr = "";
+foreach ($_POST["predicates"] as $p){
+	$pStr .= str_replace('|', '+', $p->value).' ';
+}
+
+if (empty($pStr)){
+	$pStr = "all";
+}
+
+$responsejSon->description = _("Subscribed to: ").(count($_POST["predicates"])?$pStr:$_POST['id']);
 
 echo json_encode($responsejSon);
 
