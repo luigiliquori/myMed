@@ -15,8 +15,8 @@ The following variables are available in the templates :
     <subject>[${application}] Votre Profil</subject>
 
     <body><![CDATA[
-        Bonjour ${recipient.name},<br/>
-        <br/>
+        Bonjour ${recipient.name},<br>
+        <br>
 
             <#list publication?keys as key>
             	<#if key?starts_with("user_")>
@@ -29,15 +29,15 @@ The following variables are available in the templates :
             		Votre demande de partenariat a &eacute;t&eacute; accept&eacute;e
             		<a href="${base_url}${application}/?action=Details&id=${publication[key]}"> voir </a>
 				<#else>
-					Votre profil <a href="${base_url}${application}/?action=ExtendedProfile">${application}</a> a les modifications suivantes: <br/>
+					Votre profil <a href="${base_url}${application}/?action=ExtendedProfile">${application}</a> a les modifications suivantes: <br>
 		        	<b>${key}</b>: ${publication[key]!'N/A'}
 		        </#if>
 			</#list>
         
-        <br />
-        --<br/>
+        <br>
+        --<br>
     
-        L'&eacute;quipe myMed<br/>
+        L'&eacute;quipe myMed<br>
         Cliquez <a href="${base_url}${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
 ]]></body>
 </mail-template>

@@ -17,21 +17,21 @@ The following variables are available in the templates :
     <subject>[${application}] Nouveau commentaire</subject>
 
     <body><![CDATA[
-        Bonjour ${recipient.name},<br/>
-        <br/>
+        Bonjour ${recipient.name},<br>
+        <br>
         <#assign blog =  predicates[0]?substring(predicates[0]?index_of("blogs")+5, predicates[0]?index_of("comments"))>  
         
-        Un nouveau commentaire a &eacute;t&eacute; publi&eacute; sur le blog <a href="${base_url}${application}/?action=blog&id=${blog}">${blog}</a><br/><br/>
+        Un nouveau commentaire a &eacute;t&eacute; publi&eacute; sur le blog <a href="${base_url}${application}/?action=blog&id=${blog}">${blog}</a><br><br>
        	
        	<#list publication?keys as key>
        		<#assign map = publication[key]?eval>
        		<span style="margin-left: 1em;">${map.text} 
        		&ndash; ${map.user?substring(6)}</span>
 		</#list>
-        <br/><br/>
-        --<br/>
+        <br><br>
+        --<br>
     
-        L'&eacute;quipe myMed<br/>
+        L'&eacute;quipe myMed<br>
         Cliquez <a href="${base_url}${application}/?action=unsubscribe&id=${predicate}&application=${namespace}">ici</a> pour vous d&eacute;sabonner.
 ]]></body>
 </mail-template>

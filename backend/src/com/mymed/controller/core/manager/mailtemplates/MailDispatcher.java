@@ -78,10 +78,10 @@ public class MailDispatcher extends AbstractManager implements Runnable {
 	@Override
 	public void run() {
 		
+		Map<String, Map<String, String>> recipients = new HashMap<String, Map<String, String>>();
+		
 		for (String predicate : predicates) {
 			
-			Map<String, Map<String, String>> recipients = new HashMap<String, Map<String, String>>();
-	        
             final Map<String, String> subscribers = storageManager.selectAllStr(CF_SUBSCRIBEES, predicate);
             for (final Entry<String, String> entry : subscribers.entrySet()) {
             	Map<String, String> recipient = null;
@@ -90,55 +90,56 @@ public class MailDispatcher extends AbstractManager implements Runnable {
                 } catch (IOBackEndException e) {
                 }
                 if (recipient != null) {
+                	recipient.put("predicate", extractId(predicate, application)); // additionnal field for the unsubscribe link
+                	recipient.put("template", entry.getValue()); // provide the mail template (in this format application:mailtemplate)
                     recipients.put(entry.getKey(), recipient);
                 }
             }
-	        
-	        // Loop on recipients
-	        for (Map<String, String> recipient : recipients.values()) {
-	            
-	            // Update the current recipient in the data map
-	            data.put("recipient", recipient);
-	            data.put("predicate", extractId(predicate, application));  // to put the Unsubscribe link
-	            
-	            // Get the prefered language of the user
-	            String language = recipient.get("lang");
-	            
-	            // Get the mail template from the manager
-	            String app = extractApplication(subscribers.get(recipient.get("id")));
-	            String namespace = extractNamespace(subscribers.get(recipient.get("id")));
-	            
-	            data.put("application", app);
-	            
-	            MailTemplate template = this.mailTemplateManager.getTemplate(
-	            		app, 
-	                    namespace, 
-	                    language);
-	            
-	            // Render the template
-	            String subject = template.renderSubject(data);
-	            String body = template.renderBody(data);
-	            
-	            // Create the mail
-	            final MailMessage message = new MailMessage();
-	            message.setSubject(subject);
-	            message.setRecipients(asList(recipient.get("email")));
-	            message.setText(body);
-
-	            // Send it
-	            final Mail mail = new Mail(
-	                    message, 
-	                    SubscribeMailSession.getInstance());
-	            mail.send();
-	            
-	            LOGGER.info(String.format(">>>>>>>>>>>>>>>>>>>>>>>Mail sent to '%s' with title '%s' for predicate '%s'", 
-	                    recipient.get("email"), 
-	                    subject,
-	                    predicate));
-	            
-	        } // End of loop on recipients 
-			
 		}
+        
+        // Loop on recipients
+        for (Map<String, String> recipient : recipients.values()) {
+            
+            // Update the current recipient in the data map
+            data.put("recipient", recipient);
+            data.put("predicate", recipient.get("predicate"));//shortcut to the predicate that raised this SUB
+            
+            // Get the prefered language of the user
+            String language = recipient.get("lang");
+            
+            // Get the mail template from the manager
+            String app = extractApplication(recipient.get("template"));
+            String namespace = extractNamespace(recipient.get("template"));
+            
+            data.put("application", app);
+            
+            MailTemplate template = this.mailTemplateManager.getTemplate(
+            		app, 
+                    namespace, 
+                    language);
+            
+            // Render the template
+            String subject = template.renderSubject(data);
+            String body = template.renderBody(data);
+            
+            // Create the mail
+            final MailMessage message = new MailMessage();
+            message.setSubject(subject);
+            message.setRecipients(asList(recipient.get("email")));
+            message.setText(body);
+
+            // Send it
+            final Mail mail = new Mail(
+                    message, 
+                    SubscribeMailSession.getInstance());
+            mail.send();
+            
+            LOGGER.info(String.format(">>>>>>>>>>>>>>>>>>>>>>>Mail sent to '%s' with title '%s' for predicate '%s'", 
+                    recipient.get("email"), 
+                    subject,
+                    recipient.get("predicate")));
+            
+        } // End of loop on recipients 
 		
 	}
 

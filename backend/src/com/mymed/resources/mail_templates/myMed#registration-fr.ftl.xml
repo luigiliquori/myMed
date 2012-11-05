@@ -22,10 +22,10 @@ The following variables are available in the templates :
     ]]></subject>
 
     <body><![CDATA[
-        Bonjour ${recipient.name},<br/>
-        <br/>
+        Bonjour ${recipient.name},<br>
+        <br>
         
-        Bienvenue sur myMed.<br /><br />Pour finaliser votre inscription allez sur
+        Bienvenue sur myMed.<br><br>Pour finaliser votre inscription allez sur
         
         <#if application??>
 			<a href="${base_url}application/${application}/?registration=ok&application=${application}&accessToken=${accessToken}">
@@ -37,11 +37,11 @@ The following variables are available in the templates :
 	        </a>
 		</#if>
         
-		<br/>
+		<br>
        
-        --<br/>
+        --<br>
     
-        <a href="mailto:mymeddev@gmail.com">myMed</a> <br /> projet Europ&eacute;en Alcotra Interreg-IV
+        <a href="mailto:mymeddev@gmail.com">myMed</a> <br> projet Europ&eacute;en Alcotra Interreg-IV
        
 ]]></body>
 </mail-template>

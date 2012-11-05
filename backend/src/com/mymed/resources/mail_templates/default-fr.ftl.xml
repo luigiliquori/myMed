@@ -12,17 +12,17 @@ The following variables are available in the templates :
 -->
 <mail-template>
 
-    <subject>[MyMed/${application}] Nouvelle publication</subject>
+    <subject>[myMed/${application}] Nouvelle publication</subject>
 
     <body><![CDATA[
-        Bonjour ${recipient.name},<br/>
-        <br/>
+        Bonjour ${recipient.name},<br>
+        <br>
         
-        Une nouvelle publication est disponible sur la plateforme MyMed.<br/>
-        Application : ${application}<br/>
-        <br/>
+        Une nouvelle publication est disponible sur la plateforme myMed.<br>
+        Application : ${application}<br>
+        <br>
         
-        Auteur : ${publisher.name}<br/>
+        Auteur : ${publisher.name}<br>
         Publication :
         <ul>
             <#list publication?keys as key>
@@ -30,8 +30,8 @@ The following variables are available in the templates :
             </#list>
         </ul>
         
-        --<br/>
+        --<br>
     
-        L'équipe MyMed<br/>
+        L'&eacute;quipe myMed<br>
 ]]></body>
 </mail-template>
