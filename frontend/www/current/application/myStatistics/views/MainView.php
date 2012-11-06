@@ -28,9 +28,9 @@ require_once("footer-bar.php");
 				<select name="select-method" id="select-method">
 					<option value="all">Method</option>
 					<option value="all">All</option>
-					<option value="Publish">Publish</option>
-					<option value="Subscribe">Subscribe</option>
-					<option value="Find">Find</option>
+					<option value="publish">Publish</option>
+					<option value="subscribe">Subscribe</option>
+					<option value="find">Find</option>
 				</select>
 
 				<!-- Year -->
