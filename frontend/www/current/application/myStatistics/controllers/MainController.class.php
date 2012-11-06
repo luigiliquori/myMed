@@ -30,37 +30,52 @@ class MainController extends AuthenticatedController {
 	}
 
 	function generateGraph($response){
-		echo "generate graph";
 		$this->array_resp_return = array();
 		$this->max_array_value=0;
-		$resp_obj = json_decode($response);
-		$tab = $resp_obj->statistics;
 		if((isset($_POST['select-month'])&& $_POST['select-month']!= "all") || (isset($_POST['select-year']) && $_POST['select-year']!="all")){
-			$i=0;
-			foreach($tab as $val => $value){
-				if($i==$val){
-					$array_resp_return[$i] = $value;
-					if($value>$max_array_value){
-						$max_array_value=$value;
-					}
+			if($_POST['select-month']!=all){
+				$this->nbdaymonth= $this->getNumberDaysForMonth($_POST['select-month'],$_POST['select-year']);
+				$max = $this->nbdaymonth;
+			}
+			else{
+				$max=12;
+			}
+			for($i=1;$i<=$max;$i++){
+				$str = (string) $i;
+				$count=0;
+				if(isset($response->$str)){
+					$count = $response->$str;
 				}
-				else{
-					$array_resp_return[$i]=0;
+				if($count > $this->max_array_value){
+					$this->max_array_value = $count;
 				}
-				$i++;
+				$this->array_resp_return[$i]=$count;
 			}
 		}
-		
-		//My brain to me :"use JSON"
-		//Yep good idea brain
-		//$this->response = "{\"name\" : \"curve1\",\"type\" : \"month\", \"curve\" : \"[[1,5000],[2,5500],[3,10000],[4,500]]\"}"
+		if(isset($_POST['select-year']) && $_POST['select-year']=="all" && $_POST['select-month']== "all"){
+			
+		}
+		$this->generateTitle();
+	}
+	
+	function generateTitle(){
+		$this->title = "Graph of ".$_POST['select-method']." method for ".$_POST['select-application']." application ";
+		if(isset($_POST['select-month'])&& $_POST['select-month']!= "all"){
+			$this->title= $this->title."from 1/".$_POST['select-month']." to ". $this->nbdaymonth."/".$_POST['select-month'];
+		}
+		if(isset($_POST['select-year']) && $_POST['select-year']!="all"){
+			$this->title = $this->title." ".$_POST['select-year'];
+		}
+	}
+	
+	function getNumberDaysForMonth($month,$year){
+		return date('t',mktime(0,0,0,$month,1,$year));
 	}
 	
 	function sendRequestToBackend($method,$year,$month,$application){
 		$request = new Request("StatisticsRequestHandler", READ);
 		//$request->addArgument("accessToken",$_SESSION['user']->session);
 		$request->addArgument("accessToken",$_SESSION['accessToken']);
-		echo "Access token= ".$_SESSION['accessToken'];
 		$request->addArgument("code",1);
 		$request->addArgument("application",$application);
 		$request->addArgument("method",$method);
@@ -76,10 +91,11 @@ class MainController extends AuthenticatedController {
 	}
 	
 	function analyzeBackendResponse($response){
-		echo "resp obj= ".$response;
+		echo $response;
 		$resp_obj = json_decode($response);
+		$str = (string)4;
 		if($resp_obj->status != 500){
-			generateGraph($resp->dataObject);
+			$this->generateGraph($resp_obj->dataObject->statistics);
 		}
 	}
 }

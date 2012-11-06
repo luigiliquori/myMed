@@ -26,8 +26,8 @@ require_once("footer-bar.php");
 				<!-- Method -->
 				<label for="select-method">Method</label> 
 				<select name="select-method" id="select-method">
-					<option value="All">Method</option>
-					<option value="All">All</option>
+					<option value="all">Method</option>
+					<option value="all">All</option>
 					<option value="Publish">Publish</option>
 					<option value="Subscribe">Subscribe</option>
 					<option value="Find">Find</option>
@@ -36,8 +36,8 @@ require_once("footer-bar.php");
 				<!-- Year -->
 				<label for="select-year">Year</label> 
 				<select name="select-year" id="select-year">
-					<option value="All">Year</option>
-					<option value="All">All</option>
+					<option value="all">Year</option>
+					<option value="all">All</option>
 					<?php
 					//all years from 2009 to now
 					for ($i=2009;$i<=date('Y');$i++){
@@ -49,8 +49,8 @@ require_once("footer-bar.php");
 				<!-- Month -->
 				<label for="select-month">Month</label> 
 				<select name="select-month" id="select-month">
-					<option value="All">Month</option>
-					<option value="All">All</option>
+					<option value="all">Month</option>
+					<option value="all">All</option>
 					<option value="1">January</option>
 					<option value="2">February</option>
 					<option value="3">March</option>
@@ -68,8 +68,8 @@ require_once("footer-bar.php");
 				<!-- Applications -->
 				<label for="select-application">Application</label> 
 				<select name="select-application" id="select-application">
-					<option value="All">Application</option>
-					<option value="All">All</option>
+					<option value="all">Application</option>
+					<option value="all">All</option>
 					<!-- All applications from myMed panel -->
 					<?php
 					foreach (MainController::getBootstrapApplication() as $key => $app){
@@ -92,7 +92,7 @@ require_once("footer-bar.php");
 		?>
 			<?php
 				//title of the graph
-				$title = "test";
+				$titl = $this->title;
 				//column values
 				$tabrep = $this->array_resp_return;
 				//$tabrep=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
@@ -106,12 +106,12 @@ require_once("footer-bar.php");
 				$sizeBar = 100/$nbcol;
 				$sizeBar = str_replace(",", ".", $sizeBar);
 			?>
-			<center><h1><?php echo $title;?></h1></center>
+			<center><h3><?php echo $titl;?></h3></center>
 			<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: <?php echo $height ?>px; border: thin black solid; margin-left:3.5%; background-color:white">
 				<?php for($i=0;$i<$nbcol;$i++){
-					$red = ceil(255-(255*$tabrep[$i])/$max_tab);
-					$green = ceil((255*$tabrep[$i])/$max_tab);
-					$height_column = ceil(($height * $tabrep[$i])/$max_tab);
+					$red = ceil(255-(255*$tabrep[$i+1])/$max_tab);
+					$green = ceil((255*$tabrep[$i+1])/$max_tab);
+					$height_column = ceil(($height * $tabrep[$i+1])/$max_tab);
 					$top = $height - $height_column;
 				?>
 					<div Style="position: absolute; top: <?php echo $top ?>px; left: <?= str_replace(",", ".",$i*$sizeBar) ?>%; width: <?= $sizeBar ?>%; height: <?php echo $height_column?>px; background-color:rgb(<?php echo $red ?>,<?php echo $green ?>,0); border: thin black solid;"></div>		
