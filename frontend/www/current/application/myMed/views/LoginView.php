@@ -13,6 +13,13 @@ function tab_bar_login($activeTab) {
 		array("#register", "Create an account", "th-list"),
 		array("#about", "About", "info-sign")
 	));
+	?>
+	<div data-role="header" data-theme="none" data-position="fixed">
+		<? if (!isset($_SESSION['user'])): ?>
+			<a href="?action=guest&method=read" rel="external"  class="ui-btn-left" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
+		<? endif; ?>
+	</div>
+	<?
 }
 ?>
 
@@ -70,7 +77,7 @@ function tab_bar_login($activeTab) {
 		</div>
 
 		<br /><br />
-		<img alt="Alcotra" src="/system/img/logos/alcotra.png" />
+		<a href="http://www.interreg-alcotra.org/2007-2013/index.php?pg=progetto&id=139"><img alt="Alcotra" src="/system/img/logos/alcotra.png" /></a>
 		<br />
 		<i><?= translate("Together") ?></i>
 		<br /><br />
