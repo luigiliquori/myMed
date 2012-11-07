@@ -40,7 +40,7 @@ require_once("header.php"); ?>
 		    <input type="hidden" name="password" id="password" value="1"/><br />
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value=" Invite  " />
 		</form>
-		 
+		</br>
 
 		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="position: relative; top: -80px; width:70%; margin: auto;">
 			<h3 style="width: 170px; margin: auto;"><?= translate("Sign in with") ?>: </h3>

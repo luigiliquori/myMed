@@ -161,6 +161,10 @@ $word = 'Advanced searching';
 $_SESSION['dictionary'][$word][FR] = "Recherche avancée";
 $_SESSION['dictionary'][$word][IT] = "Ricerca avanzata";
 
+$word = 'No results found';
+$_SESSION['dictionary'][$word][FR] = "";
+$_SESSION['dictionary'][$word][IT] = "";
+
 //Details view
 $word = 'Author';
 $_SESSION['dictionary'][$word][FR] = "Auteur";

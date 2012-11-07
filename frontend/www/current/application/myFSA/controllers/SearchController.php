@@ -1,7 +1,7 @@
 <? 
 
 /**
- *  This controller shows the search/publish form and receives "search" and "publish" queries.
+ *  This controller shows the search form and receives "search" queries.
  *  It renders the views "main" or "results".
  */
 class SearchController extends AuthenticatedController {
@@ -11,21 +11,17 @@ class SearchController extends AuthenticatedController {
 		parent::handleRequest();
 			
 		if(true) {
-			
-			//this field is to get info if DetailsView is redirect from publish controller or details controller
-			$_SESSION['controller'] = "Search";
 	
 			// -- Search
 			$this->search();	
-			$this->renderView("main");
+			$this->renderView("search");
 			
 		} 
 	}
 	
 	public function search() {
 	
-			// -- Search
-	
+			// -- Search	
 			$search = new PublishObject();
 			$this->fillObj($search);
 			$this->result = $search->find();			
@@ -34,16 +30,16 @@ class SearchController extends AuthenticatedController {
 	// Fill object with POST values
 	private function fillObj($obj) {
 		
+		//if isset pred2 && pred3 it means someone used searching advanced
 		if(isset($_POST['pred2'])&&isset($_POST['pred3'])){
+			
 			$obj->pred2 = $_POST['pred2'];
-			$obj->pred3 = $_POST['pred3'];
-			
-			$debugtxt  =  "<pre>I am in the fillObj1 second if";
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
-			
+			$obj->pred3 = $_POST['pred3'];			
 		} 
+		
+		//otherwise is displaying all publications
 		else {
+			
 			$obj->pred1 = "FSApublication";
 		}
 	

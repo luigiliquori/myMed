@@ -45,24 +45,20 @@ class DetailsController extends AuthenticatedController {
 			$debugtxt .= "</pre>";
 			debug($debugtxt);
 			
-			if (isset($_SESSION['controller']) && $_SESSION['controller'] == "Search"){
-				//needed for comments
-				$string = $_GET['predicate'];
-				preg_match_all('/pred2([a-z0-9-_]+)pred3/', $string, $matches);
-				preg_match_all('/pred3([a-zA-Z0-9-_]+)/', $string, $matches2);
+			//during the way predicate is lost so here it is extracting
+			$string = $_GET['predicate'];
+			preg_match_all('/pred2([a-zA-Z0-9-_\s\#]+)pred3/', $string, $matches);
+			preg_match_all('/pred3([a-zA-Z0-9-_\s\#]+)/', $string, $matches2);
 				
-				$_SESSION['author'] = $this->author;
-				$_SESSION['pred2'] = $matches[1][0];
-				$_SESSION['pred3'] = $matches2[1][0];
+			$_SESSION['author'] = $this->author;
+			$_SESSION['pred2'] = $matches[1][0];
+			$_SESSION['pred3'] = $matches2[1][0];
 					
-				$_SESSION['begin'] = $this->result->begin;
-				$_SESSION['end'] = $this->result->end;
-				$_SESSION['data1'] = $this->result->data1;
-				$_SESSION['data2']= $this->result->data2;
-				//end needed for comments
-				
-				
-			}			
+			$_SESSION['begin'] = $this->result->begin;
+			$_SESSION['end'] = $this->result->end;
+			$_SESSION['data1'] = $this->result->data1;
+			$_SESSION['data2']= $this->result->data2;
+		
 			$this->search_comment();
 			$this->getMark();
 			$this->renderView("details");
@@ -72,7 +68,6 @@ class DetailsController extends AuthenticatedController {
 	public /*void*/ function storeReputation(){
 			
 		$rep = new Ranking($_SESSION['user']->id,$_SESSION['predicate'], $this->feedback);
-		//$rep = new Ranking(array($_SESSION['user']->id,$_SESSION['predicate'], $this->feedback));
 		$rep->storeReputation();
 			
 	}
@@ -87,23 +82,16 @@ class DetailsController extends AuthenticatedController {
 	//searching comments
 	public function search_comment() {
 	
-		// -- Search
-	
+		// -- Search	
 		$searchk = new PublishObject();
 		$this->fillObj($searchk);
 		$this->result_comment = $searchk->find();
-		
-		$debugtxt  =  "<pre>wyyyyyyniiiik";
-		$debugtxt  .= var_export($this->result_comment, TRUE);
-		$debugtxt .= "</pre>";
-		debug($debugtxt);
 		
 	}
 	
 	// Fill object with POST values
 	private function fillObj($obj2) {
 	
-// 			$obj2->pred1 = "FSApublication";
 			$obj2->pred1 = 'comment&'.$_SESSION['pred2'].'&'.$_SESSION['pred3'].'&'.$_SESSION['author'];
 	
 	}

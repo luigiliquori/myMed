@@ -12,10 +12,6 @@ class PublishController extends AuthenticatedController {
 		parent::handleRequest();
 			
 		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publier") {
-				
-			
-			//this field is to get info if DetailsView is redirect from publish controller or details controller
-			$_SESSION['controller'] = "Publish";
 			
 			// -- Publish
 			
@@ -27,7 +23,7 @@ class PublishController extends AuthenticatedController {
 			
 			$this->result = $obj;
 			$_SESSION['author'] = $_SESSION['user']->id;
-			$this->result->publisherID = $_SESSION['user']->id;
+
 			header("location: index.php?action=details&predicate=pred1FSApublicationpred2".$_SESSION['pred2']."pred3".$_SESSION['pred3']."&author=".$_SESSION['author']);
 			
 
@@ -100,17 +96,6 @@ class PublishController extends AuthenticatedController {
 			$_SESSION['data1'] = $obj->data1;
 			$_SESSION['data2'] = NULL;
 			$_SESSION['rank'] = 5;
-		} elseif(isset($_POST['pred2'])&&isset($_POST['pred3'])){
-			$obj->pred2 = $_POST['pred2'];
-			$obj->pred3 = $_POST['pred3'];
-			
-			$debugtxt  =  "<pre>I am in the fillObj1 second if";
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
-			
-		} 
-		else {
-			$obj->pred1 = "FSApublication";
 		}
 	
 	}

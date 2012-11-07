@@ -14,12 +14,8 @@ class MainController extends AuthenticatedController {
 			
 		}
 		else{
-			$debugtxt  =  "<pre>DAAAAAAAAAAAAAAAATAAAAAAAAAAAAAAA";
-			$debugtxt  .= var_export(time(), TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
 			
-			$this->redirectTo("search");
+			$this->renderView(main);
 			
 		}
 
@@ -40,7 +36,8 @@ class MainController extends AuthenticatedController {
 		else {
 			$_SESSION['ExtendedProfile'] = $result;
 			$this->success = "";
-			$this->redirectTo("search");
+			//$this->redirectTo("search");
+			$this->renderView(main);
 		}
 
 	}

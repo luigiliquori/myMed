@@ -78,9 +78,7 @@
 	 		<h3><?= translate('Comments') ?></h3>
 		 	<!-- displaying comments -->
 			<br/>
-		 	<?
-		 			foreach ($this->result_comment as $item){
-		 	?>
+		 	<?foreach ($this->result_comment as $item) :?>
 		 				<div data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true" data-collapsed="false">
 		 					<h3><?= $item->publisherName ?></h3>
 		 					<div class="ui-grid-a">
@@ -91,20 +89,16 @@
 		 					</div>
 		 					</div>
 		 				</div>
-		 	<?		}
-		 	?>
+			<? endforeach ?>
 		 	<!-- input for comments -->
 		 	<form action="index.php?action=publish" method="POST" data-ajax="false">
 		 		<textarea name="data2"></textarea>
 		 		<input type="hidden" name="method" value="Comment" />
 				<input type="submit" value="<?= translate('Comment') ?>" />
 		 	</form>
-		 	<!-- input for comments -->
 	 	
 	 	</div>
-	 	
-	<!-- 	<b>Data2</b>: --><?//= $this->result->data2 ?><br/>
-	<!-- 	<b>Data3</b>: --><?//= $this->result->data3 ?>
+
 	</div>
 <? include("footer.php"); ?>
 </div>
