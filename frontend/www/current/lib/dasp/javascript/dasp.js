@@ -256,28 +256,22 @@ function publishDASPRequest(formID) {
 }
 
 function getPosition(){
+	
+	//"../../backend/PositionRequestHandler"
 
-	$.ajax({
-		//url: "../../backend/PositionRequestHandler",
-		url: "../../lib/dasp/ajax/Position.php",
-		success: function(data){
-			
-			data = JSON.parse(data);
-			if (data.status == 200){
-				currentPos = new google.maps.LatLng(
-						data.dataObject.position.latitude,
-						data.dataObject.position.longitude
-				);
-				currentPlace = data.dataObject.position.formattedAddress;
+	$.getJSON("../../lib/dasp/ajax/Position.php", function(data) {
 
-				if (focusOnCurrentPosition) {
-					focusOnLatLng(currentPos);
-					focusOnCurrentPosition = false;
-				}
+		if (data.status == 200) {
+			currentPos = new google.maps.LatLng(data.dataObject.position.latitude,
+					data.dataObject.position.longitude);
+			currentPlace = data.dataObject.position.formattedAddress;
+
+			if (focusOnCurrentPosition) {
+				focusOnLatLng(currentPos);
+				focusOnCurrentPosition = false;
 			}
-			
-			
 		}
+
 	});
 }
 

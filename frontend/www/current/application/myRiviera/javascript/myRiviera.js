@@ -26,8 +26,6 @@ var circle;
 var focusOnCurrentPosition = true;
 var currentPositionMarker = null;
 
-var refreshRoadMap = false;
-
 var EndMarkerIcon = false;
 
 var radius;
@@ -84,19 +82,6 @@ function initialize() {
 		autocompleteDepart.bindTo('bounds', map);
 	}
 
-	$('#depart').keyup(function(event) {
-		if (event.keyCode == 13) {
-			validateIt();
-			location.href="#Map";
-		}
-	});
-	$('#arrivee').keyup(function(event) {
-		if (event.keyCode == 13) {
-			validateIt();
-			location.href="#Map";
-		}
-	});
-
 	// resize the map on page change
 	
 
@@ -104,45 +89,48 @@ function initialize() {
 	initFilter();
 
 	//resizeMap();
-$("#Map").live("pageshow", function() {
-	google.maps.event.trigger(map, 'resize');
-
-	// refocus on lastest position
-	focusOnLatLng(pos);
-
-	old = filterArray;
-	updateFilter();
-
-	// if the user changed the POIS type, compute missing and hide others
-	for ( var i in array_diff(filterArray, old)) {
-		markers[filterArray[i]][currentSegmentID] = null;
-		otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
-	}
-	for ( var i in array_diff(old, filterArray)) {
-		if(markers[old[i]][currentSegmentID]) {
-			for ( var j=0 ; j< markers[old[i]][currentSegmentID].length ; j++) {
-				markers[old[i]][currentSegmentID][j].setMap(null);
-			}
-		}
-	}
-	// if the user changed the radius, recompute POIS
-	if ( $('#slider-radius').val() != radius){
-		radius=$('#slider-radius').val();
-		for ( var i in filterArray) {
-			if(markers[filterArray[i]][currentSegmentID]) {
-				for ( var j=0 ; j< markers[filterArray[i]][currentSegmentID].length ; j++) {
-					markers[filterArray[i]][currentSegmentID][j].setMap(null);
-				}
-			}
+	$("#Map").bind("pageshow", function() {
+		google.maps.event.trigger(map, 'resize');
+	
+		// refocus on lastest position
+		focusOnLatLng(pos);
+	
+		old = filterArray;
+		updateFilter();
+	
+		// if the user changed the POIS type, compute missing and hide others
+		for ( var i in array_diff(filterArray, old)) {
 			markers[filterArray[i]][currentSegmentID] = null;
 			otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
 		}
-	}
-
-});
+		for ( var i in array_diff(old, filterArray)) {
+			if(markers[old[i]][currentSegmentID]) {
+				for ( var j=0 ; j< markers[old[i]][currentSegmentID].length ; j++) {
+					markers[old[i]][currentSegmentID][j].setMap(null);
+				}
+			}
+		}
+		// if the user changed the radius, recompute POIS
+		if ( $('#slider-radius').val() != radius){
+			radius=$('#slider-radius').val();
+			for ( var i in filterArray) {
+				if(markers[filterArray[i]][currentSegmentID]) {
+					for ( var j=0 ; j< markers[filterArray[i]][currentSegmentID].length ; j++) {
+						markers[filterArray[i]][currentSegmentID][j].setMap(null);
+					}
+				}
+				markers[filterArray[i]][currentSegmentID] = null;
+				otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
+			}
+		}
+	
+	});
+	
+	$("#roadMap").live("pageshow", function() {
+		$("#itineraireContent").listview('refresh')
+	});
+	
 }
-
-
 
 
 function resizeMap() {
@@ -346,60 +334,58 @@ function otherMarkers(index, type, lat, lon, rad) {
 		// direct: "../../backend/POIRequestHandler" put it with dapaType:"jsonp"
 		// direct: jsonp : "http://mymed.fr:8080/backend/POIRequestHandler" put it with dapaType:"jsonp"
 		// with a proxy: "../../lib/dasp/ajax/POI.php"
-		$.ajax({
-			url: "../../lib/dasp/ajax/POI.php",
-			data: params,
-			dataType: "json",
-			success: function(data){
+		$.getJSON( "../../lib/dasp/ajax/POI.php"
+			+'?application='+ $("#applicationName").val() + "Admin"
+			+'&type='+ type
+			+'&latitude='+ (lat || steps[index - 1].position.lat())
+			+'&longitude='+ (lon || steps[index - 1].position.lng())
+			+'&radius='+ (rad || $('#slider-radius').val()),
+			function(data){
 				if ( data && data.dataObject.pois.length){
 					markers[type][index] = [];
 					$.each(data.dataObject.pois, function(i, poi) {
-						try {
-							value = JSON.parse(poi.value);
-							id = poi.id;
-	
-							// SETUP ICON
-							iconAvailable = $('#poiIcon').val().split(",");
-							if(value.icon) {
-								icon = value.icon;
-							} else  if(iconAvailable.indexOf(type + '.png') > 0){
-								icon = 'img/pois/' + type + '.png';
-							} else {
-								icon = null;
-							}
-							
-							// SETUP DESCRIPTION
-							adresse = 	value.adresse ? 	value.adresse : null;
-							email = 	value.email ? 		value.email : null;
-							link = 		value.link ? 		value.link : null;
-							idMedia = 	value.idMedia ? 	value.idMedia : null;
-							altitude = 	value.altitude ? 	value.altitude : null;
-							description = "<p>Type: " + type + "</p>";
-							description += value.description;
-							
-							// SETUP PICTURE
-							if(idMedia) {
-								idMedia = idMedia.replace(/\s/g, '');
-								idMedia = idMedia.replace('_', '');
-							}
-							
-							var marker = addMarker(new google.maps.LatLng(value.latitude,
-									value.longitude), icon, value.title,description, null, false, id,
-									adresse, email, link, idMedia, altitude);
-							
-							google.maps.event.addListener(marker, "click", function(e) {
-								closeMarkersBox();
-								marker.ib.open(map, this);
-							});
-							
-							markers[type][index].push(marker);
-							
-						} catch (err) {
-//							alert("ERR : " + poi.value);
+			
+						value = $.parseJSON(poi.value);
+						id = poi.id;
+
+						// SETUP ICON
+						iconAvailable = $('#poiIcon').val().split(",");
+						if(value.icon) {
+							icon = value.icon;
+						} else  if(iconAvailable.indexOf(type + '.png') > 0){
+							icon = 'img/pois/' + type + '.png';
+						} else {
+							icon = null;
 						}
+						
+						// SETUP DESCRIPTION
+						adresse = 	value.adresse ? 	value.adresse : null;
+						email = 	value.email ? 		value.email : null;
+						link = 		value.link ? 		value.link : null;
+						idMedia = 	value.idMedia ? 	value.idMedia : null;
+						altitude = 	value.altitude ? 	value.altitude : null;
+						description = "<p>Type: " + type + "</p>";
+						description += value.description;
+						
+						// SETUP PICTURE
+						if(idMedia) {
+							idMedia = idMedia.replace(/\s/g, '');
+							idMedia = idMedia.replace('_', '');
+						}
+						
+						var marker = addMarker(new google.maps.LatLng(value.latitude,
+								value.longitude), icon, value.title,description, null, false, id,
+								adresse, email, link, idMedia, altitude);
+						
+						google.maps.event.addListener(marker, "click", function(e) {
+							closeMarkersBox();
+							marker.ib.open(map, this);
+						});
+						
+						markers[type][index].push(marker);
+
 					});
 				}
-			}
 		});
 
 	} else {// already existing, redrop them
@@ -484,24 +470,33 @@ function updateMarkers(index) {
 	hideLoadingBar();
 }
 
+function refreshRoadMap() {	
+	// call the listview constructor on the ul
+	//$("#itineraireContent").listview({"inset" : true});
+	$("#itineraireContent").listview();
+	//$("#itineraireContent").listview('refresh');
+	$('#roadMap').trigger('create');
+}
+
 /**
  * 
  * @param start
  * @param end
  * @param mobile
  */
-function calcRoute(json) {
 
-	result = JSON.parse(json);
-	// TODO CREATE SHOW TRIP FUNCTION!!
-	// use to force to drow the trip
+function calcRoute(result) {
+
+	$("#itineraireContent").html('');
+
 	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
 		calcRouteByCityway(result);
+		myRivieraShowTrip($("#depart").val() || "Ma position", $("#arrivee").val());
 	} else {
 		calcRouteByGoogle(true);
 	}
-
-	refreshRoadMap = true;
+	
+	/*refreshRoadMap = true;
 	$("#roadMap").live("pageshow", function() {
 		if(refreshRoadMap) {
 			var $this = $(this),
@@ -523,18 +518,20 @@ function calcRoute(json) {
 			}
 			refreshRoadMap = false;
 		}
-	});
-	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
-		myRivieraShowTrip($("#depart").val() || "Ma position", $("#arrivee").val());
-	}
+	});*/
+	
+	//      ^^        WTF
+
 }
+
+
 
 function calcRouteByCityway(result) {
 
 	currentType = null;
 	icon = null;
 	routes = [];
-//	$('#itineraire h3:first').find('.ui-btn-text').html(
+// $('#itineraire h3:first').find('.ui-btn-text').html(
 //	$('#itineraire h3:first').find('.ui-btn-text').html().replace(
 //	/(Feuille de route)( \w+|)/, '$1 Cityway'));
 	startmarker.setTitle("Départ\n"
@@ -636,9 +633,6 @@ function calcRouteByCityway(result) {
 
 	$("#ceparou06").show();
 
-	// create jquerymobile styled elmts
-	$('.ui-page').trigger('create');
-
 	// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART -> showTrip function
 	$(routes).each(function(i) {
 		var request = {
@@ -710,10 +704,6 @@ function calcRouteByGoogle(printTrip) {
 						desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
-
-					// create jquerymobile styled elmts
-					$('.ui-page').trigger('create');
-					$('#itineraireContent').listview({"inset": true });
 
 					// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART
 					// -> showTrip function
@@ -822,23 +812,16 @@ function validateIt() {
 
 				showLoadingBar("Calcul de l'itinéraire en cours...");
 
-				$.ajax({
-					type : "POST",
-					url : "ajax/cityway.php",
-					data : "startlng=" + startmarker.getPosition().lng() + "&startlat="
-					+ startmarker.getPosition().lat() + "&endlng="
-					+ endmarker.getPosition().lng() + "&endlat="
-					+ endmarker.getPosition().lat()
-					+ (optimize != "fastest" ? "&optimize=" + optimize : "")
-					+ (transitModes ? "&transitModes=" + transitModes : "")
-					+ "&date=" + date,
-					success : function(data) {
-						calcRoute(data);
-						hideLoadingBar();
-					},
-					error : function(data) {
-//						hideLoadingBar();
-					}
+				$.getJSON("ajax/cityway.php" + "?depLon="
+						+ startmarker.getPosition().lng() + "&depLat="
+						+ startmarker.getPosition().lat() + "&arrLon="
+						+ endmarker.getPosition().lng() + "&arrLat="
+						+ endmarker.getPosition().lat()
+						+ (optimize !== "fastest" ? "&optimize=" + optimize : "")
+						+ (transitModes ? "&transitModes=" + transitModes : "")
+						+ "&departureTime=" + date, function(data) {
+					calcRoute(data);
+					hideLoadingBar();
 				});
 			} else {
 				alert("Arrivée non valide");
