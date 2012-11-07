@@ -11,9 +11,20 @@ function tab_bar_default($activeTab) {
 			array("#infos", "Informations", "info-sign"),
 			//array("#profile", "Profile", "user")
 		),
-		3,
-		$_SESSION['user']->name
+		3/*,
+		$_SESSION['user']->name*/
 	);
+	?>
+	<div data-role="header" data-theme="none" style="top:-40px;">
+		<? if ($_SESSION['user']->is_guest): ?>
+			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Log in") ?></a>
+		<? elseif (!isset($_SESSION['myEurope'])): ?>
+			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Create your profile") ?></a>
+		<? else: ?>
+			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="d" data-icon="user"><?= $_SESSION['user']->name ?></a>
+		<? endif; ?>
+	</div>
+	<?
 	include("social.php");
 }
 
@@ -38,6 +49,15 @@ function tab_bar_default($activeTab) {
   		<? if (!is_null($action)): ?>
 			<a class="ui-btn-right" href="<?= $action[0] ?>" <?= $action[0][0]!='#'?'rel="external"':'' ?> data-icon="<?= $action[2] ?>"><?= _($actionTitle[1]) ?></a>
 		<? endif; ?>
+
+		<? if ($_SESSION['user']->is_guest): ?>
+			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Log in") ?></a>
+		<? elseif (!isset($_SESSION['myEurope'])): ?>
+			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Create your profile") ?></a>
+		<? else: ?>
+			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="d" data-icon="user"><?= $_SESSION['user']->name ?></a>
+		<? endif; ?>
+		
   		<? include("social.php"); ?>
   	</div>
   	<?

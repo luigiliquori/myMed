@@ -1,6 +1,6 @@
 <? 
 
-class ExtendedProfileRequired extends AuthenticatedController {
+class ExtendedProfileRequired extends GuestController {
 	
 	public function handleRequest(){
 		
@@ -10,7 +10,6 @@ class ExtendedProfileRequired extends AuthenticatedController {
 		 * Try to get the User ExtendedProfile if it exist
 		 * ExtendedProfile stored in the $_SESSION while using the app
 		 */
-		
 		if (!isset($_SESSION['myEurope'], $_SESSION['myEurope']->permission)){
 			$this->mapper = new DataMapper;
 				
@@ -35,11 +34,11 @@ class ExtendedProfileRequired extends AuthenticatedController {
 					
 					if ($_SESSION['myEurope']->permission <= 0){
 						// set as guest
-						$_SESSION['user']->acl = array('defaultMethod', 'read');
+						$_SESSION['acl'] = array('defaultMethod', 'read');
 					} else if ($_SESSION['myEurope']->permission == 1){
-						$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
+						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 					} else {
-						$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create', 'updatePermission');
+						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create', 'updatePermission');
 					}
 					
 					debug('fetched');

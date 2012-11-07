@@ -9,21 +9,25 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	
 	function defaultMethod() {
 
-		if (isset($_GET['edit']))
-			$this->editProfile();
+		if (isset($_GET['new']))
+			$this->renderView("ExtendedProfileCreate");
 		else if (isset($_GET['id']))
 			$this->showOtherProfile($_GET['id']);
-		else if (isset($_GET['list']))
-			$this->showProfileList();
-		else if (isset($_GET['new']))
-			$this->renderView("ExtendedProfileCreate");
+		else if (isset($_SESSION['user']) && $_SESSION['user']->is_guest)
+			$this->forwardTo('login');
 		else if (isset($_GET['link']))
 			$this->createUser($_GET['link']);
+		
+		else if (!isset($_SESSION['myEurope']) || isset($_GET['list']))
+			$this->showProfileList();
+		else if (isset($_GET['edit']))
+			$this->editProfile();
+		
 		else if (isset($_GET['user']))
 			$this->showUserProfile($_GET['user']);
-		else if (isset($_SESSION['user'])){
-			$this->forwardTo($_SESSION['user']->is_guest?'login':'extendedProfile', array("user"=>$_SESSION['user']->id));
-		}
+		else if (isset($_SESSION['user']))
+			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
+		
 			
 		else
 			$this->forwardTo("logout");

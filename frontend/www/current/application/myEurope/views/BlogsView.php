@@ -9,7 +9,7 @@
 	<? include("notifications.php"); ?>
 	<div data-role="content">
 	<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"
-		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:blogs", "<?= APPLICATION_NAME ?>:blogMessage", null, "<?= $this->blog ?>"); $(this).addClass("ui-disabled");'><?= _("Subscribe")."<br>"._("to new messages") ?></a>
+		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:blogs", "<?= APPLICATION_NAME ?>:blogMessage", null, "<?= $this->blog ?>"); $(this).addClass("ui-disabled");'><?= _("Notify me of new messages") ?></a>
 		
 <div data-role="collapsible-set" data-theme="d" data-content-theme="d" style="padding-top: 60px;">
 	<? $first=true; foreach($this->messages as $k=>$v) : ?>

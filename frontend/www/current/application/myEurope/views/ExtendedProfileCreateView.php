@@ -6,6 +6,7 @@
 	<? include("notifications.php"); ?>
 
 	<div data-role="content">
+		<br>
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
 			<input type="hidden" name="form" value="create" />
 			<div data-role="fieldcontain">
@@ -67,7 +68,7 @@
 				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
 			</span>
 			<div style="text-align: center;">
-				<input type="submit" data-inline="true" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
+				<input type="submit" data-inline="true" data-theme="e" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
 			</div>
 		</form>
 	</div>

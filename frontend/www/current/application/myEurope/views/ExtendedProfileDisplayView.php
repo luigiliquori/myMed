@@ -7,6 +7,10 @@
 	
 	<div data-role="content">
 		<br><br>
+		<div style="text-align: center;">
+			<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" title="<?= $_SESSION['myEurope']->permission >=2 ? _('You are a full-powered Admin, have fun!') : _('users list') ?>"><?= _('Users') ?></a>
+		</div>
+		<br>
 		<? $this->profile->renderProfile($_SESSION['user']); ?>
 		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
@@ -37,6 +41,7 @@
 			<br />
 			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
 			<? endif; ?>
+
 		</div>
 	</div>
 </div>

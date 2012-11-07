@@ -79,18 +79,6 @@
 	.ui-input-search input.postTitle { width: 98%; }
 }
 
-.social {
-	cursor: pointer;
-	text-indent: -9999em;
-	font-size: 1px;
-	display: inline-block;
-	margin: 0 auto;
-	overflow: hidden;
-	width: 30px;
-	height: 32px;
-	background-image: url('/system/img/footer-sprite2.png');
-	background-repeat: no-repeat;
-}
 
 .vote-up-off,.vote-up-on,.vote-down-off,.vote-down-on, .delete-icon {
 	cursor: pointer;
