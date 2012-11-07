@@ -34,15 +34,15 @@ function callController(
 			array( $controller, $method )
 		);*/
 		// invoke controller method after checking access control
-		//$controller->accessControl( $method, $_SESSION['user']->acl);
+		//$controller->accessControl( $method, $_SESSION['acl']);
 		
-		if (!isset($_SESSION['user']->acl)){
+		if (!isset($_SESSION['acl'])){
 			debug('-----!!!!!!!!---------shhould not happen but make sure to give sth to Acl--');
-			$_SESSION['user']->acl = array('defaultMethod', 'read');
+			$_SESSION['acl'] = array('defaultMethod', 'read');
 		}
 			
 		// create an Access Control object
-		$acl = new Acl($controller, $_SESSION['user']->acl);
+		$acl = new Acl($controller, $_SESSION['acl']);
 		
 		//call the controller with it
 		return call_user_func_array(

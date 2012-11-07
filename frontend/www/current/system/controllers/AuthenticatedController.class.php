@@ -16,23 +16,7 @@ class AuthenticatedController extends AbstractController {
 		
 		// Check for user in session
 		if ( !isset($_SESSION['user']) ) {
-			/*debug(':: '.$_SERVER['REQUEST_URI']);
-			//if we request a page, but are not connected, store it and put it back in loginController
-			if (!strcontain($_SERVER['REQUEST_URI'], "action=login")){
-				$_SESSION['redirect'] = substr($_SERVER['REQUEST_URI'], strlen('/application/'.APPLICATION_NAME.'/'));
-				debug('saved '.$_SESSION['redirect']);
-			}	*/
-			
-			// Redirect to "showLogin" view
-			
-			/* Guest access provided */
-			$id = rand(100000, 999999);
-			$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
-			$_SESSION['user'] = insertUser($user, null, true);
-			$_SESSION['user']->acl = array('defaultMethod', 'read');
-			$_SESSION['user']->is_guest = 1;
-			//$this->redirectTo("login", $_REQUEST);
-			
+			$this->redirectTo("login", $_REQUEST);
 		}
 	}
 	

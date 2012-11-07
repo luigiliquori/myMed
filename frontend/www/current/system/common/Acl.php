@@ -9,7 +9,7 @@ class Acl {
 	protected $target = null; 
 	protected $acl = null;
 	/*
-	 * $acl = array  (stored as $_SESSION['user']->acl) , 
+	 * $acl = array  (stored as $_SESSION['acl']) , 
 	 * 
 	 * contains the method that you are authorized to call
 	 * 

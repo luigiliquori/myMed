@@ -131,8 +131,7 @@ h4.logo{
 	display: inline-block;
 	margin: 0 auto;
 	overflow: hidden;
-	margin-right: 3px;
-	width: 32px;
+	width: 30px;
 	height: 32px;
 	background-image: url('/system/img/footer-sprite2.png');
 	background-repeat: no-repeat;

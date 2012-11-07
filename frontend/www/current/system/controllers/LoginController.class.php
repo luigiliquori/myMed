@@ -16,7 +16,7 @@ class LoginController extends AbstractController {
 			$token = isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null;
 			debug_r($_SESSION['user']);
 			$_SESSION['user'] = insertUser($_SESSION['userFromExternalAuth'], $token);
-			$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
+			$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 			$_SESSION['user']->is_guest = 0;
 			
 			// Redirect to main page
@@ -142,7 +142,7 @@ class LoginController extends AbstractController {
 		} else {
 			// Everything went fine, we now have an USER in our session
 			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject->dataObject->user);
-			$_SESSION['user']->acl = array('defaultMethod', 'read', 'delete', 'update', 'create');
+			$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 			$_SESSION['user']->is_guest = 0;
 			if( !isset($_SESSION['friends']) ){
 				$_SESSION['friends'] = array();

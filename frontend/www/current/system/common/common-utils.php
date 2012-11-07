@@ -118,7 +118,7 @@ function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) 
 		<? elseif ($leftopts == 3): ?>
 			<a href="/" class="ui-btn-left" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
 		<? elseif ($leftopts == 4): ?>
-			<a href="/?action=logout" class="ui-btn-left" data-role="button" rel="external" data-icon="signin" data-iconpos="notext" data-theme="g">Log In</a>
+			<a href="/?action=logout" class="ui-btn-left" data-role="button" rel="external" data-mini="true" data-icon="signin" data-theme="g">Log In</a>
 		<? endif; ?>
 		
 		<? if (!empty($rightopts)): ?>

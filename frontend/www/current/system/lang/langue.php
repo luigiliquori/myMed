@@ -10,12 +10,14 @@ $_SESSION['dictionary'] = array();
  * @param $word - the input word in english
  * @return the translated word
  */
-function /*String*/ translate($word) {
-	global $LANG;
-	if($LANG != EN && isset($_SESSION['dictionary'][$word])) {
-		return $_SESSION['dictionary'][$word][$LANG];
-	} else {
-		return $word;
+if (!function_exists("translate")){
+	function /*String*/ translate($word) {
+		global $LANG;
+		if($LANG != EN && isset($_SESSION['dictionary'][$word])) {
+			return $_SESSION['dictionary'][$word][$LANG];
+		} else {
+			return $word;
+		}
 	}
 }
 
