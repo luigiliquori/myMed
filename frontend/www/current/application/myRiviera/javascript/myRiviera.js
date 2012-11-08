@@ -605,17 +605,19 @@ function calcRouteByCityway(result) {
 
 		desc.appendTo($('#itineraireContent'));
 
-		if (currentType == "TRANSPORT"
-			&& [ 'AVION', 'BOAT', 'TER', 'TRAIN', 'TRAM' ]
-		.indexOf(tripSegment.transportMode) < 0) {
+		var c1 = currentType == "TRANSPORT";
+		var transportModes = ['AVION', 'BOAT', 'TER', 'TRAIN', 'TRAM'];
+		var index = transportModes.indexOf(tripSegment.transportMode);
+		var c2 = index < 0;
+		if (c1 && c2) {
 			routes.push({
 				origin : new google.maps.LatLng(
 						tripSegment.departurePoint.latitude,
 						tripSegment.departurePoint.longitude),
-						destination : new google.maps.LatLng(
-								tripSegment.arrivalPoint.latitude,
-								tripSegment.arrivalPoint.longitude),
-								travelMode : google.maps.TravelMode.DRIVING
+				destination : new google.maps.LatLng(
+						tripSegment.arrivalPoint.latitude,
+						tripSegment.arrivalPoint.longitude),
+				travelMode : google.maps.TravelMode.DRIVING
 			});
 		} else if (currentType == "WALK") {
 			routes.push({
@@ -673,8 +675,7 @@ function calcRouteByGoogle(printTrip) {
 
 	icon = "img/voiture.png";
 	titre = "Voiture";
-	directionsService
-	.route(
+	directionsService.route(
 			request,
 			function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
@@ -737,7 +738,7 @@ function myRivieraShowTrip(start, end, icon) {
 	// SHOW ITINERAIRE
 	$("#steps").css('top', '50px');
 	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(1)');
-	$('#next-step')
+	/*$('#next-step')
 	.click(
 			function() {
 				$('#itineraireContent .ui-li a').eq(
@@ -749,7 +750,7 @@ function myRivieraShowTrip(start, end, icon) {
 				$('#itineraireContent .ui-li a')
 				.eq((currentSegmentID || 1) - 1).closest(
 				'[data-role="collapsible"]').trigger('expand');
-			});
+			});*/
 
 }
 
