@@ -4,7 +4,7 @@
 
 <head> 
 
-	<title><?= empty($TITLE) ? APPLICATION_NAME : $TITLE ?></title> 
+	<title><?= empty($TITLE) ? APPLICATION_NAME : $TITLE ?> (Beta)</title> 
 			
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />

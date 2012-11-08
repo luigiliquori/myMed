@@ -10,6 +10,7 @@
 ?>
  	<h1></h1>
 <!-- 	<a href="?action=ExtendedProfile" data-role="button" data-icon="gear">Profile</a> -->
+<div data-role="button" class="ui-btn-right" data-icon="alert">Beta</div>
 </div>
 
 <div>
