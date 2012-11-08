@@ -1,7 +1,7 @@
 <? include("header.php"); ?>
 <div data-role="page">
 	
-	<? tabs_simple(array('Profile'));?>
+	<? tabs_simple('Profile edit');?>
 	<? include("notifications.php"); ?>
 	
 	

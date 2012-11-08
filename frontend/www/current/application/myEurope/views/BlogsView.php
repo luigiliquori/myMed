@@ -5,7 +5,7 @@
 
 <div data-role="page" id="Blog">
 
-	<? tabs_simple(array($this->blog)); ?>
+	<? tabs_simple($this->blog, 'Blogs'); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content">
 	<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"

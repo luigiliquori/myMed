@@ -29,7 +29,7 @@ class SearchController extends ExtendedProfileRequired {
 		$this->title = "";
 		array_walk($this->part->index, array($this, "getValues"));
 		if (empty($this->title)){
-			$this->title = "all";
+			$this->title = "all partnerships";
 		}
 
 		// Render the view			

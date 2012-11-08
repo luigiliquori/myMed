@@ -11,52 +11,34 @@ function tab_bar_default($activeTab) {
 			array("#infos", "Informations", "info-sign"),
 			//array("#profile", "Profile", "user")
 		),
-		3/*,
-		$_SESSION['user']->name*/
+		3,
+		$_SESSION['user']->is_guest===1?'Sign in':(!isset($_SESSION['myEurope'])?'Create your profile':$_SESSION['user']->name)
 	);
-	?>
-	<div data-role="header" data-theme="none" style="top:-40px;">
-		<? if ($_SESSION['user']->is_guest): ?>
-			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Log in") ?></a>
-		<? elseif (!isset($_SESSION['myEurope'])): ?>
-			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Create your profile") ?></a>
-		<? else: ?>
-			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="d" data-icon="user"><?= $_SESSION['user']->name ?></a>
-		<? endif; ?>
-	</div>
-	<?
+
 	include("social.php");
 }
 
 
  
- function tabs_simple($paths=null, $useback=true, $action=null) {
+ function tabs_simple($title=false, $useback="Back") {
  	?>
  	<div data-role="header" data-theme="b">
  		<? if ($useback): ?>
- 			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
+ 			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _($useback) ?></a>
  		<? endif; ?>
   		<h1>
-  			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none;"><?= APPLICATION_NAME ?></a>
-  			<? if ($paths): ?>
-  				<? $title = array_pop($paths); ?>
-  				<? foreach($paths as $path): ?>
-					<?= SEP ?><a data-rel="back" style="text-decoration: none; font-size: 80%;"><?= _($path) ?></a>
-				<? endforeach; ?>
+  			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none;<? empty($title)?'color: white;':'' ?>"><?= APPLICATION_NAME ?></a>
+  			<? if ($title): ?>
 				<?= SEP ?><a style="text-decoration: none; color: white;font-size: 80%;"><?= _($title) ?></a>
 			<? endif; ?>
   		</h1>
-  		<? if (!is_null($action)): ?>
-			<a class="ui-btn-right" href="<?= $action[0] ?>" <?= $action[0][0]!='#'?'rel="external"':'' ?> data-icon="<?= $action[2] ?>"><?= _($actionTitle[1]) ?></a>
-		<? endif; ?>
 
-		<? if ($_SESSION['user']->is_guest): ?>
-			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Log in") ?></a>
-		<? elseif (!isset($_SESSION['myEurope'])): ?>
-			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Create your profile") ?></a>
-		<? else: ?>
-			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" data-mini="true" data-theme="d" data-icon="user"><?= $_SESSION['user']->name ?></a>
-		<? endif; ?>
+  		<?php 
+  		$rightButton = $_SESSION['user']->is_guest?'Sign in':(!isset($_SESSION['myEurope'])?'Create your profile':$_SESSION['user']->name);
+  		?>
+  		
+  		<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" style="max-width: 30%;" data-mini="true" 
+			<?= !$_SESSION['user']->is_guest?'data-icon="user"':''?> data-theme="<?= $_SESSION['user']->is_guest?'g':'e' ?>"><?= _($rightButton) ?></a>
 		
   		<? include("social.php"); ?>
   	</div>

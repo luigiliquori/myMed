@@ -7,12 +7,8 @@
 
 <? include("notifications.php"); ?>
 	<div data-role="content" >
-		
-		
-
 		<br>
-		
-		<div style="margin: -15px;padding: 100px 0;text-align: center;">
+		<div class="main-buttons">
 			<a href="#search" type="button" class="mymed-huge-button" data-icon="fasearch" style="display: inline-block;"><?= _('Search a partnership offer') ?>
 			</a>
 			<span style="padding: 0 20px;"></span>
@@ -22,17 +18,12 @@
 		
 		<!-- <a href="/?action=store&applicationStore=myEurope#desc" rel="external" type="button" data-icon="question-sign" data-iconpos="notext" data-theme="g" style="position: absolute; top: -3px; left: 44px;"><?= _('About') ?></a> -->
 		
-		<div style="text-align: center;">
-			<br><br>
+		<div style="position: fixed;text-align: center;width: 99%;bottom: 85px;">
 			<a href="./"><img src="/application/<?= APPLICATION_NAME ?>/img/icon.png" style="height: 80px;" /></a>
 			<br><br>
 			<a href="http://www.interreg-alcotra.org/2007-2013/index.php?pg=progetto&id=139"><img alt="Alcotra" src="/system/img/logos/alcotra.png" /></a>
-			<br><br>
-			<i><?= _("Together") ?></i>
+			<br><i style="font-size: 13px;">“Ensemble par-delà les frontières”</i>
 		</div>
-		
-
-		
 		
 	
 	</div>
@@ -93,7 +84,7 @@
 
 <div data-role="page" id="search">
 
-	<? tabs_simple(array('Search')); ?>
+	<? tabs_simple('Search'); ?>
 	<div data-role="content">
 		<br>
 		<form action="" id="searchForm">
@@ -223,7 +214,7 @@
 
 <div data-role="page" id="post">
 	
-	<? tabs_simple(array('Insert')) ?>
+	<? tabs_simple('Insert') ?>
 	<div data-role="content">
 		<form action="./" method="post" id="publishForm" data-ajax="false">
 
@@ -348,7 +339,7 @@
 
 <?php 
 function tabs_info($item){
-	tabs_simple(array("infos", $item));
+	tabs_simple($item, 'Infos');
 }
 ?>
 <? if($_SESSION['user']->lang=="it"): ?>

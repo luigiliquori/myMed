@@ -8,13 +8,34 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-27 12:45+0200\n"
-"PO-Revision-Date: 2012-11-03 17:24+0100\n"
+"PO-Revision-Date: 2012-11-08 19:24+0100\n"
 "Last-Translator: cyril <cyril.auburtin@inria.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.3\n"
+
+msgid "By topic"
+msgstr "Per tema"
+
+msgid "By phase"
+msgstr "Per fase"
+
+msgid "Phases du projet"
+msgstr "Fasi del progetto"
+
+msgid "Thèmes de projet"
+msgstr "Temi del progetto"
+
+msgid "Users"
+msgstr "Utenti"
+
+msgid "Notify me of new messages"
+msgstr "Notificami nuovi messaggi"
+
+msgid "Notify me of new users"
+msgstr "Notificami nuovi iscrizioni"
 
 #: ../index.php:7
 #: ../application/myEurope/doc/trads.php:15
@@ -24,7 +45,7 @@ msgstr "Rete sociale transfrontaliera"
 #: ../system/common/common-utils.php:129
 #: ../application/myEurope/views/BlogsView.php:35
 msgid "Reply"
-msgstr "Rispondi "
+msgstr "Rispondi"
 
 #: ../system/common/common-utils.php:152
 msgid "Tout / aucun"
@@ -427,7 +448,7 @@ msgid "Insert"
 msgstr "Inserisci"
 
 #: ../application/myEurope/views/PublishSuccessView.php:9
-msgid "Your partnership offer has been successfully published on"
+msgid "Your partnership offer has been successfully published"
 msgstr "L'offerta di partenariato è stata pubblicata con successo"
 
 #: ../application/myEurope/views/PublishSuccessView.php:13
@@ -727,10 +748,6 @@ msgstr "A proposito"
 msgid "Sign in"
 msgstr "Connessione"
 
-#: ../application/myEurope/doc/trads.php:9
-msgid "Create an account"
-msgstr "Crea profilo"
-
 #: ../application/myEurope/doc/trads.php:10
 msgid "Partnerships"
 msgstr "Partenariato"
@@ -771,8 +788,6 @@ msgstr "Profilo già esistente"
 #~ msgstr "Italiano"
 #~ msgid "English"
 #~ msgstr "Inglese"
-#~ msgid "Users"
-#~ msgstr "Utenti"
 #~ msgid "Next"
 #~ msgstr "Avanti"
 #~ msgid "Validate"

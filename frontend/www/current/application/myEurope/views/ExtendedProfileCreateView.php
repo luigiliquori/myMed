@@ -2,7 +2,7 @@
 
 <div data-role="page" id="new" >
 
-	<? tabs_simple(array('New')); ?>
+	<? tabs_simple('New profile', 'Profiles list'); ?>
 	<? include("notifications.php"); ?>
 
 	<div data-role="content">

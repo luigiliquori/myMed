@@ -2,7 +2,7 @@
 
 <div data-role="page" id="users">
 
-	<? tabs_simple(array('Admin')); ?>
+	<? tabs_simple('Users', 'Profile'); ?>
 	<? include("notifications.php"); ?>
 	
 	<div data-role="content">

@@ -3,7 +3,7 @@
 <div data-role="page" id="profiles">
 
 	
-	<? tabs_simple(array('Profiles')); ?>
+	<? tabs_simple('Profiles list'); ?>
 	<? include("notifications.php"); ?>
 
 	<div data-role="content">

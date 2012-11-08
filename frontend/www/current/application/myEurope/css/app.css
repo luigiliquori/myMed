@@ -66,10 +66,17 @@
 	vertical-align: middle;
 }
 
+.main-buttons {
+	margin: -15px;
+	padding: 100px 0;
+	text-align: center;
+}
+
 @media all and (max-width: 600px){
 	 .logos > img {margin: 5px 10px;}
 	 .logos {position: relative;textalign:center;}
 	 #spacer {height: 0;}
+	 .main-buttons {padding: 20px 0;}
 }
 
 @media all and (min-width: 450px){

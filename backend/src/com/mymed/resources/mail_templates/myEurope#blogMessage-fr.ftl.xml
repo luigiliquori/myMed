@@ -25,8 +25,8 @@ The following variables are available in the templates :
        	
        	<#list publication?keys as key>
        		<#assign map = publication[key]?eval>
-       		<h1>${map.title}</h1>
-       		<p>${map.text} 
+       		<h2>${map.title}</h2>
+       		<p style="margin-left: 15px;">${map.text} 
        		&ndash; ${map.user?substring(6)}</p>
 		</#list>
         <br><br>

@@ -1,5 +1,11 @@
 <? include("header.php"); ?>
 
+<?php 
+
+// ---------  dead view -----------
+
+?>
+
 <div data-role="page">
 	
 	<? tabs_simple(null, false); ?>

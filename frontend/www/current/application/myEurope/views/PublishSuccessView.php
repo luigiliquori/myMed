@@ -2,7 +2,7 @@
 
 <div data-role="page">
 
-	<? tabs_simple(null, false); ?>
+	<? tabs_simple('Published', false); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content" style="text-align: center;">
 		<span style="height: 50px;"></span>

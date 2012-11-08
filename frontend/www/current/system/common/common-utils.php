@@ -112,17 +112,18 @@ function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) 
 	?>
 	<div data-role="header" data-theme="b">
   		<? if ($leftopts == 1): ?>
-			<a href="?action=logout" class="ui-btn-left" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Déconnexion</a>
+			<a href="?action=logout" class="ui-btn-left" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Sign out</a>
 		<? elseif ($leftopts == 2): ?>
 			<a data-rel="back" data-icon="arrow-left" class="ui-btn-left" style="max-width: 15%;"><?= _("Back") ?></a>
 		<? elseif ($leftopts == 3): ?>
 			<a href="/" class="ui-btn-left" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
 		<? elseif ($leftopts == 4): ?>
-			<a href="/?action=logout" class="ui-btn-left" data-role="button" rel="external" data-mini="true" data-icon="signin" data-theme="g">Log In</a>
+			<a href="/?action=logout" class="ui-btn-left" data-role="button" rel="external" data-mini="true" data-icon="signin" data-theme="g" style="max-width: 35%;"><?= _("Sign in") ?></a>
 		<? endif; ?>
-		
-		<? if (!empty($rightopts)): ?>
-			<a href="?action=extendedProfile" rel="external" class="ui-btn-right" data-role="button" data-icon="user" data-mini="true" data-theme="d"><?= $rightopts ?></a>
+
+		<? if ($rightopts): ?>
+			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" style="max-width: 30%;" data-mini="true" 
+			<?= !$_SESSION['user']->is_guest?'data-icon="user"':''?> data-theme="<?= $_SESSION['user']->is_guest?'g':'e' ?>"><?= _($rightopts) ?></a>
 		<? endif; ?>
 		
   		<h1>

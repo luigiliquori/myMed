@@ -1,10 +1,10 @@
 <? include("header.php"); ?>
 
 <div data-role="page" id="results">
-	<? tabs_simple(array("search", $this->title)); ?>
+	<? tabs_simple($this->title, 'Search'); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content">
-
+		<br>
 		<div style="margin-bottom: 16px;">
 		<label for="radio-group1"><?= _("Sort by") ?>:</label>
 		<fieldset id="radio-group1" data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;">
