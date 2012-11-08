@@ -13,13 +13,10 @@ function tab_bar_login($activeTab) {
 		array("#register", "Create an account", "th-list"),
 		array("#about", "About", "info-sign")
 	));
+	if (!isset($_SESSION['user'])):
 	?>
-	<div data-role="header" data-theme="none" data-position="fixed">
-		<? if (!isset($_SESSION['user'])): ?>
-			<a href="?action=guest&method=read" rel="external"  class="ui-btn-left" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
-		<? endif; ?>
-	</div>
-	<?
+		<a href="?action=guest&method=read" rel="external" class="ui-btn-right" style="top:-36px;" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
+	<? endif;
 }
 ?>
 
@@ -31,23 +28,23 @@ function tab_bar_login($activeTab) {
 	<div data-role="content" class="content">
 	
 	<? if (APPLICATION_NAME == 'myMed'): ?>
-		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" width="200" />
+		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" style="width: 200px; margin-top: -15px;" />
+		<h3 style="margin-top: -5px;"><?= _(APPLICATION_LABEL) ?></h3>
 	<? else: ?>
-	 	<img alt="<?= APPLICATION_NAME ?>" src="img/icon.png" height="50" />
+	 	<img alt="<?= APPLICATION_NAME ?>" src="img/icon.png" style="height: 50px; margin-top: -15px;" />
 		<h1 style="display: inline-block;vertical-align: 20%;"><?= APPLICATION_NAME ?></h1>
 	<? endif; ?>
-	
+		<br>
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
-			<input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
-		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= translate("Password") ?>"  data-theme="c"/>  
- 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="<?= translate("Login") ?>" />
+			<input type="text" name="login" id="login" placeholder="Email" data-theme="c"/>
+		    <input type="password" name="password" id="password" data-inline="true" placeholder="<?= _("Password") ?>"  data-theme="c"/>  
+ 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Sign in") ?>" />
 			
+			<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true"><?= _("Sign in with") ?></a>
 		</form>
-	
-		<br />
-		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="width:70%; margin: auto;">
-			<h3 style="width: 170px; margin: auto;"><?= translate("Sign in with") ?>: </h3>
+
+		<div data-role="popup" id="signinPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<ul data-role="listview">
 			<li>
 				<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">
@@ -76,11 +73,12 @@ function tab_bar_login($activeTab) {
 			</ul>
 		</div>
 
-		<br /><br />
+
+		<br><br>
 		<a href="http://www.interreg-alcotra.org/2007-2013/index.php?pg=progetto&id=139"><img alt="Alcotra" src="/system/img/logos/alcotra.png" /></a>
-		<br />
-		<i><?= translate("Together") ?></i>
-		<br /><br />
+		<br>
+		<i style="font-size: 13px;">“Ensemble par-delà les frontières”</i>
+		<br><br>
 		<img alt="Alcotra" src="/system/img/logos/europe.jpg" />
 		
 	</div>
@@ -98,36 +96,34 @@ function tab_bar_login($activeTab) {
 		<!--  Register form -->
 		<form action="?action=register" method="post" data-ajax="false">
 		
-			<br />
-			
-				<label for="prenom"><?= translate("First Name") ?> : </label>
+				<label for="prenom"><?= _("First name") ?>: </label>
 				<input type="text" name="prenom" value="" />
 				<br />
 				
-				<label for="nom"><?= translate("Last Name") ?> : </label>
+				<label for="nom"><?= _("Last name") ?>: </label>
 				<input type="text" name="nom" value="" />
 				<br />
 				
-				<label for="email" >eMail : </label>
+				<label for="email" >Email: </label>
 				<input type="text" name="email" value="" />
 				<br />
 				
-				<label for="password" ><?= translate("Password") ?> : </label>
+				<label for="password" ><?= _("Password") ?>: </label>
 				<input type="password" name="password" />
 				<br />
 				
-				<label for="password" ><?= translate("Confirm") ?> : </label>
+				<label for="password" ><?= _("Confirm") ?>: </label>
 				<input type="password" name="confirm" />
 				<br />
 				
 				<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 				<span style="position: relative; left: 50px;">
-					<a href="application/myMed/doc/CGU_fr.pdf" rel="external"><?= translate('I accept the general terms and conditions'); ?></a>
-				</span><br />
+					<a href="application/myMed/doc/CGU_fr.pdf" rel="external"><?= _('I accept the general terms and conditions'); ?></a>
+				</span><br>
 				
-				<center>
-					<input type="submit" data-role="button" data-theme="b" data-inline="true" value="<?= translate('Send') ?>" />
-				</center>
+				<div style="text-align: center;">
+					<input type="submit" data-role="button" data-theme="b" data-inline="true" value="<?= _('Send') ?>" />
+				</div>
 		
 		</form>
 	</div>
@@ -141,21 +137,20 @@ function tab_bar_login($activeTab) {
 
 	<div data-role="content" class="content">
 	
-		<a href="/application/myMed/" rel="external"><img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" /></a>
-		<br />
-		<h3><?= translate('Social Network') ?></h3>
-		<br />
+		<a href="/application/myMed/" rel="external"><img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" style="margin-top: -15px;"/></a>
+		<h3 style="margin-top: -5px;"><?= _(APPLICATION_LABEL) ?></h3>
+		<br>
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
 			<p>
-			<?= translate('About text') ?>
+			<?= _(APPLICATION_NAME."about") ?>
 			</p>
 			</li>
 		</ul>
 		<p>
-		<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= translate("More informations") ?></a>
+		<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= _("More informations") ?></a>
 		</p>
-		<br />
+		<br>
 		<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>
 		
 	</div>
