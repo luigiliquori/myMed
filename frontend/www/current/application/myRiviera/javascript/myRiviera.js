@@ -30,6 +30,9 @@ var EndMarkerIcon = false;
 
 var radius;
 
+var iconsAvailable = ["Bibliotheque.png","Eglises.png","Transports.png","AdressesUtiles.png","IUT.png","pictures","POSTES.png","Policemunicipale.png","Mairie.png","Banques.png","Jardins.png","MaisonsRetraites.png","Maternelles.png","Ports.png","PIzzaEmporter.png","GARESSUD.png","Sports.png","STADES.png","Officesdutourisme.png","TourismeCulture.png","colleges.png","Monuments.png","Sant\u00e9.png","Primaires.png","Education.png","Restaurants.png","Fortsmilitaires.png"];
+
+
 /* --------------------------------------------------------- */
 /* Initialize */
 /* --------------------------------------------------------- */
@@ -349,10 +352,9 @@ function otherMarkers(index, type, lat, lon, rad) {
 						id = poi.id;
 
 						// SETUP ICON
-						iconAvailable = $('#poiIcon').val().split(",");
 						if(value.icon) {
 							icon = value.icon;
-						} else  if(iconAvailable.indexOf(type + '.png') > 0){
+						} else  if(iconsAvailable.indexOf(type + '.png') > 0){
 							icon = 'img/pois/' + type + '.png';
 						} else {
 							icon = null;

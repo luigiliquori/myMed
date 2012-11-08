@@ -15,7 +15,7 @@ function tab_bar_login($activeTab) {
 	));
 	if (!isset($_SESSION['user'])):
 	?>
-		<a href="?action=guest&method=read" rel="external" class="ui-btn-right" style="top:-36px;" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
+		<a href="?action=guest&method=read" rel="external" class="ui-btn-right" style="top:-36px;left: 5px;" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
 	<? endif;
 }
 ?>
