@@ -9,6 +9,7 @@ function tab_bar_main(
 			array("?action=profile", "Profil", "user"),
 			array("?action=store", "Store", "shopping-cart")
 	), $opts);
+	include 'social.php';
 }
 
  

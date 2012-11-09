@@ -13,6 +13,7 @@ function tab_bar_login($activeTab) {
 		array("#register", "Create an account", "th-list"),
 		array("#about", "About", "info-sign")
 	));
+	include 'social.php';
 	if (!isset($_SESSION['user'])):
 	?>
 		<a href="?action=guest&method=read" rel="external" class="ui-btn-right" style="top:-36px;left: 5px;" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
@@ -29,7 +30,7 @@ function tab_bar_login($activeTab) {
 	
 	<? if (APPLICATION_NAME == 'myMed'): ?>
 		<img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" style="width: 200px; margin-top: -15px;" />
-		<h3 style="margin-top: -5px;"><?= _(APPLICATION_LABEL) ?></h3>
+		<br>
 	<? else: ?>
 	 	<img alt="<?= APPLICATION_NAME ?>" src="img/icon.png" style="height: 50px; margin-top: -15px;" />
 		<h1 style="display: inline-block;vertical-align: 20%;"><?= APPLICATION_NAME ?></h1>

@@ -127,7 +127,7 @@ function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) 
 		<? endif; ?>
 		
   		<h1>
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?></a>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?><span style="font-size: 80%;">&nbsp;&nbsp;<?= _(APPLICATION_LABEL) ?></span></a>
   		</h1>
 
   	</div>
