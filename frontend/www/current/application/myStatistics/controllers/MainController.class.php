@@ -7,6 +7,8 @@
  */ 
 
 //require(MYMED_ROOT."/application/myMed/controllers/MainController.class.php");
+require_once MYMED_ROOT. '/lib/dasp/request/Request.class.php';
+
 
 class MainController extends AuthenticatedController {
 	
@@ -21,27 +23,79 @@ class MainController extends AuthenticatedController {
 	public function handleRequest() {
 		parent::handleRequest();
 		if(isset($_POST['first-select-curve'])){
-			$this->generateGraph();
+			$response=$this->sendRequestToBackend($_POST['select-method'], $_POST['select-year'], $_POST['select-month'], $_POST['select-application']);
+			$this->tabrep = $this->analyzeBackendResponse($response);
 		}
 		$this->renderView("main");
 	}
 
-	function generateGraph(){
-		echo "generate graph";
-		//My brain to me :"use JSON"
-		//Yep good idea brain
-		$this->response = "{\"name\" : \"curve1\",\"type\" : \"month\", \"curve\" : \"[[1,5000],[2,5500],[3,10000],[4,500]]\"}";
+	function generateGraph($response){
+		$this->array_resp_return = array();
+		$this->max_array_value=0;
+		if((isset($_POST['select-month'])&& $_POST['select-month']!= "all") || (isset($_POST['select-year']) && $_POST['select-year']!="all")){
+			if($_POST['select-month']!=all){
+				$this->nbdaymonth= $this->getNumberDaysForMonth($_POST['select-month'],$_POST['select-year']);
+				$max = $this->nbdaymonth;
+			}
+			else{
+				$max=12;
+			}
+			for($i=1;$i<=$max;$i++){
+				$str = (string) $i;
+				$count=0;
+				if(isset($response->$str)){
+					$count = $response->$str;
+				}
+				if($count > $this->max_array_value){
+					$this->max_array_value = $count;
+				}
+				$this->array_resp_return[$i]=$count;
+			}
+		}
+		if(isset($_POST['select-year']) && $_POST['select-year']=="all" && $_POST['select-month']== "all"){
+			
+		}
+		$this->generateTitle();
 	}
 	
-	function analyzeBackendResponse($tab_resp){
-		foreach(tab_resp as $value => $rep_json){
-			$point = json_decode($rep_json);
-			if($point->day != ""){
-				
-			}
-			if($point->month !=""){
-				
-			}
+	function generateTitle(){
+		$this->title = "Graph of ".$_POST['select-method']." method for ".$_POST['select-application']." application ";
+		if(isset($_POST['select-month'])&& $_POST['select-month']!= "all"){
+			$this->title= $this->title."from 1/".$_POST['select-month']." to ". $this->nbdaymonth."/".$_POST['select-month'];
+		}
+		if(isset($_POST['select-year']) && $_POST['select-year']!="all"){
+			$this->title = $this->title." ".$_POST['select-year'];
+		}
+	}
+	
+	function getNumberDaysForMonth($month,$year){
+		return date('t',mktime(0,0,0,$month,1,$year));
+	}
+	
+	function sendRequestToBackend($method,$year,$month,$application){
+		$request = new Request("StatisticsRequestHandler", READ);
+		//$request->addArgument("accessToken",$_SESSION['user']->session);
+		$request->addArgument("accessToken",$_SESSION['accessToken']);
+		$request->addArgument("code",1);
+		$request->addArgument("application",$application);
+		$request->addArgument("method",$method);
+		if($year != "all"){
+			$request->addArgument("year",$year);
+		}
+		if($month != "all"){
+			$request->addArgument("month",$month);
+		}
+		
+		return $request->send();
+		
+	}
+	
+	function analyzeBackendResponse($response){
+		echo $response;
+		$resp_obj = json_decode($response);
+		$str = (string)4;
+		if($resp_obj->status != 500){
+			$this->generateGraph($resp_obj->dataObject->statistics);
 		}
 	}
 }
