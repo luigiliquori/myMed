@@ -26,6 +26,14 @@ require_once("header.php"); ?>
 		    <input type="password" name="password" id="password" placeholder="Mot de passe"  data-theme="c"/><br />
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
 		</form>
+			
+		<form action="?action=login" method="post" data-ajax="false" style="position: relative; top: -160px; height: 0px;">
+			<input type="hidden" name="signin" value="1" />
+		    <input type="hidden" name="login" id="login" value="guest_user@yopmail.com"/><br />
+		    <input type="hidden" name="password" id="password" value="1"/><br />
+ 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value=" Invite  " />
+		</form>
+		</br>
 
 		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="position: relative; top: -50px; width:70%; margin: auto;">
 			<h3 style="width: 170px; margin: auto;"><?= translate("Sign in with") ?>: </h3>

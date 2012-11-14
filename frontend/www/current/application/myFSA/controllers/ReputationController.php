@@ -27,22 +27,6 @@ class ReputationController extends AbstractController
 		}
 	}
 	
-	
-	
-// 	public /*void*/ function handleRequest(){
-		
-// 		/*
-// 		 * Determine the dehaviour :
-// 		 * POST data ->  Store the profile
-// 		 * No Post but ExtendedProfile in session -> show profile
-// 		 * Nothing -> show the form to fill the profile
-// 		 */
-// 		if (true)
-// 			$this->storeReputation();
-// 		else
-// 			$this->showProfile();
-// 	}	
-	
 	public /*void*/ function storeReputation(){
 		
 			
