@@ -1,16 +1,14 @@
-<?php
-
-require_once("header.php");
-require_once("header-bar.php");
-require_once("footer-bar.php");
-
-?>
+<?php require_once("header.php");?>
 
 <div id="home" data-role="page" data-dom-cache="true">
 	
-	<?php print_header_bar(false, true) ?>
-	<?php include('notifications.php'); ?>
-	
+	<? if ($_SESSION['user']->is_guest): ?>
+		<? tab_bar_main("?action=main", 4); ?>
+	<? else: ?>
+		<? tab_bar_main("?action=main"); ?>
+	<? endif; ?>
+	<? include_once("notifications.php"); ?>
+
 	<div data-role="content" style="text-align: center;">
 		<br />
 		<br />
@@ -19,9 +17,9 @@ require_once("footer-bar.php");
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 				<?php if ($status == "on") { ?>
 					<div class="ui-block-<?= $column ?>">
-						<a href="/application/<?= $applicationName ?>" rel="external" class="myIcon"><img
+						<a href="/<?= isset($this->applicationUrls[$applicationName])?$this->applicationUrls[$applicationName]:$applicationName ?>" rel="external" class="myIcon"><img
 							alt="<?= $applicationName ?>"
-							src="../../application/<?= $applicationName ?>/img/icon.png" width="50px"></a>
+							src="../../application/<?= $applicationName ?>/img/icon.png" style="height: 50px;"></a>
 						<br> <span style="font-size: 9pt; font-weight: bold;"><?= $applicationName ?> </span>
 					</div>
 					<?php 
@@ -38,8 +36,6 @@ require_once("footer-bar.php");
 		</div>
 		
 	</div>
-
-	<? print_footer_bar_main("?action=main"); ?>
 	
 </div>
 

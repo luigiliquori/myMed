@@ -14,7 +14,7 @@ if (isset($_GET['code'])) {
 	
 	require_once ROOT.'lib/dasp/beans/MUserBean.class.php';
 	$_SESSION['user3'] =(array) $user;
-	$_SESSION['user'] = MUserBean::constructFromGoogleOAuth((array) $user);
+	$_SESSION['userFromExternalAuth'] = MUserBean::constructFromGoogleOAuth((array) $user);
 	
 	$tokens = json_decode($client->getAccessToken(), TRUE);	
 	$_SESSION['accessToken'] = $tokens['access_token'];

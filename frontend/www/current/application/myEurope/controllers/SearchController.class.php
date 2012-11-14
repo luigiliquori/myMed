@@ -1,12 +1,8 @@
 <? 
 
-//require_once dirname(__FILE__) . '/../../../lib/dasp/beans/DataBeanv2.php';
+class SearchController extends ExtendedProfileRequired {
 
-class SearchController extends AuthenticatedController {
-	
-	public $part;
-
-	public function handleRequest() {
+	function defaultMethod() {
 		
 		parent::handleRequest();
 		
@@ -33,7 +29,7 @@ class SearchController extends AuthenticatedController {
 		$this->title = "";
 		array_walk($this->part->index, array($this, "getValues"));
 		if (empty($this->title)){
-			$this->title = "all";
+			$this->title = "all partnerships";
 		}
 
 		// Render the view			
@@ -43,10 +39,9 @@ class SearchController extends AuthenticatedController {
 	
 	function getValues($o){
 		if (!empty($o->value)){
-			$this->title .= $o->key.'='.$o->value.' ';
+			$this->title .= str_replace('|', '+', $o->value).' ';
 		}
 	}
-	
 	
 }
 ?>

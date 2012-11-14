@@ -56,7 +56,8 @@ public interface IProfileManager {
 	 */
 	MUserBean update(MUserBean user) throws InternalBackEndException, IOBackEndException;
 
-	void update(String id, Map<String, String> map) throws InternalBackEndException, IOBackEndException;
+	void update(String id,  Map<String, String> map) throws InternalBackEndException, IOBackEndException;
+	void update(String id,  Map<String, String> map, boolean temp) throws InternalBackEndException, IOBackEndException;
 	
 	void update(String id, String key, String value) throws InternalBackEndException, IOBackEndException;
 	

@@ -1,8 +1,7 @@
 
-## run (after installing poedit)
-## xgettext -f translations
-## then open it and merge with fr and it .po
-## finally replace the old with it
+## run (after installing poedit) xgettext -f translations
+## then open the generated po file, click catalog in podeit menu, and update from pot file and choose the previous dictionnary po file
+## then enter the translations for the new added keywords
 
 
 ##
@@ -11,7 +10,11 @@
 
 ../index.php
 ../system/common/common-utils.php
+../lib/dasp/ajax/Subscribe.php
 
+../system/controllers/LoginController.class.php
+../system/controllers/RegisterController.class.php
+../system/controllers/ResetPasswordController.class.php
 
 #########
 # myMed #
@@ -26,9 +29,6 @@
 ../application/myMed/views/StoreView.php
 ../application/myMed/views/UpdateProfileView.php
  
-../application/myMed/controllers/LoginController.class.php
-../application/myMed/controllers/RegisterController.class.php
-../application/myMed/controllers/ResetPasswordController.class.php
 ../application/myMed/controllers/StoreController.class.php
 ../application/myMed/controllers/ProfileController.class.php
  
@@ -36,7 +36,6 @@
 # myEurope #
 ############
 ../application/myEurope/controllers/DetailsController.class.php
-../application/myEurope/controllers/tes.php
  
 ../application/myEurope/views/AdminView.php
 ../application/myEurope/views/BlogsView.php
@@ -44,6 +43,7 @@
 ../application/myEurope/views/ExtendedProfileDisplayView.php
 ../application/myEurope/views/ExtendedProfileCreateView.php
 ../application/myEurope/views/ExtendedProfileEditView.php
+../application/myEurope/views/ExtendedProfileListView.php
 ../application/myEurope/views/MainView.php
 ../application/myEurope/views/PublishSuccessView.php
 ../application/myEurope/views/ResultsView.php

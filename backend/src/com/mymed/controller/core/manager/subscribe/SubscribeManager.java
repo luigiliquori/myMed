@@ -101,10 +101,11 @@ public class SubscribeManager extends AbstractManager implements
 			IOBackEndException {
 		// Remove subscriber member from subsribers list
 		storageManager.removeColumn(CF_SUBSCRIBERS, application + user,
-				(predicate.length() == 0) ? "ALL" : predicate);
+				predicate.length() == 0 ? "ALL" : predicate);
 		// Remove subscriber member from predicates subscribed list
 		storageManager.removeColumn(CF_SUBSCRIBEES, application + predicate,
 				user);
+		
 	}
 
 }

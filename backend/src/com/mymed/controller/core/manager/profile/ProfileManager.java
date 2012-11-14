@@ -124,15 +124,23 @@ public class ProfileManager extends AbstractManager implements IProfileManager {
     }
     
     public final void update(final String id, final Map<String, String> args) throws InternalBackEndException, IOBackEndException {
+    	storageManager.insertSliceStr(CF_USER, id, args);
+    }
+
+    public final void update(final String id, final Map<String, String> args, boolean temp) throws InternalBackEndException, IOBackEndException {
     	
-        storageManager.insertSliceStr(CF_USER, id, args);
+    	if (temp)/** guests have 1-day temporary account */
+    		storageManager.insertSliceStr(CF_USER, id, 60*60*24, args);
+    	else
+    		update(id, args);
     }
     
     public final void update(final String id, final String key, final String value) throws InternalBackEndException, IOBackEndException {
         LOGGER.info("Updating user {} with FIELDS '{}'", id, key+"->"+value);
         storageManager.insertColumn(CF_USER, id, key, encode(value));
     }
-
+    
+    
     /**
      * @throws IOBackEndException
      * @see IProfileManager#delete(MUserBean)

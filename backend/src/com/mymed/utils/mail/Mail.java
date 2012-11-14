@@ -79,7 +79,7 @@ public final class Mail {
 
                 // Create a multi part body so that we can add attachments
                 final BodyPart mailBodyPart = new MimeBodyPart();
-                mailBodyPart.setContent(message.getText(), message.getMymeType());
+                mailBodyPart.setContent(message.getText(), message.getMimeType());
 
                 final Multipart multiPart = new MimeMultipart();
                 multiPart.addBodyPart(mailBodyPart);

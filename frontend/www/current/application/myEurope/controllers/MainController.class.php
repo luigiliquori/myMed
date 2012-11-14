@@ -1,15 +1,17 @@
 <? 
 class MainController extends ExtendedProfileRequired {
 	
-	public /*void*/ function handleRequest(){
-		
+	function handleRequest(){
+	
 		parent::handleRequest();
-		debug_r($_SESSION['user']);
-		debug_r($_SESSION['myEurope']);
-		debug_r($_SESSION['myEuropeProfile']);
+	}
+	
+	function defaultMethod(){
+		
 		$this->renderView("main");
 		
 	}
+
 	
 }
 ?>

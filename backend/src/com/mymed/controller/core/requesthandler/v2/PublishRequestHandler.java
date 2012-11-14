@@ -88,7 +88,7 @@ public class PublishRequestHandler extends AbstractRequestHandler {
 	protected void doPost(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException, JsonSyntaxException, JsonParseException, IOException {
 		final JsonMessageOut<Object> out = new JsonMessageOut<Object>(200, this
-				.getClass().getName());
+				.getClass().getName());	
 
 		try{
 			JsonMessageIn in = gson.fromJson(request.getReader(), JsonMessageIn.class);

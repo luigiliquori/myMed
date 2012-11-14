@@ -2,7 +2,7 @@
 <div data-role="page">
 	<!-- Header -->
 	
-	<? tabs_simple(null, false); ?>
+	<? tabs_simple('Unsubscribe me'); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content" >
 	

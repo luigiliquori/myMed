@@ -15,18 +15,18 @@ The following variables are available in the templates :
     <subject>[${application}(myMed)] Nouvelle publication</subject>
 
     <body><![CDATA[
-        Bonjour ${recipient.name},<br/>
-        <br/>
-        Une nouvelle publication est disponible sur MyEuroCIN admin:<br/>
-        <b>Auteur</b> : ${publisher.name}<br/>
-        <b>Titre</b>: ${publication.text}<br/>
+        Bonjour ${recipient.name},<br>
+        <br>
+        Une nouvelle publication est disponible sur MyEuroCIN admin:<br>
+        <b>Auteur</b> : ${publisher.name}<br>
+        <b>Titre</b>: ${publication.text}<br>
         
         Rendez vous sur <a href="${base_url}application/myEuroCINAdmin/">l'interface admin de MyEuroCIN</a> 
-        pour approuver ou rejeter cette publication.<br/>
+        pour approuver ou rejeter cette publication.<br>
        
-        --<br/>
+        --<br>
     
-        L'équipe MyMed<br/>
+        L'équipe MyMed<br>
         Cliquez <a href="${base_url}application/myEuroCINAdmin/?predicate=${predicate}&application=MyEuroCIN_ADMIN&userID=${recipient.id}">ici</a> pour vous désabonner.
 ]]></body>
 </mail-template>

@@ -1,15 +1,13 @@
 <?php
 
 require_once("header.php");
-require_once("header-bar.php");
-require_once("footer-bar.php");
 define('STORE_PREFIX' , '_store');
 
 ?>
 
 <div data-role="page">
 
-	<?php print_header_bar(false, true) ?>
+	<?php tab_bar_main("?action=store", 2); ?>
 	<?php include 'notifications.php'; ?>
 	
 	<div data-role="content">
@@ -63,7 +61,7 @@ define('STORE_PREFIX' , '_store');
 					<a href="?action=store&applicationStore=<?= $_REQUEST["applicationStore"] ?>&reputation=0#storeSub" data-role="button" data-inline="true" rel="external">-1</a>
 				</div>
 			</div>
-			
+			<a id="desc"></a>
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				<h3 Style="color: lightblue;">Description</h3>
 				<p><?php @include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description.php") ?></p>
@@ -78,8 +76,6 @@ define('STORE_PREFIX' , '_store');
 		<?php } ?>
 			
 	</div>
-	
-	<? print_footer_bar_main("?action=store"); ?>
 
 </div>
 

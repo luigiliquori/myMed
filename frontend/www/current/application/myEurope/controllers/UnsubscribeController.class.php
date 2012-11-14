@@ -1,13 +1,7 @@
 <? 
 class UnsubscribeController extends AuthenticatedController {
 	
-	public /*void*/ function handleRequest(){
-		
-		parent::handleRequest();
-		/*
-		 * Try to get the User ExtendedProfile if it exist
-		 * ExtendedProfile stored in the $_SESSION while using the app
-		 */
+	function defaultMethod() {
 		
 		unset($_GET['action']);
 		$req =  new RequestJson($this, $_GET, DELETE, "v2/SubscribeRequestHandler");
@@ -17,14 +11,9 @@ class UnsubscribeController extends AuthenticatedController {
 		} catch(Exception $e){
 			
 		}
-		
 		$this->renderView("Unsubscribe");
-			
 		
 	}
-	
-	
-	
 	
 }
 ?>

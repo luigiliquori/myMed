@@ -1,17 +1,15 @@
 <?php
 
 require_once("header.php");
-require_once("header-bar.php");
-require_once("footer-bar.php");
 
 ?>
 
 <div id="updateProfile" data-role="page">
 
-	<?php print_header_bar(false, true) ?>
+	<?php tab_bar_main("?action=profile", 2); ?>
 	<?php include 'notifications.php'; ?>
 	
-	<div data-role="content" class="content" Style="text-align: left;">
+	<div data-role="content">
 		<form action="?action=profile" id="updateProfileForm" method="post" data-ajax="false">
 		
 			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
@@ -34,24 +32,33 @@ require_once("footer-bar.php");
 
 			<label for="lang" ><?= translate("Language") ?>	: </label>
 			<select id="lang" name="lang">
-				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Francais</option>
+				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Français</option>
 				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
 				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
 			</select>
 
-			<label for="password" ><?= translate("Password") ?> : </label>
-			<input type="password" id="password" name="password" />
+			<br>
+			<div data-role="fieldcontain">
+				<label for="password" ><?= _("Password") ?> : </label>
+				<input type="password" id="password" name="password" />
+			</div>
 
-			<center>
-				<div data-role="controlgroup" data-type="horizontal">
-					<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" data-icon="refresh"/>
-					<a href="#profile" data-inline="true" rel="external" data-role="button" data-theme="d" data-icon="delete" data-iconpos="right"><?= translate("Cancel") ?></a>
-				</div>
-			</center>
+
+			<? if (!isset($_SESSION['user']->email)): /*oauthed user have no password for the moment*/ ?>
+			<div data-role="fieldcontain">
+				<label for="passwordConfirm" ><?= _("Password Confirmation") ?> : </label>
+				<input type="password" id="passwordConfirm" name="passwordConfirm" />
+			</div>
+			<? endif; ?>
+
+			<div style="text-align: center;">
+				<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" data-icon="refresh"/>
+			</div>
+			
 			
 		</form>
 	</div>
 		
-	<? print_footer_bar_main("?action=profile"); ?>
-		
 </div>
+
+<? include_once 'footer.php'; ?>
