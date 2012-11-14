@@ -176,7 +176,6 @@ function strcontain($haystack,$needle){
 	return $pos !== false;
 }
 
-
 function formatReputation($rep){
 	$res = array();
 	foreach ($rep as $k=>$v){
@@ -190,6 +189,7 @@ function formatReputation($rep){
 	}
 	return $res;
 }
+
 function pickFirst($array){
 	return reset($array);
 }

@@ -25,7 +25,7 @@ define('STORE_PREFIX' , '_store');
 								
 								<div Style="position: relative; left: 0px; top: 0px;">
 							    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-							    		<?php if($i*20-20 < $_SESSION['reputation'][$applicationName . STORE_PREFIX] ) { ?>
+							    		<?php if($i*20-20 < $_SESSION['apps_reputation'][$applicationName]["rep"] ) { ?>
 							    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="10" Style="left: <?= $i ?>0px;" />
 							    		<?php } else { ?>
 							    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="10" Style="left: <?= $i ?>0px;"/>

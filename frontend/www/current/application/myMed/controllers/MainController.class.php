@@ -14,7 +14,7 @@ class MainController extends AuthenticatedController {
 	//public static $bootstrapApplication = array("myEurope", "myRiviera", "myFSA", "myMemory", "myBen", "myEuroCIN");
 	public static $otherApplication = array("myJob", "myConsolato", "myStudent", "myAutoinsieme", "myREADME", "myAngel", "myStatistics");
 
-	public $applicationUrls = array("myEurope"=>"europe", "myRiviera"=>"riviera");
+// 	public $applicationUrls = array("myEurope"=>"europe", "myRiviera"=>"riviera");
 	
 	protected $currentSuccessMess = null;
 	protected $currentErrorMess = null;
@@ -66,10 +66,10 @@ class MainController extends AuthenticatedController {
 			array_walk( $myApps, array($this, 'setOn'));
 		}
 
-		debug_r($_SESSION['applicationList']);
-		debug_r($_SESSION['user3']);
-		debug_r($_SESSION['user2']);
-		debug_r($_SESSION['user']);
+// 		debug_r($_SESSION['applicationList']);
+// 		debug_r($_SESSION['user3']);
+// 		debug_r($_SESSION['user2']);
+// 		debug_r($_SESSION['user']);
 
 		// REPUTATION
 		if (!isset($_SESSION['apps_reputation'])){	// NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE
