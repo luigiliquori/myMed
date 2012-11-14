@@ -9,6 +9,9 @@
  */
 define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
 
+define('EXTENDED_PROFILE_PREFIX' , 'extended_profile_');
+define('STORE_PREFIX' , 'store_');
+
 class StoreController extends AuthenticatedController {
 
 	

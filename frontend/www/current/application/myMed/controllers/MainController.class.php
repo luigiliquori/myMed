@@ -1,7 +1,7 @@
 <?
 
-define('EXTENDED_PROFILE_PREFIX' , '_extended');
-define('STORE_PREFIX' , '_store');
+define('EXTENDED_PROFILE_PREFIX' , 'extended_profile_');
+define('STORE_PREFIX' , 'store_');
 
 /**
  *  This controller shows the search/publish form and receives "search" and "publish" queries.
@@ -66,62 +66,56 @@ class MainController extends AuthenticatedController {
 			array_walk( $myApps, array($this, 'setOn'));
 		}
 
-// 		debug_r($_SESSION['applicationList']);
-// 		debug_r($_SESSION['user3']);
-// 		debug_r($_SESSION['user2']);
-// 		debug_r($_SESSION['user']);
-
 		// REPUTATION
-		if (!isset($_SESSION['apps_reputation'])){	// NEED TO REMOVE TO UPDATE THE VALUE WHEN THE REP CHANGE
+		/* Seems to not working to get a list of reputation
+		//use that instead @see getReputation()
+		$appsRep =  new ReputationSimple(array_keys($_SESSION['applicationList']), array());
+		$res = $appsRep->send();
+		if($res->status == 200) {
+			$_SESSION['apps_reputation'] = formatReputation($res->dataObject->reputation);
+			debug_r($_SESSION['apps_reputation']);
+		}
+		$userRep =  new ReputationSimple(array_keys($_SESSION['applicationList']), array($_SESSION['user']->id));
+		$res = $userRep->send();
+		if($res->status == 200) {
+			$_SESSION['user_reputation'] = formatReputation($res->dataObject->reputation);
+			debug_r($_SESSION['user_reputation']);
+		}
+		*/
 
-			//use that instead @see getReputation()
-			$appsRep =  new ReputationSimple(array_keys($_SESSION['applicationList']), array());
-			$res = $appsRep->send();
-			if($res->status == 200) {
-				$_SESSION['apps_reputation'] = formatReputation($res->dataObject->reputation);
-				debug_r($_SESSION['apps_reputation']);
+		foreach($_SESSION['applicationList'] as $app => $status){
+			
+			// Get the reputation of the user in each application
+			$request = new Request("ReputationRequestHandler", READ);
+			$request->addArgument("application",  $app);
+			$request->addArgument("producer",  $_SESSION['user']->id);					// Reputation of data
+			$request->addArgument("consumer",  $_SESSION['user']->id);
+				
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+				
+			if (isset($responseObject->data->reputation)) {
+				$i=0;
+				$value = json_decode($responseObject->data->reputation);
+				$_SESSION['reputation'][EXTENDED_PROFILE_PREFIX . $app] = $value * 100;
+			} else {
+				$_SESSION['reputation'][EXTENDED_PROFILE_PREFIX . $app] = 100;
 			}
-			$userRep =  new ReputationSimple(array_keys($_SESSION['applicationList']), array($_SESSION['user']->id));
-			$res = $userRep->send();
-			if($res->status == 200) {
-				$_SESSION['user_reputation'] = formatReputation($res->dataObject->reputation);
-				debug_r($_SESSION['user_reputation']);
+			
+			// Get the reputation of the application
+			$request->addArgument("application",  APPLICATION_NAME);
+			$request->addArgument("producer",  $app);			// Reputation of data
+			$request->addArgument("consumer",  $_SESSION['user']->id);
+			
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			
+			if (isset($responseObject->data->reputation)) {
+				$value = json_decode($responseObject->data->reputation);
+				$_SESSION['reputation'][STORE_PREFIX . $app] = $value * 100;
+			} else {
+				$_SESSION['reputation'][STORE_PREFIX . $app] = 100;
 			}
-
-			/*foreach($_SESSION['applicationList'] as $app => $status){
-				
-				// Get the reputation of the user in each the application
-				$request = new Request("ReputationRequestHandler", READ);
-				$request->addArgument("application",  $app);
-				$request->addArgument("producer",  $_SESSION['user']->id);					// Reputation of data
-				$request->addArgument("consumer",  $_SESSION['user']->id);
-					
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-					
-				if (isset($responseObject->data->reputation)) {
-					$i=0;
-					$value = json_decode($responseObject->data->reputation);
-					$_SESSION['reputation'][$app . EXTENDED_PROFILE_PREFIX] = $value * 100;
-				} else {
-					$_SESSION['reputation'][$app . EXTENDED_PROFILE_PREFIX] = 100;
-				}
-				
-				// Get the reputation of the application
-				$request->addArgument("application",  APPLICATION_NAME);
-				$request->addArgument("producer",  $app);			// Reputation of data
-				$request->addArgument("consumer",  $_SESSION['user']->id);
-				
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-				
-				if (isset($responseObject->data->reputation)) {
-					$value = json_decode($responseObject->data->reputation);
-					$_SESSION['reputation'][$app . STORE_PREFIX] = $value * 100;
-				} else {
-					$_SESSION['reputation'][$app . STORE_PREFIX] = 100;
-				}
-			}*/
 		}
 
 		$this->renderView("main");

@@ -149,16 +149,11 @@ public class InteractionRequestHandler extends AbstractRequestHandler {
                 // ATOMIC INTERACTION
                 if ((feedback = parameters.get("feedback")) != null) {
                     interaction.setFeedback(Double.parseDouble(feedback));
-                    LOGGER.info("UPDATE" +
-                    "************ application: " + application +
-                    " producer: " + producer +
-                    " predicate: " + predicate +
-                    " consumer: " + consumer +
-                    " feedback: " + feedback);
                 }
 
                 interactionManager.create(interaction);
                 message.setDescription("interaction created!");
+                
             } else {
                 throw new InternalBackEndException("InteractionManager.doPost(" + code + ") not exist!");
             }
