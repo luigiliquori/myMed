@@ -14,23 +14,23 @@ require_once("header.php");
 		
 			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
 			
-			<label for="firstName"><?= translate("First Name") ?> : </label>
+			<label for="firstName"><?= _("First Name") ?> : </label>
 			<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
 			
-			<label for="lastName"><?= translate("Last Name") ?> : </label>
+			<label for="lastName"><?= _("Last Name") ?> : </label>
 			<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			
 			<label for="email" >eMail : </label>
 			<input type="text" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
 			
-			<label for="birthday" ><?= translate("Birthday") ?> : </label>
+			<label for="birthday" ><?= _("Birthday") ?> : </label>
 			<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			
-			<label for="profilePicture" ><?= translate("Profile picture") ?> (url): </label>
+			<label for="profilePicture" ><?= _("Profile picture") ?> (url): </label>
 			<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			
 
-			<label for="lang" ><?= translate("Language") ?>	: </label>
+			<label for="lang" ><?= _("Language") ?>	: </label>
 			<select id="lang" name="lang">
 				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Français</option>
 				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
@@ -52,7 +52,7 @@ require_once("header.php");
 			<? endif; ?>
 
 			<div style="text-align: center;">
-				<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" data-icon="refresh"/>
+				<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= _("Update") ?>" data-icon="refresh"/>
 			</div>
 			
 			

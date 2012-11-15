@@ -36,7 +36,7 @@ require_once("header.php"); ?>
 		</br>
 
 		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="position: relative; top: -50px; width:70%; margin: auto;">
-			<h3 style="width: 170px; margin: auto;"><?= translate("Sign in with") ?>: </h3>
+			<h3 style="width: 170px; margin: auto;"><?= _("Sign in with") ?>: </h3>
 			<ul data-role="listview">
 			<li>
 				<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">

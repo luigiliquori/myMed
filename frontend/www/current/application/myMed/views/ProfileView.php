@@ -24,7 +24,7 @@ require_once("header.php");
 	<div data-role="content">
 
 		<ul data-role="listview" data-mini="true">
-			<li data-role="list-divider"><?= translate("About you") ?></li>
+			<li data-role="list-divider"><?= _("About you") ?></li>
 			<li data-icon="picture"><a href="?action=profile&method=update"><?php if($_SESSION['user']->profilePicture != "") { ?>
 					<img class="ui-li-mymed" alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="60" height="60">
 				<?php } else { ?>
@@ -55,7 +55,7 @@ require_once("header.php");
 				</a>
 			</li>
 
-			<li data-role="list-divider"><?= translate("Your applications") ?></li>
+			<li data-role="list-divider"><?= _("Your applications") ?></li>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 			<?php if ($status == "on") { ?>
 			<li><a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile" rel="external"> <img class="ui-li-mymed"

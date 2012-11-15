@@ -9,33 +9,33 @@
 
 			<form action="index.php?action=publish" method="POST" data-ajax="false">
 			
-					<input type="text" name="pred3" placeholder="<?= translate('Title') ?>"/>
+					<input type="text" name="pred3" placeholder="<?= _('Title') ?>"/>
 					<br>
 			
                     <select name="pred2" id="selectmenu1">
                         <option value="evenement">
-                            <?= translate("Events") ?>
+                            <?= _("Events") ?>
                         </option>
                         <option value="actualite">
-                            <?= translate("News") ?>
+                            <?= _("News") ?>
                         </option>
                         <option value="Offre d’emploi">
-                            <?= translate("Internship offers") ?>
+                            <?= _("Internship offers") ?>
                         </option>
                         <option value="Offre de stage">
-                            <?= translate("Job offers") ?>
+                            <?= _("Job offers") ?>
                         </option>
                          <option value="Location bureaux">
-                            <?= translate("Rent Offices") ?>
+                            <?= _("Rent Offices") ?>
                          </option>
                          <option value="Partenariats">
-                            <?= translate("Partnerships") ?>
+                            <?= _("Partnerships") ?>
                          </option>
                          <option value="Organisme">
-                            <?= translate("Organization") ?>
+                            <?= _("Organization") ?>
                          </option>
                          <option value="Visite d’entreprise">
-                            <?= translate("Company visits") ?>
+                            <?= _("Company visits") ?>
                          </option>
                     </select>
 			
@@ -65,7 +65,7 @@
 <!-- 			<input type="text" name="data3" placeholder="data3"/> -->
 			
 			<input type="hidden" name="method" value="Publier" />
-			<center><input type="submit" value="<?= translate('Publish') ?>" data-inline="true" data-icon="check"/></center>
+			<center><input type="submit" value="<?= _('Publish') ?>" data-inline="true" data-icon="check"/></center>
 			<!--<input type="submit" name="method" value="Search" />-->
 			
 		</form>
