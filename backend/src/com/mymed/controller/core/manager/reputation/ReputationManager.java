@@ -16,7 +16,6 @@ import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole
 import com.mymed.controller.core.manager.storage.IStorageManager;
 import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.model.data.reputation.MReputationEntity;
-import com.mymed.utils.GsonUtils;
 import com.mymed.utils.MConverter;
 import com.mymed.utils.MiscUtils;
 

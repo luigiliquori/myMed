@@ -168,7 +168,7 @@ public class FindRequestHandler extends AbstractMatchMaking {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						new StatisticsManager().update(application, StatisticsManager.PUBLISH_ARG);
+						new StatisticsManager().update(application, StatisticsManager.FIND_ARG);
 					}}).start();
 				
 			} else {

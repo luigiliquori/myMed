@@ -19,7 +19,6 @@
 #########
 # myMed #
 #########
-../application/myMed/views/AboutView.php
 ../application/myMed/views/LoginView.php
 ../application/myMed/views/MainView.php
 ../application/myMed/views/ProfileView.php
@@ -28,7 +27,6 @@
 ../application/myMed/views/StoreSubView.php
 ../application/myMed/views/StoreView.php
 ../application/myMed/views/UpdateProfileView.php
- 
 ../application/myMed/controllers/StoreController.class.php
 ../application/myMed/controllers/ProfileController.class.php
  
@@ -36,7 +34,6 @@
 # myEurope #
 ############
 ../application/myEurope/controllers/DetailsController.class.php
- 
 ../application/myEurope/views/AdminView.php
 ../application/myEurope/views/BlogsView.php
 ../application/myEurope/views/DetailsView.php
@@ -50,8 +47,22 @@
 ../application/myEurope/views/UnsubscribeView.php
 ../application/myEurope/views/WaitingForAcceptView.php
 ../application/myEurope/views/parts/utils.php
-
 ../application/myEurope/models/Categories.php
 ../application/myEurope/models/Profile.php
-
 ../application/myEurope/doc/trads.php
+
+############
+# myFSA	   #
+############
+../application/myFSA/views/AboutView.php
+../application/myFSA/views/DetailsView.php
+../application/myFSA/views/ExtendedProfileDisplayView.php
+../application/myFSA/views/ExtendedProfileFormView.php
+../application/myFSA/views/ExtendedProfileNeededView.php
+../application/myFSA/views/LocalisationView.class.php
+../application/myFSA/views/LoginView.php
+../application/myFSA/views/MainView.php
+../application/myFSA/views/PublishView.php
+../application/myFSA/views/RegisterView.php
+../application/myFSA/views/SearchView.php
+

@@ -1,7 +1,7 @@
 <?php 
 
-define('EXTENDED_PROFILE_PREFIX' , '_extended');
-define('STORE_PREFIX' , '_store');
+define('EXTENDED_PROFILE_PREFIX' , 'extended_profile_');
+define('STORE_PREFIX' , 'store_');
 
 // TODO: Should be a common controller in /system/controllers/
 class ProfileController extends AuthenticatedController {

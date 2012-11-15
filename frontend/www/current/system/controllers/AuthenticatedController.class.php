@@ -5,7 +5,12 @@
  * Requests that need an authenticated user should inhérit from this.
  * 
  */
-class AuthenticatedController extends AbstractController {
+class AuthenticatedController extends AbstractController /* implements IReputationMapper */ {
+
+	/** The complete user */
+	public $user;
+	public static $bootstrapApplication = array("myEurope", "myRiviera", "myFSA", "myMemory", "myBen", "myEuroCIN");
+	
 	
 	/**
 	 * Handle the request.

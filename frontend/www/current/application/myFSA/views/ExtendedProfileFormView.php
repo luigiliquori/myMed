@@ -6,8 +6,7 @@
  function tab_bar($activeTab) {
  	tabs(array(
  			"company" => translate('Company'),
- 			"employer" => translate('Employer/Student'), 
- 			"guest" => translate('Guest')),
+ 			"employer" => translate('Employer/Student')),
  		$activeTab);
  }
  
@@ -79,34 +78,6 @@
 				<center><input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" data-inline="true" /></center>
 		
 		</form>
-	</div>
-<? include("footer.php"); ?>	
-</div>
-
-<div data-role="page" id="guest" data-theme="b">
-
-	<? include("header-bar.php") ?>
-	
-	<div data-role="content" style="padding: 0px;">
-	
-		<!-- Tabs -->
-		<? tab_bar("guest") ?>
-
-		<form  data-role="content" action="index.php?action=ExtendedProfile" method="post" data-ajax="false">
-				
-				<input type="hidden" name="profileFilled" id="profileFilled" value="guest" />		
-				
-				<fieldset data-role="controlgroup">
-	    			<?= translate('After sign in as a guest you cannot use all options in myFSA')?>
-	    			<input id="service-term" type="checkbox" name="checkCondition" />
-					<label for="service-term"><?= _("Accept") ?></label>
-				</fieldset>	 		
-				<br/>
-				
-				<center><input type="submit" value="Soumettre" data-theme="b" data-inline="true" /></center>
-		
-		</form>
-		
 	</div>
 <? include("footer.php"); ?>	
 </div>

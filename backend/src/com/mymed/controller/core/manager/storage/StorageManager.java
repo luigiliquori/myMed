@@ -554,6 +554,8 @@ public class StorageManager implements IStorageManager {
 					{
 		try {
 
+//			System.out.println("\nWRITE: " + superTableName + ", " + key + "," + superKey);
+			
 			LOGGER.info(String.format("Inserting into SCF %s key:%s superKey:%s nbArgs:%d",
 					superTableName,
 					key,
