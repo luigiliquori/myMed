@@ -21,7 +21,7 @@ define('STORE_PREFIX' , 'store_');
 						<div class="ui-bar-c" style="height:120px; text-align: left; overflow: hidden;">
 							<a href="?action=store&applicationStore=<?= $applicationName ?>" rel="external" class="myIcon" style="text-decoration: none;">
 								
-								<img alt="<?= $applicationName ?>" src="../../<?= $applicationName ?>/img/icon.png" width="50px" Style="position: relative; left:8px; top:5px;">
+								<img alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" style="height:50px;position: relative; left:8px; top:5px;">
 								
 								<div Style="position: relative; left: 0px; top: 0px;">
 							    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>

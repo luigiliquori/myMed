@@ -84,16 +84,16 @@
 				<h3>Type de Trajet</h3>
 				<div  id="cityway-search">
 					<fieldset data-role="controlgroup" >
-						<input type="radio" id="radio-choice1" value="fastest" checked="checked" />
+						<input type="radio" id="radio-choice1" name="radio-choice" value="fastest" checked="checked" />
 						<label for="radio-choice1">le plus rapide</label>
-						<input type="radio" id="radio-choice2" value="lessChanges" />
+						<input type="radio" id="radio-choice2" name="radio-choice" value="lessChanges" />
 						<label for="radio-choice2">le moins de changement</label>
 					</fieldset>
 					<fieldset data-role="controlgroup">
-						<input type="checkbox" id="checkbox0"	checked="checked" /><label for="checkbox0">Bus</label>
+						<input type="checkbox" id="checkbox0" checked="checked" /><label for="checkbox0">Bus</label>
 						<input type="checkbox" id="checkbox2" checked="checked" /><label for="checkbox2">Car</label>
 						<input type="checkbox" id="checkbox3" checked="checked" /><label for="checkbox3">Train</label>
-						<input type="checkbox" id="checkbox4"	checked="checked" /><label for="checkbox4">Tram</label>
+						<input type="checkbox" id="checkbox4" checked="checked" /><label for="checkbox4">Tram</label>
 						<input type="checkbox" id="checkbox5" checked="checked" /><label for="checkbox5">Ter</label>
 						<input type="hidden" id="checkbox17" checked="checked" /><label style="display:none;" for="checkbox17">Nav_élec</label>
 						<input type="hidden" id="checkbox19" checked="checked" /><label	style="display:none;" for="checkbox19">Tgv</label>

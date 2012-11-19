@@ -354,7 +354,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 						// SETUP ICON
 						if(value.icon) {
 							icon = value.icon;
-						} else  if(iconsAvailable.indexOf(type + '.png') > 0){
+						} else  if($.inArray(type + '.png', iconsAvailable) > 0){
 							icon = 'img/pois/' + type + '.png';
 						} else {
 							icon = null;
@@ -609,7 +609,7 @@ function calcRouteByCityway(result) {
 
 		var c1 = currentType == "TRANSPORT";
 		var transportModes = ['AVION', 'BOAT', 'TER', 'TRAIN', 'TRAM'];
-		var index = transportModes.indexOf(tripSegment.transportMode);
+		var index = $.inArray(tripSegment.transportMode, transportModes);
 		var c2 = index < 0;
 		if (c1 && c2) {
 			routes.push({
