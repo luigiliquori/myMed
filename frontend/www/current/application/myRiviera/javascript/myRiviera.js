@@ -30,7 +30,7 @@ var EndMarkerIcon = false;
 
 var radius;
 
-var iconsAvailable = ["Bibliotheque.png","Eglises.png","Transports.png","AdressesUtiles.png","IUT.png","pictures","POSTES.png","Policemunicipale.png","Mairie.png","Banques.png","Jardins.png","MaisonsRetraites.png","Maternelles.png","Ports.png","PIzzaEmporter.png","GARESSUD.png","Sports.png","STADES.png","Officesdutourisme.png","TourismeCulture.png","colleges.png","Monuments.png","Sant\u00e9.png","Primaires.png","Education.png","Restaurants.png","Fortsmilitaires.png"];
+var iconsAvailable = ["Bibliotheque.png","Eglises.png","Transports.png","AdressesUtiles.png","IUT.png","pictures","POSTES.png","Policemunicipale.png","Mairie.png","Banques.png","Jardins.png","MaisonsRetraites.png","Maternelles.png","Ports.png","PIzzaEmporter.png","GARESSUD.png","Sports.png","STADES.png","Officesdutourisme.png","TourismeCulture.png","colleges.png","Monuments.png","Sant\u00e9.png","Primaires.png","Education.png","Restaurants.png","Fortsmilitaires.png", "Company.png"];
 
 
 /* --------------------------------------------------------- */

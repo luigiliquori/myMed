@@ -14,8 +14,6 @@ class MainController extends AuthenticatedController {
 		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
 			
 			// -- Publish
-			
-			
 			$obj = new ExampleObject();
 			
 			// Fill the object
@@ -27,7 +25,6 @@ class MainController extends AuthenticatedController {
 		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
 			
 			// -- Search
-			
 			$search = new ExampleObject();
 			$this->fillObj($search);
 			$this->result = $search->find();

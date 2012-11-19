@@ -61,14 +61,24 @@ class MainController extends AuthenticatedController {
 						foreach ($poi->features as $feature) {
 								
 							// needed parameters
-							if(isset($feature->geometry)) {
-								// CARF POIs
+							if(isset($feature->geometry)) {							// CARF POIs
 								$longitude = $feature->geometry->coordinates[0];
 								$latitude  = $feature->geometry->coordinates[1];
-							} else { // Students POIs
+							} else if (isset($feature->properties->Longitude)) { 	// Students POIs
 								$longitude = $feature->properties->Longitude;
 								$latitude  = $feature->properties->Latitude;
+							} else if (isset($feature->properties->Adresse)) {   	// FSA	POIs
+								$address = $feature->properties->Adresse;
+								$address = str_replace(" ", "+", $address);
+								$address = preg_replace('/\s*\([^)]*\)/', '', $address);
+								$json = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$region");
+								$json = json_decode($json);
+								$latitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+								$longitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+							} else {
+								continue;
 							}
+							
 							$latitude = str_replace(',', '.', $latitude);
 							$longitude = str_replace(',', '.', $longitude);
 							$type = 		isset($feature->properties->Type) ? $feature->properties->Type : "";
