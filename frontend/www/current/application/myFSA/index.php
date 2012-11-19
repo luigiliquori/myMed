@@ -15,10 +15,10 @@ include(MYMED_ROOT . '/system/controllers/index-controller.php');
 textdomain(APPLICATION_NAME);
 
 // use the common dictionary
-include('../../system/lang/langue.php');
+// include('../../system/lang/langue.php');
 
 // use the specific dictionary
-include('lang/langue.php');
+// include('lang/langue.php');
 
 // Call the main controller
 main_controller();

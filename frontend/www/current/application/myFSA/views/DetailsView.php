@@ -60,9 +60,9 @@
 	<div data-role="content">
 	<?php  $truncated = substr($this->result->publisherID, 6)?>
 	<!-- <div class="ui-grid-b">
-		<div class="ui-block-a"><b><?= _('Author') ?>:</b></div> <div class="ui-block-b"> <?= $truncated ?></div>
-		<div class="ui-block-a"><b><?= _('Cathegory') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred2'] ?></div>
-		<div class="ui-block-a"><b><?= _('Tittle') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred3'] ?></div>-->
+		<div class="ui-block-a"><b><?= translate('Author') ?>:</b></div> <div class="ui-block-b"> <?= $truncated ?></div>
+		<div class="ui-block-a"><b><?= translate('Cathegory') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred2'] ?></div>
+		<div class="ui-block-a"><b><?= translate('Tittle') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred3'] ?></div>-->
 		<!--  	<b>Wrapped1</b>:--> <?//= $this->result->wrapped1 ?>
 		<!-- 	<b>Wrapped2</b>: --><?//= $this->result->wrapped2 ?>
 	<!--  </div>-->
@@ -70,12 +70,12 @@
 		<div class="starsAverage"></div>
 		<div Style="position: relative; top: 10px;"><?= $this->result->data1 ?></div>
 		<br>
- 		<b><?= _('Author') ?>:</b> <?= $truncated ?>
+ 		<b><?= translate('Author') ?>:</b> <?= $truncated ?>
  		<br>
- 		<b><?= _('Cathegory') ?>:</b> <?= $_SESSION['pred2'] ?>
+ 		<b><?= translate('Cathegory') ?>:</b> <?= $_SESSION['pred2'] ?>
 	 	
 	 	<div data-role="collapsible" data-content-theme="d">
-	 		<h3><?= _('Comments') ?></h3>
+	 		<h3><?= translate('Comments') ?></h3>
 		 	<!-- displaying comments -->
 			<br/>
 		 	<?foreach ($this->result_comment as $item) :?>
@@ -94,7 +94,7 @@
 		 	<form action="index.php?action=publish" method="POST" data-ajax="false">
 		 		<textarea name="data2"></textarea>
 		 		<input type="hidden" name="method" value="Comment" />
-				<input type="submit" value="<?= _('Comment') ?>" />
+				<input type="submit" value="<?= translate('Comment') ?>" />
 		 	</form>
 	 	
 	 	</div>
