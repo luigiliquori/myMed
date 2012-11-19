@@ -1,50 +1,13 @@
 <? include("header.php"); ?>
 
-<? 
- 
- /** Definition of the Login / Register tabs */
- function tab_bar($activeTab) {
- 	tabs_default($activeTab, array(
- 			array("#profiles", "Existing Profiles", "list"),
- 			array("#new", 'Create', "pencil")
- 		), 3);
- }
- 
- ?>
-
-<div data-role="page" id="profiles">
-
-	
-	<? tab_bar("#profiles") ?>
-	<? include("notifications.php"); ?>
-
-	<div data-role="content">
-		<div data-role="header" data-theme="e">
-		<h1 style="white-space: normal;"><?= _("Hello, This is your first time on myEurope! Please register with an existing profile or create yours") ?></h1>
-		</div>
-		<br />
-		<br />
-		<ul data-role="listview" data-filter="true" data-inset="true" data-mini="true" data-filter-placeholder="<?= _("filter") ?>">
-		<? foreach ($this->cats as $k=>$v) :?>
-			<? if (!empty($v)) :?>
-				<li data-role="list-divider"><?= Categories::$roles[$k] ?></li>
-				<? foreach ($v as $ki=>$vi) :?>
-					<li><a href="?action=ExtendedProfile&id=<?= $vi->id ?>&link"><?= $vi->name ?></a></li>
-				<? endforeach ?>
-			<? endif ?>
-		<? endforeach ?>
-		</ul>
-	</div>
-	
-</div>
-
 <div data-role="page" id="new" >
 
-	<? tab_bar("#new") ?>
+	<? tabs_simple('New profile', 'Profiles list'); ?>
 	<? include("notifications.php"); ?>
 
 	<div data-role="content">
-		<form action="?action=ExtendedProfile" method="post" id="ExtendedProfileForm" data-ajax="false">
+		<br>
+		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
 			<input type="hidden" name="form" value="create" />
 			<div data-role="fieldcontain">
 				<label for="textinputu1"><?= _('Organization Name') ?>: </label>
@@ -105,7 +68,7 @@
 				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
 			</span>
 			<div style="text-align: center;">
-				<input type="submit" data-inline="true" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
+				<input type="submit" data-inline="true" data-theme="e" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
 			</div>
 		</form>
 	</div>

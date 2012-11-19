@@ -31,7 +31,6 @@ import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.position.PositionManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.model.data.user.MPositionBean;
-import com.mymed.utils.GsonUtils;
 
 /**
  * Servlet implementation class PositionRequestHandler

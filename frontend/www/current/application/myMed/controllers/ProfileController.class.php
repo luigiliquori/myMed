@@ -1,16 +1,21 @@
 <?php 
 
-define('EXTENDED_PROFILE_PREFIX' , '_extended');
-define('STORE_PREFIX' , '_store');
+define('EXTENDED_PROFILE_PREFIX' , 'extended_profile_');
+define('STORE_PREFIX' , 'store_');
 
 // TODO: Should be a common controller in /system/controllers/
 class ProfileController extends AuthenticatedController {
 	
-	/**
-	 * This will create a temporary Profile with the informations submited by POST and send a confirmation-email.
-	 * @see IRequestHandler::handleRequest()
-	 */
-	public /*String*/ function handleRequest() { 
+
+	public function update() {
+		$this->renderView('updateProfile');
+	}
+	
+	public function defaultMethod() {
+		$this->renderView("profile");
+	}
+	
+	public function handleRequest() { 
 		
 		parent::handleRequest();
 		
@@ -33,29 +38,35 @@ class ProfileController extends AuthenticatedController {
 				$mAuthenticationBean->login = $_SESSION['user']->id;
 				$mAuthenticationBean->user = $_SESSION['user']->id;
 				$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
-				$request = new Requestv2Wrapper($this,
-						array("authentication"=>json_encode($mAuthenticationBean)),
-						UPDATE, "v2/AuthenticationRequestHandler");
+				$request = new Requestv2(
+					"v2/AuthenticationRequestHandler",
+					UPDATE,
+					array("authentication"=>json_encode($mAuthenticationBean)));
 				try {
 					$res = $request->send();
 				} catch (Exception $e){
+					$this->setError($res->description);
 					$this->renderView("profile");
 				}
 				
 				/*
 				 * @TODO check if there is an account with MYMED_$_POST["email"]
-				 * if yes prompt theuser if he wants to merge his accounts
+				 * if yes prompt the user if he wants to merge his accounts
 				 * ask for MYMED's acount password, merge MYMED's profile, update old profile with "merged": MYMED profile id
 				 */ 
 				
 				
 				
 			} else {
-				$request = new Requestv2Wrapper($this, 
-						array("login"=>$_POST['email'],
-								"password"=>hash('sha512', $_POST['password']), 
-								"passwordCheck"=>1),
-						READ, "v2/AuthenticationRequestHandler");
+				$request = new Requestv2(
+					"v2/AuthenticationRequestHandler",
+					READ,
+					array(
+						"login"=>$_POST['email'],
+						"password"=>hash('sha512', $_POST['password']), 
+						"passwordCheck"=>1 //fast yes/no password check instead of delivering an accesstoken
+						)
+				);
 				try {
 					$res = $request->send();
 				} catch (Exception $e){
@@ -107,7 +118,11 @@ class ProfileController extends AuthenticatedController {
 			$_POST['login'] = $_POST["email"];
 			unset($_POST['password']);// /\ don't store people password! or we could deal with justice
 			
-			$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($_POST)));
+			$request = new Requestv2(
+				"v2/ProfileRequestHandler",
+				UPDATE,
+				array("user"=>json_encode($_POST))
+			);
 	
 			$responsejSon = $request->send();
 			$responseObject2 = json_decode($responsejSon);
@@ -118,10 +133,7 @@ class ProfileController extends AuthenticatedController {
 	
 				$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $_POST);
 			}
-			
 		}
-		
-		$this->renderView("profile");
 
 	}
 

@@ -1,5 +1,5 @@
 <?php
-_("myEuropeabout");
+ _("myEuropeabout");
  _("myMedabout");
  _("About myMed");
  _("About myEurope");

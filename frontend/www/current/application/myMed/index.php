@@ -15,10 +15,10 @@ include(MYMED_ROOT . '/system/controllers/index-controller.php');
 textdomain(GLOBAL_MESSAGES);
 
 // use the common dictionary
-include(MYMED_ROOT . '/system/lang/langue.php');
+//include(MYMED_ROOT . '/system/lang/langue.php');
 
 // use the specific dictionary
-include('lang/langue.php');
+//include('lang/langue.php');
 
 main_controller();
 

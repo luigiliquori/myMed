@@ -34,7 +34,7 @@ class Profile extends Entry{
 	
 	
 	//shouldn't be there, I'll put that in utils later
-	public function renderProfile(){
+	public function renderProfile($user = false){
 		?>
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d" style="margin-top: 2px;">
 			<li>
@@ -70,7 +70,18 @@ class Profile extends Entry{
 				<li data-role="list-divider"><?= _("Members list") ?></li>
 			<? endif ?>
 			<? foreach($this->users as $item) :?>
-				<li><p><img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/><a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?></p></li>
+				<li><p>
+					<? if($user->id == $item): ?>
+						<? if(!empty($user->profilePicture )): ?>
+							<a title="<?= $user->name ?>"><img src="<?= $user->profilePicture ?>" style="width: 50px;vertical-align: middle;padding-right: 10px;"></a>
+						<? else: ?>
+							<a href="#updatePicPopup" data-rel="popup"><img src="http://graph.facebook.com//picture?type=large" style="width: 50px;vertical-align: middle;padding-right: 10px;"></a>
+						<? endif; ?>
+					<? else: ?>
+						<img src="http://www.gravatar.com/avatar/<?= hash("crc32b",$item) ?>?s=128&d=identicon&r=PG" style="width: 30px;vertical-align: middle;padding-right: 10px;"/>
+					<? endif; ?>
+					<a href="mailto:<?= prettyprintId($item) ?>"><?= prettyprintId($item) ?></a> <?= $item==$_SESSION['user']->id?_("(You)"):"" ?>
+				</p></li>
 			<? endforeach ?>
 		</ul>
 		<?

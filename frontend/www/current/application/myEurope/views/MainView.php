@@ -6,53 +6,26 @@
 <? tab_bar_default("#home") ?>
 
 <? include("notifications.php"); ?>
-	<div data-role="content" style="text-align: center;">
-
-		<div data-role="fieldcontain">
-			<a href="#search" type="button" class="mymed-huge-button"><?= _('Search a partnership offer') ?>
+	<div data-role="content" >
+		<br>
+		<div class="main-buttons">
+			<a href="#search" type="button" class="mymed-huge-button" data-icon="fasearch" style="display: inline-block;"><?= _('Search a partnership offer') ?>
+			</a>
+			<span style="padding: 0 20px;"></span>
+			<a href="#post" type="button" class="mymed-huge-button" data-icon="edit" style="display: inline-block;"><?= _('Insert a partnership offer') ?>
 			</a>
 		</div>
-
-		<div data-role="fieldcontain">
-			<a href="#post" type="button" class="mymed-huge-button"><?= _('Insert a partnership offer') ?>
-			</a>
-		</div>
-	</div>
-</div>
-
-<div data-role="page" id="profile">
-
-<? tab_bar_default("#profile") ?>
-	<div data-role="content" style="text-align: center;">
-	<?php if($_SESSION['user']->profilePicture != ""): ?>
-		<a title="<?= $_SESSION['user']->name ?>"><img src="<?= $_SESSION['user']->profilePicture ?>" width="80"></a>
-	<?php else: ?>
-		<a href="#updatePicPopup" data-rel="popup"><img src="http://graph.facebook.com//picture?type=large" width="80"></a>
-	<?php endif; ?>
 		
+		<!-- <a href="/?action=store&applicationStore=myEurope#desc" rel="external" type="button" data-icon="question-sign" data-iconpos="notext" data-theme="g" style="position: absolute; top: -3px; left: 44px;"><?= _('About') ?></a> -->
 		
-		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
-			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<div style="display: inline-block;">
-				<input type="text" id="picUrl" placeholder="Picture's url" value="http://cdn.walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg" data-inline="true" />
-			</div>
-			<a onclick="$('#updatePicPopup').popup('close');updateProfile('profilePicture', $('#picUrl').val());" data-role="button" data-theme="d" data-mini="true" data-icon="ok" data-inline="true"><?= _("Update") ?></a>
+		<div style="position: fixed;text-align: center;width: 99%;bottom: 85px;">
+			<a href="./"><img src="/application/<?= APPLICATION_NAME ?>/img/icon.png" style="height: 80px;" /></a>
+			<br><br>
+			<a href="http://www.interreg-alcotra.org/2007-2013/index.php?pg=progetto&id=139"><img alt="Alcotra" src="/system/img/logos/alcotra.png" /></a>
+			<br><i style="font-size: 13px;">“Ensemble par-delà les frontières”</i>
 		</div>
 		
-		<div style="display:inline-block; margin-left: 15px; vertical-align: 100%; color: white; font-weight: bold; font-size: 14pt; text-align: center;">
-			<?= $_SESSION['user']->firstName ?> <?= $_SESSION['user']->lastName ?> 
-		</div>
-		
-		<? $_SESSION['myEuropeProfile']->renderProfile(); ?>
-
-		<br />
-		<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
-		<br />
-		<? if ($_SESSION['myEurope']->permission > 1): ?>
-			<a href="?action=Admin" data-role="button" data-icon="gear" data-inline="true"><?= _('Admin') ?></a>
-		<? endif; ?>
-		<!-- <a data-role="button" href="?action=logout" rel="external" data-icon="signout" data-inline="true"><?= _('Log Out') ?></a>  -->
-		
+	
 	</div>
 </div>
 
@@ -60,98 +33,93 @@
 
 	<? tab_bar_default("#blogs") ?>
 	<div data-role="content" style="text-align:center;">
-		<ul data-role="listview" data-inset="true" data-filter="true" >
-			<li data-role="list-divider"><?= _('Journal des bonnes pratiques') ?></li>
+		<br><br>
+		<select name="flip-1" id="flip-1" data-role="slider" onchange="$('#themes_ul, #phases_ul').toggle();">
+			<option value="topic"><?= _("By topic") ?></option>
+			<option value="phase"><?= _("By phase") ?></option>
+		</select> 
+		<br><br>
+		<div id="themes_ul">
+		<ul data-role="listview" data-inset="true" data-filter="true">
+			<li data-role="list-divider"><?= _('Thèmes de projet') ?></li>
+			<? foreach (Categories::$themes as $k=>$v): ?>
 			<li>
-				<a href="?action=Blog&blog=Bonnes Pratiques" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Bonnes Pratiques Générales') ?>
-				</a>
+				<a href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
 			</li>
-			<li>
-				<a href="?action=Blog&blog=Par quoi commencer ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Par quoi commencer ?') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&blog=Pourquoi chercher un partenariat europeen ?" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Pourquoi chercher un partenariat européen ?') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&blog=Vos temoignages" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Vos témoignages') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&blog=Quelques idees" rel="external" data-icon="pushpin" class="mymed-huge-button"><?= _('Quelques idées') ?>
-				</a>
-			</li>
-			<li data-role="list-divider"><?= _('Journal des "Beta" testeurs de myEurope') ?></li>
-			<li>
-				<a href="?action=Blog&blog=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&blog=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?>
-				</a>
-			</li>
-			<li>
-				<a href="?action=Blog&blog=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?>
-				</a>
-			</li>
+			<? endforeach; ?>
 		</ul>
-
-		<? if ($_SESSION['myEurope']->permission > 1): ?>
-		<div data-role="fieldcontain">
-			<a href="#createPopup" data-rel="popup" data-inline="true"
-				type="button" data-icon="faplus"> <?= _("Create a new blog") ?> </a>
 		</div>
-		<? endif; ?>
-
-		<div data-role="popup" id="createPopup" class="ui-content"
-			data-overlay-theme="e" data-theme="d">
-			<a href="#" data-rel="back" data-role="button" data-theme="d"
-				data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<input type="text" id="blogName" placeholder="Blog's name"
-				data-inline="true" /> <a onclick="$('#createPopup').popup('close');"
-				data-role="button" data-theme="d" data-icon="ok" data-inline="true"><?= _("Create") ?>
-			</a>
+		<div id="phases_ul" style="display: none;">
+		<ul data-role="listview" data-inset="true" data-filter="true">
+			<li data-role="list-divider"><?= _('Phases du projet') ?></li>
+			<? foreach (Categories::$phases as $k=>$v): ?>
+			<li>
+				<a href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
+			</li>
+			<? endforeach; ?>
+		</ul>
 		</div>
+		
+		
+		
+		<br>
+		<div data-role="collapsible" data-collapsed="true" data-mini="true" data-content-theme="c">
+			<h3>Beta tests</h3>
+			<ul data-role="listview" >
+				<li data-role="list-divider"></li>
+				<li>
+					<a href="?action=Blog&id=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?></a>
+				</li>
+				<li>
+					<a href="?action=Blog&id=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?></a>
+				</li>
+				<li>
+					<a href="?action=Blog&id=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?></a>
+				</li>
+			</ul>
+		</div>
+		
 	</div>
 </div>
 
-<div data-role="page" id="about">
+<div data-role="page" id="search">
 
-<? tab_bar_default("#about") ?>
+	<? tabs_simple('Search'); ?>
 	<div data-role="content">
-
-		<br />
-		<?= _('myEuropeabout') ?>
-	</div>
-</div>
-
-<div data-role="page" id="admin">
-	<div data-role="header" data-theme="c" data-position="fixed">
-	<? tab_bar_default("#admin") ?>
-	</div>
-	<div data-role="content">
-		<br />
-		<div style="text-align: center;">
-			<span><?= _('Restricted page for admins') ?> </span><br />
-			<? if ($_SESSION['myEurope']->permission<=1) {?>
-			<a data-rel="back" data-icon="back" type="button" data-inline="true"
-				data-theme="e"><?= _('Back') ?> </a>
-				<? } else { ?>
-			<a href="./?action=Admin" type="button" data-inline="true"
-				data-theme="g"><?= _('Access') ?> </a>
-				<? } ?>
-		</div>
-	</div>
-</div>
-
-<div data-role="page" id="search" data-dom-cache="true">
-
-	<? tabs_simple(array('Search')); ?>
-	<div data-role="content">
+		<br>
 		<form action="" id="searchForm">
-			<input type="hidden" name="action" value="Search" /> <br />
+			<input type="hidden" name="action" value="Search" />
+			<div data-role="popup" id="helpPopup" class="ui-content"
+				data-overlay-theme="e" data-theme="d">
+				<a href="#" data-rel="back" data-role="button" data-theme="d"
+					data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<ul data-role="listview" data-theme="d">
+					<li>Si vous laissez tous les champs <b>vides</b>, vous
+					obtenez toutes les offres publiées à ce jour</li>
+					<li>Lorsque vous
+					laissez une categorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</li>
+					<li>Lorsque vous cochez/ remplissez plusieurs champs dans une catégorie, les 
+						résultats matcheront au moins un des critères.</li>
+				</ul>
+			</div>
 			
+			<div data-role="fieldcontain" id="tagsContainer">
+				<label for="textinput1"><?= _('keywords') ?>:</label>
+				<input id="textinput1" class="tagInput" name="k[]"
+					placeholder="<?= _('separated by a space') ?>"
+					list="keywords" style="width: 50%;min-width: 300px;margin-bottom: 5px;"/>
+			</div>
+			
+			
+			<div style="text-align: center;" data-role="controlgroup" data-type="horizontal">
+				<input type="submit" id="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>" />
+				<a href="#helpPopup" data-rel="popup" data-position-to="window"
+					data-theme="e" data-role="button"
+					data-icon="question-sign" data-iconpos="right"><?= _("Help") ?>
+				</a> 
+			</div>
+			 
+			<br>
 			<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
 				<div  data-role="collapsible" data-collapsed="false">
 					<h3>
@@ -225,55 +193,35 @@
 							<option value="<?= $k ?>">
 							<?= $v ?>
 							</option>
-							<? endforeach; ?>
+						<? endforeach; ?>
 						</select>
 					</div>
 
-					<div data-role="fieldcontain">
-						<label for="textinputs1"><?= _('keywords') ?>:</label> <input
-							id="textinputs1" name="k"
-							placeholder="<?= _('separated by a space, comma, plus') ?>"
-							value='' type="text" />
-					</div>
+				
 				</div>
 			</div>
 
-			<br />
-			
-			<div data-role="popup" id="helpPopup" class="ui-content"
-				data-overlay-theme="e" data-theme="d">
-				<a href="#" data-rel="back" data-role="button" data-theme="d"
-					data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<ul data-role="listview">
-					<li>Si vous laissez tous les champs <b>vides</b> (non cochés), vous
-					obtenez toutes les offres publiées à ce jour</li>
-					<li>Lorsque vous
-					laissez une categorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</li>
-					<li>Lorsque vous cochez plusieurs champs dans une catégorie, les 
-						résultats matcheront au moins un des critères.</li>
-				</ul>
-			</div>
-			
-			<div style="text-align: center;" data-role="controlgroup" data-type="horizontal">
-				<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>" />
-				<a href="#helpPopup" data-rel="popup" data-position-to="window"
-					data-theme="e" data-role="button"
-					data-icon="question-sign" data-iconpos="right"><?= _("Help") ?>
-				</a> 
-			</div>
 		</form>
+		
+		<datalist id="keywords">
+		<? foreach (Categories::$keywords as $v): ?>
+			<option value="<?= _($v) ?>"/>
+		<? endforeach; ?>
+		</datalist>
+		  
 	</div>
 </div>
 
 <div data-role="page" id="post">
 	
-	<? tabs_simple(array('Insert')) ?>
+	<? tabs_simple('Insert') ?>
 	<div data-role="content">
-		<form action="./" method="post" id="publishForm">
+		<form action="./" method="post" id="publishForm" data-ajax="false">
 
-			<input type="hidden" name="action" value="Publish" /> <input
+			<input type="hidden" name="action" value="Publish" />
+			<input type="hidden" name="method" value="create" /> <input
 				type="hidden" name="r"
-				value="<?= $_SESSION['myEuropeProfile']->details['role'] ?>" />
+				value="<?= $_SESSION['myEurope']->details['role'] ?>" />
 
 			<div data-role="fieldcontain">
 				<label for="textinputp3" class="postTitle"><b><?= _('Title') ?> </b>
@@ -359,12 +307,13 @@
 							</select>
 						</div>
 
-						<div data-role="fieldcontain">
-							<label for="textinputp1"><?= _('Keywords') ?>: </label> <input
-								id="textinputp1" name="k"
-								placeholder="<?= _('separated by a space, comma, plus') ?>"
-								value='' type="text" />
+						<div data-role="fieldcontain" id="tagsContainer2">
+							<label for="textinput1"><?= _('Keywords') ?>: </label>
+ 							 <input id="textinput1" class="tagInput"
+								placeholder="<?= _('separated by a space') ?>"
+								name="k[]" list="keywords" style="width: 50%;min-width: 300px;margin-bottom: 5px;"/>
 						</div>
+
 						<div data-role="fieldcontain">
 							<label for="textinputp2"><?= _('Date of expiration') ?>: </label>
 							<input id="textinputp2" name="date"
@@ -380,23 +329,23 @@
 				<h1><?= _("Your partnership") ?></h1>  ...</textarea>
 
 			<div style="text-align: center;">
-				<input type="submit" class="ui-btn-active ui-state-persist"
+				<input id="submit2" type="submit" class="ui-btn-active ui-state-persist"
 					data-inline="true" data-icon="check" value="<?=_('Insert') ?>" />
 			</div>
 		</form>
 	</div>
-</div>
+</div>​
 
 
 <?php 
 function tabs_info($item){
-	tabs_simple(array("infos", $item));
+	tabs_simple($item, 'Infos');
 }
 ?>
 <? if($_SESSION['user']->lang=="it"): ?>
-<? include("infos_it.php"); ?>
+	<? include("infos_it.php"); ?>
 <? else: ?>
-<? include("infos.php"); ?>
+	<? include("infos.php"); ?>
 <? endif; ?>
 
 <? include("footer.php"); ?>

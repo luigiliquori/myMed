@@ -182,7 +182,7 @@ public final class MailMessage {
      * @param mimeType
      *            the myme-type to set
      */
-    public void setMymeType(final String mimeType) {
+    public void setMimeType(final String mimeType) {
         this.mimeType = mimeType;
     }
 
@@ -191,7 +191,7 @@ public final class MailMessage {
      * 
      * @return the mime-type
      */
-    public String getMymeType() {
+    public String getMimeType() {
         return mimeType;
     }
 }

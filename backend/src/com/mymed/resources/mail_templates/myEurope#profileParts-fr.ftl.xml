@@ -15,26 +15,26 @@ The following variables are available in the templates :
     <subject>[${application}] Partenariat</subject>
 
     <body><![CDATA[
-        Bonjour ${recipient.name},<br/>
-        <br/>
+        Bonjour ${recipient.name},<br>
+        <br>
         L'utilisateur 
         <#if publisher??>
         	${publisher.name}, <a href="mailto:${publisher.email}">${publisher.email}</a>
         <#else>
         	non pr&eacute;cis&eacute;
         </#if>
-        demande &agrave; joindre votre <a href="${base_url}application/${application}/?action=Details&namespace=part&id=${predicate}">appel &agrave; partenaire</a> <br/>
-        <br />
-        <br />
-        <br />
+        demande &agrave; joindre votre <a href="${base_url}${application}/?action=Details&id=${predicate}">appel &agrave; partenaire</a> <br>
+        <br>
+        <br>
+        <br>
         <#if publisher??>
-      		<a href="${base_url}application/${application}/?action=Details&namespace=part&id=${predicate}&accept=${publisher.id}">Pour accepter cette demande, cliquez ce lien</a>
+      		<a href="${base_url}${application}/?action=Details&method=update&id=${predicate}&accept=${publisher.id}">Pour accepter cette demande, cliquez ce lien</a>
       	 </#if>
-      	<br />
+      	<br>
        
-        --<br/>
+        --<br>
     
-        L'&eacute;quipe myMed<br/>
-        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
+        L'&eacute;quipe myMed<br>
+        Cliquez <a href="${base_url}${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
 ]]></body>
 </mail-template>

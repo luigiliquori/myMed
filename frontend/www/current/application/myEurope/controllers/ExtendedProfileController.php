@@ -1,73 +1,59 @@
 <?php
 
-/**
- *	This class extends the default myMed user profile, common to every applications, with a profile specific
- * for this application. Store anything you need.
- * Choices have been made that this extended profile will be stored as a Publication in the database.
- * Although, you can change it the way you want in your own application, as long as you use the column families
- * available in cassandra. 
- * 
- * @author David Da Silva
- * 
- */
-class ExtendedProfileController extends AuthenticatedController {
-	/**
-	 * @see IRequestHandler::handleRequest()
-	 */
-	
-	/**
-	 * id of the profile
-	 */
-	public $id;
-	
-	public /*void*/ function handleRequest(){
-		
+class ExtendedProfileController extends ExtendedProfileRequired {
+
+	public function handleRequest(){
 		parent::handleRequest();
-		/*
-		 * Determine the dehaviour :
-		 * POST data ->  Store the profile
-		 * No Post but ExtendedProfile in session -> show profile
-		 * Nothing -> show the form to fill the profile
-		 */
-		
-		if (isset($_POST["form"])){
-			if ($_POST["form"] == 'edit')
-				$this->updateProfile();
-			else {
-				$profile = $this->storeProfile();
-				debug_r($profile);
-				$this->redirectTo("ExtendedProfile", array("id"=>$profile->id, "link"=>""));
-			}
-		}
-		
-		else if (isset($_GET['edit']))
-			$this->editProfile();
+		$this->mapper = new DataMapper;
+	}
+	
+	function defaultMethod() {
+
+		if (isset($_GET['new']))
+			$this->renderView("ExtendedProfileCreate");
 		else if (isset($_GET['id']))
 			$this->showOtherProfile($_GET['id']);
+		else if (isset($_SESSION['user']) && $_SESSION['user']->is_guest)
+			$this->forwardTo('login');
 		else if (isset($_GET['link']))
 			$this->createUser($_GET['link']);
+		
+		else if (!isset($_SESSION['myEurope']) || isset($_GET['list']))
+			$this->showProfileList();
+		else if (isset($_GET['edit']))
+			$this->editProfile();
+		
 		else if (isset($_GET['user']))
 			$this->showUserProfile($_GET['user']);
-		else if (isset($_GET['rmUser']))
-			$this->deleteUser($_GET['rmUser']);
-		
-		else if (isset($_GET['rmProfile']))
-			$this->deleteProfile($_GET['rmProfile']);
-		
-		else if (isset($_SESSION['user'])){
-			$this->redirectTo("extendedProfile", array("user"=>$_SESSION['user']->id));
-		}
+		else if (isset($_SESSION['user']))
+			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 		
 			
 		else
-			$this->redirectTo("main");
+			$this->forwardTo("logout");
 		
 	}
 	
-	/**
-	 * 
-	 */
-	public /*void*/ function createUser($profile){
+	function update(){
+		$this->updateProfile();
+	}
+	
+	function create(){
+		$profile = $this->storeProfile();
+		//debug_r($profile);
+		$this->redirectTo("ExtendedProfile", array("id"=>$profile->id, "link"=>""));
+	}
+	
+	function delete(){
+		if (isset($_GET['rmUser']))
+			$this->deleteUser($_GET['rmUser']);
+		else if (isset($_GET['rmProfile']))
+			$this->deleteProfile($_GET['rmProfile']);
+	}
+	
+
+	
+	function createUser($profile){
 	
 		$permission = (
 				strcontain($_SESSION['user']->email, "@inria.fr")
@@ -82,7 +68,7 @@ class ExtendedProfileController extends AuthenticatedController {
 				'profile'=> $profile
 		);
 		
-		debug_r($user);
+		//debug_r($user);
 		
 		$publish = new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>$user, "metadata"=>$user),
@@ -93,10 +79,6 @@ class ExtendedProfileController extends AuthenticatedController {
 				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id, "email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
 				UPDATE);
 		$publish->send();
-		
-		//$_SESSION['myEurope'] = new stdClass();
-		//$_SESSION['myEurope']->permission = $permission;
-		//$profile->{"user".$_SESSION['user']->id} = $_SESSION['user']->id;
 		
 		//$_SESSION['myEurope']->profile = $profile;
 		$this->success = "Complément de profil enregistré avec succès!";
@@ -119,7 +101,7 @@ class ExtendedProfileController extends AuthenticatedController {
 	
 	}
 	
-	public /*void*/ function updateProfile(){
+	function updateProfile(){
 		$pass	= hash("sha512", $_POST['password']);
 		unset($_POST['form']);
 		unset($_POST['password']);
@@ -140,14 +122,14 @@ class ExtendedProfileController extends AuthenticatedController {
 		}
 		
 		$_POST['desc'] = nl2br($_POST['desc']);
-		$myrep = $_SESSION['myEuropeProfile']->reputation; //and reputation
-		$users = $_SESSION['myEuropeProfile']->users; //and user
+		$myrep = $_SESSION['myEurope']->reputation; //and reputation
+		$users = $_SESSION['myEurope']->users; //and user
 		$publish =  new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "data"=>$_POST),
 				UPDATE);
 		$publish->send();
 		
-		if ($_POST['name']!=$_SESSION['myEuropeProfile']->details['name'] || $_POST['role']!=$_SESSION['myEuropeProfile']->details['role']){ //also update profiles indexes
+		if ($_POST['name']!=$_SESSION['myEurope']->details['name'] || $_POST['role']!=$_SESSION['myEurope']->details['role']){ //also update profiles indexes
 			$publish =  new RequestJson($this,
 					array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
 					CREATE);
@@ -158,16 +140,16 @@ class ExtendedProfileController extends AuthenticatedController {
 			$this->renderView("ExtendedProfileEdit");
 		else {
 			$this->success = "Complément de profil enregistré avec succès!";
-			$_SESSION['myEuropeProfile']->details = $_POST;
-			$_SESSION['myEuropeProfile']->reputation = $myrep;
-			$_SESSION['myEuropeProfile']->users = $users;
+			$_SESSION['myEurope']->details = $_POST;
+			$_SESSION['myEurope']->reputation = $myrep;
+			$_SESSION['myEurope']->users = $users;
 	
 			$this->redirectTo("Main", array(), "#profile");
 	
 		}
 	}
 	
-	public /*void*/ function storeProfile(){
+	function storeProfile(){
 		
 		// we clear these ones
 		unset($_POST['form']);
@@ -191,52 +173,72 @@ class ExtendedProfileController extends AuthenticatedController {
 		return (object) $_POST;
 	}
 	
-	/**
-	 * Edit the extended profile.
-	 * In order to edit it, the user is asked to enter his password, like a SUDO permission.
-	 * This prevent the user from editing critical informations
-	 */
-	public /*void*/ function editProfile(){
-		
+	
+	function editProfile(){
 		$this->renderView("ExtendedProfileEdit");
-		
 	}
 	
-	public /*void*/ function showOtherProfile($id){
-		
-		$mapper = new DataMapper;
+	
+	function showOtherProfile($id){
 		$this->profile = new Profile($id);
 		try {
-			$this->profile->details = $mapper->findById($this->profile);
+			$this->profile->details = $this->mapper->findById($this->profile);
 		} catch (Exception $e) {
 			$this->redirectTo("main");
 		}
 		$this->profile->parseProfile();
-		$this->profile->reputation = pickFirst(parent::getReputation(array($id)));
+		$this->profile->reputation = pickFirst(getReputation(array($id)));
 
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
-	public /*void*/ function showUserProfile($user){
-		$mapper = new DataMapper;
+	function showUserProfile($user){
 		$user = new User($user);
 		try {
-			$details = $mapper->findById($user);
+			$details = $this->mapper->findById($user);
 		} catch (Exception $e) {
 			$this->redirectTo("main");
 		}
 		$this->profile = new Profile($details['profile']);
 		try {
-			$this->profile->details = $mapper->findById($this->profile);
+			$this->profile->details = $this->mapper->findById($this->profile);
 		} catch (Exception $e) {
 			$this->redirectTo("main");
 		}
+		//debug_r($details);
 		$this->profile->parseProfile();
-		$this->profile->reputation = pickFirst(parent::getReputation(array($details['profile'])));
+		if (!empty($details['profile'])) $this->profile->reputation = pickFirst(getReputation(array($details['profile'])));
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
-	public /*void*/ function deleteUser($id){
+	function showProfileList(){
+		$profile = new Profile();
+		try {
+			$res = $this->mapper->findByPredicate($profile);
+		} catch (Exception $e) {
+		}
+	
+		$this->cats = Categories::$roles;
+		//debug_r($res);
+	
+		function filterArray($array, $value){
+			$result = array();
+			foreach($array as $item) {
+				if ($item->role == $value) {
+					$result[] = $item;
+				}
+			}
+			return $result;
+		}
+	
+		foreach($this->cats as $k=>$v){
+			$this->cats[$k] = filterArray($res, $k);
+		}
+		$this->renderView("ExtendedProfileList");
+	
+	}
+	
+	function deleteUser($id){
 		
 		//update it's shared profile
 		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "id"=>$id));
@@ -258,7 +260,7 @@ class ExtendedProfileController extends AuthenticatedController {
 	
 	}
 	
-	public /*void*/ function deleteProfile($id){
+	function deleteProfile($id){
 		
 		$publish = new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":profiles","id"=>$id),
@@ -269,7 +271,6 @@ class ExtendedProfileController extends AuthenticatedController {
 		$this->renderView("main");
 	
 	}
-	
 
 
 }

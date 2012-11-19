@@ -6,8 +6,8 @@
 					
 				<div data-role="content">
 					<br />
-					<p><?= translate("To use all options of myFSA please fill your profile") ?>
- 						<a href="?action=ExtendedProfile" data-role="button"><?= translate("Fill your profile") ?></a>
+					<p><?= _("To use all options of myFSA please fill your profile") ?>
+ 						<a href="?action=ExtendedProfile" data-role="button"><?= _("Fill your profile") ?></a>
 					</p>
 				</div>
 			</div>

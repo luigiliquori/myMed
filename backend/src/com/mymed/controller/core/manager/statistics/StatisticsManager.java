@@ -12,14 +12,16 @@ import java.util.Map.Entry;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
 import com.mymed.controller.core.manager.storage.IStorageManager;
-import com.mymed.controller.core.manager.storage.StorageManager;
+import com.mymed.controller.core.manager.storage.v2.StorageManager;
 import com.mymed.utils.MConverter;
 
 public class StatisticsManager extends AbstractManager {
 
-	protected static final String ALL_ARG = "all";
+	public static final String ALL_ARG = "all";
 	public static final String PUBLISH_ARG = "pub";
-	
+	public static final String SUBSCRIBE_ARG = "sub";
+	public static final String FIND_ARG = "find";
+
 	/**
 	 * The application controller super column.
 	 */
@@ -46,10 +48,10 @@ public class StatisticsManager extends AbstractManager {
 	 */
 	public void update(String application, String method) {
 
-		Calendar now = Calendar.getInstance();
-		String year = (now.get(Calendar.YEAR)) + "";
-		String month = (now.get(Calendar.MONTH) + 1) + "";
-		String day = (now.get(Calendar.DAY_OF_MONTH)) + "";
+		Calendar now 	= Calendar.getInstance();
+		String year 	= (now.get(Calendar.YEAR)) + "";
+		String month 	= (now.get(Calendar.MONTH) + 1) + "";
+		String day 		= (now.get(Calendar.DAY_OF_MONTH)) + "";
 
 		List<String> keys = new ArrayList<String>();
 		keys.add(application 	+ method);
@@ -93,13 +95,32 @@ public class StatisticsManager extends AbstractManager {
 			argsYears.put(month, encode(++countMonth));
 			argsMonth.put(day, encode(++countDay));
 			
-			System.out.println("\n countYear = " + countYear);
-			System.out.println("\n countMonth = " + countMonth);
-			System.out.println("\n countDay = " + countDay);
-			
 			storageManager.insertSuperSlice(SC_STATICTICS, key, ALL_ARG, argsAll);
 			storageManager.insertSuperSlice(SC_STATICTICS, key, year, argsYears);
-			storageManager.insertSuperSlice(SC_STATICTICS, key, month, argsMonth);
+			storageManager.insertSuperSlice(SC_STATICTICS, key, year+month, argsMonth);
+			
 		}
+	}
+	
+	/**
+	 * Read Statistics according to the applicationID, the method (put/get) and the date
+	 * @param application
+	 * @param method
+	 * @param year
+	 * @param month
+	 * 		could be empty (will return all the months)
+	 * @param day
+	 * 		could be empty (will return all the days)
+	 * @return
+	 */
+	public Map<String, String> read(String application, String method, String year, String month) {
+		String when = ALL_ARG;
+		if(year != null) {
+			when = year;
+			if(month != null) {
+				when += month;
+			}
+		}
+		return storageManager.selectSuperColumn(SC_STATICTICS, application+method, when);
 	}
 }
