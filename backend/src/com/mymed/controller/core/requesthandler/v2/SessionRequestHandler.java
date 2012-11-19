@@ -86,9 +86,17 @@ public class SessionRequestHandler extends AbstractRequestHandler {
             switch (code) {
                 case READ :
                     message.setMethod(JSON_CODE_READ);
+                    
                     final String me = sessionManager.readSimpleUser(accessToken);
                     message.setDescription("Session avaible");
-                    message.addDataObject(JSON_USER, profileManager.readSimple(me));
+                    
+                    Map<String, String> user = profileManager.readSimple(me);
+                    if (!user.containsKey("id")){ //missing id... 
+                    	user.put("id", me);
+                    	profileManager.update(me, "id", me);
+                    }
+                    message.addDataObject(JSON_USER, user);
+
                     break;
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);
