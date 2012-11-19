@@ -15,19 +15,37 @@ The following variables are available in the templates :
     <subject>[${application}] Votre Profil</subject>
 
     <body><![CDATA[
-        Bonjour ${recipient.name},<br/>
-        <br/>
+        Bonjour ${recipient.name},<br>
+        <br>
         
-        Votre profil <a href="${base_url}application/${application}/?action=ExtendedProfile">${application}</a> a les modifications suivantes: <br/>
-        <ul>
-            <#list publication?keys as key>
-				<li><b>${key}</b>: ${publication[key]!'N/A'}</li>
-			</#list>
-        </ul>
-        <br />
-        --<br/>
+        <#if publication['permission'] == '1'>
+        
+        	F&eacute;licitations, votre profil a bien &eacute;t&eacute; valid&eacute;. Vous pouvez &agrave; pr&eacute;sent vous connecter sur le r&eacute;seau social <a href="${base_url}${application}/?action=ExtendedProfile">${application}</a>
+        
+        <#elseif publication['permission'] == '2'>
+        
+        	Wow, votre profil est promu comme Admin sur <a href="${base_url}${application}/?action=ExtendedProfile">${application}</a>
+        
+        <#elseif publication['permission'] == '0'>
+        
+        	D&eacute;sol&eacute;, votre profil est temporairement bloqu&eacute; sur <a href="${base_url}${application}/?action=ExtendedProfile">${application}</a>
+        
+        <#else>
+        
+	        Votre profil <a href="${base_url}${application}/?action=ExtendedProfile">${application}</a> a les modifications suivantes: <br>
+	        <ul>
+	            <#list publication?keys as key>
+					<li><b>${key}</b>: ${publication[key]!'N/A'}</li>
+				</#list>
+	        </ul>
+        
+        </#if>
+        
+        
+        <br>
+        --<br>
     
-        L'&eacute;quipe myMed<br/>
-        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
+        L'&eacute;quipe myMed<br>
+        Cliquez <a href="${base_url}${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
 ]]></body>
 </mail-template>

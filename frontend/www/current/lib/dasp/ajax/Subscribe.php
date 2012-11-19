@@ -7,7 +7,7 @@ if (!isset($_POST["predicates"]))
 else
 	$_POST["predicates"] = json_decode($_POST["predicates"]);
 
-$request = new RequestJson(null, $_POST,CREATE, "v2/SubscribeRequestHandler"  );
+$request = new RequestJson(null, $_POST, CREATE, "v2/SubscribeRequestHandler"  );
 
 session_start();
 
@@ -15,7 +15,16 @@ $request->addArgument("user", $_SESSION['user']->id);
 	
 $responsejSon = $request->send();
 
-$responsejSon->description = _("Subscribed to ").$_POST['application']." ".$_POST['predicates'];
+$pStr = "";
+foreach ($_POST["predicates"] as $p){
+	$pStr .= str_replace('|', '+', $p->value).' ';
+}
+
+if (empty($pStr)){
+	$pStr = "all";
+}
+
+$responsejSon->description = _("Subscribed to: ").(count($_POST["predicates"])?$pStr:$_POST['id']);
 
 echo json_encode($responsejSon);
 

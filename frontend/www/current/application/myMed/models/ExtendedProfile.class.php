@@ -33,15 +33,14 @@ class ExtendedProfile
 	}
 	
 	public function storeFavoriteApps(){
-		debug_r($this->applicationList);
-		$req = new Requestv2Wrapper(
-				$this->handler,
-				array("user"=>$this->user_id, 
-						"key"=>"applicationList", 
-						"value"=>json_encode(array_keys($this->getFavorites($this->applicationList)))
-				),
-				UPDATE, "v2/ProfileRequestHandler" );
-		
+		$req = new Requestv2(
+			"v2/ProfileRequestHandler",
+			UPDATE,
+			array("user"=>$this->user_id, 
+					"key"=>"applicationList", 
+					"value"=>json_encode(array_keys($this->getFavorites($this->applicationList)))
+			)
+		);
 		$req->send();
 	}
 	

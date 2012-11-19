@@ -1,54 +1,38 @@
 <? 
 class AdminController extends ExtendedProfileRequired {
 	
-	public /*void*/ function handleRequest(){
-		
-		parent::handleRequest();
-		
-		if ($_SESSION['myEurope']->permission > 1){
-			
-			if (isset($_GET["perm"])){
-				$this->updatePermission();
-			}
-			
-			if (isset($_POST["perm"])){
-				$this->updatePermission();
-			}
-			if (isset($_GET["rm"])){
-				$this->redirectTo("extendedProfile", array("rmUser"=>$_GET['rm']));
-			}
 
-			$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "predicates"=>array()));
-				
-			try{
-				$res = $find->send();
-			}
-			catch(Exception $e){}
-			
-			$this->success = "";
-			
-			$this->users = $res->results;
-			
-			$this->blocked = array();
-			$this->normals = array();
-			$this->admins = array();
-			array_walk($this->users, array($this,"userFilter"));
-				
-			$this->renderView("admin");
-			
+	function defaultMethod() {
+		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "predicates"=>array()));
+		
+		try{
+			$res = $find->send();
 		}
+		catch(Exception $e){
+		}
+			
+		$this->success = "";
+			
+		$this->users = $res->results;
+			
+		$this->blocked = array();
+		$this->normals = array();
+		$this->admins = array();
+		array_walk($this->users, array($this,"userFilter"));
+		
+		$this->renderView("admin");
 		
 	}
 	
-	public /*void*/ function updatePermission(){
+	function updatePermission(){
 	
 		$publish =  new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":users", "id"=>$_GET['id'], "data"=>array("permission" => $_GET['perm']), "metadata"=>array("permission" => $_GET['perm'])),
 				UPDATE);
 		
 		$publish->send();
-		$this->redirectTo("Admin");
-
+		
+		$this->forwardTo("admin");
 	}
 	
 	public function userFilter($var){
@@ -63,5 +47,6 @@ class AdminController extends ExtendedProfileRequired {
 			}
 		}
 	}
+	
 }
 ?>

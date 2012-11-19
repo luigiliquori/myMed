@@ -13,7 +13,7 @@
 
 <h4 class="logo">myMed - INTERREG IV - Alcotra</h4>
 
-<div style="background: white; opacity: 0.9;">
+<div>
 	<img alt="Alcotra" src="/system/img/logos/alcotra" />
 	<img alt="Conseil Général 06" src="/system/img/logos/cg06" />
 	<img alt="Regine Piemonte" src="/system/img/logos/regione"/>

@@ -16,7 +16,7 @@ require_once("footer-bar.php");
 	<?php include('notifications.php'); ?>
 
 	<!-- Main part of the page -->
-	<div data-role="content">
+	<div data-role="content" >
 
 		<!-- Parameters choice -->
 		<form action="?action=main" method="post" data-ajax="false">
@@ -26,18 +26,18 @@ require_once("footer-bar.php");
 				<!-- Method -->
 				<label for="select-method">Method</label> 
 				<select name="select-method" id="select-method">
-					<option value="All">Method</option>
-					<option value="All">All</option>
-					<option value="Publish">Publish</option>
-					<option value="Subscribe">Subscribe</option>
-					<option value="Find">Find</option>
+					<option value="all">Method</option>
+					<option value="all">All</option>
+					<option value="publish">Publish</option>
+					<option value="subscribe">Subscribe</option>
+					<option value="find">Find</option>
 				</select>
 
 				<!-- Year -->
 				<label for="select-year">Year</label> 
 				<select name="select-year" id="select-year">
-					<option value="All">Year</option>
-					<option value="All">All</option>
+					<option value="all">Year</option>
+					<option value="all">All</option>
 					<?php
 					//all years from 2009 to now
 					for ($i=2009;$i<=date('Y');$i++){
@@ -49,8 +49,8 @@ require_once("footer-bar.php");
 				<!-- Month -->
 				<label for="select-month">Month</label> 
 				<select name="select-month" id="select-month">
-					<option value="All">Month</option>
-					<option value="All">All</option>
+					<option value="all">Month</option>
+					<option value="all">All</option>
 					<option value="1">January</option>
 					<option value="2">February</option>
 					<option value="3">March</option>
@@ -68,8 +68,8 @@ require_once("footer-bar.php");
 				<!-- Applications -->
 				<label for="select-application">Application</label> 
 				<select name="select-application" id="select-application">
-					<option value="All">Application</option>
-					<option value="All">All</option>
+					<option value="all">Application</option>
+					<option value="all">All</option>
 					<!-- All applications from myMed panel -->
 					<?php
 					foreach (MainController::getBootstrapApplication() as $key => $app){
@@ -84,55 +84,41 @@ require_once("footer-bar.php");
 		</form>
 
 		<!-- Chart -->
-		<!-- Plot graph -->
-		<script type="text/javascript" language="javascript">
-			//get informations about curves 
-			<?php
-				if(!empty($this->response)){
-					$curveObj = json_decode($this->response);
-					$curve = $curveObj->curve;
-					echo 'var curve1='.$curve.';';
-				}
-				else{
-					echo 'var curve1 = [[1,3],[2,7],[3,9],[4,1],[5,4],[6,6],[7,8],[8,2],[9,5],[10,1],[11,8],[12,3]];';
-					//for bar graph
-					//echo 'var series=[[1,2,3,4,5],[5,4,3,2,1]];';
-					//echo 'var labels= ["push","pop"];';
-					//echo 'var names=[\'janvier\',\'fevrier\',\'mars\',\'avril\',\'mai\'];';
-				}
-			?>
-			
-			//create an array of curves 
-			var serie = [curve1];
-			//draw plot graph 
-			createPlotGraph("conteneur",serie,"Pub/Sub requests",0);
-			//draw bar graph
-			//createBarGraph("conteneur", series, labels, names,"Pub/Sub requests");
-		</script>
-		<br /> 
-		<br /> 
-		<br />
-		
-		<!-- <div id="conteneur"></div>  -->
-		
+		<!-- Bar graph -->
+		<?php if(isset($this->array_resp_return)){?>
 		<?php 
-			$sizeGraph = 90;
-			$sizeBar = $sizeGraph / 12;
-			$sizeBar = $sizeBar + "";
-			$sizeBar = str_replace(",", ".", $sizeBar);
+				$sizeGraph = 90;
+				$height = 500;
 		?>
-		
-		<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: 500px; border: thin black solid;">
-		
-			<!-- Janvier -->
-			<div Style="position: absolute; top: 150px; width: <?= $sizeBar?>%; height: 350px; background-color: red; border: thin black solid;"></div>
-			
-			<!-- Fev -->
-			<div Style="position: absolute; top: 50px; left: <?= $sizeBar ?>%; width: <?= $sizeBar ?>%; height: 450px; background-color: yellow; border: thin black solid;"></div>
-		
-		</div>
-		
+			<?php
+				//title of the graph
+				$titl = $this->title;
+				//column values
+				$tabrep = $this->array_resp_return;
+				//$tabrep=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
+				//column name when I will find how to write vertically
+				$tabinfo=array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
+				//max value of the array
+				//$max_tab=31;
+				$max_tab = $this->max_array_value;
+				
+				$nbcol = count($tabrep);
+				$sizeBar = 100/$nbcol;
+				$sizeBar = str_replace(",", ".", $sizeBar);
+			?>
+			<center><h3><?php echo $titl;?></h3></center>
+			<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: <?php echo $height ?>px; border: thin black solid; margin-left:3.5%; background-color:white">
+				<?php for($i=0;$i<$nbcol;$i++){
+					$red = ceil(255-(255*$tabrep[$i+1])/$max_tab);
+					$green = ceil((255*$tabrep[$i+1])/$max_tab);
+					$height_column = ceil(($height * $tabrep[$i+1])/$max_tab);
+					$top = $height - $height_column;
+				?>
+					<div Style="position: absolute; top: <?php echo $top ?>px; left: <?= str_replace(",", ".",$i*$sizeBar) ?>%; width: <?= $sizeBar ?>%; height: <?php echo $height_column?>px; background-color:rgb(<?php echo $red ?>,<?php echo $green ?>,0); border: thin black solid;"></div>		
+				<?php }?>
+			</div>
 	</div>
+	<?php }?>
 
 	<!-- Footer page with tab bar ?action=main to highlight the tab -->
 	<? print_footer_bar_main("?action=main"); ?>

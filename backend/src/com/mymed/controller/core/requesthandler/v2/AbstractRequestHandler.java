@@ -16,24 +16,20 @@
 package com.mymed.controller.core.requesthandler.v2;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
-import com.google.gson.reflect.TypeToken;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.session.SessionManager;
-import com.mymed.model.data.application.DataBean;
 
 
 public abstract class AbstractRequestHandler extends com.mymed.controller.core.requesthandler.AbstractRequestHandler {
@@ -67,6 +63,8 @@ public abstract class AbstractRequestHandler extends com.mymed.controller.core.r
 	@Override
     protected Map<String, String> getParameters(final HttpServletRequest request) throws AbstractMymedException {
         // see multipart/form-data Request
+
+		
         if (request.getContentType() != null) {
             try {
                 if (request.getContentType().matches("multipart/form-data")) {

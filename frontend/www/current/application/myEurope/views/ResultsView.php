@@ -1,14 +1,10 @@
 <? include("header.php"); ?>
 
-<div data-role="page" id="results" data-dom-cache="true">
-	<? tabs_simple(array("search", $this->title)); ?>
-<<<<<<< HEAD
-
-=======
->>>>>>> f18ab344e5e36a8ef8351a2d51c7d98d66ce2759
+<div data-role="page" id="results">
+	<? tabs_simple($this->title, 'Search'); ?>
 	<? include("notifications.php"); ?>
 	<div data-role="content">
-
+		<br>
 		<div style="margin-bottom: 16px;">
 		<label for="radio-group1"><?= _("Sort by") ?>:</label>
 		<fieldset id="radio-group1" data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;">
@@ -24,7 +20,7 @@
 		
 		<? if ($this->part->isIndexNotEmpty()) :?>
 			<a id="subscribeButton" style="float: right;" title="<?= _("Subscribe to:").' '.$this->part->renderSearchIndex(); ?>" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
-			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":".$this->part->namespace ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
+			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":part" ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
 		<? endif ?>
 		</div>
 		
@@ -39,7 +35,7 @@
 			<? foreach($this->result as $item) : ?>
 			
 			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->user ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
-			<a href="?action=details&id=<?= urlencode($item->id) ?>"><span
+			<a href="?action=details&id=<?= urlencode($item->id) ?>" rel="external"><span
 					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?></span><p class="ui-li-aside"><?= date('j/n/Y', $item->time) ?></p>
 				</a>
 			</li>

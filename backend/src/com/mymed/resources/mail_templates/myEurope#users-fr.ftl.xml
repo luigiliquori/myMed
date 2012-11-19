@@ -15,10 +15,10 @@ The following variables are available in the templates :
     <subject>[${application}] Nouvel utilisateur inscrit</subject>
 
     <body><![CDATA[
-        Bonjour ${recipient.name},<br/>
-        <br/>
+        Bonjour ${recipient.name},<br>
+        <br>
         
-        Un nouvel utilisateur vient de s'inscrire sur ${application}<br/>
+        Un nouvel utilisateur vient de s'inscrire sur ${application}<br>
         Informations :
         <ul>
             <#list publication?keys as key>
@@ -30,13 +30,13 @@ The following variables are available in the templates :
         
         Prenez contact avec celui-ci afin de confirmer son identit&eacute; puis autoriser sa participation &agrave; ${application} 
         en vous rendant sur l'interface Admin:
-        <a href="${base_url}application/${application}/?action=Admin">
-	        	${base_url}application/${application}/?action=Admin
+        <a href="${base_url}${application}/?action=Admin">
+	        	${base_url}${application}/?action=Admin
 	        </a>
-	    <br/>
-        --<br/>
+	    <br>
+        --<br>
     
-        L'&eacute;quipe myMed<br/>
-        Cliquez <a href="${base_url}application/${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
+        L'&eacute;quipe myMed<br>
+        Cliquez <a href="${base_url}${application}/?action=unsubscribe&application=${namespace}&id=${predicate}">ici</a> pour vous d&eacute;sabonner.
 ]]></body>
 </mail-template>

@@ -30,7 +30,7 @@ function print_footer_bar_login($activeTab) {
 function print_footer_bar_main($activeTab) {
 	print_footer_bar($activeTab, array(
 	array("?action=main", "Publish/subscribe", "user"),
-	array("?action=stat", "Stats 2", "user"),
+	array("?action=analytics", "Stats 2", "user"),
 	array("?action=stat", "Stats 3", "user")
 	));
 }

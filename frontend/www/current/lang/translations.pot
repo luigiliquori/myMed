@@ -1,0 +1,941 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-15 13:18+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../system/common/common-utils.php:117
+msgid "Back"
+msgstr ""
+
+#: ../system/common/common-utils.php:121
+#: ../application/myMed/views/LoginView.php:43
+#: ../application/myEurope/doc/trads.php:8
+msgid "Sign in"
+msgstr ""
+
+#: ../system/common/common-utils.php:243
+#: ../application/myEurope/views/BlogsView.php:38
+msgid "Reply"
+msgstr ""
+
+#: ../system/common/common-utils.php:268
+msgid "Tout / aucun"
+msgstr ""
+
+#: ../system/common/common-utils.php:381
+msgid "obligatoire"
+msgstr ""
+
+#: ../system/common/common-utils.php:384
+msgid "optionnel"
+msgstr ""
+
+#: ../system/common/common-utils.php:410
+#, php-format
+msgid "Le champ %s est obligatoire."
+msgstr ""
+
+#: ../system/common/common-utils.php:522
+msgid "Exit"
+msgstr ""
+
+#: ../system/common/common-utils.php:528
+msgid "Se connecter"
+msgstr ""
+
+#: ../system/common/common-utils.php:574 ../system/common/common-utils.php:594
+msgid "Annuler"
+msgstr ""
+
+#: ../system/common/common-utils.php:577 ../system/common/common-utils.php:596
+msgid "Précédent"
+msgstr ""
+
+#: ../system/common/common-utils.php:582 ../system/common/common-utils.php:601
+msgid "Suivant"
+msgstr ""
+
+#: ../lib/dasp/ajax/Subscribe.php:27
+msgid "Subscribed to: "
+msgstr ""
+
+#: ../system/controllers/RegisterController.class.php:25
+#: ../application/myMed/controllers/ProfileController.class.php:27
+msgid "Email not valid"
+msgstr ""
+
+#: ../system/controllers/RegisterController.class.php:88
+msgid "Erreur interne d'enrgistrement"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:19
+msgid "Tour"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:42
+#: ../application/myMed/views/LoginView.php:112
+#: ../application/myMed/views/UpdateProfileView.php:42
+#: ../application/myEurope/views/ExtendedProfileEditView.php:66
+msgid "Password"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:45
+#: ../application/myEurope/doc/trads.php:6
+#: ../application/myFSA/views/LoginView.php:39
+msgid "Sign in with"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:100
+msgid "First name"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:104
+msgid "Last name"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:116
+msgid "Confirm"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:122
+msgid "I accept the general terms and conditions"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:126
+msgid "Send"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:147
+msgid "about"
+msgstr ""
+
+#: ../application/myMed/views/LoginView.php:152
+msgid "More informations"
+msgstr ""
+
+#: ../application/myMed/views/ProfileView.php:18
+msgid "Edit"
+msgstr ""
+
+#: ../application/myMed/views/ProfileView.php:27
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:21
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:39
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:67
+msgid "About you"
+msgstr ""
+
+#: ../application/myMed/views/ProfileView.php:58
+msgid "Your applications"
+msgstr ""
+
+#: ../application/myMed/views/UpdateProfileView.php:17
+msgid "First Name"
+msgstr ""
+
+#: ../application/myMed/views/UpdateProfileView.php:20
+msgid "Last Name"
+msgstr ""
+
+#: ../application/myMed/views/UpdateProfileView.php:26
+msgid "Birthday"
+msgstr ""
+
+#: ../application/myMed/views/UpdateProfileView.php:29
+msgid "Profile picture"
+msgstr ""
+
+#: ../application/myMed/views/UpdateProfileView.php:33
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:75
+msgid "Language"
+msgstr ""
+
+#: ../application/myMed/views/UpdateProfileView.php:49
+msgid "Password Confirmation"
+msgstr ""
+
+#: ../application/myMed/views/UpdateProfileView.php:55
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:20
+#: ../application/myEurope/views/ExtendedProfileEditView.php:70
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:81
+msgid "Update"
+msgstr ""
+
+#: ../application/myMed/controllers/StoreController.class.php:38
+msgid "Echec de sauvegarde "
+msgstr ""
+
+#: ../application/myMed/controllers/ProfileController.class.php:33
+msgid "Passwords do not match"
+msgstr ""
+
+#: ../application/myMed/controllers/ProfileController.class.php:73
+msgid "Wrong password"
+msgstr ""
+
+#: ../application/myEurope/controllers/DetailsController.class.php:110
+msgid "Partnership request sent"
+msgstr ""
+
+#: ../application/myEurope/controllers/DetailsController.class.php:139
+msgid "Partner added"
+msgstr ""
+
+#: ../application/myEurope/views/AdminView.php:10
+msgid "list of organizations profiles in myEurope"
+msgstr ""
+
+#: ../application/myEurope/views/AdminView.php:10
+msgid "Profiles list"
+msgstr ""
+
+#: ../application/myEurope/views/AdminView.php:13
+msgid "Notify me of new users"
+msgstr ""
+
+#: ../application/myEurope/views/AdminView.php:19
+msgid "New users waiting for validation"
+msgstr ""
+
+#: ../application/myEurope/views/AdminView.php:26
+msgid "Normal users"
+msgstr ""
+
+#: ../application/myEurope/views/AdminView.php:35
+msgid "Admins"
+msgstr ""
+
+#: ../application/myEurope/views/BlogsView.php:12
+msgid "Notify me of new messages"
+msgstr ""
+
+#: ../application/myEurope/views/BlogsView.php:29
+#: ../application/myEurope/views/ResultsView.php:23
+msgid "Subscribe"
+msgstr ""
+
+#: ../application/myEurope/views/BlogsView.php:34
+msgid "comments"
+msgstr ""
+
+#: ../application/myEurope/views/BlogsView.php:64
+msgid "New Message"
+msgstr ""
+
+#: ../application/myEurope/views/BlogsView.php:66
+#: ../application/myEurope/views/ResultsView.php:12
+msgid "title"
+msgstr ""
+
+#: ../application/myEurope/views/BlogsView.php:69
+msgid "Post"
+msgstr ""
+
+#: ../application/myEurope/views/BlogsView.php:84
+#: ../application/myEurope/views/DetailsView.php:61
+msgid "Sure?"
+msgstr ""
+
+#: ../application/myEurope/views/DetailsView.php:27
+#: ../application/myEurope/views/MainView.php:311
+msgid "Keywords"
+msgstr ""
+
+#: ../application/myEurope/views/DetailsView.php:30
+msgid "Publication Date"
+msgstr ""
+
+#: ../application/myEurope/views/DetailsView.php:34
+msgid "Expiration Date"
+msgstr ""
+
+#: ../application/myEurope/views/DetailsView.php:41
+msgid "Partners"
+msgstr ""
+
+#: ../application/myEurope/views/DetailsView.php:53
+msgid "Delete my offer"
+msgstr ""
+
+#: ../application/myEurope/views/DetailsView.php:55
+msgid "Partnership request"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
+msgid "You are a full-powered Admin, have fun!"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
+msgid "users list"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
+msgid "Users"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:25
+msgid "Register in myEurope with this profile"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:27
+msgid "Back to profiles list"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:34
+msgid "Delete user"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:36
+msgid "Delete profile"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:42
+msgid "Edit my profile"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:13
+#: ../application/myEurope/views/ExtendedProfileEditView.php:13
+msgid "Organization Name"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:17
+#: ../application/myEurope/views/ExtendedProfileEditView.php:17
+msgid "Your category"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:29
+#: ../application/myEurope/views/ExtendedProfileEditView.php:29
+msgid "Address"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:33
+#: ../application/myEurope/views/ExtendedProfileEditView.php:33
+msgid "Territoire d'action"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:53
+#: ../application/myEurope/views/ExtendedProfileEditView.php:53
+msgid "Email"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:57
+#: ../application/myEurope/views/ExtendedProfileEditView.php:57
+msgid "Phone"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:61
+#: ../application/myEurope/views/ExtendedProfileEditView.php:61
+msgid "Description"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:71
+msgid "Create this profile"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileListView.php:14
+msgid ""
+"Hello, This is your first time on myEurope! Please register with an already "
+"existing profile or create yours"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileListView.php:18
+#: ../application/myEurope/doc/trads.php:17
+msgid "Create"
+msgstr ""
+
+#: ../application/myEurope/views/ExtendedProfileListView.php:20
+#: ../application/myEurope/views/ResultsView.php:27
+msgid "filter"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:12
+msgid "Search a partnership offer"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:15
+msgid "Insert a partnership offer"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:19
+#: ../application/myEurope/doc/trads.php:7
+msgid "About"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:38
+msgid "By topic"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:39
+msgid "By phase"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:44
+msgid "Thèmes de projet"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:54
+msgid "Phases du projet"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:71
+msgid "Bugs et problèmes rencontrés"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:74
+msgid "Améliorations proposées"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:77
+msgid "Discussion libre"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:107
+msgid "keywords"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:109
+#: ../application/myEurope/views/MainView.php:313
+msgid "separated by a space"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:115
+#: ../application/myFSA/views/SearchView.php:35
+msgid "Search"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:118
+msgid "Help"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:126
+msgid "Offer Themes"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:138
+#: ../application/myEurope/views/MainView.php:255
+msgid "Areas"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:145
+#: ../application/myEurope/views/MainView.php:262
+msgid "France"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:155
+#: ../application/myEurope/views/MainView.php:272
+msgid "Italy"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:165
+#: ../application/myEurope/views/MainView.php:282
+msgid "Other"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:179
+msgid "Category of searched partners"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:190
+#: ../application/myEurope/views/MainView.php:300
+msgid "Programme concerné par l'offre"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:227
+#: ../application/myFSA/views/PublishView.php:12
+msgid "Title"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:230
+msgid "partnership or project name"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:242
+msgid "Themes"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:295
+msgid "Other options"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:318
+msgid "Date of expiration"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:320
+msgid "date in format year-month-day"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:329
+msgid "Your partnership"
+msgstr ""
+
+#: ../application/myEurope/views/MainView.php:333
+msgid "Insert"
+msgstr ""
+
+#: ../application/myEurope/views/PublishSuccessView.php:10
+msgid "Your partnership offer has been successfully published"
+msgstr ""
+
+#: ../application/myEurope/views/PublishSuccessView.php:13
+msgid "See similar offers"
+msgstr ""
+
+#: ../application/myEurope/views/ResultsView.php:9
+msgid "Sort by"
+msgstr ""
+
+#: ../application/myEurope/views/ResultsView.php:14
+msgid "partner"
+msgstr ""
+
+#: ../application/myEurope/views/ResultsView.php:16
+msgid "date"
+msgstr ""
+
+#: ../application/myEurope/views/ResultsView.php:18
+msgid "reputation"
+msgstr ""
+
+#: ../application/myEurope/views/ResultsView.php:22
+msgid "Subscribe to:"
+msgstr ""
+
+#: ../application/myEurope/views/ResultsView.php:31
+msgid "Your search didn't match any result."
+msgstr ""
+
+#: ../application/myEurope/views/UnsubscribeView.php:11
+msgid "Unsubscribed"
+msgstr ""
+
+#: ../application/myEurope/views/UnsubscribeView.php:13
+msgid "You were not subscribed to these keywords"
+msgstr ""
+
+#: ../application/myEurope/views/WaitingForAcceptView.php:15
+msgid ""
+"<b>Congratulations!</b> Your profile has been sent to myEurope team  \n"
+"\t\t\t<a href='mailto:myEuropeStaff@gmail.com'>myEuropeStaff@gmail.com</a>\t"
+"\t\n"
+"\t\t\tfor validation"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:17
+msgid "Education, culture and sport"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:18
+msgid "Work and training"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:19
+msgid "Enterprises, Research and Innovation"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:20
+msgid "Environment, Energies and Risk"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:21
+msgid "Transport, Facilities and Zoning"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:22
+msgid "Health and Consumer Protection"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:23
+msgid "Social Affairs"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:24
+msgid "Agriculture"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:25
+msgid "Fishing"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:29
+msgid "Association - Coopérative - Mutuelle"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:30
+msgid "Entreprise privée"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:31
+msgid "Chambre consulaire - Groupement professionnel"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:32
+msgid "Université - Recherche"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:33
+msgid ""
+"Commune, intercommunalité - établissement public communal ou intercommunal"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:34
+msgid "Département - établissement public départemental"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:35
+msgid "Région - établissement public régional"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:36
+msgid "Service de l'Etat - établissement public de l'Etat"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:37
+msgid "Autre établissement ou groupement public"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:38
+msgid "Autre"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:42
+msgid "Proposition libre"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:43
+msgid "Alcotra"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:44
+msgid "MED"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:45
+msgid "Espace Alpin"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:46
+msgid "IEVP CT MED"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:47
+msgid "Interreg IV C"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:48
+msgid "Italie-France Maritime"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:53
+msgid "Ain"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:54
+msgid "Alpes-Maritimes"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:55
+msgid "Alpes de Haute-Provence"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:56
+msgid "Bouches-du-Rhône"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:57
+msgid "Drôme"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:58
+msgid "Hautes-Alpes"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:59
+msgid "Haute-Savoie"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:60
+msgid "Isère"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:61
+msgid "Rhône"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:62
+msgid "Savoie"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:63
+msgid "Var"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:64
+msgid "Vaucluse"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:69
+msgid "Alessandria"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:70
+msgid "Aosta"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:71
+msgid "Asti"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:72
+msgid "Biella"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:73
+msgid "Cuneo"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:74
+msgid "Genova"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:75
+msgid "Imperia"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:76
+msgid "Savona"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:77
+msgid "Torino"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:78
+msgid "Vercelli"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:83
+msgid "Monaco"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:84
+msgid "Switzerland"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:85
+msgid "Corsica"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:89
+msgid "Ideas"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:90
+msgid "Partners search"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:91
+msgid "Application"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:92
+msgid "Project implementation"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:93
+msgid "Monitoring and evaluation"
+msgstr ""
+
+#: ../application/myEurope/models/Categories.php:94
+msgid "Communication"
+msgstr ""
+
+#: ../application/myEurope/models/Profile.php:45
+msgid "Role"
+msgstr ""
+
+#: ../application/myEurope/models/Profile.php:54
+msgid "email"
+msgstr ""
+
+#: ../application/myEurope/models/Profile.php:55
+msgid "phone"
+msgstr ""
+
+#: ../application/myEurope/models/Profile.php:56
+msgid "address"
+msgstr ""
+
+#: ../application/myEurope/models/Profile.php:70
+msgid "Members list"
+msgstr ""
+
+#: ../application/myEurope/models/Profile.php:83
+msgid "(You)"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:2
+msgid "myEuropeabout"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:3
+msgid "myMedabout"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:4
+msgid "About myMed"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:5
+msgid "About myEurope"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:9
+msgid "Create an account"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:10
+#: ../application/myFSA/views/PublishView.php:32
+msgid "Partnerships"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:11
+msgid "Informations"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:12
+msgid "Blog"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:13
+msgid "Profile"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:15
+msgid "Transborder social network"
+msgstr ""
+
+#: ../application/myEurope/doc/trads.php:16
+msgid "Existing Profiles"
+msgstr ""
+
+#: ../application/myFSA/views/DetailsView.php:63
+#: ../application/myFSA/views/DetailsView.php:73
+msgid "Author"
+msgstr ""
+
+#: ../application/myFSA/views/DetailsView.php:64
+#: ../application/myFSA/views/DetailsView.php:75
+#: ../application/myFSA/views/SearchView.php:26
+msgid "Cathegory"
+msgstr ""
+
+#: ../application/myFSA/views/DetailsView.php:65
+#: ../application/myFSA/views/SearchView.php:30
+msgid "Tittle"
+msgstr ""
+
+#: ../application/myFSA/views/DetailsView.php:78
+msgid "Comments"
+msgstr ""
+
+#: ../application/myFSA/views/DetailsView.php:97
+msgid "Comment"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:22
+msgid "Company type"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:25
+msgid "Company name"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:28
+msgid "Company address"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:31
+msgid "SIRET"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:50
+msgid "Campus"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:53
+msgid "University"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:56
+msgid "Field of Studies"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileDisplayView.php:59
+msgid "Student number"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileFormView.php:43
+#: ../application/myFSA/views/ExtendedProfileFormView.php:78
+msgid "Soumettre"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileNeededView.php:9
+msgid "To use all options of myFSA please fill your profile"
+msgstr ""
+
+#: ../application/myFSA/views/ExtendedProfileNeededView.php:10
+msgid "Fill your profile"
+msgstr ""
+
+#: ../application/myFSA/views/PublishView.php:17
+msgid "Events"
+msgstr ""
+
+#: ../application/myFSA/views/PublishView.php:20
+msgid "News"
+msgstr ""
+
+#: ../application/myFSA/views/PublishView.php:23
+msgid "Internship offers"
+msgstr ""
+
+#: ../application/myFSA/views/PublishView.php:26
+msgid "Job offers"
+msgstr ""
+
+#: ../application/myFSA/views/PublishView.php:29
+msgid "Rent Offices"
+msgstr ""
+
+#: ../application/myFSA/views/PublishView.php:35
+msgid "Organization"
+msgstr ""
+
+#: ../application/myFSA/views/PublishView.php:38
+msgid "Company visits"
+msgstr ""
+
+#: ../application/myFSA/views/PublishView.php:68
+msgid "Publish"
+msgstr ""
+
+#: ../application/myFSA/views/SearchView.php:11
+msgid "No results found"
+msgstr ""
+
+#: ../application/myFSA/views/SearchView.php:23
+msgid "Advanced searching"
+msgstr ""

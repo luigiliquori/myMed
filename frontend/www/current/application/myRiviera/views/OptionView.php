@@ -1,3 +1,4 @@
+<? include("header.php"); ?>
 
 <div id="option" data-role="page">
 
@@ -5,9 +6,9 @@
 
 	<!-- CONTENT -->
 	<div data-role="content"
-		Style="font-size: 10pt; width: 90%; margin-left: auto; margin-right: auto;">
+		style="font-size: 10pt; margin: 50px auto 0 auto; width: 90%;">
 		<!-- UPDATE POIs -->
-		<div data-role="collapsible-set">
+		<div data-role="collapsible-set" data-inset="true">
 
 			<!-- Profile -->
 			<div data-role="collapsible" data-collapsed="false" data-theme="d"
@@ -30,69 +31,7 @@
 				</div>
 			</div>
 
-			<!-- FRIENDS -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="d"
-				data-content-theme="c">
-				<h3>Réseau social</h3>
-				<?php $i=0; ?>
-				<?php foreach ($_SESSION['friends'] as $friend ) { ?>
-					<a href="<?= $friend["link"] ?>"><img src="http://graph.facebook.com/<?= $friend["id"] ?>/picture" width="20px" alt="<?= $friend["name"] ?>" /></a>
-					<?php $i++; ?>
-				<?php } 
-				if($i == 0) { 
-// 					$socialNetworkConnection =  new SocialNetworkConnection();
-// 					foreach($socialNetworkConnection->getWrappers() as $wrapper) {
-// 						$url = TARGET == "mobile" ? str_replace("www", "m", $wrapper->getLoginUrl()) . "&display=touch" :  $wrapper->getLoginUrl();
-// 						echo "<a href='" . $url . "' onClick='showLoadingBar(\"redirecton en cours...\")'>" . $wrapper->getSocialNetworkButton() . "</a>";
-// 					}
-					?>
-					<!-- CONNECTION FACEBOOK -->
-			 	    <div id="fb-root"></div>
-				    <script>
-				        window.fbAsyncInit = function() {
-				          FB.init({
-				            appId      : '<?= Facebook_APP_ID ?>',
-				            status     : true, 
-				            cookie     : true,
-				            xfbml      : true,
-				            oauth      : true,
-				          });
-				          FB.Event.subscribe('auth.login', function(response) {
-				              window.location.reload();
-				            });
-				        };
-				        (function(d){
-				           var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-				           js = d.createElement('script'); js.id = id; js.async = true;
-				           js.src = "//connect.facebook.net/en_US/all.js";
-				           d.getElementsByTagName('head')[0].appendChild(js);
-				         }(document));
-				    </script>
-				    <div class="fb-login-button" scope="email,read_stream">Facebook</div>
-				    <!-- END CONNECTION FACEBOOK -->
-				<?php } else { ?>
-					<!-- LIKE BUTTON -->
-					<br /><br />
-					<script>(function(d, s, id) {
-						var js, fjs = d.getElementsByTagName(s)[0];
-						if (d.getElementById(id)) return;
-						js = d.createElement(s); js.id = id;
-						js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
-						fjs.parentNode.insertBefore(js, fjs);
-					}(document, 'script', 'facebook-jssdk'));</script>
-					<div class="fb-like" data-href="http://www.mymed.fr" data-send="true" data-width="450" data-show-faces="true"></div>
-					<br /><br />
-				<?php } ?>
-				
-				<!-- SHARE THIS -->
-				<div id="hidden-sharethis">
-					<span class='st_facebook_large' displayText='Facebook'></span>
-					<span class='st_twitter_large' displayText='Tweet'></span>
-					<span class='st_linkedin_large' displayText='LinkedIn'></span>
-					<span class='st_email_large' displayText='Email'></span>
-				</div>
-				
-			</div>
+			<?php //include 'facebook.php'; ?>
 
 			<!-- COMMENT -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
@@ -134,27 +73,24 @@
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
 				data-content-theme="c" style="text-align: left;">
 				<h3>Aide</h3>
-				<h3>Bouton Rechercher, au dessus de la carte</h3>
+				<h2>Rechercher</h2>
 				<p>
-					Ce bouton permet la recherche d'itinéraire via les transports
-					publics, nous utilisons l'API <a href="http://www.ceparou06.fr/">Ceparou06</a>
-					, en cas d'échec vous serez redirigé vers un itinéraire Google Maps
-					classique.
+					La recherche d'itinéraire utilise <a href="http://www.ceparou06.fr/">Ceparou06</a>
+					, en cas d'échec vous serez redirigé vers un itinéraire Google Maps.
+					<br>
+					<b>Rayon de recherche</b>:
+					Les points d'intérêts sont affichés à l'intérieur de cette zone.
+					<br>
+					<b>Points d'intérêts</b>:
+					Ils désignent les types d'établissements, d'évênements que vous
+					souhaitez afficher sur la carte.
+					<br>
+					<b>Types de Trajet Cityway</b>
+					Ces champs permettent de paramétrer votre recherche d'itinéraire.
 				</p>
-				<h3>Points d'intérêts</h3>
-				<p>Ils désignent les types d'établissements, d'évênements que vous
-					souhaitez afficher sur la carte.</p>
-				<h3>Persistence des points d'intérêts</h3>
-				<p>Cette préférence permet ou non de conserver les points d'intérêts
-					visités visibles.</p>
-				<h3>Rayon de recherche</h3>
-				<p>La valeur, en mètres, autours de la position actuelle pour
-					laquelle vous souhaitez rechercher des points d'intérêts.</p>
-				<h3>Types de Trajet Cityway</h3>
-				<p>Ces champs permettent de paramétrer votre recherche d'itinéraire.</p>
-				<h3>Profil</h3>
-				<p>Ce champ donne accès à votre profil myRiviera.</p>
-				<h3>Réseau social</h3>
+				<h2>Profil</h2>
+				<p>Ce champ donne accès à votre profil myMed.</p>
+				<h2>Réseau social</h2>
 				<p>En vous connectant avec Facebook, vous chargerez les positions de
 					vos amis (acceptant la géolocalisation), disponibles dans la
 					recherche d'itinéraire par le bouton + du champs Arrivée.</p>
@@ -174,11 +110,13 @@
 	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#Map" data-transition="none" data-back="true" data-icon="home">Carte</a></li>
-				<li><a href="#search" data-transition="none" data-icon="search">Rechercher</a></li>
-				<li><a href="#option" data-transition="none" data-icon="gear" class="ui-btn-active ui-state-persist">Option</a></li>
+				<li><a href="?action=main#Map" data-transition="none" data-back="true" data-icon="home">Carte</a></li>
+				<li><a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a></li>
+				<li><a href="?action=option" data-transition="none" data-icon="gear" class="ui-btn-active ui-state-persist">Option</a></li>
 			</ul>
 		</div>
 	</div>
 
 </div>
+
+<? include("footer.php"); ?>

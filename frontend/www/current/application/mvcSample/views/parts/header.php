@@ -1,4 +1,5 @@
-<? include_once('utils.php'); ?>
+<? include_once('header-bar-light.php'); ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
 
@@ -9,24 +10,23 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
+	<!-- load css before scripts to stop sort of flash effect  -->
+	
+	<!--  Extra icons for jquery -->
+	<link rel="stylesheet" href="/lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
+	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.1.0.min.css" />
-	<script src="../../lib/jquery/jquery-1.6.4.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-1.1.0.min.js"></script>
+	<link rel="stylesheet" href="/lib/jquery/jquery.mobile-1.2.0.css" />
+	<!-- APP css -->
+	<link href="css/style.css" rel="stylesheet" />
+	<!-- MYMED css -->
+	<link href="/system/css/common.css" rel="stylesheet" />	
 	
-	<!-- DateBox -->
-	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.min.js"></script>
-	<link href="../../lib/jquery/datebox/jquery.mobile.datebox.min.css" rel="stylesheet" />
-	
-	<!-- MYMED JS -->
-	<script src="../myMed/javascript/common.js"></script>
+	<script src="/lib/jquery/jquery-1.8.2.min.js"></script>
+	<script src="/lib/jquery/jquery.mobile-1.2.0.js"></script>
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
 	
-	<!-- MYMED css -->
-	<link href="../myMed/css/style.css" rel="stylesheet" />
-	<!-- APP css -->
-	<link href="css/style.css" rel="stylesheet" />
 	
 	<!-- Google Analytics -->
 	<script type="text/javascript">
@@ -40,16 +40,17 @@
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
 	</script>
-			
+	
+	
 	</head>
 		
-<body>
+<body onload="hideLoadingBar()">
 
 <? // ================== Switch to active tab on load ==========================================?>
 <? if (!empty($TAB)) :?>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
+		$('[data-role=page]:last').live("pageshow", function() {
+			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"});
 		});
 	</script>
 <? endif ?>

@@ -14,9 +14,68 @@ function is_true($value) {
 	return (($value === true) || ($value === 1) || ($value === "1") || ($value === "true"));
 }
 
+
+//---------------
+// API utils
+//---------------
+
+// reads reputation of a list of Ids or app in first param, and a list of producers as second param
+// getReputation(array('myJam', 'myCov'), array('john123'));
+// getReputation(array('myBen'), array('mickael', 'jane'));
+// getReputation(array('somedocumentId'), array());
+function getReputation($app=array(APPLICATION_NAME), $producer=array()){
+
+	$rep =  new ReputationSimple($app, $producer);
+	$res = $rep->send();
+	if($res->status != 200) {
+		throw new Exception($res->description);
+	} else {
+		return formatReputation($res->dataObject->reputation);
+	}
+}
+
+function insertUser($user, $accessToken, $is_guest=false) {
+
+	$request = new Requestv2("v2/SessionRequestHandler", UPDATE , array("user"=>$user->id, "accessToken"=>$accessToken));
+	$responsejSon = $request->send();
+	$responseObject = json_decode($responsejSon);
+
+	if($responseObject->status != 200) {
+		$this->error = $responseObject->description;
+		return;
+	} else {
+		$_SESSION['accessToken'] = $responseObject->dataObject->accessToken; // in case was not set yet
+	}
+
+	$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($user)));
+	if ($is_guest) $request->addArgument("temporary", "");
+	$responsejSon = $request->send();
+	//$responseObject2 = json_decode($responsejSon);
+
+	//fetch profile, since it can be completed from  a previous different auth way with same login
+	$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$user->id));
+	$responsejSon = $request->send();
+	$responseObject3 = json_decode($responsejSon);
+
+	return (object) array_map('trim', (array) $responseObject3->dataObject->user);
+	/*if($responseObject3->status == 200) {
+	 $prevEmail = isset($_SESSION['user']->email);
+	$_SESSION['user2'] = $_SESSION['user']; //keep it just for seeing the diff (debug)
+	$_SESSION['user'] = (object) array_map('trim', (array) $responseObject3->dataObject->user);
+
+	}*/
+}
+
+
+
 // ---------------------------------------------------------------------
 // View utils (views)
 // ---------------------------------------------------------------------
+
+function translate($word){
+	return $word;
+}
+
 
 /**
  *  Build an URL with "<action>[:<method>]".
@@ -49,19 +108,26 @@ function url($action, $args=array()) {
 }
 
 //  tabs bar
-function tabs_default($activeTab, $tabs, $opts = false) {
+function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) {
 	?>
 	<div data-role="header" data-theme="b">
-  		<? if ($opts == 1): ?>
-			<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Déconnexion</a>
-		<? elseif ($opts == 2): ?>
-			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _("Back") ?></a>
-		<? elseif ($opts == 3): ?>
-			<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
+  		<? if ($leftopts == 1): ?>
+			<a href="?action=logout" class="ui-btn-left" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Sign out</a>
+		<? elseif ($leftopts == 2): ?>
+			<a data-rel="back" data-icon="arrow-left" class="ui-btn-left" style="max-width: 15%;"><?= _("Back") ?></a>
+		<? elseif ($leftopts == 3): ?>
+			<a href="/" class="ui-btn-left" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
+		<? elseif ($leftopts == 4): ?>
+			<a href="/?action=logout" class="ui-btn-left" data-role="button" rel="external" data-mini="true" data-icon="signin" data-theme="g" style="max-width: 35%;"><?= _("Sign in") ?></a>
+		<? endif; ?>
+
+		<? if ($rightopts): ?>
+			<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" style="max-width: 30%;" data-mini="true" 
+			<?= !$_SESSION['user']->is_guest?'data-icon="user"':''?> data-theme="<?= $_SESSION['user']->is_guest?'g':'e' ?>"><?= _($rightopts) ?></a>
 		<? endif; ?>
 		
   		<h1>
-  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?> <span style="font-size: 80%;"><?= _(APPLICATION_LABEL) ?></span></a>
+  			<a href="./" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none; color: white;"><?= APPLICATION_NAME ?><span style="font-size: 80%;">&nbsp;&nbsp;<?= _(APPLICATION_LABEL) ?></span></a>
   		</h1>
 
   	</div>
@@ -110,7 +176,6 @@ function strcontain($haystack,$needle){
 	return $pos !== false;
 }
 
-
 function formatReputation($rep){
 	$res = array();
 	foreach ($rep as $k=>$v){
@@ -124,6 +189,7 @@ function formatReputation($rep){
 	}
 	return $res;
 }
+
 function pickFirst($array){
 	return reset($array);
 }
@@ -151,7 +217,7 @@ function comment(
 <?= $indent?'style="margin-left: 50px;"':'' ?>>
 	<p style="display: inline-block;">
 		<a href="#votePopup<?= $id ?>" data-rel="popup"
-			data-position-to="origin"><?= $v['up'] - $v['down'] ?> </a> &nbsp;
+			data-position-to="origin"><?= $v['up'] - $v['down'] ?></a> &nbsp;
 		<?= $v['text'] ?>
 		<? if(!empty($userCommented)) : ?>
 		&ndash; in reply of <span class="ui-link"
@@ -164,9 +230,10 @@ function comment(
 		<time>
 			<?= date('j/n/y G:i', $v['time'] ) ?>
 		</time>
-		<a href="" onclick="reply($(this));">reply</a> <a href="#deletePopup"
+		<a href="" onclick="reply($(this));">reply</a> 
+		<? if($v['user']==$_SESSION['user']->id || $_SESSION['myEurope']->permission > 1) : ?><a href="#deletePopup"
 			data-rel="popup" data-position-to="origin" onclick="setIds($(this));"
-			class="delete-icon" title=""></a>
+			class="delete-icon" title=""></a><? endif ?>
 	</p>
 	<div id="<?= 'comment'.$id ?>" class='comment'
 		style='margin-top: 30px; display: none;'>

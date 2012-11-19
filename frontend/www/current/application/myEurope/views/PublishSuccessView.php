@@ -2,15 +2,15 @@
 
 <div data-role="page">
 
-	<? tabs_simple(null, false); ?>
+	<? tabs_simple('Published', false); ?>
 	<? include("notifications.php"); ?>
-	<div data-role="content" >
+	<div data-role="content" style="text-align: center;">
+		<span style="height: 50px;"></span>
 		<br />
-		<?= _("Your partnership offer has been successfully published on") ?>
-		 <?= APPLICATION_NAME ?>,
+		<?= _("Your partnership offer has been successfully published") ?>
 		 <br /><br />
 		
-		<a href="?action=search&<?= $this->req ?>" rel="external" type="button" data-inline="true"> <?= _("See similar offers") ?> </a><br />
+		<a href="?action=search&<?= $this->req ?>" type="button" data-inline="true"> <?= _("See similar offers") ?> </a><br />
 		
 	</div>
 </div>

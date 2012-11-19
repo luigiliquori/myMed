@@ -256,16 +256,14 @@ function publishDASPRequest(formID) {
 }
 
 function getPosition(){
+	
+	//"../../backend/PositionRequestHandler"
 
-	$.ajax({
-		//url: "../../backend/PositionRequestHandler",
-		url: "../../lib/dasp/ajax/Position.php",
-		success: function(data){
-			data = JSON.parse(data);
-			currentPos = new google.maps.LatLng(
-					data.dataObject.position.latitude,
-					data.dataObject.position.longitude
-			);
+	$.getJSON("../../lib/dasp/ajax/Position.php", function(data) {
+
+		if (data.status == 200) {
+			currentPos = new google.maps.LatLng(data.dataObject.position.latitude,
+					data.dataObject.position.longitude);
 			currentPlace = data.dataObject.position.formattedAddress;
 
 			if (focusOnCurrentPosition) {
@@ -273,6 +271,7 @@ function getPosition(){
 				focusOnCurrentPosition = false;
 			}
 		}
+
 	});
 }
 
@@ -283,7 +282,7 @@ function updatePosition(params){
 		type: "POST",
 		data: params,
 		success: function(data){
-			console.log(data);
+			//console.log(data);
 		}
 	});
 }

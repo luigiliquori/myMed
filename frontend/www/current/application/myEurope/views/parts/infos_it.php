@@ -3,7 +3,7 @@
 
 	<? tab_bar_default("#infos") ?>
 	<div data-role="content">
-		
+		<br>
 		<ul data-role="listview" data-inset="true" data-filter="true">
 
 			<li data-role="list-divider">Programmi di cooperazione dei quali possono beneficiare i territori dell'Euroregione Alpi-Mediterraneo:</li>

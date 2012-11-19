@@ -7,7 +7,7 @@
 
 class DataMapper {
 	
-	public function findByPredicate( $data ){
+	function findByPredicate( $data ){
 		
 		$find = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$data->namespace,
@@ -21,7 +21,7 @@ class DataMapper {
 		}
 	}
 	
-	public function findById( $data ){
+	function findById( $data ){
 	
 		$req = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$data->namespace,
@@ -36,7 +36,7 @@ class DataMapper {
 	}
 	
 	
-	public function save( $data ) {
+	function save( $data ) {
 	
 		if (!isset($data->user)){
 			throw new Exception("user no set");
@@ -60,7 +60,7 @@ class DataMapper {
 		}
 	}
 	
-	public function update( $data ) { // do alwost same as save
+	function update( $data ) { // do alwost same as save
 		// will merge that in backend
 	//just one save method, if no metadata is given then no reindexation stuff, just pure data update
 		$publish = new RequestPubSub(
@@ -78,7 +78,7 @@ class DataMapper {
 		}
 	}
 	
-	public function remove( $data ) {
+	function remove( $data ) {
 		$publish = new RequestPubSub(
 				array("application"=>APPLICATION_NAME.":".$data->namespace,"id"=>$data->id),
 				DELETE);
