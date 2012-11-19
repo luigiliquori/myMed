@@ -22,7 +22,7 @@ class AuthenticatedController extends AbstractController /* implements IReputati
 		// Check for user in session
 		if ( !isset($_SESSION['user']) ) {
 			$this->redirectTo("login", $_REQUEST);
-		}
+		} 
 	}
 	
 	

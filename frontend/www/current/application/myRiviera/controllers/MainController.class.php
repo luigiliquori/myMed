@@ -13,7 +13,8 @@ class MainController extends AuthenticatedController {
 		"Adresses utiles" => array("AdressesUtiles", "Mairie", "Banques", "Policemunicipale", "POSTES"),
 		"Sports" => array("Sports", "STADES"),
 		"Restaurants" => array("Restaurants", "PizzasEmporter"),
-		"Education" => array("Education", "Bibliotheques", "IUT", "colleges", "Primaires", "Maternelles")
+		"Education" => array("Education", "Bibliotheques", "IUT", "colleges", "Primaires", "Maternelles"),
+		"Company" => array("Company")
 	);
 	
 /*	public function handleRequest() {

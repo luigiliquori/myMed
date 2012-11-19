@@ -46,6 +46,7 @@ class ExampleObject extends GenericDataBean {
 				array("wrapped1", "wrapped2"),
 				
 				$predicateStr);
+		
 	}
 }
 

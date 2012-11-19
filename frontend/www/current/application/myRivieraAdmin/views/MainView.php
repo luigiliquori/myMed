@@ -38,6 +38,7 @@
 						<option value="colleges">Collèges</option>
 						<option value="Primaires">Primaires</option>
 						<option value="Maternelles">Maternelles</option>
+						<option value="Company">Company</option>
 				</select>
 		    <center><a href="#" data-role="button" onclick="printMarkers($('#marker_type').val(), $('#marker_longitude').val(), $('#marker_latitude').val(), $('#marker_radius').val());" rel="external" data-theme="g" data-inline="true">Afficher</a></center>	
 		</div>
