@@ -27,7 +27,7 @@ if(!isset($_GET["code"])) {
 		
 		require_once ROOT.'lib/dasp/beans/MUserBean.class.php';
 		$_SESSION['user3'] =(array) $user;
-		$_SESSION['user'] = MUserBean::constructFromFacebookOAuth((array) $user);
+		$_SESSION['userFromExternalAuth'] = MUserBean::constructFromFacebookOAuth((array) $user);
 		
 		
 		header('Location: '.getTrustRoot().'?action=login');

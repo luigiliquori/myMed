@@ -3,51 +3,39 @@
 	<? include("header-bar.php"); ?>
 		
 		<div data-role="content">
-			<br />
-			<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
-				<!-- petla koncze! -->		
-				<? if (count($this->result) == 0) :?>
-				<li>
-					<h4>No result found</h4>
-				</li>
-				<? endif ?>
-				<?// $_SESSION['publication'] = $this->result; ?>
-				<? foreach($this->result as $item) : ?>
-				<li><a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">	
-					<?php $truncated = substr($item->publisherID, 6)	?>	
-					<!--<b>Publisher ID</b> : --><?=  $truncated ?>,
-					<!--<b>Pred1</b>: --><?//= $item->pred1 ?>
-					<!--<b>Pred2</b>: --><?= $item->pred2 ?>,
-					<!--<b>Pred3</b>: --><?= $item->pred3 ?>
-					<!--<b>Begin</b>: --><?//= $item->begin ?>
-					<!--<b>End</b>: --><?//= $item->end ?>
-					<!--<b>Wrapped1</b>: --><?//= $item->wrapped1 ?><br/>
-					<!--<b>Wrapped2</b>: --><?//= $item->wrapped2 ?><br/>
-				</a></li>
-				<? endforeach ?>
-				<!-- petla koncze! -->
-			</ul>
+			<?php
+			$xml=("http://www.sophia-antipolis.org/index.php?option=com_content&view=category&layout=blog&id=119&Itemid=3&lang=fr&format=feed&type=rss");
+
+
+			$xmlDoc = new DOMDocument();
+			$xmlDoc->load($xml);
+
+			//get elements from "<channel>"
+			$channel=$xmlDoc->getElementsByTagName('channel')->item(0);
+			$channel_title = $channel->getElementsByTagName('title')->item(0)->childNodes->item(0)->nodeValue;
+			$channel_link = $channel->getElementsByTagName('link')->item(0)->childNodes->item(0)->nodeValue;
+			$channel_desc = $channel->getElementsByTagName('description')->item(0)->childNodes->item(0)->nodeValue;
+
+			//output elements from "<channel>"
+			echo("<p><a href='" . $channel_link. "'>" . $channel_title . "</a>");
+			echo("<br />");
+			echo($channel_desc . "</p>");
+
+			//get and output "<item>" elements
+			$x=$xmlDoc->getElementsByTagName('item');
+			for ($i=0; $i<=2; $i++)
+  			{
+  				$item_title=$x->item($i)->getElementsByTagName('title')->item(0)->childNodes->item(0)->nodeValue;
+  				$item_link=$x->item($i)->getElementsByTagName('link')->item(0)->childNodes->item(0)->nodeValue;
+  				$item_desc=$x->item($i)->getElementsByTagName('description')->item(0)->childNodes->item(0)->nodeValue;
+
+  				echo ("<p><a href='" . $item_link. "'>" . $item_title . "</a>");
+  				echo ("<br />");
+  				echo ($item_desc . "</p>");
+  			}
+			?>
 				
-			<div data-role="collapsible" data-collapsed="true" data-content-theme="d">
-				<h3><?= translate('Advanced searching') ?></h3>
-				<form action="index.php?action=publish" method="POST" data-ajax="false">
-			
-					<label for="textinputs1"> <?= translate('Cathegory') ?> </label> 
-					<input id="textinputs1" name="pred2" placeholder="" type="text" />
-					<br>
-					
-					<label for="textinputs2"> <?= translate('Tittle') ?> </label> 
-					<input id="textinputs2"  name="pred3" placeholder="" type="text" />
-					<br>
-					
-					<input type="hidden" name="method" value="Rechercher" />
-					<center><input type="submit" value="<?= translate('Search') ?>" data-icon="search" data-inline="true" data-theme="b"/></center>
-				</form>
-			</div>	
-			
-			<div class="push"></div>
-				
-	</div>
+		</div>
 	
 <? include("footer.php"); ?>
 </div>

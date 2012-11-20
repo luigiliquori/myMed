@@ -9,18 +9,15 @@ class LoginController extends AbstractController {
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*String*/ function handleRequest() {
-		
-		if (strpos($_SERVER["HTTP_USER_AGENT"], "MSIE") !== false) {
-			$this->setError(_("You are using Internet Explorer, the interface is not optimized for it,
-			 please download Chrome or Firefox for a better experience"));
-		}
 
 		/** authed by social networks apis*/
-		if (isset($_SESSION['user'])) { 
+		if (isset($_SESSION['userFromExternalAuth'])) {
 
 			$token = isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null;
 			debug_r($_SESSION['user']);
-			$this->storeUser($_SESSION['user'], $token);
+			$_SESSION['user'] = insertUser($_SESSION['userFromExternalAuth'], $token);
+			$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
+			$_SESSION['user']->is_guest = 0;
 			
 			// Redirect to main page
 			$this->redirectTo("main");
@@ -28,8 +25,7 @@ class LoginController extends AbstractController {
 		}
 		
 		/* Typical login : we received a POST with login and password */
-		else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Get arguments 
 			$login	= trim($_POST['login']);
 			$pass	= hash("sha512", $_POST['password']);
@@ -111,6 +107,7 @@ class LoginController extends AbstractController {
 				}
 				
 				// Redirect to main page
+				
 				$this->redirectTo("main");
 			}
 			
@@ -145,43 +142,14 @@ class LoginController extends AbstractController {
 		} else {
 			// Everything went fine, we now have an USER in our session
 			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject->dataObject->user);
+			$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
+			$_SESSION['user']->is_guest = 0;
 			if( !isset($_SESSION['friends']) ){
 				$_SESSION['friends'] = array();
 			}
 		}
 	}
 	
-	public function storeUser($user, $accessToken) {
-
-		$request = new Requestv2("v2/SessionRequestHandler", UPDATE , array("user"=>$user->id, "accessToken"=>$accessToken));
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-		
-		if($responseObject->status != 200) {
-			$this->error = $responseObject->description;
-			return;
-		} else {
-			$_SESSION['accessToken'] = $responseObject->dataObject->accessToken; // in case was not set yet
-		}
-		
-		debug("token -> ".$_SESSION['accessToken']);
-		
-		//temp  @TODO see how to merge accounts of other providers with mymed for same emails
-		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($user)));
-		$responsejSon = $request->send();
-		$responseObject2 = json_decode($responsejSon);
-		
-		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$user->id));
-		$responsejSon = $request->send();
-		$responseObject3 = json_decode($responsejSon);
-		if($responseObject->status == 200) {
-			$prevEmail = isset($_SESSION['user']->email);
-			$_SESSION['user2'] = $_SESSION['user']; //keep it just for seeing the diff (debug)
-			$_SESSION['user'] = (object) array_map('trim', (array) $responseObject3->dataObject->user);
-
-		}
-		
-		
-	}
+	
 }
 ?>

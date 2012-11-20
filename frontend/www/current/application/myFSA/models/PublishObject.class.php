@@ -1,10 +1,9 @@
 <?
 
-/** Example showing the use of GenericDataBean */
+/** This class is used to storing a publication of myFSA */
 class PublishObject extends GenericDataBean {
 	
-	/** Some predicates .
-	 * Register them in the contructor with appropriate ontologyID */
+	/** Some predicates */
 	public $pred1;
 	public $pred2;
 	public $pred3;
@@ -33,14 +32,14 @@ class PublishObject extends GenericDataBean {
 	// Predicate attributes
 		array(
 			"pred1" => KEYWORD,
-			"pred2" => GPS,
-			"pred3" => DATE),
+			"pred2" => KEYWORD,
+			"pred3" => KEYWORD),
 	
 		// Data attributes
 		array(
 			"data1" => TEXT,
 			"data2" => TEXT,
-			"data3" => ENUM),
+			"data3" => TEXT),
 	
 		// Wrapped attributes
 		array("wrapped1", "wrapped2"),

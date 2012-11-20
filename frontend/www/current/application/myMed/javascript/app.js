@@ -1,5 +1,5 @@
 var cpt = 1;
-$(document).ready(function() {
+/*$(document).ready(function() {
 		
 	// Handle "close" buttons
 	$('[data-action="close"]').click(function () {
@@ -10,7 +10,7 @@ $(document).ready(function() {
 	
 	showLoadingBar("chargement en cours...");
 	
-});
+});*/
 
 function printDialog(elt, title) {
 	$('<div>').simpledialog2({
@@ -127,6 +127,3 @@ $("#store").live("swiperight", function() {
 	$.mobile.changePage("?action=profile"/*, {transition : "slide",reversed : true}*/);
 });
 
-$("#updateProfile").live("swipe", function() {
-  $.mobile.changePage("?action=profile");
-});

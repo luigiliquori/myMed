@@ -2,60 +2,44 @@
 
 class BlogController extends ExtendedProfileRequired {
 	
-	public $blog; // the id of the blog
-	
-	public function handleRequest() {
-		
+	function handleRequest() {
 		parent::handleRequest();
-
-		$this->blog = $_REQUEST['blog'];
-
-		if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-			
-			$id = $this->blog;
-			$t = time();
-			$k = hash("crc32b", $t.$_SESSION['user']->id);
-			
-			if (isset($_POST['commentTo'])){ // a comment
-				
-				$id .= "comments".$_POST['commentTo'];
-				$data = array(
-						$k => json_encode(array(
-								"time"=>$t,
-								"user"=>$_SESSION['user']->id,
-								"replyTo"=>$_POST['replyTo'],
-								"text"=>nl2br($_POST['text'])
-						))
-				);
-				
-			} else { // a blog message
-				$data = array(
-						$k => json_encode(array(
-								"time"=>$t,
-								"user"=>$_SESSION['user']->id,
-								"title"=>$_POST['title'],
-								"text"=>$_POST['text']
-						))
-				);
-			}
-
-			$publish = new RequestJson($this,
-					array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "data"=>$data),
-					UPDATE);
-			$publish->send();
-
-		} else if (isset($_GET["field"])){
-			$id = $this->blog;
-			if (!empty($_POST["rm"])) // if rm is not empty rm is the blog post Id, and field the comment id
-				$id .= "comments".$_POST['rm'];
-			
-			$request = new RequestJson($this,
-					array("application"=>APPLICATION_NAME.":blogs", "id"=>$id, "field"=>$_GET['field']),
-					DELETE);
-			$request->send();
-				
-		}
+		$this->blog = $_GET['id'];
+	}
+	
+	function delete(){
+		$request = new RequestJson($this,
+			array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog, "field"=>$_GET['field']),
+			DELETE);
+		$request->send();
 		
+		$this->forwardTo("blog", array("id" => $this->blog));
+	}
+	
+	function create(){
+		$t = time();
+		$k = hash("crc32b", $t.$_SESSION['user']->id);
+		$data = array(
+			$k => json_encode(array(
+				"time"=>$t,
+				"user"=>$_SESSION['user']->id,
+				"title"=>$_POST['title'],
+				"text"=>$_POST['text']
+			))
+		);
+		$publish = new RequestJson($this,
+			array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog, "data"=>$data),
+			UPDATE);
+		$publish->send();
+		$subscribe = new RequestJson( $this,
+			array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog."comments".$k, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":blogComment"),
+			CREATE, "v2/SubscribeRequestHandler");
+		$subscribe->send();
+		
+		$this->redirectTo("blog", array("id" => $this->blog));
+	}
+	
+	function defaultMethod() {
 		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog));
 			
 		try{
@@ -74,7 +58,7 @@ class BlogController extends ExtendedProfileRequired {
 			
 			
 
-			$repArr =  parent::getReputation(array_keys($this->messages));
+			$repArr =  getReputation(array_keys($this->messages));
 			
 			$this->messages = array_replace_recursive($this->messages, $repArr);
 			
@@ -97,7 +81,7 @@ class BlogController extends ExtendedProfileRequired {
 					foreach ($r->details as $ki=>$vi){
 						$this->comments[$k][$ki] = json_decode($vi, true);
 					}
-					$repArr =  parent::getReputation(array_keys($this->comments[$k]));
+					$repArr = getReputation(array_keys($this->comments[$k]));
 					$this->comments[$k] = array_replace_recursive($repArr, $this->comments[$k]);
 
 					
@@ -109,13 +93,8 @@ class BlogController extends ExtendedProfileRequired {
 		} else { //it's empty
 			$this->messages = array();
 		}
-			
-		switch ($this->blog){
-			case 'tests':default:
-				$this->renderView("Blogs");
-				break;
-				
-		}
+		$this->renderView("Blogs");
+
 	}
 	
 	public function timeCmp($a, $b){
@@ -127,6 +106,6 @@ class BlogController extends ExtendedProfileRequired {
 			return $this->timeCmp($a, $b);
 		return  $a['up']-$a['down'] < $b['up']-$b['down'];
 	}
-	
+
 }
 ?>

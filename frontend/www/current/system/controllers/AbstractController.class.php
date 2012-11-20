@@ -4,10 +4,12 @@ abstract class AbstractController implements IRequestHandler {
 
 	public /*string*/ $error;
 	public /*string*/ $success;
+	public /*string*/ $name; // without 'Controller'
 	
-	public function __construct() {
+	public function __construct($name) {
 		$this->error	= false;
 		$this->success	= false;
+		$this->name = $name;
 	}
 	
 	/** 
@@ -47,11 +49,11 @@ abstract class AbstractController implements IRequestHandler {
 	
 		$view = ucfirst($view);
 
-// 		if ($view == "Login" || $view == "Register"){
-// 			$viewPath = MYMED_ROOT . "/application/myMed/views/${view}View.php";
-// 		} else {
+		if(fopen(APP_ROOT . "/views/${view}View.php", "r")) {
 			$viewPath = APP_ROOT . "/views/${view}View.php";
-// 		}
+		} else {
+			$viewPath = MYMED_ROOT . "/application/myMed/views/${view}View.php";
+		}
 		
 		// Set ERROR and SUCCESS
 		global $ERROR; 
@@ -99,18 +101,22 @@ abstract class AbstractController implements IRequestHandler {
 	// Handlers
 
 	/** No action by default */
-	public function handleRequest() {
+	public function handleRequest(){
 		
 	}
 	
 	/** Default method called after each request*/
-	public function defaultMethod() {
+	/*public function defaultMethod() {
 		// Should be overridden for controller that use the "method" parameter 
+	}*/
+	
+	/** Default fallback method called after an access denied, an error...*/
+	public function error($arguments) {
+		debug('>>>> error !');
+		debug_r($arguments);
+		// Should be overridden for controller that use the "method" parameter
 	}
-	
-	
-	
-	
+
 	
 }
 

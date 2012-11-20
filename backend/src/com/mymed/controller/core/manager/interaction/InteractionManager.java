@@ -15,14 +15,12 @@
  */
 package com.mymed.controller.core.manager.interaction;
 
-import static com.mymed.utils.MiscUtils.encode;
-
-import java.util.HashMap;
 import java.util.Map;
 
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.AbstractManager;
+import com.mymed.controller.core.manager.reputation.api.mymed_ids.IMymedRepId;
 import com.mymed.controller.core.manager.reputation.api.mymed_ids.MymedAppUserId;
 import com.mymed.controller.core.manager.reputation.api.mymed_ids.ReputationRole;
 import com.mymed.controller.core.manager.reputation.api.recommendation_manager.VerdictManager;
@@ -41,8 +39,6 @@ public class InteractionManager extends AbstractManager implements
 
 	private static final String CF_INTERACTION = COLUMNS
 			.get("column.cf.interaction");
-	// private static final String COLUMN_ID = COLUMNS.get("column.id");
-	private static final int UPDATE_REPUTATION_CODE = 4092;
 
 	private final VerdictManager verdictManager;
 
@@ -76,23 +72,18 @@ public class InteractionManager extends AbstractManager implements
 			// UPDATE REPUTATION if needed
 			if (interaction.getFeedback() != -1 && interaction.getState() == MInteractionBean.COMPLETED_STATE) {
 
-				MymedAppUserId judge = new MymedAppUserId(interaction.getApplication(), 
+				IMymedRepId judge = new MymedAppUserId(interaction.getApplication(), 
 						interaction.getConsumer(), ReputationRole.Consumer);
-				MymedAppUserId charged = new MymedAppUserId(interaction.getApplication(),
+				IMymedRepId charged = new MymedAppUserId(interaction.getApplication(),
 						interaction.getProducer(), ReputationRole.Producer);
-				if (!verdictManager.update(judge,charged,interaction.getFeedback())) {
+				if (!verdictManager.update(judge, charged, interaction.getFeedback())) {
 					throw new InternalBackEndException("Reputation update: doesn't work!");
 				}
 			}
 
-			// ADD THE INTERACTION TO THE PRODUCER INTERACTION LIST
-			// yes cool you add it and what after?
-			final Map<String, byte[]> args = new HashMap<String, byte[]>();
-			args.put(interaction.getConsumer() + interaction.getPredicate(), encode(interaction.getState()));
 		} else {
 			throw new IOBackEndException("Interaction already exist!", 409);
 		}
-
 
 	}
 

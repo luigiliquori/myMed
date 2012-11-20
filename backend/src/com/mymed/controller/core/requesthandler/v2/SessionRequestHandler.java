@@ -86,9 +86,17 @@ public class SessionRequestHandler extends AbstractRequestHandler {
             switch (code) {
                 case READ :
                     message.setMethod(JSON_CODE_READ);
+                    
                     final String me = sessionManager.readSimpleUser(accessToken);
                     message.setDescription("Session avaible");
-                    message.addDataObject(JSON_USER, profileManager.readSimple(me));
+                    
+                    Map<String, String> user = profileManager.readSimple(me);
+                    if (!user.containsKey("id")){ //missing id... 
+                    	user.put("id", me);
+                    	profileManager.update(me, "id", me);
+                    }
+                    message.addDataObject(JSON_USER, user);
+
                     break;
                 case DELETE :
                     message.setMethod(JSON_CODE_DELETE);
@@ -109,33 +117,35 @@ public class SessionRequestHandler extends AbstractRequestHandler {
         printJSonResponse(message, response);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
-     * (javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
-    @Override
-    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
-        final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this.getClass().getName());
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.mymed.controller.core.requesthandler.AbstractRequestHandler#doPost
+	 * (javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException {
+		final JsonMessageOut<Object> message = new JsonMessageOut<Object>(200, this
+				.getClass().getName());
 
-        try {
-            final Map<String, String> parameters = getParameters(request);
-            final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
-            String 
-            	accessToken = parameters.get(JSON_ACCESS_TKN);
-			final String userID = parameters.get("userID"), user = parameters.get(JSON_USER);
-            
+		try {
+			final Map<String, String> parameters = getParameters(request);
+			final RequestCode code = REQUEST_CODE_MAP.get(parameters.get(JSON_CODE));
+			String accessToken = parameters.get(JSON_ACCESS_TKN);
+			final String userID = parameters.get("userID"), user = parameters
+					.get(JSON_USER);
 
-            switch (code) {
-                case CREATE : // FOR FACEBOOK - TODO Check Security!
-                	
-                if (accessToken == null) {
-	                throw new InternalBackEndException("accessToken argument missing!");
-	            }
+			switch (code) {
+			case CREATE:
+
+				if (accessToken == null) {
+					throw new InternalBackEndException("accessToken argument missing!");
+				}
 				message.setMethod(JSON_CODE_CREATE);
 				if (userID == null) {
-					throw new InternalBackEndException(
-							"userID argument missing!");
+					throw new InternalBackEndException("userID argument missing!");
 				}
 
 				final Map<String, String> usr = profileManager.readSimple(userID);
@@ -167,17 +177,17 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				message.addDataObject("url", urlBuffer.toString());
 				message.addDataObject(JSON_ACCESS_TKN, accessToken);
 				break;
-				
+
 			case UPDATE:
 				message.setMethod("UPDATE");
 				if (user == null) {
-	                throw new InternalBackEndException("user argument missing!");
-	            }
+					throw new InternalBackEndException("user argument missing!");
+				}
 				if (accessToken == null) {
 					final HashFunction h = new HashFunction(SOCIAL_NET_NAME);
 					accessToken = h.SHA1ToString(user + System.currentTimeMillis());
 				}
-				
+
 				Map<String, String> session = new HashMap<String, String>();
 				session.put("user", user);
 				session.put("ip", request.getRemoteAddr());
@@ -185,19 +195,20 @@ public class SessionRequestHandler extends AbstractRequestHandler {
 				sessionManager.update(accessToken, session);
 				message.setDescription("session updated");
 				message.addDataObject(JSON_ACCESS_TKN, accessToken);
-				LOGGER.info("Session updated for {} with {} ", user, accessToken);				
+				LOGGER.info("Session updated for {} with {} ", user, accessToken);
 				break;
 
-                default :
-                    throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!");
-            }
+			default:
+				throw new InternalBackEndException("ProfileRequestHandler.doPost("
+						+ code + ") not exist!");
+			}
 
-        } catch (final AbstractMymedException e) {
-            LOGGER.debug("Error in doPost", e);
-            message.setStatus(e.getStatus());
-            message.setDescription(e.getMessage());
-        }
+		} catch (final AbstractMymedException e) {
+			LOGGER.debug("Error in doPost", e);
+			message.setStatus(e.getStatus());
+			message.setDescription(e.getMessage());
+		}
 
-        printJSonResponse(message, response);
-    }
+		printJSonResponse(message, response);
+	}
 }

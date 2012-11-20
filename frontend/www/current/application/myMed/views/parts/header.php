@@ -16,14 +16,14 @@
 	<link rel="stylesheet" href="../../lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
 	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0-beta.1.css" />
+	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0.css" />
 	<!-- APP css -->
 	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
 	<!-- MYMED css -->
 	<link href="<?= MYMED_URL_ROOT ?>/system/css/common.css" rel="stylesheet" />	
 	
-	<script src="../../lib/jquery/jquery-1.8.1.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-1.2.0-beta.1.js"></script>
+	<script src="../../lib/jquery/jquery-1.8.2.min.js"></script>
+	<script src="../../lib/jquery/jquery.mobile-1.2.0.js"></script>
 	<!-- APP JS -->
 	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
 	

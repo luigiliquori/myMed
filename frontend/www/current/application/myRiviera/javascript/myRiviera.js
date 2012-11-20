@@ -17,7 +17,8 @@ var poiIterator;
 
 var steps = []; 
 var currentSegmentID = 0, prevSegmentID = 0;
-var autocompleteDepart, autocompleteArrivee, useautocompletion = true;
+var autocompleteDepart, autocompleteArrivee;
+var useautocompletion = true;
 
 var start = null, end = null;
 var circle;
@@ -25,11 +26,12 @@ var circle;
 var focusOnCurrentPosition = true;
 var currentPositionMarker = null;
 
-var refreshRoadMap = false;
-
 var EndMarkerIcon = false;
 
 var radius;
+
+var iconsAvailable = ["Bibliotheque.png","Eglises.png","Transports.png","AdressesUtiles.png","IUT.png","pictures","POSTES.png","Policemunicipale.png","Mairie.png","Banques.png","Jardins.png","MaisonsRetraites.png","Maternelles.png","Ports.png","PIzzaEmporter.png","GARESSUD.png","Sports.png","STADES.png","Officesdutourisme.png","TourismeCulture.png","colleges.png","Monuments.png","Sant\u00e9.png","Primaires.png","Education.png","Restaurants.png","Fortsmilitaires.png", "Company.png"];
+
 
 /* --------------------------------------------------------- */
 /* Initialize */
@@ -39,7 +41,7 @@ var radius;
 
 function initialize() {
 
-	showLoadingBar("chargement de la carte..."); 
+	//showLoadingBar("chargement de la carte..."); 
 
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
@@ -58,17 +60,6 @@ function initialize() {
 			}
 	);
 
-
-	// autocompletes Google Maps Places API
-	if (useautocompletion) {
-		autocompleteDepart = new google.maps.places.Autocomplete(document
-				.getElementById('depart'));
-		autocompleteArrivee = new google.maps.places.Autocomplete(document
-				.getElementById('arrivee'));
-		autocompleteArrivee.bindTo('bounds', map);
-		autocompleteDepart.bindTo('bounds', map);
-	}
-
 	// setup the marker for the itinerary
 	startmarker = new google.maps.Marker({
 		animation : google.maps.Animation.DROP,
@@ -83,17 +74,33 @@ function initialize() {
 		title : 'Arrivée',
 		zIndex : -1
 	});
+	
+	//autocompletes Google Maps Places API
+	if (useautocompletion) {
+		autocompleteDepart = new google.maps.places.Autocomplete(document
+				.getElementById('depart'));
+		autocompleteArrivee = new google.maps.places.Autocomplete(document
+				.getElementById('arrivee'));
+		autocompleteArrivee.bindTo('bounds', map);
+		autocompleteDepart.bindTo('bounds', map);
+	}
 
 	// resize the map on page change
-	$("#Map").live("pageshow", function(event, ui) {
-		google.maps.event.trigger(map, 'resize');
+	
 
+	// initialize the filter for the markers
+	initFilter();
+
+	//resizeMap();
+	$("#Map").bind("pageshow", function() {
+		google.maps.event.trigger(map, 'resize');
+	
 		// refocus on lastest position
 		focusOnLatLng(pos);
-
+	
 		old = filterArray;
 		updateFilter();
-
+	
 		// if the user changed the POIS type, compute missing and hide others
 		for ( var i in array_diff(filterArray, old)) {
 			markers[filterArray[i]][currentSegmentID] = null;
@@ -119,31 +126,18 @@ function initialize() {
 				otherMarkers(currentSegmentID, filterArray[i], pos.lat(), pos.lng(), $('#slider-radius').val());
 			}
 		}
-
+	
 	});
-
-	// initialize the filter for the markers
-	initFilter();
-
-	resizeMap();
-
-	$('#depart').keyup(function(event) {
-		if (event.keyCode == 13) {
-			validateIt();
-			location.href="#Map";
-		}
+	
+	$("#roadMap").live("pageshow", function() {
+		$("#itineraireContent").listview('refresh')
 	});
-	$('#arrivee').keyup(function(event) {
-		if (event.keyCode == 13) {
-			validateIt();
-			location.href="#Map";
-		}
-	});
-
+	
 }
 
+
 function resizeMap() {
-	$("#" + $("#applicationName").val() + "Map").height($("body").height() );
+	$("#" + $("#applicationName").val() + "Map").height($("body").height()-$("[data-role=header]").outerHeight());
 }
 
 function displayPosition(position) {
@@ -331,7 +325,7 @@ function otherMarkers(index, type, lat, lon, rad) {
 				'type': type,
 				'latitude': lat || steps[index - 1].position.lat(),
 				'longitude': lon || steps[index - 1].position.lng(),
-				'radius': rad || $('#slider-radius').val(),
+				'radius': rad || $('#slider-radius').val()
 				//'accessToken': $("#accessToken").val(),
 				//'code': 1
 		};
@@ -343,60 +337,57 @@ function otherMarkers(index, type, lat, lon, rad) {
 		// direct: "../../backend/POIRequestHandler" put it with dapaType:"jsonp"
 		// direct: jsonp : "http://mymed.fr:8080/backend/POIRequestHandler" put it with dapaType:"jsonp"
 		// with a proxy: "../../lib/dasp/ajax/POI.php"
-		$.ajax({
-			url: "../../lib/dasp/ajax/POI.php",
-			data: params,
-			dataType: "json",
-			success: function(data){
+		$.getJSON( "../../lib/dasp/ajax/POI.php"
+			+'?application='+ $("#applicationName").val() + "Admin"
+			+'&type='+ type
+			+'&latitude='+ (lat || steps[index - 1].position.lat())
+			+'&longitude='+ (lon || steps[index - 1].position.lng())
+			+'&radius='+ (rad || $('#slider-radius').val()),
+			function(data){
 				if ( data && data.dataObject.pois.length){
 					markers[type][index] = [];
 					$.each(data.dataObject.pois, function(i, poi) {
-						try {
-							value = JSON.parse(poi.value);
-							id = poi.id;
-	
-							// SETUP ICON
-							iconAvailable = $('#poiIcon').val().split(",");
-							if(value.icon) {
-								icon = value.icon;
-							} else  if(iconAvailable.indexOf(type + '.png') > 0){
-								icon = 'img/pois/' + type + '.png';
-							} else {
-								icon = null;
-							}
-							
-							// SETUP DESCRIPTION
-							adresse = 	value.adresse ? 	value.adresse : null;
-							email = 	value.email ? 		value.email : null;
-							link = 		value.link ? 		value.link : null;
-							idMedia = 	value.idMedia ? 	value.idMedia : null;
-							altitude = 	value.altitude ? 	value.altitude : null;
-							description = "<p>Type: " + type + "</p>";
-							description += value.description;
-							
-							// SETUP PICTURE
-							if(idMedia) {
-								idMedia = idMedia.replace(/\s/g, '');
-								idMedia = idMedia.replace('_', '');
-							}
-							
-							var marker = addMarker(new google.maps.LatLng(value.latitude,
-									value.longitude), icon, value.title,description, null, false, id,
-									adresse, email, link, idMedia, altitude);
-							
-							google.maps.event.addListener(marker, "click", function(e) {
-								closeMarkersBox();
-								marker.ib.open(map, this);
-							});
-							
-							markers[type][index].push(marker);
-							
-						} catch (err) {
-//							alert("ERR : " + poi.value);
+			
+						value = $.parseJSON(poi.value);
+						id = poi.id;
+
+						// SETUP ICON
+						if(value.icon) {
+							icon = value.icon;
+						} else  if($.inArray(type + '.png', iconsAvailable) > 0){
+							icon = 'img/pois/' + type + '.png';
+						} else {
+							icon = null;
 						}
+						
+						// SETUP DESCRIPTION
+						adresse = 	value.adresse ? 	value.adresse : null;
+						email = 	value.email ? 		value.email : null;
+						link = 		value.link ? 		value.link : null;
+						idMedia = 	value.idMedia ? 	value.idMedia : null;
+						altitude = 	value.altitude ? 	value.altitude : null;
+						description = "<p>Type: " + type + "</p>";
+						description += value.description;
+						
+						// SETUP PICTURE
+						if(idMedia) {
+							idMedia = idMedia.replace(/\s/g, '');
+							idMedia = idMedia.replace('_', '');
+						}
+						
+						var marker = addMarker(new google.maps.LatLng(value.latitude,
+								value.longitude), icon, value.title,description, null, false, id,
+								adresse, email, link, idMedia, altitude);
+						
+						google.maps.event.addListener(marker, "click", function(e) {
+							closeMarkersBox();
+							marker.ib.open(map, this);
+						});
+						
+						markers[type][index].push(marker);
+
 					});
 				}
-			}
 		});
 
 	} else {// already existing, redrop them
@@ -481,24 +472,33 @@ function updateMarkers(index) {
 	hideLoadingBar();
 }
 
+function refreshRoadMap() {	
+	// call the listview constructor on the ul
+	//$("#itineraireContent").listview({"inset" : true});
+	$("#itineraireContent").listview();
+	//$("#itineraireContent").listview('refresh');
+	$('#roadMap').trigger('create');
+}
+
 /**
  * 
  * @param start
  * @param end
  * @param mobile
  */
-function calcRoute(json) {
 
-	result = JSON.parse(json);
-	// TODO CREATE SHOW TRIP FUNCTION!!
-	// use to force to drow the trip
+function calcRoute(result) {
+
+	$("#itineraireContent").html('');
+
 	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
 		calcRouteByCityway(result);
+		myRivieraShowTrip($("#depart").val() || "Ma position", $("#arrivee").val());
 	} else {
 		calcRouteByGoogle(true);
 	}
-
-	refreshRoadMap = true;
+	
+	/*refreshRoadMap = true;
 	$("#roadMap").live("pageshow", function() {
 		if(refreshRoadMap) {
 			var $this = $(this),
@@ -520,18 +520,20 @@ function calcRoute(json) {
 			}
 			refreshRoadMap = false;
 		}
-	});
-	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
-		myRivieraShowTrip($("#depart").val() || "Ma position", $("#arrivee").val());
-	}
+	});*/
+	
+	//      ^^        WTF
+
 }
+
+
 
 function calcRouteByCityway(result) {
 
 	currentType = null;
 	icon = null;
 	routes = [];
-//	$('#itineraire h3:first').find('.ui-btn-text').html(
+// $('#itineraire h3:first').find('.ui-btn-text').html(
 //	$('#itineraire h3:first').find('.ui-btn-text').html().replace(
 //	/(Feuille de route)( \w+|)/, '$1 Cityway'));
 	startmarker.setTitle("Départ\n"
@@ -605,17 +607,19 @@ function calcRouteByCityway(result) {
 
 		desc.appendTo($('#itineraireContent'));
 
-		if (currentType == "TRANSPORT"
-			&& [ 'AVION', 'BOAT', 'TER', 'TRAIN', 'TRAM' ]
-		.indexOf(tripSegment.transportMode) < 0) {
+		var c1 = currentType == "TRANSPORT";
+		var transportModes = ['AVION', 'BOAT', 'TER', 'TRAIN', 'TRAM'];
+		var index = $.inArray(tripSegment.transportMode, transportModes);
+		var c2 = index < 0;
+		if (c1 && c2) {
 			routes.push({
 				origin : new google.maps.LatLng(
 						tripSegment.departurePoint.latitude,
 						tripSegment.departurePoint.longitude),
-						destination : new google.maps.LatLng(
-								tripSegment.arrivalPoint.latitude,
-								tripSegment.arrivalPoint.longitude),
-								travelMode : google.maps.TravelMode.DRIVING
+				destination : new google.maps.LatLng(
+						tripSegment.arrivalPoint.latitude,
+						tripSegment.arrivalPoint.longitude),
+				travelMode : google.maps.TravelMode.DRIVING
 			});
 		} else if (currentType == "WALK") {
 			routes.push({
@@ -632,9 +636,6 @@ function calcRouteByCityway(result) {
 	}
 
 	$("#ceparou06").show();
-
-	// create jquerymobile styled elmts
-	$('.ui-page').trigger('create');
 
 	// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART -> showTrip function
 	$(routes).each(function(i) {
@@ -676,8 +677,7 @@ function calcRouteByGoogle(printTrip) {
 
 	icon = "img/voiture.png";
 	titre = "Voiture";
-	directionsService
-	.route(
+	directionsService.route(
 			request,
 			function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
@@ -707,10 +707,6 @@ function calcRouteByGoogle(printTrip) {
 						desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
-
-					// create jquerymobile styled elmts
-					$('.ui-page').trigger('create');
-					$('#itineraireContent').listview({"inset": true });
 
 					// UI - ADD SEGMENT ON THE MAP - TODO MOVE THIS PART
 					// -> showTrip function
@@ -742,9 +738,9 @@ function myRivieraShowTrip(start, end, icon) {
 	endmarker.setMap(map);
 
 	// SHOW ITINERAIRE
-	$("#itineraire, #steps, #prev-step").delay(1000).fadeIn("slow");
+	$("#steps").css('top', '50px');
 	$('#next-step, #prev-step').attr('onclick', 'updateMarkers(1)');
-	$('#next-step')
+	/*$('#next-step')
 	.click(
 			function() {
 				$('#itineraireContent .ui-li a').eq(
@@ -756,7 +752,7 @@ function myRivieraShowTrip(start, end, icon) {
 				$('#itineraireContent .ui-li a')
 				.eq((currentSegmentID || 1) - 1).closest(
 				'[data-role="collapsible"]').trigger('expand');
-			});
+			});*/
 
 }
 
@@ -802,14 +798,8 @@ function validateIt() {
 				startmarker.setPosition(start);
 				endmarker.setPosition(end);
 
-				var date = $('#select-year').val() + "-"
-				+ ("0" + ($('#select-month').val())).slice(-2) + "-"
-				+ ("0" + ($('#select-day').val())).slice(-2) + "_"
-				+ ("0" + ($('#select-hour').val())).slice(-2) + "-"
-				+ ("0" + ($('#select-minute').val())).slice(-2);
-
+				var date = $('#date').val() + "_" + $('#time').val().replace(':', '-');
 				var optimize = $("#cityway-search input:radio:checked").val();
-
 				var tModes0 = $('#cityway-search input:checkbox:not(:checked)');
 				var transitModes = 0;
 				if (tModes0.length) {
@@ -825,23 +815,16 @@ function validateIt() {
 
 				showLoadingBar("Calcul de l'itinéraire en cours...");
 
-				$.ajax({
-					type : "POST",
-					url : "ajax/cityway.php",
-					data : "startlng=" + startmarker.getPosition().lng() + "&startlat="
-					+ startmarker.getPosition().lat() + "&endlng="
-					+ endmarker.getPosition().lng() + "&endlat="
-					+ endmarker.getPosition().lat()
-					+ (optimize != "fastest" ? "&optimize=" + optimize : "")
-					+ (transitModes ? "&transitModes=" + transitModes : "")
-					+ "&date=" + date,
-					success : function(data) {
-						calcRoute(data);
-						hideLoadingBar();
-					},
-					error : function(data) {
-//						hideLoadingBar();
-					}
+				$.getJSON("ajax/cityway.php" + "?depLon="
+						+ startmarker.getPosition().lng() + "&depLat="
+						+ startmarker.getPosition().lat() + "&arrLon="
+						+ endmarker.getPosition().lng() + "&arrLat="
+						+ endmarker.getPosition().lat()
+						+ (optimize !== "fastest" ? "&optimize=" + optimize : "")
+						+ (transitModes ? "&transitModes=" + transitModes : "")
+						+ "&departureTime=" + date, function(data) {
+					calcRoute(data);
+					hideLoadingBar();
 				});
 			} else {
 				alert("Arrivée non valide");
