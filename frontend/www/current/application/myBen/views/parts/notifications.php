@@ -21,7 +21,6 @@
 		
 		<p>
 		<span Style="position: relative; top: -10px;"><?= $this->success ?></span>
-		<!-- <a href="." data-action="close" data-role="button" data-ajax="false">ok</a>-->
 		</p>
 			
 	</div>

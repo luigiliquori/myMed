@@ -13,7 +13,7 @@
 */
 
 /*create keyspace Mymed with strategy_options = [{DC1:3, DC2:3}] and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy';*/
-create keyspace Mymed with strategy_options=[{DC1:1}] and replication_factor= 1 and placement_strategy='org.apache.cassandra.locator.NetworkTopologyStrategy'; 
+create keyspace Mymed with strategy_options=[{datacenter1:1}] and replication_factor= 1 and placement_strategy='org.apache.cassandra.locator.NetworkTopologyStrategy'; 
 
 /* Switch to the 'mymed' keyspace */
 use Mymed;

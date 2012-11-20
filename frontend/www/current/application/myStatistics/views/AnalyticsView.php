@@ -26,14 +26,15 @@ require_once("footer-bar.php");
 
   <!-- Load all Google JS libraries -->
   <script src="https://www.google.com/jsapi"></script>
-  <script src="gadash-1.0.js"></script>
+  <!-- <script src="gadash-1.0.js"></script>-->
   <script src="https://apis.google.com/js/client.js?onload=gadashInit"></script>
   
   
   <script>
     // Configure these parameters before you start.
     var API_KEY = 'AIzaSyCcsBJoy_euL30XW2U2jOk5PR_h5k20lAI';
-    var CLIENT_ID = '376803621438.apps.googleusercontent.com';
+    //var CLIENT_ID = '376803621438.apps.googleusercontent.com';
+    var CLIENT_ID = '376803621438';
     var TABLE_ID = 'ga:59069891';
     // Format of table ID is ga:xxx where xxx is the profile ID.
 
