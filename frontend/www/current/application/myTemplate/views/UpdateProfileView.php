@@ -4,6 +4,8 @@
 
 	<div data-role="content">
 		
+		<? include_once 'notifications.php'; ?>
+		
 		<form action="?action=profile" id="updateProfileForm" method="post" data-ajax="false">
 		
 			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
@@ -55,3 +57,7 @@
 	<? print_footer_bar_main("#profile"); ?>
 		
 </div>
+
+<? include_once 'MainView.php'; ?>
+<? include_once 'FindView.php'; ?>
+<? include_once 'ProfileView.php'; ?>

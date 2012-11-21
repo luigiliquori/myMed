@@ -4,6 +4,8 @@
 
 	<div data-role="content">
 
+		<? include_once 'notifications.php'; ?>
+	
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 			
 			<div data-role="collapsible" data-collapsed="false">
@@ -55,3 +57,6 @@
 	
 </div>
 
+<? include_once 'MainView.php'; ?>
+<? include_once 'FindView.php'; ?>
+<? include_once 'UpdateProfileView.php'; ?>
