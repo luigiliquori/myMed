@@ -113,7 +113,7 @@ class Requestv2 {
 			curl_setopt($curl, CURLOPT_URL, $this->url.$this->ressource.'?'.http_build_query($this->arguments));
 		}
 		
-		echo $this->url.$this->ressource.'?'.http_build_query($this->arguments) . '<br /><br />';
+// 		echo $this->url.$this->ressource.'?'.http_build_query($this->arguments) . '<br /><br />';
 		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
@@ -122,7 +122,7 @@ class Requestv2 {
 		curl_setopt($curl, CURLOPT_CAINFO, "/etc/ssl/certs/mymed.crt"); // TO EXPORT FROM GLASSFISH!
 
 		$result = curl_exec($curl);
- 		echo $result . '<br /><br />';
+//  		echo $result . '<br /><br />';
 
 		if ($result === false) {
 			throw new Exception("CURL Error : " . curl_error($curl));
