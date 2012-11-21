@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
 		
 	// Handle "close" buttons
@@ -10,4 +8,13 @@ $(document).ready(function() {
 	});
 
 });
+
+function hideLoadingBar() {
+	$.mobile.hidePageLoadingMsg();
+}
+
+function showLoadingBar(text) {
+	$.mobile.showPageLoadingMsg("d", text);
+	setTimeout(hideLoadingBar, 10000);
+}
 

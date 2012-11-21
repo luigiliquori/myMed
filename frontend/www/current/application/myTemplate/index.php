@@ -4,7 +4,7 @@
 // Constants
 // ---------------------------------------------------------------------
 
-define('APPLICATION_NAME', "mvcSample");
+define('APPLICATION_NAME', "myTemplate");
 define('APP_ROOT', __DIR__);
 define('MYMED_ROOT', __DIR__ . '/../..');
 
@@ -14,7 +14,12 @@ include(MYMED_ROOT . '/system/controllers/index-controller.php');
 // Use the application specific locales
 textdomain(APPLICATION_NAME);
 
-// Call the main controller
+require_once('header-bar.php');
+require_once('footer-bar.php');
+
+// Print Page
+include_once('header.php');
 main_controller();
+include_once('footer.php');
 
 ?>

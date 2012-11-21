@@ -8,24 +8,19 @@
 	background-image: url("../img/profile.png");
 }
 
-.ext-profile-photo {
-    position : relative;
-    width    : 30%;
-    height   : 15%;
-    display  : inline-block;
-} 
-
 .ui-icon-thumb {
 	background-image: url("../img/thumb.png");
 }
-
-#myMap { 
-	top:  0px;
-	left:0px;
+.page-map, .content-map, #myRiveraMap {
 	width: 100%;
-	height: 300px;
+	height: 100%;
 	padding: 0;
-	border: thin black solid;
+}
+
+#myRiveraMap {
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
 }
 
 #loading {
@@ -61,19 +56,7 @@
 	 text-align: left;
 	 color: #313131;
 }
-.social {
-	cursor: pointer;
-	text-indent: -9999em;
-	font-size: 1px;
-	display: inline-block;
-	margin: 0 auto;
-	overflow: hidden;
-	margin-right: 3px;
-	width: 32px;
-	height: 32px;
-	background-image: url('/system/img/footer-sprite2.png');
-	background-repeat: no-repeat;
-}
+
 .myScreenshot {
 	display: none;
 	position: relative;

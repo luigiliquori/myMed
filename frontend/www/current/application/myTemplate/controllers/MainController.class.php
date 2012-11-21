@@ -31,10 +31,7 @@ class MainController extends AuthenticatedController {
 			
 			$this->renderView("results");
 			
-		} else {
-			
-			// -- Show the form
-		}
+		} 
 
 		$this->renderView("main");
 	}

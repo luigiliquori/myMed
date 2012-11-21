@@ -1,10 +1,11 @@
-<? include("header.php"); ?>
 
 <div data-role="page">
 
-	<? include("header-bar.php") ?>
+	<? print_header_bar(true, false); ?>
 	
 	<div data-role="content" >
+	
+		<? include_once 'notifications.php'; ?>
 	
 		<ul data-role="listview" >
 		
@@ -36,7 +37,12 @@
 			
 	</div>
 	
+	<? print_footer_bar_main("#find"); ?>
 
 </div>
 
-<? include("footer.php"); ?>
+<? include_once 'MainView.php'; ?>
+<? include_once 'FindView.php'; ?>
+<? include_once 'DetailsView.php'; ?>
+<? include_once 'ProfileView.php'; ?>
+<? include_once 'UpdateProfileView.php'; ?>

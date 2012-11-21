@@ -1,8 +1,6 @@
-<? include("header.php"); ?>
-
 <div data-role="page">
 
-	<? include("header-bar.php") ?>
+	<? print_header_bar(true, false); ?>
 	
 	<div data-role="content" >
 		<b>Author</b> : <?= $this->result->publisherID ?><br/>
@@ -17,6 +15,13 @@
 		<b>Data2</b>: <?= $this->result->data2 ?><br/>
 		<b>Data3</b>: <?= $this->result->data3 ?><br/>
 	</div>
+	
+	<? print_footer_bar_main("#find"); ?>
+	
 </div>
 
-<? include("footer.php"); ?>
+<? include_once 'MainView.php'; ?>
+<? include_once 'FindView.php'; ?>
+<? include_once 'ResultView.php'; ?>
+<? include_once 'ProfileView.php'; ?>
+<? include_once 'UpdateProfileView.php'; ?>
