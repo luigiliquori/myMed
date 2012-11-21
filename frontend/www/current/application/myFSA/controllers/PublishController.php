@@ -47,8 +47,13 @@ class PublishController extends AuthenticatedController {
 			header("location: index.php?action=details&predicate=pred1FSApublicationpred2".$_SESSION['pred2']."pred3".$_SESSION['pred3']."&author=".$_SESSION['author']);
 			
 		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
-			
-			
+
+			$obj = new PublishObject();				
+			// Fill the object
+			$this->fillObj2($obj);			
+			$obj->delete();			
+			$this->result = $obj;	
+			$this->redirectTo("Search");	
 		}
 		else {
 				
@@ -97,6 +102,15 @@ class PublishController extends AuthenticatedController {
 			$_SESSION['data2'] = NULL;
 			$_SESSION['rank'] = 5;
 		}
+	
+	}
+	
+	//for deleting
+	private function fillObj2($obj) {
+			$obj->pred1 = "FSApublication";
+			$obj->pred2 = $_SESSION['pred2'];
+			$obj->pred3 = $_SESSION['pred3'];
+			$obj->publisherID = $_SESSION['user']->id;
 	
 	}
 	private function fillObj_comments($obj) {		

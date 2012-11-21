@@ -58,6 +58,12 @@
 	<!-- stars rating -->
 	
 	<div data-role="content">
+	<?if ($_SESSION['author'] == $_SESSION['user']->id){ ?>
+			 <form action="index.php?action=publish" method="POST" data-ajax="false">
+		 		<input type="hidden" name="method" value="Delete" />
+				<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= translate('Delete publication') ?>" />
+		 	</form>
+	<? } ?> 	
 	<?php  $truncated = substr($this->result->publisherID, 6)?>
 	<!-- <div class="ui-grid-b">
 		<div class="ui-block-a"><b><?= translate('Author') ?>:</b></div> <div class="ui-block-b"> <?= $truncated ?></div>
@@ -67,6 +73,7 @@
 		<!-- 	<b>Wrapped2</b>: --><?//= $this->result->wrapped2 ?>
 	<!--  </div>-->
 		<h3><?= $_SESSION['pred3'] ?></h3>
+		
 		<div class="starsAverage"></div>
 		<div Style="position: relative; top: 10px;"><?= $this->result->data1 ?></div>
 		<br>

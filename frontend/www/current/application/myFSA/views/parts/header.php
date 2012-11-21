@@ -61,4 +61,9 @@
 	<script type="text/javascript">stLight.options({publisher: "f0ca88be-be8a-427a-983a-f670821d7ad2"}); </script>
 	
 </head>
-<body>
+<body <?= isset($_SESSION['user']) ? 'onload="initialize();"' : ''?> >
+
+<input type='hidden' id='userID' value='<?= $_SESSION['user']->id ?>' />
+<input type='hidden' id='applicationName' value='myRiviera' />
+<input type='hidden' id='accessToken' value='<?= $_SESSION['accessToken'] ?>' />
+

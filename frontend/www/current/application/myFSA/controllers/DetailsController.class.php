@@ -40,13 +40,9 @@ class DetailsController extends AuthenticatedController {
 			// Give this to the view
 			$this->result = $obj;
 			
-			$debugtxt  =  "<pre>wyyyyyyniiiik";
-			$debugtxt  .= var_export($this->result, TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
-			
 			//during the way predicate is lost so here it is extracting
 			$string = $_GET['predicate'];
+			$_SESSION['predicate'] = $string;
 			preg_match_all('/pred2([a-zA-Z0-9-_\s\#]+)pred3/', $string, $matches);
 			preg_match_all('/pred3([a-zA-Z0-9-_\s\#]+)/', $string, $matches2);
 				
@@ -61,6 +57,17 @@ class DetailsController extends AuthenticatedController {
 		
 			$this->search_comment();
 			$this->getMark();
+			
+			$debugtxt  =  "<pre>AUTHOOOOOOOOOOOOOOOOOOR";
+			$debugtxt  .= var_export($_SESSION['author'], TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+			
+			$debugtxt  =  "<pre>USEEEEEEEEEEEEEEEEEEEEEER";
+			$debugtxt  .= var_export($_SESSION['user']->id, TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+			
 			$this->renderView("details");
 			
 		}
