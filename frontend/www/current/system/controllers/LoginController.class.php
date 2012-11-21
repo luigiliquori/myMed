@@ -85,9 +85,6 @@ class LoginController extends AbstractController {
 				// Everything went fine, we have now an accessToken in the session
 				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
 				
-				// Set user into $_SESSION
-				$this->getUserFromSession();
-				
 				// FIX THE LOGIN TO LOWER CASE IF IT'S NEEDED
 				if (strtolower($login) != $login) {
 					// create the authentication
@@ -106,8 +103,10 @@ class LoginController extends AbstractController {
 					$responseObject = json_decode($responsejSon);
 				}
 				
-				// Redirect to main page
+				// Set user into $_SESSION
+				$this->getUserFromSession();
 				
+				// Redirect to main page
 				$this->redirectTo("main");
 			}
 			
