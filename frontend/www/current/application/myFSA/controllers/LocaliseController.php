@@ -4,7 +4,7 @@
  *  This controller shows the search/publish form and receives "search" and "publish" queries.
  *  It renders the views "main" or "results".
  */
-class LocalisationController extends AuthenticatedController {
+class LocaliseController extends AuthenticatedController {
 
 	public /*String[]*/ $filterList = array(
 		"Transports" => array("Transports", "GARESSUD", "Ports"),
@@ -17,40 +17,16 @@ class LocalisationController extends AuthenticatedController {
 		"Company" => array("Company")
 	);
 	
-/*	public function handleRequest() {
-
-		parent::handleRequest();
-		
-		
-		
-		if($_POST['method'] == "publish") {
-			$publish = new Publish($this);
-			$responsejSon = $publish->send();
-			$responseObject = json_decode($responsejSon);
-				
-			if($responseObject->status != 200) {
-				$this->setError("Une erreur interne s'est produite, veuillez réessayer plus tard...");
-			} else {
-				$this->setSuccess("Votre message a bien été transmis aux administrateurs de l'application<br />Merci de votre contribution!");
-			}
-		}
-
-		// render View
-		$this->renderView("main");
-	}*/
-	
 	function defaultMethod() {
 		if ($handle = opendir('img/pois')) {
 			$pois = "";
 			while (false !== ($file = readdir($handle))) {
 				$pois .= "," . $file;
 			}
-			//html input can't be inserted there in dom
-			//echo "<input id='poiIcon' type='hidden' value='" . $pois . "' />";
 		}
 		
 		// render View
-		$this->renderView("localisation");
+		$this->renderView("localise");
 	}
 	
 	function create() {
@@ -65,7 +41,7 @@ class LocalisationController extends AuthenticatedController {
 		}
 		
 		// render View
-		$this->renderView("localisation");
+		$this->renderView("localise");
 		
 	}
 

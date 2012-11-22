@@ -1,4 +1,5 @@
 <? include("header.php"); ?>
+</head>
 <body>
 	<div data-role="page" id="Search" data-theme="b">
 		   <div class="wrapper">

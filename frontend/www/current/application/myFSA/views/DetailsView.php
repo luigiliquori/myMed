@@ -1,6 +1,7 @@
 <? include("header.php");
 ?>
-
+</head>
+<body>
 <script type="text/javascript">
 
 	var average = '<?=$_SESSION['rank']?>';

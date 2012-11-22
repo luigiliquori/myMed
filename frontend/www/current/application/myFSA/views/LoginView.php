@@ -4,6 +4,8 @@
 // This view shows both the login and register forms, with two tabs
 //
 require_once("header.php"); ?>
+</head>
+<body>
 
 <div data-role="page" id="login">
 	

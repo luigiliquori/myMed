@@ -1,4 +1,7 @@
 <? include("header.php"); ?>
+</head>
+<body>
+
 <div data-role="page" id="Search" data-theme="b">
 	<? include("header-bar.php"); ?>
 		

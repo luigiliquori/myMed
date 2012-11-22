@@ -1,5 +1,7 @@
 <?
  include("header.php"); ?>
+ </head>
+<body>
 <div data-role="page" id="PublishView" data-theme="b">
 
 
