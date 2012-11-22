@@ -1,5 +1,3 @@
-<? include_once('header-bar-light.php'); ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
 
@@ -10,20 +8,20 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
-	<!-- load css before scripts to stop sort of flash effect  -->
-	
 	<!--  Extra icons for jquery -->
-	<link rel="stylesheet" href="/lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
+	<link rel="stylesheet" href="/lib/jquery/jQuery-Mobile-Icon-Pack/font-awesome/jqm-icon-pack-2.1.2-fa.css" />
 	
 	<!-- JQUERY  -->
 	<link rel="stylesheet" href="/lib/jquery/jquery.mobile-1.2.0.css" />
+		<script src="/lib/jquery/jquery-1.8.2.min.js"></script>
+	<script src="/lib/jquery/jquery.mobile-1.2.0.js"></script>
+	
 	<!-- APP css -->
 	<link href="css/style.css" rel="stylesheet" />
+	
 	<!-- MYMED css -->
 	<link href="/system/css/common.css" rel="stylesheet" />	
 	
-	<script src="/lib/jquery/jquery-1.8.2.min.js"></script>
-	<script src="/lib/jquery/jquery.mobile-1.2.0.js"></script>
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
 	
@@ -46,12 +44,4 @@
 		
 <body onload="hideLoadingBar()">
 
-<? // ================== Switch to active tab on load ==========================================?>
-<? if (!empty($TAB)) :?>
-	<script type="text/javascript">
-		$('[data-role=page]:last').live("pageshow", function() {
-			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"});
-		});
-	</script>
-<? endif ?>
 

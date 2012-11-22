@@ -6,6 +6,8 @@
  */
 class MainController extends AuthenticatedController {
 	
+	public $result;
+	public $reputationMap = array();
 
 	public function handleRequest() {
 		
@@ -29,12 +31,30 @@ class MainController extends AuthenticatedController {
 			$this->fillObj($search);
 			$this->result = $search->find();
 			
+			// get userReputation
+			foreach($this->result as $item) :
+			
+				// Get the reputation of the user in each application
+				$request = new Request("ReputationRequestHandler", READ);
+				$request->addArgument("application",  APPLICATION_NAME);
+				$request->addArgument("producer",  $item->publisherID);		
+				$request->addArgument("consumer",  $_SESSION['user']->id);
+				
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+				
+				if (isset($responseObject->data->reputation)) {
+					$value =  json_decode($responseObject->data->reputation) * 100;
+				} else {
+					$value = 100;
+				}
+				$this->reputationMap[$item->publisherID] = $value;
+			
+			endforeach;
+			
 			$this->renderView("results");
 			
-		} else {
-			
-			// -- Show the form
-		}
+		} 
 
 		$this->renderView("main");
 	}
