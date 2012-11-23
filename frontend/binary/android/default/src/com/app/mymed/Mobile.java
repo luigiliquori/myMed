@@ -2,7 +2,6 @@ package com.app.mymed;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -21,17 +20,15 @@ public class Mobile extends Activity {
 
 	private ChromeWebClient chromeWebClient;
 	
-
-	public static final String TAG = "*********MyMed";
-	public static final String MYMED_FRONTEND_URL = "http://www.mymed.fr/";
+	public static final String TAG = "[ myMed ]";
 	public static final String MYMED_BACKEND_URL = "http://www.mymed.fr:8080/backend";
+	public static final String MYMED_FRONTEND_URL = "http://www.mymed.fr/index.php?action=login";
 
-	public Mobile() {
+	public Mobile(){
 		this.webClient = new WebClient(this);
 		this.chromeWebClient = new ChromeWebClient(this);
-		
 	}
-
+	
 	/** Called when the activity is first created. */
 	@TargetApi(7)
 	@Override
@@ -39,10 +36,7 @@ public class Mobile extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-//		switcher = (ViewSwitcher) findViewById(R.id.viewSwitcher);
-//		switcher.showNext();
 		// GET WEB VIEW
-		
 		webView = (WebView) findViewById(R.id.web_engine);
 		
 		// set settings
@@ -65,15 +59,7 @@ public class Mobile extends Activity {
 		// SET CLIENT
 		webView.setWebViewClient(webClient);
 		webView.setWebChromeClient(chromeWebClient);
-
 		
-		/*if (!isOnline()) {
-
-			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-			alertDialog.setMessage("Aucune connexion détectée");
-			alertDialog.show();
-			//webView.loadUrl("file:///android_asset/www/indexOffline.html");
-		}*/
 	}
 	
 	@Override
@@ -85,16 +71,24 @@ public class Mobile extends Activity {
 	    return super.onKeyDown(keyCode, event);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public WebView getWebView() {
 		return webView;
 	}
 	
-	/*public boolean isOnline() {
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isOnline() {
 		ConnectivityManager cm =
 				(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		return cm.getActiveNetworkInfo() != null && 
 				cm.getActiveNetworkInfo().isConnectedOrConnecting();
-	}*/
-
+	}
+	
 }
