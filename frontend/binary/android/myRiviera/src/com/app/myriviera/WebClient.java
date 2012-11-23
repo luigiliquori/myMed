@@ -8,8 +8,6 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.app.myriviera.R;
-
 public class WebClient extends WebViewClient {
 
 	private Mobile activity;
