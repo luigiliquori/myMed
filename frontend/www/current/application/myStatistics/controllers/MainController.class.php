@@ -5,10 +5,7 @@
  * it shows the statistics about publish and subscribe in myMed applications
  *
  */ 
-
-//require(MYMED_ROOT."/application/myMed/controllers/MainController.class.php");
 require_once MYMED_ROOT. '/lib/dasp/request/Request.class.php';
-
 
 class MainController extends AuthenticatedController {
 	
@@ -69,12 +66,11 @@ class MainController extends AuthenticatedController {
 	}
 	
 	function getNumberDaysForMonth($month,$year){
-		return date('t',mktime(0,0,0,$month,1,$year));
+		return date('t', mktime(0,0,0,$month,1,$year));
 	}
 	
 	function sendRequestToBackend($method,$year,$month,$application){
 		$request = new Request("StatisticsRequestHandler", READ);
-		//$request->addArgument("accessToken",$_SESSION['user']->session);
 		$request->addArgument("accessToken",$_SESSION['accessToken']);
 		$request->addArgument("code",1);
 		$request->addArgument("application",$application);

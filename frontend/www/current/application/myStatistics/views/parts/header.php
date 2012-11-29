@@ -27,14 +27,6 @@
 	<!-- APP JS -->
 	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
 	
-	<!-- jqplot -->
-	<script src="<?= APP_ROOT ?>/javascript/jqplot/plugins/jqplot.canvasTextRenderer.min.js" type="text/javascript"></script>
-  	<script src="<?= APP_ROOT ?>/javascript/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js" type="text/javascript"></script>
-  	<script type="text/javascript" src="<?= APP_ROOT ?>/javascript/jqplot/jquery.min.js"></script>
-	<script type="text/javascript" src="<?= APP_ROOT ?>/javascript/jqplot/jquery.jqplot.min.js"></script>
-	<script type="text/javascript" src="<?= APP_ROOT ?>/javascript/jqplot/jquery.jqplot.js"></script>
-  	<link href="<?= APP_ROOT ?>/css/jqplot/jquery.jqplot.css" rel="stylesheet" type="text/css" />
-  	
   	<!-- Graphs -->
   	<script src="<?= APP_ROOT ?>/javascript/statistics-graphics.js"></script>
 	
@@ -57,7 +49,7 @@
 	
 	</head>
 		
-<body onload="hideLoadingBar()">
+<body>
 
 <? // ================== Switch to active tab on load ==========================================?>
 <? if (!empty($TAB)) :?>

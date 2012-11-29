@@ -107,14 +107,23 @@ require_once("footer-bar.php");
 				$sizeBar = str_replace(",", ".", $sizeBar);
 			?>
 			<center><h3><?php echo $titl;?></h3></center>
-			<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: <?php echo $height ?>px; border: thin black solid; margin-left:3.5%; background-color:white">
+			
+			
+			<!-- GRAPH AREA -->
+			<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: <?= $height ?>px; border: thin black solid; margin-left:3.5%; background-color:white">
 				<?php for($i=0;$i<$nbcol;$i++){
 					$red = ceil(255-(255*$tabrep[$i+1])/$max_tab);
 					$green = ceil((255*$tabrep[$i+1])/$max_tab);
 					$height_column = ceil(($height * $tabrep[$i+1])/$max_tab);
 					$top = $height - $height_column;
 				?>
-					<div Style="position: absolute; top: <?php echo $top ?>px; left: <?= str_replace(",", ".",$i*$sizeBar) ?>%; width: <?= $sizeBar ?>%; height: <?php echo $height_column?>px; background-color:rgb(<?php echo $red ?>,<?php echo $green ?>,0); border: thin black solid;"></div>		
+					
+					<!-- ENTRY -->
+					<div Style="position: absolute; top: <?= $top ?>px; left: <?= str_replace(",", ".",$i*$sizeBar) ?>%; width: <?= $sizeBar ?>%; height: <?= $height_column?>px; background-color:rgb(<?= $red ?>,<?= $green ?>,0); border: thin black solid;"></div>		
+				
+					<!-- LEGEND -->
+					<div Style="position: absolute; top: <?= $top + $height_column + 20 ?>px; left: <?= str_replace(",", ".",$i*$sizeBar) ?>%; width: <?= $sizeBar ?>%; text-align: center;"><?= $i+1 ?></div>
+				
 				<?php }?>
 			</div>
 	</div>
