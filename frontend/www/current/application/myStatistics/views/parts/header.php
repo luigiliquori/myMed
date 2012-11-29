@@ -52,6 +52,8 @@
 	  })();
 	</script>
 	
+	<script type="text/javascript" src="<?= APP_ROOT ?>/javascript/gadash-1.0.js"></script>
+	
 	
 	</head>
 		

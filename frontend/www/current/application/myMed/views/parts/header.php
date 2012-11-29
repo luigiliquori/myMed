@@ -22,7 +22,7 @@
 	<link href="/system/css/common.css" rel="stylesheet" />	
 	
 	<!-- APP JS -->
-	<script src="javascript/app.js"></script>
+	<script src="/application/<?= APPLICATION_NAME ?>/javascript/app.js"></script>
 	
 	<!-- APP css -->
 	<link href="/application/<?= APPLICATION_NAME ?>/css/style.css" rel="stylesheet" />
