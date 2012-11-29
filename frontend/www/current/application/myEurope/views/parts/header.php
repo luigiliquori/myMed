@@ -44,12 +44,4 @@
 		
 <body>
 
-<? // ================== Switch to active tab on load ==========================================?>
-<? if (!empty($TAB)) :?>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
-		});
-	</script>
-<? endif ?>
 

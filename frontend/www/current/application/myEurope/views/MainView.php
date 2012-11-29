@@ -6,22 +6,37 @@
 	
 		<? include_once 'notifications.php'; ?>
 	
-		<div class="ui-grid-a">
+		<div class="ui-grid-a" Style="text-align: center;">
 			<div class="ui-block-a">
-				<a href="#search" type="button" class="mymed-huge-button" data-icon="fasearch" ><?= _('Search a partnership offer') ?></a>
+				<a href="#search">
+					<img alt="search" src="img/icons/search.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+				</a>
 			</div>
 			
 			<div class="ui-block-b">
-				<a href="#post" type="button" class="mymed-huge-button" data-icon="edit"><?= _('Insert a partnership offer') ?></a>
+				<a href="#post">
+					<img alt="search" src="img/icons/publish.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+				</a>
 			</div>
 			
 			<div class="ui-block-a">
-				<a href="#blogs" type="button" class="mymed-huge-button" data-icon="grid"><?= _('Blog') ?></a>
+				<a href="#blogs">
+					<img alt="search" src="img/icons/blog.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+				</a>
 			</div>
 			
 			<div class="ui-block-b">
-				<a href="#infos" type="button" class="mymed-huge-button" data-icon="info"><?= _('Informations') ?></a>
+				<a href="#infos">
+					<img alt="search" src="img/icons/info.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+				</a>
 			</div>
+			
+			<div class="ui-block-a">
+				<a href="?action=extendedProfile" rel="external">
+					<img alt="search" src="img/icons/profile<?= $_SESSION['user']->is_guest ? "_guest" : "" ?>.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+				</a>
+			</div>
+			
 		</div>
 	</div>
 </div>
