@@ -118,7 +118,6 @@ class Request {
 		}
 
 // 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments) . "<br /><br />";
-
 		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
