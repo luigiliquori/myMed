@@ -9,7 +9,7 @@ class BlogController extends ExtendedProfileRequired {
 	
 	function delete(){
 		$request = new RequestJson($this,
-			array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog, "field"=>$_GET['field']),
+			array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog, "field"=>$_GET['field']),
 			DELETE);
 		$request->send();
 		
@@ -28,11 +28,11 @@ class BlogController extends ExtendedProfileRequired {
 			))
 		);
 		$publish = new RequestJson($this,
-			array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog, "data"=>$data),
+			array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog, "data"=>$data),
 			UPDATE);
 		$publish->send();
 		$subscribe = new RequestJson( $this,
-			array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog."comments".$k, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":blogComment"),
+			array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog."comments".$k, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":blogComment"),
 			CREATE, "v2/SubscribeRequestHandler");
 		$subscribe->send();
 		
@@ -40,7 +40,7 @@ class BlogController extends ExtendedProfileRequired {
 	}
 	
 	function defaultMethod() {
-		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":blogs", "id"=>$this->blog));
+		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog));
 			
 		try{
 			$res = $find->send();
@@ -64,7 +64,7 @@ class BlogController extends ExtendedProfileRequired {
 			
 			$this->comments = array();
 			
-			$req = new RequestJson($this, array("application"=>APPLICATION_NAME.":blogs"));
+			$req = new RequestJson($this, array("application"=>APPLICATION_NAME.":BlogDetails"));
 
 			foreach($res->details as $k => $v){
 				$req->addArguments(array("id"=>$this->blog."comments".$k));
@@ -93,7 +93,7 @@ class BlogController extends ExtendedProfileRequired {
 		} else { //it's empty
 			$this->messages = array();
 		}
-		$this->renderView("Blogs");
+		$this->renderView("BlogDetails");
 
 	}
 	

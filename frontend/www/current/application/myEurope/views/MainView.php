@@ -16,7 +16,7 @@
 			</div>
 			
 			<div class="ui-block-a">
-				<a href="#blogs" type="button" class="mymed-huge-button" data-icon="grid"><?= _('Blog') ?></a>
+				<a href="#blog" type="button" class="mymed-huge-button" data-icon="grid"><?= _('Blog') ?></a>
 			</div>
 			
 			<div class="ui-block-b">
