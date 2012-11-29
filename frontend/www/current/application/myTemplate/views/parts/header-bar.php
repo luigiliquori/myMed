@@ -17,7 +17,7 @@ function print_header_bar($print_back_button = false, $print_logout_button = fal
 				data-role="button" 
 				data-theme="r" 
 				data-icon="signout" 
-				data-iconpos="notext">' . translate('Logout') . '</a>';
+				data-iconpos="notext">' . _('Logout') . '</a>';
 	}
 	include 'social.php';
 	echo '</div>';

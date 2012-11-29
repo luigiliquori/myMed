@@ -10,11 +10,11 @@ function print_footer_bar($activeTab, $tabs) {
 	echo '<div data-role="navbar">';
 	echo '<ul>';
 	foreach ($tabs as $tab) {
-		echo '<li><a href="' . $tab[0] . '" data-icon="' . $tab[2] . '" data-ajax="false"';
+		echo '<li><a href="' . $tab[0] . '" data-transition="none" data-icon="' . $tab[2] . '"';
 		if ($activeTab == $tab[0]) {
 			echo 'data-theme="b"';
 		}
-		echo '>' . translate($tab[1]) . '</a></li>';
+		echo '>' . _($tab[1]) . '</a></li>';
 	}
 	echo'</ul></div></div>';
 }

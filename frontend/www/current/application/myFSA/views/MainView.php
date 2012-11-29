@@ -1,8 +1,11 @@
 <? include("header.php"); ?>
-<div data-role="page" id="Search" data-theme="b">
+</head>
+<body>
+
+<div data-role="page" id="Main" data-theme="b">
 	<? include("header-bar.php"); ?>
 		
-		<div data-role="content">
+		<div data-role="content" class="content_text">
 			<?php
 			$xml=("http://www.sophia-antipolis.org/index.php?option=com_content&view=category&layout=blog&id=119&Itemid=3&lang=fr&format=feed&type=rss");
 
@@ -14,12 +17,11 @@
 			$channel=$xmlDoc->getElementsByTagName('channel')->item(0);
 			$channel_title = $channel->getElementsByTagName('title')->item(0)->childNodes->item(0)->nodeValue;
 			$channel_link = $channel->getElementsByTagName('link')->item(0)->childNodes->item(0)->nodeValue;
-			$channel_desc = $channel->getElementsByTagName('description')->item(0)->childNodes->item(0)->nodeValue;
 
 			//output elements from "<channel>"
 			echo("<p><a href='" . $channel_link. "'>" . $channel_title . "</a>");
 			echo("<br />");
-			echo($channel_desc . "</p>");
+			echo("</p>");
 
 			//get and output "<item>" elements
 			$x=$xmlDoc->getElementsByTagName('item');
@@ -34,7 +36,6 @@
   				echo ($item_desc . "</p>");
   			}
 			?>
-				
 		</div>
 	
 <? include("footer.php"); ?>

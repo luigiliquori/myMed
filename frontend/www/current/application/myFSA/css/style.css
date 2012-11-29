@@ -8,6 +8,13 @@
 	background-image: url("../img/profile.png");
 }
 
+.ext-profile-photo {
+    position : relative;
+    width    : 30%;
+    height   : 15%;
+    display  : inline-block;
+} 
+
 .ui-icon-thumb {
 	background-image: url("../img/thumb.png");
 }
@@ -40,6 +47,13 @@
 	top: 100px;
 	color: white;
 	font:bold 12px Verdana;
+}
+
+.content_text {
+	margin-right:5%;
+	margin-left:5%;
+	background-color: white; 
+	text-align:justify;
 }
 
 .content {
@@ -126,10 +140,18 @@
 
 #steps {
 	position: absolute;
-	top: 50px;
+	top: -50px;
 	width: 100%;
+	opacity:.8;
 	text-align: center;
-	display: none;
+}
+
+#prev-step > span {
+	height: 19px;
+}
+
+#next-step .ui-btn-inner {
+	height: 19px;
 }
 
 

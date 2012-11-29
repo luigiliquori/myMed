@@ -1,6 +1,7 @@
 
 <? require_once("header.php"); ?>
-
+</head>
+<body>
 <div data-role="page" id="about" >	
 	
 	<div data-role="header" data-theme="b" data-position="fixed">

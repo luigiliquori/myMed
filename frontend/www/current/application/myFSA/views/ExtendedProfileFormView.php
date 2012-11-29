@@ -1,5 +1,6 @@
 <? include("header.php"); ?>
-
+</head>
+<body>
 <? 
  
  /** Definition of the Login / Register tabs */

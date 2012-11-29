@@ -63,8 +63,8 @@ public class InteractionManager extends AbstractManager implements
 		MInteractionBean existingInteraction = (MInteractionBean) introspection(MInteractionBean.class, existingInteractionMap);
 
 		// if a pending interaction already exist and the update set the interaction as completed
-		if (existingInteractionMap.size() == 0 ||
-				(existingInteraction.getState() == MInteractionBean.PENDING_STATE && interaction.getState() == MInteractionBean.COMPLETED_STATE)) {
+//		if (existingInteractionMap.size() == 0 ||
+//				(existingInteraction.getState() == MInteractionBean.PENDING_STATE && interaction.getState() == MInteractionBean.COMPLETED_STATE)) {
 
 			// CREATE or UPDATE THE INTERACTION
 			storageManager.insertSlice(CF_INTERACTION, interaction.getId(), interaction.getAttributeToMap());
@@ -81,9 +81,9 @@ public class InteractionManager extends AbstractManager implements
 				}
 			}
 
-		} else {
-			throw new IOBackEndException("Interaction already exist!", 409);
-		}
+//		} else {
+//			throw new IOBackEndException("Interaction already exist!", 409);
+//		}
 
 	}
 
