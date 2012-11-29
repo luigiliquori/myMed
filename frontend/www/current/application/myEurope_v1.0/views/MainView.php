@@ -1,28 +1,84 @@
+<? include("header.php"); ?>
+
+
 <div data-role="page" id="home">
 
-	<? print_header_bar(false, true); ?>
-	
+<? tab_bar_default("#home") ?>
+
+<? include("notifications.php"); ?>
 	<div data-role="content" >
-	
-		<? include_once 'notifications.php'; ?>
-	
-		<div class="ui-grid-a">
-			<div class="ui-block-a">
-				<a href="#search" type="button" class="mymed-huge-button" data-icon="fasearch" ><?= _('Search a partnership offer') ?></a>
-			</div>
-			
-			<div class="ui-block-b">
-				<a href="#post" type="button" class="mymed-huge-button" data-icon="edit"><?= _('Insert a partnership offer') ?></a>
-			</div>
-			
-			<div class="ui-block-a">
-				<a href="#blogs" type="button" class="mymed-huge-button" data-icon="grid"><?= _('Blog') ?></a>
-			</div>
-			
-			<div class="ui-block-b">
-				<a href="#infos" type="button" class="mymed-huge-button" data-icon="info"><?= _('Informations') ?></a>
-			</div>
+		<br>
+		<div class="main-buttons">
+			<a href="#search" type="button" class="mymed-huge-button" data-icon="fasearch" style="display: inline-block;"><?= _('Search a partnership offer') ?>
+			</a>
+			<span style="padding: 0 20px;"></span>
+			<a href="#post" type="button" class="mymed-huge-button" data-icon="edit" style="display: inline-block;"><?= _('Insert a partnership offer') ?>
+			</a>
 		</div>
+		
+		<!-- <a href="/?action=store&applicationStore=myEurope#desc" rel="external" type="button" data-icon="question-sign" data-iconpos="notext" data-theme="g" style="position: absolute; top: -3px; left: 44px;"><?= _('About') ?></a> -->
+		
+		<div style="position: fixed;text-align: center;width: 99%;bottom: 85px;">
+			<a href="./"><img src="/application/<?= APPLICATION_NAME ?>/img/icon.png" style="height: 80px;" /></a>
+			<br><br>
+			<a href="http://www.interreg-alcotra.org/2007-2013/index.php?pg=progetto&id=139"><img alt="Alcotra" src="/system/img/logos/alcotra.png" /></a>
+			<br><i style="font-size: 13px;">“Ensemble par-delà les frontières”</i>
+		</div>
+		
+	
+	</div>
+</div>
+
+<div data-role="page" id="blogs">
+
+	<? tab_bar_default("#blogs") ?>
+	<div data-role="content" style="text-align:center;">
+		<br><br>
+		<select name="flip-1" id="flip-1" data-role="slider" onchange="$('#themes_ul, #phases_ul').toggle();">
+			<option value="topic"><?= _("By topic") ?></option>
+			<option value="phase"><?= _("By phase") ?></option>
+		</select> 
+		<br><br>
+		<div id="themes_ul">
+		<ul data-role="listview" data-inset="true" data-filter="true">
+			<li data-role="list-divider"><?= _('Thèmes de projet') ?></li>
+			<? foreach (Categories::$themes as $k=>$v): ?>
+			<li>
+				<a href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
+			</li>
+			<? endforeach; ?>
+		</ul>
+		</div>
+		<div id="phases_ul" style="display: none;">
+		<ul data-role="listview" data-inset="true" data-filter="true">
+			<li data-role="list-divider"><?= _('Phases du projet') ?></li>
+			<? foreach (Categories::$phases as $k=>$v): ?>
+			<li>
+				<a href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
+			</li>
+			<? endforeach; ?>
+		</ul>
+		</div>
+		
+		
+		
+		<br>
+		<div data-role="collapsible" data-collapsed="true" data-mini="true" data-content-theme="c">
+			<h3>Beta tests</h3>
+			<ul data-role="listview" >
+				<li data-role="list-divider"></li>
+				<li>
+					<a href="?action=Blog&id=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?></a>
+				</li>
+				<li>
+					<a href="?action=Blog&id=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?></a>
+				</li>
+				<li>
+					<a href="?action=Blog&id=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?></a>
+				</li>
+			</ul>
+		</div>
+		
 	</div>
 </div>
 
@@ -281,8 +337,6 @@
 </div>​
 
 
-<? include("BlogView.php"); ?>
-
 <?php 
 function tabs_info($item){
 	tabs_simple($item, 'Infos');
@@ -294,3 +348,4 @@ function tabs_info($item){
 	<? include("infos.php"); ?>
 <? endif; ?>
 
+<? include("footer.php"); ?>

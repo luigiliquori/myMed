@@ -1,5 +1,4 @@
-<? include_once('header-bar-light.php'); ?>
-
+<? include_once('utils.php'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
 
@@ -10,27 +9,24 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
-	<!-- load css before scripts to stop sort of flash effect  -->
-	
+	<!-- CLE  -->
+	<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
 	<!--  Extra icons for jquery -->
 	<link rel="stylesheet" href="../../lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
-	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0-beta.1.css" />
-	<!-- APP css -->
-	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0.css" />
 	<!-- MYMED css -->
-	<link href="<?= MYMED_URL_ROOT ?>/system/css/common.css" rel="stylesheet" />	
+	<link href="../../system/css/common.css" rel="stylesheet" />
+	<!-- APP css -->
+	<link href="css/app.css" rel="stylesheet" />
 	
-	<script src="../../lib/jquery/jquery-1.8.1.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-1.2.0-beta.1.js"></script>
+	
+	<script src="../../lib/jquery/jquery-1.8.2.min.js"></script>
+	<script src="../../lib/jquery/jquery.mobile-1.2.0.js"></script>
 	<!-- APP JS -->
-	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
+	<script src="javascript/app.js"></script>
 	
-  	<!-- Graphs -->
-  	<script src="<?= APP_ROOT ?>/javascript/statistics-graphics.js"></script>
-	
-	
+
 	<!-- Google Analytics -->
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
@@ -43,10 +39,7 @@
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
 	</script>
-	
-	<script type="text/javascript" src="<?= APP_ROOT ?>/javascript/gadash-1.0.js"></script>
-	
-	
+			
 	</head>
 		
 <body>
@@ -54,8 +47,8 @@
 <? // ================== Switch to active tab on load ==========================================?>
 <? if (!empty($TAB)) :?>
 	<script type="text/javascript">
-		$('[data-role=page]:last').live("pageshow", function() {
-			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"});
+		$(document).ready(function() {
+			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
 		});
 	</script>
 <? endif ?>
