@@ -17,26 +17,38 @@ class BlogController extends ExtendedProfileRequired {
 	}
 	
 	function create(){
-		$t = time();
-		$k = hash("crc32b", $t.$_SESSION['user']->id);
-		$data = array(
-			$k => json_encode(array(
-				"time"=>$t,
-				"user"=>$_SESSION['user']->id,
-				"title"=>$_POST['title'],
-				"text"=>$_POST['text']
-			))
-		);
-		$publish = new RequestJson($this,
-			array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog, "data"=>$data),
-			UPDATE);
-		$publish->send();
-		$subscribe = new RequestJson( $this,
-			array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog."comments".$k, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":blogComment"),
-			CREATE, "v2/SubscribeRequestHandler");
-		$subscribe->send();
-		
-		$this->redirectTo("blog", array("id" => $this->blog));
+		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
+		$debugtxt  .= var_export($_POST['text'], TRUE);
+		$debugtxt  .= var_export($_POST['title'], TRUE);
+		$debugtxt .= "</pre>";
+		debug($debugtxt);
+		if(!empty($_POST['text']) && !empty($_POST['title'])) {
+			$t = time();
+			$k = hash("crc32b", $t.$_SESSION['user']->id);
+					   $data = array(
+									$k => json_encode(array(
+									"time"=>$t,
+									"user"=>$_SESSION['user']->id,
+									"title"=>$_POST['title'],
+									"text"=>$_POST['text']
+								))
+				  		);
+			$publish = new RequestJson($this,
+			array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog, "data"=>$data),UPDATE);
+			$publish->send();
+			$subscribe = new RequestJson( $this,
+										array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog."comments".$k, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":blogComment"),
+										CREATE, "v2/SubscribeRequestHandler");
+			$subscribe->send();
+			$this->redirectTo("blog", array("id" => $this->blog));}
+		else{
+			$this->error = "Fields cannot be empty";
+			$debugtxt  =  "<pre>LEEEEEEEEEEEEEERRROOOOOOOOOOOOOOR";
+			$debugtxt  .= var_export($this->error, TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);			
+			$this->redirectTo("blog", array("id" => $this->blog));
+		}
 	}
 	
 	function defaultMethod() {
