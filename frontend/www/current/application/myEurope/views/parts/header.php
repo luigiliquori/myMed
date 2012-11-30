@@ -9,9 +9,6 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
-	<!-- CLE  -->
-	<link rel="stylesheet" type="text/css" href="/lib/jquery/CLEeditor/jquery.cleditor.css" />
-	
 	<!--  Extra icons for jquery -->
 	<link rel="stylesheet" href="/lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
 	
@@ -33,6 +30,11 @@
 	<link href="css/myEurope.min.css" rel="stylesheet" />
 	<link href="css/style.css" rel="stylesheet" />
 	
+		<!-- Cleeditor -->
+	<link rel="stylesheet" type="text/css" href="jquery/CLEeditor/jquery.cleditor.css" />
+    <script type="text/javascript" src="jquery/CLEeditor/jquery.cleditor.min.js"></script>
+    <script type="text/javascript" src="jquery/CLEeditor/startCLE.js"> </script>
+    
 	<!-- Google Analytics -->
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
