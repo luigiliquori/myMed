@@ -1,4 +1,4 @@
-<? include("header.php"); ?>
+
 <script>
 	blog = '<?= $this->blog ?>';
 </script>
@@ -9,6 +9,7 @@
 	<? include("notifications.php"); ?>
 	
 	<div data-role="content">
+
 		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;
 		    "onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:BlogDetails", "<?= APPLICATION_NAME ?>:blogMessage", null, "<?= $this->blog ?>"); $(this).addClass("ui-disabled");'>
 		    <?= _("Notify me of new messages") ?></a>
@@ -63,11 +64,29 @@
 		</div>
 		
 		<br />
-		<div data-role="collapsible" class="loadCLE" data-mini="true" data-inline="true" style="margin-bottom: -.5em;" data-collapsed-icon="edit" data-expanded-icon="faminus">
+		
+		
+		<script type="text/javascript">
+				// Dictionnary of already initliazed pages
+				gInitialized = {}
+				// Initialization made on each page 
+				$('[data-role=page]').live("pagebeforeshow", function() {
+				var page = $("BlogDetailsView");
+				var id = page.attr("id");
+				// Don't initialize twice
+				if (id in gInitialized) return;
+				gInitialized[id] = true;
+				//debug("init-page : " + page.attr("id"));
+				console.log('hello');
+				$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
+				});
+		</script>
+		
+		<div data-mini="true" data-inline="true" style="margin-bottom: -.5em;" data-collapsed-icon="edit" data-expanded-icon="faminus">
 			<h3 style="margin:auto;margin-left: 0;width:165px;"><?= _('New Message') ?></h3>
 			<form method="post" action="?action=Blog&method=create&id=<?= $this->blog ?>"  style="text-align:right;">
 				<input type="text" name="title" placeholder="<?= _('title') ?>" data-mini="true" data-inline="true" value="" />				
-				<textarea id="CLEeditor" id="textBlog" name="text"></textarea>
+				<textarea id="CLEeditor" name="text"></textarea>
 				<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('Post') ?>" />
 			</form>
 		</div>

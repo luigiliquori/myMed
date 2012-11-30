@@ -37,20 +37,6 @@ $("#Blog, #post").live("pagecreate", function() {
 	
 });
 
-
-$(".loadCLE").live("expand", function(e) {
-	if(!CLEloaded){
-		var me = this;
-		$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
-			//console.log("CLE loaded");
-			$("#CLEeditor").cleditor({useCSS:true})[0].focus();
-			$(me).trigger('expand');
-			CLEloaded = true
-		});
-	}
-	
-});
-
 $("#search").live("pagecreate", function() {
 	/*$("#searchForm").submit(function() {
 		return validate(this);		

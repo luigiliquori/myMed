@@ -17,11 +17,7 @@ class BlogController extends ExtendedProfileRequired {
 	}
 	
 	function create(){
-		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-		$debugtxt  .= var_export($_POST['text'], TRUE);
-		$debugtxt  .= var_export($_POST['title'], TRUE);
-		$debugtxt .= "</pre>";
-		debug($debugtxt);
+
 		if(!empty($_POST['text']) && !empty($_POST['title'])) {
 			$t = time();
 			$k = hash("crc32b", $t.$_SESSION['user']->id);
@@ -42,11 +38,8 @@ class BlogController extends ExtendedProfileRequired {
 			$subscribe->send();
 			$this->redirectTo("blog", array("id" => $this->blog));}
 		else{
-			$this->error = "Fields cannot be empty";
-			$debugtxt  =  "<pre>LEEEEEEEEEEEEEERRROOOOOOOOOOOOOOR";
-			$debugtxt  .= var_export($this->error, TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);			
+			//$this->error = "Fields cannot be empty";
+			//TODO notification when user wants to post empty msg;
 			$this->redirectTo("blog", array("id" => $this->blog));
 		}
 	}
