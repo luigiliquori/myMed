@@ -14,7 +14,7 @@ function print_header_bar($print_back_button = false, $idHelpPopup = "defaultHel
 	}
 	
 	echo '<h1>' . APPLICATION_NAME . '</h1>';
-	echo '<a href="#" id="openHelp" onclick="$( \'#' . $idHelpPopup . '\' ).popup( \'open\' )" data-icon="question-sign" class="ui-btn-right" data-theme="e">' . _('Help') . '</a>';
+	echo '<a href="#' . $idHelpPopup . '" id="openHelp" data-icon="question-sign" class="ui-btn-right" data-theme="e" data-rel="popup">' . _('Help') . '</a>';
 	
 	echo '</div>';
 }

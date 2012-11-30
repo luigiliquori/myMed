@@ -15,9 +15,6 @@ include(MYMED_ROOT . '/system/controllers/index-controller.php');
 
 textdomain(GLOBAL_MESSAGES);
 
-require_once('header-bar.php');
-// require_once('footer-bar.php');
-
 // Print Page
 include_once('header.php');
 echo '<input type="hidden" id="isGuest" value="' . $_SESSION['user']->is_guest . '" />';

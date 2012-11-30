@@ -30,6 +30,7 @@
 	<script src="javascript/app.js"></script>
 
 	<!-- APP css -->
+	<link href="css/myEurope.min.css" rel="stylesheet" />
 	<link href="css/style.css" rel="stylesheet" />
 	
 	<!-- Google Analytics -->
