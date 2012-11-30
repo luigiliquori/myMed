@@ -1,43 +1,16 @@
-
 var isSub = 3;
-
 var application="myEurope", predicate="";
-
 var CLEloaded = false;
-
-/*$('label').click(function(e){
-    e.stopPropagation()
-});/*
-
-/*$("#Search").live("pageshow", function() {
-	var queryString = decodeURIComponent(location.search.substring(1));
-
-	var params = queryString.split('&');
-	
-	var tags=[];
-	for (i in params){
-		if (params[i].split('=')[1] == "on"){
-			tags.push(params[i].split('=')[0]);
-		}
-	}
-	tags.sort();
-	
-	isSub = 3;
-	$.get('../../lib/dasp/ajax/Subscribe', {
-		code: 1, 
-		application: application ,
-		predicate: tags.join("") 
-	}, function(data){
-		var res = JSON.parse(data);
-		if (res.sub)
-			isSub = 0;
-		$('#flip-a').val(isSub).slider('refresh');
-		console.log("__ "+isSub+" "+tags);
-	});
-	//console.log("__ "+isSub+" "+tags);
-});*/
-
 var inputStr = '<input name="k[]" list="keywords" class="tagInput" style="width: 100px; margin-left: 10px; margin-bottom: 5px;"/>';
+
+$(document).ready(function() {
+	// Start Tuto if needed
+	myEuropeUserNeedsHelp = getCookie("myEuropeUserNeedsHelp");
+	if(!$('#isGuest').val() || $('#isGuest').val() == "" || !myEuropeUserNeedsHelp){
+		setTimeout(function(){ $('#openHelp').click();}, 1000);
+		setCookie("myEuropeUserNeedsHelp", false, 365);
+	}
+});
 
 $('.tagInput').live('keyup', function(e){
 	var ctId = '#'+ this.parentNode.id;
@@ -94,45 +67,6 @@ $("#search").live("pagecreate", function() {
 		}
 	});
 });
-
-
-/*function validate(elt){
-	var t=[];
-	$('input[data-t]', elt).each(function(i, v) {
-		if ($(v).is(':checked')){
-			t.push($(v).data('t'));
-		}
-	});
-	$('.formThemes').val(t.join('-'));
-	var pf=[];
-	$('input[data-pf]', elt).each(function(i, v) {
-		if ($(v).is(':checked')){
-			pf.push($(v).data('pf'));
-		}
-	});
-	$('.formFrance').val(pf.join('-'));
-	var pi=[];
-	$('input[data-pi]', elt).each(function(i, v) {
-		if ($(v).is(':checked')){
-			pi.push($(v).data('pi'));
-		}
-	});
-	$('.formItaly').val(pi.join('-'));
-	var po=[];
-	$('input[data-t]', elt).each(function(i, v) {
-		if ($(v).is(':checked')){
-			po.push($(v).data('po'));
-		}
-	});
-	$('.formOther').val(po.join('-'));
-	var r=[];
-	$('input[data-r]', elt).each(function(i, v) {
-		if ($(v).is(':checked')){
-			t.push($(v).data('r'));
-		}
-	});
-	$('.formRoles').val(r.join('-'));
-}*/
 
 function sortBy( i ){
 	

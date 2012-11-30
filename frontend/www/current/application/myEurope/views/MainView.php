@@ -1,6 +1,6 @@
 <div data-role="page" id="home">
 
-	<? print_header_bar(false, true); ?>
+	<? print_header_bar(false); ?>
 	
 	<div data-role="content" >
 	
@@ -43,24 +43,12 @@
 
 <div data-role="page" id="search">
 
-	<? tabs_simple('Search'); ?>
+	<? print_header_bar(true, "searchHelpPopup"); ?>
+	
 	<div data-role="content">
 		<br>
 		<form action="" id="searchForm">
 			<input type="hidden" name="action" value="Search" />
-			<div data-role="popup" id="helpPopup" class="ui-content"
-				data-overlay-theme="e" data-theme="d">
-				<a href="#" data-rel="back" data-role="button" data-theme="d"
-					data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<ul data-role="listview" data-theme="d">
-					<li>Si vous laissez tous les champs <b>vides</b>, vous
-					obtenez toutes les offres publiées à ce jour</li>
-					<li>Lorsque vous
-					laissez une categorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</li>
-					<li>Lorsque vous cochez/ remplissez plusieurs champs dans une catégorie, les 
-						résultats matcheront au moins un des critères.</li>
-				</ul>
-			</div>
 			
 			<div data-role="fieldcontain" id="tagsContainer">
 				<label for="textinput1"><?= _('keywords') ?>:</label>

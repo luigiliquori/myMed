@@ -20,6 +20,7 @@ require_once('header-bar.php');
 
 // Print Page
 include_once('header.php');
+echo '<input type="hidden" id="isGuest" value="' . $_SESSION['user']->is_guest . '" />';
 main_controller();
 include_once('footer.php');
 
