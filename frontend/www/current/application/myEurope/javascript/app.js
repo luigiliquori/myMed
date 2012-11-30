@@ -3,6 +3,15 @@ var application="myEurope", predicate="";
 var CLEloaded = false;
 var inputStr = '<input name="k[]" list="keywords" class="tagInput" style="width: 100px; margin-left: 10px; margin-bottom: 5px;"/>';
 
+$(document).ready(function() {
+	// Start Tuto if needed
+	myEuropeUserNeedsHelp = getCookie("myEuropeUserNeedsHelp");
+	if(!$('#isGuest').val() || $('#isGuest').val() == "" || !myEuropeUserNeedsHelp){
+		setTimeout(function(){ $('#openHelp').click();}, 1000);
+		setCookie("myEuropeUserNeedsHelp", false, 365);
+	}
+});
+
 $('.tagInput').live('keyup', function(e){
 	var ctId = '#'+ this.parentNode.id;
 	if (e.keyCode == 32){
