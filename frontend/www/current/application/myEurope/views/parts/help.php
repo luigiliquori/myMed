@@ -3,6 +3,7 @@
  * Help box
  */
 ?>
+
 <div data-role="popup" id="popupHelp" data-transition="flip" data-theme="e" Style="padding: 10px;">
 	
 	<h2><?= _("Bienvenu dans myEurope") ?></h2>
@@ -48,11 +49,11 @@
 	
 	<br />	
 	
-	<center><a href="#" data-role="button" data-icon="ok" data-inline="true" data-theme="e" onclick="$( '#popupHelp' ).popup( 'close' )">Ok</a></center>
+	<center><a href="#" data-role="button" data-icon="ok" data-inline="true" data-theme="e" data-direction="reverse">Ok</a></center>
 </div>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$( "#popupHelp" ).popup( "open" );
+		 setTimeout(function(){ $('#openHelp').click();}, 1000);
 	 });
  </script>
