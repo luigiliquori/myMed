@@ -15,31 +15,31 @@
 		<div class="ui-grid-a" Style="text-align: center;">
 			<div class="ui-block-a">
 				<a href="#search">
-					<img alt="search" src="img/icons/search.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+					<img alt="search" src="img/icons/search.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
 			</div>
 			
 			<div class="ui-block-b">
 				<a href="#post">
-					<img alt="search" src="img/icons/publish.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+					<img alt="search" src="img/icons/publish.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
 			</div>
 			
 			<div class="ui-block-a">
 				<a href="#blog">
-					<img alt="search" src="img/icons/blog.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+					<img alt="search" src="img/icons/blog.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
 			</div>
 			
 			<div class="ui-block-b">
 				<a href="#infos">
-					<img alt="search" src="img/icons/info.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+					<img alt="search" src="img/icons/info.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
 			</div>
 			
 			<div class="ui-block-a">
 				<a href="?action=extendedProfile" rel="external">
-					<img alt="search" src="img/icons/profile<?= $_SESSION['user']->is_guest ? "_guest" : "" ?>.png" Style="width: <?= $this->detect->isMobile() ? "90" : "25" ?>%">
+					<img alt="search" src="img/icons/profile<?= $_SESSION['user']->is_guest ? "_guest" : "" ?>.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
 			</div>
 			
@@ -82,7 +82,7 @@
 				</li>
 			</ul>
 			<br />	
-			<center><a href="#" data-role="button" data-icon="ok" data-inline="true" data-theme="e" data-direction="reverse" onclick="$( '#defaultHelpPopup' ).popup( 'close' )">Ok</a></center>
+			<center><a href="#" data-role="button" data-icon="ok" data-inline="true" data-theme="e" data-direction="reverse">Ok</a></center>
 		</div>
 		
 	</div>
