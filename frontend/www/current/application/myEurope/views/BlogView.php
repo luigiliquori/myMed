@@ -13,14 +13,14 @@
 			<li data-role="list-divider"><?= _('Phases du projet') ?></li>
 			<? foreach (Categories::$phases as $k=>$v): ?>
 			<li>
-				<a href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
+				<a data-ajax="false" href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
 			</li>
 			<? endforeach; ?>
 			
 			<li data-role="list-divider"><?= _('Thèmes de projet') ?></li>
 			<? foreach (Categories::$themes as $k=>$v): ?>
 			<li>
-				<a href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
+				<a data-ajax="false" href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
 			</li>
 			<? endforeach; ?>
 		</ul>

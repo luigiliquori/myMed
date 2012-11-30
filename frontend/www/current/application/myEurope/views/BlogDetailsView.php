@@ -1,14 +1,29 @@
-
 <script>
 	blog = '<?= $this->blog ?>';
 </script>
 
-<div data-role="page" id="BlogDetails">
+<div data-role="page" id="BlogDetailsView" data-ajax="false">
+	
+			<script type="text/javascript">
+				// Dictionnary of already initliazed pages
+				gInitialized = {}
+				// Initialization made on each page 
+				$('[data-role=page]').live("pagebeforeshow", function() {
+				var page = $("BlogDetailsView");
+				var id = page.attr("id");
+				// Don't initialize twice
+				if (id in gInitialized) return;
+				gInitialized[id] = true;
+				//debug("init-page : " + page.attr("id"));
+				console.log('hello');
+				$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
+				});
+		</script>
 
 	<? tabs_simple($this->blog, 'Back'); ?>
 	<? include("notifications.php"); ?>
 	
-	<div data-role="content">
+	<div data-role="content" data-ajax="false">
 
 		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;
 		    "onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:BlogDetails", "<?= APPLICATION_NAME ?>:blogMessage", null, "<?= $this->blog ?>"); $(this).addClass("ui-disabled");'>
@@ -64,27 +79,10 @@
 		</div>
 		
 		<br />
-		
-		
-		<script type="text/javascript">
-				// Dictionnary of already initliazed pages
-				gInitialized = {}
-				// Initialization made on each page 
-				$('[data-role=page]').live("pagebeforeshow", function() {
-				var page = $("BlogDetailsView");
-				var id = page.attr("id");
-				// Don't initialize twice
-				if (id in gInitialized) return;
-				gInitialized[id] = true;
-				//debug("init-page : " + page.attr("id"));
-				console.log('hello');
-				$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
-				});
-		</script>
-		
+				
 		<div data-mini="true" data-inline="true" style="margin-bottom: -.5em;" data-collapsed-icon="edit" data-expanded-icon="faminus">
 			<h3 style="margin:auto;margin-left: 0;width:165px;"><?= _('New Message') ?></h3>
-			<form method="post" action="?action=Blog&method=create&id=<?= $this->blog ?>"  style="text-align:right;">
+			<form method="post" action="?action=Blog&method=create&id=<?= $this->blog ?>"  style="text-align:right;" data-ajax="false">
 				<input type="text" name="title" placeholder="<?= _('title') ?>" data-mini="true" data-inline="true" value="" />				
 				<textarea id="CLEeditor" name="text"></textarea>
 				<input type="submit" data-theme="b" data-mini="true" data-inline="true" value="<?= _('Post') ?>" />
