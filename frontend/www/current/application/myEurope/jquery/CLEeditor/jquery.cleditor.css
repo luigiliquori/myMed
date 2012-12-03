@@ -1,9 +1,8 @@
 .cleditorMain {border:1px solid #999;
 		max-width: 100%;
 		min-width: 100%; 
-		min-height: 100%;
-            overflow: hidden;
-            resize: both;
+        overflow: hidden;
+        resize: both;
 padding:0 1px 1px; background-color:white}
 .cleditorMain iframe {border:none; margin:0; padding:0}
 .cleditorMain textarea {border:none; margin:0; padding:0; overflow-y:scroll; font:10pt Arial,Verdana; resize:both; outline:none /* webkit grip focus */}
