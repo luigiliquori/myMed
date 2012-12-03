@@ -53,6 +53,8 @@ class Partnership extends Entry {
 		$request['k'] = array_map('strtolower', $request['k']);
 		$this->untranslate($request['k']);
 		
+		echo "***********" . $request['k'];
+		
 		//the order matters because I was too lazy to sort it backend-side
 		$this->index[] = new DataBeanv2("t", ENUM, '|'.join("|",  $request['t'])); //themes
 		$this->index[] = new DataBeanv2("p", ENUM, '|'.join("|", array_merge($request['pf'], $request['pi'], $request['po']))); //places
