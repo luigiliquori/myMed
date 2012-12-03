@@ -82,7 +82,7 @@
 				</li>
 			</ul>
 			<br />	
-			<center><a href="#" data-role="button" data-icon="ok" data-inline="true" data-theme="e" data-direction="reverse">Ok</a></center>
+			<center><a href="#" data-role="button" data-icon="ok" data-inline="true" data-theme="e" data-rel="back" data-direction="reverse">Ok</a></center>
 		</div>
 		
 	</div>
