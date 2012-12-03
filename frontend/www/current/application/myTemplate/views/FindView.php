@@ -16,7 +16,12 @@
 					<input type="text" name="pred3" placeholder="pred3"/>
 				</div>
 				
-				<center><input type="submit" name="method" value="Search" data-theme="g" data-inline="true" data-icon="search"/></center>
+				<center>
+					<div data-role="controlgroup" data-type="horizontal">
+						<input type="submit" name="method" value="Search" data-theme="g" data-inline="true" data-icon="search" />
+						<input type="submit" name="method" value="Subscribe" data-theme="d" data-inline="true" data-icon="star" data-iconpos="right"/>
+					</div>
+				</center>
 			</div>
 			
 		</form>
