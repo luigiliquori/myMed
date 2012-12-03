@@ -54,7 +54,17 @@ class MainController extends AuthenticatedController {
 			
 			$this->renderView("results");
 			
-		} 
+		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
+			
+			// -- Subscribe
+			$obj = new ExampleObject();
+				
+			// Fill the object
+			$this->fillObj($obj);
+			$obj->subscribe();
+				
+			$this->success = "Subscribe !";
+		}
 
 		$this->renderView("main");
 	}
