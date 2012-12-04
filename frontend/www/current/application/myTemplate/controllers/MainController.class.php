@@ -56,12 +56,13 @@ class MainController extends AuthenticatedController {
 			
 		}elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
 
-			$obj = new PublishObject();				
+			$obj = new ExampleObject();				
 			// Fill the object
-			$this->fillObj($obj);			
+			$this->fillObj($obj);
+			$obj->publisherID = $_SESSION['user']->id;
 			$obj->delete();			
 			$this->result = $obj;	
-			$this->redirectTo("Search");	
+			$this->success = "Deleted !";	
 		} 
 		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
 			
@@ -92,11 +93,6 @@ class MainController extends AuthenticatedController {
 		$obj->data1 = $_POST['data1'];
 		$obj->data2 = $_POST['data2'];
 		$obj->data3 = $_POST['data3'];
-		
-		$_SESSION['pred1'] = $obj->pred1;
-		$_SESSION['pred2'] = $obj->pred2 ;
-		$_SESSION['pred3'] = $obj->pred3;
-		
 	}
  	
 }
