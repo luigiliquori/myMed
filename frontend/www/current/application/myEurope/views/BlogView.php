@@ -1,10 +1,10 @@
 <div data-role="page" id="blog">
 
 	<? print_header_bar(false, true); ?>
-
-	<div data-role="content" style="text-align:center;">
 	
-		<? include_once 'notifications.php'; ?>
+	<div data-role="content" style="text-align:center;">
+	<? print_notification($this->success.$this->error); ?>
+		
 	
 		<br><br>
 		<br><br>

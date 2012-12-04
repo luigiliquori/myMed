@@ -21,10 +21,10 @@
 		</script>
 
 	<? tabs_simple($this->blog, 'Back'); ?>
-	<? include("notifications.php"); ?>
+	
 	
 	<div data-role="content" data-ajax="false">
-
+		
 		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;
 		    "onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:BlogDetails", "<?= APPLICATION_NAME ?>:blogMessage", null, "<?= $this->blog ?>"); $(this).addClass("ui-disabled");'>
 		    <?= _("Notify me of new messages") ?></a>

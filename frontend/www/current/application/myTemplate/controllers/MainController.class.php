@@ -54,7 +54,16 @@ class MainController extends AuthenticatedController {
 			
 			$this->renderView("results");
 			
-		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
+		}elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
+
+			$obj = new PublishObject();				
+			// Fill the object
+			$this->fillObj($obj);			
+			$obj->delete();			
+			$this->result = $obj;	
+			$this->redirectTo("Search");	
+		} 
+		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
 			
 			// -- Subscribe
 			$obj = new ExampleObject();
@@ -83,6 +92,10 @@ class MainController extends AuthenticatedController {
 		$obj->data1 = $_POST['data1'];
 		$obj->data2 = $_POST['data2'];
 		$obj->data3 = $_POST['data3'];
+		
+		$_SESSION['pred1'] = $obj->pred1;
+		$_SESSION['pred2'] = $obj->pred2 ;
+		$_SESSION['pred3'] = $obj->pred3;
 		
 	}
  	
