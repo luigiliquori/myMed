@@ -9,8 +9,12 @@
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
 			<div data-role="collapsible" data-collapsed="false">
+				
 				<?if ($this->result->publisherID == $_SESSION['user']->id){ ?>
-					<form action="index.php?action=publish" method="POST" data-ajax="false">
+					<form action="index.php?action=main" method="POST" data-ajax="false">
+						<input type="hidden" name="pred1" value="<?= $this->result->pred1 ?>" />
+						<input type="hidden" name="pred2" value="<?= $this->result->pred2 ?>" />
+						<input type="hidden" name="pred3" value="<?= $this->result->pred3 ?>" />
 		 				<input type="hidden" name="method" value="Delete" />
 						<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= translate('Delete publication') ?>" />
 		 			</form>
@@ -19,9 +23,9 @@
 				<h3>Wrapped: <?= $this->result->wrapped1 ?> - <?= $this->result->wrapped2 ?></h3>
 								
 				<p style="position: relative; margin-left: 30px;">
-					<b>Pred1</b>: <?= $_SESSION['pred1'] ?><br/>
-					<b>Pred2</b>: <?= $_SESSION['pred2'] ?><br/>
-					<b>Pred3</b>: <?= $_SESSION['pred3'] ?><br/><br/>
+					<b>Pred1</b>: <?= $this->result->pred1 ?><br/>
+					<b>Pred2</b>: <?= $this->result->pred2 ?><br/>
+					<b>Pred3</b>: <?= $this->result->pred3 ?><br/><br/>
 					
 					<b>Begin</b> : <?= $this->result->begin ?><br/>
 					<b>End</b>: <?= $this->result->end ?><br/><br />
