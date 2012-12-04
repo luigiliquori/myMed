@@ -1,116 +1,99 @@
 <? 
 
-class BlogController extends ExtendedProfileRequired {
+/**
+ *  This controller shows the search/publish form and receives "search" and "publish" queries.
+ *  It renders the views "main" or "results".
+ */
+class BlogController extends AuthenticatedController {
 	
-	function handleRequest() {
-		parent::handleRequest();
-		$this->blog = $_GET['id'];
-	}
-	
-	function delete(){
-		$request = new RequestJson($this,
-			array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog, "field"=>$_GET['field']),
-			DELETE);
-		$request->send();
+	public $result;
+	public $reputationMap = array();
+
+	public function handleRequest() {
 		
-		$this->forwardTo("blog", array("id" => $this->blog));
-	}
-	
-	function create(){
-
-		if(!empty($_POST['text']) && !empty($_POST['title'])) {
-			$t = time();
-			$k = hash("crc32b", $t.$_SESSION['user']->id);
-					   $data = array(
-									$k => json_encode(array(
-									"time"=>$t,
-									"user"=>$_SESSION['user']->id,
-									"title"=>$_POST['title'],
-									"text"=>$_POST['text']
-								))
-				  		);
-			$publish = new RequestJson($this,
-			array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog, "data"=>$data),UPDATE);
-			$publish->send();
-			$subscribe = new RequestJson( $this,
-										array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog."comments".$k, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":blogComment"),
-										CREATE, "v2/SubscribeRequestHandler");
-			$subscribe->send();
-			$this->redirectTo("blog", array("id" => $this->blog));}
-		else{
-			//$this->error = "Fields cannot be empty";
-			//TODO notification when user wants to post empty msg;
-			$this->redirectTo("blog", array("id" => $this->blog));
-		}
-	}
-	
-	function defaultMethod() {
-		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":BlogDetails", "id"=>$this->blog));
+		parent::handleRequest();
 			
-		try{
-			$res = $find->send();
-		}
-		catch(Exception $e){
-			//return null;
-		}
-		if (isset($res->details)){
+		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
 			
-			$this->messages = array();
-			foreach ($res->details as $k=>$v){
-				$this->messages[$k] = json_decode($v, true);
-			}
-			uasort($this->messages, array($this, "timeCmp"));
+			// -- Publish
+			$obj = new ExampleObject();
 			
+			// Fill the object
+			$this->fillObj($obj);
+			$obj->publish();
 			
-
-			$repArr =  getReputation(array_keys($this->messages));
+			$this->success = "Published !";
 			
-			$this->messages = array_replace_recursive($this->messages, $repArr);
+		} elseif(isset($_GET['method']) && $_GET['method'] == "Search") {
 			
-			$this->comments = array();
+			// -- Search
+			$search = new BlogObject();
+			$search->pred1 = $_GET['id'];
+			$this->result = $search->find();
 			
-			$req = new RequestJson($this, array("application"=>APPLICATION_NAME.":BlogDetails"));
-
-			foreach($res->details as $k => $v){
-				$req->addArguments(array("id"=>$this->blog."comments".$k));
+			// get userReputation
+			foreach($this->result as $item) :
+			
+				// Get the reputation of the user in each application
+				$request = new Request("ReputationRequestHandler", READ);
+				$request->addArgument("application",  APPLICATION_NAME);
+				$request->addArgument("producer",  $item->publisherID);		
+				$request->addArgument("consumer",  $_SESSION['user']->id);
 				
-				$this->comments[$k] = array();
-				try{
-					$r = $req->send();
-				} catch (NoResultException $e) {
-					continue;
-				}catch(Exception $e){}
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
 				
-				if (isset($r->details)){
-					
-					foreach ($r->details as $ki=>$vi){
-						$this->comments[$k][$ki] = json_decode($vi, true);
-					}
-					$repArr = getReputation(array_keys($this->comments[$k]));
-					$this->comments[$k] = array_replace_recursive($repArr, $this->comments[$k]);
-
-					
-					uasort($this->comments[$k], array($this, "repCmp"));
-					
+				if (isset($responseObject->data->reputation)) {
+					$value =  json_decode($responseObject->data->reputation) * 100;
+				} else {
+					$value = 100;
 				}
-			}
+				$this->reputationMap[$item->publisherID] = $value;
 			
-		} else { //it's empty
-			$this->messages = array();
+			endforeach;
+			
+			$this->renderView("BlogResult");
+			
+		}elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
+
+			$obj = new ExampleObject();				
+			// Fill the object
+			$this->fillObj($obj);
+			$obj->publisherID = $_SESSION['user']->id;
+			$obj->delete();			
+			$this->result = $obj;	
+			$this->success = "Deleted !";	
+		} 
+		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
+			
+			// -- Subscribe
+			$obj = new ExampleObject();
+				
+			// Fill the object
+			$this->fillObj($obj);
+			$obj->subscribe();
+				
+			$this->success = "Subscribe !";
 		}
-		$this->renderView("BlogDetails");
 
+		$this->renderView("main");
 	}
 	
-	public function timeCmp($a, $b){
-		return  $a['time'] < $b['time'];
+	// Fill object with POST values
+	private function fillObj($obj) {
+		$obj->begin = $_POST['begin'];
+		$obj->end = $_POST['end'];
+		$obj->wrapped1 = $_POST['wrapped1'];
+		$obj->wrapped2 = $_POST['wrapped2'];
+		
+		$obj->pred1 = $_POST['pred1'];
+		$obj->pred2 = $_POST['pred2'];
+		$obj->pred3 = $_POST['pred3'];
+		
+		$obj->data1 = $_POST['data1'];
+		$obj->data2 = $_POST['data2'];
+		$obj->data3 = $_POST['data3'];
 	}
-	
-	public function repCmp($a, $b){
-		if ($a['up']-$a['down'] == $b['up']-$b['down'])
-			return $this->timeCmp($a, $b);
-		return  $a['up']-$a['down'] < $b['up']-$b['down'];
-	}
-
+ 	
 }
 ?>
