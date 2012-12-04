@@ -1,5 +1,0 @@
-<?php
-define('SESSIONNAME', 'openid');
-require('system/main.php');
-main();
-?>

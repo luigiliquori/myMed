@@ -1,1 +1,0 @@
-../iGoogle3/openid.php
