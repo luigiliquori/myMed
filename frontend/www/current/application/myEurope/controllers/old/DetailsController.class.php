@@ -12,7 +12,7 @@ class DetailsController extends AuthenticatedController {
 		$author = $_GET['author'];
 		
 		// Create an object
-		$obj = new Partnership($predicate);
+		$obj = new ExampleObject($predicate);
 		$obj->publisherID = $author;
 		
 		// Fetches the details

@@ -5,6 +5,10 @@
  	background-repeat: no-repeat;
 }
 
+.ui-btn-text img {
+	position: absolute;
+}
+
 .ui-controlgroup-last {
 	vertical-align: top;
 }

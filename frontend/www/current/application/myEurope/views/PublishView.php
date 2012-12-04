@@ -5,12 +5,12 @@
 	
 	<div data-role="content">
 	
-		<form action="./" method="post" id="publishForm" data-ajax="false">
+		<form action="index.php?action=main" method="POST" data-ajax="false">
 		
-			<input type="hidden" name="action" value="Publish" />
-			<input type="hidden" name="method" value="create" /> <input
-				type="hidden" name="r"
-				value="<?= $_SESSION['myEurope']->details['role'] ?>" />
+			<input type="hidden" name="method" value="Publish" />
+			<input type="hidden" id="publish_theme" name="theme" value="" />
+			<input type="hidden" id="publish_other" name="other" value="" />
+			<input type="hidden" id="publish_date" name="date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3>Comment pubiler ?</h3>
@@ -28,9 +28,6 @@
 					placeholder="<?= _("partnership or project name") ?>" value=''
 					type="text" />
 				
-				<h3><?= _('Keywords') ?> : </h3>
-	 			<input id="textinput1" placeholder="<?= _('separated by a space') ?>" name="k[]" list="keywords" />
-				
 				<h3><?= _('Texte libre') ?> :</h3>
 				<div data-role="controlgroup" data-type="horizontal"> 
 					<a href="#publishOptionPopup" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" data-mini="true"><?= _("Option") ?></a>
@@ -41,87 +38,63 @@
 			</div>
 			
 			<div style="text-align: center;">
-				<input id="submit2" type="submit" data-inline="true" data-icon="check" data-theme="g" value="<?=_('Insert') ?>" />
+				<input type="submit" data-inline="true" data-icon="check" data-theme="g" value="<?=_('Insert') ?>" onclick="
+					$('#publish_theme').val($('#publish_theme_content').val());
+					$('#publish_other').val($('#publish_other_content').val());
+					$('#publish_date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());
+				"/>
 			</div>
 	
-			<div data-role="popup" id="publishOptionPopup" data-theme="b"
+			<!-- --------------------- -->
+			<!-- PUBLISH OPTION POPUP -->
+			<!-- --------------------- -->
+			<div data-role="popup" id="publishOptionPopup" data-theme="c"
 				data-content-theme="d" data-mini="true" class="ui-content">
 				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-					<h3>
-					<?= _('Themes') ?>
-						:
-					</h3>
-					<fieldset data-role="controlgroup">
-					<? foreach (Categories::$themes as $k=>$v): ?>
-						<input type="checkbox" name="t[]" value="<?= $k ?>"
-							id="checkbox-<?= $k ?>" /> <label for="checkbox-<?= $k ?>"><?= $v ?>
-						</label>
-						<? endforeach; ?>
-					</fieldset>
 					
-					<h3>
-					<?= _('Areas') ?>
-						:
-					</h3>
-					<fieldset data-role="controlgroup">
-						<div data-role="collapsible-set" data-mini="true">
-							<div data-role="collapsible" data-collapsed="true">
-								<h3>
-								<?= _("France") ?>
-								</h3>
-								<? foreach (Categories::$places_fr as $k=>$v): ?>
-								<input type="checkbox" name="pf[]" value="<?= $v ?>"
-									id="checkbox-f<?= $k ?>" /> <label for="checkbox-f<?= $k ?>"><?= $v ?>
-								</label>
-								<? endforeach; ?>
-							</div>
-							<div data-role="collapsible" data-collapsed="true">
-								<h3>
-								<?= _("Italy") ?>
-								</h3>
-								<? foreach (Categories::$places_it as $k=>$v): ?>
-								<input type="checkbox" name="pi[]" value="<?= $v ?>"
-									id="checkbox-i<?= $k ?>" /> <label for="checkbox-i<?= $k ?>"><?= $v ?>
-								</label>
-								<? endforeach; ?>
-							</div>
-							<div data-role="collapsible" data-collapsed="true">
-								<h3>
-								<?= _("Other") ?>
-								</h3>
-								<? foreach (Categories::$places_ot as $k=>$v): ?>
-								<input type="checkbox" name="po[]" value="<?= $v ?>"
-									id="checkbox-o<?= $k ?>" /> <label for="checkbox-o<?= $k ?>"><?= $v ?>
-								</label>
-								<? endforeach; ?>
-							</div>
-						</div>
-					</fieldset>
-					
-					<h3>
-					<?= _('Other options') ?>
-						:
-					</h3>
-	
 					<div data-role="fieldcontain">
-						<label for="call" class="select"><?= _("Programme concerné par l'offre") ?>:</label>
-						<select name="c" id="call">
-						<? foreach (Categories::$calls as $k=>$v): ?>
-							<option value="<?= $k ?>">
-							<?= $v ?>
-							</option>
-							<? endforeach; ?>
+		   				<fieldset data-role="controlgroup">
+							<select id="publish_theme_content" id="call">
+							<option value=""><?= _("Themes") ?></option>
+							<? foreach (Categories::$themes as $k=>$v): ?>
+								<option value="<?= $k ?>">
+									<?= $v ?>
+								</option>
+								<? endforeach; ?>
+							</select>
+							
+								<select id="publish_other_content" id="call">
+								<option value=""><?= _("Programme") ?></option>
+								<? foreach (Categories::$calls as $k=>$v): ?>
+									<option value="<?= $k ?>">
+										<?= $v ?>
+									</option>
+								<? endforeach; ?>
+							</select>
+						</fieldset>
+					</div>
+	
+					<h3><?= _('Date of expiration') ?> :</h3>
+					<fieldset data-role="controlgroup" data-type="horizontal"> 
+						<select id="publish_day_content" data-inline="true">
+							<option value="">Day</option>
+						<?php for ($i = 1; $i <= 31; $i++) { ?>
+							<option value="<?= $i ?>"><?= $i ?></option>
+						<?php } ?>
 						</select>
-					</div>
-	
-	
-	
-					<div data-role="fieldcontain">
-						<label for="textinputp2"><?= _('Date of expiration') ?>: </label>
-						<input id="textinputp2" name="date"
-							placeholder="<?= _('date in format year-month-day') ?>" value=''
-							type="date" />
-					</div>
+						<select id="publish_month_content" data-inline="true">
+							<option value="">Month</option>
+						<?php for ($i = 1; $i <= 12; $i++) { ?>
+							<option value="<?= $i ?>"><?= $i ?></option>
+						<?php } ?>
+						</select>
+						<select id="publish_year_content" data-inline="true">
+							<option value="">Year</option>
+						<?php for ($i = 2012; $i <= 2042; $i++) { ?>
+							<option value="<?= $i ?>"><?= $i ?></option>
+						<?php } ?>
+						</select>
+					</fieldset>
 	
 			</div>
 	
@@ -135,8 +108,6 @@
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		<h3><?= _('Title') ?> : </h3>
 		<input type="text" value="Création d'un centre d'art dans la commune d'Embrun" readonly="readonly"/>
-		<h3><?= _('Keywords') ?> : </h3>
-		<input type="text" value="Embrun art contemporain histoire culture jeunes Alcotra" readonly="readonly"/>
 		<h3><?= _('Texte libre') ?> :</h3>
 		<textarea rows="80" cols="80" readonly="readonly">J’aimerais redonner une attractivité à ma commune en y créant un centre d’art. En effet, alors que notre commune nous offre des lieux chargés d’histoire, nous ne disposons pas de lieu où nous pourrions promouvoir l’art contemporain, de façon à faire le lien entre les deux époques.
 

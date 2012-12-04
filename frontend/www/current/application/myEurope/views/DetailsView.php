@@ -1,68 +1,87 @@
-<? include("header.php"); ?>
-
 <div data-role="page">
 
-	<? tabs_simple($this->details->title, 'Results'); ?>
-	<? include("notifications.php"); ?>
+	<? print_header_bar(true, false); ?>
+	
+	<div data-role="content" >
+	
+		<? include_once 'notifications.php'; ?>
+	
+		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
-	<div data-role="content" >	
-		<br>
-		<div data-role="header" data-theme="e">
-		<h1><?= $this->details->title ?></h1>
-		</div>	
-		
-		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
-			<li style="font-weight: normal;">
-				<div data-role="none">
-					<?= $this->details->text ?>
-				</div>
-				<p class="ui-li-aside" data-role="controlgroup" style="width:auto;" data-type="horizontal" data-mini="true">
-					<a data-role="button" data-icon="arrow-up" onclick="rate($(this), '<?= $this->id ?>', '<?= $this->details->user ?>', 1);">
-						<span style="color: blue;font-size: 14px;"><?= $this->reputation['up'] ?></span> <span style="font-weight: normal;">"J'aime"</span>
+			<div data-role="collapsible" data-collapsed="false">
+				
+				<?if ($this->result->publisherID == $_SESSION['user']->id){ ?>
+					<form action="index.php?action=main" method="POST" data-ajax="false">
+						<input type="hidden" name="theme" value="<?= $this->result->theme ?>" />
+						<input type="hidden" name="other" value="<?= $this->result->other ?>" />
+		 				<input type="hidden" name="method" value="Delete" />
+						<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= translate('Delete publication') ?>" />
+		 			</form>
+				<? } ?> 
+			
+				<h3><?= $this->result->title ?></h3>
+								
+				<p style="position: relative; margin-left: 30px;">
+					<b><?= _('keywords') ?></b>: <?= $this->result->theme ?>, <?= $this->result->other ?><br/>
+					<b>End</b>: <?= $this->result->end ?><br/><br />
+					
+					<h3><?= $this->result->title ?> :</h3>
+					<?= $this->result->text ?><br/><br />
+					
+					<b>Reputation</b>: 
+					
+					<a href="#popupReputation1" data-rel="popup">
+						<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+							<?php if($i*20-20 < $this->reputation["value"] ) { ?>
+							<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;" />
+							<?php } else { ?>
+							<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
+							<?php } ?>
+						<? } ?>
 					</a>
+					
 				</p>
 				
-			</li>
-			<li style="font-weight: normal; font-size: 14px;">
-				<b><?= _("Keywords") ?>:</b> <?= $this->tags  ?>
-			</li>
-			<li style="font-weight: normal; font-size: 14px;">
-				<b><?= _("Publication Date") ?>:</b> <?= date('j/n/Y G:i', $this->details->time) ?>
-			</li>
-			<? if (isset($this->details->expirationDate)) :?>
-				<li style="font-weight: normal; font-size: 14px;">
-					<b><?= _("Expiration Date") ?>:</b> <?= date('j/n/Y G:i', strtotime($this->details->expirationDate)) ?>
-				</li>	
-			<? endif ?>	
-		</ul>
-		
-		<? if (isset($this->details->user)) :?>			
-			<div data-role="collapsible" data-mini="true">
-				<h3><?= _('Partners') ?>:</h3>
+				<div data-role="popup" id="popupReputation1" class="ui-content" Style="text-align: center; width: 18em;">
+					<?= _("Do you like the author?") ?><br /><br />
+					<form action="#" method="get" data-ajax="false">
+						<input type="hidden" name="action" value="updateReputation" />
+						<input type="hidden" name="isData" value="1" />
+						<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
+						<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
+						<input type="range" name="reputation" id="reputation" value="5" min="0" max="10" data-mini="true"/>
+						<input type="submit" value="Send" data-mini="true" data-theme="g"/>
+					</form>
+				</div>
 				
-				<?= $this->details->userProfile->renderProfile() ?>
-					
-				<? foreach($this->partnersProfiles as $item) : ?>
-					<?= $item->renderProfile() ?>
-				<? endforeach ?>
+				<br/>
+				
+				<p>
+					<b>Contact</b>: <?= $this->result->publisherID ?><br/>
+					Reputation: 
+					<a href="#popupReputation2" data-rel="popup">
+						<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+							<?php if($i*20-20 < $this->reputation["author"] ) { ?>
+								<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;" />
+							<?php } else { ?>
+								<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
+							<?php } ?>
+						<? } ?>
+						</a>
+				</p>
+				
+				<div data-role="popup" id="popupReputation2" class="ui-content" Style="text-align: center;">
+					<?= _("Do you like the content?") ?><br /><br />
+					<a href="?action=updateReputation&reputation=10&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="g" data-icon="plus">Of course yes!</a><br />
+					<a href="?action=updateReputation&reputation=0&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus">No, not really...</a>
+				</div>
+				
 			</div>
-
-			<br />
-
-			<? if ( in_array(trim($_SESSION['user']->id), $this->details->userProfile->users)) :?>
-				<a href="#deletePopup" data-role="button" data-rel="popup" data-inline="true" data-icon="remove" data-mini="true" style="float:right;">  <?= _("Delete my offer") ?> </a>
-			<? else :?>
-				<a href="?action=Details&method=update&partnerRequest=&id=<?= urlencode($this->id) ?>" type="button" data-inline="true" data-mini="true" data-icon="check"> <?= _("Partnership request") ?> </a>
-			<? endif ?>
-		<? endif ?>
 		
-		 <div data-role="popup" id="deletePopup" class="ui-content" data-overlay-theme="e" data-theme="d">
-			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<?= _('Sure?') ?><br />
-			<a href="?action=Details&method=delete&id=<?= urlencode($this->id) ?>" data-role="button" data-theme="d" data-icon="remove" data-inline="true">Yes</a>
 		</div>
-		
+	
 	</div>
+	
 </div>
 
-<? include("footer.php"); ?>
+<? include_once 'MainView.php'; ?>

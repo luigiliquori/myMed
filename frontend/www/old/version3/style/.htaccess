@@ -1,7 +1,0 @@
-<Files *>
-ForceType none
-</Files>
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule /([^/]+)\.min\.css$ %{REQUEST_URI}/../$1.css
