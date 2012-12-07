@@ -26,7 +26,7 @@
 	<div Style="position: relative; top:-130px; left:1%; width: 50%; border: thin black solid; background-color: white;padding: 10px; opacity:0.8;">
 		<h2>Welcome to myMed</h2>
 		<h3 Style="color: #69a7d2;">
-		<p>Mymed is an open source project which help you develope easily application for mobile device. It is providing engine for publish search and subscribe</p>
+		Mymed is an open source project which help you develope easily application for mobile device. It is providing engine for publish search and subscribe</h3>
 		<p> Engine Build on top disttributed data base that provide high scalabity</p>
 		<p>Web based tool for developing social web aplication, geolocalisation, profile reputation, point of interest, </p>
 	</div>
