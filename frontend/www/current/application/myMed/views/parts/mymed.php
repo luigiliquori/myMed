@@ -46,11 +46,11 @@
 	<div class="ui-grid-a" Style="padding: 20px;">
 		<div class="ui-block-a">
 			<h3 Style="color: #69a7d2;">Easy</h3>
-			<p>Start from the template, add or remove features, play with the design and you have ready application s</p>
+			<p>Start from the template, add or remove features, play with the design and you have ready application.</p>
 		</div>
 		<div class="ui-block-b">
 			<h3 Style="color: #69a7d2;">Extensible</h3>
-			<p>Mymed provides modular architecture, developers can easily add, remove features whatever they like</p>
+			<p>Mymed provides modular architecture, developers can easily add, remove features whatever they like.</p>
 		</div>
 		<div class="ui-block-a">
 			<h3 Style="color: #69a7d2;">Decentralized</h3>
