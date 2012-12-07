@@ -7,99 +7,115 @@ include 'Mobile_Detect.php';
  *  It renders the views "main" or "results".
  */
 class MainController extends ExtendedProfileRequired {
-	
+
 	public $detect; // Mobile detect
 	public $result;
 	public $reputationMap = array();
-	
+
 	public function MainController() {
 		parent::__construct();
 		$this->detect = new Mobile_Detect();
 	}
 
 	public function handleRequest() {
-		
+
 		parent::handleRequest();
-		
-		print_r($_POST);
-			
+
 		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
-			
+				
 			// -- Publish
 			$obj = new Partnership();
-			
+				
 			// Fill the object
 			$this->fillObj($obj);
 			$obj->publish();
-			
+				
 			$this->success = "Published !";
-			
+				
 		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
-			
+				
 			// -- Search
 			$search = new Partnership();
 			$this->fillObj($search);
 			$this->result = $search->find();
-			
+				
 			// get userReputation
-			foreach($this->result as $item) :
-			
-				// Get the reputation of the user in each application
-				$request = new Request("ReputationRequestHandler", READ);
-				$request->addArgument("application",  APPLICATION_NAME);
-				$request->addArgument("producer",  $item->publisherID);		
-				$request->addArgument("consumer",  $_SESSION['user']->id);
+			$this->getReputation($this->result);
 				
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-				
-				if (isset($responseObject->data->reputation)) {
-					$value =  json_decode($responseObject->data->reputation) * 100;
-				} else {
-					$value = 100;
-				}
-				$this->reputationMap[$item->publisherID] = $value;
-			
-			endforeach;
-			
 			$this->renderView("results");
-			
-		}elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
+				
+		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
 
-			$obj = new Partnership();				
+			$obj = new Partnership();
 			// Fill the object
 			$this->fillObj($obj);
 			$obj->publisherID = $_SESSION['user']->id;
-			$obj->delete();			
-			$this->result = $obj;	
-			$this->success = "Deleted !";	
-		} 
-		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
-			
+			$obj->delete();
+			$this->result = $obj;
+			$this->success = "Deleted !";
+		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
+				
 			// -- Subscribe
 			$obj = new Partnership();
-				
+
 			// Fill the object
 			$this->fillObj($obj);
 			$obj->subscribe();
-				
+
 			$this->success = "Subscribe !";
+				
+		} else {
+				
+			// load "Our Selection results"
+			$selectedResults = new Partnership();
+			$this->result = $selectedResults->find();
+			// get userReputation
+			$this->getReputation($this->result);
+				
 		}
 
 		$this->renderView("main");
 	}
-	
-	// Fill object with POST values
+
+	/**
+	 * Fill object with POST values
+	 * @param unknown $obj
+	 */
 	private function fillObj($obj) {
-		
+
 		$obj->theme = $_POST['theme'];
 		$obj->other = $_POST['other'];
-		
+
 		$obj->end 	= $_POST['date'];
-		
+
 		$obj->title = $_POST['title'];
 		$obj->text 	= $_POST['text'];
 	}
-	
+
+	/**
+	 * Get the reputation of the user in each application
+	 * @param unknown $applicationList
+	 */
+	private function getReputation($applicationList) {
+		foreach($applicationList as $item) :
+			
+		$request = new Request("ReputationRequestHandler", READ);
+		$request->addArgument("application",  APPLICATION_NAME);
+		$request->addArgument("producer",  $item->publisherID);
+		$request->addArgument("consumer",  $_SESSION['user']->id);
+
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+
+		if (isset($responseObject->data->reputation)) {
+			$value =  json_decode($responseObject->data->reputation) * 100;
+		} else {
+			$value = 100;
+		}
+		$this->reputationMap[$item->publisherID] = $value;
+			
+		endforeach;
+	}
+
 }
 ?>

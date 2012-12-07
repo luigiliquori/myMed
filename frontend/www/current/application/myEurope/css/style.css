@@ -155,4 +155,12 @@
 	color: #333 /*{e-bup-color}*/;
 }
 
+.myEuropeIcon {
+	color: gray; 
+	font-style: none;
+	text-decoration: none;
+	text-shadow: none;
+	font-weight: bold;
+}
+
 

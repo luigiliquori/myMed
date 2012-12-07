@@ -14,33 +14,47 @@
 		<!-- ------------------ -->
 		<div class="ui-grid-a" Style="text-align: center;">
 			<div class="ui-block-a">
-				<a href="#search">
+				<a href="#search" class="myEuropeIcon">
 					<img alt="search" src="img/icons/search.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
+				<br />
+				<span class="myEuropeIcon"><?= _("Search a partnership offer") ?></span>
 			</div>
 			
 			<div class="ui-block-b">
 				<a href="#post">
 					<img alt="search" src="img/icons/publish.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
+				<br />
+				<span class="myEuropeIcon"><?= _("Insert a partnership offer") ?></span>
 			</div>
-			
+		</div>
+		<br /><br />
+		<div class="ui-grid-a" Style="text-align: center;">
 			<div class="ui-block-a">
 				<a href="#blog">
 					<img alt="search" src="img/icons/blog.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
+				<br />
+				<span class="myEuropeIcon"><?= _("Blog") ?></span>
 			</div>
 			
 			<div class="ui-block-b">
 				<a href="#infos">
 					<img alt="search" src="img/icons/info.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
+				<br />
+				<span class="myEuropeIcon"><?= _("Informations") ?></span>
 			</div>
-			
+		</div>
+		<br /><br />
+		<div class="ui-grid-a" Style="text-align: center;">
 			<div class="ui-block-a">
 				<a href="?action=extendedProfile" rel="external">
 					<img alt="search" src="img/icons/profile<?= $_SESSION['user']->is_guest ? "_guest" : "" ?>.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
+				<br />
+				<span class="myEuropeIcon"><?= _("Profile") ?></span>
 			</div>
 			
 		</div>
