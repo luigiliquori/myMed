@@ -30,7 +30,7 @@
 		<br></br>
 		
 		<script>
-	    $("select").change(function () {
+	    $("#mySelect").change(function () {
 	          var pred1 = "";
 	          $("select option:selected").each(function () {
 	        	  pred1 = $(this).text();
