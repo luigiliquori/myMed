@@ -57,10 +57,11 @@ class FindRequest extends Request {
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
-	public /*string*/ function send() {
+	public /*string*/ function send($count = 100) {
 
 		// Construct the requests
-
+		parent::addArgument("count", $count);
+		
 		if ($this->namespace == null) {
 			parent::addArgument("application", APPLICATION_NAME);
 		} else {

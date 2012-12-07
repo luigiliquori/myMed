@@ -271,7 +271,7 @@ abstract class GenericDataBean {
 	 * Use the current instance as a search query and returns the list of matching elements as
 	 * an array of instances of the same class.
 	 */
-	public /* <CurrentClass>[]  */ function find() {
+	public /* <CurrentClass>[]  */ function find($count = 100) {
 
 		// Create a find request
 		$fr = new FindRequest(
@@ -281,7 +281,7 @@ abstract class GenericDataBean {
 				$this->NAMESPACE);
 
 		// Get a list of result
-		$items = $fr->send();
+		$items = $fr->send($count);
 
 		$className = get_class($this);
 		$res = array();

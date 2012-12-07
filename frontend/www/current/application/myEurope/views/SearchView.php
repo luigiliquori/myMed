@@ -16,11 +16,8 @@
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3>Comment rechercher ?</h3>
-				<p>La recherche de partenariats passe par la <b>définition</b> du projet: <br />
-				Un projet est classé en fonction de son thème ainsi que de sa localisation.
-				Il est possible aussi pour affiner la recherche de spécifier le type de partenaire recherché.</p>
-				<p>Pour une recherche rapide, saisissez quelques mots-clés séparé par un espace puis lancer la recherche en appuyant sur le bouton "Rechercher"</p>
-				<p>Pour une recherche avancée, cliquez sur le bouton "Option" pour utilisé les différents filtres du moteur de recherche</p>
+				<p>Saisissez une liste de <strong>mots clés</strong> correspondant à votre recherche de projets ou de partenariats.<br />
+				Vous pouvez aussi utiliser les options pour filtrer votre recherche ou vous <strong>abonner</strong> à une thematique particulière.</p>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
@@ -31,12 +28,47 @@
 					<a href="#searchExamplePopup" data-rel="popup" data-role="button" data-inline="true" data-icon="star" data-mini="true" data-theme="e" data-iconpos="right"><?= _("Example") ?></a>
 				</div>
 				<input name="keywords" placeholder="<?= _('separated by a space') ?>" list="keywords" type="search"/>
+			
+				<div style="text-align: center;">
+					<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>"  data-iconpos="right" data-inline="true" onclick="
+						$('#search_theme').val($('#search_theme_content').val());
+						$('#search_other').val($('#search_other_content').val());
+					"/>
+				</div>
 			</div>
-			<div style="text-align: center;">
-				<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>"  data-iconpos="right" data-inline="true" onclick="
-					$('#search_theme').val($('#search_theme_content').val());
-					$('#search_other').val($('#search_other_content').val());
-				"/>
+			
+			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
+				<h3><?= _('Notre selection') ?> :</h3>
+				<ul data-role="listview">
+				<? foreach($this->result as $item) : ?>
+					<li>
+						<!-- Print Publisher reputation -->
+						<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+							<h3><?= _("Title")?> : <?= $item->title ?></h3>
+							
+							<p style="position: relative; margin-left: 30px;">
+								<b><?= _("Themes") ?></b>: <?= $item->theme ?><br/>
+								<b><?= _("Programme") ?></b>: <?= $item->other ?><br/><br/>
+								<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
+							</p>
+							
+							<br/>
+							
+							<p>
+								Publisher ID: <?= $item->publisherID ?><br/>
+								reputation: 
+								<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+									<?php if($i*20-20 < $this->reputationMap[$item->publisherID] ) { ?>
+										<img alt="rep" src="img/yellowStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;" />
+									<?php } else { ?>
+										<img alt="rep" src="img/grayStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;"/>
+									<?php } ?>
+								<? } ?>
+							</p>
+						</a>
+					</li>
+				<? endforeach ?>
+				</ul>
 			</div>
 			
 			<!-- --------------------- -->
@@ -67,6 +99,10 @@
 						</select>
 					</fieldset>
 				</div>
+				
+				<input type="submit" data-icon="plus" data-theme="g" value="<?=_('Subscribe') ?>"  data-iconpos="right" data-inline="true" onclick="
+					$('#method').val('Subscribe');
+				"/>
 			</div>
 			
 		</form>
