@@ -21,72 +21,11 @@ function tab_bar_login($activeTab) {
 }
 ?>
 
-<div data-role="page" id="MainPage">
+<!-- INCLUDE THE MAIN PAGE OF THE PROJECT -->
+<?php include('mymed.php'); ?>
 
-	<div data-role="header" data-theme="a">
-		<img alt="myMed" src="/application/myMed/img/logo-light.png" height="30px"/>
-		
-		<div data-role="controlgroup" data-type="horizontal">
-			<a href="#home" data-role="button" class="ui-btn-active">Home</a>
-			<a href="#download" data-role="button">Download</a>
-			<a href="#wiki" data-role="button">Wiki</a>
-			<a href="#developers" data-role="button">Developers</a>
-			<a href="#login" data-role="button" data-transition="flip">Try</a>
-		</div>
-		
-	</div>
-	
-	<div Style="position: relative; width: 50%; border: thin black solid; background-color: white;padding: 10px; opacity:0.8;">
-		<h2>Welcome to myMed</h2>
-		<h3 Style="color: #69a7d2;">myMed is an open-source project that provide solutions to build web mobile applications on top of a persistent decentralized database with hight scalability</h3>
-		<p>The mymed project provide a SDK consectetur adipiscing elit. Ut fermentum vestibulum nisi eget imperdiet. Integer placerat eros non magna facilisis mollis. Pellentesque vitae ullamcorper augue. Proin diam dolor, imperdiet nec tristique sit amet, imperdiet ac sapien. Donec sed tempus diam. Morbi libero nisi, euismod sed feugiat et, sollicitudin at nunc. Nunc porta pulvinar augue at imperdiet. </p>
-		<p>Nullam ac dolor sapien. Fusce commodo, lorem vel bibendum varius, dolor nunc rutrum magna, quis commodo felis velit a lectus. Nullam placerat leo vel erat tempor accumsan eleifend massa eleifend. Sed faucibus lorem eu lectus malesuada sed posuere dolor iaculis. Cras sagittis diam tincidunt leo pulvinar consequat. Morbi faucibus pellentesque viverra. Sed faucibus neque in odio congue ut ultricies velit vestibulum. Curabitur iaculis consequat nulla sit amet hendrerit. Aenean ornare eros at magna facilisis egestas. </p>
-	</div>
-	
-	<div style="position: absolute; left:60%; top:100px; border: thin black solid; background-color: #69a7d2; padding: 10px; text-align: center; border-radius: 5px; opacity:0.8;">
-		<h3>Download</h3>
-		<img alt="myMed" src="/application/myMed/img/dl_icon.png" height="30px"/><br />
-		<a href="#" data-role="button" data-inline="true" data-mini="true">Lastest release: 1.5</a><br /><br />
-		Open source, Apache license.<br />
-	</div>
-	
-	<div Style="position: relative; width: 100%; height: 30px; margin-top:40px; border: thin black solid; background-color: #69a7d2; opacity:0.8; text-align: center;">
-		<h3 Style="position: relative; top: -15px;">Overview</h3>
-	</div>
-	
-	<div class="ui-grid-a" Style="padding: 20px;">
-		<div class="ui-block-a">
-			<h3 Style="color: #69a7d2;">Easy</h3>
-			<p>Quisque in massa odio, id sollicitudin velit. Vivamus vestibulum nunc eget tellus auctor cursus aliquet eget ipsum. <br />
-			Maecenas bibendum, leo quis lacinia vestibulum, velit sapien ornare nulla, et lobortis augue enim sed dui. Vestibulum ante <br />
-			ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc porta pellentesque magna et fermentum. Curabitur <br />
-			vel nunc erat. Fusce non adipiscing enim. Sed eget euismod dolor. </p>
-		</div>
-		<div class="ui-block-b">
-			<h3 Style="color: #69a7d2;">Decentralized</h3>
-			<p>Maecenas dapibus, mi id commodo porta, ante nunc ultricies eros, vitae accumsan magna magna nec nulla. Vivamus adipiscing <br />
-			nibh id tortor cursus nec ultricies ante posuere. Morbi tristique pellentesque mi, a mattis massa tristique sed. Cras pulvinar <br />
-			fermentum velit, quis dictum libero posuere a. Phasellus sed magna commodo mauris tincidunt volutpat. Mauris eu diam a purus rutrum <br />
-			ultricies. Sed et nisi ac est vulputate fermentum eget quis turpis. Curabitur porta cursus blandit. </p>
-		</div>
-		<div class="ui-block-a">
-			<h3 Style="color: #69a7d2;">Cross Platform</h3>
-			<p>Quisque in massa odio, id sollicitudin velit. Vivamus vestibulum nunc eget tellus auctor cursus aliquet eget ipsum. Maecenas <br />
-			bibendum, leo quis lacinia vestibulum, velit sapien ornare nulla, et lobortis augue enim sed dui. Vestibulum ante ipsum primis in <br />
-			faucibus orci luctus et ultrices posuere cubilia Curae; Nunc porta pellentesque magna et fermentum. Curabitur vel nunc erat. Fusce <br />
-			non adipiscing enim. Sed eget euismod dolor. </p>
-		</div>
-	</div><!-- /grid-a -->
-	
-	<center><div Style="background-color: #69a7d2; height: 1px; width: 80%;"></div></center>
-	
-	<div Style="text-align: center;">
-		<?php include("system/views/logos.php") ?>
-	</div>
-	
-</div>
-
-<div data-role="popup" id="login">
+<!-- Login page for betaUsers -->
+<div data-role="page" id="login">
 
 	<?php tab_bar_login("#login"); ?>
 	<?php include('notifications.php'); ?>
