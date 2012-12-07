@@ -26,9 +26,10 @@
 	<div Style="position: relative; top:-130px; left:1%; width: 50%; border: thin black solid; background-color: white;padding: 10px; opacity:0.8;">
 		<h2>Welcome to myMed</h2>
 		<h3 Style="color: #69a7d2;">
-		Mymed is an open source project which help you develope easily application for mobile device. It is providing engine for publish search and subscribe</h3>
-		<p> Engine Build on top disttributed data base that provide high scalabity</p>
-		<p>Web based tool for developing social web aplication, geolocalisation, profile reputation, point of interest, </p>
+		Mymed is an open source project, which will help you facilitate and accelerate developing mobile applications.</h3>
+		<p>Provides engine for publishing, searching and subscribing content, which is built on the top of the distributed database providing high scalability.
+		Contains ready features for social web aplication: geolocalisation, points of interest, managing profile, reputation of the content and users.</p>
+		<p>Would like to check how fast you can create your application?</p>		
 	</div>
 	
 	<div style="position: absolute; left:60%; top:100px; border: 15px black solid; background-color: #69a7d2; padding: 10px; text-align: center; border-radius: 10px; opacity:0.8;">
@@ -45,16 +46,16 @@
 	<div class="ui-grid-a" Style="padding: 20px;">
 		<div class="ui-block-a">
 			<h3 Style="color: #69a7d2;">Easy</h3>
-			<p>EASY you just start from the template, adding/removing features playing aith design and You have a great ready application </p>
+			<p>Start from the template, add or remove features, play with the design and you have ready application s</p>
 		</div>
 		<div class="ui-block-b">
-			<h3 Style="color: #69a7d2;">Decentralized</h3>
-			<p>NoSQL Database if you will reach 1000000 without changing anything in the code the aplication will be still running/from 10 to milion of user </p>
-			<p>Fault tolerance if one or two machines will fail system is still running, replicqtion of the data on several servers</p>
+			<h3 Style="color: #69a7d2;">Extensible</h3>
+			<p>Mymed provides modular architecture, developers can easily add, remove features whatever they like</p>
 		</div>
 		<div class="ui-block-a">
-			<h3 Style="color: #69a7d2;">Extensible</h3>
-			<p>Mymed provides modular architecture that is why developer can easily add features </p>
+			<h3 Style="color: #69a7d2;">Decentralized</h3>
+			<p>Project is based on NoSQL database aplication, will be running with 10 or 10 milions of users without any code changes.
+			Additionaly is fault tolerance, it does not matter if one or two machines will fail, system will be still running thanks to replication of the data on several servers.</p>
 		</div>
 	</div><!-- /grid-a -->
 	
