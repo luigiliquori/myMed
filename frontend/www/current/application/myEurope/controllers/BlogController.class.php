@@ -20,6 +20,7 @@ class BlogController extends AuthenticatedController {
 			
 			// Fill the object
 			$this->fillObj($obj);
+			$obj->pred1 = $_SESSION['pred1'];
 			$obj->publish();
 			
 			$this->success = "Published !";
@@ -29,6 +30,7 @@ class BlogController extends AuthenticatedController {
 			// -- Search
 			$search = new BlogObject();
 			$search->pred1 = $_GET['pred1'];
+			$_SESSION['pred1'] = $search->pred1;
 			$this->result = $search->find();
 			
 			// get userReputation
@@ -52,21 +54,17 @@ class BlogController extends AuthenticatedController {
 			
 			endforeach;
 			
-			$debugtxt  =  "<pre>GEEEEEEEEEEET RESULTS!!!!!!!!!!";
-			$debugtxt  .= var_export($this->result, TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
-			
 			$this->renderView("Blog");
 			
 		}elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
 
-			$obj = new ExampleObject();				
+			$obj = new BlogObject();				
 			// Fill the object
 			$this->fillObj($obj);
 			$obj->publisherID = $_SESSION['user']->id;
 			$obj->delete();			
 			$this->result = $obj;	
+			$this->renderView("Blog");
 			$this->success = "Deleted !";	
 		} 
 		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
@@ -80,15 +78,6 @@ class BlogController extends AuthenticatedController {
 				
 			$this->success = "Subscribe !";
 		}
-		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "GetTittles") {
-				
-			$debugtxt  =  "<pre>GEEEEEEEEEEET DETAILS!!!!!!!!!!";
-			$debugtxt  .= var_export($_REQUEST['pred1'], TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
-		}
-
-		$this->renderView("main");
 	}
 	
 	// Fill object with POST values

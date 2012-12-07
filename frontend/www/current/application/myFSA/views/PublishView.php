@@ -71,15 +71,6 @@
 			<!--<input type="submit" name="method" value="Search" />-->
 			
 		</form>
-<!-- tutaj koniec ehehe 
-	<div class="push"></div>
-				</div>
-			</div>
-			<div data-role="footer" data-theme="c" class="footer">
-			<div style="text-align: center;">
-				
-			</div>
-		</div>-->
 		
 		<? include("footer.php"); ?>
 		

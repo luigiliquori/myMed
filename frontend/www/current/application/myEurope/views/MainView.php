@@ -27,7 +27,7 @@
 			
 			<div class="ui-block-a">
 				<a href="#Blog">
-					<img alt="search" src="img/icons/blog.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
+					<img data-ajax="false" alt="search" src="img/icons/blog.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
 			</div>
 			

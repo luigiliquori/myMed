@@ -1,6 +1,10 @@
-<div data-role="page" id="Blog">
+<div data-role="page" id="Blog" data-ajax="false">
 	
-	<div data-role="content" style="text-align:center;">
+		<? print_header_bar(true, false); ?>
+	
+	<div data-role="content" >
+	
+		<? include_once 'notifications.php'; ?>
 		
 		<select id="mySelect" data-ajax="false"> 
 		<optgroup label="<?= _('Phases du projet') ?>" id="one">  
@@ -35,8 +39,8 @@
 	          window.location.href = "?action=Blog&method=Search&pred1="+pred1;
 	        }).trigger('select');
 		</script>		
-				<ul data-role="listview" data-theme="d">
-			
+		
+		<ul data-role="listview" data-theme="d">
 			<? if (count($this->result) == 0) :?>
 			<li>
 				<h4>No result found</h4>
@@ -46,7 +50,7 @@
 			<? foreach($this->result as $item) : ?>
 				<li>
 					<!-- Print Publisher reputation -->
-					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+					<a data-ajax="false" href="?action=blogDetails&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= $item->pred2 ?></h3>
 						
 						<p>
@@ -62,8 +66,33 @@
 						</p>
 					</a>
 				</li>
-			<? endforeach ?>
-			
+			<? endforeach ?>			
 		</ul>
+		<br></br>
+		<br></br>
+		
+			<script type="text/javascript">
+				// Dictionnary of already initliazed pages
+				gInitialized = {}
+				// Initialization made on each page 
+				$('[data-role=page]').live("pagebeforeshow", function() {
+				var page = $("PublishView");
+				var id = page.attr("id");
+				// Don't initialize twice
+				if (id in gInitialized) return;
+				gInitialized[id] = true;
+				//debug("init-page : " + page.attr("id"));
+				console.log('hello');
+				$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
+				});
+			</script>
+			<form action="?action=blog" method="POST" data-ajax="false">
+				<input type="text" name="pred2" placeholder="Title"/>
+				<textarea id="CLEeditor" name="data1"></textarea>			
+				<input type="hidden" name="method" value="Publish" />
+				<input type="submit" value="<?= translate('Publish') ?>" data-inline="true" data-icon="check"/>			
+			</form>
+		
+		
 	</div>
 </div>
