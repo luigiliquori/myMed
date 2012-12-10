@@ -5,6 +5,10 @@
  	background-repeat: no-repeat;
 }
 
+.ui-btn-text img {
+	position: absolute;
+}
+
 .ui-controlgroup-last {
 	vertical-align: top;
 }
@@ -149,6 +153,14 @@
 
 .ui-btn-up-e:visited, .ui-btn-up-e a.ui-link-inherit {
 	color: #333 /*{e-bup-color}*/;
+}
+
+.myEuropeIcon {
+	color: gray; 
+	font-style: none;
+	text-decoration: none;
+	text-shadow: none;
+	font-weight: bold;
 }
 
 

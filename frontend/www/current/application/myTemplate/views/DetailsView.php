@@ -9,6 +9,16 @@
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
 			<div data-role="collapsible" data-collapsed="false">
+				
+				<?if ($this->result->publisherID == $_SESSION['user']->id){ ?>
+					<form action="index.php?action=main" method="POST" data-ajax="false">
+						<input type="hidden" name="pred1" value="<?= $this->result->pred1 ?>" />
+						<input type="hidden" name="pred2" value="<?= $this->result->pred2 ?>" />
+						<input type="hidden" name="pred3" value="<?= $this->result->pred3 ?>" />
+		 				<input type="hidden" name="method" value="Delete" />
+						<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= translate('Delete publication') ?>" />
+		 			</form>
+				<? } ?> 
 			
 				<h3>Wrapped: <?= $this->result->wrapped1 ?> - <?= $this->result->wrapped2 ?></h3>
 								
@@ -84,6 +94,6 @@
 
 <? include_once 'MainView.php'; ?>
 <? include_once 'FindView.php'; ?>
-<? include_once 'ResultView.php'; ?>
+<? include_once 'ResultsView.php'; ?>
 <? include_once 'ProfileView.php'; ?>
 <? include_once 'UpdateProfileView.php'; ?>
