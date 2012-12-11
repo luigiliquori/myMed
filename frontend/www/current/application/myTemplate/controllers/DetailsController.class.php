@@ -27,15 +27,15 @@ class DetailsController extends AuthenticatedController {
 		$request->addArgument("producer",  $obj->publisherID);							
 		$request->addArgument("consumer",  $_SESSION['user']->id);
 		
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
+// 		$responsejSon = $request->send();
+// 		$responseObject = json_decode($responsejSon);
 		
-		if (isset($responseObject->data->reputation)) {
-			$value =  json_decode($responseObject->data->reputation) * 100;
-		} else {
-			$value = 100;
-		}
-		$this->reputation["author"] = $value;
+// 		if (isset($responseObject->data->reputation)) {
+// 			$value =  json_decode($responseObject->data->reputation) * 100;
+// 		} else {
+// 			$value = 100;
+// 		}
+// 		$this->reputation["author"] = $value;
 		
 		// get value reputation
 		$request->addArgument("producer",  $predicate.$obj->publisherID);	
