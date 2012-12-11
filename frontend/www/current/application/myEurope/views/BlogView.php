@@ -1,49 +1,98 @@
-<div data-role="page" id="blog">
-
-	<? print_header_bar(false, true); ?>
+<div data-role="page" id="Blog" data-ajax="false">
 	
-	<div data-role="content" style="text-align:center;">
-	<? print_notification($this->success.$this->error); ?>
+		<? print_header_bar(true, false); ?>
+	
+	<div data-role="content" >
+	
+		<? include_once 'notifications.php'; ?>
 		
-	
-		<br><br>
-		<br><br>
-		<div id="phases_ul" >
-		<ul data-role="listview" data-inset="true" data-filter="true">
-			<li data-role="list-divider"><?= _('Phases du projet') ?></li>
-			<? foreach (Categories::$phases as $k=>$v): ?>
+		<select id="mySelect" data-ajax="false"> 
+		<optgroup label="<?= _('Phases du projet') ?>" id="one">  
+		<option><?= _('Ideas') ?></option>      
+    	<option><?= _('Partners search') ?></option> 
+    	<option><?= _('Application') ?></option> 
+    	<option><?= _('Project implementation') ?></option> 
+    	<option><?= _('Monitoring and evaluation') ?></option> 
+    	<option><?= _('Communication') ?></option> 
+		</optgroup>
+		
+		<optgroup label="<?= _('Thèmes de projet') ?>" id="two">  
+    	<option><?= ('Education, culture and sport') ?></option> 
+		<option><?= ('Work and training') ?></option>
+		<option><?= ('Enterprises, Research and Innovation') ?></option>
+		<option><?= ('Transport, Facilities and Zoning') ?></option>
+		<option><?= ('Health and Consumer Protection') ?></option>
+		<option><?= ('Social Affairs') ?></option>
+		<option><?= ('Agriculture') ?></option>
+		<option><?= ('Fishing') ?></option>
+		</optgroup>
+		</select>
+		<br></br>
+		
+		<script>
+	    $("#mySelect").change(function () {
+	          var pred1 = "";
+	          $("select option:selected").each(function () {
+	        	  pred1 = $(this).text();
+	              });
+	          //$.post("?action=Blog", { 'method': "Search", 'pred1' : pred1 } );
+	          window.location.href = "?action=Blog&method=Search&pred1="+pred1;
+	        }).trigger('select');
+		</script>		
+		
+		<ul data-role="listview" data-theme="d">
+			<? if (count($this->result) == 0) :?>
 			<li>
-				<a data-ajax="false" href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
+				<h4>No result found</h4>
 			</li>
-			<? endforeach; ?>
+			<? endif ?>
 			
-			<li data-role="list-divider"><?= _('Thèmes de projet') ?></li>
-			<? foreach (Categories::$themes as $k=>$v): ?>
-			<li>
-				<a data-ajax="false" href="?action=Blog&id=<?= $v ?>" ><?= $v ?></a>
-			</li>
-			<? endforeach; ?>
+			<? foreach($this->result as $item) : ?>
+				<li>
+					<!-- Print Publisher reputation -->
+					<a data-ajax="false" href="?action=blogDetails&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+						<h3><?= $item->pred2 ?></h3>
+						
+						<p>
+							Publisher ID: <?= $item->publisherID ?><br/>
+							reputation: 
+							<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+								<?php if($i*20-20 < $this->reputationMap[$item->publisherID] ) { ?>
+									<img alt="rep" src="img/yellowStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;" />
+								<?php } else { ?>
+									<img alt="rep" src="img/grayStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;"/>
+								<?php } ?>
+							<? } ?>
+						</p>
+					</a>
+				</li>
+			<? endforeach ?>			
 		</ul>
-		</div>
+		<br></br>
+		<br></br>
 		
+			<script type="text/javascript">
+				// Dictionnary of already initliazed pages
+				gInitialized = {}
+				// Initialization made on each page 
+				$('[data-role=page]').live("pagebeforeshow", function() {
+				var page = $("PublishView");
+				var id = page.attr("id");
+				// Don't initialize twice
+				if (id in gInitialized) return;
+				gInitialized[id] = true;
+				//debug("init-page : " + page.attr("id"));
+				console.log('hello');
+				$("#CLEeditor").cleditor({width:500, height:180, useCSS:true})[0].focus();
+				});
+			</script>
+			<form action="?action=blog" method="POST" data-ajax="false">
+				<input type="text" name="pred2" placeholder="Title"/>
+				<textarea id="CLEeditor" name="data1"></textarea>			
+				<input type="hidden" name="method" value="Publish" />
+				<input type="submit" value="<?= translate('Publish') ?>" data-inline="true" data-icon="check"/>			
+			</form>
 		
-		
-		<br>
-		<div data-role="collapsible" data-collapsed="true" data-mini="true" data-content-theme="c">
-			<h3>Beta tests</h3>
-			<ul data-role="listview" >
-				<li data-role="list-divider"></li>
-				<li>
-					<a href="?action=Blog&id=myEurope"  rel="external" class="mymed-huge-button"><?= _('Bugs et problèmes rencontrés') ?></a>
-				</li>
-				<li>
-					<a href="?action=Blog&id=Ameliorations proposees"  rel="external" class="mymed-huge-button"><?= _('Améliorations proposées') ?></a>
-				</li>
-				<li>
-					<a href="?action=Blog&id=Discussion libre"  rel="external" class="mymed-huge-button"><?= _('Discussion libre') ?></a>
-				</li>
-			</ul>
-		</div>
 		
 	</div>
 </div>

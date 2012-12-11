@@ -1,7 +1,7 @@
 <?
 
 /** Example showing the use of GenericDataBean */
-class ExampleObject extends GenericDataBean {
+class BlogObject extends GenericDataBean {
 	
 	/** Some predicates .
 	 * Register them in the contructor with appropriate ontologyID */

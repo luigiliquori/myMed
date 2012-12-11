@@ -32,8 +32,8 @@
 		<br /><br />
 		<div class="ui-grid-a" Style="text-align: center;">
 			<div class="ui-block-a">
-				<a href="#blog">
-					<img alt="search" src="img/icons/blog.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
+				<a href="#Blog">
+					<img data-ajax="false" alt="search" src="img/icons/blog.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
 				</a>
 				<br />
 				<span class="myEuropeIcon"><?= _("Blog") ?></span>

@@ -24,11 +24,11 @@ class Partnership extends GenericDataBean {
 				array(
 						"type"	=> KEYWORD,
 						"theme" => KEYWORD,
+						"title" => KEYWORD,
 						"other" => KEYWORD),
 				
 				// Data attributes 
 				array(
-						"title" => TEXT,
 						"text" => TEXT),
 				
 				// Wrapped attributes

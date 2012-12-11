@@ -96,12 +96,12 @@ class MainController extends ExtendedProfileRequired {
 	 * Get the reputation of the user in each application
 	 * @param unknown $applicationList
 	 */
-	private function getReputation($applicationList) {
-		foreach($applicationList as $item) :
+	private function getReputation($resultList) {
+		foreach($resultList as $item) :
 			
 		$request = new Request("ReputationRequestHandler", READ);
 		$request->addArgument("application",  APPLICATION_NAME);
-		$request->addArgument("producer",  $item->publisherID);
+		$request->addArgument("producer",  $item->getPredicateStr().$item->publisherID);
 		$request->addArgument("consumer",  $_SESSION['user']->id);
 
 		$responsejSon = $request->send();
@@ -112,9 +112,10 @@ class MainController extends ExtendedProfileRequired {
 		} else {
 			$value = 100;
 		}
-		$this->reputationMap[$item->publisherID] = $value;
+		$this->reputationMap[$item->getPredicateStr().$item->publisherID] = $value;
 			
 		endforeach;
+		
 	}
 
 }
