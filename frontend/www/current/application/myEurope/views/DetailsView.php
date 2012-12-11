@@ -76,6 +76,29 @@
 					<a href="?action=updateReputation&reputation=0&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus">No, not really...</a>
 				</div>
 				
+				<a href="#popupShare" data-rel="popup" data-role="button" data-theme="b">Share</a>
+			
+				<div data-role="popup" id="popupShare" class="ui-content" Style="text-align: center;" >
+					<?= _("Share this on :")?><br/>
+					<div class="ui-grid-b">
+						<div class="ui-block-a">
+							<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="myEurope">Tweet</a>
+    						<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+   						</div>
+						<div class="ui-block-b">
+							<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+    							{lang: 'en';}
+    						</script>
+    						<g:plusone size="tall"></g:plusone>
+    					</div>
+						<div class="ui-block-c">
+							<a name="fb_share" type="box_count" share_url="<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>"></a>
+   							<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+						</div>
+					</div>
+					
+    			</div>
+				
 			</div>
 		
 		</div>
@@ -83,5 +106,5 @@
 	</div>
 	
 </div>
-
 <? include_once 'MainView.php'; ?>
+<!-- <iframe src="http://www.facebook.com/plugins/like.php?href=<?= 'http://' . $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:65px; height:65px; margin-top:3px;" allowTransparency="true"></iframe>-->

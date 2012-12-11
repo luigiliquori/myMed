@@ -1,12 +1,11 @@
 <? 
-class DetailsController extends AuthenticatedController {
+class DetailsController extends ExtendedProfileRequired{
 	
 	public $reputation = array();
 	
 	public function handleRequest() {
 		
-		parent::handleRequest();
-		
+		//parent::handleRequest();
 		// Get arguments of the query
 		$predicate = $_GET['predicate'];
 		$author = $_GET['author'];
@@ -20,12 +19,11 @@ class DetailsController extends AuthenticatedController {
 		 
 		// Give this to the view
 		$this->result = $obj;
-		
 		// get author reputation
 		$request = new Request("ReputationRequestHandler", READ);
 		$request->addArgument("application",  APPLICATION_NAME);
 		$request->addArgument("producer",  $obj->publisherID);							
-		$request->addArgument("consumer",  $_SESSION['user']->id);
+		$request->addArgument("consumer",  $obj->publisherID);
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
