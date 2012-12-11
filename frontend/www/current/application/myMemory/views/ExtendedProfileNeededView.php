@@ -1,9 +1,7 @@
 <? include("header.php"); ?>
 <? include("notifications.php")?>
 <div>
-<p>INSERT HERE SOME PRESENTATION OF MYMEMORY<br /><br />
-Hello, it's the first time you use the application, please complete your profile.
-</p>
+<?= _("myMemory_presentation_text");?>
 
 
 </div>
