@@ -10,7 +10,7 @@ function print_header_bar($print_back_button = false, $idHelpPopup = "defaultHel
 	if($print_back_button) {
 		echo '<a data-rel="back" data-icon="arrow-left">' . _("Back") . '</a>';
 	} else {
-		include 'social.php';
+// 		include 'social.php';
 	}
 	
 	echo '<h1>' . APPLICATION_NAME . '</h1>';

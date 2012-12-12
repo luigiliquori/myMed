@@ -14,17 +14,19 @@
 		<!-- ------------------ -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("welcome") ?></h3>
-			<h2><?= _("Bienvenu dans myEurope") ?></h2>
 			<p><?= _("myEurope est une application du projet Alcotra myMed, qui vise à mettre en relations des maires et des communes transfrontalières.") ?><br />
 			<?= _("L'idée est de frounir un outils pour simplifier et aider la création de projet Européen comme myMed") ?></p>
 		</div>
 		
+		<br />
+		
+		<a href="?action=extendedProfile" data-icon="signin" data-role="button" ><?=_("Sign in")?></a><br />
 		<a href="#search" data-role="button" data-icon="search"><?= _("Search a partnership offer") ?></a><br />
 		<a href="index.php#post" data-icon="pencil" data-role="button" rel="external" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("Insert a partnership offer") ?></a><br />
+		<a href="?action=extendedProfile" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("Profile") ?></a><br />
 		<a href="#Blog" data-icon="comment" data-role="button"><?= _("Blog") ?></a><br />
-		<a href="?action=extendedProfile" data-icon="user" rel="external" data-role="button"><?= _("Profile") ?></a><br />
+		<a href="?action=about" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
 			
-		
 		<!-- ------------------ -->
 		<!-- HELP POPUP -->
 		<!-- ------------------ -->
