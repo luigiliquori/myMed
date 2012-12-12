@@ -57,6 +57,10 @@
 				<span class="myEuropeIcon"><?= _("Profile") ?></span>
 			</div>
 			
+			<div class="ui-block-b">
+				<a href="?action=about" data-role="button" data-theme="b"><?=_("Credits")?></a>
+			</div>
+			
 		</div>
 		
 		<!-- ------------------ -->
