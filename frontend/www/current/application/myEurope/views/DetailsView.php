@@ -87,7 +87,7 @@
 					<?= _("Share this on :")?><br/>
 					<div class="ui-grid-b">
 						<div class="ui-block-a">
-							<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="myEurope">Tweet</a>
+							<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
     						<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
    						</div>
 						<div class="ui-block-b">
