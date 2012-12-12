@@ -12,61 +12,23 @@
 		<!-- ------------------ -->
 		<!-- CONTENT -->
 		<!-- ------------------ -->
-		<div class="ui-grid-a" Style="text-align: center;">
-			<div class="ui-block-a">
-				<a href="#search" class="myEuropeIcon">
-					<img alt="search" src="img/icons/search.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
-				</a>
-				<br />
-				<span class="myEuropeIcon"><?= _("Search a partnership offer") ?></span>
-			</div>
-			
-			<div class="ui-block-b">
-				<a href="#post">
-					<img alt="search" src="img/icons/publish.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
-				</a>
-				<br />
-				<span class="myEuropeIcon"><?= _("Insert a partnership offer") ?></span>
-			</div>
+		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
+			<h3><?= _("welcome") ?></h3>
+			<h2><?= _("Bienvenu dans myEurope") ?></h2>
+			<p><?= _("myEurope est une application du projet Alcotra myMed, qui vise à mettre en relations des maires et des communes transfrontalières.") ?><br />
+			<?= _("L'idée est de frounir un outils pour simplifier et aider la création de projet Européen comme myMed") ?></p>
 		</div>
-		<br /><br />
-		<div class="ui-grid-a" Style="text-align: center;">
-			<div class="ui-block-a">
-				<a href="#Blog">
-					<img data-ajax="false" alt="search" src="img/icons/blog.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
-				</a>
-				<br />
-				<span class="myEuropeIcon"><?= _("Blog") ?></span>
-			</div>
+		
+		<a href="#search" data-role="button" data-icon="search"><?= _("Search a partnership offer") ?></a><br />
+		<a href="index.php#post" data-icon="pencil" data-role="button" rel="external" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("Insert a partnership offer") ?></a><br />
+		<a href="#Blog" data-icon="comment" data-role="button"><?= _("Blog") ?></a><br />
+		<a href="?action=extendedProfile" data-icon="user" rel="external" data-role="button"><?= _("Profile") ?></a><br />
 			
-			<div class="ui-block-b">
-				<a href="#infos">
-					<img alt="search" src="img/icons/info.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
-				</a>
-				<br />
-				<span class="myEuropeIcon"><?= _("Informations") ?></span>
-			</div>
-		</div>
-		<br /><br />
-		<div class="ui-grid-a" Style="text-align: center;">
-			<div class="ui-block-a">
-				<a href="?action=extendedProfile" rel="external">
-					<img alt="search" src="img/icons/profile<?= $_SESSION['user']->is_guest ? "_guest" : "" ?>.png" Style="width: <?= $this->detect->isMobile() ? "80" : "20" ?>%">
-				</a>
-				<br />
-				<span class="myEuropeIcon"><?= _("Profile") ?></span>
-			</div>
-			
-		</div>
 		
 		<!-- ------------------ -->
 		<!-- HELP POPUP -->
 		<!-- ------------------ -->
 		<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
-			<h2><?= _("Bienvenu dans myEurope") ?></h2>
-			<p><?= _("myEurope est une application du projet Alcotra myMed, qui vise à mettre en relations des maires et des communes transfrontalières.") ?><br />
-			<?= _("L'idée est de frounir un outils pour simplifier et aider la création de projet Européen comme myMed") ?></p>
-			<br />
 			<h3><?= _("Comment ça marche") ?> ?</h3>
 			<ul data-role="listview" data-theme="e">	
 				<li>
@@ -83,11 +45,6 @@
 					<img alt="blog" src="img/icons/blog.png" Style="position:absolute; left:0px; width: 64px">
 						<p><strong><?= _("Blog") ?></strong></p>
 						<p><?= _("Laissez votre avis, partagez votre experience et enrichissez le réseau myEurope") ?></p>
-				</li>
-				<li>
-					<img alt="info" src="img/icons/info.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("Informations") ?></strong></p>
-						<p><?= _("Venez récupérer des informations et des liens utiles pour la création de Projet Européen") ?></p>
 				</li>
 				<li>
 					<img alt="profile" src="img/icons/profile<?= $_SESSION['user']->is_guest ? "_guest" : "" ?>.png" Style="position:absolute; left:0px; width: 64px">

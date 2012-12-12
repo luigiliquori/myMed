@@ -29,7 +29,7 @@ $('.tagInput').live('keyup', function(e){
 
 $("#Blog, #post").live("pagecreate", function() {
 	CLEloaded = false;
-		
+
 	$.getScript("../../lib/jquery/CLEeditor/jquery.cleditor.js", function(){
 		//console.log("CLE loaded");
 		$("#CLEeditor").cleditor({useCSS:true})[0].focus();
