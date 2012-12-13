@@ -4,8 +4,16 @@ class DetailsController extends ExtendedProfileRequired {
 	public $reputation = array();
 	
 	public function handleRequest() {
+
+		parent::handleRequest();
 		
-		//parent::handleRequest();
+		/* Guest access provided */
+		$id = rand(100000, 999999);
+		$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
+		$_SESSION['user'] = insertUser($user, null, true);
+		$_SESSION['acl'] = array('defaultMethod', 'read');
+		$_SESSION['user']->is_guest = 1;
+		
 		// Get arguments of the query
 		$predicate = $_GET['predicate'];
 		$author = $_GET['author'];
