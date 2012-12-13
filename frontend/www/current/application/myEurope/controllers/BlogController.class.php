@@ -8,29 +8,35 @@ class BlogController extends AuthenticatedController {
 	
 	public $result;
 	public $reputationMap = array();
+	public $cathegory;
 
 	public function handleRequest() {
 		
 		parent::handleRequest();
-		print_r($_POST);
-		
+			
 		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
+
 			// -- Publish
 			$obj = new BlogObject();
 			
 			// Fill the object
 			$this->fillObj($obj);
-			$obj->pred1 = $_SESSION['pred1'];
 			$obj->publish();
+			header("location: index.php?action=blog&method=Search&cathegory=".$_POST['pred1']);
 			
-			$this->success = "Published !";
+		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {			
 			
-		} elseif(isset($_GET['method']) && $_GET['method'] == "Search") {
-
 			// -- Search
 			$search = new BlogObject();
-			$search->pred1 = $_GET['pred1'];
-			$_SESSION['pred1'] = $search->pred1;
+			
+			//cathegory is taken from the header and all signs "_" are replaced for space
+			$this->cathegory = $_GET['cathegory'];
+			$cathegory = str_replace("_"," ",$this->cathegory);
+			
+			//object is filled only by one field cathegory which is first predicate
+			$search->pred1 = $this->cathegory;
+			
+			//we obtain list of the topic
 			$this->result = $search->find();
 			
 			// get userReputation
@@ -54,46 +60,60 @@ class BlogController extends AuthenticatedController {
 			
 			endforeach;
 			
-			$this->renderView("Blog");
+			$this->renderView("BlogResult");
 			
 		}elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
-
+			//deleting publication
 			$obj = new BlogObject();				
+			
 			// Fill the object
 			$this->fillObj($obj);
 			$obj->publisherID = $_SESSION['user']->id;
 			$obj->delete();			
-			$this->result = $obj;	
-			$this->renderView("Blog");
-			$this->success = "Deleted !";	
-		} 
-		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
 			
-			// -- Subscribe
-			$obj = new ExampleObject();
+			//TODO
+			//deleting coments
+			
+			header("location: index.php?action=blog&method=Search&cathegory=".$_POST['pred1']);
+		} 
+		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Comment") {
+			// -- Publish
 				
+			$obj = new BlogObject();
+			
 			// Fill the object
-			$this->fillObj($obj);
-			$obj->subscribe();
+			$this->fillObj_comments($obj);
+			$obj->publish();
 				
-			$this->success = "Subscribe !";
+			$this->result = $obj;
+			header("location: index.php?action=blogDetails&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
 		}
+
+		$this->renderView("main");
 	}
 	
 	// Fill object with POST values
 	private function fillObj($obj) {
-// 		$obj->begin = $_POST['begin'];
-// 		$obj->end = $_POST['end'];
-// 		$obj->wrapped1 = $_POST['wrapped1'];
-// 		$obj->wrapped2 = $_POST['wrapped2'];
+		$obj->begin = time();
+		$obj->wrapped1 = $_POST['wrapped1'];
+		$obj->wrapped2 = $_POST['wrapped2'];
 		
 		$obj->pred1 = $_POST['pred1'];
 		$obj->pred2 = $_POST['pred2'];
 		$obj->pred3 = $_POST['pred3'];
 		
 		$obj->data1 = $_POST['data1'];
-// 		$obj->data2 = $_POST['data2'];
-// 		$obj->data3 = $_POST['data3'];
+		$obj->data2 = $_POST['data2'];
+		$obj->data3 = $_POST['data3'];
+	}
+	
+	private function fillObj_comments($obj) {
+		$time = time();
+		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
+		$obj->pred2 = $time;
+		$obj->wrapped1 =$_POST['wrapped1'];
+		$obj->wrapped2 =$_SESSION['user']->profilePicture;
+	
 	}
  	
 }

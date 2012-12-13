@@ -7,51 +7,75 @@ class BlogDetailsController extends AuthenticatedController {
 		
 		parent::handleRequest();
 		
-		// Get arguments of the query
-		$predicate = $_GET['predicate'];
-		$author = $_GET['author'];
+			// Get arguments of the query
+			$predicate = $_GET['predicate'];
+			$author = $_GET['author'];
+			
+			//signing up datas to the session will be used during adding comments
+			$_SESSION['predicate'] = $predicate;
+			$_SESSION['author'] = $author;
 		
-		// Create an object
-		$obj = new BlogObject($predicate);
-		$obj->publisherID = $author;
+			// Create an object
+			$obj = new BlogObject($predicate);
+			$obj->publisherID = $author;
 		
-		// Fetches the details
-		$obj->getDetails();
+			// Fetches the details
+			$obj->getDetails();
 		 
-		// Give this to the view
-		$this->result = $obj;
+			// Give this to the view
+			$this->result = $obj;
 		
-		// get author reputation
-		$request = new Request("ReputationRequestHandler", READ);
-		$request->addArgument("application",  APPLICATION_NAME);
-		$request->addArgument("producer",  $obj->publisherID);							
-		$request->addArgument("consumer",  $_SESSION['user']->id);
+			// get author reputation
+			$request = new Request("ReputationRequestHandler", READ);
+			$request->addArgument("application",  APPLICATION_NAME);
+			$request->addArgument("producer",  $obj->publisherID);							
+			$request->addArgument("consumer",  $_SESSION['user']->id);
 		
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
 		
-		if (isset($responseObject->data->reputation)) {
-			$value =  json_decode($responseObject->data->reputation) * 100;
-		} else {
-			$value = 100;
-		}
-		$this->reputation["author"] = $value;
+			if (isset($responseObject->data->reputation)) {
+				$value =  json_decode($responseObject->data->reputation) * 100;
+			} else {
+				$value = 100;
+			}
+			$this->reputation["author"] = $value;
 		
-		// get value reputation
-		$request->addArgument("producer",  $predicate.$obj->publisherID);	
+			// get value reputation
+			$request->addArgument("producer",  $predicate.$obj->publisherID);	
 		
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
 		
-		if (isset($responseObject->data->reputation)) {
-			$value =  json_decode($responseObject->data->reputation) * 100;
-		} else {
-			$value = 100;
-		}
-		$this->reputation["value"] = $value;
+			if (isset($responseObject->data->reputation)) {
+				$value =  json_decode($responseObject->data->reputation) * 100;
+			} else {
+				$value = 100;
+			}
+			$this->reputation["value"] = $value;
+			
+			//
+			$this->search_comment();
+			// Render the view
+			$this->renderView("BlogDetails");
 		
-		// Render the view
-		$this->renderView("BlogDetails");
 	}
+	
+	//searching comments
+	public function search_comment() {
+	
+		// -- Search
+		$search_comments = new BlogObject();
+		$this->fillObj($search_comments);
+		$this->result_comment = $search_comments->find();
+	
+	}
+	
+	private function fillObj($obj) {
+	
+		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
+	
+	}
+	
 }
 ?>
