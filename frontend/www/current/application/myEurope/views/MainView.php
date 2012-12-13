@@ -20,7 +20,9 @@
 		
 		<br />
 		
-		<a href="?action=extendedProfile" data-icon="signin" data-role="button" ><?=_("Sign in")?></a><br />
+		<?php if ($_SESSION['user']->is_guest) { ?>
+		<a href="index.php?action=extendedProfile" rel="external" data-icon="signin" data-role="button" ><?=_("Sign in")?></a><br />
+		<?php } ?>
 		<a href="#search" data-role="button" data-icon="search"><?= _("Search a partnership offer") ?></a><br />
 		<a href="index.php#post" data-icon="pencil" data-role="button" rel="external" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("Insert a partnership offer") ?></a><br />
 		<a href="?action=extendedProfile" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("Profile") ?></a><br />
@@ -65,14 +67,4 @@
 <? include("PublishView.php"); ?>
 <? include("BlogView.php"); ?>
 
-<?php 
-function tabs_info($item){
-	tabs_simple($item, 'Infos');
-}
-?>
-<? if($_SESSION['user']->lang=="it"): ?>
-	<? include("infos_it.php"); ?>
-<? else: ?>
-	<? include("infos.php"); ?>
-<? endif; ?>
 

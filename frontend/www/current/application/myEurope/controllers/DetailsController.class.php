@@ -1,5 +1,5 @@
 <? 
-class DetailsController extends ExtendedProfileRequired{
+class DetailsController extends ExtendedProfileRequired {
 	
 	public $reputation = array();
 	
