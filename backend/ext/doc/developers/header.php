@@ -18,7 +18,7 @@
 	  	 	<!-- ITEMS -->
 			<div id="softwareItems" class="items">
 			 	<span><a href="https://gforge.inria.fr/scm/?group_id=2782" target="blank">- Source Code</a></span><br />
-				<span><a href="http://mymed2.sophia.inria.fr/documentation/" target="blank">- JavaDoc</a></span><br />
+				<span><a href="http://www.mymed.fr/documentation/" target="blank">- JavaDoc</a></span><br />
 				<span><a href="#" onclick="changeView('rest');">- BackEnd API</a></span><br />
 				<span><a href="#" onclick="changeView('workflow');">- Workflow</a></span><br />
 			</div>
