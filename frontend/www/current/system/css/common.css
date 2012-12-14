@@ -137,6 +137,41 @@ h4.logo{
 	background-repeat: no-repeat;
 }
 
+/*
+ * Div contenant la description de la page. Recommandantion Ludotic.
+ * Style copié du theme C de JQueryMobile. 
+ */
+div.description-box{
+	
+	display : block;
+	padding : 10px 15px;
+	margin : 0.5em 0;
+	border : 1px solid #AAA;
+	background : #F9F9F9;
+	
+	background-image : linear-gradient(#F9F9F9, #eee);
+	background-image :	-webkit-gradient( linear, left top, left bottom, from(#F9F9F9F), to(#eee));
+	background-image :	-webkit-linear-gradient( #F9F9F9; #eee);
+	background-image :		-moz-linear-gradient( #F9F9F9; #eee);
+	background-image :		 -ms-linear-gradient( #F9F9F9; #eee);
+	background-image :		  -o-linear-gradient( #F9F9F9; #eee);
+	background-image :		     linear-gradient( #F9F9F9; #eee);
+	
+	
+	background-clip : padding-box;
+	
+	-webkit-border-radius : .6em;
+	   -moz-border-radius : .6em;
+	        border-radius : .6em;
+	
+	
+	font-family : Helvetica, Arial, sans-serif;
+	color : #333;
+	text-shadow : 0 1px 0 white;
+}
+
+
+
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
 ******************************************************************************************/
