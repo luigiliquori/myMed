@@ -55,7 +55,7 @@ function handleMSForm(e) {
 		</div>
 	
 		<form  method="post" class="msform" data-ajax="false">
-			<input type="hidden" name="form" value="edit" />
+			<input type="hidden" name="form" value="create" />
 			<input type="hidden" name="nextStep" value="step2" />
 	
 			<!-- HOME -->
@@ -250,10 +250,7 @@ function handleMSForm(e) {
 				</div>
 				
 			</div>
-			<!-- Agreements  -->
-			<input type="checkbox" name="agreement" id="agreement" />
-			<label for="agreement">I understand that this application needs to geotag me in case of emergency and I therefore give my consent.</label>
-			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Save') ?>" data-theme="b"/>
+			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Next') ?>" data-theme="b"/>
 		</form>
 	</div>
 </div>
