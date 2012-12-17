@@ -21,7 +21,19 @@
 				<h2><?=$_SESSION['user']->name?></h2>
 				<p><?=$_SESSION['user']->login?></p>
 				<p><?=$_SESSION['ExtendedProfile']->home?></p>
-				<p><?= _("DiseaseLevel"); ?> : <strong><?= _('DiseaseLevel'.$_SESSION['ExtendedProfile']->diseaseLevel)?></strong></p>
+				<p><?= _("DiseaseLevel"); ?> : <strong><?
+				/*This is ugly, but needed for the gettext.*/
+				switch($_SESSION['ExtendedProfile']->diseaseLevel){
+					case 1 :
+						echo _('DiseaseLevel1');
+						break;
+					case 2 :
+						echo _('DiseaseLevel2');
+						break;
+					case 3 :
+						echo _('DiseaseLevel3');
+						break;
+				}?></strong></p>
 		</div>	
 
 		<div data-role="collapsible" data-collapsed="false"  data-content-theme="d">
@@ -45,7 +57,23 @@
 			<?php foreach($_SESSION['ExtendedProfile']->callingList as $callingSlot=>$data) {?>
 			
 			<div data-role="collapsible" data-content-theme="d">
-				<h3><?= _('callingslot'.$callingSlot);?></h3>
+				<h3><?
+				/* This is ugly but needed for the gettext*/
+				switch($callingSlot){
+					case 0:
+						echo _('callingslot0');
+						break;
+					case 1:
+						echo _('callingslot1');
+						break;
+					case 2:
+						echo _('callingslot2');
+						break;
+					case 3:
+						echo _('callingslot3');
+						break;
+				}
+				?></h3>
 				<h2><?= $data->nickname?></h2>
 				<p><?= _("Phone") ?> : <a href="tel:<?= $data->phone?>"><?= $data->phone?></a></p>
 				<?php

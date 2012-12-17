@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MyMed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-11 12:08+0100\n"
-"PO-Revision-Date: 2012-12-11 12:13+0100\n"
+"POT-Creation-Date: 2012-12-17 15:46+0100\n"
+"PO-Revision-Date: 2012-12-17 15:51+0100\n"
 "Last-Translator: David Da Silva <contact@daviddasilva.net>\n"
 "Language-Team: Lognet <lognet.mymed@inria.fr>\n"
 "Language: \n"
@@ -49,15 +49,15 @@ msgstr "Nom"
 
 #: ../application/myMed/views/LoginView.php:116
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmer"
 
 #: ../application/myMed/views/LoginView.php:122
 msgid "I accept the general terms and conditions"
-msgstr ""
+msgstr "J'accepte les conditions générales d'utilisation"
 
 #: ../application/myMed/views/LoginView.php:126
 msgid "Send"
-msgstr ""
+msgstr "Envoyer"
 
 #: ../application/myMed/views/LoginView.php:147
 msgid "about"
@@ -77,7 +77,7 @@ msgstr "Nom"
 
 #: ../application/myMed/views/UpdateProfileView.php:26
 msgid "Birthday"
-msgstr ""
+msgstr "Date de naissance"
 
 #: ../application/myMed/views/UpdateProfileView.php:29
 msgid "Profile picture"
@@ -85,7 +85,7 @@ msgstr "Photo du profil"
 
 #: ../application/myMed/views/UpdateProfileView.php:33
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: ../application/myMed/views/UpdateProfileView.php:49
 msgid "Password Confirmation"
@@ -199,7 +199,7 @@ msgstr "Date de naissance"
 
 #: ../application/myConsolato/views/parts/ProfileMyMedForm.php:19
 msgid "email"
-msgstr ""
+msgstr "e-mail"
 
 #: ../application/myConsolato/views/parts/ProfileMyMedForm.php:22
 msgid "Mot de passe"
@@ -261,61 +261,210 @@ msgstr "<p>Bienvenue sur l'application myMemory<br /> <br />Texte de présentati
 msgid "complete your profile"
 msgstr "complete your profile"
 
+#: ../application/myMemory/views/ExtendedProfileSudoDialogView.php:3
+msgid "ConfirmationNeeded"
+msgstr "Confirmation requise"
+
+#: ../application/myMemory/views/ExtendedProfileSudoDialogView.php:4
+msgid "MyMemory_SudoDialog"
+msgstr "Afin de prévenir toute modification involontaire de données cruciales, veuillez entrer de nouveau votre mot de passe."
+
 #: ../application/myMemory/views/ExtendedProfileSudoDialogView.php:10
 msgid "Validate"
 msgstr "Valider"
 
-#: ../application/myMemory/views/MainView.php:24
-#: ../application/myMemory/views/GoingBackView.php:63
-#: ../application/myMemory/views/ExtendedProfileEditView.php:182
-#: ../application/myMemory/views/NeedHelpView.php:100
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:76
-#: ../application/myMemory/views/SocialView.php:15
-msgid "Homescreen"
-msgstr ""
-
-#: ../application/myMemory/views/MainView.php:25
-#: ../application/myMemory/views/GoingBackView.php:64
-#: ../application/myMemory/views/ExtendedProfileEditView.php:183
-#: ../application/myMemory/views/NeedHelpView.php:101
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:77
-#: ../application/myMemory/views/SocialView.php:16
-msgid "Profile"
-msgstr "Profil"
-
-#: ../application/myMemory/views/MainView.php:26
-#: ../application/myMemory/views/GoingBackView.php:65
-#: ../application/myMemory/views/ExtendedProfileEditView.php:184
-#: ../application/myMemory/views/NeedHelpView.php:102
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:78
-#: ../application/myMemory/views/SocialView.php:17
-msgid "Social"
-msgstr "Social"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:174
-#: ../application/myMemory/views/ExtendedProfileCreateView.php:162
-msgid "Save"
-msgstr ""
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:175
+#: ../application/myMemory/views/ExtendedProfileSudoDialogView.php:13
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Annuler"
 
+#: ../application/myMemory/views/StopEmergencyView.php:3
+msgid "MyMemory_StopNeedHelp"
+msgstr "Arrêter la demande d'aide?"
+
+#: ../application/myMemory/views/StopEmergencyView.php:4
+msgid "MyMemory_askStopNeedHelp"
+msgstr "myMemory est actuellement en train de demander de l'aide. Êtes-vous sûr de vouloir l'interrompre?"
+
+#: ../application/myMemory/views/StopEmergencyView.php:5
+msgid "MyMemory_confimStopNeedHelp"
+msgstr "oui, arrêter la demande d'aide"
+
+#: ../application/myMemory/views/StopEmergencyView.php:6
+msgid "MyMemory_cancelStopNeedHelp"
+msgstr "Non, continuer la demande d'aide"
+
+#: ../application/myMemory/views/MainView.php:5
 #: ../application/myMemory/views/ExtendedProfileCreateView.php:17
 msgid "Exit"
 msgstr "Quitter"
 
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:20
-msgid "DiseaseLevel"
+#: ../application/myMemory/views/MainView.php:6
+msgid "Home"
+msgstr "Accueil"
+
+#: ../application/myMemory/views/MainView.php:7
+#: ../application/myMemory/views/GoingBackView.php:11
+#: ../application/myMemory/views/NeedHelpView.php:29
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:8
+#: ../application/myMemory/views/ItineraireView.php:8
+msgid "Help"
+msgstr "Aide"
+
+#: ../application/myMemory/views/MainView.php:11
+msgid "MyMemory_HomeDesc"
 msgstr ""
 
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:52
-msgid "callingslot"
-msgstr ""
+#: ../application/myMemory/views/MainView.php:15
+#: ../application/myMemory/views/GoingBackView.php:10
+msgid "GoingBack"
+msgstr "Amène-moi chez..."
 
+#: ../application/myMemory/views/MainView.php:16
+#: ../application/myMemory/views/NeedHelpView.php:27
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:6
+msgid "NeedHelp"
+msgstr "Besoin d'aide"
+
+#: ../application/myMemory/views/MainView.php:21
+#: ../application/myMemory/views/GoingBackView.php:60
+#: ../application/myMemory/views/ExtendedProfileEditView.php:183
+#: ../application/myMemory/views/NeedHelpView.php:94
+#: ../application/myMemory/views/ItineraireView.php:26
+#: ../application/myMemory/views/SocialView.php:16
+msgid "Profile"
+msgstr "Profil"
+
+#: ../application/myMemory/views/GoingBackView.php:9
+#: ../application/myMemory/views/NeedHelpView.php:28
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:7
 #: ../application/myMemory/views/ItineraireView.php:6
 msgid "Back"
 msgstr "Retour"
+
+#: ../application/myMemory/views/GoingBackView.php:19
+msgid "MyMemory_GoingBackDesc"
+msgstr ""
+
+#: ../application/myMemory/views/GoingBackView.php:27
+msgid "Domicile"
+msgstr "Domicile"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:174
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:162
+msgid "Save"
+msgstr "Enregistrer"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:182
+#: ../application/myMemory/views/SocialView.php:15
+msgid "Homescreen"
+msgstr "Accueil"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:184
+#: ../application/myMemory/views/SocialView.php:17
+msgid "Social"
+msgstr "Social"
+
+#: ../application/myMemory/views/NeedHelpView.php:36
+msgid "MyMemory_NeedHelpDesc"
+msgstr ""
+
+#: ../application/myMemory/views/NeedHelpView.php:39
+msgid "StopNeedHelp"
+msgstr "Arrêter la demande d'aide"
+
+#: ../application/myMemory/views/NeedHelpView.php:52
+msgid "MyMemory_Calling"
+msgstr "myMemory appelle la personne suivante :"
+
+#: ../application/myMemory/views/NeedHelpView.php:66
+msgid "MyMemory_Microphone"
+msgstr "Parlez devant le micro SVP!"
+
+#: ../application/myMemory/views/NeedHelpView.php:73
+msgid "MyMemory_Mailling"
+msgstr "myMemory envoie une alerte par e-mail aux aides soignants..."
+
+#: ../application/myMemory/views/NeedHelpView.php:85
+msgid "MyMemory_MailSent"
+msgstr "Alertes par e-mail envoyées!"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:14
+msgid "MyMemory_ViewProfileDesc"
+msgstr ""
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:20
+msgid "MyInfos"
+msgstr "Mes informations"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:24
+msgid "DiseaseLevel"
+msgstr "Niveau de la maladie"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:28
+msgid "DiseaseLevel1"
+msgstr "Léger"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:31
+msgid "DiseaseLevel2"
+msgstr "Modéré"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:34
+msgid "DiseaseLevel3"
+msgstr "Avancé"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:40
+msgid "MyCaregiver"
+msgstr "Mon aide-soignant"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:42
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:49
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:78
+msgid "Phone"
+msgstr "Téléphone"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:43
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:50
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:81
+msgid "Address"
+msgstr "Adresse"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:44
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:51
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:84
+msgid "Email"
+msgstr "E-mail"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:47
+msgid "MyDoctor"
+msgstr "Mon médecin"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:55
+msgid "CallingList"
+msgstr "Liste d'appel"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:64
+msgid "callingslot0"
+msgstr "Première personne à appeller"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:67
+msgid "callingslot1"
+msgstr "Deuxième personne à appeller"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:70
+msgid "callingslot2"
+msgstr "Troisième personne à appeller"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:73
+msgid "callingslot3"
+msgstr "Dernière personne à appeller"
+
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:92
+msgid "EditProfile"
+msgstr "Modifier le profil"
+
+#: ../application/myMemory/views/ItineraireView.php:7
+msgid "RoadSheet"
+msgstr "Feuille de route"
 
 #: ../application/myFSA/views/ExtendedProfileNeededView.php:9
 msgid "To use all options of myFSA please fill your profile"
@@ -605,10 +754,6 @@ msgstr "Mots-clés "
 msgid "separated by a space"
 msgstr "Séparés par un espace"
 
-#: ../application/myEurope/views/MainView.php:118
-msgid "Help"
-msgstr "Aide"
-
 #: ../application/myEurope/views/MainView.php:126
 msgid "Offer Themes"
 msgstr "Thématiques de votre projet"
@@ -684,25 +829,10 @@ msgstr "Nom de l'organisation"
 msgid "Your category"
 msgstr "Choisir une catégorie"
 
-#: ../application/myEurope/views/ExtendedProfileEditView.php:29
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:29
-msgid "Address"
-msgstr "Adresse"
-
 #: ../application/myEurope/views/ExtendedProfileEditView.php:33
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:33
 msgid "Territoire d'action"
 msgstr ""
-
-#: ../application/myEurope/views/ExtendedProfileEditView.php:53
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:53
-msgid "Email"
-msgstr ""
-
-#: ../application/myEurope/views/ExtendedProfileEditView.php:57
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:57
-msgid "Phone"
-msgstr "Téléphone"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:71
 msgid "Create this profile"
@@ -1783,11 +1913,11 @@ msgstr ""
 
 #: ../system/common/common-utils.php:381
 msgid "obligatoire"
-msgstr ""
+msgstr "obligatoire"
 
 #: ../system/common/common-utils.php:384
 msgid "optionnel"
-msgstr ""
+msgstr "optionnel"
 
 #: ../system/common/common-utils.php:410
 #, php-format
@@ -1796,22 +1926,22 @@ msgstr "Le champs %s est obligatoire"
 
 #: ../system/common/common-utils.php:528
 msgid "Se connecter"
-msgstr ""
+msgstr "Se connecter"
 
 #: ../system/common/common-utils.php:574
 #: ../system/common/common-utils.php:594
 msgid "Annuler"
-msgstr ""
+msgstr "Annuler"
 
 #: ../system/common/common-utils.php:577
 #: ../system/common/common-utils.php:596
 msgid "Précédent"
-msgstr ""
+msgstr "Précédent"
 
 #: ../system/common/common-utils.php:582
 #: ../system/common/common-utils.php:601
 msgid "Suivant"
-msgstr ""
+msgstr "Suivant"
 
 #: ../system/controllers/RegisterController.class.php:88
 msgid "Erreur interne d'enrgistrement"
@@ -1867,9 +1997,6 @@ msgstr "Erreur interne d'enregistrement"
 
 #~ msgid "English"
 #~ msgstr "Anglais"
-
-#~ msgid "Home"
-#~ msgstr "Accueil"
 
 #~ msgid "Next"
 #~ msgstr "Suivant"
