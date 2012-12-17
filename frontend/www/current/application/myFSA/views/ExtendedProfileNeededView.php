@@ -1,4 +1,5 @@
 <? include("header.php"); ?>
+</head>
 <body>
 	<div data-role="page" id="Search" data-theme="b">
 		   <div class="wrapper">
@@ -6,8 +7,8 @@
 					
 				<div data-role="content">
 					<br />
-					<p><?= _("To use all options of myFSA please fill your profile") ?>
- 						<a href="?action=ExtendedProfile" data-role="button"><?= _("Fill your profile") ?></a>
+					<p><?= translate("To use all options of myFSA please fill your profile") ?>
+ 						<a href="?action=ExtendedProfile" data-role="button"><?= translate("Fill your profile") ?></a>
 					</p>
 				</div>
 			</div>

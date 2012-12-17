@@ -10,22 +10,22 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
-	<!-- load css before scripts to stop sort of flash effect  -->
-	
 	<!--  Extra icons for jquery -->
-	<link rel="stylesheet" href="../../lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
+	<link rel="stylesheet" href="/lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
 	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0.css" />
-	<!-- APP css -->
-	<link href="<?= APP_ROOT ?>/css/style.css" rel="stylesheet" />
-	<!-- MYMED css -->
-	<link href="<?= MYMED_URL_ROOT ?>/system/css/common.css" rel="stylesheet" />	
+	<link rel="stylesheet" href="/lib/jquery/jquery.mobile-1.2.0.css" />
+	<script src="/lib/jquery/jquery-1.8.2.min.js"></script>
+	<script src="/lib/jquery/jquery.mobile-1.2.0.js"></script>
 	
-	<script src="../../lib/jquery/jquery-1.8.2.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-1.2.0.js"></script>
+	<!-- MYMED css -->
+	<link href="/system/css/common.css" rel="stylesheet" />	
+	
 	<!-- APP JS -->
-	<script src="<?= APP_ROOT ?>/javascript/app.js"></script>
+	<script src="/application/<?= APPLICATION_NAME ?>/javascript/app.js"></script>
+	
+	<!-- APP css -->
+	<link href="/application/<?= APPLICATION_NAME ?>/css/style.css" rel="stylesheet" />
 	
 	
 	<!-- Google Analytics -->
@@ -40,8 +40,6 @@
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
 	</script>
-	
-	
 	</head>
 		
 <body onload="hideLoadingBar()">

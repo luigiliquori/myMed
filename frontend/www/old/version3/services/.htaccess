@@ -1,6 +1,0 @@
-<Files *>
-ForceType none
-</Files>
-<FilesMatch "\.ph(p3?|tml)$">
-	deny from all
-</FilesMatch>

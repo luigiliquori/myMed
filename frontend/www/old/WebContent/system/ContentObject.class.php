@@ -1,1 +1,0 @@
-../../iGoogle3/system/ContentObject.class.php

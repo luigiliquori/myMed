@@ -176,6 +176,8 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 
 		// STORE THE DATAs
 		args.clear();
+		// Add the predicate to the data because it's a part of the data
+		dataList.addAll(predicateList);
 		for (final MDataBean item : dataList) {
 			args.put("key", encode(item.getKey()));
 			args.put("value", encode(item.getValue()));

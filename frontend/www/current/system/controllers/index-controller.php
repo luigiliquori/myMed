@@ -191,7 +191,6 @@ if (PHP_GETTEXT) {
 	
 }
 
-
 // Make a main function to be called in each root index
 function main_controller() {
 	global $ACTION; 

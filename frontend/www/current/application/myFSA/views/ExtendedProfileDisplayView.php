@@ -1,5 +1,7 @@
 <?
  include("header.php"); ?>
+ </head>
+<body>
 <div data-role="page" id="PublishView" data-theme="b">
 
 
@@ -18,17 +20,17 @@
 							<p class="ui-li-desc"><?=$_SESSION['user']->login?></p>
 				</div>
 			<div class="ui-block-b">
-			<h3 class="ui-li-heading"><?= _("About you") ?> </h3>		
-					<br> <?= _("Company type") ?> : <br/>
+			<h3 class="ui-li-heading"><?= translate("About you") ?> </h3>		
+					<br> <?= translate("Company type") ?> : <br/>
 					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['type']?></a>
 					
-					<br> <?= _("Company name") ?> :<br/>
+					<br> <?= translate("Company name") ?> :<br/>
 					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['name']?></a>
 					
-					<br> <?= _("Company address") ?> : <br/>
+					<br> <?= translate("Company address") ?> : <br/>
 					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['address']?></a>
 					
-					<br> <?= _("SIRET") ?> :<br/>
+					<br> <?= translate("SIRET") ?> :<br/>
 					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['number']?></a>
 			</div>
 		<?php }?>
@@ -36,7 +38,7 @@
 							<p class="ui-li-desc"><?=$_SESSION['user']->login?></p>
 				</div>
 			<div class="ui-block-b">
-			<h3 class="ui-li-heading"> <?= _("About you") ?> </h3>
+			<h3 class="ui-li-heading"> <?= translate("About you") ?> </h3>
 
 						
 				<!-- 	displaying array:
@@ -47,16 +49,16 @@
 						"address" => $_POST["caddress"],
 						"number" => $_POST["cnumber"]); -->
 			
-					<br> <?= _("Campus") ?> : <br/>
+					<br> <?= translate("Campus") ?> : <br/>
 					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['type']?></a>
 					
-					<br> <?= _("University") ?> :<br/>
+					<br> <?= translate("University") ?> :<br/>
 					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['name']?></a>
 					
-					<br> <?= _("Field of Studies") ?> : <br/>
+					<br> <?= translate("Field of Studies") ?> : <br/>
 					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['address']?></a>
 					
-					<br> <?= _("Student number") ?> :<br/>
+					<br> <?= translate("Student number") ?> :<br/>
 					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['number']?></a>
 				</div>
 		<?php }?>
@@ -64,7 +66,7 @@
 				<?php if ($_SESSION["profileFilled"] == "guest") {?>
 				</div>
 			<div class="ui-block-b">
-			<h3 class="ui-li-heading"> <?= _("About you") ?> </h3>
+			<h3 class="ui-li-heading"> <?= translate("About you") ?> </h3>
 
 						Vous etes connectes en tant qu'invite.
 			</div>
@@ -72,13 +74,13 @@
 					<div class="ui-block-c">
 				<!-- langue -->
 	<form action="?action=extendedProfile" method="post" data-ajax="false">
-		<label for="lang" ><?= _("Language") ?>	: </label>
+		<label for="lang" ><?= translate("Language") ?>	: </label>
 		<select id="lang" name="lang">
 			<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Francais</option>
 			<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
 			<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
 		</select>
-		<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= _("Update") ?>" />
+		<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" />
 	</form>
 			
 			</div>

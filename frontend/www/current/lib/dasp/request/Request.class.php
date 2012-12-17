@@ -118,7 +118,6 @@ class Request {
 		}
 
 // 		echo $this->url.$this->ressource.'?' . http_build_query($this->arguments) . "<br /><br />";
-
 		
 		// SSL CONNECTION
 		// TODO fix once we have the valid certificate!
@@ -135,17 +134,17 @@ class Request {
 
 // 		echo '<script type="text/javascript">alert(\'' . $result . '\');</script>';
 
-		$info = curl_getinfo($curl);
+// 		$info = curl_getinfo($curl);
 		
-		$status = $info['http_code'];
+// 		$status = $info['http_code'];
 		
-		if ($result === false) {
-			throw new Exception("CURL Error : " . curl_error($curl));
-		} else if ($status >= 500 && $status < 600) {
-			if (defined('FAIL_ON_BACKEND_ERROR')) {
-				throw new Exception("Request error : Status " . $status. "\n" . $result);
-			}
-		}
+// 		if ($result === false) {
+// 			throw new Exception("CURL Error : " . curl_error($curl));
+// 		} else if ($status >= 500 && $status < 600) {
+// 			if (defined('FAIL_ON_BACKEND_ERROR')) {
+// 				throw new Exception("Request error : Status " . $status. "\n" . $result);
+// 			}
+// 		}
 		
 		return $result;
 	}

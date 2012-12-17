@@ -1,61 +1,56 @@
-<? include("header.php"); ?>
 
-<div data-role="page" id="results">
-	<? tabs_simple($this->title, 'Search'); ?>
-	<? include("notifications.php"); ?>
-	<div data-role="content">
-		<br>
-		<div style="margin-bottom: 16px;">
-		<label for="radio-group1"><?= _("Sort by") ?>:</label>
-		<fieldset id="radio-group1" data-role="controlgroup" data-mini="true" data-type="horizontal" style="display:inline-block;">
-			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-t" value="title" checked='checked'/>
-			<label for="radio-view-t"><?= _("title") ?></label>
-			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-a"value="partner"/>
-			<label for="radio-view-a"><?= _("partner") ?></label>
-			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-b" value="date" />
-			<label for="radio-view-b"><?= _("date") ?></label>
-			<input onclick="sortBy($(this).val());" type="radio" name="name" id="radio-view-e" value="reputation" />
-			<label for="radio-view-e"><?= _("reputation") ?></label>
-		</fieldset>
+<div data-role="page">
+
+	<? print_header_bar(true, false); ?>
+	
+	<div data-role="content" >
+	
+		<? include_once 'notifications.php'; ?>
+	
+		<ul data-role="listview" >
 		
-		<? if ($this->part->isIndexNotEmpty()) :?>
-			<a id="subscribeButton" style="float: right;" title="<?= _("Subscribe to:").' '.$this->part->renderSearchIndex(); ?>" type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign"
-			onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:part", "<?= APPLICATION_NAME.":part" ?>", <?= json_encode($this->part->index) ?>);'><?= _("Subscribe") ?></a>
-		<? endif ?>
-		</div>
-		
-		<ul id="matchinglist" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="<?= _("filter") ?>" style="clear:both;">
-
-			<?php if (count($this->result) == 0) :?>
-			<li>
-				<h4><?= _("Your search didn't match any result.") ?></h4>
-			</li>
-			<? endif ?>
-
-			<? foreach($this->result as $item) : ?>
+			<li data-role="list-divider"><?= _("Results") ?></li>
 			
-			<li data-id="<?= prettyprintUser($item->user) ?>" data-partner="<?= $item->user ?>" data-time="<?= $item->time ?>" data-title="<?= $item->title ?>">
-			<a href="?action=details&id=<?= urlencode($item->id) ?>" rel="external"><span
-					class="ui-link"><?= $item->title ?> </span> &ndash; <span style="font-weight: lighter;"><?= prettyprintUser($item->user) ?></span><p class="ui-li-aside"><?= date('j/n/Y', $item->time) ?></p>
-				</a>
+			<? if (count($this->result) == 0) :?>
+			<li>
+				<h4>No result found</h4>
 			</li>
-			<? endforeach ?>
-
-			<? if (!empty($this->suggestions)) :?>
-			<li data-role="list-divider">Suggestions:</li>
-			<? foreach($this->suggestions as $item) : ?>
-			<li><a href="./?action=details&id=<?= urlencode($item->id) ?>"> <b>...</b> : <?= print_r($item) ?><br />
-			</a>
-			</li>
-			<? endforeach ?>
 			<? endif ?>
-
+			
+			<? foreach($this->result as $item) : ?>
+				<li>
+					<!-- Print Publisher reputation -->
+					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+						<h3><?= _("Title")?> : <?= $item->title ?></h3>
+						
+						<p style="position: relative; margin-left: 30px;">
+							<b><?= _("Themes") ?></b>: <?= $item->theme ?><br/>
+							<b><?= _("Programme") ?></b>: <?= $item->other ?><br/><br/>
+							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
+						</p>
+						
+						<br/>
+						
+						<p>
+							Publisher ID: <?= $item->publisherID ?><br/>
+							reputation: 
+							<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+								<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
+									<img alt="rep" src="img/yellowStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;" />
+								<?php } else { ?>
+									<img alt="rep" src="img/grayStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;"/>
+								<?php } ?>
+							<? } ?>
+						</p>
+					</a>
+				</li>
+			<? endforeach ?>
+			
 		</ul>
-
-
+		
+			
 	</div>
-
-
+	
 </div>
 
-<? include("footer.php"); ?>
+<? include_once 'MainView.php'; ?>

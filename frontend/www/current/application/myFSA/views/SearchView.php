@@ -1,4 +1,7 @@
 <? include("header.php"); ?>
+</head>
+<body>
+
 <div data-role="page" id="Search" data-theme="b">
 	<? include("header-bar.php"); ?>
 		
@@ -8,7 +11,7 @@
 					
 				<? if (count($this->result) == 0) :?>
 				<li>
-					<h4><?= _('No results found') ?></h4>
+					<h4><?= translate('No results found') ?></h4>
 				</li>
 				<? endif ?>
 				
@@ -20,19 +23,19 @@
 			</ul>
 				
 			<div data-role="collapsible" data-collapsed="true" data-content-theme="d">
-				<h3><?= _('Advanced searching') ?></h3>
+				<h3><?= translate('Advanced searching') ?></h3>
 				<form action="index.php?action=search" method="POST" data-ajax="false">
 			
-					<label for="textinputs1"> <?= _('Cathegory') ?> </label> 
+					<label for="textinputs1"> <?= translate('Cathegory') ?> </label> 
 					<input id="textinputs1" name="pred2" placeholder="" type="text" />
 					<br>
 					
-					<label for="textinputs2"> <?= _('Tittle') ?> </label> 
+					<label for="textinputs2"> <?= translate('Tittle') ?> </label> 
 					<input id="textinputs2"  name="pred3" placeholder="" type="text" />
 					<br>
 					
 					<input type="hidden" name="method" value="Rechercher" />
-					<center><input type="submit" value="<?= _('Search') ?>" data-icon="search" data-inline="true" data-theme="b"/></center>
+					<center><input type="submit" value="<?= translate('Search') ?>" data-icon="search" data-inline="true" data-theme="b"/></center>
 				</form>
 			</div>	
 				

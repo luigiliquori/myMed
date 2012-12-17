@@ -7,7 +7,7 @@ function tab_bar_default($activeTab) {
 		$activeTab,
 		array(
 			array("#home", "Partnerships", "retweet"),
-			array("#blogs", "Blog", "comments"),
+			array("#blogDetails", "Blog", "comments"),
 			array("#infos", "Informations", "info-sign"),
 			//array("#profile", "Profile", "user")
 		),
@@ -24,22 +24,14 @@ function tab_bar_default($activeTab) {
  	?>
  	<div data-role="header" data-theme="b">
  		<? if ($useback): ?>
- 			<a data-rel="back" data-icon="arrow-left" style="max-width: 15%;"><?= _($useback) ?></a>
+ 			<a href="#blog" data-icon="arrow-left" style="max-width: 15%;"><?= _($useback) ?></a>
  		<? endif; ?>
   		<h1>
   			<a href="./" rel="external" title="<?= APPLICATION_NAME ?>" data-inline="true" style="text-decoration: none;<? empty($title)?'color: white;':'' ?>"><?= APPLICATION_NAME ?></a>
   			<? if ($title): ?>
 				<?= SEP ?><a style="text-decoration: none; color: white;font-size: 80%;"><?= _($title) ?></a>
 			<? endif; ?>
-  		</h1>
-
-  		<?php 
-  		$rightButton = $_SESSION['user']->is_guest?'Sign in':(!isset($_SESSION['myEurope'])?'Create your profile':$_SESSION['user']->name);
-  		?>
-  		
-  		<a href="?action=extendedProfile" rel="external"  class="ui-btn-right" data-role="button" style="max-width: 30%;" data-mini="true" 
-			<?= !$_SESSION['user']->is_guest?'data-icon="user"':''?> data-theme="<?= $_SESSION['user']->is_guest?'g':'e' ?>"><?= _($rightButton) ?></a>
-		
+  		</h1>		
   		<? include("social.php"); ?>
   	</div>
   	<?

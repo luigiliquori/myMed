@@ -1,5 +1,7 @@
 
 <? require_once("header.php"); ?>
+</head>
+<body>
 
 <div data-role="page" id="register" >	
 	

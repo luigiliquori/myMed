@@ -15,13 +15,12 @@ class MainController extends AuthenticatedController {
 		}
 		else{
 			
-			$this->renderView(main);
+			$this->renderView('main');
 			
 		}
 
 					
 	}
-	
 
 	public /*void*/ function fetchExtendedProfile(){
 		
@@ -37,7 +36,7 @@ class MainController extends AuthenticatedController {
 			$_SESSION['ExtendedProfile'] = $result;
 			$this->success = "";
 			//$this->redirectTo("search");
-			$this->renderView(main);
+			$this->renderView('main');
 		}
 
 	}

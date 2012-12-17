@@ -136,23 +136,7 @@
 					var rate = getNote(newWidth);
 					average.width(newWidth);
 					
-//					var url = "index.php?action=Reputation";    
-//					$(location).attr('href',url);	
-					
-					//$('.Rate').append(rate);					
-					//opts.onSuccess(rate)
-					
-//					$.post('index.php?action=Reputation',{
-//						'idBox' : idBox,
-//						'rate' : rate,
-//						'akcja' : 'rating'
-//						},
-//						'json'
-//					);
 					$.post("index.php?action=Details", { 'keyword': "Reputation", 'rate' : rate } );
-					
-//					var url = "index.php?action=Reputation";    
-//					$(location).attr('href',url);	
 				
 				}
 			});

@@ -1,4 +1,6 @@
 <? include("header.php"); ?>
+</head>
+<body>
 
 <div data-role="page" id="PublishView" data-theme="b">
 	<div class="wrapper">
@@ -9,33 +11,33 @@
 
 			<form action="index.php?action=publish" method="POST" data-ajax="false">
 			
-					<input type="text" name="pred3" placeholder="<?= _('Title') ?>"/>
+					<input type="text" name="pred3" placeholder="<?= translate('Title') ?>"/>
 					<br>
 			
                     <select name="pred2" id="selectmenu1">
                         <option value="evenement">
-                            <?= _("Events") ?>
+                            <?= translate("Events") ?>
                         </option>
                         <option value="actualite">
-                            <?= _("News") ?>
+                            <?= translate("News") ?>
                         </option>
                         <option value="Offre d’emploi">
-                            <?= _("Internship offers") ?>
+                            <?= translate("Internship offers") ?>
                         </option>
                         <option value="Offre de stage">
-                            <?= _("Job offers") ?>
+                            <?= translate("Job offers") ?>
                         </option>
                          <option value="Location bureaux">
-                            <?= _("Rent Offices") ?>
+                            <?= translate("Rent Offices") ?>
                          </option>
                          <option value="Partenariats">
-                            <?= _("Partnerships") ?>
+                            <?= translate("Partnerships") ?>
                          </option>
                          <option value="Organisme">
-                            <?= _("Organization") ?>
+                            <?= translate("Organization") ?>
                          </option>
                          <option value="Visite d’entreprise">
-                            <?= _("Company visits") ?>
+                            <?= translate("Company visits") ?>
                          </option>
                     </select>
 			
@@ -65,19 +67,10 @@
 <!-- 			<input type="text" name="data3" placeholder="data3"/> -->
 			
 			<input type="hidden" name="method" value="Publier" />
-			<center><input type="submit" value="<?= _('Publish') ?>" data-inline="true" data-icon="check"/></center>
+			<center><input type="submit" value="<?= translate('Publish') ?>" data-inline="true" data-icon="check"/></center>
 			<!--<input type="submit" name="method" value="Search" />-->
 			
 		</form>
-<!-- tutaj koniec ehehe 
-	<div class="push"></div>
-				</div>
-			</div>
-			<div data-role="footer" data-theme="c" class="footer">
-			<div style="text-align: center;">
-				
-			</div>
-		</div>-->
 		
 		<? include("footer.php"); ?>
 		

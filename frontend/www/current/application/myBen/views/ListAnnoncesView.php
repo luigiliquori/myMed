@@ -66,23 +66,6 @@ $filters[ANN_ALL] = _("toutes");
 		<p>
 			<?= _("Aucune annonce à afficher avec ces critères") ?>
 		</p>
-		<!--<? if ($this->canPost()) : ?>
-		<div class="ui-grid-a">
-			<div class="ui-block-a">
-				<? endif?>-->
-				<a data-role="button" data-inline="true"
-					href="<?= url("listAnnonces", array("filter" => ANN_ALL)) ?>"> <?= _("Afficher toutes les annonces") ?>
-				</a>
-				<!--<? if ($this->canPost()) : ?>
-			</div>
-			<div class="ui-block-b">
-				<a data-inline="true" data-role="button" data-icon="add"
-					data-theme="g" data-ajax="false"
-					href="<?= url("annonce:create") ?>"> <?= _("Poster une annonce") ?>
-				</a>
-			</div>
-			<? endif?>
-		</div>-->
 		<? else : ?>
 		<ul data-role="listview" data-theme="d" data-inset="true">
 			<?  foreach ($this->annonces as $annonce) : ?>

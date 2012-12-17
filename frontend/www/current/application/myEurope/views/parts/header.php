@@ -9,24 +9,32 @@
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
-	<!-- CLE  -->
-	<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
 	<!--  Extra icons for jquery -->
-	<link rel="stylesheet" href="../../lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
+	<link rel="stylesheet" href="/lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
+	
 	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.2.0.css" />
-	<!-- MYMED css -->
-	<link href="../../system/css/common.css" rel="stylesheet" />
-	<!-- APP css -->
-	<link href="css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/lib/jquery/jquery.mobile-1.2.0.css" />
+	<script src="/lib/jquery/jquery-1.8.2.min.js"></script>
+	<script src="/lib/jquery/jquery.mobile-1.2.0.js"></script>
 	
+	<!-- DASP css -->
+	<link href="/system/css/common.css" rel="stylesheet" />
 	
-	<script src="../../lib/jquery/jquery-1.8.2.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-1.2.0.js"></script>
-	<!-- APP JS -->
+	<!-- DASP js -->
+	<script src="/system/javascript/utils.js"></script>
+	
+	<!-- APP js -->
 	<script src="javascript/app.js"></script>
-	
 
+	<!-- APP css -->
+	<link href="css/myEurope.min.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
+	
+	<!-- Cleeditor -->
+	<link rel="stylesheet" type="text/css" href="jquery/CLEeditor/jquery.cleditor.css" />
+    <script type="text/javascript" src="jquery/CLEeditor/jquery.cleditor.min.js"></script>
+    <script type="text/javascript" src="jquery/CLEeditor/startCLE.js"> </script>
+    
 	<!-- Google Analytics -->
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
@@ -44,12 +52,4 @@
 		
 <body>
 
-<? // ================== Switch to active tab on load ==========================================?>
-<? if (!empty($TAB)) :?>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
-		});
-	</script>
-<? endif ?>
 

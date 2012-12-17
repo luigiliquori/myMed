@@ -8,8 +8,6 @@ $(document).ready(function() {
 	    return false;
 	});
 	
-	showLoadingBar("chargement en cours...");
-	
 });
 
 function printDialog(elt, title) {
@@ -20,14 +18,6 @@ function printDialog(elt, title) {
 	    headerClose: true,
 	    blankContent : $("#" + elt)
 	  })
-}
-
-function hideLoadingBar() {
-	$.mobile.hidePageLoadingMsg();
-}
-function showLoadingBar(text) {
-	$.mobile.showPageLoadingMsg("d", text);
-	setTimeout(hideLoadingBar, 10000);
 }
 
 function SetApplicationStatus(application, status) {

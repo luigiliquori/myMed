@@ -21,6 +21,10 @@ function tab_bar_login($activeTab) {
 }
 ?>
 
+<!-- INCLUDE THE MAIN PAGE OF THE PROJECT -->
+<?php include('mymed.php'); ?>
+
+<!-- Login page for betaUsers -->
 <div data-role="page" id="login">
 
 	<?php tab_bar_login("#login"); ?>
