@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MyMed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-17 15:46+0100\n"
-"PO-Revision-Date: 2012-12-17 15:51+0100\n"
+"POT-Creation-Date: 2012-12-17 17:40+0100\n"
+"PO-Revision-Date: 2012-12-17 17:41+0100\n"
 "Last-Translator: David Da Silva <contact@daviddasilva.net>\n"
 "Language-Team: Lognet <lognet.mymed@inria.fr>\n"
 "Language: \n"
@@ -294,7 +294,7 @@ msgid "MyMemory_cancelStopNeedHelp"
 msgstr "Non, continuer la demande d'aide"
 
 #: ../application/myMemory/views/MainView.php:5
-#: ../application/myMemory/views/ExtendedProfileCreateView.php:17
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:46
 msgid "Exit"
 msgstr "Quitter"
 
@@ -304,7 +304,16 @@ msgstr "Accueil"
 
 #: ../application/myMemory/views/MainView.php:7
 #: ../application/myMemory/views/GoingBackView.php:11
+#: ../application/myMemory/views/ExtendedProfileEditView.php:47
+#: ../application/myMemory/views/ExtendedProfileEditView.php:97
+#: ../application/myMemory/views/ExtendedProfileEditView.php:145
+#: ../application/myMemory/views/ExtendedProfileEditView.php:192
 #: ../application/myMemory/views/NeedHelpView.php:29
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:47
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:97
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:145
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:192
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:265
 #: ../application/myMemory/views/ExtendedProfileDisplayView.php:8
 #: ../application/myMemory/views/ItineraireView.php:8
 msgid "Help"
@@ -327,7 +336,6 @@ msgstr "Besoin d'aide"
 
 #: ../application/myMemory/views/MainView.php:21
 #: ../application/myMemory/views/GoingBackView.php:60
-#: ../application/myMemory/views/ExtendedProfileEditView.php:183
 #: ../application/myMemory/views/NeedHelpView.php:94
 #: ../application/myMemory/views/ItineraireView.php:26
 #: ../application/myMemory/views/SocialView.php:16
@@ -335,7 +343,15 @@ msgid "Profile"
 msgstr "Profil"
 
 #: ../application/myMemory/views/GoingBackView.php:9
+#: ../application/myMemory/views/ExtendedProfileEditView.php:46
+#: ../application/myMemory/views/ExtendedProfileEditView.php:96
+#: ../application/myMemory/views/ExtendedProfileEditView.php:144
+#: ../application/myMemory/views/ExtendedProfileEditView.php:191
 #: ../application/myMemory/views/NeedHelpView.php:28
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:96
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:144
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:191
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:264
 #: ../application/myMemory/views/ExtendedProfileDisplayView.php:7
 #: ../application/myMemory/views/ItineraireView.php:6
 msgid "Back"
@@ -346,23 +362,224 @@ msgid "MyMemory_GoingBackDesc"
 msgstr ""
 
 #: ../application/myMemory/views/GoingBackView.php:27
+#: ../application/myMemory/views/ExtendedProfileEditView.php:64
+#: ../application/myMemory/views/ExtendedProfileEditView.php:65
+#: ../application/myMemory/views/ExtendedProfileEditView.php:66
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:64
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:65
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:66
 msgid "Domicile"
 msgstr "Domicile"
 
-#: ../application/myMemory/views/ExtendedProfileEditView.php:174
+#: ../application/myMemory/views/ExtendedProfileEditView.php:45
+#: ../application/myMemory/views/ExtendedProfileEditView.php:95
+#: ../application/myMemory/views/ExtendedProfileEditView.php:143
+#: ../application/myMemory/views/ExtendedProfileEditView.php:190
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:92
+msgid "EditProfile"
+msgstr "Modifier le profil"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:54
+msgid "MyMemory_EditProfileStep1Desc"
+msgstr ""
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:74
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:74
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:24
+msgid "DiseaseLevel"
+msgstr "Niveau de la maladie"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:76
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:76
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:28
+msgid "DiseaseLevel1"
+msgstr "Léger"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:79
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:79
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:31
+msgid "DiseaseLevel2"
+msgstr "Modéré"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:82
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:82
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:34
+msgid "DiseaseLevel3"
+msgstr "Avancé"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:87
+#: ../application/myMemory/views/ExtendedProfileEditView.php:135
+#: ../application/myMemory/views/ExtendedProfileEditView.php:182
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:87
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:135
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:182
+msgid "Next"
+msgstr "Suivant"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:104
+msgid "MyMemory_EditProfileStep2Desc"
+msgstr ""
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:113
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:113
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:40
+msgid "MyCaregiver"
+msgstr "Mon aide-soignant"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:115
+#: ../application/myMemory/views/ExtendedProfileEditView.php:116
+#: ../application/myMemory/views/ExtendedProfileEditView.php:162
+#: ../application/myMemory/views/ExtendedProfileEditView.php:163
+#: ../application/myMemory/views/ExtendedProfileEditView.php:233
+#: ../application/myMemory/views/ExtendedProfileEditView.php:234
+#: ../application/myMemory/views/ExtendedProfileEditView.php:256
+#: ../application/myMemory/views/ExtendedProfileEditView.php:257
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:115
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:116
 #: ../application/myMemory/views/ExtendedProfileCreateView.php:162
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:163
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:209
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:210
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:232
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:233
+msgid "FirstName"
+msgstr "Prénom "
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:118
+#: ../application/myMemory/views/ExtendedProfileEditView.php:119
+#: ../application/myMemory/views/ExtendedProfileEditView.php:165
+#: ../application/myMemory/views/ExtendedProfileEditView.php:166
+#: ../application/myMemory/views/ExtendedProfileEditView.php:236
+#: ../application/myMemory/views/ExtendedProfileEditView.php:237
+#: ../application/myMemory/views/ExtendedProfileEditView.php:259
+#: ../application/myMemory/views/ExtendedProfileEditView.php:260
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:118
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:119
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:165
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:166
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:212
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:213
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:235
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:236
+msgid "LastName"
+msgstr "Nom"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:121
+#: ../application/myMemory/views/ExtendedProfileEditView.php:122
+#: ../application/myMemory/views/ExtendedProfileEditView.php:168
+#: ../application/myMemory/views/ExtendedProfileEditView.php:169
+#: ../application/myMemory/views/ExtendedProfileEditView.php:239
+#: ../application/myMemory/views/ExtendedProfileEditView.php:240
+#: ../application/myMemory/views/ExtendedProfileEditView.php:262
+#: ../application/myMemory/views/ExtendedProfileEditView.php:263
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:121
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:122
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:168
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:169
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:215
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:216
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:238
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:239
+msgid "NickName"
+msgstr "Surnom"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:124
+#: ../application/myMemory/views/ExtendedProfileEditView.php:125
+#: ../application/myMemory/views/ExtendedProfileEditView.php:171
+#: ../application/myMemory/views/ExtendedProfileEditView.php:172
+#: ../application/myMemory/views/ExtendedProfileEditView.php:242
+#: ../application/myMemory/views/ExtendedProfileEditView.php:243
+#: ../application/myMemory/views/ExtendedProfileEditView.php:265
+#: ../application/myMemory/views/ExtendedProfileEditView.php:266
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:124
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:125
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:171
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:172
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:218
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:219
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:241
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:242
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:43
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:50
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:81
+msgid "Address"
+msgstr "Adresse"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:127
+#: ../application/myMemory/views/ExtendedProfileEditView.php:128
+#: ../application/myMemory/views/ExtendedProfileEditView.php:174
+#: ../application/myMemory/views/ExtendedProfileEditView.php:175
+#: ../application/myMemory/views/ExtendedProfileEditView.php:245
+#: ../application/myMemory/views/ExtendedProfileEditView.php:246
+#: ../application/myMemory/views/ExtendedProfileEditView.php:268
+#: ../application/myMemory/views/ExtendedProfileEditView.php:269
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:127
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:128
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:174
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:175
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:221
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:222
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:244
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:245
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:44
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:51
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:84
+msgid "Email"
+msgstr "E-mail"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:130
+#: ../application/myMemory/views/ExtendedProfileEditView.php:131
+#: ../application/myMemory/views/ExtendedProfileEditView.php:177
+#: ../application/myMemory/views/ExtendedProfileEditView.php:178
+#: ../application/myMemory/views/ExtendedProfileEditView.php:248
+#: ../application/myMemory/views/ExtendedProfileEditView.php:249
+#: ../application/myMemory/views/ExtendedProfileEditView.php:271
+#: ../application/myMemory/views/ExtendedProfileEditView.php:272
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:130
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:131
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:177
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:178
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:224
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:225
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:247
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:248
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:42
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:49
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:78
+msgid "Phone"
+msgstr "Téléphone"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "MyMemory_EditProfileStep3Desc"
+msgstr ""
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:160
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:160
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:47
+msgid "MyDoctor"
+msgstr "Mon médecin"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:199
+msgid "MyMemory_EditProfileStep4Desc"
+msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:231
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:207
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:67
+msgid "callingslot1"
+msgstr "Deuxième personne à appeller"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:254
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:230
+#: ../application/myMemory/views/ExtendedProfileDisplayView.php:70
+msgid "callingslot2"
+msgstr "Troisième personne à appeller"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:278
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:256
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:280
 msgid "Save"
 msgstr "Enregistrer"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:182
-#: ../application/myMemory/views/SocialView.php:15
-msgid "Homescreen"
-msgstr "Accueil"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:184
-#: ../application/myMemory/views/SocialView.php:17
-msgid "Social"
-msgstr "Social"
 
 #: ../application/myMemory/views/NeedHelpView.php:36
 msgid "MyMemory_NeedHelpDesc"
@@ -388,6 +605,39 @@ msgstr "myMemory envoie une alerte par e-mail aux aides soignants..."
 msgid "MyMemory_MailSent"
 msgstr "Alertes par e-mail envoyées!"
 
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:45
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:95
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:143
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:190
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:263
+msgid "CreateProfile"
+msgstr "Création du profil"
+
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:54
+msgid "MyMemory_CreateProfileStep1Desc"
+msgstr ""
+
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:104
+msgid "MyMemory_CreateProfileStep2Desc"
+msgstr ""
+
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:152
+msgid "MyMemory_CreateProfileStep3Desc"
+msgstr ""
+
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:199
+msgid "MyMemory_CreateProfileStep4Desc"
+msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
+
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:272
+#, fuzzy
+msgid "MyMemory_CreateProfileStep5Desc"
+msgstr ""
+
+#: ../application/myMemory/views/ExtendedProfileCreateView.php:279
+msgid "myMemory_Agreement"
+msgstr "Je comprend que cette application a besoin de connaître ma position en cas d'urgence et j'y consent."
+
 #: ../application/myMemory/views/ExtendedProfileDisplayView.php:14
 msgid "MyMemory_ViewProfileDesc"
 msgstr ""
@@ -395,48 +645,6 @@ msgstr ""
 #: ../application/myMemory/views/ExtendedProfileDisplayView.php:20
 msgid "MyInfos"
 msgstr "Mes informations"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:24
-msgid "DiseaseLevel"
-msgstr "Niveau de la maladie"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:28
-msgid "DiseaseLevel1"
-msgstr "Léger"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:31
-msgid "DiseaseLevel2"
-msgstr "Modéré"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:34
-msgid "DiseaseLevel3"
-msgstr "Avancé"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:40
-msgid "MyCaregiver"
-msgstr "Mon aide-soignant"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:42
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:49
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:78
-msgid "Phone"
-msgstr "Téléphone"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:43
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:50
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:81
-msgid "Address"
-msgstr "Adresse"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:44
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:51
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:84
-msgid "Email"
-msgstr "E-mail"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:47
-msgid "MyDoctor"
-msgstr "Mon médecin"
 
 #: ../application/myMemory/views/ExtendedProfileDisplayView.php:55
 msgid "CallingList"
@@ -446,25 +654,21 @@ msgstr "Liste d'appel"
 msgid "callingslot0"
 msgstr "Première personne à appeller"
 
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:67
-msgid "callingslot1"
-msgstr "Deuxième personne à appeller"
-
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:70
-msgid "callingslot2"
-msgstr "Troisième personne à appeller"
-
 #: ../application/myMemory/views/ExtendedProfileDisplayView.php:73
 msgid "callingslot3"
 msgstr "Dernière personne à appeller"
 
-#: ../application/myMemory/views/ExtendedProfileDisplayView.php:92
-msgid "EditProfile"
-msgstr "Modifier le profil"
-
 #: ../application/myMemory/views/ItineraireView.php:7
 msgid "RoadSheet"
 msgstr "Feuille de route"
+
+#: ../application/myMemory/views/SocialView.php:15
+msgid "Homescreen"
+msgstr "Accueil"
+
+#: ../application/myMemory/views/SocialView.php:17
+msgid "Social"
+msgstr "Social"
 
 #: ../application/myFSA/views/ExtendedProfileNeededView.php:9
 msgid "To use all options of myFSA please fill your profile"
@@ -1947,6 +2151,14 @@ msgstr "Suivant"
 msgid "Erreur interne d'enrgistrement"
 msgstr "Erreur interne d'enregistrement"
 
+#, fuzzy
+#~ msgid "callingSlot1"
+#~ msgstr "Deuxième personne à appeller"
+
+#, fuzzy
+#~ msgid "callingSlot2"
+#~ msgstr "Troisième personne à appeller"
+
 #~ msgid "all partnerships"
 #~ msgstr "tous les partenariats"
 
@@ -1958,9 +2170,6 @@ msgstr "Erreur interne d'enregistrement"
 
 #~ msgid "Membership application"
 #~ msgstr "Demande d'adhésion"
-
-#~ msgid "Create my profile"
-#~ msgstr "Créer mon profil"
 
 #~ msgid "Create a new blog"
 #~ msgstr "Créer un nouveau blog"
@@ -1997,9 +2206,6 @@ msgstr "Erreur interne d'enregistrement"
 
 #~ msgid "English"
 #~ msgstr "Anglais"
-
-#~ msgid "Next"
-#~ msgstr "Suivant"
 
 #~ msgid "Beta Testers Blog"
 #~ msgstr "Blog Beta testeurs"
@@ -2102,9 +2308,6 @@ msgstr "Erreur interne d'enregistrement"
 
 #~ msgid "Siret"
 #~ msgstr "Siret"
-
-#~ msgid "Name"
-#~ msgstr "Nom"
 
 #~ msgid "Research"
 #~ msgstr "Recherche"
