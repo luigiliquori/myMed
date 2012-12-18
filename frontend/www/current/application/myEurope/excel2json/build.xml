@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+
+<project name="xlsx2json" default="build-all">
+  
+  <!-- erase build file -->
+  <target name="clean">
+    <delete dir="bin" />
+    <delete dir="doc/javadoc"/>
+  </target>
+
+  <!-- creating classpath -->
+  <path id="classpath">
+    <fileset dir="bin/" includes="*.class"/>
+    <fileset dir="lib/" includes="poi-3.9-20121203.jar" />
+    <fileset dir="lib/" includes="poi-ooxml-3.9-20121203.jar"/>
+    <fileset dir="lib/" includes="json-lib-2.4-jdk15.jar" />
+  </path>
+
+  <!-- Compile -->
+  <target name="compile">
+    <mkdir dir="bin/"/>
+    <javac srcdir="src" destdir="bin/" classpathref="classpath" includeantruntime="false"/>
+  </target>
+
+  <!-- creating jar file -->
+  <target name="excel2json_jar" depends="compile">
+    <jar destfile="excel2json.jar" basedir="bin">
+      <manifest>
+	<attribute name="Main-Class" value="fr.inria.lognet.convertexcel.Main" />
+	<attribute name="Class-Path" value="lib/poi-3.9-20121203.jar lib/poi-ooxml-3.9-20121203.jar lib/dom4j-1.6.1.jar lib/stax-api-1.0.1.jar lib/xmlbeans-2.3.0.jar lib/poi-ooxml-schemas-3.9-20121203.jar lib/json-lib-2.4-jdk15.jar lib/commons-lang-2.6.jar lib/ezmorph-1.0.6.jar lib/commons-logging-1.1.jar lib/commons-collections-3.2.1.jar lib/commons-beanutils-1.8.3.jar lib/commons-beanutils-bean-collections-1.8.3.jar" />
+      </manifest>
+    </jar>
+  </target>
+
+
+  <!-- generate documentation -->
+  <target name="documentation" depends="">
+    <mkdir dir="doc/javadoc" />
+    <javadoc packagenames="*.*" sourcepath="src" destdir="doc/javadoc" access="private" windowtitle="excel2json" verbose="true" author="true" version="true">
+    </javadoc>
+  </target>
+
+
+  <!-- build-all -->
+  <target name="build-all" depends="excel2json_jar, documentation">
+    <echo>Building excel2json</echo>
+  </target>
+
+</project>
+
+  
+
