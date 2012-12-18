@@ -122,11 +122,11 @@ public class Main{
 		String[] data;
 		JSONObject json = new JSONObject();
 		for(int i=1;i<csvSheet.size();i++){
-			System.out.println("line="+i);
-			json.clear();
+			//System.out.println("line="+i);
+			json = new JSONObject();
 			data = csvSheet.get(i).split(regex);
-			System.out.println("header length: "+headerLength);
-			System.out.println("data length: "+ data.length);
+			//System.out.println("header length: "+headerLength);
+			//System.out.println("data length: "+ data.length);
 			for(int j=0;j<headerLength;j++){
 				//System.out.println(data[j]);
 				json.put(header[j],data[j]);
