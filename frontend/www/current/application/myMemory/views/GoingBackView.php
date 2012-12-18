@@ -2,32 +2,29 @@
 <? include("notifications.php")?>
 
 <div data-role="page" id="GoingBack">
-<script type="text/javascript">
-	$("#GoingBack").live('pageinit', function() {
-		initialize_map();
+	
+	
+	<!-- Header -->
+	<div data-role="header" data-position="inline">
+		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
+	 	<h1><?= _("GoingBack"); ?></h1>
+	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+	</div>
 
-		var testLatlng = new google.maps.LatLng("43.553532", "7.021980");
-		var marker = addMarker(testLatlng, "img/position.png", "Domicile", "Mon chez moi!", google.maps.Animation.DROP, false, "maison");
-		marker.setMap(map);
 
-	});
-</script>
-<!-- GOOGLE MAP -->
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>
 
-<!-- 	<div data-role="header" data-position="inline"> -->
-<!-- 		<a href="?action=main" data-rel="back" data-role="button" class="ui-btn-left" data-icon="back" >Back</a> -->
-<!-- 		<h1>MyMemory</h1> -->
-<!-- 		<a href="?action=ExtendedProfile" data-role="button" data-icon="gear" >Profile</a> -->
-<!-- 	</div> -->
 	<div data-role="content" data-theme="a">
-		<div id="myMap"></div>
-		<br />
+	
+		<div class="description-box">
+		<?= _("MyMemory_GoingBackDesc") ?>
+		</div>
+	
+	
+	
 		<ul data-role="listview" class="ui-listview" data-theme="b" data-inset="true" >
 			<li data-icon="home" class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
 				<a href="?action=itineraire" class="ui-link-inherit" onclick="goingBack(document.getElementById('address_home').innerHTML)">
-				<h3 class="ui-li-heading">Domicile</h3>
+				<h3 class="ui-li-heading"><?= _("Domicile"); ?></h3>
 				<p class="ui-li-desc" id="address_home" ><?= $_SESSION['ExtendedProfile']->home?></p>
 				</a>
 			</li>
@@ -53,18 +50,15 @@
 	
 	
 
-<input type='hidden' id='userID' value='<?= $_SESSION['user']->id ?>' />
-<input type='hidden' id='applicationName' value='myMemory' />
-<input type='hidden' id='accessToken' value='<?= $_SESSION['accessToken'] ?>' />
+	<input type='hidden' id='userID' value='<?= $_SESSION['user']->id ?>' />
+	<input type='hidden' id='applicationName' value='myMemory' />
+	<input type='hidden' id='accessToken' value='<?= $_SESSION['accessToken'] ?>' />
 
-<div data-role="footer" data-id="myFooter" data-position="fixed">
-	<div data-role="navbar" data-iconpos="top" >
-		<ul>
-			<li><a href="?action=main" data-icon="home"><?= _('Homescreen') ?></a></li>
-			<li><a href="?action=ExtendedProfile" data-icon="profile" ><?= _('Profile'); ?></a></li>
-			<li><a href="?action=Social" data-icon="star" ><?= _('Social'); ?></a></li>	
-		</ul>
+
+	<!-- Footer -->
+	<div data-role="footer" data-id="myFooter" data-position="fixed">
+		<a href="?action=ExtendedProfile" data-role="button" data-theme="b" data-icon="profile"><?= _("Profile"); ?></a>
 	</div>
-</div>
+
+</div>	
 <? include("footer.php"); ?>	
-</div>

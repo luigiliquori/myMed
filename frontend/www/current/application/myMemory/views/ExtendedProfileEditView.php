@@ -1,188 +1,282 @@
 <? include("header.php"); ?>
 <? include("notifications.php")?>
+<script>
+
+$("#step1").live("pageinit", function() {
+	$("form.msform").live("submit", handleMSForm);    
+});
+
+var formData = {};
+
+function handleMSForm(e) {
+
+        var next = "";
+        
+        //gather the fields
+        var data = $(this).serializeArray();
+
+        //store them - assumes unique names
+        for(var i=0; i<data.length; i++) {
+            //If nextStep, it's our metadata, don't store it in formdata
+            if(data[i].name=="nextStep") { next=data[i].value; continue; }
+            //if we have it, add it to a list. This is not "comma" safe.
+            if(formData.hasOwnProperty(data[i].name)) formData[data[i].name] += ","+data[i].value;
+            else formData[data[i].name] = data[i].value;
+        }
+
+        //now - we need to go the next page...
+        //if next step isn't a full url, we assume internal link
+        //logic will be, if ?action=something, do a post
+        if(next.indexOf("?") == -1) {
+            var nextPage = "#" + next;
+            $.mobile.changePage(nextPage);
+        } else {
+            $.mobile.changePage(next, {type:"post",data:formData});
+        }
+        e.preventDefault();
+    
+};
 
 
-<!-- Header -->
-<!-- <div data-role="header" data-position="inline"> -->
-<!--  	<a href="?action=ExtendedProfile" data-role="button"  data-icon="back"><?// _('Cancel') ?></a>-->
-<!--  	<h1></h1> -->
-<!-- 	<a href="" data-role="button" data-theme="b" data-icon="check" onclick='document.ExtendedProfileForm.submit();'><?// _('Save') ?></a>-->
-<!-- </div> -->
+</script>
+<div data-role="page" id="step1">
+	<!-- Header -->
+	<div data-role="header" data-position="inline">
+	 	<h1><?= _("EditProfile"); ?></h1>
+		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
+	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+	</div>
 
-<div data-role="content" data-theme="a">
-	<form action="?action=ExtendedProfile" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
-		<input type="hidden" name="form" value="edit" />
-
-		<!-- HOME -->
-		<div data-role="fieldcontain">
-			<fieldset data-role="controlgroup">
-				<div role="heading" class="ui-controlgroup-label">Your personnal address :</div>
-				<div class="ui-controlgroup-controls">
-					<label for="home" class="ui-hidden-accessible">Address : </label>
-					<input type="text" name="home" name="home" value="<?=$_SESSION['ExtendedProfile']->home ?>" placeholder="Address"/>
-				</div>
-			</fieldset>
+	<div data-role="content" data-theme="a">
+	
+	
+		<div class="description-box">
+		<?= _("MyMemory_EditProfileStep1Desc"); ?>
 		</div>
-		
-		
-		<!-- LEVEL OF DISEASE -->
-		<div data-role="fieldcontain">
-			<fieldset data-role="controlgroup">
-				<div role="heading" class="ui-controlgroup-label">Level of the disease :</div>
-				<div class="ui-controlgroup-controls">
+	
+		<form  method="post" class="msform" data-ajax="false">
+			<input type="hidden" name="form" value="edit" />
+			<input type="hidden" name="nextStep" value="step2" />
+	
+			<!-- HOME -->
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+				<legend><?= _("Domicile");?></legend>
+				<label for="home" class="ui-hidden-accessible"><?= _("Domicile");?></label>
+				<input type="text" name="home" name="home" value="<?=$_SESSION['ExtendedProfile']->home ?>" placeholder="<?= _("Domicile");?>"/>
+				</fieldset>
+			</div>
+			
+			
+			<!-- LEVEL OF DISEASE -->
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<legend><?= _("DiseaseLevel"); ?></legend>
 			     	<input type="radio" name="diseaseLevel" id="disease_low" value="1" <?php if ($_SESSION['ExtendedProfile']->diseaseLevel == 1) echo 'checked="checked"'; ?> />
-			     	<label for="disease_low">Low</label>
+			     	<label for="disease_low"><?= _("DiseaseLevel1"); ?></label>
 			
 			     	<input type="radio" name="diseaseLevel" id="disease_moderate" value="2" <?php if ($_SESSION['ExtendedProfile']->diseaseLevel == 2) echo 'checked="checked"'; ?> />
-			     	<label for="disease_moderate">Moderate</label>
+			     	<label for="disease_moderate"><?= _("DiseaseLevel2"); ?></label>
 			
 			     	<input type="radio" name="diseaseLevel" id="disease_advanced" value="3" <?php if ($_SESSION['ExtendedProfile']->diseaseLevel == 3) echo 'checked="checked"'; ?> />
-			     	<label for="disease_advanced">Advanced</label>
-			     </div>
-			</fieldset>
-		</div>
-
-		<!-- CAREGIVER -->
-		<div data-role="fieldcontain">
-			<fieldset data-role="controlgroup">
-				<div role="heading" class="ui-controlgroup-label">Your personnal Caregiver :</div>
-				<div class="ui-controlgroup-controls">
-					<label for="CareGiverFirstname" class="ui-hidden-accessible">Caregiver Firstname : </label>
-					<input type="text" name="CareGiverFirstname" name="CareGiverFirstname" value="<?= $_SESSION['ExtendedProfile']->careGiver->firstname ?>" placeholder="Caregiver firstname" />
-					
-					<label for="CareGiverLastname" class="ui-hidden-accessible">Caregiver Lastname : </label>
-					<input type="text" name="CareGiverLastname" name="CareGiverLastname" value="<?= $_SESSION['ExtendedProfile']->careGiver->lastname ?>" placeholder="Caregiver lastname" />
-					
-					<label for="CareGiverNickname" class="ui-hidden-accessible">Caregiver Nickname : </label>
-					<input type="text" name="CareGiverNickname" name="CareGiverNickname" value="<?= $_SESSION['ExtendedProfile']->careGiver->nickname ?>" placeholder="Caregiver nickname" />
-					
-					<label for="CareGiverAddress" class="ui-hidden-accessible">Caregiver address : </label>
-					<input type="text" name="CareGiverAddress" name="CareGiverAddress" value="<?= $_SESSION['ExtendedProfile']->careGiver->address ?>" placeholder="Caregiver address"/>
-					
-					<label for="CareGiverEmail" class="ui-hidden-accessible">Caregiver e-mail : </label>
-					<input type="text" name="CareGiverEmail" name="CareGiverEmail" value="<?= $_SESSION['ExtendedProfile']->careGiver->email ?>" placeholder="Caregiver e-mail"/>
-					
-					<label for="CareGiverPhone" class="ui-hidden-accessible">Caregiver phone : </label>
-					<input type="text" name="CareGiverPhone" name="CareGiverPhone" value="<?= $_SESSION['ExtendedProfile']->careGiver->phone ?>" placeholder="Caregiver phone"/>
-				</div>
-			</fieldset>
-		</div>
-		
-		<!-- DOCTOR -->
-		<div data-role="fieldcontain">
-			<fieldset data-role="controlgroup">
-				<div role="heading" class="ui-controlgroup-label">Your doctor :</div>
-				<div class="ui-controlgroup-controls">
-					<label for="DoctorFirstname" class="ui-hidden-accessible">Doctor Firstname : </label>
-					<input type="text" name="DoctorFirstname" name="DoctorFirstname" value="<?= $_SESSION['ExtendedProfile']->doctor->firstname ?>" placeholder="Doctor firstname" />
-					
-					<label for="DoctorLastname" class="ui-hidden-accessible">Doctor Lastname : </label>
-					<input type="text" name="DoctorLastname" name="DoctorLastname" value="<?= $_SESSION['ExtendedProfile']->doctor->lastname ?>" placeholder="Doctor lastname" />
-					
-					<label for="DoctorNickname" class="ui-hidden-accessible">Doctor Nickname : </label>
-					<input type="text" name="DoctorNickname" name="DoctorNickname" value="<?= $_SESSION['ExtendedProfile']->doctor->nickname ?>" placeholder="Doctor nickname" />
-					
-					<label for="DoctorAddress" class="ui-hidden-accessible">Doctor address : </label>
-					<input type="text" name="DoctorAddress" name="DoctorAddress" value="<?= $_SESSION['ExtendedProfile']->doctor->address ?>" placeholder="Doctor address"/>
-					
-					<label for="DoctorEmail" class="ui-hidden-accessible">Doctor e-mail : </label>
-					<input type="text" name="DoctorEmail" name="DoctorEmail" value="<?= $_SESSION['ExtendedProfile']->doctor->email ?>" placeholder="Doctor e-mail"/>
-					
-					<label for="DoctorPhone" class="ui-hidden-accessible">Doctor phone : </label>
-					<input type="text" name="DoctorPhone" name="DoctorPhone" value="<?= $_SESSION['ExtendedProfile']->doctor->phone ?>" placeholder="Doctor phone"/>
-				</div>
-			</fieldset>
-		</div>
-		
-		<!-- CALLING LIST -->
-		<p>MyMemory can call for you a list up to 4 persons in case of emergency.<br />
-		The first person called is your caregiver, and the last one will be the emergency services.<br />
-		You can fill another 2 persons that will be called in between. This is not mandatory.</p>
-		
-		<?php 
-		// Do we have extra persons in callingList, aside from the caregiver and emergency
-			$callingList_lenght = count($_SESSION['ExtendedProfile']->callingList);
-			if ($callingList_lenght > 2){
-				if($callingList_lenght == 4){
-					// case where there is 2 persons
-					$p2_firstname	= $_SESSION['ExtendedProfile']->callingList['2']->firstname;
-					$p2_lastname	= $_SESSION['ExtendedProfile']->callingList['2']->lastname;
-					$p2_nickname	= $_SESSION['ExtendedProfile']->callingList['2']->nickname;
-					$p2_address 	= $_SESSION['ExtendedProfile']->callingList['2']->address;
-					$p2_email		= $_SESSION['ExtendedProfile']->callingList['2']->email;
-					$p2_phone		= $_SESSION['ExtendedProfile']->callingList['2']->phone;
-				}
-				$p1_firstname	= $_SESSION['ExtendedProfile']->callingList['1']->firstname;
-				$p1_lastname	= $_SESSION['ExtendedProfile']->callingList['1']->lastname;
-				$p1_nickname	= $_SESSION['ExtendedProfile']->callingList['1']->nickname;
-				$p1_address 	= $_SESSION['ExtendedProfile']->callingList['1']->address;
-				$p1_email		= $_SESSION['ExtendedProfile']->callingList['1']->email;
-				$p1_phone		= $_SESSION['ExtendedProfile']->callingList['1']->phone;
-				
-			}
-		
-		?>
-
-		<div data-role="collapsible">
-			<h3>Second person to call</h3>
-			<div class="ui-controlgroup-controls">
-				<label for="CL_Firstname_1" class="ui-hidden-accessible">Firstname : </label>
-				<input type="text" name="CL_Firstname_1" name="CL_Firstname_1" value="<?php if(isset($p1_firstname)) echo $p1_firstname;?>" placeholder="Firstname" />
-				
-				<label for="CL_Lastname_1" class="ui-hidden-accessible">Lastname : </label>
-				<input type="text" name="CL_Lastname_1" name="CL_Lastname_1" value="<?php if(isset($p1_lastname)) echo $p1_lastname;?>" placeholder="Lastname" />
-				
-				<label for="CL_Nickname_1" class="ui-hidden-accessible">Nickname : </label>
-				<input type="text" name="CL_Nickname_1" name="CL_Nickname_1" value="<?php if(isset($p1_nickname)) echo $p1_nickname;?>" placeholder="Nickname" />
-				
-				<label for="CL_address_1" class="ui-hidden-accessible">Address : </label>
-				<input type="text" name="CL_address_1" name="CL_address_1" value="<?php if(isset($p1_address)) echo $p1_address;?>" placeholder="Address"/>
-				
-				<label for="CL_email_1" class="ui-hidden-accessible">E-Mail : </label>
-				<input type="text" name="CL_email_1" name="CL_email_1" value="<?php if(isset($p1_email)) echo $p1_email;?>" placeholder="e-mail"/>
-				
-				<label for="CL_phone_1" class="ui-hidden-accessible">Phone number : </label>
-				<input type="text" name="CL_phone_1" name="CL_phone_1" value="<?php if(isset($p1_phone)) echo $p1_phone;?>" placeholder="Phone number"/>
-			</div>
-
-			
-			<div data-role="collapsible">
-				<h3>Third person to call</h3>
-				<div class="ui-controlgroup-controls">
-					<label for="CL_Firstname_2" class="ui-hidden-accessible">Firstname : </label>
-					<input type="text" name="CL_Firstname_2" name="CL_Firstname_2" value="<?php if(isset($p2_firstname)) echo $p2_firstname;?>" placeholder="Firstname" />
-				
-					<label for="CL_Lastname_2" class="ui-hidden-accessible">Lastname : </label>
-					<input type="text" name="CL_Lastname_2" name="CL_Lastname_2" value="<?php if(isset($p2_lastname)) echo $p2_lastname;?>" placeholder="Lastname" />
-				
-					<label for="CL_Nickname_2" class="ui-hidden-accessible">Nickname : </label>
-					<input type="text" name="CL_Nickname_2" name="CL_Nickname_2" value="<?php if(isset($p2_nickname)) echo $p2_nickname;?>" placeholder="Nickname" />
-					
-					<label for="CL_address_2" class="ui-hidden-accessible">Address : </label>
-					<input type="text" name="CL_address_2" name="CL_address_2" value="<?php if(isset($p2_address)) echo $p2_address;?>" placeholder="Address"/>
-					
-					<label for="CL_email_2" class="ui-hidden-accessible">E-Mail : </label>
-					<input type="text" name="CL_email_2" name="CL_email_2" value="<?php if(isset($p2_email)) echo $p2_email;?>" placeholder="e-mail"/>
-					
-					<label for="CL_phone_2" class="ui-hidden-accessible">Phone number : </label>
-					<input type="text" name="CL_phone_2" name="CL_phone_2" value="<?php if(isset($p2_phone)) echo $p2_phone;?>" placeholder="Phone number"/>
-				</div>
+			     	<label for="disease_advanced"><?= _("DiseaseLevel3"); ?></label>
+			     
+				</fieldset>
 			</div>
 			
-		</div>
-		<input type="hidden" name="agreement" value="true" />
-		<input type="submit" data-role="button" id="submitButton"  value="<?= _('Save') ?>" data-theme="b"/>
-		<a href="?action=ExtendedProfile" data-role="button"  data-icon="back"><?= _('Cancel') ?></a>
-	</form>
-</div>
-
-<div data-role="footer" data-id="myFooter" data-position="fixed">
-	<div data-role="navbar" data-iconpos="top" >
-		<ul>
-			<li><a href="?action=main" data-icon="home"><?= _('Homescreen') ?></a></li>
-			<li><a href="?action=ExtendedProfile" data-icon="profile" class="ui-btn-active"><?= _('Profile'); ?></a></li>
-			<li><a href="?action=Social" data-icon="star" ><?= _('Social'); ?></a></li>	
-		</ul>
+			<input type="submit" name="submit1" data-theme="b" value="<?= _("Next"); ?>" />
+		</form>
 	</div>
 </div>
+
+<div data-role="page" id="step2">
+	<!-- Header -->
+	<div data-role="header" data-position="inline">
+	 	<h1><?= _("EditProfile"); ?></h1>
+		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
+	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+	</div>
+
+	<div data-role="content" data-theme="a">
+	
+	
+		<div class="description-box">
+		<?= _("MyMemory_EditProfileStep2Desc"); ?>
+		</div>
+	
+		<form  method="post" class="msform" data-ajax="false">
+			<input type="hidden" name="nextStep" value="step3" />			
+	
+			<!-- CAREGIVER -->
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<div role="heading" class="ui-controlgroup-label"><?= _("MyCaregiver"); ?></div>
+					<div class="ui-controlgroup-controls">
+						<label for="CareGiverFirstname" class="ui-hidden-accessible"><?= _("FirstName"); ?></label>
+						<input type="text" name="CareGiverFirstname" name="CareGiverFirstname" value="<?= $_SESSION['ExtendedProfile']->doctor->firstname ?>" placeholder="<?= _("FirstName"); ?>" />
+						
+						<label for="CareGiverLastname" class="ui-hidden-accessible"><?= _("LastName"); ?></label>
+						<input type="text" name="CareGiverLastname" name="CareGiverLastname" value="<?= $_SESSION['ExtendedProfile']->doctor->lastname ?>" placeholder="<?= _("LastName"); ?>" />
+						
+						<label for="CareGiverNickname" class="ui-hidden-accessible"><?= _("NickName"); ?></label>
+						<input type="text" name="CareGiverNickname" name="CareGiverNickname" value="<?= $_SESSION['ExtendedProfile']->doctor->nickname ?>" placeholder="<?= _("NickName"); ?>" />
+						
+						<label for="CareGiverAddress" class="ui-hidden-accessible"><?= _("Address"); ?></label>
+						<input type="text" name="CareGiverAddress" name="CareGiverAddress" value="<?= $_SESSION['ExtendedProfile']->doctor->address ?>" placeholder="<?= _("Address"); ?>"/>
+						
+						<label for="CareGiverEmail" class="ui-hidden-accessible"><?= _("Email"); ?></label>
+						<input type="text" name="CareGiverEmail" name="CareGiverEmail" value="<?= $_SESSION['ExtendedProfile']->doctor->email ?>" placeholder="<?= _("Email"); ?>"/>
+						
+						<label for="CareGiverPhone" class="ui-hidden-accessible"><?= _("Phone"); ?></label>
+						<input type="text" name="CareGiverPhone" name="CareGiverPhone" value="<?= $_SESSION['ExtendedProfile']->doctor->phone ?>" placeholder="<?= _("Phone"); ?>"/>
+					</div>
+				</fieldset>
+			</div>
+			<input type="submit" name="submit2" data-theme="b" value="<?= _("Next"); ?>" />
+		</form>
+	</div>
+</div>
+
+<div data-role="page" id="step3">
+	<!-- Header -->
+	<div data-role="header" data-position="inline">
+	 	<h1><?= _("EditProfile"); ?></h1>
+		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
+	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+	</div>
+
+	<div data-role="content" data-theme="a">
+	
+	
+		<div class="description-box">
+		<?= _("MyMemory_EditProfileStep3Desc"); ?>
+		</div>
+	
+		<form  method="post" class="msform" data-ajax="false">
+			<input type="hidden" name="nextStep" value="step4" />			
+			<!-- DOCTOR -->
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<div role="heading" class="ui-controlgroup-label"><?= _("MyDoctor"); ?></div>
+					<div class="ui-controlgroup-controls">
+						<label for="DoctorFirstname" class="ui-hidden-accessible"><?= _("FirstName"); ?></label>
+						<input type="text" name="DoctorFirstname" name="DoctorFirstname" value="<?= $_SESSION['ExtendedProfile']->doctor->firstname ?>" placeholder="<?= _("FirstName"); ?>" />
+						
+						<label for="DoctorLastname" class="ui-hidden-accessible"><?= _("LastName"); ?></label>
+						<input type="text" name="DoctorLastname" name="DoctorLastname" value="<?= $_SESSION['ExtendedProfile']->doctor->lastname ?>" placeholder="<?= _("LastName"); ?>" />
+						
+						<label for="DoctorNickname" class="ui-hidden-accessible"><?= _("NickName"); ?></label>
+						<input type="text" name="DoctorNickname" name="DoctorNickname" value="<?= $_SESSION['ExtendedProfile']->doctor->nickname ?>" placeholder="<?= _("NickName"); ?>" />
+						
+						<label for="DoctorAddress" class="ui-hidden-accessible"><?= _("Address"); ?></label>
+						<input type="text" name="DoctorAddress" name="DoctorAddress" value="<?= $_SESSION['ExtendedProfile']->doctor->address ?>" placeholder="<?= _("Address"); ?>"/>
+						
+						<label for="DoctorEmail" class="ui-hidden-accessible"><?= _("Email"); ?></label>
+						<input type="text" name="DoctorEmail" name="DoctorEmail" value="<?= $_SESSION['ExtendedProfile']->doctor->email ?>" placeholder="<?= _("Email"); ?>"/>
+						
+						<label for="DoctorPhone" class="ui-hidden-accessible"><?= _("Phone"); ?></label>
+						<input type="text" name="DoctorPhone" name="DoctorPhone" value="<?= $_SESSION['ExtendedProfile']->doctor->phone ?>" placeholder="<?= _("Phone"); ?>"/>
+					</div>
+				</fieldset>
+			</div>
+			<input type="submit" name="submit3" data-theme="b" value="<?= _("Next"); ?>" />
+		</form>
+	</div>
+</div>
+
+<div data-role="page" id="step4">
+	<!-- Header -->
+	<div data-role="header" data-position="inline">
+	 	<h1><?= _("EditProfile"); ?></h1>
+		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
+	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+	</div>
+
+	<div data-role="content" data-theme="a">
+	
+	
+		<div class="description-box">
+		<?= _("MyMemory_EditProfileStep4Desc"); ?>
+		</div>
+	
+		<form  method="post" class="msform" data-ajax="false">
+			<input type="hidden" name="nextStep" value="?action=ExtendedProfile" />
+			<!-- CALLING LIST -->
+			
+			<?php 
+			// Do we have extra persons in callingList, aside from the caregiver and emergency
+				$callingList_lenght = count($_SESSION['ExtendedProfile']->callingList);
+				if ($callingList_lenght > 2){
+					if($callingList_lenght == 4){
+						// case where there is 2 persons
+						$p2_firstname	= $_SESSION['ExtendedProfile']->callingList['2']->firstname;
+						$p2_lastname	= $_SESSION['ExtendedProfile']->callingList['2']->lastname;
+						$p2_nickname	= $_SESSION['ExtendedProfile']->callingList['2']->nickname;
+						$p2_address 	= $_SESSION['ExtendedProfile']->callingList['2']->address;
+						$p2_email		= $_SESSION['ExtendedProfile']->callingList['2']->email;
+						$p2_phone		= $_SESSION['ExtendedProfile']->callingList['2']->phone;
+					}
+					$p1_firstname	= $_SESSION['ExtendedProfile']->callingList['1']->firstname;
+					$p1_lastname	= $_SESSION['ExtendedProfile']->callingList['1']->lastname;
+					$p1_nickname	= $_SESSION['ExtendedProfile']->callingList['1']->nickname;
+					$p1_address 	= $_SESSION['ExtendedProfile']->callingList['1']->address;
+					$p1_email		= $_SESSION['ExtendedProfile']->callingList['1']->email;
+					$p1_phone		= $_SESSION['ExtendedProfile']->callingList['1']->phone;
+					
+				}
+			
+			?>
+	
+			<div data-role="collapsible" data-collapsed="false">
+				<h3><?= _("callingslot1"); ?></h3>
+				<div class="ui-controlgroup-controls">
+					<label for="CL_Firstname_1" class="ui-hidden-accessible"><?= _("FirstName"); ?></label>
+					<input type="text" name="CL_Firstname_1" name="CL_Firstname_1" value="<?php if(isset($p1_firstname)) echo $p1_firstname;?>" placeholder="<?= _("FirstName"); ?>" />
+					
+					<label for="CL_Lastname_1" class="ui-hidden-accessible"><?= _("LastName"); ?></label>
+					<input type="text" name="CL_Lastname_1" name="CL_Lastname_1" value="<?php if(isset($p1_lastname)) echo $p1_lastname;?>" placeholder="<?= _("LastName"); ?>" />
+					
+					<label for="CL_Nickname_1" class="ui-hidden-accessible"><?= _("NickName"); ?></label>
+					<input type="text" name="CL_Nickname_1" name="CL_Nickname_1" value="<?php if(isset($p1_nickname)) echo $p1_nickname;?>" placeholder="<?= _("NickName"); ?>" />
+					
+					<label for="CL_address_1" class="ui-hidden-accessible"><?= _("Address"); ?></label>
+					<input type="text" name="CL_address_1" name="CL_address_1" value="<?php if(isset($p1_address)) echo $p1_address;?>" placeholder="<?= _("Address"); ?>"/>
+					
+					<label for="CL_email_1" class="ui-hidden-accessible"><?= _("Email"); ?></label>
+					<input type="text" name="CL_email_1" name="CL_email_1" value="<?php if(isset($p1_email)) echo $p1_email;?>" placeholder="<?= _("Email"); ?>"/>
+					
+					<label for="CL_phone_1" class="ui-hidden-accessible"><?= _("Phone"); ?></label>
+					<input type="text" name="CL_phone_1" name="CL_phone_1" value="<?php if(isset($p1_phone)) echo $p1_phone;?>" placeholder="<?= _("Phone"); ?>"/>
+				</div>
+	
+				
+				<div data-role="collapsible">
+					<h3><?= _("callingslot2"); ?></h3>
+						<div class="ui-controlgroup-controls">
+						<label for="CL_Firstname_2" class="ui-hidden-accessible"><?= _("FirstName"); ?></label>
+						<input type="text" name="CL_Firstname_2" name="CL_Firstname_2" value="<?php if(isset($p2_firstname)) echo $p2_firstname;?>" placeholder="<?= _("FirstName"); ?>" />
+						
+						<label for="CL_Lastname_2" class="ui-hidden-accessible"><?= _("LastName"); ?></label>
+						<input type="text" name="CL_Lastname_2" name="CL_Lastname_2" value="<?php if(isset($p2_lastname)) echo $p2_lastname;?>" placeholder="<?= _("LastName"); ?>" />
+						
+						<label for="CL_Nickname_2" class="ui-hidden-accessible"><?= _("NickName"); ?></label>
+						<input type="text" name="CL_Nickname_2" name="CL_Nickname_2" value="<?php if(isset($p2_nickname)) echo $p2_nickname;?>" placeholder="<?= _("NickName"); ?>" />
+						
+						<label for="CL_address_2" class="ui-hidden-accessible"><?= _("Address"); ?></label>
+						<input type="text" name="CL_address_2" name="CL_address_2" value="<?php if(isset($p2_address)) echo $p2_address;?>" placeholder="<?= _("Address"); ?>"/>
+						
+						<label for="CL_email_2" class="ui-hidden-accessible"><?= _("Email"); ?></label>
+						<input type="text" name="CL_email_2" name="CL_email_2" value="<?php if(isset($p2_email)) echo $p2_email;?>" placeholder="<?= _("Email"); ?>"/>
+						
+						<label for="CL_phone_2" class="ui-hidden-accessible"><?= _("Phone"); ?></label>
+						<input type="text" name="CL_phone_2" name="CL_phone_2" value="<?php if(isset($p2_phone)) echo $p2_phone;?>" placeholder="<?= _("Phone"); ?>"/>
+					</div>
+				</div>
+				
+			</div>
+			<input type="hidden" name="agreement" value="true" />
+			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Save') ?>" data-theme="b"/>
+		</form>
+	</div>
+</div>	
 <? include("footer.php"); ?>
