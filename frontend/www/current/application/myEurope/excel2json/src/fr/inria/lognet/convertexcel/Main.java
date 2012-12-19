@@ -139,9 +139,11 @@ public class Main{
 	
 	public void printJsonToFile(JSONObject[] tabJson) throws FileNotFoundException{
 		PrintWriter pw = new PrintWriter(fileName+".json");
+		pw.println("[");
 		for(int i=0;i<tabJson.length;i++){
-			pw.println(tabJson[i].toString());
+			pw.println(tabJson[i].toString()+",");
 		}
+		pw.println("]");
 		pw.close();
 	}
 
