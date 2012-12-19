@@ -1,5 +1,9 @@
 <? include("header.php"); ?>
 <? include("notifications.php")?>
+<script>
+getLocation();
+</script>
+
 <div id="RoadSheet" data-role="page">
 
 	<div data-role="header" data-position="inline">

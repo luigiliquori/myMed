@@ -113,22 +113,22 @@ function handleMSForm(e) {
 					<div role="heading" class="ui-controlgroup-label"><?= _("MyCaregiver"); ?></div>
 					<div class="ui-controlgroup-controls">
 						<label for="CareGiverFirstname" class="ui-hidden-accessible"><?= _("FirstName"); ?></label>
-						<input type="text" name="CareGiverFirstname" name="CareGiverFirstname" value="<?= $_SESSION['ExtendedProfile']->doctor->firstname ?>" placeholder="<?= _("FirstName"); ?>" />
+						<input type="text" name="CareGiverFirstname" name="CareGiverFirstname" value="<?= $_SESSION['ExtendedProfile']->careGiver->firstname ?>" placeholder="<?= _("FirstName"); ?>" />
 						
 						<label for="CareGiverLastname" class="ui-hidden-accessible"><?= _("LastName"); ?></label>
-						<input type="text" name="CareGiverLastname" name="CareGiverLastname" value="<?= $_SESSION['ExtendedProfile']->doctor->lastname ?>" placeholder="<?= _("LastName"); ?>" />
+						<input type="text" name="CareGiverLastname" name="CareGiverLastname" value="<?= $_SESSION['ExtendedProfile']->careGiver->lastname ?>" placeholder="<?= _("LastName"); ?>" />
 						
 						<label for="CareGiverNickname" class="ui-hidden-accessible"><?= _("NickName"); ?></label>
-						<input type="text" name="CareGiverNickname" name="CareGiverNickname" value="<?= $_SESSION['ExtendedProfile']->doctor->nickname ?>" placeholder="<?= _("NickName"); ?>" />
+						<input type="text" name="CareGiverNickname" name="CareGiverNickname" value="<?= $_SESSION['ExtendedProfile']->careGiver->nickname ?>" placeholder="<?= _("NickName"); ?>" />
 						
 						<label for="CareGiverAddress" class="ui-hidden-accessible"><?= _("Address"); ?></label>
-						<input type="text" name="CareGiverAddress" name="CareGiverAddress" value="<?= $_SESSION['ExtendedProfile']->doctor->address ?>" placeholder="<?= _("Address"); ?>"/>
+						<input type="text" name="CareGiverAddress" name="CareGiverAddress" value="<?= $_SESSION['ExtendedProfile']->careGiver->address ?>" placeholder="<?= _("Address"); ?>"/>
 						
 						<label for="CareGiverEmail" class="ui-hidden-accessible"><?= _("Email"); ?></label>
-						<input type="text" name="CareGiverEmail" name="CareGiverEmail" value="<?= $_SESSION['ExtendedProfile']->doctor->email ?>" placeholder="<?= _("Email"); ?>"/>
+						<input type="text" name="CareGiverEmail" name="CareGiverEmail" value="<?= $_SESSION['ExtendedProfile']->careGiver->email ?>" placeholder="<?= _("Email"); ?>"/>
 						
 						<label for="CareGiverPhone" class="ui-hidden-accessible"><?= _("Phone"); ?></label>
-						<input type="text" name="CareGiverPhone" name="CareGiverPhone" value="<?= $_SESSION['ExtendedProfile']->doctor->phone ?>" placeholder="<?= _("Phone"); ?>"/>
+						<input type="text" name="CareGiverPhone" name="CareGiverPhone" value="<?= $_SESSION['ExtendedProfile']->careGiver->phone ?>" placeholder="<?= _("Phone"); ?>"/>
 					</div>
 				</fieldset>
 			</div>

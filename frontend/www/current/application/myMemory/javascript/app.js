@@ -1,8 +1,6 @@
-var startmarker, endmarker, posmarker; // start and end markers
+currentPosition = null;
 var start = null;
-end = null;
-var focusOnCurrentPosition = true;
-var currentPositionMarker = null;
+var end = null;
 var steps = []; 
 var directionsDisplays = [];
 /*
@@ -63,24 +61,64 @@ function displayError(error) {
 
 */
 
-function goingBack(address){
+function getLocation(){
+	if (navigator.geolocation) {
+	  navigator.geolocation.getCurrentPosition(retour, error);
+	} else {
+	  error('Geolocation not supported');
+	}
+}
+
+function getCurrentLatLng(position){
+	currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	alert("=>" +currentPosition);
+}
+
+function getQueryParams(qs) {
+    qs = qs.split("+").join(" ");
+
+    var params = {}, tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])]
+            = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
+
+function retour(pos){
+	var params = getQueryParams(window.location.search.substring(1));
+	var address = params.address;
+	var position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+	
+	goingBack(address, position);
+	
+}
+
+function goingBack(address, position){
 	
 	// Google GeoCoder
 	var geocoder = new google.maps.Geocoder();
 	
-	// starting point
-	start = currentPositionMarker.getPosition();
-
+	// Get the location
+	//getLocation(null);
+	
+	// LatLng of the depart
+	start = position;
+	
+	//alert("current position :" + start);
 	
 	
 	geocoder.geocode({'address' : address}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 
+			// LatLng of the destination
 			end = results[0].geometry.location;
 		
-			// Put the markers
-			startmarker.setPosition(start);
-			endmarker.setPosition(end);
+
 			
 			
 			// date (in the exotic format of citiway API : AAAA-MM-DD_HH-MM, grrrr
@@ -90,7 +128,7 @@ function goingBack(address){
 			var time = date_array[1].split(':');
 			var departureTime = date + '_' + time[0] + '-' + (parseInt(time[1])+2); // Add 2 minutes to make sure the API call does not fail 
 			
-			// fastest of lessChanges. I think lessChanges is the best for elderly
+			// fastest or lessChanges. I think lessChanges is the best for elderly
 			var optimize = 'lessChanges';
 			
 			// type of transport
@@ -127,10 +165,10 @@ function goingBack(address){
 			$.ajax({
 				type : "POST",
 				url : "cityway.php",
-				data : "startlng=" + startmarker.getPosition().lng() + "&startlat="
-				+ startmarker.getPosition().lat() + "&endlng="
-				+ endmarker.getPosition().lng() + "&endlat="
-				+ endmarker.getPosition().lat()
+				data : "startlng=" + start.lng() + "&startlat="
+				+ start.lat() + "&endlng="
+				+ end.lng() + "&endlat="
+				+ end.lat()
 				+ "&optimize=" + optimize
 				+ "&transitModes=" + transitModes
 				+ "&date=" + departureTime,
@@ -350,3 +388,7 @@ function sendEmailsAlerts(){
 			
 	
 }// needHelp
+
+function error(error){
+	alert(error);
+}
