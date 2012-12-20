@@ -22,12 +22,26 @@
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Rechercher un projet') ?> :</h3>
-				<h3><?= _('keywords') ?> :</h3>
-				<div data-role="controlgroup" data-type="horizontal"> 
-					<a href="#searchOptionPopup" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" data-mini="true"><?= _("Option") ?></a>
-					<a href="#searchExamplePopup" data-rel="popup" data-role="button" data-inline="true" data-icon="star" data-mini="true" data-theme="e" data-iconpos="right"><?= _("Example") ?></a>
-				</div>
-				<input name="keywords" placeholder="<?= _('separated by a space') ?>" list="keywords" type="search"/>
+			
+	   				<fieldset data-role="controlgroup">
+						<select id="search_theme_content" id="call">
+						<option value=""><?= _("Themes") ?></option>
+						<? foreach (Categories::$themes as $k=>$v): ?>
+							<option value="<?= $k ?>">
+								<?= $v ?>
+							</option>
+							<? endforeach; ?>
+						</select>
+						
+						<select id="search_other_content" id="call">
+							<option value=""><?= _("Programme") ?></option>
+							<? foreach (Categories::$calls as $k=>$v): ?>
+								<option value="<?= $k ?>">
+									<?= $v ?>
+								</option>
+							<? endforeach; ?>
+						</select>
+					</fieldset>
 			
 				<div style="text-align: center;">
 					<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>"  data-iconpos="right" data-inline="true" onclick="
@@ -39,7 +53,7 @@
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Notre selection') ?> :</h3>
-				<ul data-role="listview">
+				<ul data-role="listview" data-filter="true" >
 				<? foreach($this->result as $item) : ?>
 					<li>
 						<!-- Print Publisher reputation -->
@@ -71,48 +85,6 @@
 				</ul>
 			</div>
 			
-			<!-- --------------------- -->
-			<!-- SEARCH OPTION POPUP -->
-			<!-- --------------------- -->
-			<div data-role="popup" id="searchOptionPopup" data-theme="c"
-				data-content-theme="d" data-mini="true" class="ui-content">
-				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				
-				<div data-role="fieldcontain">
-	   				<fieldset data-role="controlgroup">
-						<select id="search_theme_content" id="call">
-						<option value=""><?= _("Themes") ?></option>
-						<? foreach (Categories::$themes as $k=>$v): ?>
-							<option value="<?= $k ?>">
-								<?= $v ?>
-							</option>
-							<? endforeach; ?>
-						</select>
-						
-						<select id="search_other_content" id="call">
-							<option value=""><?= _("Programme") ?></option>
-							<? foreach (Categories::$calls as $k=>$v): ?>
-								<option value="<?= $k ?>">
-									<?= $v ?>
-								</option>
-							<? endforeach; ?>
-						</select>
-					</fieldset>
-				</div>
-				
-				<input type="submit" data-icon="plus" data-theme="g" value="<?=_('Subscribe') ?>"  data-iconpos="right" data-inline="true" onclick="
-					$('#method').val('Subscribe');
-				"/>
-			</div>
-			
-		</form>
-		
-		<datalist id="keywords">
-		<? foreach (Categories::$keywords as $v): ?>
-			<option value="<?= _($v) ?>"/>
-		<? endforeach; ?>
-		</datalist>
-		  
 	</div>
 	
 	<!-- ----------------- -->
@@ -126,15 +98,6 @@
 		<p>Lorsque vous laissez une categorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</p>
 		<p>Lorsque vous cochez/ remplissez plusieurs champs dans une catégorie, les 
 		résultats correspondront à au moins un des critères coché.</p>
-	</div>
-	
-	<!-- --------------------- -->
-	<!-- SEARCH EXAMPLE POPUP -->
-	<!-- --------------------- -->
-	<div data-role="popup" id="searchExamplePopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
-		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3><?= _('keywords') ?> :</h3>
-		<p>Education Alcotra France Emploi Transport Santé culture ...<p>
 	</div>
 	
 </div>
