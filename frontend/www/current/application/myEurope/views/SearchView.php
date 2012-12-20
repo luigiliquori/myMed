@@ -16,8 +16,7 @@
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3>Comment rechercher ?</h3>
-				<p>Saisissez une liste de <strong>mots clés</strong> correspondant à votre recherche de projets ou de partenariats.<br />
-				Vous pouvez aussi utiliser les options pour filtrer votre recherche ou vous <strong>abonner</strong> à une thematique particulière.</p>
+				Vous pouvez utiliser les options <strong>Thématiques</strong> et <strong>Programme</strong> pour filtrer votre recherche.</p>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
