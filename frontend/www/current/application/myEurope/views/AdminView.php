@@ -43,7 +43,7 @@
 		<br /><br />
 		<div data-role="collapsible" data-content-theme="c">
 		   <h3>Add partnerships</h3>
-		   <form action="" method="post">
+		   <form action="index.php?action=DB" method="post" data-ajax="false">
 		   	  <input type="hidden" name="method" value="addPartnership">
 		 	  <textarea rows="" cols="" name="data"></textarea>
 		 	  <div style="text-align: center;">

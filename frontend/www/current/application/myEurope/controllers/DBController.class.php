@@ -48,14 +48,15 @@ class DBController extends AuthenticatedController {
 		
 		// partnership content
 		$partnership->text 	= 
-		$partnershipData->descriptif + 
-		"<br />" +
-		"<strong>Acteur principal:</strong>" . $partnershipData->leader . "<br />" +
-		"<strong>Partenaires:</strong>" . $partnershipData->partenaires_france . "<br />" +
-		"<strong>contact:</strong>" . $partnershipData->contact . "<br />" +
-		"<strong>mail:</strong>" . $partnershipData->mail . "<br />" +
-		"<strong>tel:</strong>" . $partnershipData->tel . "<br />" +
+		$partnershipData->descriptif .
+		"<br />" .
+		"<strong>Acteur principal:</strong>" . $partnershipData->leader . "<br />" .
+		"<strong>Partenaires:</strong>" . $partnershipData->partenaires_france . "<br />" .
+		"<strong>contact:</strong>" . $partnershipData->contact . "<br />" .
+		"<strong>mail:</strong>" . $partnershipData->mail . "<br />" .
+		"<strong>tel:</strong>" . $partnershipData->tel . "<br />" .
 		"<strong>adresse:</strong>" . $partnershipData->adresse . "<br />";
+		
 	}
 	
 }
