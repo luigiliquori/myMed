@@ -5,7 +5,7 @@ var focusOnCurrentPosition = true;
 var currentPositionMarker = null;
 var steps = []; 
 var directionsDisplays = [];
-
+/*
 function initialize_map() {
 	// INITIALIZE DASP
 	setupDASP($("#userID").val(), $("#accessToken").val(),
@@ -61,7 +61,7 @@ function displayError(error) {
 
 }
 
-
+*/
 
 function goingBack(address){
 	
@@ -350,4 +350,3 @@ function sendEmailsAlerts(){
 			
 	
 }// needHelp
-

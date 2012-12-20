@@ -13,7 +13,7 @@ define('APP_URL', $_SERVER['HTTP_HOST'].'/application/'.APPLICATION_NAME);
 include(MYMED_ROOT . '/system/controllers/index-controller.php');
 
 // Use the application specific locales
-textdomain(APPLICATION_NAME);
+textdomain(GLOBAL_MESSAGES);
 
 // Call the main controller
 main_controller();
