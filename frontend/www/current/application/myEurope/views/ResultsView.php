@@ -24,8 +24,8 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Themes") ?></b>: <?= $item->theme ?><br/>
-							<b><?= _("Programme") ?></b>: <?= $item->other ?><br/><br/>
+							<b><?= _("Themes") ?></b>: <?= Categories::$themes[$item->theme] ?><br/>
+							<b><?= _("Programme") ?></b>: <?= Categories::$calls[$item->other] ?><br/><br/>
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
