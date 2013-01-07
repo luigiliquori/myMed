@@ -48,7 +48,7 @@
 					<?= $this->result->text ?>
 				
 					<!-- CONTACT -->			
-					<p><b>Contact</b>: <?= str_replace("MYMED_", "", $this->result->publisherID) ?><br/></p>
+					<p><b><?= _("Auteur")?></b> : <?= str_replace("MYMED_", "", $this->result->publisherID) ?><br/></p>
 					
 					<!-- Keywords an timeline
 					<p style="position: relative; margin-left: 30px;">
