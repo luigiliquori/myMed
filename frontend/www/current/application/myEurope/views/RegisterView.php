@@ -1,7 +1,7 @@
-
 <? require_once("header.php"); ?>
 
-<div data-role="page" id="register" >	
+<div data-role="page" id="register" >
+	<? print_header_bar(true, "defaultHelpPopup"); ?>
 
 	<div data-role="header" data-theme="b">
 		<h1>Création d'un compte</h1>

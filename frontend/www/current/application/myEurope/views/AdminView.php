@@ -1,9 +1,8 @@
-<? include("header.php"); ?>
+<? require_once('header-bar.php'); ?>
+<? require_once('notifications.php'); ?>
 
 <div data-role="page" id="users">
-
-	<? tabs_simple('Users', 'Profile'); ?>
-	<? include("notifications.php"); ?>
+	<? print_header_bar(true, "defaultHelpPopup"); ?>
 	
 	<div data-role="content">
 		<br>
