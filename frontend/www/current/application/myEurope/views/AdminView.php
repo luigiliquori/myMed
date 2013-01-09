@@ -1,9 +1,8 @@
-<? include("header.php"); ?>
+<? require_once('header-bar.php'); ?>
+<? require_once('notifications.php'); ?>
 
 <div data-role="page" id="users">
-
-	<? tabs_simple('Users', 'Profile'); ?>
-	<? include("notifications.php"); ?>
+	<? print_header_bar(true, "defaultHelpPopup"); ?>
 	
 	<div data-role="content">
 		<br>
@@ -14,8 +13,8 @@
 		
 		<input id="user_permission" name="permission" value="" type="hidden" />
 		<input id="user_id" name="id" value="" type="hidden" />
-		<br />
-		<ul data-role="listview" data-inset="true" data-filter="true" >
+		<br /><br />
+		<ul data-role="listview" data-filter="true" >
 			<li data-role="list-divider"><?= _("New users waiting for validation") ?><span class="ui-li-count"><?= count($this->blocked) ?></span></li>
 		<? foreach( $this->blocked as $i => $item ) : ?>
 			<li>
@@ -40,9 +39,20 @@
 			</li>
 		<? endforeach ?>
 		</ul>
+		<br /><br />
+		<div data-role="collapsible" data-content-theme="c">
+		   <h3>Add partnerships</h3>
+		   <form action="index.php?action=DB" method="post" data-ajax="false">
+		   	  <input type="hidden" name="method" value="addPartnership">
+		 	  <textarea rows="" cols="" name="data"></textarea>
+		 	  <div style="text-align: center;">
+		 	  <input type="submit" value="send" data-inline="true" data-theme="g"/>
+		 	  </div>
+		   </form>
+		</div>
 		
 	</div>
-
+	
 </div>
 
 

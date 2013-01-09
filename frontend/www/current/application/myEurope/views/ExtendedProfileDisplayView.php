@@ -1,14 +1,15 @@
-<? include("header.php"); ?>
+<? require_once('header-bar.php'); ?>
+<? require_once('notifications.php'); ?>
 
 <div data-role="page">
 
-	<? tabs_simple($this->profile->details['name']); ?>
-	<? include("notifications.php"); ?>
+	<? print_header_bar(true, "defaultHelpPopup"); ?>
 	
 	<div data-role="content">
 		<br><br>
 		<div style="text-align: center;">
-			<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" title="<?= $_SESSION['myEurope']->permission >=2 ? _('You are a full-powered Admin, have fun!') : _('users list') ?>"><?= _('Users') ?></a>
+		<?php $text = $_SESSION['myEurope']->permission >=2 ? _('You are a full-powered Admin, have fun!') : _('users list'); ?>
+			<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" title="<?= $text ?>"><?= $text ?></a>
 		</div>
 		<br>
 		<? $this->profile->renderProfile($_SESSION['user']); ?>
