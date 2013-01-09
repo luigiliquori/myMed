@@ -82,7 +82,7 @@ msgid "Email not valid"
 msgstr "Email non valida"
 
 #: ../system/controllers/RegisterController.class.php:88
-msgid "Erreur interne d'enrgistrement"
+msgid "Erreur interne d'enregistrement"
 msgstr "Errore interno di registrazione"
 
 #: ../application/myMed/views/LoginView.php:19
@@ -104,13 +104,15 @@ msgid "Sign in with"
 msgstr "Connessione con"
 
 #: ../application/myMed/views/LoginView.php:100
+#: ../application/myMed/views/UpdateProfileView.php:17
 #, fuzzy
-msgid "First name"
+msgid "First Name"
 msgstr "Nome"
 
 #: ../application/myMed/views/LoginView.php:104
+#: ../application/myMed/views/UpdateProfileView.php:20
 #, fuzzy
-msgid "Last name"
+msgid "Last Name"
 msgstr "Cognome"
 
 #: ../application/myMed/views/LoginView.php:116
@@ -149,19 +151,9 @@ msgstr "Informazioni generali"
 msgid "Your applications"
 msgstr "Le vostre applicazioni"
 
-#: ../application/myMed/views/UpdateProfileView.php:17
-#, fuzzy
-msgid "First Name"
-msgstr "Nome"
-
-#: ../application/myMed/views/UpdateProfileView.php:20
-#, fuzzy
-msgid "Last Name"
-msgstr "Cognome"
-
 #: ../application/myMed/views/UpdateProfileView.php:26
 msgid "Birthday"
-msgstr ""
+msgstr "Compleanno"
 
 #: ../application/myMed/views/UpdateProfileView.php:29
 msgid "Profile picture"
@@ -170,7 +162,7 @@ msgstr "Foto profilo"
 #: ../application/myMed/views/UpdateProfileView.php:33
 #: ../application/myFSA/views/ExtendedProfileDisplayView.php:75
 msgid "Language"
-msgstr ""
+msgstr "Lingua"
 
 #: ../application/myMed/views/UpdateProfileView.php:49
 msgid "Password Confirmation"
@@ -288,6 +280,10 @@ msgstr "Richiesta di partenariato"
 msgid "You are a full-powered Admin, have fun!"
 msgstr ""
 
+#: ../application/myEurope/views/ExtendedProfileEditView.php:11
+msgid "Territory type"
+msgstr "Tipo di territorio"
+
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
 #, fuzzy
 msgid "users list"
@@ -334,8 +330,13 @@ msgstr "Indirizzo"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:33
 #: ../application/myEurope/views/ExtendedProfileEditView.php:33
-msgid "Territoire d'action"
+msgid "Action area"
 msgstr "Territorio d'intervento"
+
+#: ../application/myEurope/views/ExtendedProfileCreateView.php:33
+#: ../application/myEurope/views/ExtendedProfileEditView.php:33
+msgid "Action territory"
+msgstr "Azione territorio"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:53
 #: ../application/myEurope/views/ExtendedProfileEditView.php:53
@@ -370,6 +371,14 @@ msgstr "Crea"
 #: ../application/myEurope/views/ResultsView.php:27
 msgid "filter"
 msgstr "filtra"
+
+#: ../application/myEurope/views/MainView.php:5
+msgid "Welcome"
+msgstr "Benvenuto"
+
+#: ../application/myEurope/views/MainView.php:30
+msgid "Credits"
+msgstr "Crediti"
 
 #: ../application/myEurope/views/MainView.php:12
 msgid "Search a partnership offer"
@@ -476,6 +485,10 @@ msgstr "Partenariato o nome del progetto"
 msgid "Themes"
 msgstr "Tematiche"
 
+#: ../application/myEurope/views/PublishView.php:190
+msgid "Program"
+msgstr "Programma"
+
 #: ../application/myEurope/views/MainView.php:295
 msgid "Other options"
 msgstr "Altre opzioni"
@@ -487,6 +500,18 @@ msgstr "Data limite"
 #: ../application/myEurope/views/MainView.php:320
 msgid "date in format year-month-day"
 msgstr "Data nel formato anno-mese-giorno"
+
+#: ../application/myEurope/views/PublishView.php:320
+msgid "Year"
+msgstr "Anno"
+
+#: ../application/myEurope/views/PublishView.php:320
+msgid "Month"
+msgstr "Mese"
+
+#: ../application/myEurope/views/PublishView.php:320
+msgid "Day"
+msgstr "Giorno"
 
 #: ../application/myEurope/views/MainView.php:329
 msgid "Your partnership"
@@ -863,6 +888,14 @@ msgstr "Scegli una categoria "
 #, fuzzy
 msgid "Tittle"
 msgstr "Titolo "
+
+#: ../application/myFSA/views/SearchView.php:30
+msgid "Option"
+msgstr "Opzione "
+
+#: ../application/myFSA/views/SearchView.php:30
+msgid "Example"
+msgstr "Esempio "
 
 #: ../application/myFSA/views/DetailsView.php:78
 #, fuzzy

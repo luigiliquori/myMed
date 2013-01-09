@@ -13,14 +13,14 @@
 			<input type="hidden" id="publish_date" name="date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-				<h3>Comment pubiler ?</h3>
-				<p>Saisissez un <b>titre</b> pour votre projet, puis une liste de <b>mots-clés</b> séparés par un espace<br />
-				Rédigez votre offre a l'aide de l'editeur en ligne de myEurope. N'hesitez pas à compléter votre fiche de projet dans les options (bouton "Option").
+				<h3><?= _("How to publish") ?> ?</h3>
+				<?= _("<p>Enter a <b>title</b> for your project, then a <b>keywords</b> list separated by a space.<br />")?>
+				<?= _("Write your offer using the online editor of myEurope. Do not hesitate to complete your brief project in the options (\"Option \" button).") ?>
 				</p>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Publier votre projet') ?> :</h3>
+				<h3><?= _('Publish your project') ?> :</h3>
 				
 				<h3><?= _('Title') ?> : </h3>
 				<input id="textinputp3" class="postTitle"
@@ -28,7 +28,7 @@
 					placeholder="<?= _("partnership or project name") ?>" value=''
 					type="text" />
 				
-				<h3><?= _('Texte libre') ?> :</h3>
+				<h3><?= _('Free text') ?> :</h3>
 				<div data-role="controlgroup" data-type="horizontal"> 
 					<a href="#publishOptionPopup" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" data-mini="true"><?= _("Option") ?></a>
 					<a href="#publishExamplePopup" data-rel="popup" data-role="button" data-inline="true" data-icon="star" data-mini="true" data-theme="e" data-iconpos="right"><?= _("Example") ?></a>
@@ -64,7 +64,7 @@
 							</select>
 							
 								<select id="publish_other_content" id="call">
-								<option value=""><?= _("Programme") ?></option>
+								<option value=""><?= _("Program") ?></option>
 								<? foreach (Categories::$calls as $k=>$v): ?>
 									<option value="<?= $k ?>">
 										<?= $v ?>
@@ -77,19 +77,19 @@
 					<h3><?= _('Date of expiration') ?> :</h3>
 					<fieldset data-role="controlgroup" data-type="horizontal"> 
 						<select id="publish_day_content" data-inline="true">
-							<option value="">Day</option>
+							<option value=""><?= _("Day")?></option>
 						<?php for ($i = 1; $i <= 31; $i++) { ?>
 							<option value="<?= $i ?>"><?= $i ?></option>
 						<?php } ?>
 						</select>
 						<select id="publish_month_content" data-inline="true">
-							<option value="">Month</option>
+							<option value=""><?= _("Month")?></option>
 						<?php for ($i = 1; $i <= 12; $i++) { ?>
 							<option value="<?= $i ?>"><?= $i ?></option>
 						<?php } ?>
 						</select>
 						<select id="publish_year_content" data-inline="true">
-							<option value="">Year</option>
+							<option value=""><?= _("Year")?></option>
 						<?php for ($i = 2012; $i <= 2042; $i++) { ?>
 							<option value="<?= $i ?>"><?= $i ?></option>
 						<?php } ?>
@@ -121,11 +121,8 @@
 	<!-- --------------------- -->
 	<div data-role="popup" id="publishHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3>Noubliez pas :</h3>
-		<p>de renseigner des champs présents dans <a href="#searchOptionPopup" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" data-mini="true" data-theme="e"><?= _("Option") ?></a></p>
-		<p>Plus les options sont remplies, plus un projet sera visible .</p>
-		<p>Lorsque vous cochez/ remplissez plusieurs champs dans une catégorie, les 
-		résultats correspondront à au moins un des critères coché .</p>
+		<?= _("<h3>Don't forget:</h3><p>to fill the fields in ")?> <a href="#searchOptionPopup" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" data-mini="true" data-theme="e"><?= _("Option") ?></a>
+		<?= _("</p><p>More options are met, more a project will be visible.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>")?>
 	</div>
 	
 </div>

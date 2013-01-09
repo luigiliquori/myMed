@@ -11,8 +11,8 @@
 	
  		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Why Register ?") ?></h3>
-			<p><?= _("La création d'un compte dans myEurope vous permettra de soumettre de nouveaux projets et de participer aux fils de discutions dans la rubrique \"Bonnes Pratiques\"") ?></p>
-			<p>Noubliez pas que vous avez la possiblilité d'utiliser vos comptes de réseaux sociaux pour créer votre profil: voir bouton "<?= _("Sign in with") ?>"</p>
+			<p><?= _("Creating an account in myEurope will allow you to submit new projects and to participate in discussions in the topic \"Best Practices\".") ?></p>
+			<p><?= _("Don't forget that you have the possibility to use your social network accounts to create your profile: see button")?> "<?= _("Sign in with") ?>"</p>
 		</div>
 		
 		<form action="?action=login" method="post" data-ajax="false">

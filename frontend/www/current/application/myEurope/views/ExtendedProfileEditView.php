@@ -22,7 +22,7 @@
 				</select>
 			</div>
 			<div data-role="fieldcontain">
-				<label for="textinputu2">Domaine d'action: </label>
+				<label for="textinputu2"><?= _("Action area")?> : </label>
 				<input id="textinputu2" name="activity" placeholder="" value="<?= $_SESSION['myEurope']->details['activity'] ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
@@ -30,23 +30,23 @@
 				<input id="textinputu4" name="address" placeholder="" value="<?= $_SESSION['myEurope']->details['address'] ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
-				<label for="area" class="select"><?= _("Territoire d'action") ?>:</label>
+				<label for="area" class="select"><?= _("Action territory") ?>:</label>
 				<select name="area" id="area">
-					<option value="local" <?= $_SESSION['myEurope']->details['area']=="local"?'selected="selected"':'' ?>>local</option>
-					<option value="départemental" <?= $_SESSION['myEurope']->details['area']=="départemental"?'selected="selected"':'' ?>>départemental</option>
-					<option value="régional" <?= $_SESSION['myEurope']->details['area']=="régional"?'selected="selected"':'' ?>>régional</option>
-					<option value="national" <?= $_SESSION['myEurope']->details['area']=="national"?'selected="selected"':'' ?>>national</option>
-					<option value="international" <?= $_SESSION['myEurope']->details['area']=="international"?'selected="selected"':'' ?>>international</option>
+					<option value="local" <?= $_SESSION['myEurope']->details['area']=="local"?'selected="selected"':'' ?>><?= _("local") ?></option>
+					<option value="départemental" <?= $_SESSION['myEurope']->details['area']=="départemental"?'selected="selected"':'' ?>><?= _("departmental")?></option>
+					<option value="régional" <?= $_SESSION['myEurope']->details['area']=="régional"?'selected="selected"':'' ?>><?= _("regional")?></option>
+					<option value="national" <?= $_SESSION['myEurope']->details['area']=="national"?'selected="selected"':'' ?>><?= _("national")?></option>
+					<option value="international" <?= $_SESSION['myEurope']->details['area']=="international"?'selected="selected"':'' ?>><?= _("international")?></option>
 				</select>
 			</div>
 			
 			<div data-role="fieldcontain">
 				<fieldset id="type" data-role="controlgroup">
-					<legend>Type de territoire:</legend>
-					<input type="checkbox" name="type-urbain" id="check-view-a" value="urbain" checked="checked"/> <label for="check-view-a">urbain</label>
-					<input type="checkbox" name="type-rural" id="check-view-b" value="rural" /> <label for="check-view-b">rural</label>
-					<input type="checkbox" name="type-montagnard" id="check-view-c" value="montagnard" /> <label for="check-view-c">montagnard</label>
-					<input type="checkbox" name="type-maritime" id="check-view-d" value="maritime" /> <label for="check-view-d">maritime</label>
+					<legend><?= _("Territory type")?> :</legend>
+					<input type="checkbox" name="type-urbain" id="check-view-a" value="urbain" checked="checked"/> <label for="check-view-a"><?= _("urban")?></label>
+					<input type="checkbox" name="type-rural" id="check-view-b" value="rural" /> <label for="check-view-b"><?= _("rural")?></label>
+					<input type="checkbox" name="type-montagnard" id="check-view-c" value="montagnard" /> <label for="check-view-c"><?= _("mountain")?></label>
+					<input type="checkbox" name="type-maritime" id="check-view-d" value="maritime" /> <label for="check-view-d"><?= _("maritime")?></label>
 				</fieldset>
 			</div>	
 			<div data-role="fieldcontain">
