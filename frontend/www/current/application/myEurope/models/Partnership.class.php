@@ -22,6 +22,7 @@ class Partnership extends GenericDataBean {
 				
 				// Predicate attributes
 				array(
+						"publisher"	=> KEYWORD,
 						"type"	=> KEYWORD,
 						"theme" => KEYWORD,
 						"title" => KEYWORD,
