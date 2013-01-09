@@ -17,12 +17,6 @@
 		
 		<form action="?action=login" method="post" data-ajax="false">
 		
-			<div style="text-align: left;">
-				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Sign in with") ?></a>
-				 </div>
-			</div>
-		
 			<div data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true">
 				
 				<div data-role="collapsible" data-collapsed="false">
@@ -36,7 +30,8 @@
 				    <br />
 				    <div data-role="controlgroup" data-type="horizontal">
 				 	    <input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Sign in") ?>" />
-						<a href="#register" data-role="button" data-inline="true" data-mini="true" data-icon="pencil" data-iconpos="right"><?= _("Register") ?></a>
+						<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Sign in with") ?></a>
+						<a href="#register" data-role="button" data-inline="true" data-mini="true" data-icon="pencil" data-iconpos="right"><?= _("Register") ?></a>	
 					</div>
 				    
 			    </div>
