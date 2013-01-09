@@ -55,7 +55,7 @@
 						<b>End</b>: <?= $this->result->end ?><br/><br />
 					</p> -->
 					
-					<!-- DELETE -->
+					<!-- DELETE 
 					<?if ($this->result->publisherID == $_SESSION['user']->id){ ?>
 						<form action="index.php?action=main" method="POST" data-ajax="false">
 							<input type="hidden" name="theme" value="<?= $this->result->theme ?>" />
@@ -64,6 +64,7 @@
 							<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= translate('Delete publication') ?>" />
 			 			</form>
 					<? } ?> 
+					-->
 				
 				</div>
 				
@@ -92,5 +93,3 @@
 	</div>
 	
 </div>
-
-<? include_once 'MainView.php'; ?>

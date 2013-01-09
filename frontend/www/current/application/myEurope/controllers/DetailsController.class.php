@@ -8,11 +8,13 @@ class DetailsController extends ExtendedProfileRequired {
 		parent::handleRequest();
 		
 		/* Guest access provided */
-		$id = rand(100000, 999999);
-		$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
-		$_SESSION['user'] = insertUser($user, null, true);
-		$_SESSION['acl'] = array('defaultMethod', 'read');
-		$_SESSION['user']->is_guest = 1;
+		if (!(isset($_SESSION['user'])) && $_SESSION['user']->is_guest) {
+			$id = rand(100000, 999999);
+			$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
+			$_SESSION['user'] = insertUser($user, null, true);
+			$_SESSION['acl'] = array('defaultMethod', 'read');
+			$_SESSION['user']->is_guest = 1;
+		}
 		
 		// Get arguments of the query
 		$predicate = $_GET['predicate'];
