@@ -41,8 +41,15 @@
 			<br />
 			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
 			<? endif; ?>
+			
+			<!-- List user's project button -->
+			<br />
+			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
+			<a type="button" href="?action=ListUserProjects" data-ajax="false" data-theme="d" data-icon="grid" data-inline="true" ><?= _('List my projects') ?></a>
+			<? endif; ?>
 
 		</div>
 	</div>
 </div>
+
 <? include("footer.php"); ?>
