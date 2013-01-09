@@ -32,8 +32,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			error_log("LOGROM OK CALL");
 			$this->showUserProfile($_GET['user']);
 		}
-		else if (isset($_SESSION['user']))
+		else if (isset($_SESSION['user'])){
 			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
+		}
 		else
 			$this->forwardTo("logout");
 	}
@@ -201,12 +202,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		try {
 			$details = $this->mapper->findById($user);
 		} catch (Exception $e) {
+			error_log("LOGROM search".$e);
 			$this->redirectTo("main");
 		}
 		$this->profile = new Profile($details['profile']);
 		try {
 			$this->profile->details = $this->mapper->findById($this->profile);
 		} catch (Exception $e) {
+			error_log("LOGROM search".$e);
 			$this->redirectTo("main");
 		}
 		//debug_r($details);
