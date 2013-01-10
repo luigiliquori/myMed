@@ -61,7 +61,7 @@ class Profile extends Entry{
 					<?= empty($this->details['desc'])?" ":$this->details['desc'] ?>
 				</p>
 				<p class="ui-li-aside">
-					réputation: <a href="#reppopup" style="font-size: 16px;" title="<?= $this->reputation['up'] ?> votes +, <?= $this->reputation['down'] ?> votes -"><?= $this->reputation['up'] - $this->reputation['down'] ?></a>
+					<?= _("reputation")?>: <a href="#reppopup" style="font-size: 16px;" title="<?= $this->reputation['up'] ?> votes +, <?= $this->reputation['down'] ?> votes -"><?= $this->reputation['up'] - $this->reputation['down'] ?></a>
 				</p>
 				<br />
 					

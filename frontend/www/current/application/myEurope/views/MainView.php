@@ -13,9 +13,9 @@
 		<!-- CONTENT -->
 		<!-- ------------------ -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("welcome") ?></h3>
-			<p><?= _("myEurope est une application du projet Alcotra myMed, qui vise à mettre en relations des maires et des communes transfrontalières.") ?><br />
-			<?= _("L'idée est de frounir un outils pour simplifier et aider la création de projet Européen comme myMed") ?></p>
+			<h3><?= _("Welcome") ?></h3>
+			<p><?= _("MyEurope is an application of the Alcotra <b><em>myMed</em></b> project, which aims to link mayors and municipal transborders.") ?><br />
+			<?= _("The idea is to provide a tool to simplify and support the creation of European projects as myMed.") ?></p>	
 		</div>
 		
 		<br />
@@ -33,27 +33,27 @@
 		<!-- HELP POPUP -->
 		<!-- ------------------ -->
 		<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
-			<h3><?= _("Comment ça marche") ?> ?</h3>
+			<h3><?= _("How it works") ?> ?</h3>
 			<ul data-role="listview" data-theme="e">	
 				<li>
 					<img alt="search" src="img/icons/search.png" Style="width: 64px">
 					<p><strong><?= _("Search a partnership offer") ?></strong></p>
-					<p><?= _("Recherchez ici directement des offres de partenariat") ?></p>
+					<p><?= _("Search directly here partnership offers") ?></p>
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/publish.png" Style="position:absolute; left:0px; width: 64px">
 						<p><strong><?= _("Insert a partnership offer") ?></strong></p>
-						<p><?= _("Insérez vos propres offres de partenariat") ?></p>
+						<p><?= _("Insert your own partnership offers") ?></p>
 				</li>
 				<li>
 					<img alt="blog" src="img/icons/blog.png" Style="position:absolute; left:0px; width: 64px">
 						<p><strong><?= _("Blog") ?></strong></p>
-						<p><?= _("Laissez votre avis, partagez votre experience et enrichissez le réseau myEurope") ?></p>
+						<p><?= _("Give your opinion, share your experience and enrich the network myEurope") ?></p>
 				</li>
 				<li>
 					<img alt="profile" src="img/icons/profile<?= $_SESSION['user']->is_guest ? "_guest" : "" ?>.png" Style="position:absolute; left:0px; width: 64px">
 					<p><strong><?= _("Profile") ?></strong></p>
-					<p><?= _("Complétez et gérez votre profil pour une meilleurs visibilité dans myEurope") ?></p>
+					<p><?= _("Complete and manage your profile for a better visibility in myEurope") ?></p>
 				</li>
 			</ul>
 			<br />	

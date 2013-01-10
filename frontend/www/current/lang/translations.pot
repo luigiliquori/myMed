@@ -836,6 +836,10 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
+#: ../application/myFSA/views/DetailsView.php:63
+msgid "Do you like the project idea ?"
+msgstr "Aimez-vous cette idée de projet ?"
+
 #: ../application/myFSA/views/DetailsView.php:64
 #: ../application/myFSA/views/DetailsView.php:75
 #: ../application/myFSA/views/SearchView.php:26

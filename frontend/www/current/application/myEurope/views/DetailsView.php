@@ -6,7 +6,7 @@
 	
 	<div data-role="content" >
 	
-		<? print_notification($this->success.$this->error); ?>
+		<?print_notification($this->success.$this->error);?>
 	
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
@@ -29,13 +29,14 @@
 				</div>
 				<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 					<?= _("Do you like the project idea ?") ?><br /><br />
-					<form action="#" method="get" data-ajax="false">
+					<form id="form1" action="#" method="get" data-ajax="false">
 						<input type="hidden" name="action" value="updateReputation" />
 						<input type="hidden" name="isData" value="1" />
 						<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 						<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
 						<input type="range" name="reputation" id="reputation" value="5" min="0" max="10" data-mini="true"/>
-						<input type="submit" value="Send" data-mini="true" data-theme="g"/>
+						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" data-rel="back" data-direction="reverse"/>
+						<a href="#" data-role="button" onclick="document.forms['form1'].submit(); return false;" data-theme="e" data-rel="back">Ok</a>
 					</form>
 				</div>
 				<!-- END REPUTATION -->

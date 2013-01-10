@@ -34,7 +34,7 @@ class UpdateReputationController extends DetailsController {
 				if($responseObject->status != 200) {
 					$this->error = $responseObject->description;
 				} else {
-					$this->success = "Merci de votre contribution";
+					$this->success = _("Thank you for your contribution");
 				}
 // 			} catch (Exception $e) {
 // 				$this->error = "Une erreur interne est survenue, veuillez réessayer plus tard...";
