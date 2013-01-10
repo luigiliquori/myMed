@@ -20,7 +20,7 @@ if (isset($_GET['code'])) {
 	$_SESSION['accessToken'] = $tokens['access_token'];
 
 	// Redirect to main page
-	header('Location: '.getTrustRoot().'?action=login');
+	header('Location: '.getTrustRoot()."/".APPLICATION_NAME.'?action=login');
 
 }
 

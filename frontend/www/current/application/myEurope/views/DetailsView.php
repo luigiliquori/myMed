@@ -35,8 +35,7 @@
 						<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 						<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
 						<input type="range" name="reputation" id="reputation" value="5" min="0" max="10" data-mini="true"/>
-						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" data-rel="back" data-direction="reverse"/>
-						<a href="#" data-role="button" onclick="document.forms['form1'].submit(); return false;" data-theme="e" data-rel="back">Ok</a>
+						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g"/>
 					</form>
 				</div>
 				<!-- END REPUTATION -->

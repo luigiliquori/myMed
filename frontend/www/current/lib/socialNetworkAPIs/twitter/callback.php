@@ -46,7 +46,7 @@ if (200 == $connection->http_code) {
   $_SESSION['user3'] =(array) $content;
   $_SESSION['userFromExternalAuth'] = MUserBean::constructFromTwitterOAuth((array) $content);
 
-  header('Location: '.getTrustRoot().'?action=login');
+  header('Location: '.getTrustRoot()."/".APPLICATION_NAME.'?action=login');
   /*?>
   <pre>
         <?php print_r($content); ?>

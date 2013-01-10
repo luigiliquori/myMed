@@ -5,6 +5,10 @@ session_start();
 require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
 
+define("APPLICATION_NAME", $_GET['applicationname']);
+// 'applicationname' is defined in the LoginView.php href for Twitter;
+// used to redirect to the application main (myEurope for example) from the Twitter login (not to mymed)
+
 /* Build TwitterOAuth object with client credentials. */
 $connection = new TwitterOAuth(Twitter_APP_KEY, Twitter_APP_SECRET);
  
