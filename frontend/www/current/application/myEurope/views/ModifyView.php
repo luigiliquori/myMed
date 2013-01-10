@@ -1,19 +1,15 @@
-<? require_once('notifications.php'); ?>
-
-<div data-role="page">
+<div data-role="page" id="modify">
 
 	<? print_header_bar(true, false); ?>
 	
 	<div data-role="content" >
-	
-		<?print_notification($this->success.$this->error);?>
 	
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
 			<div data-role="collapsible" data-collapsed="false">
 			
 			<br />	
-			<h3><?= _("Description") ?></h3>
+			<h3><?= _("Edit project") ?></h3>
 								
 	    		<!-- REPUTATION -->
 	    		<div style="position: absolute; top:110px; right: 25px;">
@@ -29,44 +25,66 @@
 				</div>
 				<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 					<?= _("Do you like the project idea ?") ?><br /><br />
-					<form id="form1" action="#" method="get" data-ajax="false">
+					<form action="#" method="get" data-ajax="false">
 						<input type="hidden" name="action" value="updateReputation" />
 						<input type="hidden" name="isData" value="1" />
 						<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 						<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
 						<input type="range" name="reputation" id="reputation" value="5" min="0" max="10" data-mini="true"/>
-						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" data-rel="back" data-direction="reverse"/>
-						<a href="#" data-role="button" onclick="document.forms['form1'].submit(); return false;" data-theme="e" data-rel="back">Ok</a>
+						<input type="submit" value="Send" data-mini="true" data-theme="g"/>
 					</form>
 				</div>
 				<!-- END REPUTATION -->
 	    		
 				<div>
 					<!-- TITLE -->
-					<h3><?= $this->result->title ?> :</h3>
+					<h3>Project title: <?= $this->result->title ?> </h3>
 					
 					<!-- TEXT -->
-					<?= $this->result->text ?>
-				
+					<textarea id="projecttext" name="projecttext"><?= $this->result->text ?></textarea>
+					<script type="text/javascript">
+						// Init cle editor on pageinit
+	  					$("#modify").on("pageshow", function() {  
+    						$("#projecttext").cleditor();
+     		 			});
+    				</script>
+					
 					<!-- CONTACT -->			
-					<p><b><?= _("Auteur")?></b> :<a href="<?= '?action=extendedProfile&user='.$this->result->publisherID ?>"><?= str_replace("MYMED_", "", $this->result->publisherID) ?> </a><br/></p>
+					<p><b>Contact</b>: <?= str_replace("MYMED_", "", $this->result->publisherID) ?><br/></p>
+					
 					<!-- Keywords an timeline
 					<p style="position: relative; margin-left: 30px;">
 						<b><?= _('keywords') ?></b>: <?= $this->result->theme ?>, <?= $this->result->other ?><br/>
 						<b>End</b>: <?= $this->result->end ?><br/><br />
 					</p> -->
 					
-					<!-- DELETE 
+					<!-- MODIFY -->
 					<?if ($this->result->publisherID == $_SESSION['user']->id){ ?>
-						<form action="index.php?action=main" method="POST" data-ajax="false">
+						<form action="?action=main" method="POST" data-ajax="false" >
+							<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
+							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 							<input type="hidden" name="theme" value="<?= $this->result->theme ?>" />
+							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
+							<input type="hidden" name="other" value="<?= $this->result->other ?>" />
+							<input type="hidden" name="text" id="text"/>
+			 				<input type="hidden" name="method" value="Publish" />
+							<input type="submit" data-icon="check" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Modify publication') ?>" onclick="$('#text').val($('#projecttext').val());"/>
+			 			</form>
+					<? } ?>
+					
+					<!-- DELETE -->
+					<?if ($this->result->publisherID == $_SESSION['user']->id){ ?>
+						<form action="?action=main" method="POST" data-ajax="false">
+							<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
+							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
+							<input type="hidden" name="theme" value="<?= $this->result->theme ?>" />
+							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="other" value="<?= $this->result->other ?>" />
 			 				<input type="hidden" name="method" value="Delete" />
-							<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= translate('Delete publication') ?>" />
+							<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= _('Delete publication') ?>" />
 			 			</form>
-					<? } ?> 
-					-->
-				
+					<? } ?>  
+					
 				</div>
 				
 				<!-- SHARE THIS -->
@@ -93,4 +111,11 @@
 		
 	</div>
 	
+	<script type="text/javascript">
+    	  $("#modify").on("pageshow", function() {  
+    		$("#projecttext").cleditor();
+    		
+     		 });
+    </script>
+    
 </div>

@@ -8,11 +8,16 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	function defaultMethod() {
-
+		
+		if (isset($_GET['user'])){
+			$this->showUserProfile($_GET['user']);
+		}
+		
 		if (isset($_GET['new']))
 			$this->renderView("ExtendedProfileCreate");
-		else if (isset($_GET['id']))
+		else if (isset($_GET['id'])){
 			$this->showOtherProfile($_GET['id']);
+		}
 		else if (isset($_SESSION['user']) && $_SESSION['user']->is_guest)
 			$this->forwardTo('login');
 		else if (isset($_GET['link']))
@@ -22,16 +27,16 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->showProfileList();
 		else if (isset($_GET['edit']))
 			$this->editProfile();
-		
-		else if (isset($_GET['user']))
+		//I don't know why this if is not working so I put it on the top
+		else if (isset($_GET['user'])){
+			error_log("LOGROM OK CALL");
 			$this->showUserProfile($_GET['user']);
-		else if (isset($_SESSION['user']))
+		}
+		else if (isset($_SESSION['user'])){
 			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
-		
-			
+		}
 		else
 			$this->forwardTo("logout");
-		
 	}
 	
 	function update(){
@@ -197,12 +202,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		try {
 			$details = $this->mapper->findById($user);
 		} catch (Exception $e) {
+			error_log("LOGROM search".$e);
 			$this->redirectTo("main");
 		}
 		$this->profile = new Profile($details['profile']);
 		try {
 			$this->profile->details = $this->mapper->findById($this->profile);
 		} catch (Exception $e) {
+			error_log("LOGROM search".$e);
 			$this->redirectTo("main");
 		}
 		//debug_r($details);
@@ -271,6 +278,4 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->renderView("main");
 	
 	}
-
-
 }

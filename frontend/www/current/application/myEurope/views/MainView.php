@@ -67,4 +67,6 @@
 <? include("PublishView.php"); ?>
 <? include("BlogView.php"); ?>
 
+<?php include("footer.php")?>
+
 

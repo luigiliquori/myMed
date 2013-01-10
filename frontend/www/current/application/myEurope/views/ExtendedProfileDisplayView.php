@@ -1,14 +1,15 @@
-<? include("header.php"); ?>
+<? require_once('header-bar.php'); ?>
+<? require_once('notifications.php'); ?>
 
 <div data-role="page">
 
-	<? tabs_simple($this->profile->details['name']); ?>
-	<? include("notifications.php"); ?>
+	<? print_header_bar(true, "defaultHelpPopup"); ?>
 	
 	<div data-role="content">
 		<br><br>
 		<div style="text-align: center;">
-			<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" title="<?= $_SESSION['myEurope']->permission >=2 ? _('You are a full-powered Admin, have fun!') : _('users list') ?>"><?= _('Users') ?></a>
+		<?php $text = $_SESSION['myEurope']->permission >=2 ? _('You are a full-powered Admin, have fun!') : _('users list'); ?>
+			<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" title="<?= $text ?>"><?= $text ?></a>
 		</div>
 		<br>
 		<? $this->profile->renderProfile($_SESSION['user']); ?>
@@ -41,8 +42,15 @@
 			<br />
 			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
 			<? endif; ?>
+			
+			<!-- List user's project button -->
+			<br />
+			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
+			<a type="button" href="?action=ListUserProjects" data-ajax="false" data-theme="d" data-icon="grid" data-inline="true" ><?= _('List my projects') ?></a>
+			<? endif; ?>
 
 		</div>
 	</div>
 </div>
+
 <? include("footer.php"); ?>

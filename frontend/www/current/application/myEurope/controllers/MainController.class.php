@@ -27,6 +27,7 @@ class MainController extends ExtendedProfileRequired {
 			$obj = new Partnership();
 				
 			// Fill the object
+			$_POST['publisher'] = $_SESSION['user']->id;
 			$this->fillObj($obj);
 			$obj->publish();
 				
@@ -47,12 +48,15 @@ class MainController extends ExtendedProfileRequired {
 		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
 
 			$obj = new Partnership();
+			
 			// Fill the object
+			$_POST['publisher'] = $_SESSION['user']->id;
 			$this->fillObj($obj);
 			$obj->publisherID = $_SESSION['user']->id;
 			$obj->delete();
 			$this->result = $obj;
 			$this->success = "Deleted !";
+			
 		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
 				
 			// -- Subscribe
@@ -82,7 +86,9 @@ class MainController extends ExtendedProfileRequired {
 	 * @param unknown $obj
 	 */
 	private function fillObj($obj) {
-
+		
+		$obj->publisher = $_POST['publisher'];
+		
 		$obj->theme = $_POST['theme'];
 		$obj->other = $_POST['other'];
 

@@ -1,10 +1,9 @@
-<? include("header.php"); ?>
+<? require_once('header-bar.php'); ?>
+<? require_once('notifications.php'); ?>
 
 <div data-role="page" id="profiles">
-
 	
-	<? tabs_simple('Profiles list'); ?>
-	<? include("notifications.php"); ?>
+	<? print_header_bar(true, "defaultHelpPopup"); ?>
 
 	<div data-role="content">
 		<br>
