@@ -36,28 +36,27 @@
 				    
 			    </div>
 			</div>
-			<!-- applicationname parameter is sent in order to access to the name of the current application used (for socialNetworks redirections after log in with) -->
 			<div data-role="popup" id="signinPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 				<ul data-role="listview">
 				<li>
-					<?php echo "<a href='/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php?applicationname=".APPLICATION_NAME."' title='Google OAuth' rel='external'>"?>
+					<a href='/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php' title='Google OAuth' rel='external'>
 					<img class="ui-li-mymed" src="/system/img/social/google_32.png" />
 					Google</a>
 				</li>
 				<li>
-					<?php echo "<a href='/lib/socialNetworkAPIs/facebook/examples/oauth_try.php?applicationname=".APPLICATION_NAME."' title='Facebook OAuth' rel='external'>"?>
+					<a href='/lib/socialNetworkAPIs/facebook/examples/oauth_try.php' title='Facebook OAuth' rel='external'>
 						<img class="ui-li-mymed" src="/system/img/social/facebook_32.png" />
 					Facebook</a>
 				</li>
 				<li>
-					<?php echo "<a href='/lib/socialNetworkAPIs/twitter/redirect.php?applicationname=".APPLICATION_NAME."' title='Twitter OAuth' rel='external'>"?>
+					<a href='/lib/socialNetworkAPIs/twitter/redirect.php' title='Twitter OAuth' rel='external'>
 					<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
 					Twitter</a>
 				</li>
 				<li>
 					<a onclick="$('#openIdForm').submit();" title="OpenID">
 					<img class="ui-li-mymed" src="/system/img/social/openID_32.png" />
-					<?php echo "<form onclick='event.stopPropagation();/* for clicking above and below thetext input without submitting*/' style='padding:8px 0; margin: -15px 0;' id='openIdForm' action='/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php?applicationname=".APPLICATION_NAME."' data-ajax='false'>"?>
+					<form onclick='event.stopPropagation();/* for clicking above and below thetext input without submitting*/' style='padding:8px 0; margin: -15px 0;' id='openIdForm' action='/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php' data-ajax='false'>
 						<input id="openIdProvider" type="text"  name="openid_identifier" value="https://www.google.com/accounts/o8/id" placeholder="" />
 					</form>
 					</a>

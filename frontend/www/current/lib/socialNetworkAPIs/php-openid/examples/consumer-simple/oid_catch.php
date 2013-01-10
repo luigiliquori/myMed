@@ -95,7 +95,7 @@ if ($response->status == Auth_OpenID_SUCCESS) {
 	$_SESSION['user3'] = $success;
 	
 	
-	header('Location: '.getTrustRoot()."/".APPLICATION_NAME.'?action=login');
+	header('Location: '.getTrustRoot().$_SESSION['appliName'].'?action=login');
 
 
 } else {
