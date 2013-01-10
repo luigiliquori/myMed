@@ -71,5 +71,16 @@
 			</div>
 		</form>
 	</div>
+	
+	<!-- ----------------- -->
+	<!-- DEFAULT HELP POPUP -->
+	<!-- ----------------- -->
+	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<h3><?= _("Edit your Profile") ?></h3>
+		<p> <?= _("Here you can update your organizations profile.") ?></p>
+		
+	</div>
+	
 </div>
 <? include("footer.php"); ?>

@@ -3,7 +3,7 @@
 
 <div data-role="page" id="profiles">
 	
-	<? print_header_bar(true, "defaultHelpPopup"); ?>
+	<? print_header_bar(true, false); ?>
 
 	<div data-role="content">
 		<br>
