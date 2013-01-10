@@ -2,6 +2,8 @@
 
 require_once "oauth-common.php";
 
+define("APPLICATION_NAME", $_GET['applicationname']);
+
 debug('try');
 
 

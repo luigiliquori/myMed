@@ -276,10 +276,6 @@ msgstr "Cancella la mia offerta"
 msgid "Partnership request"
 msgstr "Richiesta di partenariato"
 
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
-msgid "You are a full-powered Admin, have fun!"
-msgstr ""
-
 #: ../application/myEurope/views/ExtendedProfileEditView.php:11
 msgid "Territory type"
 msgstr "Tipo di territorio"
@@ -999,6 +995,148 @@ msgstr ""
 msgid "Advanced searching"
 msgstr "Partner"
 
+
+#: ../application/myEurope/views/MainView.php:6
+msgid "MyEurope is an application of the Alcotra <b><em>myMed</em></b> project, which aims to link mayors and municipal transborders."
+msgstr "myEurope é un’applicazione del progetto Alcotra volta a mettere in relazione comuni ed enti transfrontalieri."
+
+#: ../application/myEurope/views/MainView.php:7
+msgid "The idea is to provide a tool to simplify and support the creation of European projects as myMed."
+msgstr "L’idea di fondo é quella di fornire uno strumento utile a semplificare e promuovere la creazione di progetti europei quali myMed."
+
+#: ../application/myEurope/views/MainView.php:333
+msgid "How it works"
+msgstr "Come funziona"
+
+
+#: ../system/controllers/MainView.class.php:88
+msgid "Search directly here partnership offers"
+msgstr "Ricercate direttamente qui le offerte di partenariato"
+
+msgid "Insert your own partnership offers"
+msgstr "Inserite qui  le vostre offerte di partenariato"
+
+
+msgid "Give your opinion, share your experience and enrich the network myEurope"
+msgstr "Lasciateci un vostro parere, condividete con noi la vostra esperienza e contibuirete così ad arricchire la rete myMed"
+
+msgid "Complete and manage your profile for a better visibility in myEurope"
+msgstr "Completate e gestite il vostro profilo per una migliore visibilità all’interno di myEurope"
+
+#: ../system/controllers/LoginView.class.php:88
+msgid "Creating an account in myEurope will allow you to submit new projects and to participate in discussions in the topic \"Best Practices\"."
+msgstr "La creazione di un account in myEurope vi permetterà di sottomettere nuovi progetti e di partecipare di volta in volta alle discussioni nella rubrica \"Buone Prassi\"."
+
+msgid "Don't forget that you have the possibility to use your social network accounts to create your profile: see button"
+msgstr "Non dimenticate che avete la possibilità di utilizzare i vostri preesistenti account di reti sociali  per creare il vostro profilo : tasto"
+
+#: ../application/myFSA/views/PublishView.php:23
+msgid "<h3>Don't forget:</h3><p>To fill the fields in "
+msgstr "<h3>Non dimenticate:</h3><p>Tiempire i campi in "
+
+#: ../application/myFSA/views/PublishView.php:23
+msgid "</p><p>More options are met, more a project will be visible.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>"
+msgstr "</p><p>Altre opzioni sono soddisfatti, più il progetto sarà visibile.</p><p>Quando si controlla / riempire diversi campi in una categoria, risultati corrispondere ad almeno uno dei criteri selezionati.</p>"
+
+#: ../application/myFSA/views/PublishView.php:68
+msgid "How to publish"
+msgstr "Come pubblicare"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "local"
+msgstr "locale"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "regional"
+msgstr "regionale"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "departmental"
+msgstr "dipartimentale"
+
+msgid "Phases of the project"
+msgstr "Fasi del progetto"
+
+msgid "Project themes"
+msgstr "Temi del progetto"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "international"
+msgstr "internazionale"
+
+#: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
+msgid "You are a full-powered Admin, have fun!"
+msgstr "You are a full-powered Admin, have fun!"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "urban"
+msgstr "urbano"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "rural"
+msgstr "rurale"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "mountain"
+msgstr "montano"
+
+#: ../application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "maritime"
+msgstr "marittimo"
+
+#: ../application/myFSA/views/SearchView.php:35
+msgid "How to search"
+msgstr "Come si effettua una ricerca"
+
+#: ../application/myFSA/views/SearchView.php:35
+msgid "<p>Enter a list of <strong>keywords</strong> corresponding to your projects search or partnerships."
+msgstr "<p>Inserite una lista di parole <strong>chiave</strong> corrispondenti alla vostra ricerca di progetto o partenariato."
+
+#: ../application/myFSA/views/SearchView.php:35
+msgid "You can also use the options to filter your search or <strong>subscribe</strong> to a particular thematic.</p>"
+msgstr "Potete aiutarvi utilizzando le opzioni predefinite per filtrare la vostra ricerca od <strong>abbonarvi</strong> ad una tematica particolare.</p>"
+
+#: ../application/myFSA/views/SearchView.php:35
+msgid "Search a project"
+msgstr "Ricercare un progetto"
+
+#: ../application/myFSA/views/SearchView.php:35
+msgid "Our selection"
+msgstr "La nostra selezione"
+
+#: ../application/myFSA/views/SearchView.php:23
+msgid "<h3>Operation of search engine:</h3> <p>If you leave all fields <b>empty</b>, you get all offers published to date.</p><p>When you leave an <b>empty</b> category, she is not consider in the research.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>"
+msgstr "<h3>Il funzionamento del motore di ricerca:</h3> <p>Lasciando tutti i campi <b>vuoti</b> otterrete tutte le offerte pubblicate quest’oggi.</p><p>Dal momento che avrete selezionato / riempito più campi di una categoria i risultati corrisponderanno ad almeno uno dei criteri selezionati.</p>"
+
+#: ../application/myEurope/views/MainView.php:333
+msgid "<p>Enter a <b>title</b> for your project, then a <b>keywords</b> list separated by a space.<br />"
+msgstr "<p>Scegliete un <b>titolo</b> per il vostro progetto ed una lista di <b>parole chiave</b> separate da uno spazio.<br />"
+
+#: ../application/myEurope/views/MainView.php:333
+msgid "Write your offer using the online editor of myEurope. Do not hesitate to complete your brief project in the options (\"Option \" button)."
+msgstr "Descrivete la vostra offerta utilizzando l’editor online predefinito di myEurope. Potete completare la vostra scheda progettuale grazie alle opzioni."
+
+#: ../application/myFSA/views/PublishView.php:68
+msgid "Publish your project"
+msgstr "Pubblica progetto"
+
+#: ../application/myEurope/views/PublishSuccessView.php:10
+msgid "Free text"
+msgstr "Testo libero"
+
+#: ../application/myFSA/views/DetailsView.php:63
+msgid "Do you like the project idea ?"
+msgstr "Vi piace questa idea di progetto ?"
+
+#: ../application/myEurope/doc/trads.php:2
+#: ../application/myEurope/doc/description.php:1
+msgid "<b>MyEurope</b> is a social network which is based on the meta-social network <b><em>myMed</em></b>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program."
+msgstr "<b>myEurope</b> é una rete sociale facente parte della meta-rete sociale <em>myMed</em>, a disposizione dei comuni, delle istituzioni, dei rappresentanti politici locali nonché delle realtà economiche (industriali, turistiche…) del territorio della regione francese del Sud-Est (PACA, Rodano-Alpi) e delle tre regioni italiane del Nord Ovest (Liguria, Piemonte, Valle d’Aosta), ovvero dei territori  ammissibili al programma Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia)."
+
+msgid "This application will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.\n The main targets of <b><em>myMed</em></b> are :\n \t<ul>\n \t\t<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>\n \t\t<li>Exchange practices and common cross-border interests in the area of European project creation.</li>\n \t\t<li>Inform users about different European calls.</li>\n \t</ul>"
+msgstr "L’applicazione permetterà ai comuni dell’Euroregione Alpi-Mediterraneo  (MedAlp) di  trovare dei\tpartner, che siano chiaramente iscritti alla rete myEurope, nell’ambito dell’interregione e poter costituire assieme dei progetti comuni, nel quadro dei differenti programmi europei : Interreg Alcotra, de Med, FP7 ecc… <br /> <br />Gli obbiettivi principali di myEurope sono dunque i seguenti :<ol><li>Aiutarvi, attraverso il meccanismo di  « Matchmaking » myMed a mettere in comune delle idee ma anche dei mezzi al fine di poter sottomettere un\t\tprogetto Interreg Alcotra, Med od ottenere dei finanziamenti provenienti dall’Europa (crediti FEDER…).</li><li> Scambiare pratiche ed interessi comuni transfrontalieri nell’ambito del montaggio dei progetti</li><li>Informare  riguardo alle varie offerte d’appalto di progetti europei le persone iscritte alla rete sociale</li></ol>Questo scambio d’informazioni sarà utile agli esponenti politici locali francesi così come ad i loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e quelli delle regioni italiane limitrofe. Ciò favorirà l’organizzazione di attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti…)"
+
+
 #~ msgid "Admin"
 #~ msgstr "Admin"
 #~ msgid "Log Out"
@@ -1059,21 +1197,6 @@ msgstr "Partner"
 #~ msgstr "Risultati"
 #~ msgid "Places"
 #~ msgstr "Luogo"
-#~ msgid ""
-#~ "<b>MyEurope</b> is a social network which is based on the meta-social "
-#~ "network <b><em>myMed</em></b>, available for City Halls, institutions or "
-#~ "economic realities (industrial, tourism industry...) of the French South-"
-#~ "East areas (PACA, Rhone-Alpes) and the three Italian North-Western "
-#~ "Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to "
-#~ "the Alcotra Program."
-#~ msgstr ""
-#~ "<b>MyEurope</b> è una rete sociale che si appoggia al meta-social network "
-#~ "<em>myMed</em>, a disposizione dei sindaci, delle istituzioni, degli "
-#~ "esponenti politici nonché delle realtà economiche (industriali, "
-#~ "turistiche...) del territorio della regione francese del sud est (PACA, "
-#~ "Rhône-Alpes) e delle tre regioni italiane del nord ovest (Piemonte, "
-#~ "Liguria, Valle d'Aosta), ovvero dei territori ammessi al programma "
-#~ "Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia)."
 #~ msgid ""
 #~ "This \"sociapp\" will help the City Hall of the Alps-Mediterranean "
 #~ "Euroregion to find partners, among those who joined the social network, "

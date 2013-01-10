@@ -7,7 +7,7 @@
 	
 	<div data-role="content" class="content">
 		
-		<? print_notification($this->success.$this->error); ?>
+		<? print_notification($this->success.$this->error);?>
 	
  		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Why Register ?") ?></h3>
@@ -50,7 +50,7 @@
 					Google</a>
 				</li>
 				<li>
-					<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external">
+					<?php echo "<a href='/lib/socialNetworkAPIs/facebook/examples/oauth_try.php?applicationname=".APPLICATION_NAME."' title='Facebook OAuth' rel='external'>"?>
 						<img class="ui-li-mymed" src="/system/img/social/facebook_32.png" />
 					Facebook</a>
 				</li>

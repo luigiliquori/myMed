@@ -121,7 +121,7 @@
 	<!-- --------------------- -->
 	<div data-role="popup" id="publishHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<?= _("<h3>Don't forget:</h3><p>to fill the fields in ")?> <a href="#searchOptionPopup" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" data-mini="true" data-theme="e"><?= _("Option") ?></a>
+		<?= _("<h3>Don't forget:</h3><p>To fill the fields in ")?> <a href="#searchOptionPopup" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" data-mini="true" data-theme="e"><?= _("Option") ?></a>
 		<?= _("</p><p>More options are met, more a project will be visible.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>")?>
 	</div>
 	
