@@ -2,10 +2,6 @@
 
 require_once "oauth-common.php";
 
-define("APPLICATION_NAME", $_GET['applicationname']); 
-// 'applicationname' is defined in the LoginView.php href for Facebook;
-// used to redirect to the application main (myEurope for example) from the FB login (not to mymed)
-
 session_start();
 
 $_SESSION['state'] = md5(uniqid(rand(), TRUE)); //CSRF protection
