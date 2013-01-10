@@ -13,8 +13,12 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->showUserProfile($_GET['user']);
 		}
 		
-		if (isset($_GET['new']))
+		if (isset($_GET['new'])) {
+			// Create a new profile
+			$this->cats = Categories::$roles;
 			$this->renderView("ExtendedProfileCreate");
+		}
+		
 		else if (isset($_GET['id'])){
 			$this->showOtherProfile($_GET['id']);
 		}
