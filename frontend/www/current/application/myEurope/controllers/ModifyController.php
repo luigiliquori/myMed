@@ -6,7 +6,6 @@ class ModifyController extends ExtendedProfileRequired {
 
 		parent::handleRequest();
 		
-		
 		// Get arguments of the query
 		$predicate = $_GET['predicate'];
 		$author = $_GET['author'];

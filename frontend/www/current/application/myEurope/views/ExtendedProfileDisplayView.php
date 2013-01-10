@@ -7,11 +7,14 @@
 	
 	<div data-role="content">
 		<br><br>
-		<div style="text-align: center;">
-		<?php $text = $_SESSION['myEurope']->permission >=2 ? _('You are a full-powered Admin, have fun!') : _('users list'); ?>
-			<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" title="<?= $text ?>"><?= $text ?></a>
-		</div>
-		<br>
+		
+		<? if ($_SESSION['myEurope']->permission >=2) : ?>
+			<div style="text-align: center;">
+				<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" data-theme="e" title=" <?= _('users list') ?> "> <?= _('users list') ?> </a>
+			</div>
+			<br>
+		<? endif ?>
+			
 		<? $this->profile->renderProfile($_SESSION['user']); ?>
 		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
@@ -51,6 +54,17 @@
 
 		</div>
 	</div>
+	
+	<!-- ----------------- -->
+	<!-- DEFAULT HELP POPUP -->
+	<!-- ----------------- -->
+	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<h3><?= _("Edit Profile and Projects") ?></h3>
+		<p> <?= _("Here you can modify your profile and list your active projects.") ?></p>
+		
+	</div>
+	
 </div>
 
 <? include("footer.php"); ?>

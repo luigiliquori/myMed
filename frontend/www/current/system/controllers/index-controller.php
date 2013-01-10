@@ -37,7 +37,7 @@ function callController(
 		//$controller->accessControl( $method, $_SESSION['acl']);
 		
 		if (!isset($_SESSION['acl'])){
-			debug('-----!!!!!!!!---------shhould not happen but make sure to give sth to Acl--');
+			debug('-----!!!!!!!!---------should not happen but make sure to give sth to Acl--');
 			$_SESSION['acl'] = array('defaultMethod', 'read');
 		}
 			
@@ -113,25 +113,26 @@ session_set_cookie_params(3600);
  *  at the end open with poEdit the global messages.po and catalog>update from pot file and select your .po
  */
 
+// Global domain name
+define('GLOBAL_MESSAGES', 'messages');
+
 // Connected user
-global $LANG;
+global $LANG, $LOCALE;
 if (isset($_SESSION['user'], $_SESSION['user']->lang) && !empty($_SESSION['user']->lang)) {
 	$LANG = $_SESSION['user']->lang;
-
-// In request => save into session
+	// In request => save into session
 } elseif (in_request("lang")) {
 	$LANG = $_REQUEST['lang'];
 	$_SESSION['lang'] = $LANG;
 
-// In session
+	// In session
 } elseif (isset($_SESSION['lang'])) {
 	$LANG = $_SESSION['lang'];
 
-// Get Browser preference
+	// Get Browser preference
 } else {
 	$LANG = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0 ,2);
 }
-
 // Default lang
 if (empty($LANG)) $LANG = "fr";
 
@@ -146,15 +147,17 @@ switch ($LANG) {
 		$LOCALE = 'en_US.utf8';
 		break;
 }
+debug($LOCALE);
 
+//$LOCALE = 'fr_FR.utf8';
 
-
-// Set locale
-putenv("LC_ALL=$LOCALE");
-setlocale(LC_ALL, $LOCALE);
-
-// Global domain name
-define('GLOBAL_MESSAGES', 'messages');
+/////////////////////////////////////////////////////////////////////////////
+putenv('LANGUAGE='.$LOCALE);
+putenv('LANG='.$LOCALE);
+putenv('LC_ALL='.$LOCALE);
+putenv('LC_MESSAGES='.$LOCALE);
+setlocale(LC_ALL,$LOCALE);
+setlocale(LC_CTYPE,$LOCALE);
 
 // Define domain "<APPLICATION_NAME>"
 bindtextdomain(APPLICATION_NAME, APP_ROOT.'/lang');
@@ -163,12 +166,20 @@ bind_textdomain_codeset(APPLICATION_NAME, 'UTF-8');
 // Define global domain (MyMed wide messages)
 bindtextdomain(GLOBAL_MESSAGES, MYMED_ROOT.'/lang');
 bind_textdomain_codeset(GLOBAL_MESSAGES, 'UTF-8');
+textdomain(GLOBAL_MESSAGES);
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+// Set locale
+setlocale(LC_ALL, 'en_US.utf8');
+
 
 // Support for php-gettext as a replacement for native gettext :
 // This is a pure PHP implementation of gettext that does not reply on system installed locales.
 // It loads the same .mo files, and he's easier to debug :(You can put your debug logs in gettext.inc and gettext.php)
 // However, if you want to use that, you should use __() instead of _(). Make a massive search / replace for that
-define('PHP_GETTEXT', false); // Set to true to enable php-gettext
+define('PHP_GETTEXT', true); // Set to true to enable php-gettext
 
 if (PHP_GETTEXT) {
 	require(__DIR__ . "./../common/gettext/gettext.inc");
@@ -191,10 +202,11 @@ if (PHP_GETTEXT) {
 	
 }
 
+
+
 // Make a main function to be called in each root index
 function main_controller() {
 	global $ACTION; 
-	
 	// Get action, default is "main"
 	$ACTION = isset($_REQUEST["action"]) ? $_REQUEST["action"] : "main";
 

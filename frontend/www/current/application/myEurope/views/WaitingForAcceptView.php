@@ -1,4 +1,5 @@
-<? include("header.php"); ?>
+<? require_once('header-bar.php'); ?>
+<? require_once('notifications.php'); ?>
 
 <?php 
 
@@ -7,9 +8,8 @@
 ?>
 
 <div data-role="page">
+	<? print_header_bar(false, false); ?>
 	
-	<? tabs_simple(null, false); ?>
-	<? include("notifications.php"); ?>
 	<div data-role="content" style="text-align: center;">
 	<br><br>
 	<?= _("<b>Congratulations!</b> Your profile has been sent to myEurope team  

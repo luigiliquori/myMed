@@ -15,12 +15,13 @@
 			<input type="hidden" id="search_other" name="other" value="" />
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-				<h3>Comment rechercher ?</h3>
-				Vous pouvez utiliser les options <strong>Thématiques</strong> et <strong>Programme</strong> pour filtrer votre recherche.</p>
+				<h3><?= _("How to search") ?>?</h3>
+				<?= _("<p>Enter a list of <strong>keywords</strong> corresponding to your projects search or partnerships.")?><br />
+				<?= _("You can also use the options to filter your search or <strong>subscribe</strong> to a particular thematic.</p>")?>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Rechercher un projet') ?> :</h3>
+				<h3><?= _('Search a project') ?> :</h3>
 			
 	   				<fieldset data-role="controlgroup">
 						<select id="search_theme_content" id="call">
@@ -33,7 +34,7 @@
 						</select>
 						
 						<select id="search_other_content" id="call">
-							<option value=""><?= _("Programme") ?></option>
+							<option value=""><?= _("Program") ?></option>
 							<? foreach (Categories::$calls as $k=>$v): ?>
 								<option value="<?= $k ?>">
 									<?= $v ?>
@@ -53,7 +54,7 @@
 		</form>
 			
 		<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-			<h3><?= _('Notre selection') ?> :</h3>
+			<h3><?= _('Our selection') ?> :</h3>
 			<ul data-role="listview" data-filter="true" >
 			<? foreach($this->result as $item) : ?>
 				<li>
@@ -63,7 +64,7 @@
 						
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _("Themes") ?></b>: <?= Categories::$themes[$item->theme] ?><br/>
-							<b><?= _("Programme") ?></b>: <?= Categories::$calls[$item->other] ?><br/><br/>
+							<b><?= _("Program") ?></b>: <?= Categories::$calls[$item->other] ?><br/><br/>
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
@@ -93,12 +94,7 @@
 	<!-- ----------------- -->
 	<div data-role="popup" id="searchHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3>Fonctionnement du moteur de recherche:</h3>
-		<p>Si vous laissez tous les champs <b>vides</b>, vous
-		obtenez toutes les offres publiées à ce jour</p>
-		<p>Lorsque vous laissez une categorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</p>
-		<p>Lorsque vous cochez/ remplissez plusieurs champs dans une catégorie, les 
-		résultats correspondront à au moins un des critères coché.</p>
+		<?= _("<h3>Operation of search engine:</h3> <p>If you leave all fields <b>empty</b>, you get all offers published to date.</p><p>When you leave an <b>empty</b> category, she is not consider in the research.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>")?>
 	</div>
 	
 </div>

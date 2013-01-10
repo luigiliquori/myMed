@@ -7,21 +7,15 @@
 	
 	<div data-role="content" class="content">
 		
-		<? print_notification($this->success.$this->error); ?>
+		<? print_notification($this->success.$this->error);?>
 	
  		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Why Register ?") ?></h3>
-			<p><?= _("La création d'un compte dans myEurope vous permettra de soumettre de nouveaux projets et de participer aux fils de discutions dans la rubrique \"Bonnes Pratiques\"") ?></p>
-			<p>Noubliez pas que vous avez la possiblilité d'utiliser vos comptes de réseaux sociaux pour créer votre profil: voir bouton "<?= _("Sign in with") ?>"</p>
+			<p><?= _("Creating an account in myEurope will allow you to submit new projects and to participate in discussions in the topic \"Best Practices\".") ?></p>
+			<p><?= _("Don't forget that you have the possibility to use your social network accounts to create your profile: see button")?> "<?= _("Sign in with") ?>"</p>
 		</div>
 		
 		<form action="?action=login" method="post" data-ajax="false">
-		
-			<div style="text-align: left;">
-				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Sign in with") ?></a>
-				 </div>
-			</div>
 		
 			<div data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true">
 				
@@ -36,7 +30,8 @@
 				    <br />
 				    <div data-role="controlgroup" data-type="horizontal">
 				 	    <input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Sign in") ?>" />
-						<a href="#register" data-role="button" data-inline="true" data-mini="true" data-icon="pencil" data-iconpos="right"><?= _("Register") ?></a>
+						<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Sign in with") ?></a>
+						<a href="#register" data-role="button" data-inline="true" data-mini="true" data-icon="pencil" data-iconpos="right"><?= _("Register") ?></a>	
 					</div>
 				    
 			    </div>
@@ -50,7 +45,7 @@
 					Google</a>
 				</li>
 				<li>
-					<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external">
+					<?php echo "<a href='/lib/socialNetworkAPIs/facebook/examples/oauth_try.php?applicationname=".APPLICATION_NAME."' title='Facebook OAuth' rel='external'>"?>
 						<img class="ui-li-mymed" src="/system/img/social/facebook_32.png" />
 					Facebook</a>
 				</li>
