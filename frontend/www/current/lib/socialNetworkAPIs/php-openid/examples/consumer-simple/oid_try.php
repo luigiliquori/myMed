@@ -5,6 +5,10 @@ require_once "oid-common.php";
 // Starts session (needed for YADIS)
 session_start();
 
+define("APPLICATION_NAME", $_GET['applicationname']);
+// 'applicationname' is defined in the LoginView.php href for OpenID;
+// used to redirect to the application main (myEurope for example) from the OpenID login (not to mymed)
+
 $oid_identifier = isset($_GET['openid_identifier'])?
 					$_GET['openid_identifier']:
 					'https://www.google.com/accounts/o8/id';
