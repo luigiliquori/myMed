@@ -2,11 +2,6 @@
 
 require_once "oauth-common.php";
 
-define("APPLICATION_NAME", $_GET['applicationname']);
-
-debug('try');
-
-
 session_start();
 
 $_SESSION['state'] = md5(uniqid(rand(), TRUE)); //CSRF protection

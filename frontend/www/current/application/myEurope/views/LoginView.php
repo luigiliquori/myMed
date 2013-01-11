@@ -36,28 +36,27 @@
 				    
 			    </div>
 			</div>
-			
 			<div data-role="popup" id="signinPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 				<ul data-role="listview">
 				<li>
-					<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">
+					<a href='/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php' title='Google OAuth' rel='external'>
 					<img class="ui-li-mymed" src="/system/img/social/google_32.png" />
 					Google</a>
 				</li>
 				<li>
-					<?php echo "<a href='/lib/socialNetworkAPIs/facebook/examples/oauth_try.php?applicationname=".APPLICATION_NAME."' title='Facebook OAuth' rel='external'>"?>
+					<a href='/lib/socialNetworkAPIs/facebook/examples/oauth_try.php' title='Facebook OAuth' rel='external'>
 						<img class="ui-li-mymed" src="/system/img/social/facebook_32.png" />
 					Facebook</a>
 				</li>
 				<li>
-					<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external">
+					<a href='/lib/socialNetworkAPIs/twitter/redirect.php' title='Twitter OAuth' rel='external'>
 					<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
 					Twitter</a>
 				</li>
 				<li>
 					<a onclick="$('#openIdForm').submit();" title="OpenID">
 					<img class="ui-li-mymed" src="/system/img/social/openID_32.png" />
-					<form onclick="event.stopPropagation();/* for clicking above and below thetext input without submitting*/" style="padding:8px 0; margin: -15px 0;" id="openIdForm" action="/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php" data-ajax="false">
+					<form onclick='event.stopPropagation();/* for clicking above and below thetext input without submitting*/' style='padding:8px 0; margin: -15px 0;' id='openIdForm' action='/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php' data-ajax='false'>
 						<input id="openIdProvider" type="text"  name="openid_identifier" value="https://www.google.com/accounts/o8/id" placeholder="" />
 					</form>
 					</a>
