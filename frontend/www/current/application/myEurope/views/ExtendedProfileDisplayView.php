@@ -41,6 +41,7 @@
 			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
 			<br />
 			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+			<a type="button" href="?action=ExtendedProfile&delete=true"  data-theme="d" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<? endif; ?>
 			
 			<!-- List user's project button -->
