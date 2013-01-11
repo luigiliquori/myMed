@@ -449,24 +449,24 @@ public class PubSubManager extends AbstractManager implements IPubSubManager {
 					}
 
 	/**
-	 * The find mechanism.
+	 * The read subscription 1
 	 * @see com.mymed.controller.core.manager.pubsub.IPubSubManager#read(java.lang.String)
 	 */
 	@Override
-	public Map<String, String> read(final String appuserid) throws InternalBackEndException, IOBackEndException {
+	public Map<String, String> read(final String subscriptionKey) throws InternalBackEndException, IOBackEndException {
 
 		final Map<String, String> res = new HashMap<String, String>();
-		final Map<byte[], byte[]> predicates = storageManager.selectAll(CF_SUBSCRIBERS, appuserid);
+		final Map<byte[], byte[]> predicates = storageManager.selectAll(CF_SUBSCRIBERS, subscriptionKey);
 		for (final Entry<byte[], byte[]> entry : predicates.entrySet()) {
 			final String key = decode(entry.getKey());
 			final String val = decode(entry.getValue());
 			res.put(key, val);
-			LOGGER.info("__"+appuserid +" is subscribed to "+ key);
+			LOGGER.info("__"+subscriptionKey +" is subscribed to "+ key);
 		}
 
 		return res;
 	}
-
+	
 	/**
 	 * @see IPubSubManager#delete(String * 3 + MUserBean)
 	 */

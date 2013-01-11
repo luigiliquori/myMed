@@ -19,7 +19,7 @@
 						<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= translate('Delete publication') ?>" />
 		 			</form>
 				<? } ?> 
-			
+					
 				<h3>Wrapped: <?= $this->result->wrapped1 ?> - <?= $this->result->wrapped2 ?></h3>
 								
 				<p style="position: relative; margin-left: 30px;">

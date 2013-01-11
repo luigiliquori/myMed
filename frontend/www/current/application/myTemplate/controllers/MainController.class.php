@@ -24,7 +24,7 @@ class MainController extends AuthenticatedController {
 			
 			$this->success = "Published !";
 			
-		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
+		} else if(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
 			
 			// -- Search
 			$search = new ExampleObject();
@@ -54,7 +54,7 @@ class MainController extends AuthenticatedController {
 			
 			$this->renderView("results");
 			
-		}elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
+		} else if(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
 
 			$obj = new ExampleObject();				
 			// Fill the object
@@ -63,8 +63,7 @@ class MainController extends AuthenticatedController {
 			$obj->delete();			
 			$this->result = $obj;	
 			$this->success = "Deleted !";	
-		} 
-		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
+		} else if(isset($_REQUEST['method']) && $_REQUEST['method'] == "Subscribe") {
 			
 			// -- Subscribe
 			$obj = new ExampleObject();
