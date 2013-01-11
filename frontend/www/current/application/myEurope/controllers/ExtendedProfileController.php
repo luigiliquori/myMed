@@ -31,6 +31,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->showProfileList();
 		else if (isset($_GET['edit']))
 			$this->editProfile();
+		else if (isset($_GET['delete'])){
+			$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
+			$debugtxt  .= var_export($_SESSION['user']->id, TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
+			$this->deleteUser($_SESSION['user']->id);
+			//deleteProfile();
+		}
 		//I don't know why this if is not working so I put it on the top
 		else if (isset($_GET['user'])){
 			error_log("LOGROM OK CALL");
@@ -111,6 +119,12 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	function updateProfile(){
+		
+				$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
+			$debugtxt  .= var_export($_SESSION['myEurope']->users, TRUE);
+			$debugtxt  .= var_export($_SESSION['myEurope']->reputation, TRUE);
+			$debugtxt .= "</pre>";
+			debug($debugtxt);
 		$pass	= hash("sha512", $_POST['password']);
 		unset($_POST['form']);
 		unset($_POST['password']);
@@ -120,7 +134,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileEdit");
 		}
 		$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
-		$request->addArgument("login", $_SESSION['user']->login);
+		$request->addArgument("login", $_SESSION['user']->email);
 		$request->addArgument("password", $pass);
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
@@ -128,6 +142,8 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
 			$this->renderView("ExtendedProfileEdit");
+			$debugtxt  =  "<pre>EEEEEEEEEEEEEERRRooooor";
+			debug($debugtxt);
 		}
 		
 		$_POST['desc'] = nl2br($_POST['desc']);
@@ -137,7 +153,10 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "data"=>$_POST),
 				UPDATE);
 		$publish->send();
-		
+		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
+		$debugtxt  .= var_export($_POST, TRUE);
+		$debugtxt .= "</pre>";
+		debug($debugtxt);
 		if ($_POST['name']!=$_SESSION['myEurope']->details['name'] || $_POST['role']!=$_SESSION['myEurope']->details['role']){ //also update profiles indexes
 			$publish =  new RequestJson($this,
 					array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
@@ -153,9 +172,10 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$_SESSION['myEurope']->reputation = $myrep;
 			$_SESSION['myEurope']->users = $users;
 	
-			$this->redirectTo("Main", array(), "#profile");
+			$this->redirectTo("ExtendedProfile", array(), "#profile");
 	
 		}
+		
 	}
 	
 	function storeProfile(){
