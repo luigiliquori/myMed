@@ -8,6 +8,7 @@
 			
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
 	
 	<!--  Extra icons for jquery -->
 	<link rel="stylesheet" href="/lib/jquery/jqm-icon-pack-2.1.2-fa.css" />

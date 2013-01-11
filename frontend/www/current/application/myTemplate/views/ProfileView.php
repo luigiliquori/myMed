@@ -53,6 +53,12 @@
 		
 	</div>
 	
+	<form action="index.php?action=subscribe" method="POST" data-ajax="false">
+			<input type="submit" name="method" value="Get Subscription" data-theme="d" data-inline="true" data-icon="star" data-iconpos="right"/>
+	</form>
+	
+	<?= $this->subscription ?>
+	
 	<? print_footer_bar_main("#profile"); ?>
 	
 </div>

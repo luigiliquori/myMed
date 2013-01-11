@@ -82,6 +82,7 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
             
             switch (code) {
                 case READ :
+                	
                 	message.setMethod(JSON_CODE_READ);
                 	if ((application = parameters.get(JSON_APPLICATION)) == null) {
                 		throw new InternalBackEndException("missing application argument!");
@@ -92,7 +93,11 @@ public class SubscribeRequestHandler extends AbstractMatchMaking {
                  	message.setDescription("Subscriptions found for Application: " + application + " User: " + user);
  		            LOGGER.info("Subscriptions found for Application: " + application + " User: " + user);
  		            message.addDataObject(JSON_SUBSCRIPTIONS, predicates);
+                    
+//                    final Map<String, String> subscribers = pubsubManager.read(makePrefix(application, namespace) + predicate);
+                    
                     break;
+                    
                 case DELETE :
                 	
                 	message.setMethod(JSON_CODE_DELETE);

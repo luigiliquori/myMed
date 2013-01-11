@@ -33,7 +33,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.InternalBackEndException;
-import com.mymed.controller.core.manager.subscribe.SubscribeManager;
+import com.mymed.controller.core.manager.pubsub.deprecated.SubscribeManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageIn;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.utils.CombiLine;
