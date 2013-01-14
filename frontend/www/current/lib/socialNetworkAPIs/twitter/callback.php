@@ -5,6 +5,8 @@
  * Verify credentials and redirect to based on response from Twitter.
  */
 
+/* $_SESSION['appliName'] is (has to be) defined in the index.php of the current application for the redirection after log in with the social network */
+
 /* Start session and load lib */
 session_start();
 require_once('twitteroauth/twitteroauth.php');

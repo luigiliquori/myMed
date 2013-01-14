@@ -54,7 +54,7 @@ abstract class AbstractController implements IRequestHandler {
 		} else {
 			$viewPath = MYMED_ROOT . "/application/myMed/views/${view}View.php";
 		}
-		
+		debug($viewPath);
 		// Set ERROR and SUCCESS
 		global $ERROR; 
 		$ERROR = $this->error;

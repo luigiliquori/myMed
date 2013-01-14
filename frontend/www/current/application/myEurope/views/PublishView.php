@@ -1,11 +1,15 @@
 <!-- STEP1: Select Category -->
-<div data-role="page" id="post">
+<? require_once('notifications.php'); ?>
+
+<div data-role="page" id="publish">
 	
 	<? print_header_bar(true, "publishHelpPopup"); ?>
-	
+
 	<div data-role="content">
 	
-		<form action="index.php?action=main" method="POST" data-ajax="false">
+		<? print_notification($this->success.$this->error); ?>
+	
+		<form action="index.php?action=publish" method="POST" data-ajax="false">
 		
 			<input type="hidden" name="method" value="Publish" />
 			<input type="hidden" id="publish_theme" name="theme" value="" />
@@ -23,10 +27,8 @@
 				<h3><?= _('Publish your project') ?> :</h3>
 				
 				<h3><?= _('Title') ?> : </h3>
-				<input id="textinputp3" class="postTitle"
-					data-inline="true" name="title"
-					placeholder="<?= _("partnership or project name") ?>" value=''
-					type="text" />
+				<input id="textinputp3" class="postTitle" data-inline="true" name="title"
+					placeholder="<?= _("partnership or project name") ?>" value='' type="text" />
 				
 				<h3><?= _('Free text') ?> :</h3>
 				<div data-role="controlgroup" data-type="horizontal"> 
@@ -108,7 +110,7 @@
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		<h3><?= _('Title') ?> : </h3>
 		<input type="text" value="Création d'un centre d'art dans la commune d'Embrun" readonly="readonly"/>
-		<h3><?= _('Texte libre') ?> :</h3>
+		<h3><?= _('Free text') ?> :</h3>
 		<textarea rows="80" cols="80" readonly="readonly">J’aimerais redonner une attractivité à ma commune en y créant un centre d’art. En effet, alors que notre commune nous offre des lieux chargés d’histoire, nous ne disposons pas de lieu où nous pourrions promouvoir l’art contemporain, de façon à faire le lien entre les deux époques.
 
 	- Mon but serait, en dehors de la création d’un centre d’art, de promouvoir la culture auprès des plus jeunes, de stimuler la population.

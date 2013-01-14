@@ -4,6 +4,8 @@ require_once "oauth-common.php";
 
 debug('catch');
 
+/* $_SESSION['appliName'] is (has to be) defined in the index.php of the current application for the redirection after log in with the social network */
+
 session_start();
 
 if(!isset($_GET["code"])) {

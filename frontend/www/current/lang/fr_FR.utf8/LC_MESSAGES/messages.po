@@ -59,10 +59,6 @@ msgstr "J'accepte les conditions générales d'utilisation"
 msgid "Send"
 msgstr "Envoyer"
 
-#: ../application/myMed/views/LoginView.php:147
-msgid "about"
-msgstr "A propos "
-
 #: ../application/myMed/views/LoginView.php:152
 msgid "More informations"
 msgstr "Plus d'informations"
@@ -702,6 +698,12 @@ msgstr ""
 msgid "Fill your profile"
 msgstr "Compléter votre profil"
 
+msgid "Title field can't be empty"
+msgstr "Le champs titre doit être rempli"
+
+msgid "Text field can't be empty"
+msgstr "Le champs texte doit être rempli"
+
 #: ../application/myFSA/views/PublishView.php:12
 msgid "Title"
 msgstr "Titre "
@@ -895,6 +897,9 @@ msgstr ""
 msgid "Arrivée"
 msgstr ""
 
+msgid "Registration"
+msgstr "Inscription"
+
 #: ../application/myEurope/doc/trads.php:2
 #: ../application/myEurope/doc/description.php:1
 msgid "<b>MyEurope</b> is a social network which is based on the meta-social network <b><em>myMed</em></b>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program."
@@ -918,11 +923,14 @@ msgstr "A propos de \"myEurope\""
 #: ../application/myEurope/doc/trads.php:7
 #: ../application/myEurope/views/MainView.php:19
 msgid "About"
-msgstr "A propos  "
+msgstr "A propos"
 
 #: ../application/myEurope/doc/trads.php:9
 msgid "Create an account"
 msgstr "Créer un compte"
+
+msgid "Account creation"
+msgstr "Création d'un compte"
 
 #: ../application/myEurope/doc/trads.php:11
 msgid "Informations"
@@ -1207,6 +1215,33 @@ msgstr "Vous êtes un administrateur avec tous les droits, amusez-vous!"
 #:../application/myEurope/views/UpdateReputationController.php:11
 msgid "Thank you for your contribution"
 msgstr "Merci pour votre contribution"
+
+#:../application/myEurope/views/LoginController.php:11
+msgid "Email field can't be empty"
+msgstr "Le champ email ne peut pas être vide"
+
+msgid "You must accept the terms of use."
+msgstr "Vous devez accepter les conditions d'utilisation."
+
+msgid "Complement profile registered successfully!"
+msgstr "Complément de profil enregistré avec succès!"
+
+#:../application/myEurope/views/LoginController.php:11
+msgid "Password field can't be empty"
+msgstr "Le champ mot de passe ne peut pas être vide!"
+
+#:../application/myEurope/views/LoginController.php:11
+msgid "Incorrect password"
+msgstr "Mot de passe incorrect"
+
+msgid "Loss of identifiers?"
+msgstr "Pertes d'identifiants?"
+
+msgid "An email has been sent to you!"
+msgstr "Un mail vient de vous être envoyé!"
+
+msgid "Internal error of registration"
+msgstr "Erreur interne d'enregistrement"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
 msgid "users list"
