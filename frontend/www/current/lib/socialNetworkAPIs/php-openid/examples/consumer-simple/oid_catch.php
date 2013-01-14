@@ -2,6 +2,8 @@
 
 require_once "oid-common.php";
 
+/* $_SESSION['appliName'] is (has to be) defined in the index.php of the current application for the redirection after log in with the social network */
+
 // Starts session (needed for YADIS)
 session_start();
 

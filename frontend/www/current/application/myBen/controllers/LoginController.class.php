@@ -59,11 +59,11 @@ class LoginController extends AbstractController {
 			// Login and password should not be empty
 			if( empty($login) ){
 				// TODO i18n
-				$this->error = "Le champ email ne peut pas être vide";
+				$this->error = _("Email field can't be empty");
 				$this->renderView("login");
 			} else if( empty($pass) ){
 				// TODO i18n
-				$this->error = "Le champ mot de passe ne peut pas être vide!";
+				$this->error = _("Password field can't be empty");
 				$this->renderView("login");
 			}
 					
@@ -92,7 +92,7 @@ class LoginController extends AbstractController {
 			
 			// wrong password
 			if($responseObject->status == 403) {
-				$this->error = "Mot de pass incorrect! <a href='?action=resetPassword&login=" . urlencode($login) . "' rel='external'>Pertes identifiants?</a>";
+				$this->error = _("Incorrect password")." <a href='?action=resetPassword&login=" . urlencode($login) . "' rel='external'>Pertes identifiants?</a>";
 					
 				// Show the login form
 				$this->renderView("main");

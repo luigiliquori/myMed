@@ -112,7 +112,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['password']);
 		if( empty($pass) ){
 			// TODO i18n
-			$this->error = "Password cannot be empty!";
+			$this->error = _("Email field can't be empty");
 			$this->renderView("ExtendedProfileEdit");
 		}
 		$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
@@ -144,7 +144,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (!empty($this->error))
 			$this->renderView("ExtendedProfileEdit");
 		else {
-			$this->success = "Complément de profil enregistré avec succès!";
+			$this->success = _("Complement profile registered successfully!");
 			$_SESSION['myEurope']->details = $_POST;
 			$_SESSION['myEurope']->reputation = $myrep;
 			$_SESSION['myEurope']->users = $users;
@@ -160,7 +160,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['form']);
 			
 		if(!$_POST['checkCondition']){
-			$this->error = "Vous devez accepter les conditions d'utilisation.";
+			$this->error = _("You must accept the terms of use.");
 			$this->renderView("ExtendedProfileCreate");
 		}
 		$_POST['id'] = hash("md5", time().$_POST['name']);

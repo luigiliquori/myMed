@@ -4,7 +4,7 @@
 	<? print_header_bar(true, "defaultHelpPopup"); ?>
 
 	<div data-role="header" data-theme="b">
-		<h1>Création d'un compte</h1>
+		<h1><?= _("Account creation") ?></h1>
 		<? include("notifications.php"); ?>
 	</div>
 
@@ -13,11 +13,11 @@
 		<!--  Register form -->
 		<form action="index.php?action=register" method="post" data-ajax="false">
 		
-				<label for="prenom">Prénom / Activité commerciale : </label>
+				<label for="prenom"><?= _("First name")?> : </label>
 				<input type="text" name="prenom" value="" />
 				<br />
 				
-				<label for="nom">Nom : </label>
+				<label for="nom"><?= _("Last name")?> :</label>
 				<input type="text" name="nom" value="" />
 				<br />
 				
@@ -25,11 +25,11 @@
 				<input type="text" name="email" value="" />
 				<br />
 				
-				<label for="password" >Mot de passe : </label>
+				<label for="password" ><?= _("Password")?> :</label>
 				<input type="password" name="password" />
 				<br />
 				
-				<label for="password" >Confirmation : </label>
+				<label for="password" ><?= _("Password Confirmation")?> :</label>
 				<input type="password" name="confirm" />
 				<br />
 				
@@ -42,7 +42,7 @@
 				</span><br />
 				
 				<center>
-					<input type="submit" data-role="button" data-theme="b" data-inline="true" value="Valider" />
+					<input type="submit" data-role="button" data-theme="b" data-inline="true" value=<?= _("Validate")?> />
 				</center>
 		
 		</form>
@@ -51,9 +51,9 @@
 	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
-				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>
-				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid"  class="ui-btn-active ui-state-persist">Inscription</a></li>
-				<li><a href="#about" data-transition="none" data-icon="info">A propos</a></li>
+				<li><a href="#login" data-transition="none" data-back="true" data-icon="home"><?= _("Sign in")?></a></li>
+				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid"  class="ui-btn-active ui-state-persist"><?= _("Registration")?></a></li>
+				<li><a href="#about" data-transition="none" data-icon="info"><?= _("About")?></a></li>
 			</ul>
 		</div>
 	</div>
