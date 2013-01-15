@@ -3,7 +3,7 @@
 
 <div data-role="page" id="home">
 
-	<? print_header_bar(false, "defaultHelpPopup"); ?>
+	<? print_header_bar(false, "defaultHelpPopup", true); ?>
 	
 	<div data-role="content" >
 	
