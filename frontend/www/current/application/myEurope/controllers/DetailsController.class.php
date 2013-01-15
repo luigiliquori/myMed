@@ -43,7 +43,10 @@ class DetailsController extends ExtendedProfileRequired {
 		} else {
 			$value = 100;
 		}
+		
+		// Save the reputation and the number of voters
 		$this->reputation["author"] = $value;
+		$this->reputation["author_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		// get value reputation
 		$request->addArgument("producer",  $predicate.$obj->publisherID);	
@@ -56,7 +59,10 @@ class DetailsController extends ExtendedProfileRequired {
 		} else {
 			$value = 100;
 		}
+		
+		// Save the reputation and the number of ratings
 		$this->reputation["value"] = $value;
+		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		// Render the view
 		$this->renderView("details");

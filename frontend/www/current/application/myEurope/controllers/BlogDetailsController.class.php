@@ -41,7 +41,7 @@ class BlogDetailsController extends AuthenticatedController {
 			}
 			$this->reputation["author"] = $value;
 		
-			// get value reputation
+			// Get Project reputation
 			$request->addArgument("producer",  $predicate.$obj->publisherID);	
 		
 			$responsejSon = $request->send();
@@ -52,7 +52,10 @@ class BlogDetailsController extends AuthenticatedController {
 			} else {
 				$value = 100;
 			}
+			
+			// Store reputation value and n. of ratings
 			$this->reputation["value"] = $value;
+			$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 			
 			//
 			$this->search_comment();

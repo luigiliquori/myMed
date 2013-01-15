@@ -72,14 +72,25 @@
 						
 						<p>
 							Publisher ID: <?= $item->publisherID ?><br/>
-							reputation: 
-							<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-								<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
-									<img alt="rep" src="img/yellowStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;" />
-								<?php } else { ?>
-									<img alt="rep" src="img/grayStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;"/>
-								<?php } ?>
-							<? } ?>
+							<p style="display:inline;" > Reputation: </p>  
+							<p style="display:inline;" >
+								<?php
+									// Disable reputation stars if there are no votes yet 
+									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
+									<?php for($i=1 ; $i <= 5 ; $i++) {?>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:80px; margin-top:3px;"/>
+									<?php } ?>
+								<?php else: ?>
+									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:80px; margin-top:3px;" />
+										<?php } else { ?>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:80px; margin-top:3px;"/>
+										<?php } ?>
+									<? } ?>
+								<?php endif; ?>
+								<p style="display:inline; margin-left:55px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+							</p>
 						</p>
 					</a>
 				</li>

@@ -10,6 +10,11 @@ class UpdateReputationController extends DetailsController {
 	
 	public /*void*/ function handleRequest() {
 		
+		// The reputation in DetailsView ranges from 1 to 5
+		// while the system needs valueas from 1 to 10
+		$_GET['reputation'] = $_GET['reputation']*2;
+		
+		
 		// update the reputation of the application
 		if(isset($_GET['reputation'])) {
 
