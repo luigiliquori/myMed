@@ -3,7 +3,8 @@
 
 <div data-role="page" id="home">
 
-	<? print_header_bar(false, "defaultHelpPopup", true); ?>
+	<? $title = "myEurope"; 
+	print_header_bar(false, "defaultHelpPopup", $title, true); ?>
 
 	
 	<div data-role="content" >
