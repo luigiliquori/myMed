@@ -34,7 +34,10 @@ class ModifyController extends ExtendedProfileRequired {
 		} else {
 			$value = 100;
 		}
+		
+		// Save reputation values
 		$this->reputation["author"] = $value;
+		$this->reputation["author_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		// get value reputation
 		$request->addArgument("producer",  $predicate.$obj->publisherID);	
@@ -47,7 +50,10 @@ class ModifyController extends ExtendedProfileRequired {
 		} else {
 			$value = 100;
 		}
+		
+		// Save reputation values
 		$this->reputation["value"] = $value;
+		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		// Render the view
 		$this->renderView("modify");

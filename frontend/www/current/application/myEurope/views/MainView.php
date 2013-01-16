@@ -2,8 +2,9 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page" id="home">
- <? $title = "myEurope";
-	print_header_bar(false, "defaultHelpPopup", $title); ?>
+
+	<? print_header_bar(false, "defaultHelpPopup", true); ?>
+
 	
 	<div data-role="content" >
 	

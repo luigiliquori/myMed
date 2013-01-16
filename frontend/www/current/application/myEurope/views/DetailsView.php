@@ -17,16 +17,26 @@
 								
 	    		<!-- REPUTATION -->
 	    		<div style="position: absolute; top:110px; right: 25px;">
-					<a href="#popupReputationProject" data-rel="popup">
-						<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-							<?php if($i*20-20 < $this->reputation["value"] ) { ?>
-								<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;" />
-							<?php } else { ?>
-								<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
-							<?php } ?>
-						<? } ?>
-					</a>
+						<?php
+							// Disable reputation stars if there are no votes yet 
+							if($this->reputation["value_noOfRatings"] == '0') : ?> 
+								<?php for($i=1 ; $i <= 5 ; $i++) {?>
+										<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
+								<?php } ?>
+								
+						<?php else: ?>
+							<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+								<?php if($i*20-20 < $this->reputation["value"] ) { ?>
+									<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;" />
+								<?php } else { ?>
+									<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
+								<?php } ?>
+							<? } ?>
+						<?php endif; ?>
+					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p><br/>
+					<a data-role="button" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" data-inline="true" style="text-decoration:none;" ><?= _("Rate project") ?></a>	
 				</div>
+				
 				<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 					<?= _("Do you like the project idea ?") ?><br /><br />
 					<form id="form1" action="#" method="get" data-ajax="false">
@@ -34,7 +44,8 @@
 						<input type="hidden" name="isData" value="1" />
 						<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 						<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
-						<input type="range" name="reputation" id="reputation" value="5" min="0" max="10" data-mini="true"/>
+						<label for="reputation"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
+						<input type="range" name="reputation" id="reputation" value="3" min="1" max="5" data-mini="true" step="1"/>
 						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g"/>
 					</form>
 				</div>

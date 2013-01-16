@@ -72,13 +72,12 @@ class MainController extends ExtendedProfileRequired {
 			$this->success = "Subscribe !";
 				
 		} else {
-				
+			
 			// load "Our Selection results"
 			$selectedResults = new Partnership();
 			$this->result = $selectedResults->find();
 			// get userReputation
 			$this->getReputation($this->result);
-			debug("NB PUBLICATION  total :".sizeof($this->result));
 		}
 
 		$this->renderView("Main");
@@ -121,8 +120,11 @@ class MainController extends ExtendedProfileRequired {
 		} else {
 			$value = 100;
 		}
+		
+		// Save reputation values
 		$this->reputationMap[$item->getPredicateStr().$item->publisherID] = $value;
-			
+		$this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] = $responseObject->dataObject->reputation->noOfRatings;
+		
 		endforeach;
 		
 	}

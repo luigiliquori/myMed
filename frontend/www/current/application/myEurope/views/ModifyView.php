@@ -14,15 +14,24 @@
 								
 	    		<!-- REPUTATION -->
 	    		<div style="position: absolute; top:110px; right: 25px;">
-					<a href="#popupReputationProject" data-rel="popup">
-						<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-							<?php if($i*20-20 < $this->reputation["value"] ) { ?>
-								<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;" />
-							<?php } else { ?>
-								<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
-							<?php } ?>
-						<? } ?>
-					</a>
+	    		<p style="display:inline; color: #2489CE; font-size:80%; font-weight: bold;"> <?= _("Project reputation") ?></p><br/>		
+						<?php
+							// Disable reputation stars if there are no votes yet 
+							if($this->reputation["value_noOfRatings"] == '0') : ?> 
+								<?php for($i=1 ; $i <= 5 ; $i++) {?>
+										<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
+								<?php } ?>
+								
+						<?php else: ?>
+							<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+								<?php if($i*20-20 < $this->reputation["value"] ) { ?>
+									<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;" />
+								<?php } else { ?>
+									<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
+								<?php } ?>
+							<? } ?>
+						<?php endif; ?>
+				<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p><br/>	
 				</div>
 				<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 					<?= _("Do you like the project idea ?") ?><br /><br />
