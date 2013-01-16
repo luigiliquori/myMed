@@ -302,8 +302,8 @@ msgid "Delete user"
 msgstr "Cancella utente"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:36
-msgid "Delete profile"
-msgstr "Cancella profilo"
+msgid "Delete my profile"
+msgstr "Cancella il mio profilo"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:42
 msgid "Edit my profile"
@@ -1037,6 +1037,9 @@ msgstr "<h3>Non dimenticate:</h3><p>Tiempire i campi in "
 #: ../application/myFSA/views/PublishView.php:23
 msgid "</p><p>More options are met, more a project will be visible.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>"
 msgstr "</p><p>Altre opzioni sono soddisfatti, più il progetto sarà visibile.</p><p>Quando si controlla / riempire diversi campi in una categoria, risultati corrispondere ad almeno uno dei criteri selezionati.</p>"
+
+msgid "You have to login to access all the menu options"
+msgstr "Devi effettuare il login per accedere a tutte le opzioni del menu"
 
 #: ../application/myFSA/views/PublishView.php:68
 msgid "How to publish"

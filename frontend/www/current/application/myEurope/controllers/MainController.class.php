@@ -20,7 +20,6 @@ class MainController extends ExtendedProfileRequired {
 	public function handleRequest() {
 		
 		parent::handleRequest();
-
 		/*if($_POST["fromPublish"]){
 			$this->redirectTo("main");
 		}*/
@@ -39,7 +38,6 @@ class MainController extends ExtendedProfileRequired {
 			$this->forwardTo("main");
 				
 		} else*/if(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
-				
 			// -- Search
 			$search = new Partnership();
 			$this->fillObj($search);
@@ -49,7 +47,7 @@ class MainController extends ExtendedProfileRequired {
 			$this->getReputation($this->result);
 				
 			$this->renderView("results");
-				
+							
 		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
 
 			$obj = new Partnership();
@@ -80,7 +78,6 @@ class MainController extends ExtendedProfileRequired {
 			$this->result = $selectedResults->find();
 			// get userReputation
 			$this->getReputation($this->result);
-			
 		}
 
 		$this->renderView("Main");

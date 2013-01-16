@@ -377,7 +377,7 @@ msgstr "Domicile"
 #: ../application/myMemory/views/ExtendedProfileEditView.php:190
 #: ../application/myMemory/views/ExtendedProfileDisplayView.php:92
 msgid "EditProfile"
-msgstr "Modifier le profil"
+msgstr "Modifier profil"
 
 #: ../application/myMemory/views/ExtendedProfileEditView.php:54
 msgid "MyMemory_EditProfileStep1Desc"
@@ -633,6 +633,9 @@ msgstr "Alertes par e-mail envoyées!"
 msgid "CreateProfile"
 msgstr "Création du profil"
 
+msgid "Create a profile"
+msgstr "Création d'un profil"
+
 #: ../application/myMemory/views/ExtendedProfileCreateView.php:54
 msgid "MyMemory_CreateProfileStep1Desc"
 msgstr ""
@@ -744,6 +747,9 @@ msgstr "Visite d’entreprise"
 msgid "Publish"
 msgstr "Publier"
 
+msgid "Publish offer"
+msgstr "Publier offre"
+
 #: ../application/myFSA/views/PublishView.php:68
 msgid "How to publish"
 msgstr "Comment publier"
@@ -751,6 +757,15 @@ msgstr "Comment publier"
 #: ../application/myFSA/views/PublishView.php:68
 msgid "Publish your project"
 msgstr "Publier votre projet"
+
+msgid "List my projects"
+msgstr "Lister mes projets"
+
+msgid "ListProjects"
+msgstr "Liste de mes projets"
+
+msgid "Projects list"
+msgstr "Liste projets"
 
 #: ../application/myEurope/views/MainView.php:333
 msgid "<p>Enter a <b>title</b> for your project, then a <b>keywords</b> list separated by a space.<br />"
@@ -864,6 +879,9 @@ msgstr "Comment rechercher"
 msgid "Search a project"
 msgstr "Rechercher un projet"
 
+msgid "Add partnerships"
+msgstr "Ajouter des partenariats"
+
 #: ../application/myFSA/views/SearchView.php:35
 msgid "<p>Enter a list of <strong>keywords</strong> corresponding to your projects search or partnerships."
 msgstr "<p>Saisissez une liste de <strong>mots clés</strong> correspondant à votre recherche de projets ou de partenariats."
@@ -959,7 +977,7 @@ msgstr ""
 
 #: ../application/myEurope/views/AdminView.php:10
 msgid "Profiles list"
-msgstr "Liste des profils"
+msgstr "Liste profils"
 
 #: ../application/myEurope/views/AdminView.php:13
 msgid "Notify me of new users"
@@ -1035,6 +1053,9 @@ msgstr "L'idée est de fournir un outil pour simplifier et aider la création de
 #: ../application/myEurope/views/MainView.php:12
 msgid "Search a partnership offer"
 msgstr "Rechercher un partenariat"
+
+msgid "Search partnership"
+msgstr "Rechercher partenariat"
 
 #: ../application/myEurope/views/MainView.php:15
 msgid "Insert a partnership offer"
@@ -1253,6 +1274,15 @@ msgstr "Phases du projet"
 msgid "Project themes"
 msgstr "Thèmes de projet"
 
+msgid "Project title"
+msgstr "Titre du projet"
+
+msgid "Modify publication"
+msgstr "Modifier publication"
+
+msgid "Delete publication"
+msgstr "Supprimer publication"
+
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
 msgid "Users"
 msgstr "Utilisateurs"
@@ -1269,13 +1299,25 @@ msgstr "Retour à la liste de profils"
 msgid "Delete user"
 msgstr "Supprimer l'utilisateur"
 
+msgid "Here you can modify your profile and list your active projects."
+msgstr "Vous pouvez modifier ici votre profil et lister vos projets actifs."
+
+msgid "Edit Profile and Projects"
+msgstr "Modifier profil et projets"
+
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:36
-msgid "Delete profile"
-msgstr "Supprimer le profil"
+msgid "Delete my profile"
+msgstr "Supprimer mon profil"
+
+msgid "Delete publications"
+msgstr "Supprimer publications"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:42
 msgid "Edit my profile"
 msgstr "Modifier mon profil"
+
+msgid "Edit project"
+msgstr "Modifier le projet"
 
 #: ../application/myEurope/views/PublishSuccessView.php:10
 msgid "Your partnership offer has been successfully published"
@@ -1671,6 +1713,9 @@ msgstr ""
 #: ../application/myBen/views/ShowProfileView.php:58
 msgid "Supprimer"
 msgstr ""
+
+msgid "EditProject"
+msgstr "Modifier le projet"
 
 #: ../application/myBen/views/EditProfileAssociationView.php:19
 #: ../application/myBen/views/EditProfileBenevoleView.php:20
@@ -2309,6 +2354,9 @@ msgstr "Précédent"
 msgid "Suivant"
 msgstr "Suivant"
 
+msgid "You have to login to access all the menu options"
+msgstr "Vous devez vous connecter pour accéder à toutes les options du menu"
+
 #: ../system/controllers/RegisterController.class.php:88
 msgid "Erreur interne d'enregistrement"
 msgstr "Erreur interne d'enregistrement"
@@ -2333,6 +2381,9 @@ msgstr "La création d'un compte dans myEurope vous permettra de soumettre de no
 msgid "Don't forget that you have the possibility to use your social network accounts to create your profile: see button"
 msgstr "N'oubliez pas que vous avez la possiblilité d'utiliser vos comptes de réseaux sociaux pour créer votre profil: voir bouton"
 
+msgid "Topics in cathegory"
+msgstr "Rubriques dans la catégorie"
+
 #, fuzzy
 #~ msgid "callingSlot1"
 #~ msgstr "Deuxième personne à appeller"
@@ -2344,8 +2395,8 @@ msgstr "N'oubliez pas que vous avez la possiblilité d'utiliser vos comptes de r
 #~ msgid "all partnerships"
 #~ msgstr "tous les partenariats"
 
-#~ msgid "Profiles"
-#~ msgstr "Profils"
+msgid "Profiles"
+msgstr "Profils"
 
 #~ msgid "to new messages"
 #~ msgstr "aux nouveaux messages"
@@ -2404,8 +2455,11 @@ msgstr "N'oubliez pas que vous avez la possiblilité d'utiliser vos comptes de r
 #~ msgid "Insert an offer"
 #~ msgstr "Déposer une offre "
 
-#~ msgid "Results"
-#~ msgstr "Résultats"
+msgid "Results"
+msgstr "Résultats"
+
+msgid "Details"
+msgstr "Détails"
 
 #~ msgid "Places"
 #~ msgstr "Lieux"

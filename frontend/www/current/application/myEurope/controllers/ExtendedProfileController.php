@@ -66,10 +66,15 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->deleteUser($_GET['rmUser']);
 		else if (isset($_GET['rmProfile']))
 			$this->deleteProfile($_GET['rmProfile']);
+		
+		///////////////////////////////////////////////////
+		else if (isset($_GET['rmPublications'])){
+			debug("rmPublications");
+			$this->deletePublications($_GET['rmPublications']);
+		}
 	}
 	
 
-	
 	function createUser($profile){
 	
 		$permission = (
@@ -98,7 +103,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$publish->send();
 		
 		//$_SESSION['myEurope']->profile = $profile;
-		$this->success = "Complément de profil enregistré avec succès!";
+		$this->success = _("Complement profile registered successfully!");
 		
 		//subscribe to our profile changes (permission change - partnership req accepted)
 		$subscribe = new RequestJson( $this,
@@ -298,5 +303,18 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->success = "done";
 		$this->renderView("main");
 	
+	}
+	
+	function deletePublications($id){
+		
+		$search_by_userid = new Partnership();
+		$search_by_userid->publisher = $id;
+		$result = $search_by_userid->find();
+		debug("NB PUBLICATION  de ".$search_by_userid->publisher." :".sizeof($result));
+		foreach($result as $item) :
+			$item->delete();
+		endforeach;
+		
+		$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 	}
 }

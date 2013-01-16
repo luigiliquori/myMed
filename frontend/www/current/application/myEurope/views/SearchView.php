@@ -1,6 +1,7 @@
 <div data-role="page" id="search">
 
-	<? print_header_bar(true, "searchHelpPopup"); ?>
+  <? $title = _("Search partnership");
+	 print_header_bar(true, "searchHelpPopup", $title); ?>
 	
 	<div data-role="content">
 	

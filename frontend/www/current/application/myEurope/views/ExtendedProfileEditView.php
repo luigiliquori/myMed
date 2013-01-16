@@ -2,7 +2,8 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page">
-	<? print_header_bar(true, "defaultHelpPopup"); ?>
+	<? $title = _("EditProfile");
+	 print_header_bar(true, "defaultHelpPopup", $title); ?>
 	
 	
 	<div data-role="content">

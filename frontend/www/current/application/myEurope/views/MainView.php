@@ -3,7 +3,9 @@
 
 <div data-role="page" id="home">
 
-	<? print_header_bar(false, "defaultHelpPopup", true); ?>
+	<? $title = "myEurope"; 
+	print_header_bar(false, "defaultHelpPopup", $title, true); ?>
+
 	
 	<div data-role="content" >
 	
@@ -18,9 +20,10 @@
 			<?= _("The idea is to provide a tool to simplify and support the creation of European projects as myMed.") ?></p>	
 		</div>
 		
-		<br />
-		
 		<?php if ($_SESSION['user']->is_guest) { ?>
+				<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
+		<?php }else{ ?> <br />
+		<?php }if ($_SESSION['user']->is_guest) { ?>
 		<a href="index.php?action=extendedProfile" rel="external" data-icon="signin" data-role="button" ><?=_("Sign in")?></a><br />
 		<?php } ?>
 		<a href="#search" data-role="button" data-icon="search"><?= _("Search a partnership offer") ?></a><br />

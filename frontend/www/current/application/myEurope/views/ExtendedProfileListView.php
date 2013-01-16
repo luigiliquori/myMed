@@ -2,8 +2,8 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page" id="profiles">
-	
-	<? print_header_bar(true, false); ?>
+	<? $title = _("Profiles list");
+	   print_header_bar(true, "defaultHelpPopup", $title); ?>
 
 	<div data-role="content">
 		<br>

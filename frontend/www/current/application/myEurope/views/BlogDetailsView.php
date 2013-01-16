@@ -1,6 +1,7 @@
 <div data-role="page" data-ajax="false">
 
-	<? print_header_bar(true, false); ?>
+	<? $title = _("Details");
+	print_header_bar(true, false, $title); ?>
 	
 	<div data-role="content">
 	
@@ -17,7 +18,7 @@
 						<input type="hidden" name="pred2" value="<?= $this->result->pred2 ?>" />
 						<input type="hidden" name="pred3" value="<?= $this->result->pred3 ?>" />
 		 				<input type="hidden" name="method" value="Delete" />
-						<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= translate('Delete publication') ?>" />
+						<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= _('Delete publication') ?>" />
 		 			</form>
 				<? } ?> 
 			
