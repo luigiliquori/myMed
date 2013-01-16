@@ -1,6 +1,7 @@
 <div data-role="page" id="modify">
 
-	<? print_header_bar(true, false); ?>
+	<? $title = _("EditProject");
+	print_header_bar(true, false, $title); ?>
 	
 	<div data-role="content" >
 	
@@ -38,7 +39,7 @@
 	    		
 				<div>
 					<!-- TITLE -->
-					<h3>Project title: <?= $this->result->title ?> </h3>
+					<h3><?= _("Project title")?>: <?= $this->result->title ?> </h3>
 					
 					<!-- TEXT -->
 					<textarea id="projecttext" name="projecttext"><?= $this->result->text ?></textarea>

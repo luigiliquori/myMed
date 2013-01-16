@@ -2,8 +2,8 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page" id="publish">
-	
-	<? print_header_bar(true, "publishHelpPopup"); ?>
+  <? $title = _("Publish offer");	
+	 print_header_bar(true, "publishHelpPopup", $title); ?>
 
 	<div data-role="content">
 	

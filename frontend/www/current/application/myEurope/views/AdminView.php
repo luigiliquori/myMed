@@ -2,7 +2,8 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page" id="users">
-	<? print_header_bar(true, "defaultHelpPopup"); ?>
+  <? $title = _("Administration");
+	 print_header_bar(true, "defaultHelpPopup", $title); ?>
 	
 	<div data-role="content">
 		<br>
@@ -41,7 +42,7 @@
 		</ul>
 		<br /><br />
 		<div data-role="collapsible" data-content-theme="c">
-		   <h3>Add partnerships</h3>
+		   <h3><?= _("Add partnerships")?></h3>
 		   <form action="index.php?action=DB" method="post" data-ajax="false">
 		   	  <input type="hidden" name="method" value="addPartnership">
 		 	  <textarea rows="" cols="" name="data"></textarea>

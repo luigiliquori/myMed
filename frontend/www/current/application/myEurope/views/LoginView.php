@@ -2,8 +2,8 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page" id="login">
-
-	<? print_header_bar(true, false); ?>
+	<? $title = _("Sign in");
+	 print_header_bar(true, false, $title); ?>
 	
 	<div data-role="content" class="content">
 		
@@ -25,7 +25,7 @@
 					<input type="hidden" name="signin" value="1" />
 					<div style="text-align: left;">Email :</div>
 					<input type="text" name="login" id="login" data-theme="c"/>
-				    <div style="text-align: left;">Password :</div>
+				    <div style="text-align: left;"><?= _("Password")?> :</div>
 				    <input type="password" name="password" id="password" data-inline="true"  data-theme="c"/>  
 				    <br />
 				    <div data-role="controlgroup" data-type="horizontal">
@@ -72,9 +72,12 @@
 </div>
 	
 <div data-role="page" id="register">
+	<? $title = _("Register");
+	print_header_bar(true, false, $title); ?>
 	
-	<? print_header_bar(true, false); ?>
-	
+	<div data-role="header" data-theme="b">
+		<h1><?= _("Account creation") ?></h1>
+	</div>
 	<div data-role="content">
 	
 		<? print_notification($this->success.$this->error); ?>

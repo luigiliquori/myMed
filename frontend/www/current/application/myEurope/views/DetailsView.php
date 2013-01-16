@@ -1,8 +1,8 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page">
-
-	<? print_header_bar(true, false); ?>
+  <? $title = _("Details");
+	 print_header_bar(true, false, $title); ?>
 	
 	<div data-role="content" >
 	

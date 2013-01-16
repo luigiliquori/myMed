@@ -1,6 +1,7 @@
 <div data-role="page" id="search">
 
-	<? print_header_bar(true, "searchHelpPopup"); ?>
+  <? $title = _("Search partnership");
+	 print_header_bar(true, "searchHelpPopup", $title); ?>
 	
 	<div data-role="content">
 	
@@ -72,7 +73,7 @@
 						
 						<p>
 							Publisher ID: <?= $item->publisherID ?><br/>
-							reputation: 
+							<?= ("reputation")?>: 
 							<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 								<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
 									<img alt="rep" src="img/yellowStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;" />

@@ -1,8 +1,8 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page">
-
-	<? print_header_bar(true, false); ?>
+ <? $title = _("Credits");
+	print_header_bar(true, false, $title); ?>
 	
 	<div data-role="content" class="content">
 		<!-- <a href="/application/myMed/" rel="external"><img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" style="margin-top: -15px;"/></a>-->

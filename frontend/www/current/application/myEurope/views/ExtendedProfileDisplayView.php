@@ -2,8 +2,8 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page">
-
-	<? print_header_bar(true, "defaultHelpPopup"); ?>
+  <? $title = _("Profile");
+	 print_header_bar(true, "defaultHelpPopup", $title); ?>
 	
 	<div data-role="content">
 		<br><br>
@@ -35,8 +35,9 @@
 			<a href="?action=ExtendedProfile&method=delete&rmUser=<?= $_GET['user'] ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete user') ?></a>
 			<br />
 			<a href="?action=ExtendedProfile&method=delete&rmProfile=<?= $this->profile->id ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete profile') ?></a>
-			
-			<? endif ?>
+			<br />
+			<a href="?action=ExtendedProfile&method=delete&rmPublications=<?= $_SESSION['user']->id ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete publications') ?></a>
+			<? endif; ?>
 			
 			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
 			<br />

@@ -1,13 +1,14 @@
 <div data-role="page" id="BlogResult" data-ajax="false">
-	<? print_header_bar(true, false); ?>	
+	<? $title = _("Results");
+	print_header_bar(true, false, $title); ?>	
 	<div data-role="content" data-ajax="false">
 	<? include_once 'notifications.php'; ?>
 		<br />
 		<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
-			<li data-role="list-divider">Topics in cathegory <?= $this->cathegory ?></li>		
+			<li data-role="list-divider"><?= _("Topics in cathegory")?>: <?= $this->cathegory ?></li>		
 			<? if (count($this->result) == 0) :?>
 				<li>
-					<h4>No result found</h4>
+					<h4><?= _("No result found")?></h4>
 				</li>
 			<? endif ?>
 			
@@ -15,12 +16,12 @@
 				<li>
 				<!-- Print Publisher reputation -->
 					<a data-ajax="false" href="?action=blogDetails&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
-						<h3>Tittle: <?= $item->pred2 ?></h3>
-						<b>Publication date</b>: <?=  date('Y-m-d', $item->begin) ?><br/>
+						<h3><?= _("Title")?>: <?= $item->pred2 ?></h3>
+						<b><?= _("Publication date")?></b>: <?=  date('Y-m-d', $item->begin) ?><br/>
 						<br/>
 						<p>
 							Publisher ID: <?= $item->publisherID ?><br/>
-							reputation: 
+							<?= _("reputation")?>: 
 							<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 							<?php if($i*20-20 < $this->reputationMap[$item->publisherID] ) { ?>
 							<img alt="rep" src="img/yellowStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;" />
@@ -56,7 +57,7 @@
 			
 			<textarea id="CLEeditor" name="data1"></textarea>
 			<input type="hidden" name="method" value="Publish" />
-			<center><input type="submit" value="<?= translate('Publish') ?>" data-inline="true" data-icon="check"/></center>			
+			<center><input type="submit" value="<?= _('Publish') ?>" data-inline="true" data-icon="check"/></center>			
 		</form>		
 	</div>
 </div>
