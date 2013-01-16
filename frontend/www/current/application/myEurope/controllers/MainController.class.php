@@ -18,11 +18,15 @@ class MainController extends ExtendedProfileRequired {
 	}
 
 	public function handleRequest() {
-
+		
 		parent::handleRequest();
 
-		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
-				
+		/*if($_POST["fromPublish"]){
+			$this->redirectTo("main");
+		}*/
+		
+		/*if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
+			debug("dans request method");
 			// -- Publish
 			$obj = new Partnership();
 				
@@ -32,8 +36,9 @@ class MainController extends ExtendedProfileRequired {
 			$obj->publish();
 				
 			$this->success = "Published !";
+			$this->forwardTo("main");
 				
-		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
+		} else*/if(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {
 				
 			// -- Search
 			$search = new Partnership();
@@ -78,7 +83,7 @@ class MainController extends ExtendedProfileRequired {
 			
 		}
 
-		$this->renderView("main");
+		$this->renderView("Main");
 	}
 
 	/**

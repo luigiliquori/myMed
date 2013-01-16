@@ -1,0 +1,5 @@
+AuthName "Restricted Access: insert credentials"
+AuthType Basic
+AuthUserFile "/local/mymed/build/mymed/application/myStudentAdmin/.htpasswd"
+
+Require valid-user

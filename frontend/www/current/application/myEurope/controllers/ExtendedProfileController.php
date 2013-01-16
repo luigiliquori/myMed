@@ -130,11 +130,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['password']);
 		if( empty($pass) ){
 			// TODO i18n
-			$this->error = "Password cannot be empty!";
+			$this->error = _("Email field can't be empty");
 			$this->renderView("ExtendedProfileEdit");
 		}
 		$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
-		$request->addArgument("login", $_SESSION['user']->email);
+		$request->addArgument("login", $_SESSION['user']->login);
 		$request->addArgument("password", $pass);
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
@@ -142,8 +142,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
 			$this->renderView("ExtendedProfileEdit");
-			$debugtxt  =  "<pre>EEEEEEEEEEEEEERRRooooor";
-			debug($debugtxt);
 		}
 		
 		$_POST['desc'] = nl2br($_POST['desc']);
@@ -167,13 +165,12 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (!empty($this->error))
 			$this->renderView("ExtendedProfileEdit");
 		else {
-			$this->success = "Complément de profil enregistré avec succès!";
+			$this->success = _("Complement profile registered successfully!");
 			$_SESSION['myEurope']->details = $_POST;
 			$_SESSION['myEurope']->reputation = $myrep;
 			$_SESSION['myEurope']->users = $users;
 	
-			$this->redirectTo("ExtendedProfile", array(), "#profile");
-	
+			$this->redirectTo("Main", array(), "#profile");
 		}
 		
 	}
@@ -184,7 +181,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['form']);
 			
 		if(!$_POST['checkCondition']){
-			$this->error = "Vous devez accepter les conditions d'utilisation.";
+			$this->error = _("You must accept the terms of use.");
 			$this->renderView("ExtendedProfileCreate");
 		}
 		$_POST['id'] = hash("md5", time().$_POST['name']);

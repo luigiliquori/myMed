@@ -14,13 +14,13 @@ class RegisterController extends AbstractController {
 			
 			// Preconditions TODO : i18n of error messages
 			if($_POST['password'] != $_POST['confirm']){
-				$this->error = "Mot de passe != confirmation";
+				$this->error = _("Passwords do not match");
 			} else if( empty($_POST['password']) ){
-				$this->error = "Le mot de passe ne peut pas être vide.";
+				$this->error = _("Password field can't be empty");
 			} else if( empty($_POST['email']) ){
-				$this->error = "L'email ne peut pas être vide.";
+				$this->error = _("Email field can't be empty");
 			} else if(!$_POST['checkCondition']){
-				$this->error = "Vous devez accepter les conditions d'utilisation.";
+				$this->error = _("You must accept the terms of use.");
 			} else if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false){
 				$this->error = _("Email not valid");
 			}
@@ -69,7 +69,7 @@ class RegisterController extends AbstractController {
 				$this->error = $responseObject->description;
 				$this->renderView("register");
 			} else {
-				$this->success = "Félicitation, Un email de confirmation vient de vous être envoyé!";
+				$this->success = _("An email has been sent to you!");
 				$this->renderView("login");
 			}
 		}
@@ -85,7 +85,7 @@ class RegisterController extends AbstractController {
 		 
 		} else {
 			
-			$this->error = _("Erreur interne d'enrgistrement");
+			$this->error = _("Internal error of registration");
 			$this->renderView("register");
 		}
 		

@@ -23,7 +23,7 @@ class ResetPasswordController extends AbstractController {
 			if($responseObject->status != 200) {
 				$this->error = $responseObject->description;
 			} else {
-				$this->success = "Un mail vient de vous être envoyé!";
+				$this->success = _("An email has been sent to you!");
 			}
 			$this->renderView("login");
 
