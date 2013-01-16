@@ -19,7 +19,7 @@
 		</div>
 		
 		<?php if ($_SESSION['user']->is_guest) { ?>
-				<p Style="text-align: center;"><?= _("You have to login to access all the menu options") ?></p>
+				<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
 		<?php }else{ ?> <br />
 		<?php }if ($_SESSION['user']->is_guest) { ?>
 		<a href="index.php?action=extendedProfile" rel="external" data-icon="signin" data-role="button" ><?=_("Sign in")?></a><br />
