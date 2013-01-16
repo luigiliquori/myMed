@@ -37,7 +37,7 @@ import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.mailtemplates.MailDispatcher;
 import com.mymed.controller.core.manager.profile.ProfileManager;
-import com.mymed.controller.core.manager.publish.PublishManager;
+import com.mymed.controller.core.manager.pubsub.deprecated.PublishManager;
 import com.mymed.controller.core.requesthandler.message.JsonMessageIn;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.utils.CombiLine;

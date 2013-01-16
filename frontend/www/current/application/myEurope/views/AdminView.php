@@ -6,7 +6,7 @@
 	 print_header_bar(true, "defaultHelpPopup", $title); ?>
 	
 	<div data-role="content">
-		<br>
+		<br/>
 		<a type="button" href="?action=ExtendedProfile&list" data-mini="true" data-inline="true" rel="external"  data-icon="list" title="<?= _('list of organizations profiles in myEurope') ?>"><?= _('Profiles list') ?></a>
 				
 		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"
@@ -51,6 +51,16 @@
 		 	  </div>
 		   </form>
 		</div>
+		
+	</div>
+	
+	<!-- ----------------- -->
+	<!-- DEFAULT HELP POPUP -->
+	<!-- ----------------- -->
+	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<h3><?= _("Manage users") ?></h3>
+		<p> <?= _("Here you can change user category. <br /> Categories are: 'Admin', 'Normal user' and 'New User'.") ?></p>
 		
 	</div>
 	

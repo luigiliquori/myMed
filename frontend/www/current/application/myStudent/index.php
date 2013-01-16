@@ -1,34 +1,61 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>myStudent</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1"> 
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
-		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-	</head>
+<?php
+	// page compression
+	ob_start("ob_gzhandler");	
+	// for the magic_quotes
+	@set_magic_quotes_runtime(false);	
 	
-	<body>
-		<div data-role="page"> 
-			<div data-role="header" data-theme="b"><h1>myStudent</h1></div> 
-			<div data-role="content"><iframe src="http://docs.google.com/gview?url=http://mymed2.sophia.inria.fr/application/myStudent/myStudent.pdf&embedded=true" style="width:100%; height:800px;;" frameborder="0"></iframe></div> 
-			<div data-role="footer" data-theme="c">
-				<center>
-				<h4>myMed - INTERREG IV - Alcotra</h4>
-				<img alt="Alcotra" src="../../system/img/logos/alcotra"
-					style="width: 100px;" /> <img alt="Europe"
-					src="../../system/img/logos/europe" style="width: 50px;" /> <img
-					alt="Conseil Général 06" src="system/img/logos/cg06"
-					style="width: 100px; height: 30px;" /> <img alt="Regine Piemonte"
-					src="../../system/img/logos/regione" style="width: 100px;" /> <img
-					alt="Région PACA" src="../../system/img/logos/PACA" style="width: 100px;" />
-				<img alt="Prefecture 06" src="../../system/img/logos/pref"
-					style="width: 70px;" /> <img alt="Inria"
-					src="../../system/img/logos/inria.jpg" style="width: 100px;" />
-				<p>"Ensemble par-delà les frontières"</p>
-				</center>
-			</div> 
-		</div> 
-	</body>
-</html>
+	// DEBUG
+	ini_set('display_errors', 1);
+	
+	session_start();
+	
+	// GET ALL THE API KEYs AND ADDRESS
+	require_once dirname(__FILE__).'/../../system/config.php';
+	
+	// IMPORT DICIONARY
+	require_once dirname(__FILE__).'/dictionary.php';
+	
+	define('APPLICATION_NAME', "myStudent");
+	define('VISITOR_ID', "MYMED_myStudent_visitor@yopmail.com");
+	define('USER_CONNECTED', isset($_SESSION['user']));
+	
+	// CREATE THE HTML HEADER
+	require_once dirname(__FILE__).'/TemplateManager.class.php';
+	$template = new TemplateManager();
+	$template->getHeader();
+	
+	// IMPORTS ALL THE HANDLER
+	require_once dirname(__FILE__).'/controller/MyApplicationHandler.class.php';	$application = new MyApplicationHandler();
+	require_once dirname(__FILE__).'/controller/LoginHandler.class.php';			$login = new LoginHandler();
+	require_once dirname(__FILE__).'/controller/InscriptionHandler.class.php';		$inscription = new InscriptionHandler();
+	require_once dirname(__FILE__).'/controller/MenuHandler.class.php';				new MenuHandler();
+	
+	// Default user -> Visitor
+	if(!USER_CONNECTED){
+		if(!isset($_SESSION['error'])){
+			echo '<form action="#" method="post" name="signinForm" id="signinForm">';
+			echo '<input type="hidden" name="signin" value="visitor" />';
+			echo '</form>';
+			echo '<script type="text/javascript">document.signinForm.submit();</script>';
+		} else {
+			echo '<script type="text/javascript">alert(\'Error during the login of the visitor user, please refresh the page and try again...\');</script>';
+			unset($_SESSION['error']);
+		}
+	}
+	
+	// IMPORTS ALL THE VIEWS	
+	require_once dirname(__FILE__).'/views/AbstractView.class.php';	
+	require_once dirname(__FILE__).'/views/home/MainView.class.php';			new MainView();
+	require_once dirname(__FILE__).'/views/home/FindView.class.php';			new FindView($application);
+	require_once dirname(__FILE__).'/views/home/ResultView.class.php';			new ResultView($application);
+	require_once dirname(__FILE__).'/views/home/DetailView.class.php';			new DetailView($application);
+	require_once dirname(__FILE__).'/views/home/PublishView.class.php';			new PublishView($application);
+	require_once dirname(__FILE__).'/views/home/ProfileView.class.php';			new ProfileView($login, $inscription);
+	require_once dirname(__FILE__).'/views/home/UpdateProfileView.class.php';	new UpdateProfileView();
+	require_once dirname(__FILE__).'/views/home/InscriptionView.class.php';		new InscriptionView();
+	require_once dirname(__FILE__).'/views/home/SubscribeView.class.php';		new SubscribeView($application);
+	
+	// CLOSE THE HTML PAGE
+	$template->getFooter();
+	
+?>
