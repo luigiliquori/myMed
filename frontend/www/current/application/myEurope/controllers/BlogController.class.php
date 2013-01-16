@@ -15,13 +15,14 @@ class BlogController extends AuthenticatedController {
 		parent::handleRequest();
 			
 		if (isset($_REQUEST['method']) && $_REQUEST['method'] == "Publish") {
-
-			// -- Publish
-			$obj = new BlogObject();
+			if(!empty($_POST['data1']) && !empty($_POST['pred2'])){
+				// -- Publish
+				$obj = new BlogObject();
 			
-			// Fill the object
-			$this->fillObj($obj);
-			$obj->publish();
+				// Fill the object
+				$this->fillObj($obj);
+				$obj->publish();
+			}
 			header("location: index.php?action=blog&method=Search&cathegory=".$_POST['pred1']);
 			
 		} elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Search") {			
@@ -82,14 +83,15 @@ class BlogController extends AuthenticatedController {
 		} 
 		elseif(isset($_REQUEST['method']) && $_REQUEST['method'] == "Comment") {
 			// -- Publish
-				
-			$obj = new BlogObject();
+			if(!empty($_POST['wrapped1']) ){
+				$obj = new BlogObject();
 			
-			// Fill the object
-			$this->fillObj_comments($obj);
-			$obj->publish();
+				// Fill the object
+				$this->fillObj_comments($obj);
+				$obj->publish();
 				
-			$this->result = $obj;
+				$this->result = $obj;
+			}
 			header("location: index.php?action=blogDetails&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
 		}
 

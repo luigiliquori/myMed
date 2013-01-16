@@ -6,7 +6,7 @@
 	<div data-role="content">
 	
 		<? include_once 'notifications.php'; ?>
-	
+		<? print_notification($this->success.$this->error); ?>
 		<div data-role="collapsible-set" data-content-theme="d">
 
 			<div data-role="collapsible" data-collapsed="false">
@@ -55,14 +55,14 @@
 						<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
 						<label for="reputation"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
 						<input type="range" name="reputation" id="reputation" value="3" min="1" max="5" data-mini="true" step="1"/>
-						<input type="submit" value=<?= _("Rate")?> data-mini="true" data-theme="g"/>
+						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g"/>
 					</form>
 				</div>
 				<!-- END Publication REPUTATION -->
 								
 				<p style="position: relative; margin-left: 30px;">
-					<b>Cathegory</b>: <?= $this->result->pred1 ?><br/>
-					<b>Date</b>: <?= date('Y-m-d', $this->result->begin) ?><br/>
+					<b><?= _("Cathegory")?></b>: <?= $this->result->pred1 ?><br/>
+					<b><?= _("Date")?></b>: <?= date('Y-m-d', $this->result->begin) ?><br/>
 				</p>
 				
 				<br/>
@@ -97,7 +97,7 @@
 				
 				
 				<div data-role="collapsible" data-content-theme="d">
-	 				<h3><?= translate('Comments') ?></h3>
+	 				<h3><?= _('Comments') ?></h3>
 		 			<!-- displaying comments -->
 					<br/>
 		 			<?foreach ($this->result_comment as $item) :?>
@@ -118,7 +118,7 @@
 		 			<form action="index.php?action=blog" method="POST" data-ajax="false">
 		 				<textarea name="wrapped1"></textarea>
 		 				<input type="hidden" name="method" value="Comment" />
-						<input type="submit" value="<?= translate('Comment') ?>" />
+						<input type="submit" value="<?= _('Comment') ?>" />
 		 			</form>
 	 	
 	 				</div>
