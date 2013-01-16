@@ -39,13 +39,13 @@ class BlogController extends AuthenticatedController {
 			//we obtain list of the topic
 			$this->result = $search->find();
 			
-			// get userReputation
+			// Get Topic reputation
 			foreach($this->result as $item) :
 			
-				// Get the reputation of the user in each application
+				//  Get Topic reputation
 				$request = new Request("ReputationRequestHandler", READ);
 				$request->addArgument("application",  APPLICATION_NAME);
-				$request->addArgument("producer",  $item->publisherID);		
+				$request->addArgument("producer", $item->getPredicateStr().$item->publisherID);		
 				$request->addArgument("consumer",  $_SESSION['user']->id);
 				
 				$responsejSon = $request->send();
@@ -56,7 +56,11 @@ class BlogController extends AuthenticatedController {
 				} else {
 					$value = 100;
 				}
-				$this->reputationMap[$item->publisherID] = $value;
+				
+				// Store reputation value and n. of rates 
+				// Save reputation values
+				$this->reputationMap[$item->getPredicateStr().$item->publisherID] = $value;
+				$this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] = $responseObject->dataObject->reputation->noOfRatings;
 			
 			endforeach;
 			
