@@ -1299,9 +1299,18 @@ msgstr "Retour à la liste de profils"
 msgid "Delete user"
 msgstr "Supprimer l'utilisateur"
 
+msgid "Here you can modify your profile and list your active projects."
+msgstr "Vous pouvez modifier ici votre profil et lister vos projets actifs."
+
+msgid "Edit Profile and Projects"
+msgstr "Modifier profil et projets"
+
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:36
-msgid "Delete profile"
-msgstr "Supprimer le profil"
+msgid "Delete my profile"
+msgstr "Supprimer mon profil"
+
+msgid "Delete publications"
+msgstr "Supprimer publications"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:42
 msgid "Edit my profile"

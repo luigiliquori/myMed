@@ -302,8 +302,8 @@ msgid "Delete user"
 msgstr "Cancella utente"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:36
-msgid "Delete profile"
-msgstr "Cancella profilo"
+msgid "Delete my profile"
+msgstr "Cancella il mio profilo"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:42
 msgid "Edit my profile"

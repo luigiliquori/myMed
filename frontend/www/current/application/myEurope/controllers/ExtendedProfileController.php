@@ -69,6 +69,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		///////////////////////////////////////////////////
 		else if (isset($_GET['rmPublications'])){
+			debug("rmPublications");
 			$this->deletePublications($_GET['rmPublications']);
 		}
 	}
