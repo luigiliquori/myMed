@@ -48,7 +48,7 @@
 		
 		<form action="index.php?action=blog" method="POST" data-ajax="false">
 			<input type="hidden" name="pred1" value="<?= $this->cathegory ?>" />
-			<input type="text" name="pred2" placeholder="<?= translate('Title') ?>"/>
+			<input type="text" name="pred2" placeholder="<?= _('Title') ?>"/>
 			
 			<script type="text/javascript">
 				// Dictionnary of already initliazed pages

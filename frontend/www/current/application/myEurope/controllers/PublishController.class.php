@@ -39,9 +39,9 @@ class PublishController extends ExtendedProfileRequired {
 				//$this->redirectTo("main");
 				//$_REQUEST['method']=$this->success;
 				//$_POST["fromPublish"]=$this->success;
+				
 				$this->forwardTo("main");
-				//$this->redirectTo("main", $_REQUEST);
-				//$this->redirectTo("main");
+				//header("location: index.php?action=main&method=Publish");
 			}
 		}
 	}

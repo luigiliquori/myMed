@@ -707,6 +707,12 @@ msgstr "Le champs titre doit être rempli"
 msgid "Text field can't be empty"
 msgstr "Le champs texte doit être rempli"
 
+msgid "Fields title and text can't be empty!"
+msgstr "Les champs titre et texte doivent être remplis!"
+
+msgid "No result found"
+msgstr "Pas de résultat trouvé"
+
 #: ../application/myFSA/views/PublishView.php:12
 msgid "Title"
 msgstr "Titre "
@@ -905,7 +911,7 @@ msgstr "Commentaires"
 
 #: ../application/myFSA/views/DetailsView.php:97
 msgid "Comment"
-msgstr "Commentaires"
+msgstr "Commenter"
 
 #: ../application/myRiviera/views/SearchView.php:12
 msgid "Départ"
@@ -1234,8 +1240,20 @@ msgid "You are a full-powered Admin, have fun!"
 msgstr "Vous êtes un administrateur avec tous les droits, amusez-vous!"
 
 #:../application/myEurope/views/UpdateReputationController.php:11
-msgid "Thank you for your contribution"
-msgstr "Merci pour votre contribution"
+msgid "Thank you for your contribution!"
+msgstr "Merci pour votre contribution!"
+
+msgid "You can't rate your own project!"
+msgstr "Vous ne pouvez pas évaluer votre propre projet!"
+
+msgid "You can't rate your own publication!"
+msgstr "Vous ne pouvez pas évaluer votre propre publication!"
+
+msgid "Rate project"
+msgstr "Evaluer projet"
+
+msgid "Rate publication"
+msgstr "Evaluer publication"
 
 #:../application/myEurope/views/LoginController.php:11
 msgid "Email field can't be empty"
