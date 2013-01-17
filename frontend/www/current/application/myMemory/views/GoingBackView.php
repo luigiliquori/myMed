@@ -34,7 +34,7 @@
 				if($data->type == "emergency" ) continue;
 				?>
 				<li class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
-					<a href="?action=itineraire&amp;address=<?= $data->address; ?>" class="ui-link-inherit" onclick="goingBack(document.getElementById('address<?= $i ?>').innerHTML)">
+					<a href="?action=itineraire&amp;address=<?= $data->address; ?>" class="ui-link-inherit" >
 					<h3 class="ui-li-heading"><?= $data->nickname; ?></h3>
 					<?= '<p class="ui-li-desc" id="address'.$i.'" >'. $data->address . '</p>'; ?>
 					</a>

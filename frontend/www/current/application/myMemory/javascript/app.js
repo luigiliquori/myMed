@@ -1,110 +1,71 @@
-currentPosition = null;
+var currentPosition = null;
 var start = null;
 var end = null;
 var steps = []; 
 var directionsDisplays = [];
-/*
-function initialize_map() {
-	// INITIALIZE DASP
-	setupDASP($("#userID").val(), $("#accessToken").val(),
-			$("#applicationName").val());
+
+function error(error){
+	alert("erreur");
+	alert(error);
+}
+
+
+function success(position){
 	
-	// INITIALIZE DASP->MAP
-	setupDASPMap("myMap", displayPosition, displayError, false);
+	//alert("J'ai une position! ");
+	
+	var address = unescape(getUrlVars()["address"]);
+	//alert("address = "+ address);
 
-	// setup the marker for the itinerary
-	startmarker = new google.maps.Marker({
-		animation : google.maps.Animation.DROP,
-		icon : 'img/start.png',
-		title : 'Départ\nMa position',
-		zIndex : -1
-	});
-
-	endmarker = new google.maps.Marker({
-		animation : google.maps.Animation.DROP,
-		icon : 'img/end.png',
-		title : 'Arrivée',
-		zIndex : -1
-	});
+	var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	//alert("position : "+position);
+	
+	currentPosition = position;
+	
+	calculer_route(address, position);
 	
 }
 
 
-function displayPosition(position) {
-	
-	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-	
-	// add position marker
-	if(currentPositionMarker == null) {
-		// create current position marker
-		currentPositionMarker = addMarker(latlng, 
-				'img/position.png',
-				'Ma position',
-				null, 
-				google.maps.Animation.DROP);
 
-		currentPositionMarker.setMap(map);
-		// focus on the position
-		if (focusOnCurrentPosition) {
-			focusOnLatLng(latlng );
-			focusOnCurrentPosition = false;
-		}
-	}
-	
 
+function getCurrentLatLng(position){
+	currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	//alert("=>" +currentPosition);
 }
 
-function displayError(error) {
-
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
 }
 
-*/
-
-function getLocation(){
+function goingBack(){
+	//alert("GoingBack(), getting position...");
+	// Get the location
 	if (navigator.geolocation) {
-	  navigator.geolocation.getCurrentPosition(retour, error);
+		navigator.geolocation.getCurrentPosition(success, error);
 	} else {
 	  error('Geolocation not supported');
 	}
 }
 
-function getCurrentLatLng(position){
-	currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	alert("=>" +currentPosition);
-}
 
-function getQueryParams(qs) {
-    qs = qs.split("+").join(" ");
-
-    var params = {}, tokens,
-        re = /[?&]?([^=]+)=([^&]*)/g;
-
-    while (tokens = re.exec(qs)) {
-        params[decodeURIComponent(tokens[1])]
-            = decodeURIComponent(tokens[2]);
-    }
-
-    return params;
-}
-
-
-function retour(pos){
-	var params = getQueryParams(window.location.search.substring(1));
-	var address = params.address;
-	var position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-	
-	goingBack(address, position);
-	
-}
-
-function goingBack(address, position){
+function calculer_route(address, position){
 	
 	// Google GeoCoder
 	var geocoder = new google.maps.Geocoder();
 	
-	// Get the location
-	//getLocation(null);
+	
+	//alert("Calculer_route : address : "+ address + " position : "+ position);
 	
 	// LatLng of the depart
 	start = position;
@@ -209,9 +170,13 @@ function calcRoute(json) {
 	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
 		calcRouteByCityway(result);
 	} else {
-		alert(JSON.stringify(result.ItineraryObj));
-		alert("result.ItineraryObj.Status.code = " +result.ItineraryObj.Status.code );
-		alert("Erreur API Cityway");
+		if (result == null){
+			alert("resultat null");
+		}
+		//alert("result :"+result);
+		//alert(JSON.stringify(result.ItineraryObj));
+		//alert("result.ItineraryObj.Status.code = " +result.ItineraryObj.Status.code );
+		alert("Erreur : Impossible de trouver un itineraire! (code erreur API Cityway :"+result.ItineraryObj.Status.code+")");
 	}
 
 	refreshRoadMap = true;
@@ -235,7 +200,7 @@ function calcRoute(json) {
 					"inset": true
 				});
 			} else {
-				alert("Erreur API Cityway");
+				alert("Erreur : Impossible de trouver un itineraire! (code erreur API Cityway :"+result.ItineraryObj.Status.code+")");
 				//calcRouteByGoogle(false);
 			}
 			refreshRoadMap = false;
@@ -381,7 +346,7 @@ function sendEmailsAlerts(){
 								}, 5000);
 				
 			}// for
-			alert("Messages envoyés!");
+			alert("E-mail envoyés!");
 		}//if
 	});//geocoder
 		
@@ -389,6 +354,4 @@ function sendEmailsAlerts(){
 	
 }// needHelp
 
-function error(error){
-	alert(error);
-}
+
