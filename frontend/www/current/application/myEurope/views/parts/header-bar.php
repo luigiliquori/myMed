@@ -13,8 +13,9 @@ function print_header_bar($print_back_button = false, $idHelpPopup = "defaultHel
 	if($print_logout_button && !($_SESSION['user']->is_guest)) {
 		echo '<a href="?action=logout" class="ui-btn-left" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Sign out</a>';
 	}
-		
+		  
 	if($print_back_button) {
+		
 		echo '<a data-rel="back" data-icon="arrow-left">' . _("Back") . '</a>';
 	} else {
 // 		include 'social.php';
