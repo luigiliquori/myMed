@@ -89,9 +89,5 @@
 		</div>
 	</div>
 	
-	<!-- Footer -->
-	<div data-role="footer" data-id="myFooter" data-position="fixed">
-		<a href="?action=ExtendedProfile" data-role="button" data-theme="b" data-icon="profile"><?= _("Profile"); ?></a>
-	</div>
 </div>
 <? include("footer.php"); ?>	
