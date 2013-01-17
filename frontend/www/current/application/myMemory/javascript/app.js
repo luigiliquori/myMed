@@ -309,17 +309,15 @@ function calcRouteByCityway(result) {
 	});
 }
 
-
-function sendEmailsAlerts(){
-
+function sendEmail(position){
 	howmany = $('#howmany').val();
 
 	// Google GeoCoder
 	var geocoder = new google.maps.Geocoder();
-	var pos = currentPositionMarker.getPosition();
+	var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 	
-	geocoder.geocode({'location' : pos }, function(results, status) {
+	geocoder.geocode({'location' : position }, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 
 			address = results[0].formatted_address;
@@ -327,6 +325,7 @@ function sendEmailsAlerts(){
 			for (i=1; i<=howmany; i++){
 				
 				mail = "#mail" + i;
+				email = $(mail)[0].innerHTML;
 				setTimeout(function(){
 									$.ajax({
 										type : "POST",
@@ -334,24 +333,31 @@ function sendEmailsAlerts(){
 										data : "email=" +$(mail)[0].innerHTML+ "&username="
 										+ $('#username').val() + "&current_street=" 
 										+ address + "&current_lat="
-										+ currentPositionMarker.getPosition().lat() + "&current_lng="
-										+ currentPositionMarker.getPosition().lng(),
+										+ position.lat() + "&current_lng="
+										+ position.lng(),
 										success : function(data) {
-
+											alert("success : "+data);
 										},
 										error : function(data) {
-											alert("erreur dans l'envoi des messages");
+											alert("fail : "+data);
 										}
 									});
 								}, 5000);
 				
 			}// for
+			
 			alert("E-mail envoyés!");
 		}//if
 	});//geocoder
-		
-			
 	
+}
+function sendEmailsAlerts(){
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(sendEmail, error);
+	} else {
+	  error('Geolocation not supported');
+	}
 }// needHelp
 
 

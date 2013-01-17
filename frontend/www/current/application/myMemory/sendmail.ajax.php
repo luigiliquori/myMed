@@ -19,8 +19,8 @@ if($_POST)
 									$_POST['current_street'],
 									array(	"lat"=>$_POST['current_lat'],
 											"lng"=>$_POST['current_lng']));
-	$mail->send();
-	echo json_encode(array("success"=>"message bien envoyé!"));
+	$retour = $mail->send();
+	echo $retour;
 }else { }
 
 

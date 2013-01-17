@@ -75,7 +75,9 @@ class EmailNotification {
 	
 	
 	public function send(){
-		mail($this->mail, $this->subject, $this->message, $this->header);
+		
+		return mail($this->mail, $this->subject, $this->message, $this->header);
+
 	}
 	
 	
