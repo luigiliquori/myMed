@@ -5,6 +5,10 @@ class MainController extends AuthenticatedController {
 		
 		parent::handleRequest();
 		
+		if (!isset($_SESSION['autocall_active']))
+			$_SESSION['autocall_active'] = false;
+		
+		
 		/*
 		 * Detect if the user is using a mobile device.
 		 * This application will have different dehaviours for mobile.
