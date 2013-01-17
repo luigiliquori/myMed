@@ -7,7 +7,7 @@
 	
 	<div data-role="content">
 		<br/>
-		<a type="button" href="?action=ExtendedProfile&list" data-mini="true" data-inline="true" rel="external"  data-icon="list" title="<?= _('list of organizations profiles in myEurope') ?>"><?= _('Profiles list') ?></a>
+		<a type="button" href="?action=ExtendedProfile&list" data-mini="true" data-inline="true" rel="external"  data-icon="list" title="<?= _('list of organizations profiles in myEurope') ?>"><?= _("Profiles list") ?></a>
 				
 		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"
 		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:users", "<?= APPLICATION_NAME ?>:users", []); $(this).addClass("ui-disabled");'><?= _("Notify me of new users") ?></a>

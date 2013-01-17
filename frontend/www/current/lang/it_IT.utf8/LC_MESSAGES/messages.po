@@ -16,6 +16,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.3\n"
 
+msgid "Here you can modify your profile and list your active projects."
+msgstr "Qui puoi modificare il tuo profilo e listare i tuoi progetti già operativi."
+
+msgid "List my projects"
+msgstr "Listare miei progetti"
+
+msgid "Edit Profile and Projects"
+msgstr "Pubblica profilo e progetti"
+
+msgid "Edit Profile"
+msgstr "Pubblica profilo"
+
+msgid "Edit your Profile"
+msgstr "Pubblica tuo profilo"
+
+msgid "Manage users"
+msgstr "Gestisci utenti"
+
+msgid "Administration"
+msgstr "Amministrazione"
+
+msgid "Here you can change user category. <br /> Categories are: 'Admin', 'Normal user' and 'New User'."
+msgstr "Qui puoi cambiare la categoria utente. <br /> Le categorie sono: 'Amministratore', 'Utente normale' e 'Nuovo utente'."
+
+msgid "Here you can update your organization profile."
+msgstr "Qui è possibile aggiornare il profilo dell'organizzazione."
+
+msgid "Create a new profile of your organization."
+msgstr "Crea un nuovo profilo per la tua istituzione/ente"
+
+msgid "Fill the form with your organization details. All members of your organization can use this profile to register in myEurope"
+msgstr "Complila il formulario con i dettagli del tuo organismo/ente. Tutti i membri facentene parte potranno usare questo profilo per navigare in myEurope"
+
 #: ../system/common/common-utils.php:117
 msgid "Back"
 msgstr "Indietro"
@@ -125,7 +158,7 @@ msgstr ""
 
 #: ../application/myMed/views/LoginView.php:126
 msgid "Send"
-msgstr ""
+msgstr "Inviare"
 
 #: ../application/myMed/views/LoginView.php:147
 msgid "about"
@@ -195,12 +228,14 @@ msgstr "Richiesta di partenariato inviata"
 msgid "Partner added"
 msgstr "Il partner è stato aggiunto"
 
+msgid "Details"
+msgstr "Dettagli"
+
 #: ../application/myEurope/views/AdminView.php:10
 msgid "list of organizations profiles in myEurope"
 msgstr ""
 
 #: ../application/myEurope/views/AdminView.php:10
-#, fuzzy
 msgid "Profiles list"
 msgstr "Profili"
 
@@ -281,8 +316,7 @@ msgid "Territory type"
 msgstr "Tipo di territorio"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
-#, fuzzy
-msgid "users list"
+msgid "Users list"
 msgstr "Lista dei membri"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
@@ -353,8 +387,10 @@ msgstr "Descrizione"
 msgid "Create this profile"
 msgstr "Crea questo profilo"
 
+msgid "Create profile"
+msgstr "Crea profilo"
+
 #: ../application/myEurope/views/ExtendedProfileListView.php:14
-#, fuzzy
 msgid "Hello, This is your first time on myEurope! Please register with an already existing profile or create yours"
 msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Grazie di completare il vostro profilo imputandolo ad un'organizzazione già presente"
 
@@ -379,6 +415,9 @@ msgstr "Crediti"
 #: ../application/myEurope/views/MainView.php:12
 msgid "Search a partnership offer"
 msgstr "Trova offerta di partenariato"
+
+msgid "Search partnership"
+msgstr "Trova partenariato"
 
 #: ../application/myEurope/views/MainView.php:15
 msgid "Insert a partnership offer"
@@ -520,6 +559,9 @@ msgstr "Inserisci"
 #: ../application/myEurope/views/PublishSuccessView.php:10
 msgid "Your partnership offer has been successfully published"
 msgstr "L'offerta di partenariato è stata pubblicata con successo"
+
+msgid "Publish offer"
+msgstr "Pubblicare offerta"
 
 #: ../application/myEurope/views/PublishSuccessView.php:13
 msgid "See similar offers"
@@ -772,12 +814,10 @@ msgid "Corsica"
 msgstr "Corsica"
 
 #: ../application/myEurope/models/Categories.php:89
-#, fuzzy
 msgid "Ideas"
 msgstr "Aumentare"
 
 #: ../application/myEurope/models/Categories.php:90
-#, fuzzy
 msgid "Partners search"
 msgstr "Partner"
 
@@ -881,7 +921,6 @@ msgstr "Scegli una categoria "
 
 #: ../application/myFSA/views/DetailsView.php:65
 #: ../application/myFSA/views/SearchView.php:30
-#, fuzzy
 msgid "Tittle"
 msgstr "Titolo "
 
@@ -984,11 +1023,11 @@ msgstr "Azienda"
 
 #: ../application/myFSA/views/PublishView.php:68
 msgid "Publish"
-msgstr ""
+msgstr " Pubblicare"
 
 #: ../application/myFSA/views/SearchView.php:11
-msgid "No results found"
-msgstr ""
+msgid "No result found"
+msgstr "Nessun risultato trovato"
 
 #: ../application/myFSA/views/SearchView.php:23
 #, fuzzy
@@ -1139,6 +1178,8 @@ msgstr "<b>myEurope</b> é una rete sociale facente parte della meta-rete social
 msgid "This application will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.\n The main targets of <b><em>myMed</em></b> are :\n \t<ul>\n \t\t<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>\n \t\t<li>Exchange practices and common cross-border interests in the area of European project creation.</li>\n \t\t<li>Inform users about different European calls.</li>\n \t</ul>"
 msgstr "L’applicazione permetterà ai comuni dell’Euroregione Alpi-Mediterraneo  (MedAlp) di  trovare dei\tpartner, che siano chiaramente iscritti alla rete myEurope, nell’ambito dell’interregione e poter costituire assieme dei progetti comuni, nel quadro dei differenti programmi europei : Interreg Alcotra, de Med, FP7 ecc… <br /> <br />Gli obbiettivi principali di myEurope sono dunque i seguenti :<ol><li>Aiutarvi, attraverso il meccanismo di  « Matchmaking » myMed a mettere in comune delle idee ma anche dei mezzi al fine di poter sottomettere un\t\tprogetto Interreg Alcotra, Med od ottenere dei finanziamenti provenienti dall’Europa (crediti FEDER…).</li><li> Scambiare pratiche ed interessi comuni transfrontalieri nell’ambito del montaggio dei progetti</li><li>Informare  riguardo alle varie offerte d’appalto di progetti europei le persone iscritte alla rete sociale</li></ol>Questo scambio d’informazioni sarà utile agli esponenti politici locali francesi così come ad i loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e quelli delle regioni italiane limitrofe. Ciò favorirà l’organizzazione di attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti…)"
 
+msgid "Add partnerships"
+msgstr "Aggiungere partenariato"
 
 #~ msgid "Admin"
 #~ msgstr "Admin"
@@ -1196,8 +1237,8 @@ msgstr "L’applicazione permetterà ai comuni dell’Euroregione Alpi-Mediterra
 #~ msgstr "Spazio Alpino"
 #~ msgid "Insert an offer"
 #~ msgstr "Sottomettere un'offerta"
-#~ msgid "Results"
-#~ msgstr "Risultati"
+msgid "Results"
+msgstr "Risultati"
 #~ msgid "Places"
 #~ msgstr "Luogo"
 #~ msgid ""
@@ -1278,7 +1319,7 @@ msgstr "L’applicazione permetterà ai comuni dell’Euroregione Alpi-Mediterra
 #~ msgstr "Condividere"
 #~ msgid "Sport"
 #~ msgstr "Sport"
-#~ msgid "Add to contacts"
+#~ msgid "Add to contacts" 
 #~ msgstr "Aggiungere ai contatti"
 #~ msgid "Theme1"
 #~ msgstr "Tema1"

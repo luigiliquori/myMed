@@ -10,14 +10,14 @@
 		
 		<? if ($_SESSION['myEurope']->permission >=2) : ?>
 			<div style="text-align: center;">
-				<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" data-theme="e" title=" <?= _('users list') ?> "> <?= _('users list') ?> </a>
+				<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" data-theme="e"> <?= _("Users list") ?> </a>
 			</div>
 			<br>
 		<? endif ?>
 			
 		<? $this->profile->renderProfile($_SESSION['user']); ?>
 		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
-			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right"><? _("Close")?></a>
 			<div style="display: inline-block;">
 				<input type="text" id="picUrl" placeholder="Picture's url" value="http://cdn.walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg" data-inline="true" />
 			</div>
@@ -52,7 +52,7 @@
 			<!-- List user's project button -->
 			<br />
 			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
-			<a type="button" href="?action=ListUserProjects" data-ajax="false" data-theme="d" data-icon="grid" data-inline="true" ><?= _('List my projects') ?></a>
+			<a type="button" href="?action=ListUserProjects" data-ajax="false" data-theme="d" data-icon="grid" data-inline="true" ><?= _("List my projects") ?></a>
 			<? endif; ?>
 
 		</div>
