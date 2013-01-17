@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
 	<!--  Extra icons for jquery -->
-	<link rel="stylesheet" href="/lib/jquery/jQuery-Mobile-Icon-Pack/font-awesome/jqm-icon-pack-2.1.2-fa.css" />
+	<link rel="stylesheet" href="/lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
 	
 	<!-- JQUERY  -->
 	<link rel="stylesheet" href="/lib/jquery/jquery.mobile-1.2.0.css" />
