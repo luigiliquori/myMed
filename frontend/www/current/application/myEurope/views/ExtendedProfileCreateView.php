@@ -2,7 +2,7 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page" id="new" >
-	<? $title = _("CreateProfile");
+	<? $title = _("Create profile");
 	   print_header_bar(true, "defaultHelpPopup", $title); ?>
 
 	<div data-role="content">
@@ -22,7 +22,7 @@
 				</select>
 			</div>
 			<div data-role="fieldcontain">
-				<label for="textinputu2" style="text-align:right">Domaine d'action: </label>
+				<label for="textinputu2" style="text-align:right"><?= _("Action area")?>: </label>
 				<input id="textinputu2" name="activity" placeholder="" value='' type="text" />
 			</div>
 			<div data-role="fieldcontain">
@@ -30,23 +30,23 @@
 				<input id="textinputu4" name="address" placeholder="" value='' type="text" />
 			</div>
 			<div data-role="fieldcontain">
-				<label for="area" class="select" style="text-align:right"><?= _("Territoire d'action") ?>:</label>
+				<label for="area" class="select" style="text-align:right"><?= _("Action territory") ?>:</label>
 				<select name="area" id="area">
-					<option value="local">local</option>
-					<option value="départemental">départemental</option>
-					<option value="régional">régional</option>
-					<option value="national">national</option>
-					<option value="international">international</option>
+					<option value="local"><?= _("local")?></option>
+					<option value="départemental"><?= _("departmental")?></option>
+					<option value="régional"><?= _("regional")?></option>
+					<option value="national"><?= _("national")?></option>
+					<option value="international"><?= _("international")?></option>
 				</select>
 			</div>
 			
 			<div data-role="fieldcontain">
 				<fieldset id="type" data-role="controlgroup">
-					<legend> <p style="text-align:right"> Type de territoire: </p> </legend>
-					<input type="checkbox" name="type-urbain" id="check-view-a" value="urbain" checked="checked"/> <label for="check-view-a">urbain</label>
-					<input type="checkbox" name="type-rural" id="check-view-b" value="rural" /> <label for="check-view-b">rural</label>
-					<input type="checkbox" name="type-montagnard" id="check-view-c" value="montagnard" /> <label for="check-view-c">montagnard</label>
-					<input type="checkbox" name="type-maritime" id="check-view-d" value="maritime" /> <label for="check-view-d">maritime</label>
+					<legend> <p style="text-align:right"> <?= _("Territory type")?>: </p> </legend>
+					<input type="checkbox" name="type-urbain" id="check-view-a" value="urbain" checked="checked"/> <label for="check-view-a"><?= _("urban")?></label>
+					<input type="checkbox" name="type-rural" id="check-view-b" value="rural" /> <label for="check-view-b"><?= _("rural")?></label>
+					<input type="checkbox" name="type-montagnard" id="check-view-c" value="montagnard" /> <label for="check-view-c"><?= _("mountain")?></label>
+					<input type="checkbox" name="type-maritime" id="check-view-d" value="maritime" /> <label for="check-view-d"><?= _("maritime")?></label>
 				</fieldset>
 			</div>
 			<div data-role="fieldcontain">
@@ -64,8 +64,8 @@
 			<br/>
 			<input id="service-term" type="checkbox" name="checkCondition" style="display: inline-block; top: 8px;"/>
 			<span style="display:inline-block;margin-left: 40px;">
-				J'accepte les 
-				<a href="<?= APP_ROOT ?>/conds" rel="external">conditions d'utilisation</a>
+				<?= _("I accept the ")?>
+				<a href="<?= APP_ROOT ?>/conds" rel="external"><?= _("general terms and conditions")?></a>
 			</span>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-theme="e" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
@@ -79,7 +79,7 @@
 	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		<h3><?= _("Create a new profile of your organization.") ?></h3>
-		<p> <?= _("Fill the form with you organization details. All members of yours organization can use this profile to register in myEurope") ?></p>
+		<p> <?= _("Fill the form with your organization details. All members of your organization can use this profile to register in myEurope") ?></p>
 		
 	</div>
 	

@@ -55,6 +55,12 @@ msgstr "Confirmer"
 msgid "I accept the general terms and conditions"
 msgstr "J'accepte les conditions générales d'utilisation"
 
+msgid "I accept the "
+msgstr "J'accepte les "
+
+msgid "general terms and conditions"
+msgstr "conditions générales d'utilisation"
+
 #: ../application/myMed/views/LoginView.php:126
 msgid "Send"
 msgstr "Envoyer"
@@ -633,6 +639,9 @@ msgstr "Alertes par e-mail envoyées!"
 msgid "CreateProfile"
 msgstr "Création du profil"
 
+msgid "Create profile"
+msgstr "Création profil"
+
 msgid "Create a profile"
 msgstr "Création d'un profil"
 
@@ -983,7 +992,7 @@ msgstr ""
 
 #: ../application/myEurope/views/AdminView.php:10
 msgid "Profiles list"
-msgstr "Liste profils"
+msgstr "Liste des profils"
 
 #: ../application/myEurope/views/AdminView.php:13
 msgid "Notify me of new users"
@@ -1283,7 +1292,7 @@ msgid "Internal error of registration"
 msgstr "Erreur interne d'enregistrement"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
-msgid "users list"
+msgid "Users list"
 msgstr "liste des membres"
 
 msgid "Phases of the project"
@@ -1317,11 +1326,26 @@ msgstr "Retour à la liste de profils"
 msgid "Delete user"
 msgstr "Supprimer l'utilisateur"
 
+msgid "Edit your profile"
+msgstr "Modifier votre profil"
+
+msgid "Here you can update your organization profile."
+msgstr "Vous pouvez modifier ici le profil de votre organisation"
+
+msgid "Manage users"
+msgstr "Administrer les utilisateurs"
+
+msgid "Here you can change user category. <br /> Categories are: 'Admin', 'Normal user' and 'New User'."
+msgstr "Vous pouvez changer ici la catégorie d'utilisateur. <br /> Les catégories sont: 'Admin', 'Utilisateur normal' et 'Nouvel utilisateur'."
+
 msgid "Here you can modify your profile and list your active projects."
 msgstr "Vous pouvez modifier ici votre profil et lister vos projets actifs."
 
 msgid "Edit Profile and Projects"
 msgstr "Modifier profil et projets"
+
+msgid "Edit Profile"
+msgstr "Modifier profil"
 
 #: ../application/myEurope/views/ExtendedProfileDisplayView.php:36
 msgid "Delete my profile"
@@ -2202,6 +2226,12 @@ msgstr ""
 #: ../application/myBen/models/CategoriesCompetences.php:8
 msgid "Alphabétisation - Formation - Enseignement - Soutien scolaire"
 msgstr ""
+
+msgid "Create a new profile of your organization."
+msgstr "Créez un nouveau profil de votre organisation"
+
+msgid "Fill the form with your organization details. All members of your organization can use this profile to register in myEurope"
+msgstr "Remplissez le formulaire avec les détails de votre organisation. Tous les membres de votre organisation peuvent utiliser ce profil pour s'enregistrer dans myEurope"
 
 #: ../application/myBen/models/CategoriesCompetences.php:9
 msgid "Animation"
