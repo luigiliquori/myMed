@@ -41,7 +41,11 @@
 		
 		
 		<input type="hidden" id="username" value="<?=$_SESSION['user']->name; ?>" />
-		<input type="hidden" id="howmany" value="<?= sizeof($_SESSION['ExtendedProfile']->callingList); ?>" />
+		<input type="hidden" id="howmany" value="<?
+		if ($_SESSION['isMobile'])
+			echo sizeof($_SESSION['ExtendedProfile']->callingList);
+		else
+			echo sizeof($_SESSION['ExtendedProfile']->callingList) -1; ?>" />
 
 		<div>
 		<?php
@@ -75,6 +79,7 @@
 			<?php
 			$i = 1;
 			foreach($_SESSION['ExtendedProfile']->callingList as $entry) {
+				if ($entry->nickname == "Emergency") continue;
 				echo '<li id="line'.$i.'">';
 				echo '<h3>'.$i.' - '.$entry->nickname .'</h3>';
 				echo '<p id="mail'.$i.'">'.$entry->email.'</p>';
@@ -89,9 +94,5 @@
 		</div>
 	</div>
 	
-	<!-- Footer -->
-	<div data-role="footer" data-id="myFooter" data-position="fixed">
-		<a href="?action=ExtendedProfile" data-role="button" data-theme="b" data-icon="profile"><?= _("Profile"); ?></a>
-	</div>
 </div>
 <? include("footer.php"); ?>	

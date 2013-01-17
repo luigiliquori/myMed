@@ -85,11 +85,10 @@
 			</div>
 			<?php }?>
 		</div>
-	</div>
-
-	<!-- Footer -->
-	<div data-role="footer" data-id="myFooter" data-position="fixed">
+		
 		<a href="?action=ExtendedProfile&edit=false" data-role="button" data-rel="dialog" data-transition="pop" data-theme="b" data-icon="gear"><?= _("EditProfile"); ?></a>
 	</div>
+
+	
 </div>	
 <? include("footer.php"); ?>

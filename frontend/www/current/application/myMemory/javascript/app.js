@@ -1,86 +1,85 @@
-var startmarker, endmarker, posmarker; // start and end markers
+var currentPosition = null;
 var start = null;
-end = null;
-var focusOnCurrentPosition = true;
-var currentPositionMarker = null;
+var end = null;
 var steps = []; 
 var directionsDisplays = [];
-/*
-function initialize_map() {
-	// INITIALIZE DASP
-	setupDASP($("#userID").val(), $("#accessToken").val(),
-			$("#applicationName").val());
+
+function error(error){
+	alert("erreur");
+	alert(error);
+}
+
+
+function success(position){
 	
-	// INITIALIZE DASP->MAP
-	setupDASPMap("myMap", displayPosition, displayError, false);
+	//alert("J'ai une position! ");
+	
+	var address = unescape(getUrlVars()["address"]);
+	//alert("address = "+ address);
 
-	// setup the marker for the itinerary
-	startmarker = new google.maps.Marker({
-		animation : google.maps.Animation.DROP,
-		icon : 'img/start.png',
-		title : 'Départ\nMa position',
-		zIndex : -1
-	});
-
-	endmarker = new google.maps.Marker({
-		animation : google.maps.Animation.DROP,
-		icon : 'img/end.png',
-		title : 'Arrivée',
-		zIndex : -1
-	});
+	var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	//alert("position : "+position);
+	
+	currentPosition = position;
+	
+	calculer_route(address, position);
 	
 }
 
 
-function displayPosition(position) {
-	
-	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-	
-	// add position marker
-	if(currentPositionMarker == null) {
-		// create current position marker
-		currentPositionMarker = addMarker(latlng, 
-				'img/position.png',
-				'Ma position',
-				null, 
-				google.maps.Animation.DROP);
 
-		currentPositionMarker.setMap(map);
-		// focus on the position
-		if (focusOnCurrentPosition) {
-			focusOnLatLng(latlng );
-			focusOnCurrentPosition = false;
-		}
+
+function getCurrentLatLng(position){
+	currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	//alert("=>" +currentPosition);
+}
+
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+function goingBack(){
+	//alert("GoingBack(), getting position...");
+	// Get the location
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(success, error);
+	} else {
+	  error('Geolocation not supported');
 	}
-	
-
 }
 
-function displayError(error) {
 
-}
-
-*/
-
-function goingBack(address){
+function calculer_route(address, position){
 	
 	// Google GeoCoder
 	var geocoder = new google.maps.Geocoder();
 	
-	// starting point
-	start = currentPositionMarker.getPosition();
-
+	
+	//alert("Calculer_route : address : "+ address + " position : "+ position);
+	
+	// LatLng of the depart
+	start = position;
+	
+	//alert("current position :" + start);
 	
 	
 	geocoder.geocode({'address' : address}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 
+			// LatLng of the destination
 			end = results[0].geometry.location;
 		
-			// Put the markers
-			startmarker.setPosition(start);
-			endmarker.setPosition(end);
+
 			
 			
 			// date (in the exotic format of citiway API : AAAA-MM-DD_HH-MM, grrrr
@@ -90,7 +89,7 @@ function goingBack(address){
 			var time = date_array[1].split(':');
 			var departureTime = date + '_' + time[0] + '-' + (parseInt(time[1])+2); // Add 2 minutes to make sure the API call does not fail 
 			
-			// fastest of lessChanges. I think lessChanges is the best for elderly
+			// fastest or lessChanges. I think lessChanges is the best for elderly
 			var optimize = 'lessChanges';
 			
 			// type of transport
@@ -127,10 +126,10 @@ function goingBack(address){
 			$.ajax({
 				type : "POST",
 				url : "cityway.php",
-				data : "startlng=" + startmarker.getPosition().lng() + "&startlat="
-				+ startmarker.getPosition().lat() + "&endlng="
-				+ endmarker.getPosition().lng() + "&endlat="
-				+ endmarker.getPosition().lat()
+				data : "startlng=" + start.lng() + "&startlat="
+				+ start.lat() + "&endlng="
+				+ end.lng() + "&endlat="
+				+ end.lat()
 				+ "&optimize=" + optimize
 				+ "&transitModes=" + transitModes
 				+ "&date=" + departureTime,
@@ -171,9 +170,13 @@ function calcRoute(json) {
 	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
 		calcRouteByCityway(result);
 	} else {
-		alert(JSON.stringify(result.ItineraryObj));
-		alert("result.ItineraryObj.Status.code = " +result.ItineraryObj.Status.code );
-		alert("Erreur API Cityway");
+		if (result == null){
+			alert("resultat null");
+		}
+		//alert("result :"+result);
+		//alert(JSON.stringify(result.ItineraryObj));
+		//alert("result.ItineraryObj.Status.code = " +result.ItineraryObj.Status.code );
+		alert("Erreur : Impossible de trouver un itineraire! (code erreur API Cityway :"+result.ItineraryObj.Status.code+")");
 	}
 
 	refreshRoadMap = true;
@@ -197,7 +200,7 @@ function calcRoute(json) {
 					"inset": true
 				});
 			} else {
-				alert("Erreur API Cityway");
+				alert("Erreur : Impossible de trouver un itineraire! (code erreur API Cityway :"+result.ItineraryObj.Status.code+")");
 				//calcRouteByGoogle(false);
 			}
 			refreshRoadMap = false;
@@ -306,17 +309,15 @@ function calcRouteByCityway(result) {
 	});
 }
 
-
-function sendEmailsAlerts(){
-
+function sendEmail(position){
 	howmany = $('#howmany').val();
 
 	// Google GeoCoder
 	var geocoder = new google.maps.Geocoder();
-	var pos = currentPositionMarker.getPosition();
+	var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 	
-	geocoder.geocode({'location' : pos }, function(results, status) {
+	geocoder.geocode({'location' : position }, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 
 			address = results[0].formatted_address;
@@ -324,6 +325,7 @@ function sendEmailsAlerts(){
 			for (i=1; i<=howmany; i++){
 				
 				mail = "#mail" + i;
+				email = $(mail)[0].innerHTML;
 				setTimeout(function(){
 									$.ajax({
 										type : "POST",
@@ -331,22 +333,31 @@ function sendEmailsAlerts(){
 										data : "email=" +$(mail)[0].innerHTML+ "&username="
 										+ $('#username').val() + "&current_street=" 
 										+ address + "&current_lat="
-										+ currentPositionMarker.getPosition().lat() + "&current_lng="
-										+ currentPositionMarker.getPosition().lng(),
+										+ position.lat() + "&current_lng="
+										+ position.lng(),
 										success : function(data) {
-
+											alert("success : "+data);
 										},
 										error : function(data) {
-											alert("erreur dans l'envoi des messages");
+											alert("fail : "+data);
 										}
 									});
 								}, 5000);
 				
 			}// for
-			alert("Messages envoyés!");
+			
+			alert("E-mail envoyés!");
 		}//if
 	});//geocoder
-		
-			
 	
+}
+function sendEmailsAlerts(){
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(sendEmail, error);
+	} else {
+	  error('Geolocation not supported');
+	}
 }// needHelp
+
+
