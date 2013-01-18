@@ -336,10 +336,11 @@ function sendEmail(position){
 										+ position.lat() + "&current_lng="
 										+ position.lng(),
 										success : function(data) {
-											alert("success : "+data);
+											if (data)
+											alert("erreur lors de l'envoi du mail : "+ data);
 										},
 										error : function(data) {
-											alert("fail : "+data);
+											alert("erreur lors de l'envoi du mail : "+ data);
 										}
 									});
 								}, 5000);

@@ -65,9 +65,24 @@ class ExtendedProfile
 	 */
 	public /*Array<Contact>*/ $callingList;
 	
+	/**
+	 * Calling list to be used only in the Auto-Call function.
+	 * This can be different than the emergency callingList.
+	 * Array of phone numbers
+	 */
+	public /*Array<String>*/ $callingListAutoCall;
 	
 	
-	public function __construct(/*String*/ $user,/*String*/ $home ,/*enum*/ $diseaseLevel,/*Contact*/ $careGiver, /*Contact*/$doctor,/*Array<Contact>*/ $callingList){
+	public /*float*/ $perimeter_home;
+	public /*float*/ $perimeter_nearby;
+	public /*float*/ $perimeter_far;
+	
+	public /*int*/   $autocall_frequency;
+	
+	public function __construct(/*String*/ $user,/*String*/ $home ,/*enum*/ $diseaseLevel,
+	/*Contact*/ $careGiver, /*Contact*/$doctor,/*Array<Contact>*/ $callingList,
+			 /*Array<String>*/ $callingListAutoCall, /*float*/ $perimeter_home=100,
+			/*float*/ $perimeter_nearby=200, /*float*/ $perimeter_far=1000, $autocall_frequency=30){
 		
 		// Check if user is defined
 		if (empty($user))
@@ -107,6 +122,25 @@ class ExtendedProfile
 		else
 			$this->callingList = $callingList;
 		
+		// Check the autocall parameters. Only if diseaseLevel = 3
+		if($diseaseLevel == 3){
+
+			// Check the calling list
+			if (empty($callingListAutoCall))
+				throw new Exception("Calling list for autocall must not be empty");
+			else {
+				if (sizeof($callingListAutoCall) != 3)
+					throw new Exception("Calling list for autocall must have 3 phones number");
+				else
+					$this->callingListAutoCall = $callingListAutoCall;
+			}
+			// Others parameters are numbers only, with default values
+			$this->perimeter_home = $perimeter_home;
+			$this->perimeter_nearby = $perimeter_nearby;
+			$this->perimeter_far = $perimeter_far;
+			$this->autocall_frequency = $autocall_frequency;
+		}
+		
 	}
 	
 	
@@ -131,6 +165,11 @@ class ExtendedProfile
 		$datas[] = new OntologyBean("careGiver", json_encode($this->careGiver));
 		$datas[] = new OntologyBean("doctor", json_encode($this->doctor));
 		$datas[] = new OntologyBean("callingList", json_encode($this->callingList));
+		$datas[] = new OntologyBean("callingListAutoCall", json_encode($this->callingListAutoCall));
+		$datas[] = new OntologyBean("perimeter_home", $this->perimeter_home);
+		$datas[] = new OntologyBean("perimeter_nearby", $this->perimeter_nearby);
+		$datas[] = new OntologyBean("perimeter_far", $this->perimeter_far);
+		$datas[] = new OntologyBean("autocall_frequency", $this->autocall_frequency);
 		
 		// Build the DataBean
 		$dataBean = new DataBean($predicates, $datas);
@@ -168,6 +207,12 @@ class ExtendedProfile
 		$doctor_raw = "";
 		$callingList_raw = "";
 		$callingList = array();
+		$callingListAutoCall = array();
+		$perimeter_home = "";
+		$perimeter_nearby = "";
+		$perimeter_far = "";
+		$autocall_frequency = "";
+		
 		
 
 		foreach ($result as $line){
@@ -188,6 +233,22 @@ class ExtendedProfile
 				case "diseaseLevel" :
 					$diseaseLevel = json_decode($line->value);
 					break;
+				case "callingListAutoCall" :
+					$callingListAutoCall = json_decode($line->value);
+					break;
+				case "perimeter_home" :
+					$perimeter_home = json_decode($line->value);
+					break;
+				case "perimeter_nearby" :
+					$perimeter_nearby = json_decode($line->value);
+					break;
+				case "perimeter_far" :
+					$perimeter_far = json_decode($line->value);
+					break;
+				case "autocall_frequency" :
+					$autocall_frequency = json_decode($line->value);
+					break;
+					
 			}
 		}
 		
@@ -218,7 +279,7 @@ class ExtendedProfile
 											$line->phone);
 			}
 			
-			return new ExtendedProfile($user, $home, $diseaseLevel, $careGiver, $doctor, $callingList);
+			return new ExtendedProfile($user, $home, $diseaseLevel, $careGiver, $doctor, $callingList, $callingListAutoCall, $perimeter_home, $perimeter_nearby, $perimeter_far, $autocall_frequency );
 		}
 		catch(Exception $e){
 			return false;

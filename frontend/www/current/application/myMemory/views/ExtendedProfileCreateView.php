@@ -271,7 +271,7 @@ function handleMSForm(e) {
 	
 		<form  method="post" class="msform" data-ajax="false">
 			<input type="hidden" name="nextStep" value="?action=ExtendedProfile" />
-			!-- Agreements  -->
+			<!-- Agreements  -->
 			<input type="checkbox" name="agreement" id="agreement" />
 			<label for="agreement"><?= _("myMemory_Agreement"); ?></label>
 			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Save') ?>" data-theme="b"/>
