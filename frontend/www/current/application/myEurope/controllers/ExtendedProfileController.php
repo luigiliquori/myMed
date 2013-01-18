@@ -13,22 +13,20 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->showUserProfile($_GET['user']);
 		}
 		
-		if (isset($_GET['new'])) {
-			// Create a new profile
-			$this->cats = Categories::$roles;
-			$this->renderView("ExtendedProfileCreate");
-		}
-		
-		else if (isset($_GET['id'])){
+		if (isset($_GET['id'])){
 			$this->showOtherProfile($_GET['id']);
 		}
 		else if (isset($_SESSION['user']) && $_SESSION['user']->is_guest)
 			$this->forwardTo('login');
+		
 		else if (isset($_GET['link']))
 			$this->createUser($_GET['link']);
 		
-		else if (!isset($_SESSION['myEurope']) || isset($_GET['list']))
-			$this->showProfileList();
+		else if (!isset($_SESSION['myEurope']) || isset($_GET['list'])){
+			// Create a new profile
+			$this->cats = Categories::$roles;
+			$this->renderView("ExtendedProfileCreate");
+		}
 		else if (isset($_GET['edit']))
 			$this->editProfile();
 		else if (isset($_GET['delete'])){
@@ -57,7 +55,8 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	
 	function create(){
 		$profile = $this->storeProfile();
-		//debug_r($profile);
+		//debug_r($profile)
+		$this->createUser($profile->id);
 		$this->redirectTo("ExtendedProfile", array("id"=>$profile->id, "link"=>""));
 	}
 	
@@ -115,11 +114,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
 				CREATE, "v2/SubscribeRequestHandler");
 		$subscribe->send();
-		
-		if ($permission <= 0)
-			$this->renderView("WaitingForAccept");
-		else
-			$this->renderView("main");
 	
 	}
 	

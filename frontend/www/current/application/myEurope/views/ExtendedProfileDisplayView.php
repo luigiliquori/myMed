@@ -23,14 +23,6 @@
 			</div>
 			<a onclick="$('#updatePicPopup').popup('close');updateProfile('profilePicture', $('#picUrl').val());" data-role="button" data-theme="d" data-mini="true" data-icon="ok" data-inline="true"><?= _("Update") ?></a>
 		</div>
-		<? if (isset($_GET['link'])) :?>
-		<br />
-		<div style="text-align: center;">
-		<a href="?action=ExtendedProfile&link=<?= $_GET['id'] ?>" rel="external" data-role="button" data-theme="e" data-inline="true" data-icon="pushpin"><?= _('Register in myEurope with this profile') ?></a>
-		<br />
-		<a data-rel="back" data-role="button" data-inline="true" data-icon="back"><?= _('Back to profiles list') ?></a>
-		</div>
-		<? endif ?>
 		
 		<div style="text-align: center;">
 		<!--<? if (isset($_GET['admin']) ): ?>
