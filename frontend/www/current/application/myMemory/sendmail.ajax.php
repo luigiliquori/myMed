@@ -19,8 +19,10 @@ if($_POST)
 									$_POST['current_street'],
 									array(	"lat"=>$_POST['current_lat'],
 											"lng"=>$_POST['current_lng']));
-	$retour = $mail->send();
-	echo $retour;
+	$retour =  $mail->send();
+	
+	if ($retour == false)
+		echo $_POST['email'];// En cas d'erreur lors de l'envoi du mail, on renvoie le mail fautif
 }else { }
 
 

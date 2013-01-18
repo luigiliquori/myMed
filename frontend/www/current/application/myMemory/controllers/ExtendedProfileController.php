@@ -47,6 +47,18 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		if($_POST["agreement"])
 		{
+			/*
+			 * TODO: remove these
+			 */
+			$callingListAutoCall = array("0658129393","0658129393","0658129393");
+			$perimeter_home = 100;
+			$perimeter_nearby = 200;
+			$perimeter_far = 1000;
+			$autocall_frequency = 1;
+			/*
+			 * 
+			 */
+			
 			$home = $_POST['home'];
 			$diseaseLevel = $_POST['diseaseLevel'];
 			
@@ -124,7 +136,8 @@ class ExtendedProfileController extends AuthenticatedController
 			// Inserting Emergency in last position
 			array_push($callingList, $call4);
 
-			$extendedProfile = new ExtendedProfile($_SESSION['user']->id, $home, $diseaseLevel, $careGiver, $doctor, $callingList);
+			
+			$extendedProfile = new ExtendedProfile($_SESSION['user']->id, $home, $diseaseLevel, $careGiver, $doctor, $callingList, $callingListAutoCall, $perimeter_home, $perimeter_nearby, $perimeter_far, $autocall_frequency );
 			
 			$extendedProfile->storeProfile($this);
 			
