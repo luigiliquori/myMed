@@ -1,14 +1,14 @@
 <? require_once("header.php"); ?>
+<? include("notifications.php"); ?>
 
 <div data-role="page" id="register" >
 	<? $title = _("Register");
 	 print_header_bar(true, false, $title); ?>
 
-	<div data-role="header" data-theme="b">
-		<h1><?= _("Account creation") ?></h1>
-		<? include("notifications.php"); ?>
+<!--<div data-role="header" data-theme="b">
+		<h1><?= _("Account creation") ?></h1>	
 	</div>
-
+ -->
 	<div data-role="content">
 	
 		<!--  Register form -->

@@ -75,9 +75,10 @@
 	<? $title = _("Register");
 	print_header_bar(true, false, $title); ?>
 	
-	<div data-role="header" data-theme="b">
+<!--<div data-role="header" data-theme="b">
 		<h1><?= _("Account creation") ?></h1>
 	</div>
+ -->
 	<div data-role="content">
 	
 		<? print_notification($this->success.$this->error); ?>

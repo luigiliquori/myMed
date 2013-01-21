@@ -1,14 +1,13 @@
 <!-- ------------------    -->
 <!-- App Main View         -->
 <!-- ------------------    -->
+<? require_once('notifications.php'); ?>
 
 <div id="mainView" data-role="page">
 
 	<? print_header_bar(false, "mainViewHelpPopup", "myEdu", true); ?>
 	 
 	<div data-role="content">
-	
-		<? include_once 'notifications.php'; ?>
 			
 		<!-- App description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
@@ -21,7 +20,7 @@
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
 			<a href="index.php?action=extendedProfile" rel="external" data-icon="signin" data-role="button" ><?=_("Sign in")?></a><br />
 		<?php } ?>
-		<a href="index.php#search" data-role="button" data-icon="search"><?= _("Search") ?></a><br />
+		<a href="index.php#find" data-role="button" data-icon="search"><?= _("Find") ?></a><br />
 		<a href="index.php#myactivities" data-icon="pencil" data-role="button" rel="external" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My Activities") ?></a><br />	
 		<a href="" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My Profile") ?></a><br />
 		<a href="index.php#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
@@ -54,3 +53,4 @@
 </div>
 
 <? include_once 'AboutView.php'; ?>
+<? include("FindView.php"); ?>

@@ -55,7 +55,7 @@
 			</div>
 			<div data-role="fieldcontain">
 				<label for="textinputu5"  style="text-align:right"><?= _('Email') ?>: </label>
-				<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
+				<input id="textinputu5" name="email" placeholder="" value='<? /*=$_SESSION['user']->email*/ ?>' type="email" />
 			</div>		
 			<div data-role="fieldcontain">
 				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?>: </label>

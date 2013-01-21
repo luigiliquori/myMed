@@ -1,7 +1,7 @@
 
 <div data-role="page">
 
-	<? print_header_bar(true, false); ?>
+	<? print_header_bar(true, false, "Results"); ?>
 	
 	<div data-role="content" >
 	
@@ -18,8 +18,8 @@
 			<? endif ?>
 			
 			<? foreach($this->result as $item) : ?>
-				<li>
-					<!-- Print Publisher reputation -->
+			<!-- 	<li>
+					
 					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3>Wrapped: <?= $item->wrapped1 ?> - <?= $item->wrapped2 ?></h3>
 						
@@ -45,7 +45,8 @@
 							<? } ?>
 						</p>
 					</a>
-				</li>
+				</li>  
+			-->
 			<? endforeach ?>
 			
 		</ul>

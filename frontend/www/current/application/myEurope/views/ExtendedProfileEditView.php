@@ -7,9 +7,39 @@
 	
 	
 	<div data-role="content">
+	<? print_notification($this->success.$this->error); ?>
+	
 		<form action="?action=ExtendedProfile&method=update" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
 			<input type="hidden" name="form" value="edit" />
 			<input type="hidden" name="id" value="<?= $_SESSION['myEurope']->profile ?>" />
+			
+			<div data-role="fieldcontain">
+				<label for="firstName" style="text-align:right"><?= _("First Name") ?> : </label>
+				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="lastName" style="text-align:right"><?= _("Last Name") ?> : </label>
+				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
+				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url): </label>
+				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
+			</div>
+
+			<div data-role="fieldcontain">
+				<label for="lang" style="text-align:right"><?= _("Language") ?>	: </label>
+				<select id="lang" name="lang">
+					<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
+					<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
+					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
+				</select>
+			</div>
+			
+			
 			<div data-role="fieldcontain">
 				<label for="textinputu1" style="text-align:right"><?= _('Organization Name') ?>: </label>
 				<input id="textinputu1" name="name" placeholder="" value="<?= $_SESSION['myEurope']->details['name'] ?>" type="text" />
@@ -51,7 +81,7 @@
 				</fieldset>
 			</div>	
 			<div data-role="fieldcontain">
-				<label for="textinputu5" style="text-align:right"><?= _('Email') ?>: </label>
+				<label for="textinputu5" style="text-align:right"><?= _('Organization email') ?>: </label>
 				<input id="textinputu5" name="email" placeholder="" value="<?= $_SESSION['myEurope']->details['email'] ?>" type="email" />
 			</div>
 			<div data-role="fieldcontain">

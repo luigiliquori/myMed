@@ -348,6 +348,9 @@ msgstr "Modifica il mio profilo"
 msgid "Organization Name"
 msgstr "Nome dell'organizzazione"
 
+msgid "Organization Email"
+msgstr "Email dell'organizzazione"
+
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:17
 #: ../application/myEurope/views/ExtendedProfileEditView.php:17
 msgid "Your category"
@@ -1217,12 +1220,15 @@ msgstr "Aggiungere partenariato"
 #~ msgstr "Insieme oltre i confini"
 #~ msgid "Choose a language"
 #~ msgstr "Scegli la lingua"
-#~ msgid "French"
-#~ msgstr "Francese"
-#~ msgid "Italian"
-#~ msgstr "Italiano"
-#~ msgid "English"
-#~ msgstr "Inglese"
+msgid "French"
+msgstr "Francese"
+
+msgid "Italian"
+msgstr "Italiano"
+
+msgid "English"
+msgstr "Inglese"
+
 #~ msgid "Next"
 #~ msgstr "Avanti"
 #~ msgid "Validate"

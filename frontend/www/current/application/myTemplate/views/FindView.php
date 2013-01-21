@@ -1,7 +1,7 @@
 <!-- 2nd Page : Find/Subscribe -->
 <div id="find" data-role="page">
 
-	<? print_header_bar(false, true); ?>
+	<? print_header_bar(false, true, "Find view", false); ?>
 	
 	<div data-role="content">
 	

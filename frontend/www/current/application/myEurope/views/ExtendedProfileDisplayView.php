@@ -37,8 +37,6 @@
 			<br />
 			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
 			<a type="button" href="?action=ExtendedProfile&delete=true"  data-theme="d" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
-			<a href="?action=ExtendedProfile&method=delete&rmPublications=<?= $_SESSION['user']->id ?>" rel="external" data-role="button" data-inline="true" data-icon="remove"><?= _('Delete publications') ?></a>
-			
 			<? endif; ?>
 			
 			<!-- List user's project button -->

@@ -8,7 +8,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	function defaultMethod() {
-		
+		debug("default method extendProfile");
 		if (isset($_GET['user'])){
 			$this->showUserProfile($_GET['user']);
 		}
@@ -34,6 +34,8 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$debugtxt  .= var_export($_SESSION['user']->id, TRUE);
 			$debugtxt .= "</pre>";
 			debug($debugtxt);
+			debug("rmPublications");
+			$this->deletePublications($_SESSION['user']->id); // delete all posted publications by this user before delete him
 			$this->deleteUser($_SESSION['user']->id);
 			//deleteProfile();
 		}
@@ -43,10 +45,13 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->showUserProfile($_GET['user']);
 		}
 		else if (isset($_SESSION['user'])){
+			debug("default method extendProfile if");
 			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 		}
-		else
+		else{
+			debug("last else");
 			$this->forwardTo("logout");
+		}
 	}
 	
 	function update(){
@@ -118,12 +123,18 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	function updateProfile(){
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$id = $_POST['id'];
+		$_POST['email']=$_SESSION['user']->email;
+		$_POST['id']=$_SESSION['user']->id;
 		
-				$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-			$debugtxt  .= var_export($_SESSION['myEurope']->users, TRUE);
-			$debugtxt  .= var_export($_SESSION['myEurope']->reputation, TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
+		$debugtxt  =  "<pre>UPDATE PROFILE ";
+		$debugtxt  .= var_export($_SESSION['myEurope']->users, TRUE);
+		$debugtxt  .= var_export($_SESSION['myEurope']->reputation, TRUE);
+		$debugtxt .= "</pre>";
+		debug($debugtxt);
+		
 		$pass	= hash("sha512", $_POST['password']);
 		unset($_POST['form']);
 		unset($_POST['password']);
@@ -143,6 +154,44 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileEdit");
 		}
 		
+		// update of the profile informations
+		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+		$_POST['login'] = $_SESSION['user']->email;
+		unset($_POST['password']);// /\ don't store people password! or we could deal with justice
+		
+		debug("JSON ENCODE: ".json_encode($_POST));
+		$request = new Requestv2(
+			"v2/ProfileRequestHandler",
+			UPDATE,
+			array("user"=>json_encode($_POST))
+		);
+
+		try {
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+	
+			if($responseObject->status != 200) {
+				throw new Exception($responseObject->description);
+			} else{
+				debug("DESCRIPTION  ".$responseObject->description);
+				$profile = array ("id"=>$_POST['id'], "name"=>$_POST['name'],"firstName"=>$_POST['firstName'], "lastName"=>$_POST['lastName'], "birthday"=>$_POST['birthday'], "profilePicture"=>$_POST['profilePicture'], "lang"=> $_POST['lang']);
+				$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $profile);
+			}
+			
+		} catch (Exception $e){
+			$this->error = $e->getMessage();
+			$this->renderView("ExtendedProfileEdit");
+		}
+		$_POST['name'] = $name; // organization name and not full name
+		$_POST['email'] = $email; // organization email != profile email
+		$_POST['id'] = $id;
+		unset($_POST['firstName']);
+		unset($_POST['lastName']);
+		unset($_POST['birthday']);
+		unset($_POST['profilePicture']);
+		unset($_POST['lang']);
+		
+		// update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
 		$myrep = $_SESSION['myEurope']->reputation; //and reputation
 		$users = $_SESSION['myEurope']->users; //and user
@@ -309,6 +358,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$item->delete();
 		endforeach;
 		
-		$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
+		//$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 	}
 }

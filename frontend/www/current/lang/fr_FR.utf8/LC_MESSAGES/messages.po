@@ -207,6 +207,9 @@ msgstr "Date de naissance"
 msgid "email"
 msgstr "e-mail"
 
+msgid "Organization Email"
+msgstr "E-mail de l'organisation"
+
 #: ../application/myConsolato/views/parts/ProfileMyMedForm.php:22
 msgid "Mot de passe"
 msgstr ""
@@ -2479,14 +2482,14 @@ msgstr "Profils"
 #~ msgid "log in with openid"
 #~ msgstr "Se connecter avec Openid"
 
-#~ msgid "French"
-#~ msgstr "Français"
+msgid "French"
+msgstr "Français"
 
-#~ msgid "Italian"
-#~ msgstr "Italien"
+msgid"Italian"
+msgstr "Italien"
 
-#~ msgid "English"
-#~ msgstr "Anglais"
+msgid "English"
+msgstr "Anglais"
 
 #~ msgid "Beta Testers Blog"
 #~ msgstr "Blog Beta testeurs"
