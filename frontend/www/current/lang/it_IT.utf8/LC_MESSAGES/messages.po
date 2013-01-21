@@ -343,12 +343,21 @@ msgstr "Cancella il mio profilo"
 msgid "Edit my profile"
 msgstr "Modifica il mio profilo"
 
+msgid "Yes"
+msgstr "Sì"
+
+msgid "No"
+msgstr "No"
+
+msgid "Are you sure you want to delete your profile ?"
+msgstr "Sei sicuro di voler eliminare il tuo profilo ?"
+
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:13
 #: ../application/myEurope/views/ExtendedProfileEditView.php:13
 msgid "Organization Name"
 msgstr "Nome dell'organizzazione"
 
-msgid "Organization Email"
+msgid "Organization email"
 msgstr "Email dell'organizzazione"
 
 #: ../application/myEurope/views/ExtendedProfileCreateView.php:17

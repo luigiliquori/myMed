@@ -54,7 +54,7 @@
 				</fieldset>
 			</div>
 			<div data-role="fieldcontain">
-				<label for="textinputu5"  style="text-align:right"><?= _('Email') ?>: </label>
+				<label for="textinputu5"  style="text-align:right"><?= _('Organization email') ?>: </label>
 				<input id="textinputu5" name="email" placeholder="" value='<? /*=$_SESSION['user']->email*/ ?>' type="email" />
 			</div>		
 			<div data-role="fieldcontain">

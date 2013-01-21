@@ -14,16 +14,16 @@
 			</div>
 			<br>
 		<? endif ?>
-			
+		
 		<? $this->profile->renderProfile($_SESSION['user']); ?>
-		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
+<!--		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right"><? _("Close")?></a>
 			<div style="display: inline-block;">
 				<input type="text" id="picUrl" placeholder="Picture's url" value="http://cdn.walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg" data-inline="true" />
 			</div>
 			<a onclick="$('#updatePicPopup').popup('close');updateProfile('profilePicture', $('#picUrl').val());" data-role="button" data-theme="d" data-mini="true" data-icon="ok" data-inline="true"><?= _("Update") ?></a>
 		</div>
-		
+ -->		
 		<div style="text-align: center;">
 		<!--<? if (isset($_GET['admin']) ): ?>
 			<br />
@@ -36,7 +36,16 @@
 			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
 			<br />
 			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
-			<a type="button" href="?action=ExtendedProfile&delete=true"  data-theme="d" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
+			
+			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
+				
+			<div data-role="popup" id="popupDeleteProfile" class="ui-content" Style="text-align: center; width: 18em;">
+					<?= _("Are you sure you want to delete your profile ?") ?><br /><br />
+			
+					<a type="button" href="?action=ExtendedProfile&delete=true"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
+					<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
+				</div>
+			
 			<? endif; ?>
 			
 			<!-- List user's project button -->

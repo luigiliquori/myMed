@@ -45,11 +45,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->showUserProfile($_GET['user']);
 		}
 		else if (isset($_SESSION['user'])){
-			debug("default method extendProfile if");
 			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 		}
 		else{
-			debug("last else");
 			$this->forwardTo("logout");
 		}
 	}
@@ -182,7 +180,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->error = $e->getMessage();
 			$this->renderView("ExtendedProfileEdit");
 		}
-		$_POST['name'] = $name; // organization name and not full name
+		$_POST['name'] = $name; // organization name and not username
 		$_POST['email'] = $email; // organization email != profile email
 		$_POST['id'] = $id;
 		unset($_POST['firstName']);
@@ -197,8 +195,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$users = $_SESSION['myEurope']->users; //and user
 		$publish =  new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "data"=>$_POST),
-				UPDATE);
+				UPDATE);	
 		$publish->send();
+		
 		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
 		$debugtxt  .= var_export($_POST, TRUE);
 		$debugtxt .= "</pre>";

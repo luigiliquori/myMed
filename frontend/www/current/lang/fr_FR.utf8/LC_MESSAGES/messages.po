@@ -207,7 +207,7 @@ msgstr "Date de naissance"
 msgid "email"
 msgstr "e-mail"
 
-msgid "Organization Email"
+msgid "Organization email"
 msgstr "E-mail de l'organisation"
 
 #: ../application/myConsolato/views/parts/ProfileMyMedForm.php:22
@@ -784,6 +784,15 @@ msgstr "Liste de mes projets"
 
 msgid "Projects list"
 msgstr "Liste projets"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Are you sure you want to delete your profile ?"
+msgstr "Etes-vous sûr de vouloir supprimer votre profil ?"
 
 #: ../application/myEurope/views/MainView.php:333
 msgid "<p>Enter a <b>title</b> for your project, then a <b>keywords</b> list separated by a space.<br />"
