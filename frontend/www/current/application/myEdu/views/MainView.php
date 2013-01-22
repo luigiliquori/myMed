@@ -1,13 +1,16 @@
-<!-- ------------------    -->
-<!-- App Main View         -->
-<!-- ------------------    -->
+<!-- ------------------ -->
+<!-- App Main View      -->
+<!-- ------------------ -->
 
 <div id="mainView" data-role="page">
 
+	<!-- Header bar -->
 	<? print_header_bar(false, "mainViewHelpPopup", "myEdu", true); ?>
 	 
+	<!-- Page content --> 
 	<div data-role="content">
 	
+		<!-- Notification pop up -->
 		<? include_once 'notifications.php'; ?>
 			
 		<!-- App description -->
@@ -18,12 +21,14 @@
 		
 		<!-- App Main menu -->
 		<?php if ($_SESSION['user']->is_guest) { ?>
+			<!-- User not authenticated -->
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
-			<a href="index.php?action=extendedProfile" rel="external" data-icon="signin" data-role="button" ><?=_("Sign in")?></a><br />
-		<?php } ?>
+			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" ><?=_("Sign in")?></a><br />
+		<?php } ?>		
+		<a href="index.php#opportunitiesView" data-icon="star" data-role="button" data-ajax="false" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My Opportunities") ?></a><br />	
+		<a href="index.php?action=publish&method=show" data-icon="pencil" data-role="button" data-ajax="false"  <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My publications") ?></a><br />
 		<a href="index.php#search" data-role="button" data-icon="search"><?= _("Search") ?></a><br />
-		<a href="index.php#myactivities" data-icon="pencil" data-role="button" rel="external" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My Activities") ?></a><br />	
-		<a href="" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My Profile") ?></a><br />
+		<a href="index.php?action=extendedProfile" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
 		<a href="index.php#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
 		
 		<!-- MainView HELP POPUP -->
@@ -51,6 +56,8 @@
 		</div>
 		
 	</div>	
+	<!-- End page content -->
+	
 </div>
 
-<? include_once 'AboutView.php'; ?>
+<? include("AboutView.php"); ?>
