@@ -2,7 +2,7 @@
 
 <div id="find" data-role="page">
 
-	<? print_header_bar(false, true, "Find view"); ?>
+	<? print_header_bar(true, true, "Find"); ?>
 	
 	<div data-role="content">
 	
@@ -52,14 +52,44 @@
 						<option value="Appunti"><?= _("Remarques") ?></option>
 					</select>
 					<?php $dataBean = new MDataBean("Categoria", null, KEYWORD); ?>
-					<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
+					<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>"><br/>
 				</fieldset>
 			
-				<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="d" data-mini="true" style="text-align: center;">
+				<!-- ADVANCED RESEARCH -->
+				<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="d" data-mini="true" style="margin-left:25px; margin-right:25px;">
 					<h3><?= _("Advanced research")?></h3>
-					<?= _("Organization") ?><br />
-					<?= _("Localisation") ?><br />
-					<?= _("Category") ?><br />
+					
+					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
+						<div class="ui-block-a">
+							<input type="checkbox" name="orga" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
+						</div>
+						<div class="ui-block-b">
+							<select name="Organisation">
+								<option value=""><?= _("??") ?></option>
+							</select>
+						</div>
+					</div>
+					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
+						<div class="ui-block-a">
+							<input type="checkbox" name="loca" id="check-view-b"/> <label for="check-view-b"><?= _("Localisation")?></label>
+						</div>
+						<div class="ui-block-b">
+							<select name="Localisation">
+								<option value=""><?= _("??") ?></option>
+							</select>
+						</div>
+					</div>
+					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
+						<div class="ui-block-a">
+							<input type="checkbox" name="cate" id="check-view-c"/> <label for="check-view-c"><?= _("Category")?></label>
+						</div>
+						<div class="ui-block-b">
+							<select name="Categoria">
+								<option value=""><?= _("??") ?></option>
+							</select>
+						</div>
+					</div>
+					
 				</div>
 			
 				<div style="text-align: center;">
@@ -73,8 +103,7 @@
 		
 		<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 			<h3><?= _('Last publications') ?> :</h3>
-			<?
-			$results = "";			
+			<?	
 			$i=0;
 			foreach($results as $result) { ?>
 				<li>

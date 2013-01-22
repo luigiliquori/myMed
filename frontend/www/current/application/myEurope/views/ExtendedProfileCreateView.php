@@ -8,7 +8,7 @@
 	<div data-role="content">
 		<br>
 		<div data-role="header" data-theme="e">
-			<h1 style="white-space: normal;"><?= _("Hello, This is your first time on myEurope! Please register with an already existing profile or create yours") ?></h1>
+			<h1 style="white-space: normal;"><?= _("Hello, This is your first time on myEurope! Please register by creating your own profile.") ?></h1>
 		</div>
 		<br />	
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">

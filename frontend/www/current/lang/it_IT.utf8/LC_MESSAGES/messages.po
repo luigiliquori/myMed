@@ -138,13 +138,11 @@ msgstr "Connessione con"
 
 #: ../application/myMed/views/LoginView.php:100
 #: ../application/myMed/views/UpdateProfileView.php:17
-#, fuzzy
 msgid "First Name"
 msgstr "Nome"
 
 #: ../application/myMed/views/LoginView.php:104
 #: ../application/myMed/views/UpdateProfileView.php:20
-#, fuzzy
 msgid "Last Name"
 msgstr "Cognome"
 
@@ -169,7 +167,6 @@ msgid "More informations"
 msgstr "Informazioni"
 
 #: ../application/myMed/views/ProfileView.php:18
-#, fuzzy
 msgid "Edit"
 msgstr "Esci"
 
@@ -403,8 +400,8 @@ msgid "Create profile"
 msgstr "Crea profilo"
 
 #: ../application/myEurope/views/ExtendedProfileListView.php:14
-msgid "Hello, This is your first time on myEurope! Please register with an already existing profile or create yours"
-msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Grazie di completare il vostro profilo imputandolo ad un'organizzazione già presente"
+msgid "Hello, This is your first time on myEurope! Please register by creating your own profile."
+msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Si prega di registrarsi creando il proprio profilo."
 
 #: ../application/myEurope/views/ExtendedProfileListView.php:18
 #: ../application/myEurope/doc/trads.php:17

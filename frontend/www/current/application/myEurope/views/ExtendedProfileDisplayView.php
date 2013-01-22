@@ -15,7 +15,11 @@
 			<br>
 		<? endif ?>
 		
-		<? $this->profile->renderProfile($_SESSION['user']); ?>
+		<? 
+		$fromDetailView;
+		if($_GET['user'] != $_SESSION['user']->id) $fromDetailView = true;
+		else $fromDetailView=false;
+		$this->profile->renderProfile($_SESSION['user'], $fromDetailView); ?>
 <!--		<div data-role="popup" id="updatePicPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="remove" data-iconpos="notext" class="ui-btn-right"><? _("Close")?></a>
 			<div style="display: inline-block;">

@@ -34,28 +34,29 @@ class Profile extends Entry{
 	
 	
 	//shouldn't be there, I'll put that in utils later
-	public function renderProfile($user = false){
+	public function renderProfile($user = false, $fromDetailView=false){
 		$lang="";
 		if($_SESSION['user']->lang=="en") $lang=_("English");
 		else if($_SESSION['user']->lang=="it") $lang=_("Italian");
 		else $lang=_("French");
 		?>
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d" style="margin-top: 2px;">
-			<li data-role="list-divider"><?= _("User details") ?></li>	
-			<li>
-				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-					<div class="ui-block-a" style="width: 110px;">
-						<a title="<?= $_SESSION['user']->name ?>"><img src="<?= $_SESSION['user']->profilePicture ?>"style="width: 80px;vertical-align: middle;padding-right: 10px;"></a>
+			<? if($fromDetailView==false){ ?>
+				<li data-role="list-divider"><?= _("User details") ?></li>	
+				<li>
+					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
+						<div class="ui-block-a" style="width: 110px;">
+							<a title="<?= $_SESSION['user']->name ?>"><img src="<?= $_SESSION['user']->profilePicture ?>"style="width: 80px;vertical-align: middle;padding-right: 10px;"></a>
+						</div>
+						<div class="ui-block-b">
+							<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
+							<p><?= $_SESSION['user']->birthday ?> </p>
+							<p><?= $lang?></p>
+							<p><a href="mailto:<?= prettyprintId($_SESSION['user']->id) ?>"><?= prettyprintId($_SESSION['user']->id) ?></a></p>
+						</div>
 					</div>
-					<div class="ui-block-b">
-						<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
-						<p><?= $_SESSION['user']->birthday ?> </p>
-						<p><?= $lang?></p>
-						<p><a href="mailto:<?= prettyprintId($_SESSION['user']->id) ?>"><?= prettyprintId($_SESSION['user']->id) ?></a></p>
-					</div>
-				</div>
-			</li>
-			
+				</li>
+			<? } ?>
 			<li data-role="list-divider"><?= _("Organization details") ?></li>	
 			<li>
 				<h2>

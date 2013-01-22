@@ -12,7 +12,7 @@
 			
 			<? if (count($this->result) == 0) :?>
 			<li>
-				<h4>No result found</h4>
+				<h4><?= _("No result found")?></h4>
 			</li>
 			<? endif ?>
 			

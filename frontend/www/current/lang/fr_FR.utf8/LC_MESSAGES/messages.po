@@ -1382,8 +1382,8 @@ msgid "See similar offers"
 msgstr "Voir les offres similaires"
 
 #: ../application/myEurope/views/ExtendedProfileListView.php:14
-msgid "Hello, This is your first time on myEurope! Please register with an already existing profile or create yours"
-msgstr "Bonjour, c'est votre première venue sur myEurope! Joignez un des profils d'organismes ci-dessous pour lequel vous travaillez, ou créez le votre."
+msgid "Hello, This is your first time on myEurope! Please register by creating your own profile."
+msgstr "Bonjour, c'est votre première venue sur myEurope! Créez votre propre profil."
 
 #: ../application/myEurope/views/DetailsView.php:30
 msgid "Publication Date"
