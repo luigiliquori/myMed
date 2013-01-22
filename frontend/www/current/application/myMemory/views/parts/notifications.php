@@ -1,23 +1,26 @@
-<?
+<?php
+
 /**
- * Display a notification bar for errors or success.
- * Now with close button and fadeOut animation
+ * Display a notification pop up for errors or success
  * 
- * @author David Da Silva
  */
-if (!empty($this->error)): ?>
-<div class="ui-bar ui-bar-e" id="notification-error">
-	<h3><?= $this->error ?></h3>
-	<div style="float:right; margin-top:4px;">
-		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" onclick="$('#notification-error').fadeOut('fast');">Button</a>
-	</div>
-</div>
-<? endif ?>
-<? if (!empty($this->success)): ?>
-<div class="ui-bar ui-bar-e" id="notification-success">
-	<h3><?= $this->success ?></h3>
-	<div style="float:right; margin-top:4px;">
-		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" onclick="$('#notification-success').fadeOut('fast');">Button</a>
-	</div>
-</div>
-<? endif ?>
+
+function print_notification($message) {
+
+	if($message != "") {
+		echo '<div data-role="popup" id="notificationPopup" data-transition="flip" data-theme="e" class="ui-content"><p>' . $message . ' </p></div>';
+		echo '
+		<script type="text/javascript">
+		
+		// Go back in the history has problem in Chrome. Do not return back in the history when the pop up disappear.
+		$( "#notificationPopup" ).popup({ history: false });
+		
+		$(document).ready(function() {
+			$( "#notificationPopup" ).popup("open");
+		 });
+		 </script>
+		 ';
+	}  
+}
+
+?>
