@@ -18,6 +18,7 @@ function print_notification($message) {
 		$(document).ready(function() {
 			$( "#notificationPopup" ).popup("open");
 		 });
+		 
 		 </script>
 		 ';
 	}  

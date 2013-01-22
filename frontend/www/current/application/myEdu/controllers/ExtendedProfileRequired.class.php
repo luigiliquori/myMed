@@ -16,7 +16,7 @@ class ExtendedProfileRequired extends GuestController {
 
 		// Try to get the User ExtendedProfile if it exist
 		// ExtendedProfile stored in the $_SESSION while using the app
-		if (!isset($_SESSION['myEdu'], $_SESSION['myEdu']->permission)){
+		if (!isset($_SESSION['myEdu'], $_SESSION['myEdu']->permission)) {
 			
 			// Search the user 
 			$this->mapper = new DataMapper;
@@ -28,9 +28,9 @@ class ExtendedProfileRequired extends GuestController {
 			}
 			
 			// The user is found
-			if (isset($usr)){
+			if (isset($usr)) {
 				
-				// Search user Extended Profile details
+				// Search for user Extended Profile details
 				$profile = new Profile($usr['profile']);
 				try {
 					$profile->details = $this->mapper->findById($profile);

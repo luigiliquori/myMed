@@ -20,71 +20,49 @@ class PublishController extends ExtendedProfileRequired {
 		switch ($_GET['method'])
 		{
 			// Show the user publications list 
-			case 'show':
+			case 'show_user_publications':
 				$this->showUserPublications();
 				break;
 					
 			// Show the NewPublication view
-	        case 'create':
+	        case 'new_publication':
 	        	$this->renderView("NewPublication");
 	        	break;
 	        
-	        // Submit a new user publication
-	        case 'submit':   
-	        	$this->submitNewPublication();
-	        	break;
-	        
 	        // Modify a user's publication
-	        case 'modify':
-	        	$this->renderView("ModifyPublication");
+	        case 'modify_publication':
+	        	$this->modifyPublication();
 	        	break;
   
 		} 
 
 	}
-  
-	
-	function show() {
-		$this->showUserPublications();
-	}
-	
-	/**
-	 *  Search user's publication and render MyPublicationView
-	 */
-	private function showUserPublications() {
 
-		// Search User publications
-		$search = new MyEduPublication();
-		
-		// TODO : remove fake user id used for testing
-		// $_POST['publisher'] = $_SESSION['user']->id;
-		$_POST['publisher'] = "FAKE_USER_ID";
-		$obj->publisher = $_POST['publisher'];		// Publisher ID
-		
-		$this->result = $search->find();
-		
-		// Get user reputation
-		$this->getReputation($this->result);
-		
-		$this->renderView("MyPublication");
-		
-	}
+
+	/**
+	 *  Update (modify) user's publication
+	 */
+	public function update() {
 	
+		// Update is just re-publish on the same predicate
+		$this->create();
+	}
+
 	
 	/**
-	 *  Submit a new user publication 
+	 *  Submit a new user publication
 	 */
-	private function submitNewPublication() {
-		
+	public function create() {
+	
 		// Check if submit method has been called from the form
 		if (!($_SERVER['REQUEST_METHOD'] == "POST")) {
-			
+				
 			// If the method has not post parameters, just render the
 			// NewPublication View
 			$this->renderView("NewPublication");
-			
-		} else {
 				
+		} else {
+	
 			// Check publication fields
 			if (empty($_POST['title'])) {
 				$this->error = _("Title field can't be empty");
@@ -103,16 +81,10 @@ class PublishController extends ExtendedProfileRequired {
 				$this->renderView("NewPublication");
 					
 			} else{
-				
+	
 				// All required fields are filled, publish it
 				$obj = new MyEduPublication();
-		
-				// Fill the Publication object
-				// TODO : remove fake user id used for testing
-				// $_POST['publisher'] = $_SESSION['user']->id;
-				$_POST['publisher'] = "FAKE_USER_ID";
-				
-				$obj->publisher = $_POST['publisher'];		// Publisher ID
+				$obj->publisher = $_SESSION['user']->id;    // Publisher ID
 				$obj->type = 'myEduPublication';			// Publication type
 				$obj->area = $_POST['area'];				// Area
 				$obj->category = $_POST['category'];		// Category
@@ -121,15 +93,117 @@ class PublishController extends ExtendedProfileRequired {
 				$obj->title = $_POST['title'];				// Title
 				$obj->text 	= $_POST['text'];				// Publication text
 				$obj->publish();
-		
+	
 				$this->success = _("Your publication offer has been successfully published");
-		
+	
 				// Return to main controller
 				$this->forwardTo("main");
-		
+	
 			}
 		}
 	
+	}
+	
+	
+	/**
+	 *  Delete user's publication 
+	 */
+	public function delete() {
+					
+		$obj = new MyEduPublication();
+		$obj->publisherID = $_SESSION['user']->id;  // Publisher ID
+		$obj->publisher = $_SESSION['user']->id;    // Publisher ID
+		$obj->type = 'myEduPublication';			// Publication type
+		$obj->area = $_POST['area'];				// Area
+		$obj->category = $_POST['category'];		// Category
+		$obj->locality = $_POST['locality'];		// Category
+		$obj->end 	= $_POST['date'];				// Expiration date
+		$obj->title = $_POST['title'];				// Title
+		$obj->text 	= $_POST['text'];				// Publication text
+		
+		// Delete publication
+		$obj->delete();
+		$this->result = $obj;
+		$this->success = "Deleted !";
+		
+		// Render MyPublications View
+		$this->showUserPublications();
+	}
+	
+	
+	/**
+	 *  Search user's publication and render MyPublicationView
+	 */
+	private function showUserPublications() {
+
+		// Search User publications
+		$search = new MyEduPublication();
+		$search->publisher = $_SESSION['user']->id;  
+		$this->result = $search->find();
+		
+		// Get user reputation
+		$this->getReputation($this->result);
+		
+		$this->renderView("MyPublication");
+	}
+	
+	
+	/**
+	 *  Search user's publication and render MyPublicationView
+	 */
+	private function modifyPublication() {
+	
+		// Get arguments of the query
+		$predicate = $_GET['predicate'];
+		$author = $_GET['author'];
+	
+		// Create an object
+		$obj = new MyEduPublication($predicate);
+		$obj->publisherID = $author;
+	
+		// Fetches the details
+		$obj->getDetails();
+	
+		// Give this to the view
+		$this->result = $obj;
+	
+		// get author reputation
+		$request = new Request("ReputationRequestHandler", READ);
+		$request->addArgument("application",  APPLICATION_NAME);
+		$request->addArgument("producer",  $obj->publisherID);
+		$request->addArgument("consumer",  $obj->publisherID);
+	
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+	
+		if (isset($responseObject->data->reputation)) {
+			$value =  json_decode($responseObject->data->reputation) * 100;
+		} else {
+			$value = 100;
+		}
+	
+		// Save reputation values
+		$this->reputation["author"] = $value;
+		$this->reputation["author_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
+	
+		// get value reputation
+		$request->addArgument("producer",  $predicate.$obj->publisherID);
+	
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+	
+		if (isset($responseObject->data->reputation)) {
+			$value =  json_decode($responseObject->data->reputation) * 100;
+		} else {
+			$value = 100;
+		}
+	
+		// Save reputation values
+		$this->reputation["value"] = $value;
+		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
+	
+		// Render the view
+		$this->renderView("ModifyPublication");
 	}
 	
 	

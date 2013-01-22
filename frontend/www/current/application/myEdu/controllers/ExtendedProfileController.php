@@ -19,14 +19,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * DefaultMethod
 	 */
 	function defaultMethod() {
-		
 		/*
+		
 		switch ($_GET['method'])
 		{
-			// Create a new Extended Profile  
-			case 'create':
-				$this->createNewExtendedProfile();
-				break;
+			
 			
 			default:
 				$this->defaultControllerAction();
@@ -43,6 +40,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		*/
 		
+		
 		if (isset($_GET['user'])){
 			$this->showUserProfile($_GET['user']);
 		}
@@ -56,7 +54,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		else if (isset($_GET['link']))
 			$this->createUser($_GET['link']);
 		
-		else if (!isset($_SESSION['myEurope']) || isset($_GET['list'])){
+		else if (!isset($_SESSION['myEdu']) || isset($_GET['list'])){
 			// Create a new profile
 			$this->cats = Categories::$roles;
 			$this->renderView("ExtendedProfileCreate");
@@ -88,9 +86,12 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->updateProfile();
 	}
 	
-	function create(){
+	/**
+	 * Create a new Extended Profile
+	 */ 
+	function create() {
+		
 		$profile = $this->storeProfile();
-		//debug_r($profile)
 		$this->createUser($profile->id);
 		$this->redirectTo("ExtendedProfile", array("id"=>$profile->id, "link"=>""));
 	}
