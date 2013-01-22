@@ -13,8 +13,13 @@
 	
 	<!-- JQUERY  -->
 	<link rel="stylesheet" href="/lib/jquery/jquery.mobile-1.2.0.css" />
-		<script src="/lib/jquery/jquery-1.8.2.min.js"></script>
+	<script src="/lib/jquery/jquery-1.8.2.min.js"></script>
 	<script src="/lib/jquery/jquery.mobile-1.2.0.js"></script>
+	
+	<!-- Cleeditor -->
+	<link rel="stylesheet" type="text/css" href="jquery/CLEeditor/jquery.cleditor.css" />
+    <script type="text/javascript" src="jquery/CLEeditor/jquery.cleditor.min.js"></script>
+    <script type="text/javascript" src="jquery/CLEeditor/startCLE.js"> </script>
 	
 	<!-- APP css -->
 	<link href="css/style.css" rel="stylesheet" />

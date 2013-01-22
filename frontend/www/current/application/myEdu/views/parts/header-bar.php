@@ -1,6 +1,6 @@
 <?php 
 /**
- * Print the header bar, this version is different from that in the template
+ * Print the header bar
  * 
  * @param boolean $print_back_button, add the back button to the header bar
  * @param string $idHelpPopup the id of the help popup in the rendered view  
