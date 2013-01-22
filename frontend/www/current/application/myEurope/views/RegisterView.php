@@ -6,7 +6,7 @@
 	 print_header_bar(true, false, $title); ?>
 
 <!--<div data-role="header" data-theme="b">
-		<h1><?= _("Account creation") ?></h1>	
+		<h1><?=// _("Account creation") ?></h1>	
 	</div>
  -->
 	<div data-role="content">
