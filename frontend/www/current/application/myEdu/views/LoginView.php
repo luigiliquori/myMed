@@ -1,6 +1,6 @@
-<!-- ------------------    -->
-<!-- App Login View        -->
-<!-- ------------------    -->
+<!-- ------------------ -->
+<!-- App Login View     -->
+<!-- ------------------ -->
 
 <div data-role="page" id="loginView" >
 
@@ -13,6 +13,7 @@
 		
 		<!-- Notification pop up -->
 		<? include_once 'notifications.php'; ?>
+		<? print_notification($this->success.$this->error);?>
 	
  		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Why Register ?") ?></h3>
@@ -70,6 +71,8 @@
 	
 		</form>
 
-	</div>
+	</div> <!-- END page content -->
 	
-</div>
+</div> <!-- END page -->
+
+<? include("RegisterView.php"); ?>

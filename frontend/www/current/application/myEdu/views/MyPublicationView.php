@@ -4,12 +4,11 @@
 
 <div data-role="page" id ="mypublicationview">
 
-	
 	<!-- Page header bar -->
 	<? $title = _("My Publication");
 	   print_header_bar(true, false, $title); ?>
 	
-	
+		
 	<!-- Page content -->
 	<div data-role="content" >
 	
@@ -23,7 +22,7 @@
 		<br />
 	
 		<!-- New publication button -->
-		<a href="index.php?action=publish&method=modify" data-icon="pencil" data-role="button" ><?= _("New publication") ?></a><br />	
+		<a href="index.php?action=publish&method=new_publication" data-icon="pencil" data-role="button" ><?= _("New publication") ?></a><br />	
 		<br />
 		
 		<!-- List of user publications -->
@@ -39,8 +38,7 @@
 
 			<? foreach($this->result as $item) : ?>
 				<li>
-					<!-- Print Publisher reputation -->
-					<a href="?action=publish&method=modify<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+					<a href="?action=publish&method=modify_publication&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
