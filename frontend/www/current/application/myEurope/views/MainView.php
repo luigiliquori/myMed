@@ -33,7 +33,9 @@
 		<!-- ------------------ -->
 		<!-- HELP POPUP -->
 		<!-- ------------------ -->
+		
 		<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<h3><?= _("How it works") ?> ?</h3>
 			<ul data-role="listview" data-theme="e">	
 				<li>
@@ -58,7 +60,7 @@
 				</li>
 			</ul>
 			<br />	
-			<center><a href="#" data-role="button" data-icon="ok" data-inline="true" data-theme="e" data-rel="back" data-direction="reverse">Ok</a></center>
+			<!-- <center><a href="#" data-role="button" data-icon="ok" data-inline="true" data-theme="e" data-rel="back" data-direction="reverse">Ok</a></center>-->
 		</div>
 		
 	</div>
