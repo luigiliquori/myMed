@@ -681,6 +681,9 @@ msgstr ""
 msgid "MyInfos"
 msgstr "Mes informations"
 
+msgid "If you find an error you can report it at this address: "
+msgstr "Si vous trouvez une erreur, vous pouvez le signaler à cette adresse: "
+
 #: ../application/myMemory/views/ExtendedProfileDisplayView.php:55
 msgid "CallingList"
 msgstr "Liste d'appel"
