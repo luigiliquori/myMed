@@ -4,24 +4,6 @@
 
 <script type="text/javascript">
 	<?php
-	/*
-	 * DEBUG
-	 */
-	$_SESSION['autocall_active'] = true;
-	
-	// perimeter home
-	$_SESSION['ExtendedProfile']->perimeter_home = 100;
-	// perimeter nearby
-	$_SESSION['ExtendedProfile']->perimeter_nearby = 250;
-	// perimeter far
-	$_SESSION['ExtendedProfile']->perimeter_far = 1000;
-	// buddy list
-	$_SESSION['ExtendedProfile']->callingListAutoCall = array("0658129393", "0658129393", "0658129393");
-
-	// interval
-	$_SESSION['ExtendedProfile']->autocall_frequency = 1;
-	
-	
 	
 	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && ($_SESSION['isMobile']) && (isset($_SESSION['autocall_active'])) ){
 		
@@ -45,30 +27,33 @@
 		* 11: interval			(int)		in minutes
 		*/
 		
-		$guardian_params = '';
+		if(!$_SESSION['autocall_active']) {
 		
-		// person name
-		$guardian_params .= $_SESSION['user']->name."::";
-		// home
-		$guardian_params .= $_SESSION['ExtendedProfile']->home."::";
-		// perimeter home
-		$guardian_params .= $_SESSION['ExtendedProfile']->perimeter_home."::";
-		// perimeter nearby
-		$guardian_params .= $_SESSION['ExtendedProfile']->perimeter_nearby."::";
-		// perimeter far
-		$guardian_params .= $_SESSION['ExtendedProfile']->perimeter_far."::";
-		// buddy 1
-		$guardian_params .= $_SESSION['ExtendedProfile']->callingListAutoCall['0']."::";
-		// buddy 2
-		$guardian_params .= $_SESSION['ExtendedProfile']->callingListAutoCall['1']."::";
-		// buddy 3
-		$guardian_params .= $_SESSION['ExtendedProfile']->callingListAutoCall['2']."::";
-		// interval
-		$guardian_params .= $_SESSION['ExtendedProfile']->autocall_frequency;
-		
-		$_SESSION['autocall_active'] = true;
-		
-		echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
+			$guardian_params = '';
+			
+			// person name
+			$guardian_params .= $_SESSION['user']->name."::";
+			// home
+			$guardian_params .= $_SESSION['ExtendedProfile']->home."::";
+			// perimeter home
+			$guardian_params .= $_SESSION['ExtendedProfile']->perimeter_home."::";
+			// perimeter nearby
+			$guardian_params .= $_SESSION['ExtendedProfile']->perimeter_nearby."::";
+			// perimeter far
+			$guardian_params .= $_SESSION['ExtendedProfile']->perimeter_far."::";
+			// buddy 1
+			$guardian_params .= $_SESSION['ExtendedProfile']->callingListAutoCall['0']."::";
+			// buddy 2
+			$guardian_params .= $_SESSION['ExtendedProfile']->callingListAutoCall['1']."::";
+			// buddy 3
+			$guardian_params .= $_SESSION['ExtendedProfile']->callingListAutoCall['2']."::";
+			// interval
+			$guardian_params .= $_SESSION['ExtendedProfile']->autocall_frequency;
+			
+			$_SESSION['autocall_active'] = true;
+			
+			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
+		}
 	}
 	?>
 
