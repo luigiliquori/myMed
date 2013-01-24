@@ -5,7 +5,8 @@
 <div id="mainView" data-role="page">
 
 	<!-- Header bar -->
-	<? print_header_bar(false, "mainViewHelpPopup", $title , true); ?>
+	<?  $title=_('myEdu');
+		print_header_bar(false, "mainViewHelpPopup", $title, true); ?>
 	 
 	<!-- Page content --> 
 	<div data-role="content">
@@ -28,7 +29,7 @@
 		<a href="?action=myOpportunity&opportunities=true" data-icon="star" data-role="button" data-ajax="false" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My Opportunities") ?></a><br />	
 		<a href="index.php?action=publish&method=show_user_publications" data-icon="pencil" data-role="button" data-ajax="false"  <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEdu'])) ? " class='ui-disabled'" : "" ?>><?= _("My publications") ?></a><br />
 		<a href="?action=Find&search=true" data-role="button" data-icon="search"><?= _("Search publication") ?></a><br />
-		<a href="index.php?action=extendedProfile" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
+		<a href="index.php?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
 		<a href="index.php#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
 		
 		<!-- MainView HELP POPUP -->

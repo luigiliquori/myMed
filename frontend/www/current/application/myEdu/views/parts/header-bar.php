@@ -12,7 +12,7 @@ function print_header_bar($print_back_button = false, $idHelpPopup = "defaultHel
 	echo '<div data-role="header" data-theme="b" data-position="fixed">';
 	
 	// Print logout button or print
-	if ($print_logout_button) {
+	if ($print_logout_button && !$_SESSION['user']->is_guest) {
 		// Print logout button
 		echo '<a href="?action=logout"
 		data-inline="true"

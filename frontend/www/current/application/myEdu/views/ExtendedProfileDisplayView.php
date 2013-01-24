@@ -16,16 +16,6 @@
 	<div data-role="content">
 		
 		<br><br>
-		<?php 
-			// Check for admin rights
-			if ($_SESSION['myEdu']->permission >=2) : ?>
-			<!-- Admin access -->
-			<div style="text-align: center;">
-				<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" data-theme="e"> <?= _("Users list") ?> </a>
-			</div>
-			<br>
-		<? endif ?>
-		
 		<?php	
 	   		// Select language
 			$lang="";
@@ -33,7 +23,6 @@
 			else if($_SESSION['user']->lang=="it") $lang=_("Italian");
 			else $lang=_("French");
 		?>
-		
 		
 		<!-- Show user profile -->
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d" style="margin-top: 2px;">
@@ -110,34 +99,29 @@
 			</li>	
 		</ul> <!-- END show user profile -->	
 		
+		
 		<!-- Edit profile, Delete and Show publications buttons -->
+		<? if (isset($_SESSION['myEdu']) && $_GET['user'] == $_SESSION['user']->id ): ?>
 		<div style="text-align: center;">
-			
-			<? if (isset($_SESSION['myEdu'])): ?>
 			<br />
-			
 			<!-- Edit profile-->
 			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
-			
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
-			
 			<!-- Pop up delete profile -->	
 			<div data-role="popup" id="popupDeleteProfile" class="ui-content" Style="text-align: center; width: 18em;">
-					<?= _("Are you sure you want to delete your profile ?") ?><br /><br />
-					<a type="button" href="?action=ExtendedProfile&method=delete"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
-					<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
-				</div>
-			
-			<? endif; ?>
-			
+				<?= _("Are you sure you want to delete your profile ?") ?><br /><br />
+				<a type="button" href="?action=ExtendedProfile&method=delete"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
+				<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
+			</div>
 			<!-- List of user subscriptions -->
 			<br />
-			<? if (isset($_SESSION['myEdu'])): ?>
-			<a type="button" href="?action=" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My opportunities") ?></a>
-			<? endif; ?>
-
+				<? if (isset($_SESSION['myEdu'])): ?>
+				<a type="button" href="?action=" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My opportunities") ?></a>
+				<? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
+		<? endif; ?>
+		
 	
 	</div> <!-- END Page content -->
 	

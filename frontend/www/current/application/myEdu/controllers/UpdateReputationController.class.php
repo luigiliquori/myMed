@@ -25,7 +25,7 @@ class UpdateReputationController extends DetailsController {
 			$request->addArgument("start",  time());
 			$request->addArgument("end",  time());
 			$request->addArgument("predicate",  $_GET['predicate']);
-			$request->addArgument("feedback",  "0.".$_GET['reputation']);
+			$request->addArgument("feedback",  $_GET['reputation']/10);
 
 // 			try {
 				$responsejSon = $request->send();

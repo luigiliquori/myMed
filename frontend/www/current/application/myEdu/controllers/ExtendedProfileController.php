@@ -28,6 +28,16 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				if(isset($_SESSION['myEdu']))
 					$this->renderView("ExtendedProfileEdit");
 				break;
+			
+			// Edit user extended profile
+			case 'show_user_profile':
+				// If the user is not a guest but has not got an Extended 
+				// profile forward him to ExtendedProfileCreate View
+				if (!isset($_SESSION['myEdu']))
+					$this->renderView("ExtendedProfileCreate");
+				else
+					$this->showUserProfile($_GET['user']);
+				break;
 		}		
 	}
 	
@@ -37,28 +47,19 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	function defaultMethod() {
 		
-
-		// What the hell ?
-		if (isset($_GET['link'])) {
-			$this->createUser($_GET['link']);
-		}
-		
-		// If the user is not a guest but has not got an Extended profile
-		// forward to ExtendedProfileCreate View 
-		else if (!isset($_SESSION['myEdu'])) {
+		// If the user is not a guest but has not got an Extended
+		// profile forward him to ExtendedProfileCreate View
+		if (!isset($_SESSION['myEdu']))
 			$this->renderView("ExtendedProfileCreate");
-		}
-		
-		// If the user has an Extended Profile, show it
-		else if (isset($_SESSION['user'])) {
+		else
 			$this->showUserProfile($_SESSION['user']->id);
-		} else {
-			$this->forwardTo("logout");
-		}
+		
 	}
 	
 	
-	/** Create a new Extended Profile */
+	/** 
+	 * Create a new Extended Profile 
+	 */
 	public function create() {
 			
 		// Check form fiels
@@ -90,11 +91,13 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->createUser($_POST['id']);
 	
 		// Display the new created Extended Profile
-		$this->redirectTo("?action=ExtendedProfile");		
+		$this->redirectTo("?action=ExtendedProfile&method=show_user_profile&user=".$_SESSION['user']->id);		
 	}
 		
 	
-	/** Update an Extended profile */
+	/** 
+	 * Update an Extended profile 
+	 */
 	public function update() {
 		
 		$name = $_POST['name'];
@@ -204,20 +207,28 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$_SESSION['myEdu']->users = $users;
 			
 			// Redirect to main view
-			$this->redirectTo("Main", array(), "#profile");
+			$this->redirectTo("?action=ExtendedProfile&method=show_user_profile&user=".$_SESSION['user']->id);
 		}
 		
 	}
 
 	
-	/** Delete an Extended profile and all its releated publication */
+	/** 
+	 * Delete an Extended profile and all its releated publication 
+	 */
 	public function delete() {
+		
 		$this->deletePublications($_SESSION['user']->id); 
 		$this->deleteUser($_SESSION['user']->id);
+		
+		// Redirect to main view
+		$this->redirectTo("?action=main");
 	}
 	
 
-	/** Create a new user */
+	/** 
+	 * Create a new user 
+	 */
 	function createUser($profile){
 	
 		// Permission is 2 if the user is an admin, otherwise 1
@@ -278,9 +289,12 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$subscribe->send();
 	
 	}
-			
-	/** Show a user Extended profile */
-	function showUserProfile($user){
+
+	
+	/** 
+	 * Show the user Extended profile 
+	 */
+	function showUserProfile($user) {
 		
 		// Get the user details
 		$user = new User($user);
@@ -306,8 +320,31 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
+	/**
+	 * Show another user Extended profile
+	 */
+	function showOtherProfile($id) {
+		
+		$this->profile = new MyEduProfile($id);
+		
+		try {
+			$this->profile->details = $this->mapper->findById($this->profile);
+		} catch (Exception $e) {
+			$this->redirectTo("main");
+		}
+		
+		// Get reputation
+		$this->profile->parseProfile();
+		$this->profile->reputation = pickFirst(getReputation(array($id)));
 	
-	/** Delete a user and its profile */
+		$this->renderView("ExtendedProfileDisplay");
+	}
+	
+	
+	
+	/** 
+	 * Delete a user and its profile 
+	 */
 	function deleteUser($id) {
 		
 		// Delete the user if exists
@@ -337,12 +374,13 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_SESSION['myEdu']);
 		
 		$this->success = "done";
-		$this->renderView("main");
 	
 	}
 	
 	
-	/** Delete a user profile */ 
+	/** 
+	 * Delete a user profile 
+	 */ 
 	function deleteProfile($id){
 		
 		$publish = new RequestJson(
@@ -356,7 +394,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	
-	/** Delete user's publications */
+	/** 
+	 * Delete user's publications 
+	 */
 	function deletePublications($id){
 		
 		$search_by_userid = new MyEduPublication();
