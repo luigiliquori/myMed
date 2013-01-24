@@ -31,7 +31,7 @@
 		* 11: interval			(int)		in minutes
 		*/
 		
-		if(!$_SESSION['autocall_active']) {
+		if($_SESSION['autocall_active'] ==false) {
 		
 			$guardian_params = '';
 			
@@ -56,7 +56,7 @@
 			
 			$_SESSION['autocall_active'] = true;
 			
-			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
+			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=ExtendedProfile&mobile_binary::guardian::'.$guardian_params.'";},5000);';
 		}
 	}
 	?>
