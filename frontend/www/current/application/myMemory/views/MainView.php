@@ -6,14 +6,13 @@
 	$_SESSION['autocall_active'] = true;
 	
 
-			echo '<script type="text/javascript">';
-			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
-			echo '</script>';
 
 	?>
 
 
-
+<script type="text/javascript">
+	setTimeout(function() {location.href="/application/myMemory/index.php?action=main&mobile_binary::guardian::test";},5000);
+</script>
 	<!-- Header -->
 	<div data-role="header" data-position="inline">
 		<a href="../../index.php" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete"><?= _("Exit"); ?></a>
