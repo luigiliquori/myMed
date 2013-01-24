@@ -11,7 +11,21 @@ class FindController extends AuthenticatedController{
 		if ($_SERVER['REQUEST_METHOD'] == "POST") { // search button			
 			$search = new MyEduPublication();
 			$this->fillObj($search);
-			$this->result = $search->find();
+			$this->result1 = $search->find();
+			
+			$this->result = array();
+			$date = strtotime(date('d-m-Y')); 
+				
+			foreach($this->result1 as $item) {
+				if(!empty($item->end) && $item->end!="--"){
+					$expiration_date = strtotime($item->end);
+					if($expiration_date >= $date){
+						array_push($this->result, $item);
+					}
+				}else //no expiration date
+					array_push($this->result, $item);
+			}
+			
 			$this->renderView("results");
 		}
 	}
@@ -21,7 +35,21 @@ class FindController extends AuthenticatedController{
 			debug("SEARCH CALL");
 			// render all the publications
 			$selectedResults = new MyEduPublication();
-			$this->result = $selectedResults->find();
+			$this->result1 = $selectedResults->find();
+			
+			$this->result = array();
+			$date = strtotime(date('d-m-Y')); 
+				
+			foreach($this->result1 as $item) {
+				if(!empty($item->end) && $item->end!="--"){
+					$expiration_date = strtotime($item->end);
+					if($expiration_date >= $date){
+						array_push($this->result, $item);
+					}
+				}else //no expiration date
+					array_push($this->result, $item);
+			}
+			
 			// get userReputation
 			$this->getReputation($this->result);
 			$this->renderView("Find");
