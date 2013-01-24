@@ -2,6 +2,7 @@
 
 <div data-role="page" id="MainView">
 <script type="text/javascript">
+
 	<?php
 	$_SESSION['autocall_active'] = true;
 	
