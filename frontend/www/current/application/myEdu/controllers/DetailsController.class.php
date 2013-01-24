@@ -20,6 +20,10 @@ class DetailsController extends AuthenticatedController {
 		$predicate = $_GET['predicate'];
 		$author = $_GET['author'];
 		
+		//signing up datas to the session will be used during adding comments
+		$_SESSION['predicate'] = $predicate;
+		$_SESSION['author'] = $author;
+		
 		// Create an object
 		$obj = new MyEduPublication($predicate);
 		$obj->publisherID = $author;
@@ -64,8 +68,55 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["value"] = $value;
 		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
+		$this->search_comment();
+		
 		// Render the view
 		$this->renderView("details");
+	}
+	
+	function defaultMethod() {
+		
+		if (isset($_GET['comment'])){
+			$this->comment();
+		}
+	}
+	
+	function comment(){
+		debug("button comment");
+		if(!empty($_POST['wrapped1']) ){
+			$obj = new MyEduPublication();
+					
+			// Fill the object
+			$this->fillObj_comments($obj);
+			$obj->publish();
+		
+			$this->result = $obj;
+		}
+		debug($_SESSION['predicate']." ".$_SESSION['author']);
+		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
+	}
+	
+	//searching comments
+	public function search_comment() {
+	
+		// -- Search
+		$search_comments = new MyEduPublication();
+		$this->fillObj($search_comments);
+		$this->result_comment = $search_comments->find();
+	
+	}
+	
+	private function fillObj_comments($obj) {
+		$time = time();
+		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
+		$obj->pred2 = $time;
+		$obj->wrapped1 =$_POST['wrapped1'];
+		$obj->wrapped2 =$_SESSION['user']->profilePicture;
+	
+	}
+	
+	private function fillObj($obj) {
+		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 	}
 }
 ?>

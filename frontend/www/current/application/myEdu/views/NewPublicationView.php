@@ -23,6 +23,7 @@
 			<input type="hidden" id="area" name="area" value="" />
 			<input type="hidden" id="category" name="category" value="" />
 			<input type="hidden" id="locality" name="locality" value="" />
+			<input type="hidden" id="organization" name="organization" value="" />
 			<input type="hidden" id="date" name="date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
@@ -87,6 +88,12 @@
 					<select name="locality" id="locality" data-native-menu="false">
 						<option value=""> Locality </option>
 					<? foreach (Categories::$localities as $k=>$v) :?>
+						<option value="<?= $k ?>"><?= $v ?></option>
+					<? endforeach ?>
+					</select>
+					<select name="organization" id="organization" data-native-menu="false">
+						<option value=""> Organization </option>
+					<? foreach (Categories::$organizations as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>

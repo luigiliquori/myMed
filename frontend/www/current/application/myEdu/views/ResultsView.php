@@ -26,7 +26,8 @@
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/>
 							<b><?= _("Category") ?></b>: <?= $item->category ?><br/>
-							<b><?= _("Area") ?></b>: <?= $item->area ?><br/><br/>
+							<b><?= _("Area") ?></b>: <?= $item->area ?><br/>
+							<b><?= _("Organization") ?></b>: <?= $item->organization ?><br/><br/>
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
 						</p>
 						

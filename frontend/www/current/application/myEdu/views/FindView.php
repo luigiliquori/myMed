@@ -2,13 +2,11 @@
 
 <div id="find" data-role="page">
 
-	<? print_header_bar(true, true, "Find"); ?>
+	<? print_header_bar(true, true, "Search"); ?>
 	
 	<div data-role="content">
 	
 		<form action="index.php?action=find" method="POST" data-ajax="false">
-			
-			<input type="hidden" name="method" value="Find" />
 			<input type="hidden" id="find_area" name="area" value="" />
 			<input type="hidden" id="find_category" name="category" value="" />
 			<input type="hidden" id="find_organization" name="organization" value="" />
@@ -30,21 +28,19 @@
 							<option value="<?= $k ?>"><?= $v ?></option>
 						<? endforeach ?>
 					</select>
-					<?php $dataBean = new MDataBean("Categoria", null, KEYWORD); ?>
-					<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>"><br/>
 				</fieldset>
 			
 				<!-- ADVANCED RESEARCH -->
-				<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="d" data-mini="true" style="margin-left:25px; margin-right:25px;">
+				<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="d" data-mini="true" style="margin-left:25px; margin-right:25px; margin-top:20px">
 					<h3><?= _("Advanced research")?></h3>
 					
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="orga" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
+							<input type="checkbox" name="organizationBox" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
 						</div>
 						<div class="ui-block-b">
 							<select name="organization" id="find_organization_content" id="call" data-native-menu="false">
-								<option value=""> Organization </option>
+								<option value=""></option>
 								<? foreach (Categories::$organizations as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
@@ -53,11 +49,11 @@
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="localityBox" id="check-view-c"/> <label for="check-view-c"><?= _("Locality")?></label>
+							<input type="checkbox" name="localityBox" id="check-view-b"/> <label for="check-view-b"><?= _("Locality")?></label>
 						</div>
 						<div class="ui-block-b">
 							<select name="locality" id="find_locality_content" id="call" data-native-menu="false">
-								<option value=""> Locality </option>
+								<option value=""></option>
 								<? foreach (Categories::$localities as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
@@ -70,13 +66,11 @@
 						</div>
 						<div class="ui-block-b">
 							<select name="Area" id="find_area_content" id="call">
-								<option value=""><?= _("Area") ?></option>
+								<option value=""></option>
 									<? foreach (Categories::$areas as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
 									<? endforeach ?>
 							</select>
-							<?php $dataBean = new MDataBean("Area", null, KEYWORD); ?>
-							<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($dataBean)); ?>">
 						</div>
 					</div>
 				</div>
@@ -104,32 +98,34 @@
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/>
 							<b><?= _("Category") ?></b>: <?= $item->category ?><br/>
-							<b><?= _("Area") ?></b>: <?= $item->area ?><br/><br/>
+							<b><?= _("Area") ?></b>: <?= $item->area ?><br/>
+							<b><?= _("Organization") ?></b>: <?= $item->organization ?><br/><br/>
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
 						<br/>
 						
-						<p>
+						<p style="display:inline; margin-left: 30px;">
 							Publisher ID: <?= $item->publisherID ?><br/>
-							<p style="display:inline;" > Reputation: </p>  
-							<p style="display:inline;" >
+							<!-- Project reputation-->	
+							<p style="display:inline; margin-left: 30px;" > <b>Project Reputation:</b> </p>  
+							<p style="display:inline; margin-left: 30px;" >
 								<?php
 									// Disable reputation stars if there are no votes yet 
 									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:80px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
-											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:80px; margin-top:3px;" />
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;" />
 										<?php } else { ?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:80px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
-								<p style="display:inline; margin-left:55px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+								<p style="display:inline; margin-left:35px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
 							</p>
 						</p>
 					</a>
