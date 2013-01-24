@@ -4,57 +4,8 @@
 <script type="text/javascript">
 
 	<?php
-	$_SESSION['autocall_active'] = true;
-	
-	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && $_SESSION['isMobile'] ){
-		/*
-		 * WE ACTIVATE AUTOCALL
-		 */
-		
-		/*
-		 * URL SCHEMA :
-		*
-		* 0 : mobile_binary
-		* 1 : guardian
-		* 2 : person name		(string)
-		* 3 : home 				(string)
-		* 5 : perimetre_home	(float)
-		* 6 : perimetre_nearby (float)
-		* 7 : perimetre_far	(float)
-		* 8 : tel_buddy1		(string)	usually caregiver phone
-		* 9 : tel_buddy2		(string)	usually doctor
-		* 10 : tel_buddy3		(string)	usually samu
-		* 11: interval			(int)		in minutes
-		*/
-		
-		if($_SESSION['autocall_active'] == false) {
-		
-			$guardian_params = '';
-			
-			// person name
-			$guardian_params .= $_SESSION['user']->name."::";
-			// home
-			$guardian_params .= $_SESSION['ExtendedProfile']->home."::";
-			// perimeter home
-			$guardian_params .= $_SESSION['ExtendedProfile']->perimeter_home."::";
-			// perimeter nearby
-			$guardian_params .= $_SESSION['ExtendedProfile']->perimeter_nearby."::";
-			// perimeter far
-			$guardian_params .= $_SESSION['ExtendedProfile']->perimeter_far."::";
-			// buddy 1
-			$guardian_params .= $_SESSION['ExtendedProfile']->callingListAutoCall['0']."::";
-			// buddy 2
-			$guardian_params .= $_SESSION['ExtendedProfile']->callingListAutoCall['1']."::";
-			// buddy 3
-			$guardian_params .= $_SESSION['ExtendedProfile']->callingListAutoCall['2']."::";
-			// interval
-			$guardian_params .= $_SESSION['ExtendedProfile']->autocall_frequency;
-			
-			$_SESSION['autocall_active'] = true;
-			
 			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
-		}
-	}
+
 	?>
 </script>
 
