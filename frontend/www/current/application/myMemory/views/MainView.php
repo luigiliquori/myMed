@@ -3,10 +3,8 @@
 <div data-role="page" id="MainView">
 
 	<?php
-	$_SESSION['isMobile'] = true;
 	
 	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && $_SESSION['isMobile'] ){
-		debug("AutoCall = "+$_SESSION['autocall_active']);
 		/*
 		 * WE ACTIVATE AUTOCALL
 		 */
@@ -56,7 +54,7 @@
 			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
 			echo '</script>';
 		}
-	} else { debug("je ne rentre pas dans le if");}
+	}
 	?>
 
 
