@@ -11,158 +11,105 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * HandleRequest
 	 */
 	public function handleRequest(){
+		
 		parent::handleRequest();
 		$this->mapper = new DataMapper;
+		
+		// If the user is a guest, forward to login
+		if (isset($_SESSION['user']) && $_SESSION['user']->is_guest) {
+			$this->forwardTo('login');
+		}
+		
+		// Execute the called controller method
+		switch ($_GET['method'])
+		{
+			// Edit user extended profile
+			case 'edit':
+				if(isset($_SESSION['myEdu']))
+					$this->renderView("ExtendedProfileEdit");
+				break;
+		}		
 	}
+	
 	
 	/**
 	 * DefaultMethod
 	 */
 	function defaultMethod() {
-		/*
 		
-		switch ($_GET['method'])
-		{
-			
-			
-			default:
-				$this->defaultControllerAction();
-		} 		
+
+		// What the hell ?
+		if (isset($_GET['link'])) {
+			$this->createUser($_GET['link']);
+		}
 		
-		// If the user is a guest, forward to login
-		if (isset($_SESSION['user']) && $_SESSION['user']->is_guest) {
-			$this->forwardTo('login');
-		} 
 		// If the user is not a guest but has not got an Extended profile
 		// forward to ExtendedProfileCreate View 
 		else if (!isset($_SESSION['myEdu'])) {
 			$this->renderView("ExtendedProfileCreate");
 		}
-		*/
 		
-		
-		if (isset($_GET['user'])){
-			$this->showUserProfile($_GET['user']);
+		// If the user has an Extended Profile, show it
+		else if (isset($_SESSION['user'])) {
+			$this->showUserProfile($_SESSION['user']->id);
+		} else {
+			$this->forwardTo("logout");
 		}
-		
-		if (isset($_GET['id'])){
-			$this->showOtherProfile($_GET['id']);
-		}
-		else if (isset($_SESSION['user']) && $_SESSION['user']->is_guest)
-			$this->forwardTo('login');
-		
-		else if (isset($_GET['link']))
-			$this->createUser($_GET['link']);
-		
-		else if (!isset($_SESSION['myEdu']) || isset($_GET['list'])){
-			// Create a new profile
-			$this->cats = Categories::$roles;
+	}
+	
+	
+	/** Create a new Extended Profile */
+	public function create() {
+			
+		// Check form fiels
+		if(!$_POST['checkCondition']){
+			$this->error = _("You must accept the terms of use.");
 			$this->renderView("ExtendedProfileCreate");
 		}
-		else if (isset($_GET['edit']))
-			$this->editProfile();
-		else if (isset($_GET['delete'])){
-			$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-			$debugtxt  .= var_export($_SESSION['user']->id, TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
-			$this->deleteUser($_SESSION['user']->id);
-			//deleteProfile();
-		}
-		//I don't know why this if is not working so I put it on the top
-		else if (isset($_GET['user'])){
-			error_log("LOGROM OK CALL");
-			$this->showUserProfile($_GET['user']);
-		}
-		else if (isset($_SESSION['user'])){
-			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
-		}
-		else
-			$this->forwardTo("logout");
 	
-	}
+		// Unset post vale that we don't need
+		unset($_POST['form']);
+		unset($_POST['checkCondition']);
+		// Set id and description
+		$_POST['id'] = hash("md5", time().$_POST['name']);
+		$_POST['desc'] = nl2br($_POST['desc']);
 	
-	function update(){
-		$this->updateProfile();
-	}
-	
-	/**
-	 * Create a new Extended Profile
-	 */ 
-	function create() {
-		
-		$profile = $this->storeProfile();
-		$this->createUser($profile->id);
-		$this->redirectTo("ExtendedProfile", array("id"=>$profile->id, "link"=>""));
-	}
-	
-	function delete(){
-		if (isset($_GET['rmUser']))
-			$this->deleteUser($_GET['rmUser']);
-		else if (isset($_GET['rmProfile']))
-			$this->deleteProfile($_GET['rmProfile']);
-		
-		///////////////////////////////////////////////////
-		else if (isset($_GET['rmPublications'])){
-			debug("rmPublications");
-			$this->deletePublications($_GET['rmPublications']);
-		}
-	}
-	
-
-	function createUser($profile){
-	
-		$permission = (
-				strcontain($_SESSION['user']->email, "@inria.fr")
-				|| $_SESSION['user']->email=="luigi.liquori@gmail.com"
-				|| $_SESSION['user']->email=="bredasarah@gmail.com"
-				|| $_SESSION['user']->email=="myalpmed@gmail.com"
-		)? 2 : 0;
-			
-		$user = array(
-				'permission'=> $permission,
-				'email'=> $_SESSION['user']->email,
-				'profile'=> $profile
-		);
-		
-		//debug_r($user);
-		
-		$publish = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>$user, "metadata"=>$user),
-				CREATE);
+		// Create the new profile
+		$publish =  new RequestJson($this,
+						array("application"=>APPLICATION_NAME.":profiles",
+						"id"=>$_POST['id'], "data"=>$_POST,
+						"metadata"=>array("role"=>$_POST['role'],
+						"name"=>$_POST['name'])),
+						CREATE);
 		$publish->send();
-		
-		$publish = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id, "email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
-				UPDATE);
-		$publish->send();
-		
-		//$_SESSION['myEurope']->profile = $profile;
-		$this->success = _("Complement profile registered successfully!");
-		
-		//subscribe to our profile changes (permission change - partnership req accepted)
-		$subscribe = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":userUpdate"),
-				CREATE, "v2/SubscribeRequestHandler");
-		$subscribe->send();
-		//subscribe to our organization profile
-		$subscribe = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
-				CREATE, "v2/SubscribeRequestHandler");
-		$subscribe->send();
 	
+		// Check for errors
+		if (!empty($this->error))
+			$this->renderView("ExtendedProfileCreate");
+	
+		$this->createUser($_POST['id']);
+	
+		// Display the new created Extended Profile
+		$this->redirectTo("?action=ExtendedProfile");		
 	}
-	
-	function updateProfile(){
 		
-				$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-			$debugtxt  .= var_export($_SESSION['myEurope']->users, TRUE);
-			$debugtxt  .= var_export($_SESSION['myEurope']->reputation, TRUE);
-			$debugtxt .= "</pre>";
-			debug($debugtxt);
+	
+	/** Update an Extended profile */
+	public function update() {
+		
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$id = $_SESSION['myEdu']->profile;
+		$_POST['email'] =$_SESSION['user']->email;
+		$_POST['id'] =$_SESSION['user']->id;
+				
 		$pass	= hash("sha512", $_POST['password']);
+		
+		// Unset useless $_POST fields 
 		unset($_POST['form']);
 		unset($_POST['password']);
+		
+		// Password is required
 		if( empty($pass) ){
 			// TODO i18n
 			$this->error = _("Email field can't be empty");
@@ -179,172 +126,247 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileEdit");
 		}
 		
+		// Update of the profile informations
+		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+		$_POST['login'] = $_SESSION['user']->email;
+		$request = new Requestv2("v2/ProfileRequestHandler",
+								 UPDATE,
+								 array("user"=>json_encode($_POST))
+								);
+		try {
+			
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+	
+			if($responseObject->status != 200) {
+				throw new Exception($responseObject->description);
+			} else{
+				$profile = array ("id"=>$_POST['id'], 
+								  "name"=>$_POST['name'],
+								  "firstName"=>$_POST['firstName'], 
+								  "lastName"=>$_POST['lastName'], 
+								  "birthday"=>$_POST['birthday'], 
+								  "profilePicture"=>$_POST['profilePicture'], 
+								  "lang"=> $_POST['lang']);
+				$_SESSION['user'] 
+					= (object) array_merge((array) $_SESSION['user'], $profile);
+			}
+			
+		} catch (Exception $e) {
+			$this->error = $e->getMessage();
+			$this->renderView("ExtendedProfileEdit");
+		}
+		
+		$_POST['name'] = $name; // organization name and not username
+		$_POST['email'] = $email; // organization email != profile email
+		$_POST['id'] = $id;
+		unset($_POST['firstName']);
+		unset($_POST['lastName']);
+		unset($_POST['birthday']);
+		unset($_POST['profilePicture']);
+		unset($_POST['lang']);
+		
+		// Update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
-		$myrep = $_SESSION['myEurope']->reputation; //and reputation
-		$users = $_SESSION['myEurope']->users; //and user
-		$publish =  new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "data"=>$_POST),
-				UPDATE);
+		$myrep = $_SESSION['myEdu']->reputation; 
+		$users = $_SESSION['myEdu']->users;
+		$publish =  new RequestJson(
+						$this,
+						array("application"=>APPLICATION_NAME.":profiles", 
+						"id"=>$_POST['id'], 
+						"user"=>"noNotification", 
+						"data"=>$_POST),
+						UPDATE);	
 		$publish->send();
-		$debugtxt  =  "<pre>CONTROLLLLLEEEEEEEEEEEEEERRR";
-		$debugtxt  .= var_export($_POST, TRUE);
-		$debugtxt .= "</pre>";
-		debug($debugtxt);
-		if ($_POST['name']!=$_SESSION['myEurope']->details['name'] || $_POST['role']!=$_SESSION['myEurope']->details['role']){ //also update profiles indexes
-			$publish =  new RequestJson($this,
-					array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
-					CREATE);
+		
+		if ($_POST['name']!= $_SESSION['myEurope']->details['name'] || 
+			$_POST['role']!=$_SESSION['myEurope']->details['role']) { 
+			
+			//also update profiles indexes
+			$publish =  new RequestJson(
+							$this,
+							array("application"=>APPLICATION_NAME.":profiles", 
+							"id"=>$_POST['id'], 
+							"user"=>"noNotification", 
+							"metadata"=>array("role"=>$_POST['role'], 
+							"name"=>$_POST['name'])),
+							CREATE);
 			$publish->send();
 		}
 		
-		if (!empty($this->error))
+		if (!empty($this->error)) {
 			$this->renderView("ExtendedProfileEdit");
-		else {
+		} else {
+			
 			$this->success = _("Complement profile registered successfully!");
-			$_SESSION['myEurope']->details = $_POST;
-			$_SESSION['myEurope']->reputation = $myrep;
-			$_SESSION['myEurope']->users = $users;
-	
+			$_SESSION['myEdu']->details = $_POST;
+			$_SESSION['myEdu']->reputation = $myrep;
+			$_SESSION['myEdu']->users = $users;
+			
+			// Redirect to main view
 			$this->redirectTo("Main", array(), "#profile");
 		}
 		
 	}
+
 	
-	function storeProfile(){
-		
-		// we clear these ones
-		unset($_POST['form']);
+	/** Delete an Extended profile and all its releated publication */
+	public function delete() {
+		$this->deletePublications($_SESSION['user']->id); 
+		$this->deleteUser($_SESSION['user']->id);
+	}
+	
+
+	/** Create a new user */
+	function createUser($profile){
+	
+		// Permission is 2 if the user is an admin, otherwise 1
+		$permission = (
+				strcontain($_SESSION['user']->email, "@inria.fr")
+				|| $_SESSION['user']->email=="luigi.liquori@gmail.com"
+				|| $_SESSION['user']->email=="bredasarah@gmail.com"
+				|| $_SESSION['user']->email=="myalpmed@gmail.com"
+		)? 2 : 1;
 			
-		if(!$_POST['checkCondition']){
-			$this->error = _("You must accept the terms of use.");
-			$this->renderView("ExtendedProfileCreate");
-		}
-		$_POST['id'] = hash("md5", time().$_POST['name']);
-		$_POST['desc'] = nl2br($_POST['desc']);
-		unset($_POST['checkCondition']);
-
-		$publish =  new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "data"=>$_POST, "metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
-				CREATE);
-		$publish->send();
-
-		if (!empty($this->error))
-			$this->renderView("ExtendedProfileCreate");
+		$user = array(
+				'permission'=> $permission,
+				'email'=> $_SESSION['user']->email,
+				'profile'=> $profile
+		);
 		
-		return (object) $_POST;
+		
+		$publish = new RequestJson(
+					$this,
+					array("application"=>APPLICATION_NAME.":users", 
+					"id"=>$_SESSION['user']->id, 
+					"data"=>$user, 
+					"metadata"=>$user),
+					CREATE);
+		$publish->send();
+		
+		$publish = new RequestJson(
+					$this,
+					array("application"=>APPLICATION_NAME.":profiles", 
+					"id"=>$profile, 
+					"data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id, 
+					"email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
+					UPDATE);
+		$publish->send();
+		
+		$this->success = _("Complement profile registered successfully!");
+		
+		// Subscribe to our profile changes 
+		// (permission change - partnership req accepted)
+		$subscribe = new RequestJson( 
+						$this,
+						array("application"=>APPLICATION_NAME.":users", 
+						"id"=>$_SESSION['user']->id, 
+						"user"=> $_SESSION['user']->id, 
+						"mailTemplate"=>APPLICATION_NAME.":userUpdate"),
+						CREATE, 
+						"v2/SubscribeRequestHandler");
+		$subscribe->send();
+		
+		// Subscribe to our organization profile
+		$subscribe = new RequestJson(
+						$this,
+						array("application"=>APPLICATION_NAME.":profiles", 
+						"id"=>$profile, "user"=> $_SESSION['user']->id, 
+						"mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
+						CREATE, 
+						"v2/SubscribeRequestHandler");
+		$subscribe->send();
+	
 	}
-	
-	
-	function editProfile(){
-		$this->renderView("ExtendedProfileEdit");
-	}
-	
-	
-	function showOtherProfile($id){
-		$this->profile = new Profile($id);
-		try {
-			$this->profile->details = $this->mapper->findById($this->profile);
-		} catch (Exception $e) {
-			$this->redirectTo("main");
-		}
-		$this->profile->parseProfile();
-		$this->profile->reputation = pickFirst(getReputation(array($id)));
-
-		$this->renderView("ExtendedProfileDisplay");
-	}
-	
+			
+	/** Show a user Extended profile */
 	function showUserProfile($user){
+		
+		// Get the user details
 		$user = new User($user);
 		try {
 			$details = $this->mapper->findById($user);
 		} catch (Exception $e) {
-			error_log("LOGROM search".$e);
 			$this->redirectTo("main");
 		}
-		$this->profile = new Profile($details['profile']);
+		
+		// Get Extended profile details
+		$this->profile = new MyEduProfile($details['profile']);
 		try {
 			$this->profile->details = $this->mapper->findById($this->profile);
 		} catch (Exception $e) {
-			error_log("LOGROM search".$e);
 			$this->redirectTo("main");
 		}
-		//debug_r($details);
+		
+		// Get reputation
 		$this->profile->parseProfile();
-		if (!empty($details['profile'])) $this->profile->reputation = pickFirst(getReputation(array($details['profile'])));
+		if (!empty($details['profile'])) 
+			$this->profile->reputation = pickFirst(getReputation(array($details['profile'])));
+		
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
-	function showProfileList(){
-		$profile = new Profile();
-		try {
-			$res = $this->mapper->findByPredicate($profile);
-		} catch (Exception $e) {
-		}
 	
-		$this->cats = Categories::$roles;
-		//debug_r($res);
-	
-		function filterArray($array, $value){
-			$result = array();
-			foreach($array as $item) {
-				if ($item->role == $value) {
-					$result[] = $item;
-				}
-			}
-			return $result;
-		}
-	
-		foreach($this->cats as $k=>$v){
-			$this->cats[$k] = filterArray($res, $k);
-		}
-		$this->renderView("ExtendedProfileList");
-	
-	}
-	
-	function deleteUser($id){
+	/** Delete a user and its profile */
+	function deleteUser($id) {
 		
-		//update it's shared profile
-		$find = new RequestJson($this, array("application"=>APPLICATION_NAME.":users", "id"=>$id));
-		try{ $user = $find->send();} catch(Exception $e){}
+		// Delete the user if exists
+		$find = new RequestJson($this, 
+								array("application"=>APPLICATION_NAME.":users",
+								"id"=>$id));
+		try{ 
+			$user = $find->send();
+		} catch(Exception $e) {}
 		if (isset($user)){
-			$publish = new RequestJson($this,
-					array("application"=>APPLICATION_NAME.":profiles","id"=>$user->details->profile, "field"=>"user_".$id),
-					DELETE);
+			$publish = new RequestJson(
+							$this,
+							array("application"=>APPLICATION_NAME.":profiles",
+							"id"=>$user->details->profile, 
+							"field"=>"user_".$id),
+							DELETE);
 			$publish->send();
 		}
 	
 		$publish = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":users","id"=>$id),
-				DELETE);
-	
+					array("application"=>APPLICATION_NAME.":users",
+					"id"=>$id),
+					DELETE);
 		$publish->send();
+		
+		// Session myEdu is not still valid
+		unset($_SESSION['myEdu']);
+		
 		$this->success = "done";
 		$this->renderView("main");
 	
 	}
 	
+	
+	/** Delete a user profile */ 
 	function deleteProfile($id){
 		
-		$publish = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":profiles","id"=>$id),
-				DELETE);
-	
+		$publish = new RequestJson(
+						$this,
+						array("application"=>APPLICATION_NAME.":profiles","id"=>$id),
+						DELETE);
 		$publish->send();
+		
 		$this->success = "done";
 		$this->renderView("main");
-	
 	}
 	
+	
+	/** Delete user's publications */
 	function deletePublications($id){
 		
-		$search_by_userid = new Partnership();
+		$search_by_userid = new MyEduPublication();
 		$search_by_userid->publisher = $id;
 		$result = $search_by_userid->find();
-		debug("NB PUBLICATION  de ".$search_by_userid->publisher." :".sizeof($result));
+		
 		foreach($result as $item) :
 			$item->delete();
 		endforeach;
 		
-		$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
+		//$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 	}
 }

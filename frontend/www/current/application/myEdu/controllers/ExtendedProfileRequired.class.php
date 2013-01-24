@@ -31,7 +31,7 @@ class ExtendedProfileRequired extends GuestController {
 			if (isset($usr)) {
 				
 				// Search for user Extended Profile details
-				$profile = new Profile($usr['profile']);
+				$profile = new MyEduProfile($usr['profile']);
 				try {
 					$profile->details = $this->mapper->findById($profile);
 				} catch (Exception $e) {
@@ -51,7 +51,7 @@ class ExtendedProfileRequired extends GuestController {
 					if ($_SESSION['myEdu']->permission <= 0){
 						// Guest
 						$_SESSION['acl'] = array('defaultMethod', 'read');
-					} else if ($_SESSION['myEurope']->permission == 1){
+					} else if ($_SESSION['myEdu']->permission == 1){
 						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 					} else {
 						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create', 'updatePermission');
