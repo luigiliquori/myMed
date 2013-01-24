@@ -43,15 +43,15 @@ Categories::$localities = array(
 );
 
 Categories::$roles = array(
-		"role1"       => _("Description of role 1"),
-		"role2"       => _("Description of role 2"),
-		"role3"       => _("Description of role 3"),
+	"role1"       => _("Description of role 1"),
+	"role2"       => _("Description of role 2"),
+	"role3"       => _("Description of role 3"),
 );
 
 Categories::$organizations = array(
-"organization1"       => _("Description of organization 1"),
-"organization2"       => _("Description of organization 2"),
-"organization3"       => _("Description of organization 3"),
+	"organization1"		=> _("Description of organization 1"),
+	"organization2"     => _("Description of organization 2"),
+	"organization3"     => _("Description of organization 3"),
 );
 
 ?>
