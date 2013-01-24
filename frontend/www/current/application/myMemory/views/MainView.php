@@ -4,6 +4,10 @@
 
 <script type="text/javascript">
 	<?php
+	/*
+	 * DEBUG
+	 */
+	$_SESSION['autocall_active'] = false;
 	
 	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && ($_SESSION['isMobile']) && (isset($_SESSION['autocall_active'])) ){
 		
