@@ -20,10 +20,9 @@ function print_header_bar($print_back_button = false, $idHelpPopup = "defaultHel
 	} else {
 // 		include 'social.php';
 	}
-	$VERSIONED_APPLICATION_NAME=APPLICATION_NAME." v1.0 beta";
-	$title=empty($title)?$VERSIONED_APPLICATION_NAME:$title;
+	$title=empty($title)?APPLICATION_NAME:$title;
 	
-	echo '<h1>' .$title. '</h1>';
+	echo '<h2>' .$title. '</h2>';
 	
 	if($idHelpPopup) {
 		echo '<a href="#' . $idHelpPopup . '" id="openHelp" data-icon="question-sign" class="ui-btn-right" data-theme="e" data-rel="popup">' . _('Help') . '</a>';
