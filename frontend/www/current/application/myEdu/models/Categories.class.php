@@ -35,23 +35,23 @@ Categories::$categories = array(
 	"Appunti" 	=> _("Remarques")
 );
 
-Categories::$localities = array(
+Categories::$localities = array(	
 	"locality1"   => _("Description of locality 1"),
 	"locality2"   => _("Description of locality 2"),
 	"locality3"   => _("Description of locality 3"),
-
 );
 
+
 Categories::$roles = array(
-	"role1"       => _("Description of role 1"),
-	"role2"       => _("Description of role 2"),
-	"role3"       => _("Description of role 3"),
+	"student"   => _("Student"),
+	"professor" => _("Professor"),
+	"company"   => _("Company"),
 );
 
 Categories::$organizations = array(
-	"organization1"		=> _("Description of organization 1"),
-	"organization2"     => _("Description of organization 2"),
-	"organization3"     => _("Description of organization 3"),
+	"organization1"       => _("Description of organization 1"),
+	"organization2"       => _("Description of organization 2"),
+	"organization3"       => _("Description of organization 3"),
 );
 
 ?>
