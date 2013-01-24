@@ -7,9 +7,10 @@
 	/*
 	 * DEBUG
 	 */
-	$_SESSION['autocall_active'] = false;
+	if (!isset($_SESSION['autocall_active']))
+		$_SESSION['autocall_active'] = false;
 	
-	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && ($_SESSION['isMobile']) && (isset($_SESSION['autocall_active'])) ){
+	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && ($_SESSION['isMobile']) ){
 		
 		/*
 		 * WE ACTIVATE AUTOCALL
@@ -31,7 +32,7 @@
 		* 11: interval			(int)		in minutes
 		*/
 		
-		if($_SESSION['autocall_active'] ==false) {
+		if(!$_SESSION['autocall_active']) {
 		
 			$guardian_params = '';
 			
@@ -56,7 +57,7 @@
 			
 			$_SESSION['autocall_active'] = true;
 			
-			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=ExtendedProfile&mobile_binary::guardian::'.$guardian_params.'";},5000);';
+			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
 		}
 	}
 	?>
