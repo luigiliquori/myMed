@@ -1,11 +1,29 @@
 <? include("notifications.php")?>
 
-<div data-role="page" id="NeedHelp">
+<div data-role="page" id="MainView">
 
 <script type="text/javascript">
 	<?php
+	/*
+	 * DEBUG
+	 */
+	$_SESSION['autocall_active'] = true;
 	
-	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && ($_SESSION['isMobile']) && ($_SESSION['autocall_active'] == false)){
+	// perimeter home
+	$_SESSION['ExtendedProfile']->perimeter_home = 100;
+	// perimeter nearby
+	$_SESSION['ExtendedProfile']->perimeter_nearby = 250;
+	// perimeter far
+	$_SESSION['ExtendedProfile']->perimeter_far = 1000;
+	// buddy list
+	$_SESSION['ExtendedProfile']->callingListAutoCall = array("0658129393", "0658129393", "0658129393");
+
+	// interval
+	$_SESSION['ExtendedProfile']->autocall_frequency = 1;
+	
+	
+	
+	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && ($_SESSION['isMobile']) && (isset($_SESSION['autocall_active'])) ){
 		
 		/*
 		 * WE ACTIVATE AUTOCALL
