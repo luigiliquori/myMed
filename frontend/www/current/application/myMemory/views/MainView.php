@@ -5,7 +5,11 @@
 	<?php
 	$_SESSION['autocall_active'] = true;
 	
-	
+
+			echo '<script type="text/javascript">';
+			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
+			echo '</script>';
+
 	?>
 
 
