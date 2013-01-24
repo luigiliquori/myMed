@@ -92,7 +92,7 @@
 			<!-- MyEdu Extended Profile details -->
 			<!-- MyEdu name -->
 			<div data-role="fieldcontain">
-				<label for="textinputu1" style="text-align:right"><?= _('Organization Name') ?>: </label>
+				<label for="textinputu1" style="text-align:right"><?= _('MyEdu Profile Name') ?>: </label>
 				<input id="textinputu1" name="name" placeholder="" value="<?= $_SESSION['myEdu']->details['name'] ?>" type="text" />
 			</div>
 			<!-- Address -->

@@ -60,24 +60,34 @@
 				
 					<!-- CONTACT -->			
 					<p><b><?= _("Author")?></b> :<a href="<?= '?action=extendedProfile&user='.$this->result->publisherID ?>"><?= str_replace("MYMED_", "", $this->result->publisherID) ?> </a><br/></p>
-					<!-- Keywords an timeline
-					<p style="position: relative; margin-left: 30px;">
-						<b><?= _('keywords') ?></b>: <?= $this->result->theme ?>, <?= $this->result->other ?><br/>
-						<b>End</b>: <?= $this->result->end ?><br/><br />
-					</p> -->
-					
-					<!-- DELETE 
-					<?if ($this->result->publisherID == $_SESSION['user']->id){ ?>
-						<form action="index.php?action=main" method="POST" data-ajax="false">
-							<input type="hidden" name="theme" value="<?= $this->result->theme ?>" />
-							<input type="hidden" name="other" value="<?= $this->result->other ?>" />
-			 				<input type="hidden" name="method" value="Delete" />
-							<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= translate('Delete publication') ?>" />
-			 			</form>
-					<? } ?> 
-					-->
-				
 				</div>
+				
+				<div data-role="collapsible" data-content-theme="d">
+	 				<h3><?= _('Comments') ?></h3>
+		 			<!-- displaying comments -->
+					<br/>
+		 			<?foreach ($this->result_comment as $item) :?>
+		 				<div data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true" data-collapsed="false">
+		 					
+		 					<h3><?= $item->publisherName ?></h3>
+		 					<div class="ui-grid-a">
+		 						<!-- displaying photo of the user who added comment -->
+		 						<div class="ui-block-a"><img src="<?= $item->wrapped2 ?>" align=left alt="Your photo here" width="100px" height="100px"/></div>
+		 						<!-- displaying text -->
+		 						<div class="ui-block-b"><?= $item->wrapped1 ?></div>
+		 					</div>
+		 					
+		 				</div>
+					<? endforeach ?>
+		 			
+		 			<!-- adding new comments -->
+		 			<form action="?action=comment" method="POST" data-ajax="false">
+		 				<textarea name="wrapped1"></textarea>
+		 				<input type="hidden" name="method" value="Comment" />
+						<input type="submit" value="<?= _('Comment') ?>" />
+		 			</form>
+	 	
+	 			</div>
 			</div>
 		</div>
 		

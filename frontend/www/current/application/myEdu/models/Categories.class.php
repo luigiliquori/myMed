@@ -41,6 +41,7 @@ Categories::$localities = array(
 	"locality3"   => _("Description of locality 3"),
 );
 
+
 Categories::$roles = array(
 	"student"   => _("Student"),
 	"professor" => _("Professor"),

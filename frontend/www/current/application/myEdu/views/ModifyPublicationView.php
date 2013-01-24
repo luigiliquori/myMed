@@ -59,6 +59,7 @@
 						<b><?= _('Date of expiration') ?></b>: <?= $this->result->end ?><br/><br/>
 						<b><?= _("Area") ?></b>: <?= $this->result->area ?><br/>
 						<b><?= _("Category") ?></b>: <?= $this->result->category ?><br/>
+						<b><?= _("Organization") ?></b>: <?= $this->result->organization ?><br/>
 						<b><?= _("Locality") ?></b>: <?= $this->result->locality ?><br/><br/>
 					</p>
 					 
@@ -88,6 +89,7 @@
 							<input type="hidden" name="area" value="<?= $this->result->area ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
 							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+							<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
 							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="text" id="text"/>
 							<input type="submit" data-icon="check" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Modify publication') ?>" onclick="$('#text').val($('#projecttext').val());"/>
@@ -102,6 +104,7 @@
 							<input type="hidden" name="area" value="<?= $this->result->area ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
 							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+							<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
 							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="text" id="text"/>
 							<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= _('Delete publication') ?>" />
