@@ -1,4 +1,3 @@
-<? include("header.php"); ?>
 <? include("notifications.php")?>
 
 <div data-role="page" id="NeedHelp">
@@ -78,4 +77,3 @@
 			echo '<span data-role="button" data-theme="e">Surveillance activée</span>';
 		?>
 </div>
-<? include("footer.php"); ?>	

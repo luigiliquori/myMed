@@ -1,4 +1,3 @@
-<? include("header.php"); ?>
 <? include("notifications.php")?>
 <div data-role="page" id="ExtendedProfileView">
 	<!-- Header -->
@@ -90,5 +89,4 @@
 	</div>
 
 	
-</div>	
-<? include("footer.php"); ?>
+</div>
