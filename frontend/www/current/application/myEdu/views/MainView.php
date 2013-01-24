@@ -5,7 +5,7 @@
 <div id="mainView" data-role="page">
 
 	<!-- Header bar -->
-	<? print_header_bar(false, "mainViewHelpPopup", $title , true); ?>
+	<? print_header_bar(false, "mainViewHelpPopup", "MyEdu" , true); ?>
 	 
 	<!-- Page content --> 
 	<div data-role="content">

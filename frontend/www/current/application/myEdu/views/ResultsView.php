@@ -62,9 +62,6 @@
 			
 		</ul>
 	</div>
-	
-	<? print_footer_bar_main("#find"); ?>
-
 </div>
 
 <? include_once 'MainView.php'; ?>

@@ -84,7 +84,7 @@ class DetailsController extends AuthenticatedController {
 	function comment(){
 		debug("button comment");
 		if(!empty($_POST['wrapped1']) ){
-			$obj = new MyEduPublication();
+			$obj = new Comment();
 					
 			// Fill the object
 			$this->fillObj_comments($obj);
@@ -100,7 +100,7 @@ class DetailsController extends AuthenticatedController {
 	public function search_comment() {
 	
 		// -- Search
-		$search_comments = new MyEduPublication();
+		$search_comments = new Comment();
 		$this->fillObj($search_comments);
 		$this->result_comment = $search_comments->find();
 	

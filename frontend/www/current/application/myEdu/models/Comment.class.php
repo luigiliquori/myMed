@@ -1,26 +1,23 @@
 <?
 
 /** 
- * Publication  
+ * Comments of Publications
  * 
  */
-class MyEduPublication extends GenericDataBean {
+class Comment extends GenericDataBean {
 	
 	/** Some predicates .
 	 * Register them in the contructor with appropriate ontologyID */
-	public $type = "myEduPublication";
-	public $area;
-	public $category;
-	public $locality;
-	public $organization;
+	public $type = "comment";
+	public $pred1;
+	public $pred2;
 	
 	/** Some data (got after a "details" query).
 	 *  Register them in the contructor with appropriate ontologyID */
-	public $title;
 	public $text;
 	
-	public $pred1;
-	public $pred2;
+	public $wrapped1;
+	public $wrapped2;
 
 	/** Register the attributes either as predicates / data fields */
 	public function __construct(
@@ -32,11 +29,6 @@ class MyEduPublication extends GenericDataBean {
 				array(
 						"publisher"	=> KEYWORD,
 						"type"	=> KEYWORD,
-						"category" => KEYWORD,
-						"locality" => KEYWORD,
-						"organization" => KEYWORD,
-						"area" => KEYWORD,
-						"title" => KEYWORD,
 						"pred1" => KEYWORD,
 						"pred2" => GPS),
 				
@@ -44,7 +36,7 @@ class MyEduPublication extends GenericDataBean {
 				array("text" => TEXT),
 				
 				// Wrapped attributes
-				array("title", "end"),
+				array("wrapped1", "wrapped2"),
 				
 				$predicateStr);
 		
