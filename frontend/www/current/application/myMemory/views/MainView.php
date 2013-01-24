@@ -76,7 +76,7 @@
 	</div>
 		<a href="?action=ExtendedProfile" data-role="button" data-theme="b" data-icon="profile"><?= _("Profile"); ?></a>
 		<?php 
-		if ($_SESSION['autocall_active'] == true){
+		if ($_SESSION['autocall_active'] && $_SESSION['isMobile']){
 			echo '<span data-role="button" data-theme="e">Surveillance activée</span>';
 		}
 		?>
