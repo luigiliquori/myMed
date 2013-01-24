@@ -4,10 +4,10 @@
 
 <script type="text/javascript">
 	<?php
-
+	$_SESSION['isMobile'] = true;
 	
 	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && $_SESSION['isMobile'] ){
-		
+		echo "AutoCall = "+$_SESSION['autocall_active'];
 		/*
 		 * WE ACTIVATE AUTOCALL
 		 */
@@ -55,7 +55,7 @@
 			
 			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
 		}
-	}
+	} else { echo "je ne rentre pas dans le if";}
 	?>
 
 </script>
@@ -77,7 +77,8 @@
 	</div>
 		<a href="?action=ExtendedProfile" data-role="button" data-theme="b" data-icon="profile"><?= _("Profile"); ?></a>
 		<?php 
-		if ($_SESSION['autocall_active'])
+		if ($_SESSION['autocall_active'] == true){
 			echo '<span data-role="button" data-theme="e">Surveillance activée</span>';
+		}
 		?>
 </div>
