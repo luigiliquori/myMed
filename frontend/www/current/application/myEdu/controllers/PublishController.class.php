@@ -32,8 +32,7 @@ class PublishController extends ExtendedProfileRequired {
 	        // Modify a user's publication
 	        case 'modify_publication':
 	        	$this->modifyPublication();
-	        	break;
-  
+	        	break;  
 		} 
 
 	}

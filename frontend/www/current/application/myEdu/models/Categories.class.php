@@ -28,9 +28,9 @@ Categories::$localities = array(
 );
 
 Categories::$roles = array(
-		"role1"       => _("Description of role 1"),
-		"role2"       => _("Description of role 2"),
-		"role3"       => _("Description of role 3"),
+		"student"   => _("Student"),
+		"professor" => _("Professor"),
+		"company"   => _("Company"),
 );
 
 ?>
