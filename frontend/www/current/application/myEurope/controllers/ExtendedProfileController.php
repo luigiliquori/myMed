@@ -39,7 +39,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->deleteUser($_SESSION['user']->id);
 			//deleteProfile();
 		}
-		//I don't know why this if is not working so I put it on the top
+		//I don't know why this is not working so I put it on the top
 		else if (isset($_GET['user'])){
 			error_log("LOGROM OK CALL");
 			$this->showUserProfile($_GET['user']);

@@ -1043,6 +1043,8 @@ msgstr "Nessun risultato trovato"
 msgid "Advanced searching"
 msgstr "Partner"
 
+msgid "If you find an error you can report it at this address: "
+msgstr "Se si trova un errore si può segnalare a questo indirizzo: "
 
 #: ../application/myEurope/views/MainView.php:6
 msgid "MyEurope is an application of the Alcotra <b><em>myMed</em></b> project, which aims to link mayors and municipal transborders."

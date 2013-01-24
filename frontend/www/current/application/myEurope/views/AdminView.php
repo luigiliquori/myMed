@@ -7,7 +7,7 @@
 	
 	<div data-role="content">
 		<br/>
-		<a type="button" href="?action=ExtendedProfile&list" data-mini="true" data-inline="true" rel="external"  data-icon="list" title="<?= _('list of organizations profiles in myEurope') ?>"><?= _("Profiles list") ?></a>
+		<!-- <a type="button" href="?action=ExtendedProfile&list" data-mini="true" data-inline="true" rel="external"  data-icon="list" title="<?= _('list of organizations profiles in myEurope') ?>"><?= _("Profiles list") ?></a>-->
 				
 		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"
 		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:users", "<?= APPLICATION_NAME ?>:users", []); $(this).addClass("ui-disabled");'><?= _("Notify me of new users") ?></a>
@@ -41,7 +41,7 @@
 		<? endforeach ?>
 		</ul>
 		<br /><br />
-		<div data-role="collapsible" data-content-theme="c">
+		<!-- <div data-role="collapsible" data-content-theme="c">
 		   <h3><?= _("Add partnerships")?></h3>
 		   <form action="index.php?action=DB" method="post" data-ajax="false">
 		   	  <input type="hidden" name="method" value="addPartnership">
@@ -50,7 +50,7 @@
 		 	  <input type="submit" value="send" data-inline="true" data-theme="g"/>
 		 	  </div>
 		   </form>
-		</div>
+		</div>-->
 		
 	</div>
 	

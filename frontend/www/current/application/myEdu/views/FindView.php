@@ -2,15 +2,15 @@
 
 <div id="find" data-role="page">
 
-	<? print_header_bar(true, true, "Find"); ?>
+	<? print_header_bar(true, true, "Search"); ?>
 	
 	<div data-role="content">
 	
 		<form action="index.php?action=find" method="POST" data-ajax="false">
-			
-			<input type="hidden" name="method" value="Find" />
-			<input type="hidden" id="find_area" name="zone" value="" />
+			<input type="hidden" id="find_area" name="area" value="" />
 			<input type="hidden" id="find_category" name="category" value="" />
+			<input type="hidden" id="find_organization" name="organization" value="" />
+			<input type="hidden" id="find_locality" name="locality" value="" />
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to find") ?>?</h3>
@@ -21,81 +21,66 @@
 				<h3><?= _('Find a publication') ?> :</h3>
 			
 	   			<fieldset data-role="controlgroup">
-					<select name="Area">
-						<option value=""><?= _("Area") ?></option>
-						<option value="Aerospaziale"><?= _("Aéronautique") ?></option>
-						<option value="Ambientale"><?= _("Environnement") ?></option>
-						<option value="Autoveicolo"><?= _("Véhicules automobiles") ?></option>
-						<option value="Biomeccania"><?= _("Biomeccania") ?></option>
-						<option value="Cinema"><?= _("Cinèma") ?></option>
-						<option value="Civile"><?= _("Civil") ?></option>
-						<option value="Elettrica"><?= _("Èlectricité") ?></option>
-						<option value="Elettronica"><?= _("Electronics") ?></option>
-						<option value="Energetica"><?= _("Energie") ?></option>
-						<option value="Fisica"><?= _("Physique") ?></option>
-						<option value="Gestionale"><?= _("Gestion") ?></option>
-						<option value="Informatica"><?= _("Informatique") ?></option>
-						<option value="Matematica"><?= _("Mathématiques") ?></option>
-						<option value="Materiali"><?= _("Matériaux") ?></option>
-						<option value="Meccanica"><?= _("Mécanique") ?></option>
-						<option value="Telecomunicazioni"><?= _("Télécommunications") ?></option>
-					</select>
-						
-					<?php $dataBean = new MDataBean("Area", null, KEYWORD); ?>
-					<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($dataBean)); ?>">
 					<!-- Categoria -->
-					<select name="Categoria">
+					<select name="Category" id="find_category_content" id="call">
 						<option value=""><?= _("Category") ?></option>
-						<option value="Stage"><?= _("Stage") ?></option>
-						<option value="Job"><?= _("Job") ?></option>
-						<option value="Tesi"><?= _("Thèse") ?></option>
-						<option value="Appunti"><?= _("Remarques") ?></option>
+						<? foreach (Categories::$categories as $k=>$v) :?>
+							<option value="<?= $k ?>"><?= $v ?></option>
+						<? endforeach ?>
 					</select>
-					<?php $dataBean = new MDataBean("Categoria", null, KEYWORD); ?>
-					<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>"><br/>
 				</fieldset>
 			
 				<!-- ADVANCED RESEARCH -->
-				<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="d" data-mini="true" style="margin-left:25px; margin-right:25px;">
+				<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="d" data-mini="true" style="margin-left:25px; margin-right:25px; margin-top:20px">
 					<h3><?= _("Advanced research")?></h3>
 					
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="orga" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
+							<input type="checkbox" name="organizationBox" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="Organisation">
-								<option value=""><?= _("??") ?></option>
+							<select name="organization" id="find_organization_content" id="call" data-native-menu="false">
+								<option value=""></option>
+								<? foreach (Categories::$organizations as $k=>$v) :?>
+									<option value="<?= $k ?>"><?= $v ?></option>
+								<? endforeach ?>
 							</select>
 						</div>
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="loca" id="check-view-b"/> <label for="check-view-b"><?= _("Localisation")?></label>
+							<input type="checkbox" name="localityBox" id="check-view-b"/> <label for="check-view-b"><?= _("Locality")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="Localisation">
-								<option value=""><?= _("??") ?></option>
+							<select name="locality" id="find_locality_content" id="call" data-native-menu="false">
+								<option value=""></option>
+								<? foreach (Categories::$localities as $k=>$v) :?>
+									<option value="<?= $k ?>"><?= $v ?></option>
+								<? endforeach ?>
 							</select>
 						</div>
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="cate" id="check-view-c"/> <label for="check-view-c"><?= _("Category")?></label>
+							<input type="checkbox" name="areaBox" id="check-view-c"/> <label for="check-view-c"><?= _("Area")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="Categoria">
-								<option value=""><?= _("??") ?></option>
+							<select name="Area" id="find_area_content" id="call">
+								<option value=""></option>
+									<? foreach (Categories::$areas as $k=>$v) :?>
+										<option value="<?= $k ?>"><?= $v ?></option>
+									<? endforeach ?>
 							</select>
 						</div>
 					</div>
-					
 				</div>
 			
 				<div style="text-align: center;">
 					<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>"  data-iconpos="right" data-inline="true" onclick="
-						$('#search_theme').val($('#search_theme_content').val());
-						$('#search_other').val($('#search_other_content').val());
+						$('#find_area').val($('#find_area_content').val());
+						$('#find_category').val($('#find_category_content').val());
+						$('#find_locality').val($('#find_locality_content').val());
+						$('#find_organization').val($('#find_organization_content').val());
 					"/>
 				</div>
 			</div>
@@ -103,45 +88,52 @@
 		
 		<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 			<h3><?= _('Last publications') ?> :</h3>
-			<?	
-			$i=0;
-			foreach($results as $result) { ?>
+			<ul data-role="listview" data-filter="true" >
+			<? foreach($this->result as $item) : ?>
 				<li>
-					<!-- RESULT DETAILS -->
-					<form action="#DetailView" method="post" name="getDetailForm<?= $i ?>">
-						<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
-						<input type="hidden" name="method" value="getDetail" />
-						<input type="hidden" name="user" value="<?= $result->publisherID ?>" />
-						<input type="hidden" name="predicate" value="<?= $result->predicate ?>" />
-					</form>
-					<a href="#" onclick="document.getDetailForm<?= $i ?>.submit()">
-						<?php 
-						$area=strstr($result->predicate, "Area");
-						$n=strpos($area, "Categoria");
-						$area=substr($area, 4, $n-4);
-						$categoria=strstr($result->predicate, "Categoria");
-						$n=strpos($categoria, "begin");
-						$categoria=substr($categoria, 9 , $n-9);
-
-
-						?><span><?= $categoria." ".$area?></span>
-
-						<span><font color=”blue”><center><?= $result->data ?></center></font></span>
-
-						<?php
-						$data=strstr($result->predicate, "begin");
-						$data=substr($data, 5,10);
-						?>
-						<span><?= $data?></span>
+					<!-- Print Publisher reputation -->
+					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+						<h3><?= _("Title")?> : <?= $item->title ?></h3>
+						
+						<p style="position: relative; margin-left: 30px;">
+							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/>
+							<b><?= _("Category") ?></b>: <?= $item->category ?><br/>
+							<b><?= _("Area") ?></b>: <?= $item->area ?><br/>
+							<b><?= _("Organization") ?></b>: <?= $item->organization ?><br/><br/>
+							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
+						</p>
+						
+						<br/>
+						
+						<p style="display:inline; margin-left: 30px;">
+							Publisher ID: <?= $item->publisherID ?><br/>
+							<!-- Project reputation-->	
+							<p style="display:inline; margin-left: 30px;" > <b>Project Reputation:</b> </p>  
+							<p style="display:inline; margin-left: 30px;" >
+								<?php
+									// Disable reputation stars if there are no votes yet 
+									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
+									<?php for($i=1 ; $i <= 5 ; $i++) {?>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+									<?php } ?>
+								<?php else: ?>
+									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;" />
+										<?php } else { ?>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+										<?php } ?>
+									<? } ?>
+								<?php endif; ?>
+								<p style="display:inline; margin-left:35px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+							</p>
+						</p>
 					</a>
 				</li>
-				<?php $i++ ?>
-			<?php } ?>
+			<? endforeach ?>
+			</ul>
 		</div>
 			
 	</div>
-	
-	<? print_footer_bar_main("#find"); ?>
-
 </div>
 

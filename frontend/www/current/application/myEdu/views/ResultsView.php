@@ -13,45 +13,54 @@
 			
 			<? if (count($this->result) == 0) :?>
 			<li>
-				<h4>No result found</h4>
+				<h4><?= _("No result found")?></h4>
 			</li>
 			<? endif ?>
 			
 			<? foreach($this->result as $item) : ?>
-			<!-- 	<li>
-					
+				<li>
+					<!-- Print Publisher reputation -->
 					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
-						<h3>Wrapped: <?= $item->wrapped1 ?> - <?= $item->wrapped2 ?></h3>
+						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b>Pred1</b>: <?= $item->pred1 ?><br/>
-							<b>Pred2</b>: <?= $item->pred2 ?><br/>
-							<b>Pred3</b>: <?= $item->pred3 ?><br/><br/>
-							<b>Begin</b>: <?= $item->begin ?><br/>
-							<b>End</b>: <?= $item->end ?><br/>
+							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/>
+							<b><?= _("Category") ?></b>: <?= $item->category ?><br/>
+							<b><?= _("Area") ?></b>: <?= $item->area ?><br/>
+							<b><?= _("Organization") ?></b>: <?= $item->organization ?><br/><br/>
+							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
 						<br/>
 						
 						<p>
 							Publisher ID: <?= $item->publisherID ?><br/>
-							reputation: 
-							<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-								<?php if($i*20-20 < $this->reputationMap[$item->publisherID] ) { ?>
-									<img alt="rep" src="img/yellowStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;" />
-								<?php } else { ?>
-									<img alt="rep" src="img/grayStar.png" width="10" Style="left: <?= $i ?>0px; margin-left: 80px; margin-top:3px;"/>
-								<?php } ?>
-							<? } ?>
+							<p style="display:inline;" > Reputation: </p>  
+							<p style="display:inline;" >
+								<?php
+									// Disable reputation stars if there are no votes yet 
+									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
+									<?php for($i=1 ; $i <= 5 ; $i++) {?>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:80px; margin-top:3px;"/>
+									<?php } ?>
+								<?php else: ?>
+									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:80px; margin-top:3px;" />
+										<?php } else { ?>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:80px; margin-top:3px;"/>
+										<?php } ?>
+									<? } ?>
+								<?php endif; ?>
+								<p style="display:inline; margin-left:55px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+							</p>
 						</p>
+						
 					</a>
-				</li>  
-			-->
+				</li>
 			<? endforeach ?>
 			
 		</ul>
-		
-			
 	</div>
 	
 	<? print_footer_bar_main("#find"); ?>
@@ -59,7 +68,3 @@
 </div>
 
 <? include_once 'MainView.php'; ?>
-<? include_once 'FindView.php'; ?>
-<? include_once 'DetailsView.php'; ?>
-<? include_once 'ProfileView.php'; ?>
-<? include_once 'UpdateProfileView.php'; ?>

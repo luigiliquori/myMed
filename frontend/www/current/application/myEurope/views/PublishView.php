@@ -114,7 +114,7 @@
 		<textarea rows="80" cols="80" readonly="readonly">J’aimerais redonner une attractivité à ma commune en y créant un centre d’art. En effet, alors que notre commune nous offre des lieux chargés d’histoire, nous ne disposons pas de lieu où nous pourrions promouvoir l’art contemporain, de façon à faire le lien entre les deux époques.
 
 	- Mon but serait, en dehors de la création d’un centre d’art, de promouvoir la culture auprès des plus jeunes, de stimuler la population.
-	- Je recherche un partenaire italien qui soit intéressé par ma proposition pour que nous puissions soumissionner un projet Alcotra et réaliser ainsi de véritables circuits culturels transfrontaliers.
+	- Je recherche un partenaire italien qui soit intéressé par ma proposition pour que nous puissions soumettre un projet Alcotra et réaliser ainsi de véritables circuits culturels transfrontaliers.
 		</textarea>
 	</div>
 	

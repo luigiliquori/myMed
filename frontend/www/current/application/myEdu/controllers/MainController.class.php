@@ -1,4 +1,4 @@
-<? 
+<?
 
 /**
  *  Main controller 
@@ -45,7 +45,7 @@ class MainController extends ExtendedProfileRequired {
 			
 		} else if(isset($_REQUEST['method']) && $_REQUEST['method'] == "Delete") {
 
-			$obj = new ExampleObject();				
+			$obj = new ExampleObject();
 			// Fill the object
 			$this->fillObj($obj);
 			$obj->publisherID = $_SESSION['user']->id;

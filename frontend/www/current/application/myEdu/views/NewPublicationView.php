@@ -10,7 +10,7 @@
   	
   	<!-- Page header -->
   	<? $title = _("Create a new publication");	
-	   print_header_bar(true, false, $title); ?>
+	   print_header_bar(true, "defaultHelpPopup", $title); ?>
 
 	<!-- Page content -->
 	<div data-role="content">
@@ -18,12 +18,12 @@
 		<? print_notification($this->success.$this->error); ?>
 	
 		<!-- Submit a new publication form -->
-		<form action="index.php?action=publish&method=submit" method="POST" data-ajax="false">
+		<form id="newpublicationform" action="index.php?action=publish&method=create" method="POST" data-ajax="false">
 		
-			<input type="hidden" name="method" value="publish" />
 			<input type="hidden" id="area" name="area" value="" />
 			<input type="hidden" id="category" name="category" value="" />
 			<input type="hidden" id="locality" name="locality" value="" />
+			<input type="hidden" id="organization" name="organization" value="" />
 			<input type="hidden" id="date" name="date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
@@ -91,12 +91,18 @@
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
+					<select name="organization" id="organization" data-native-menu="false">
+						<option value=""> Organization </option>
+					<? foreach (Categories::$organizations as $k=>$v) :?>
+						<option value="<?= $k ?>"><?= $v ?></option>
+					<? endforeach ?>
+					</select>
 				
 			</div>
 			
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-icon="check" data-theme="g" value="<?=_('Publish') ?>" onclick="
-					$('#date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());
+					$('#date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
 				"/>
 			</div>
 	
