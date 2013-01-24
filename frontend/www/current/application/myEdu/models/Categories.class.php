@@ -10,35 +10,40 @@ class Categories {
 }
 
 Categories::$areas = array(
-	"Aerospaziale"		=> _("Aéronautique"),
-	"Ambientale"		=> _("Environnement"),
-	"Autoveicolo"		=> _("Véhicules automobiles"),
-	"Biomeccania"		=>  _("Biomeccania"),
-	"Cinema" 			=> _("Cinèma"),
-	"Civile" 			=> _("Civil"),
-	"Elettrica" 		=> _("Èlectricité"),
-	"Elettronica" 		=> _("Electronics"),
-	"Energetica" 		=> _("Energie"),
-	"Fisica" 			=> _("Physique"),
-	"Gestionale" 		=> _("Gestion"),
-	"Informatica" 		=> _("Informatique"),
-	"Matematica" 		=> _("Mathématiques"),
-	"Materiali" 		=> _("Matériaux"),
-	"Meccanica" 		=> _("Mécanique"),
-	"Telecomunicazioni" => _("Télécommunications")
+	"Aerospace"			=> _("Aerospace"),
+	"Biomeccania"		=> _("Biomeccania"),
+	"Cinema" 			=> _("Cinema"),
+	"Civil" 			=> _("Civil"),
+	"Data processing" 	=> _("Data processing"),
+	"Electricity" 		=> _("Electricity"),
+	"Electronics" 		=> _("Electronics"),
+	"Energy" 			=> _("Energy"),
+	"Environment"		=> _("Environment"),
+	"Management" 		=> _("Management"),
+	"Material" 			=> _("Material"),
+	"Mathematics" 		=> _("Mathematics"),
+	"Mechanics" 		=> _("Mechanics"),
+	"Motor vehicle"		=> _("Motor vehicle"),
+	"Physics" 			=> _("Physics"),
+	"Telecommunications" => _("Telecommunications")
 );
 
 Categories::$categories = array(
-	"Stage" 	=> _("Stage"),
-	"Job" 		=> _("Job"),
-	"Tesi"		=> _("Thèse"),
-	"Appunti" 	=> _("Remarques")
+	"Internship" 	=> _("Internship"),
+	"Job" 			=> _("Job"),
+	"Lecture note"		=> _("Lecture note"),
+	"PHD Thesis"			=> _("PHD Thesis")
 );
 
-Categories::$localities = array(	
-	"locality1"   => _("Description of locality 1"),
-	"locality2"   => _("Description of locality 2"),
-	"locality3"   => _("Description of locality 3"),
+Categories::$localities = array(
+	"Aix"   		=> _("Aix"),
+	"Alessandria"   => _("Alessandria"),
+	"Marseille"   	=> _("Marseille"),
+	"Nice"   		=> _("Nice"),
+	"Novara"   		=> _("Novara"),
+	"Toulon"   		=> _("Toulon"),
+	"Turin"   		=> _("Turin"),
+	"Vercelli"   	=> _("Vercelli")
 );
 
 
@@ -49,9 +54,12 @@ Categories::$roles = array(
 );
 
 Categories::$organizations = array(
-	"organization1"       => _("Description of organization 1"),
-	"organization2"       => _("Description of organization 2"),
-	"organization3"       => _("Description of organization 3"),
+	"Amu"     	=> _("Amu"),
+	"Polito"	=> _("Polito"),
+	"Unice"     => _("Unice"),
+	"Unipo"     => _("Unipo"),
+	"Unitln"    => _("Unitln"),
+	"Unito"     => _("Unito"),
 );
 
 ?>
