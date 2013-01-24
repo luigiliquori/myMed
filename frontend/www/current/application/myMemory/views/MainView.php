@@ -4,13 +4,9 @@
 
 <script type="text/javascript">
 	<?php
-	/*
-	 * DEBUG
-	 */
-	if (!isset($_SESSION['autocall_active']))
-		$_SESSION['autocall_active'] = false;
+
 	
-	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && ($_SESSION['isMobile']) ){
+	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && $_SESSION['isMobile'] ){
 		
 		/*
 		 * WE ACTIVATE AUTOCALL
@@ -32,7 +28,7 @@
 		* 11: interval			(int)		in minutes
 		*/
 		
-		if(!$_SESSION['autocall_active']) {
+		if($_SESSION['autocall_active'] == false) {
 		
 			$guardian_params = '';
 			
