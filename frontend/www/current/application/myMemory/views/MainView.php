@@ -7,7 +7,7 @@
 	$_SESSION['isMobile'] = true;
 	
 	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && $_SESSION['isMobile'] ){
-		echo "AutoCall = "+$_SESSION['autocall_active'];
+		//echo "AutoCall = "+$_SESSION['autocall_active'];
 		/*
 		 * WE ACTIVATE AUTOCALL
 		 */
