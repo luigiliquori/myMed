@@ -1,4 +1,3 @@
-<? include("header.php"); ?>
 <? include("notifications.php")?>
 <script>
 
@@ -278,5 +277,4 @@ function handleMSForm(e) {
 			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Save') ?>" data-theme="b"/>
 		</form>
 	</div>
-</div>	
-<? include("footer.php"); ?>
+</div>

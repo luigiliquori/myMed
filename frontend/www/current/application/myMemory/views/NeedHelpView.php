@@ -1,4 +1,3 @@
-<? include("header.php"); ?>
 <? include("notifications.php")?>
 
 <div data-role="page" id="NeedHelp">
@@ -95,4 +94,3 @@
 	</div>
 	
 </div>
-<? include("footer.php"); ?>	
