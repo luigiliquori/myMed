@@ -2,12 +2,11 @@
 
 <div data-role="page" id="MainView">
 
-<script type="text/javascript">
 	<?php
 	$_SESSION['isMobile'] = true;
 	
 	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && $_SESSION['isMobile'] ){
-		//echo "AutoCall = "+$_SESSION['autocall_active'];
+		debug("AutoCall = "+$_SESSION['autocall_active']);
 		/*
 		 * WE ACTIVATE AUTOCALL
 		 */
@@ -53,12 +52,14 @@
 			
 			$_SESSION['autocall_active'] = true;
 			
+			echo '<script type="text/javascript">';
 			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
+			echo '</script>';
 		}
-	} else { echo "je ne rentre pas dans le if";}
+	} else { debug("je ne rentre pas dans le if");}
 	?>
 
-</script>
+
 
 	<!-- Header -->
 	<div data-role="header" data-position="inline">
