@@ -4,7 +4,7 @@
 <script type="text/javascript">
 
 <?php
-	
+	echo 'alert("more nothing");';
 	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) /*&& $_SESSION['isMobile']*/ ){
 		/*
 		 * WE ACTIVATE AUTOCALL
