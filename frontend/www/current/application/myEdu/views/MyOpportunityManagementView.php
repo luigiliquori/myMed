@@ -88,17 +88,23 @@
 					//echo $this->response."<br/><br/>";
 					$responseObject = json_decode($this->response);
 					$subscriptions = (array)$responseObject->dataObject->subscriptions;
+					$index=1;
+					echo '<ul data-role="listview" data-filter="true" >';
 					foreach ($subscriptions as $key=>$value){
 						//echo $key."    ";
 						$preds = explode("pred",$key);
-						echo _("Subscription parameters:")."<br /><ul>";
+						//echo _("Subscription parameters:")."<br />";
+						echo '<li><div class="ui-grid-a">';
+						echo '<div class="ui-block-a">';
+						echo _("Subscription ").$index.":<br />";
 						foreach($preds as $key2){
-							echo "<li>".substr($key2,1)."</li>";
+							echo substr($key2,1)." ";
 						}
-						echo "</ul>";
-						echo '<a href=""  data-role="button" data-theme="r" data-inline="true">'._("Delete subscription").'</a>';
-						echo "<br /><br />";
+						echo '</div><div class="ui-block-b">';
+						echo '<a href="?action=myOpportunityManagement&removeSubscription=true&predicate='.$key.'"  data-role="button" data-theme="r" data-inline="true" style="float: right;">'._("Delete subscription").'</a></div></div></li>';
+						$index++;
 					}
+					echo '</ul>';
 				?>
 			</div>
 </div>

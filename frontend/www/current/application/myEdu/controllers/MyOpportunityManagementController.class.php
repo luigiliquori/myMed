@@ -17,7 +17,7 @@ class MyOpportunityManagementController extends AuthenticatedController {
 			$this->addSubscription();
 		}
 		
-		if(isset($POST['removeSubscription'])){
+		if(isset($_GET['removeSubscription'])){
 			$this->removeSubscription();
 		}
 		
@@ -43,7 +43,11 @@ class MyOpportunityManagementController extends AuthenticatedController {
 	 * remove subscription
 	 */
 	function removeSubscription(){
-		
+		$request = new Request("SubscribeRequestHandler", DELETE);
+		$request->addArgument("application", APPLICATION_NAME);
+		$request->addArgument("userID", $_SESSION['user']->id);
+		$request->addArgument("predicate",$_GET['predicate']);
+		$request->send();
 	}
 	
 	/**
