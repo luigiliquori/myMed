@@ -28,9 +28,9 @@
 
 			<label for="lang" ><?= _("Language") ?>	: </label>
 			<select id="lang" name="lang">
-				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Français</option>
-				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
-				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
+				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
+				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italien")?></option>
+				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("Anglais")?></option>
 			</select>
 
 			<br>

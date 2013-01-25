@@ -134,7 +134,7 @@ if (isset($_SESSION['user'], $_SESSION['user']->lang) && !empty($_SESSION['user'
 	$LANG = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0 ,2);
 }
 // Default lang
-if (empty($LANG)) $LANG = "fr";
+if (empty($LANG)) $LANG = "en";
 
 switch ($LANG) {
 	case 'fr':
@@ -148,8 +148,6 @@ switch ($LANG) {
 		break;
 }
 debug($LOCALE);
-
-//$LOCALE = 'fr_FR.utf8';
 
 /////////////////////////////////////////////////////////////////////////////
 putenv('LANGUAGE='.$LOCALE);
@@ -169,7 +167,7 @@ bind_textdomain_codeset(GLOBAL_MESSAGES, 'UTF-8');
 textdomain(GLOBAL_MESSAGES);
 
 /////////////////////////////////////////////////////////////////////////////
-
+debug(APPLICATION_NAME);
 
 // Set locale
 setlocale(LC_ALL, 'en_US.utf8');
