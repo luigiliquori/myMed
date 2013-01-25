@@ -5,7 +5,7 @@
 
 <?php
 	
-	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3)  ){
+	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) /*&& $_SESSION['isMobile']*/ ){
 		/*
 		 * WE ACTIVATE AUTOCALL
 		 */
