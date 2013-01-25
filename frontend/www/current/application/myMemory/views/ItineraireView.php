@@ -1,8 +1,9 @@
-<? include("header.php"); ?>
 <? include("notifications.php")?>
 
-<script>
-goingBack();
+<script type="text/javascript">
+$(document).ready(function() {
+	goingBack();
+	});
 </script>
 <div id="RoadSheet" data-role="page">
 
@@ -30,5 +31,4 @@ goingBack();
 				style="max-height: 35px; max-width: 100px;" /> </a>
 	</div>
 
-</div>	
-<? include("footer.php"); ?>
+</div>

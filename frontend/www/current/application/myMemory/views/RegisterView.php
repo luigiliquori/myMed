@@ -38,7 +38,7 @@
 				
 				<input id="service-term" type="checkbox" name="checkCondition" style="position: absolute; top: 13px;"/>
 				<span style="position: relative; left: 50px;">
-					<a href="application/myMed/doc/CGU_fr.pdf" rel="external"><?= _('I accept the general terms and conditions'); ?></a>
+					<a href="../myMed/doc/CGU_fr.pdf" rel="external"><?= _('I accept the general terms and conditions'); ?></a>
 				</span><br>
 				
 				<div style="text-align: center;">

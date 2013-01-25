@@ -1,4 +1,3 @@
-<? include("header.php"); ?>
 <? include("notifications.php")?>
 <div>
 <?= _("myMemory_presentation_text");?>
@@ -15,5 +14,4 @@
 			<li><a href="?action=ExtendedProfile" data-role="button" data-theme="r" data-ajax="false"><?= _('complete your profile'); ?></a></li>
 		</ul>
 	</div>
-</div>	
-<? include("footer.php"); ?>
+</div>

@@ -25,7 +25,7 @@ class ExtendedProfileController extends AuthenticatedController
 		 * No Post but ExtendedProfile in session -> show profile
 		 * Nothing -> show the form to fill the profile
 		 */
-
+		debug($_POST["form"]);
 		if (isset($_POST["form"]))
 			$this->storeProfile();
 		else if (isset($_GET['edit']) OR isset($_POST['sudo']))
@@ -47,17 +47,7 @@ class ExtendedProfileController extends AuthenticatedController
 		
 		if($_POST["agreement"])
 		{
-			/*
-			 * TODO: remove these
-			 */
-			$callingListAutoCall = array("0658129393","0658129393","0658129393");
-			$perimeter_home = 100;
-			$perimeter_nearby = 200;
-			$perimeter_far = 1000;
-			$autocall_frequency = 1;
-			/*
-			 * 
-			 */
+			
 			
 			$home = $_POST['home'];
 			$diseaseLevel = $_POST['diseaseLevel'];
@@ -137,14 +127,44 @@ class ExtendedProfileController extends AuthenticatedController
 			array_push($callingList, $call4);
 
 			
-			$extendedProfile = new ExtendedProfile($_SESSION['user']->id, $home, $diseaseLevel, $careGiver, $doctor, $callingList, $callingListAutoCall, $perimeter_home, $perimeter_nearby, $perimeter_far, $autocall_frequency );
+			/*
+			 * AutoCall
+			 */
+			if($diseaseLevel == 3){
+				
+				$callingListAutoCall = array(	$_POST["AutoCall0"],
+						 						$_POST["AutoCall1"],
+												$_POST["AutoCall2"]);
+				$perimeter_home = $_POST["PerimeterHome"];
+				$perimeter_nearby = $_POST["PerimeterNear"];
+				$perimeter_far = $_POST["PerimeterFar"];
+				
+				$autocall_frequency = $_POST["AutoCallInterval"];
+				
+			} else {
+				// pas d'autoCall
+				
+				$callingListAutoCall = "";
+				$perimeter_home = "";
+				$perimeter_nearby = "";
+				$perimeter_far = "";
+				$autocall_frequency = "";;
+			}
+			
+			$extendedProfile = new ExtendedProfile($_SESSION['user']->id,
+					$home, $diseaseLevel, $careGiver, $doctor,
+					$callingList, $callingListAutoCall,
+					$perimeter_home, $perimeter_nearby, $perimeter_far, $autocall_frequency );
+			
+			
 			
 			$extendedProfile->storeProfile($this);
 			
 			
 			if (!empty($this->error)){
-				if ($_POST['form'] == 'create')
-					$this->renderView("ExtendedProfileCreate");
+				if ($_POST['form'] == 'create'){
+					debug($this->error);
+					$this->renderView("ExtendedProfileCreate");}
 				else
 					$this->renderView("ExtendedProfileEdit");
 			}
