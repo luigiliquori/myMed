@@ -1,4 +1,4 @@
-<? include("notifications.php");?>
+
 
 <div data-role="page" id="MainView">
 <script type="text/javascript">
