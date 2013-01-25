@@ -70,6 +70,19 @@ class DetailsController extends AuthenticatedController {
 		
 		$this->search_comment();
 		
+		// Need publisher role (student, professer, or company) so
+		// get publisher details
+		// Get the user details
+		
+		try {
+			$datamapper = new DataMapper;
+			$details = $datamapper->findById(new User($author));
+			$this->publisher_profile = new MyEduProfile($details['profile']);
+			$this->publisher_profile->details = $datamapper->findById($this->publisher_profile);
+		} catch (Exception $e) {
+			$this->redirectTo("main");
+		}
+				
 		// Render the view
 		$this->renderView("details");
 	}

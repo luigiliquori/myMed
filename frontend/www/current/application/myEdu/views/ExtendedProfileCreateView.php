@@ -81,30 +81,15 @@
 				<? endforeach ?>
 				</select>
 			</div>
-			<!-- Name -->
-			<div id="namefield" data-role="fieldcontain">
-				<label for="textinputu1" style="text-align:right" ><?= _('Name') ?>: </label>
-				<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			</div>
-			<!-- Address -->
-			<div data-role="fieldcontain">
-				<label for="textinputu4" style="text-align:right"><?= _('Address') ?>: </label>
-				<input id="textinputu4" name="address" placeholder="" value='' type="text" />
-			</div>
-			<!-- Email -->
-			<div data-role="fieldcontain">
-				<label for="textinputu5"  style="text-align:right"><?= _('Email') ?>: </label>
-				<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
-			</div>
 			<!-- Phone -->		
 			<div data-role="fieldcontain">
 				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?>: </label>
 				<input id="textinputu6" name="phone" placeholder="" value='' type="tel" />
 			</div>
-			<!-- Description -->
+			<!-- Description / CV-->
 			<div data-role="fieldcontain">
-				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+				<label for="desc"  style="text-align:right"><?= _('Description / <br/> Curriculum Vitae') ?>: </label>
+				<textarea id="desc" name="desc" placeholder="description, commentaires" style="height:120px;"></textarea>
 			</div>
 			<!-- For Students: student number -->
 			<div id="studentnumberfield" data-role="fieldcontain" class="ui-screen-hidden">
@@ -124,7 +109,7 @@
 			<!-- For Professor: Courses -->
 			<div id="coursesfield" data-role="fieldcontain">
 				<label for="courses"  style="text-align:right"><?= _('Courses') ?>: </label>
-				<input id="courses" name="courses" placeholder="The list of your courses"></input>
+				<textarea id="courses" style="height: 120px;" name="courses" placeholder="The list of your courses"></textarea>
 			</div>
 			<!-- For Companies: type -->
 			<div id="companytypefield" data-role="fieldcontain">
