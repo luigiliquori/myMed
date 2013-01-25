@@ -6,7 +6,7 @@
 
 	<!-- Header bar -->
 	<?  $title=_('myEdu');
-		print_header_bar(false, "mainViewHelpPopup", $title, true); ?>
+		print_header_bar("logout", "mainViewHelpPopup", $title); ?>
 	 
 	<!-- Page content --> 
 	<div data-role="content">

@@ -9,8 +9,10 @@
 
 	<!-- Page header -->
 	<? $title = _("Edit Profile");
-	   print_header_bar(true, "defaultHelpPopup", $title); ?>
-	
+	   print_header_bar(
+	   		'index.php?action=extendedProfile&method=show_user_profile&user='
+	   		.$_SESSION['user']->id.'', "defaultHelpPopup", $title, "back to Profile"); ?>
+	   		
 	
 	<!-- Page content -->
 	<div data-role="content">
@@ -71,8 +73,8 @@
 			</div>
 			<!-- Email -->		
 			<div data-role="fieldcontain">
-				<label for="textinputu6" style="text-align:right"><?= _('Email') ?>: </label>
-				<input id="textinputu5" name="email" placeholder="" value="<?= $_SESSION['user']->email ?>"  type="email" />
+				<label for="textinputu6" style="text-align:right"><?= _('Email') ?>: </label><?= $_SESSION['user']->email ?>
+				
 			</div>
 			<!-- Birthday -->
 			<div data-role="fieldcontain">

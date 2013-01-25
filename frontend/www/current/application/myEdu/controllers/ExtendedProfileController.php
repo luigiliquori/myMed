@@ -163,11 +163,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$_POST['name'] = $name; // organization name and not username
 		$_POST['email'] = $email; // organization email != profile email
 		$_POST['id'] = $id;
-		unset($_POST['firstName']);
-		unset($_POST['lastName']);
-		unset($_POST['birthday']);
-		unset($_POST['profilePicture']);
-		unset($_POST['lang']);
+		//unset($_POST['firstName']);
+		//unset($_POST['lastName']);
+		//unset($_POST['birthday']);
+		//unset($_POST['profilePicture']);
+		//unset($_POST['lang']);
 		
 		// Update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);

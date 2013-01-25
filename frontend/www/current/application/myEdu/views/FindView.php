@@ -2,7 +2,7 @@
 
 <div id="find" data-role="page">
 
-	<? print_header_bar(true, true, "Search"); ?>
+	<? print_header_bar("?action=main", "defaultHelpPopup", "Search", 'myEdu Home'); ?>
 	
 	<div data-role="content">
 	
