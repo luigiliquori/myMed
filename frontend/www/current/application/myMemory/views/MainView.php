@@ -3,7 +3,7 @@
 <div data-role="page" id="MainView">
 <script type="text/javascript">
 
-	<?php
+<?php
 	$_SESSION['autocall_active'] = true;
 	
 	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3) && $_SESSION['isMobile'] ){
