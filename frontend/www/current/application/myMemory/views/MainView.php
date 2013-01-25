@@ -10,6 +10,9 @@ echo 'alert("checking...");';
 		 * WE ACTIVATE AUTOCALL
 		 */
 		echo 'alert("really sick");';
+		session_destroy();
+		echo 'alert("boom la session!");';
+	
 		/*
 		 * URL SCHEMA :
 		*
