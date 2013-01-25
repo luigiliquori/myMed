@@ -55,7 +55,7 @@
 			
 			$_SESSION['autocall_active'] = true;
 		}
-	}
+	} else echo 'alert("nothing");';
 	?>
 </script>
 
