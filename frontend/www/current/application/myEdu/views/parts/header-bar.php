@@ -59,8 +59,9 @@ function print_header_bar($back_button = false,
 			
 	}
 	
-	// Print page title
-	$title = empty($title) ? APPLICATION_NAME : $title;
+	// Print application title
+	$version_application_name = APPLICATION_NAME." v1.0 alpha";
+	$title = empty($title) ? $version_application_name : $title;
 	echo '<h1>' .$title. '</h1>';
 	
 	// Print help popup button

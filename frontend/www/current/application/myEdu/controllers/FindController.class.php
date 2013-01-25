@@ -2,26 +2,67 @@
 
 class FindController extends AuthenticatedController{
 	
-	public $result;
-	
 	public /*String*/ function handleRequest() {
 		
 		parent::handleRequest();
 	
 		if ($_SERVER['REQUEST_METHOD'] == "POST") { // search button			
 			$search = new MyEduPublication();
-			$this->fillObj($search);
-			$this->result = $search->find();
+			$this->fillObj($search); // for the filters
+
+			$this->result = $search->find(); 
+			debug(count($this->result));
+			$date = strtotime(date('d-m-Y')); 
+				
+			for($i = 0; $i < count($this->result); ++$i) {
+				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
+					$expiration_date = strtotime($this->result[$i]->end);
+					debug($this->result[$i]->title.": ".$this->result[$i]->end);
+					if($expiration_date < $date){
+						unset($this->result[$i]);
+					}
+				}
+			}
+			
 			$this->renderView("results");
 		}
 	}
 	
 	function defaultMethod() {
-		if (isset($_GET['search'])){
+		if(isset($_GET['delete_publications'])){
+			$search = new MyEduPublication();
+
+			$search->publisher = $_SESSION['user']->id;
+			$search->publisherID = $_SESSION['user']->id;
+			
+			$result = $search->find();
+			debug("NB PUBLICATION  de ".$search->publisher." :".sizeof($result));
+			foreach($result as $item) :
+				$item->publisher = $_SESSION['user']->id;
+				$item->publisherID = $_SESSION['user']->id;
+				$item->delete();
+			endforeach;
+			
+			$this->renderView("Find");
+		}
+		else if (isset($_GET['search'])){
 			debug("SEARCH CALL");
-			// render all the publications
-			$selectedResults = new MyEduPublication();
-			$this->result = $selectedResults->find();
+
+			$search = new MyEduPublication();
+			$this->result = $search->find(); 
+			debug(count($this->result));
+			$date = strtotime(date('d-m-Y')); 
+				
+			for($i = 0; $i < count($this->result); ++$i) {
+				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
+					$expiration_date = strtotime($this->result[$i]->end);
+					debug($this->result[$i]->title.": ".$this->result[$i]->end);
+					if($expiration_date < $date){
+						unset($this->result[$i]);
+					}
+				}
+			}
+			debug(count($this->result));
 			// get userReputation
 			$this->getReputation($this->result);
 			$this->renderView("Find");
@@ -72,6 +113,13 @@ class FindController extends AuthenticatedController{
 	
 		endforeach;
 	
+	}
+	
+	function deleteAllPublications(){
+		$search = new MyEduPublication();
+		$search->publisher = $_SESSION['user']->id;
+		$search->publisherID = $_SESSION['user']->id;
+		$this->result = $search->delete();
 	}
 }
 

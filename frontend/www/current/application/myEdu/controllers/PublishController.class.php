@@ -136,7 +136,6 @@ class PublishController extends ExtendedProfileRequired {
 	 *  Search user's publication and render MyPublicationView
 	 */
 	private function showUserPublications() {
-
 		// Search User publications
 		$search = new MyEduPublication();
 		$search->publisher = $_SESSION['user']->id;  

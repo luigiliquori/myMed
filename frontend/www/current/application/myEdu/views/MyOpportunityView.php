@@ -21,10 +21,12 @@
 		</div>
 		<br />
 	
-		<!-- New subscription button 
-		<a href="#" data-icon="pencil" data-role="button" ><?= _("New subscription") ?></a><br />	
+		<!-- New subscription button -->
+		<a href="?action=myOpportunityManagement" data-icon="pencil" data-role="button" data-inline="true" data-theme="e" style="float: right;"><?= _("New subscription") ?></a><br />	
 		<br />
-		-->
+		<br />
+		<br />
+		
 		<!-- List of user publications -->
 		<ul data-role="listview" >
 		

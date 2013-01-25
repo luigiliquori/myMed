@@ -5,7 +5,7 @@
 	<? print_header_bar("?action=main", "defaultHelpPopup", "Search", 'myEdu Home'); ?>
 	
 	<div data-role="content">
-	
+		
 		<form action="index.php?action=find" method="POST" data-ajax="false">
 			<input type="hidden" id="find_area" name="area" value="" />
 			<input type="hidden" id="find_category" name="category" value="" />
