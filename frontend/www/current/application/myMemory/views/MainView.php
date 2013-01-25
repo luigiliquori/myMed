@@ -57,6 +57,7 @@
 		}
 	} else echo 'alert("nothing");';
 	?>
+	alert("something");
 </script>
 
 
