@@ -1,4 +1,4 @@
-<? include("notifications.php")?>
+<? include("notifications.php");?>
 
 <div data-role="page" id="MainView">
 <script type="text/javascript">
@@ -49,9 +49,11 @@
 			// interval
 			$guardian_params .= $_SESSION['ExtendedProfile']->autocall_frequency;
 			
-			$_SESSION['autocall_active'] = true;
+			
 			
 			echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::guardian::'.$guardian_params.'";},5000);';
+			
+			$_SESSION['autocall_active'] = true;
 		}
 	}
 	?>
