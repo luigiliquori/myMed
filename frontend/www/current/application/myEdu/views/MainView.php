@@ -5,8 +5,8 @@
 <div id="mainView" data-role="page">
 
 	<!-- Header bar -->
-	<?
-		print_header_bar("logout", "mainViewHelpPopup", $title); ?>
+	<? print_header_bar("logout", "mainViewHelpPopup", $title); ?>
+
 	 
 	<!-- Page content --> 
 	<div data-role="content">
