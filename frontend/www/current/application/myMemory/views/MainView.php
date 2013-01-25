@@ -4,14 +4,11 @@
 <script type="text/javascript">
 
 <?php
-echo 'alert("checking...");';
 	if(($_SESSION['ExtendedProfile']->diseaseLevel == 3)  ){
 		/*
 		 * WE ACTIVATE AUTOCALL
 		 */
-		echo 'alert("really sick");';
-		session_destroy();
-		echo 'alert("boom la session!");';
+
 	
 		/*
 		 * URL SCHEMA :
@@ -30,7 +27,6 @@ echo 'alert("checking...");';
 		*/
 		
 		if($_SESSION['autocall_active'] == false) {
-		echo 'alert("firing mah lazer!");';
 			$guardian_params = '';
 			
 			// person name
@@ -58,9 +54,8 @@ echo 'alert("checking...");';
 			
 			$_SESSION['autocall_active'] = true;
 		}
-	} else echo 'alert("nothing");';
+	}
 	?>
-	alert("something");
 </script>
 
 
