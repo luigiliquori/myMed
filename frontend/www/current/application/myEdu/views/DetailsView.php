@@ -2,7 +2,7 @@
 
 <div data-role="page">
   <? $title = _("Details");
-	 print_header_bar(true, false, $title); ?>
+	 print_header_bar("?action=Find&search=true", false, $title,"Back to search"); ?>
 	
 	<div data-role="content" >
 	

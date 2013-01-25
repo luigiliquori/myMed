@@ -5,8 +5,10 @@
 <div data-role="page" id ="mypublicationview">
 
 	<!-- Page header bar -->
+
 	<? $title = _("My publications");
-	   print_header_bar(true, true, $title); ?>
+	   print_header_bar("?action=main", false, $title, "myEdu Home"); ?>
+
 	
 		
 	<!-- Page content -->

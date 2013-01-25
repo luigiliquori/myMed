@@ -9,8 +9,13 @@
 <div data-role="page" id="extendedprofiledisplayview">
 
 	<!-- Header bar -->
-  	<? $title = _("Profile");
-	   print_header_bar(true, "defaultHelpPopup", $title); ?>
+  	<? 	$title = _("Profile");
+  	  	// Check the previous usr for the back button, if it is a publication details
+  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
+  	   		print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title, 'back to Publication'); 
+  	  	else
+  	   		print_header_bar("?action=main", "defaultHelpPopup", $title, 'myEdu Home');
+  	   ?>
 	
 	<!-- Page content -->
 	<div data-role="content">
@@ -32,13 +37,13 @@
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 					<div class="ui-block-a" style="width: 110px;">
-						<a title="<?= $_SESSION['user']->name ?>"><img src="<?= $_SESSION['user']->profilePicture ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"></a>
+						<a title="<?= $this->profile->details['name'] ?>"><img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"></a>
 					</div>
 					<div class="ui-block-b">
-						<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
-						<p><?= $_SESSION['user']->birthday ?> </p>
+						<p><strong><?= $this->profile->details['firstname']." ".$this->profile->details['lastname'] ?></strong></p>
+						<p><?= $this->profile->details['birthday'] ?> </p>
 						<p><?= $lang?></p>
-						<p><a href="mailto:<?= prettyprintId($_SESSION['user']->id) ?>"><?= prettyprintId($_SESSION['user']->id) ?></a></p>
+						<p><a href="mailto:<?= prettyprintId($this->profile->details['email']) ?>"><?= prettyprintId($this->profile->details['email']) ?></a></p>
 					</div>
 				</div>
 			</li>
@@ -46,10 +51,6 @@
 			<!-- MyEduExtended profile details -->
 			<li data-role="list-divider"><?= _("MyEdu extended profile details") ?></li>	
 			<li>
-				<h2>
-					<!-- Name -->
-					<?= $this->details['name'] ?>
-				</h2>
 				<p>
 					<!-- Role -->
 					<?= _("Role") ?>: <strong style="color:#444;"><?= $this->profile->details['role'] ?></strong><br/>

@@ -12,7 +12,7 @@
   	 
 	<!-- Page header bar -->
 	<? $title = _("Create profile");
-	   print_header_bar(true, "defaultHelpPopup", $title); ?>
+	   print_header_bar("?action=main", "defaultHelpPopup", $title, 'myEdu Home'); ?>
 	
 	   
 	<!-- Page content -->
@@ -39,6 +39,14 @@
 		
 		<!-- Create extended profile form -->
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
+			
+			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile -->
+			<input type="hidden" id="firstname" name="firstname" value="<?= $_SESSION['user']->firstName ?>" />
+			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->id ?>" />
+			<input type="hidden" id="lastname" name="lastname" value="<?= $_SESSION['user']->lastName ?>" />
+			<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+			<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
+			
 			
 			<!-- Role -->
 			<div data-role="fieldcontain">
