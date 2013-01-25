@@ -62,6 +62,24 @@
 					<p><b><?= _("Author")?></b> :<a href="<?= '?action=extendedProfile&user='.$this->result->publisherID ?>"><?= str_replace("MYMED_", "", $this->result->publisherID) ?> </a><br/></p>
 				</div>
 				
+				<!-- SHARE THIS -->
+				<div style="position: absolute; right: 24px;">
+				<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
+    				<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+					</div>
+					
+					<div style="position: absolute; right: 95px;">
+				<g:plusone size="tall"></g:plusone>
+				<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
+				</div>
+				
+				<div style="position: absolute; right: 150px;">
+				<a name="fb_share" type="box_count" share_url="<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" ></a>
+   				<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+				</div>
+				<div style="height: 80px;"></div>
+	    		<!-- END SHARE THIS -->
+				
 				<div data-role="collapsible" data-content-theme="d">
 	 				<h3><?= _('Comments') ?></h3>
 		 			<!-- displaying comments -->

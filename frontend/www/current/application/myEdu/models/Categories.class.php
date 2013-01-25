@@ -31,8 +31,8 @@ Categories::$areas = array(
 Categories::$categories = array(
 	"Internship" 	=> _("Internship"),
 	"Job" 			=> _("Job"),
-	"Lecture note"		=> _("Lecture note"),
-	"PHD Thesis"			=> _("PHD Thesis")
+	"Lecture note"	=> _("Lecture note"),
+	"PHD Thesis"	=> _("PHD Thesis")
 );
 
 Categories::$localities = array(
@@ -50,7 +50,7 @@ Categories::$localities = array(
 Categories::$roles = array(
 	"student"   => _("Student"),
 	"professor" => _("Professor"),
-	"company"   => _("Company"),
+	"company"   => _("Company")
 );
 
 Categories::$organizations = array(
@@ -59,7 +59,7 @@ Categories::$organizations = array(
 	"Unice"     => _("Unice"),
 	"Unipo"     => _("Unipo"),
 	"Unitln"    => _("Unitln"),
-	"Unito"     => _("Unito"),
+	"Unito"     => _("Unito")
 );
 
 ?>
