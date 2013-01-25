@@ -5,7 +5,7 @@
 <div id="mainView" data-role="page">
 
 	<!-- Header bar -->
-	<?  $title=_('myEdu');
+	<?
 		print_header_bar("logout", "mainViewHelpPopup", $title); ?>
 	 
 	<!-- Page content --> 
