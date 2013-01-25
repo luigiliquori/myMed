@@ -24,7 +24,7 @@ function print_header_bar($print_back_button = false, $idHelpPopup = "defaultHel
 	
 	} elseif ($print_back_button) {
 		// Print back button 
-		echo '<a href="#" data-rel="back" data-icon="arrow-l">' . _('back') . '</a>';
+		echo '<a href="#" data-rel="back" data-icon="arrow-l">' . _('Back') . '</a>';
 	};
 	
 	// Print application title

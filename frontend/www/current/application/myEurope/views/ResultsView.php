@@ -7,13 +7,10 @@
 	
 		<? include_once 'notifications.php'; ?>
 	
-		<ul data-role="listview" >
-		
-			<li data-role="list-divider"><?= _("Results") ?></li>
-			
+		<ul data-role="listview" >			
 			<? if (count($this->result) == 0) :?>
 			<li>
-				<h4>No result found</h4>
+				<h4><?= _("No result found")?></h4>
 			</li>
 			<? endif ?>
 			
@@ -28,9 +25,7 @@
 							<b><?= _("Programme") ?></b>: <?= Categories::$calls[$item->other] ?><br/><br/>
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
 						</p>
-						
 						<br/>
-						
 						<p>
 							Publisher ID: <?= $item->publisherID ?><br/>
 							<p style="display:inline;" > Reputation: </p>  

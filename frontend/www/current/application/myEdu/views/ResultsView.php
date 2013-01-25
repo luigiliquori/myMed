@@ -1,16 +1,12 @@
 
 <div data-role="page">
-
-	<? print_header_bar(true, false, "Results"); ?>
+	<? $title=_("Results");
+	print_header_bar(true, false, $title); ?>
 	
 	<div data-role="content" >
-	
 		<? include_once 'notifications.php'; ?>
 	
-		<ul data-role="listview" >
-		
-			<li data-role="list-divider">Results</li>
-			
+		<ul data-role="listview" >	
 			<? if (count($this->result) == 0) :?>
 			<li>
 				<h4><?= _("No result found")?></h4>

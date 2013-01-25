@@ -1434,19 +1434,16 @@ msgstr "Nuovo messaggio"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:8
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:95
-#, fuzzy
 msgid "Modify publication"
-msgstr "Le vostre applicazioni"
+msgstr "Modificare pubblicazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:19
-#, fuzzy
 msgid "Edit publication"
-msgstr "applicazione"
+msgstr "Modifica pubblicazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:23
-#, fuzzy
 msgid "Project reputation"
-msgstr "reputazione "
+msgstr "Reputazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:43
 msgid "Do you like the project idea ?"
@@ -1457,41 +1454,36 @@ msgstr "Vi piace questa idea di progetto ?"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:101
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:46
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:29
-#, fuzzy
 msgid "Area"
-msgstr "Zone geografiche del progetto"
+msgstr "Zona"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:61
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:26
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:100
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:47
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:28
-#, fuzzy
 msgid "Category"
-msgstr "Scegli una categoria "
+msgstr "Categoria"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:62
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:39
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:102
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:49
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:30
-#, fuzzy
 msgid "Organization"
-msgstr "Nome dell'organizzazione"
+msgstr "Organismo"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:63
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:52
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:99
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:48
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:27
-#, fuzzy
 msgid "Locality"
-msgstr "locale"
+msgstr "Località"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:110
-#, fuzzy
 msgid "Delete publication"
-msgstr "applicazione"
+msgstr "Elimina pubblicazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/AboutView.php:7
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:32
@@ -1551,9 +1543,8 @@ msgid "Few words "
 msgstr "Parole chiave"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:25
-#, fuzzy
 msgid "New publication"
-msgstr "applicazione"
+msgstr "Nuova pubblicazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:31
 msgid "Results"
@@ -1572,23 +1563,20 @@ msgid "You have to login to access all the menu options"
 msgstr "Devi effettuare il login per accedere a tutte le opzioni del menu"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:28
-msgid "My Opportunities"
-msgstr ""
+msgid "My opportunities"
+msgstr "Le mie possibilità"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:29
-#, fuzzy
 msgid "My publications"
-msgstr "applicazione"
+msgstr "Le mie pubblicazioni"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:30
-#, fuzzy
-msgid "Search publication"
-msgstr "Trovare un'offerta"
+msgid "Search a publication"
+msgstr "Ricercare una pubblicazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:31
-#, fuzzy
 msgid "My profile"
-msgstr "Modifica il mio profilo"
+msgstr "Il mio profilo"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:36
 msgid "How it works"
@@ -1626,9 +1614,8 @@ msgid "Publish your project"
 msgstr "Pubblica progetto"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:40
-#, fuzzy
 msgid "Publication title goes here"
-msgstr "Data pubblicazione"
+msgstr "Titolo di pubblicazione va qui"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:45
 msgid "Day"
@@ -1644,12 +1631,11 @@ msgstr "Anno"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:64
 msgid "Enter a text description for your publication"
-msgstr ""
+msgstr "Immettere una descrizione del testo per la pubblicazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:75
-#, fuzzy
 msgid "Other information"
-msgstr "Informazioni"
+msgstr "Altre informazioni"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:104
 msgid "Publish"
@@ -1798,10 +1784,6 @@ msgstr "Sì"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:129
 msgid "No"
 msgstr "No"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:137
-msgid "My opportunities"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:148
 #, fuzzy
@@ -2062,15 +2044,9 @@ msgid "<b>MyEurope</b> is a social network which is based on the meta-social net
 msgstr "<b>myEurope</b> é una rete sociale facente parte della meta-rete sociale <em>myMed</em>, a disposizione dei comuni, delle istituzioni, dei rappresentanti politici locali nonché delle realtà economiche (industriali, turistiche…) del territorio della regione francese del Sud-Est (PACA, Rodano-Alpi) e delle tre regioni italiane del Nord Ovest (Liguria, Piemonte, Valle d’Aosta), ovvero dei territori  ammissibili al programma Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia)."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/AboutView.php:18
-msgid ""
-"This application will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.\n"
-" The main targets of <b><em>myMed</em></b> are :\n"
-" \t<ul>\n"
-" \t\t<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>\n"
-" \t\t<li>Exchange practices and common cross-border interests in the area of European project creation.</li>\n"
-" \t\t<li>Inform users about different European calls.</li>\n"
-" \t</ul>"
-msgstr "L’applicazione permetterà ai comuni dell’Euroregione Alpi-Mediterraneo  (MedAlp) di  trovare dei\tpartner, che siano chiaramente iscritti alla rete myEurope, nell’ambito dell’interregione e poter costituire assieme dei progetti comuni, nel quadro dei differenti programmi europei : Interreg Alcotra, de Med, FP7 ecc… <br /> <br />Gli obbiettivi principali di myEurope sono dunque i seguenti :<ol><li>Aiutarvi, attraverso il meccanismo di  « Matchmaking » myMed a mettere in comune delle idee ma anche dei mezzi al fine di poter sottomettere un\t\tprogetto Interreg Alcotra, Med od ottenere dei finanziamenti provenienti dall’Europa (crediti FEDER…).</li><li> Scambiare pratiche ed interessi comuni transfrontalieri nell’ambito del montaggio dei progetti</li><li>Informare  riguardo alle varie offerte d’appalto di progetti europei le persone iscritte alla rete sociale</li></ol>Questo scambio d’informazioni sarà utile agli esponenti politici locali francesi così come ad i loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e quelli delle regioni italiane limitrofe. Ciò favorirà l’organizzazione di attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti…)"
+msgid "This application will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.\n The main targets of <b><em>myEurope</em></b> are :\n \t<ul style='text-align:left'>\n \t\t<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>\n \t\t<li>Exchange practices and common cross-border interests in the area of European project creation.</li>\n \t\t<li>Inform users about different European calls.</li>\n \t</ul>"
+
+msgstr "L’applicazione permetterà ai comuni dell’Euroregione Alpi-Mediterraneo  (MedAlp) di  trovare dei\tpartner, che siano chiaramente iscritti alla rete myEurope, nell’ambito dell’interregione e poter costituire assieme dei progetti comuni, nel quadro dei differenti programmi europei : Interreg Alcotra, de Med, FP7 ecc… <br /> <br />Gli obbiettivi principali di myEurope sono dunque i seguenti :<ul style='text-align:left'><li>Aiutarvi, attraverso il meccanismo di  « Matchmaking » myMed a mettere in comune delle idee ma anche dei mezzi al fine di poter sottomettere un\t\tprogetto Interreg Alcotra, Med od ottenere dei finanziamenti provenienti dall’Europa (crediti FEDER…).</li><li> Scambiare pratiche ed interessi comuni transfrontalieri nell’ambito del montaggio dei progetti</li><li>Informare  riguardo alle varie offerte d’appalto di progetti europei le persone iscritte alla rete sociale</li></ul>Questo scambio d’informazioni sarà utile agli esponenti politici locali francesi così come ad i loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e quelli delle regioni italiane limitrofe. Ciò favorirà l’organizzazione di attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti…)"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/AboutView.php:26
 msgid "If you find an error you can report it at this address: "
@@ -2561,6 +2537,9 @@ msgstr ""
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:14
 msgid "Création de profil bénévole"
 msgstr ""
+
+msgid "Create publication"
+msgstr "Creazione pubblicazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:22
 msgid "Vous avez déjà un compte bénévole ?"
