@@ -171,12 +171,12 @@ function calcRoute(json) {
 		calcRouteByCityway(result);
 	} else {
 		if (result == null){
-			alert("resultat null");
+			//alert("resultat null");
 		}
 		//alert("result :"+result);
 		//alert(JSON.stringify(result.ItineraryObj));
 		//alert("result.ItineraryObj.Status.code = " +result.ItineraryObj.Status.code );
-		alert("Erreur : Impossible de trouver un itineraire! (code erreur API Cityway :"+result.ItineraryObj.Status.code+")");
+		//alert("Erreur : Impossible de trouver un itineraire! (code erreur API Cityway :"+result.ItineraryObj.Status.code+")");
 	}
 
 	refreshRoadMap = true;
@@ -200,7 +200,7 @@ function calcRoute(json) {
 					"inset": true
 				});
 			} else {
-				alert("Erreur : Impossible de trouver un itineraire! (code erreur API Cityway :"+result.ItineraryObj.Status.code+")");
+				//alert("Erreur : Impossible de trouver un itineraire! (code erreur API Cityway :"+result.ItineraryObj.Status.code+")");
 				//calcRouteByGoogle(false);
 			}
 			refreshRoadMap = false;

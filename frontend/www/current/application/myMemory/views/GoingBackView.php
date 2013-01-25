@@ -1,4 +1,3 @@
-<? include("header.php"); ?>
 <? include("notifications.php")?>
 
 <div data-role="page" id="GoingBack">
@@ -34,7 +33,7 @@
 				if($data->type == "emergency" ) continue;
 				?>
 				<li class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
-					<a href="?action=itineraire&amp;address=<?= $data->address; ?>" class="ui-link-inherit" >
+					<a href="?action=itineraire&amp;address=<?= $data->address; ?>" class="ui-link-inherit" data-ajax="false">
 					<h3 class="ui-li-heading"><?= $data->nickname; ?></h3>
 					<?= '<p class="ui-li-desc" id="address'.$i.'" >'. $data->address . '</p>'; ?>
 					</a>
@@ -57,5 +56,4 @@
 	
 
 
-</div>	
-<? include("footer.php"); ?>	
+</div>

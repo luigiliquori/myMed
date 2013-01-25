@@ -23,6 +23,5 @@ include_once('header.php');
 // Call the main controller
 main_controller();
 
-
-include_once('footer.php')
+include_once('footer.php');
 ?>

@@ -1,4 +1,3 @@
-<? include("header.php"); ?>
 <? include("notifications.php")?>
 
 <div data-role="page" id="NeedHelp">
@@ -7,14 +6,7 @@
 	<?php
 	if ($_SESSION['isMobile']){
 		
-		$str_numbers = '';
-		// Récupération des numéros a appeler
-		$k = count($_SESSION['ExtendedProfile']->callingList);
-		for($i=0; $i < $k; $i++) {
-			$str_numbers .= $_SESSION['ExtendedProfile']->callingList[$i]->phone;
-			if ($i != $k-1) $str_numbers .= '::';
-		}	
-		echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::call::'.$str_numbers.'";},5000);';
+		echo 'setTimeout(function() {location.href="/application/'.APPLICATION_NAME.'/index.php?action=main&mobile_binary::call::'.$_SESSION['emergency_next_phonecall'].'";},5000);';
 	}	
 	else
 		echo 'setTimeout(function() {sendEmailsAlerts();},2000);';
@@ -95,4 +87,3 @@
 	</div>
 	
 </div>
-<? include("footer.php"); ?>	

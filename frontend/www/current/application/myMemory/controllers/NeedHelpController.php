@@ -12,21 +12,26 @@ class NeedHelpController extends AuthenticatedController {
 		 */
 		$_SESSION['emergency'] = true;
 		
-		/*
-		 * Call the Notification models
-		 * 
-		 */
-		
-		// For test only : notification by e-mail
-/*		
-		$mail = new EmailNotification("m3phistos@gmail.com", 
-										$_SESSION['user']->name, 
-										"32 Rue Jean Jaurès, Cannes, France", 
-										array(	"lat"=>"43.55353", 
-												"lng"=>"7.02199"));
-		$mail->send();
-*/
-		
+		if ( isset($_SESSION['emergency_level']))
+		{
+			$nbOfBuddies = count($_SESSION['ExtendedProfile']->callingList);
+			
+			// increment the id of the buddy to call
+			$_SESSION['emergency_level'] += 1;
+			
+			// If we have gone through the whole list, reset
+			if ($_SESSION['emergency_level'] >= ($nbOfBuddies-1)){
+				
+				$_SESSION['emergency_level'] = 0;
+			}
+		}
+		else {
+			// Fill the first buddy to call
+			$_SESSION['emergency_level'] = 0;
+			
+		}
+			
+		$_SESSION['emergency_next_phonecall'] = $_SESSION['ExtendedProfile']->callingList[$_SESSION['emergency_level']]->phone;
 		
 		$this->renderView("needHelp");
 		
