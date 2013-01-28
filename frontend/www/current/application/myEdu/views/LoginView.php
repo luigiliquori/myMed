@@ -6,7 +6,7 @@
 
 	<!-- Header bar -->
 	<? $title = _("Sign in");
-       print_header_bar("?action=main", false, $title, 'myEdu'); ?>
+       print_header_bar("?action=main", false, $title); ?>
 	
 	<!-- Page content -->
 	<div data-role="content" class="content">

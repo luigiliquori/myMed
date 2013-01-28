@@ -5,11 +5,9 @@
 <div data-role="page" id ="mypublicationview">
 
 	<!-- Page header bar -->
+	<? $title = _("My Publication");
+	   print_header_bar("?action=main", false, $title); ?>
 
-	<? $title = _("My publications");
-	   print_header_bar("?action=main", false, $title, "myEdu Home"); ?>
-
-	
 		
 	<!-- Page content -->
 	<div data-role="content" >

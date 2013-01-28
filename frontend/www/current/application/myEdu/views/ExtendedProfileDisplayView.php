@@ -14,7 +14,7 @@
   	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
   	   		print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title, 'back to Publication'); 
   	  	else
-  	   		print_header_bar("?action=main", "defaultHelpPopup", $title, 'myEdu Home');
+  	   		print_header_bar("?action=main", "defaultHelpPopup", $title);
   	   ?>
 	
 	<!-- Page content -->
