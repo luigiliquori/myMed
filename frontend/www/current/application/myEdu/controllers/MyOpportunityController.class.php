@@ -20,10 +20,38 @@ class MyOpportunityController extends AuthenticatedController {
 			//$this->result = $selectedResults->find();
 			// get userReputation
 			//$this->getReputation($this->result);
+			//$this->getSubscription();
+			
+			
 			$this->renderView("MyOpportunity");
 		}
 	}
 	
+	
+	
+	/**
+	 * get all subscriptions
+	 */
+	function getSubscription(){
+		$request = new Request("SubscribeRequestHandler", READ);
+		$request->addArgument("application", APPLICATION_NAME);
+		$request->addArgument("userID", $_SESSION['user']->id);
+		$responsejSon = $request->send();
+		$response = json_decode($responsejSon);
+		$subscriptionsRaw = (array)$response->dataObject->subscriptions;
+		foreach ($subscriptionsRaw as $key=>$values){
+			$subscriptions = array();
+			$preds = explode("pred",$key);
+			foreach($preds as $key2){
+				array_push($subscriptions,substr($key2,1));
+			}
+			
+		}
+	}
+	
+	function find_publication(){
+		
+	}
 }
 
 ?>

@@ -15,12 +15,15 @@
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
 			<p>
-				<?= _("<b>Application</b> description goes here.") ?>
+				<?= _("<<<<<< <b>Application</b> description goes here. >>>>>>") ?>
 			</p>
 			</li>
 		</ul>
 		<p>
-		<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= _("More informations about myMed") ?></a>
+			<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= _("More informations") ?></a>
+		</p>
+		<p>
+			<?= _("If you find an error you can report it at this address: ")?><a href="http://mymed22.sophia.inria.fr/bugreport/index.php" target="_blank"> http://mymed22.sophia.inria.fr/bugreport/index.php </a>
 		</p>
 		<br/><br/>
 		<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>

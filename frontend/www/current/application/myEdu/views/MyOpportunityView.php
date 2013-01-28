@@ -26,6 +26,7 @@
 		<br />
 		<br />
 		<br />
+		<br />
 		
 		<!-- List of user publications -->
 		<ul data-role="listview" >

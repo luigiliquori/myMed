@@ -7,7 +7,7 @@
 	<!-- Page header bar -->
 	<? $title = _("My Publication");
 	   print_header_bar("?action=main", false, $title); ?>
-	
+
 		
 	<!-- Page content -->
 	<div data-role="content" >
@@ -16,8 +16,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("Little help") ?> ?</h3>
-			<p><?= _("Few words ")?></p>
+			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
+			<p><?= _("<<<<< Few words >>>>>")?></p>
 		</div>
 		<br />
 	
@@ -32,7 +32,7 @@
 			
 			<? if (count($this->result) == 0) :?>
 			<li>
-				<h4>No result found</h4>
+				<h4><?= _("No result found")?></h4>
 			</li>
 			<? endif ?>
 
@@ -49,7 +49,7 @@
 							<b><?= _("Organization") ?></b>: <?= $item->organization ?><br/><br/>
 							<b>Publisher ID:</b><?= $item->publisherID ?><br/> 
 							<!-- Project reputation-->	
-							<p style="display:inline; margin-left: 30px;" > <b>Project Reputation:</b> </p>  
+							<p style="display:inline; margin-left: 30px;" > <b><?= _("Project reputation")?>:</b> </p>  
 							<p style="display:inline; margin-left: 30px;" >
 								<?php
 									// Disable reputation stars if there are no votes yet 
