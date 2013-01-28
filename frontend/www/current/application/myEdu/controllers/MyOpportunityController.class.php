@@ -20,7 +20,7 @@ class MyOpportunityController extends AuthenticatedController {
 			//$this->result = $selectedResults->find();
 			// get userReputation
 			//$this->getReputation($this->result);
-			$this->getSubscription();
+			//$this->getSubscription();
 			
 			
 			$this->renderView("MyOpportunity");
@@ -39,10 +39,18 @@ class MyOpportunityController extends AuthenticatedController {
 		$responsejSon = $request->send();
 		$response = json_decode($responsejSon);
 		$subscriptionsRaw = (array)$response->dataObject->subscriptions;
-		$this->subscriptions = array();
 		foreach ($subscriptionsRaw as $key=>$values){
-			$this->subscriptions->push();
+			$subscriptions = array();
+			$preds = explode("pred",$key);
+			foreach($preds as $key2){
+				array_push($subscriptions,substr($key2,1));
+			}
+			
 		}
+	}
+	
+	function find_publication(){
+		
 	}
 }
 
