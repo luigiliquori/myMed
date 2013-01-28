@@ -14,8 +14,6 @@
 			
 			<br />	
 			<h3><?= _("Description") ?></h3>
-								
-
 				<div>
 					<!-- TITLE -->
 					<h3><?= $this->result->title ?> :</h3>
@@ -149,14 +147,14 @@
 		 					
 		 				</div>
 					<? endforeach ?>
-		 			
-		 			<!-- adding new comments -->
-		 			<form action="?action=comment" method="POST" data-ajax="false">
-		 				<textarea name="wrapped1"></textarea>
-		 				<input type="hidden" name="method" value="Comment" />
-						<input type="submit" value="<?= _('Comment') ?>" />
-		 			</form>
-	 	
+		 			<? if(!$_SESSION['user']->is_guest){ ?>
+			 			<!-- adding new comments if logged -->
+			 			<form action="?action=comment" method="POST" data-ajax="false">
+			 				<textarea name="wrapped1"></textarea>
+			 				<input type="hidden" name="method" value="Comment" />
+							<input type="submit" value="<?= _('Comment') ?>" />
+			 			</form>
+	 				<? } ?>
 	 			</div>
 			</div>
 		</div>

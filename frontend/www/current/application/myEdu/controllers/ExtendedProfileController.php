@@ -21,24 +21,29 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		
 		// Execute the called controller method
-		switch ($_GET['method'])
-		{
-			// Edit user extended profile
-			case 'edit':
-				if(isset($_SESSION['myEdu']))
-					$this->renderView("ExtendedProfileEdit");
+		if(isset($_GET['method'])){
+			debug("GET METHOD: ".$_GET['method']);
+			switch ($_GET['method']){
+				// Edit user extended profile
+				case 'edit':
+					if(isset($_SESSION['myEdu']))
+						$this->renderView("ExtendedProfileEdit");
+					break;
+				case 'update':
+					debug("CLICK");
+					$this->updateProfile();
 				break;
-			
-			// Edit user extended profile
-			case 'show_user_profile':
-				// If the user is not a guest but has not got an Extended 
-				// profile forward him to ExtendedProfileCreate View
-				if (!isset($_SESSION['myEdu']))
-					$this->renderView("ExtendedProfileCreate");
-				else
-					$this->showUserProfile($_GET['user']);
-				break;
-		}		
+				// Edit user extended profile
+				case 'show_user_profile':
+					// If the user is not a guest but has not got an Extended 
+					// profile forward him to ExtendedProfileCreate View
+					if (!isset($_SESSION['myEdu']))
+						$this->renderView("ExtendedProfileCreate");
+					else
+						$this->showUserProfile($_GET['user']);
+					break;
+			}		
+		}
 	}
 	
 	
@@ -49,11 +54,16 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// If the user is not a guest but has not got an Extended
 		// profile forward him to ExtendedProfileCreate View
-		if (!isset($_SESSION['myEdu']))
+		if (!isset($_SESSION['myEdu'])){
 			$this->renderView("ExtendedProfileCreate");
-		else
+		}/*if (isset($_GET['user'])){
+			$this->showUserProfile($_GET['user']);
+		}else if (isset($_SESSION['user'])){
+			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
+		}*/else{
+			debug("Default method");
 			$this->showUserProfile($_SESSION['user']->id);
-		
+		}
 	}
 	
 	
@@ -93,18 +103,17 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Display the new created Extended Profile
 		$this->redirectTo("?action=ExtendedProfile&method=show_user_profile&user=".$_SESSION['user']->id);		
 	}
-		
 	
 	/** 
 	 * Update an Extended profile 
 	 */
-	public function update() {
-		
-		$name = $_POST['name'];
-		$email = $_POST['email'];
-		$id = $_SESSION['myEdu']->profile;
+	function updateProfile() {
 		$_POST['email'] =$_SESSION['user']->email;
-		$_POST['id'] =$_SESSION['user']->id;
+		//$name = $_POST['name'];
+		//$email = $_POST['email'];
+		//$id = $_SESSION['myEdu']->profile;
+		
+		//$_POST['id'] =$_SESSION['user']->id;
 				
 		$pass	= hash("sha512", $_POST['password']);
 		
@@ -160,14 +169,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileEdit");
 		}
 		
-		$_POST['name'] = $name; // organization name and not username
-		$_POST['email'] = $email; // organization email != profile email
-		$_POST['id'] = $id;
-		//unset($_POST['firstName']);
-		//unset($_POST['lastName']);
-		//unset($_POST['birthday']);
-		//unset($_POST['profilePicture']);
-		//unset($_POST['lang']);
+		//$_POST['name'] = $name; // organization name and not username
+		//$_POST['email'] = $email; // organization email != profile email
+		//$_POST['id'] = $id;
+		unset($_POST['firstName']);
+		unset($_POST['lastName']);
+		unset($_POST['birthday']);
+		unset($_POST['profilePicture']);
+		unset($_POST['lang']);
 		
 		// Update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
@@ -182,8 +191,8 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 						UPDATE);	
 		$publish->send();
 		
-		if ($_POST['name']!= $_SESSION['myEurope']->details['name'] || 
-			$_POST['role']!=$_SESSION['myEurope']->details['role']) { 
+		if ($_POST['name']!= $_SESSION['myEdu']->details['name'] || 
+			$_POST['role']!=$_SESSION['myEdu']->details['role']) { 
 			
 			//also update profiles indexes
 			$publish =  new RequestJson(
