@@ -47,7 +47,7 @@ function print_header_bar($back_button = false,
 			} else {
 				// ... otherwise back to the launchpad
 				echo '<a href="/" data-icon="arrow-l" data-ajax="false">' 
-					. _('myMed') . '</a>';
+					. _('back') . '</a>';
 			}
 			break;
 		

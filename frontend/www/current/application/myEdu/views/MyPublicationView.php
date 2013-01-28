@@ -6,7 +6,7 @@
 
 	<!-- Page header bar -->
 	<? $title = _("My Publication");
-	   print_header_bar("?action=main", false, $title, "myEdu Home"); ?>
+	   print_header_bar("?action=main", false, $title); ?>
 	
 		
 	<!-- Page content -->
