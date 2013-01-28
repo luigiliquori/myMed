@@ -18,10 +18,11 @@
 		<? print_notification($this->success.$this->error); ?>
 	
 		<!-- Extended profile edit form -->
-		<form action="?action=ExtendedProfile&method=update" method="post" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
+		<form action="?action=ExtendedProfile&method=update" method="POST" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
 			<input type="hidden" id="role" name="role" value="<?= $_SESSION['myEdu']->details['role'] ?>" />
 			<input type="hidden" name="id" value="<?= $_SESSION['myEdu']->profile ?>" />
-			<? $_SESSION['myEdu']->profile?>
+			<input type="hidden" name="form" value="edit" />
+
 			<!-- Role -->
 			<div style="text-align: center">
 				<label for="typeProfile"> <?= _("Profile type") ?>: </label>
@@ -29,35 +30,34 @@
 			</div>
 			<script type="text/javascript">
 				$("#extendedprofileeditview").on("pageshow", function() {  
-					switch ('<?= $_SESSION['myEdu']->details['role'] ?>') {
-								
-								case 'student':
-		    						$('#studentnumberfield').show();	
-		    						$('#facultyfield').show();
-		    						$('#universityfield').hide();
-		    						$('#coursesfield').hide();
-		    						$('#companytypefield').hide();
-		    						$('#siretfield').hide();
-		  							break; 
-		  						
-		  						case 'professor':
-		    						$('#studentnumberfield').hide();
-		    						$('#facultyfield').hide();
-		    						$('#universityfield').show();
-		    						$('#coursesfield').show();
-		    						$('#companytypefield').hide();
-		    						$('#siretfield').hide();
-		  							break;
-		
-		  						case 'company':
-		    						$('#studentnumberfield').hide();
-		    						$('#facultyfield').hide();
-		    						$('#universityfield').hide();
-		    						$('#coursesfield').hide();
-		    						$('#companytypefield').show();
-		    						$('#siretfield').show();
-		  							break;
-							}
+					switch ('<?= $_SESSION['myEdu']->details['role'] ?>') {			
+						case 'student':
+    						$('#studentnumberfield').show();	
+    						$('#facultyfield').show();
+    						$('#universityfield').hide();
+    						$('#coursesfield').hide();
+    						$('#companytypefield').hide();
+    						$('#siretfield').hide();
+  							break; 
+  						
+  						case 'professor':
+    						$('#studentnumberfield').hide();
+    						$('#facultyfield').hide();
+    						$('#universityfield').show();
+    						$('#coursesfield').show();
+    						$('#companytypefield').hide();
+    						$('#siretfield').hide();
+  							break;
+
+  						case 'company':
+    						$('#studentnumberfield').hide();
+    						$('#facultyfield').hide();
+    						$('#universityfield').hide();
+    						$('#coursesfield').hide();
+    						$('#companytypefield').show();
+    						$('#siretfield').show();
+  							break;
+						}
 				});
 			</script>
 			
@@ -72,7 +72,6 @@
 			<div data-role="fieldcontain">
 				<label for="lastName" style="text-align:right"><?= _("Last Name") ?> : </label>
 				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
-			</div>
 			</div>
 			<!-- Birthday -->
 			<div data-role="fieldcontain">

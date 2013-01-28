@@ -37,7 +37,7 @@
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 					<div class="ui-block-a" style="width: 110px;">
-						<a title="<?= $_SESSION['user']->name ?>"><img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"></a>
+						<a title="<?= $this->profile->details['name'] ?>"><img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"></a>
 					</div>
 					<div class="ui-block-b">
 						<p><strong><?= $this->profile->details['firstname']." ".$this->profile->details['lastname'] ?></strong></p>

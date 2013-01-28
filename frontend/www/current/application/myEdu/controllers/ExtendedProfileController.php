@@ -19,6 +19,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (isset($_SESSION['user']) && $_SESSION['user']->is_guest) {
 			$this->forwardTo('login');
 		}
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+			DEBUG("post");
+		}
 		
 		// Execute the called controller method
 		if(isset($_GET['method'])){
@@ -29,11 +32,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 					if(isset($_SESSION['myEdu']))
 						$this->renderView("ExtendedProfileEdit");
 					break;
-				case 'update':
-					debug("CLICK");
+				case 'update';
 					$this->updateProfile();
-				break;
-				// Edit user extended profile
+					break;
 				case 'show_user_profile':
 					// If the user is not a guest but has not got an Extended 
 					// profile forward him to ExtendedProfileCreate View
@@ -56,11 +57,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// profile forward him to ExtendedProfileCreate View
 		if (!isset($_SESSION['myEdu'])){
 			$this->renderView("ExtendedProfileCreate");
-		}/*if (isset($_GET['user'])){
-			$this->showUserProfile($_GET['user']);
-		}else if (isset($_SESSION['user'])){
-			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
-		}*/else{
+		}else{
 			debug("Default method");
 			$this->showUserProfile($_SESSION['user']->id);
 		}
@@ -109,13 +106,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	function updateProfile() {
 		$_POST['email'] =$_SESSION['user']->email;
-		//$name = $_POST['name'];
-		//$email = $_POST['email'];
-		//$id = $_SESSION['myEdu']->profile;
+		$id = $_SESSION['myEdu']->profile;
 		
-		//$_POST['id'] =$_SESSION['user']->id;
+		$_POST['id'] =$_SESSION['user']->id;
 				
-		$pass	= hash("sha512", $_POST['password']);
+		$pass = hash("sha512", $_POST['password']);
 		
 		// Unset useless $_POST fields 
 		unset($_POST['form']);
@@ -124,7 +119,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Password is required
 		if( empty($pass) ){
 			// TODO i18n
-			$this->error = _("Email field can't be empty");
+			$this->error = _("Password field can't be empty");
 			$this->renderView("ExtendedProfileEdit");
 		}
 		$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
@@ -134,6 +129,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$responseObject = json_decode($responsejSon);
 			
 		if($responseObject->status != 200) {
+			debug("ERROR1: ".$responseObject->description);
 			$this->error = $responseObject->description;
 			$this->renderView("ExtendedProfileEdit");
 		}
@@ -141,16 +137,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Update of the profile informations
 		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['login'] = $_SESSION['user']->email;
-		$request = new Requestv2("v2/ProfileRequestHandler",
-								 UPDATE,
-								 array("user"=>json_encode($_POST))
-								);
+		
+		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($_POST)));
 		try {
-			
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
 	
 			if($responseObject->status != 200) {
+				debug("ERROR2: ".$responseObject->description);
 				throw new Exception($responseObject->description);
 			} else{
 				$profile = array ("id"=>$_POST['id'], 
@@ -160,23 +154,22 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 								  "birthday"=>$_POST['birthday'], 
 								  "profilePicture"=>$_POST['profilePicture'], 
 								  "lang"=> $_POST['lang']);
-				$_SESSION['user'] 
-					= (object) array_merge((array) $_SESSION['user'], $profile);
+				$_SESSION['user'] = (object) array_merge((array) $_SESSION['user'], $profile);
 			}
 			
 		} catch (Exception $e) {
+			debug("ERROR3: ".$e->getMessage());
 			$this->error = $e->getMessage();
 			$this->renderView("ExtendedProfileEdit");
 		}
 		
-		//$_POST['name'] = $name; // organization name and not username
-		//$_POST['email'] = $email; // organization email != profile email
-		//$_POST['id'] = $id;
-		unset($_POST['firstName']);
-		unset($_POST['lastName']);
-		unset($_POST['birthday']);
-		unset($_POST['profilePicture']);
-		unset($_POST['lang']);
+		$_POST['id'] = $id;
+		//unset($_POST['firstName']);
+		//unset($_POST['lastName']);
+		//unset($_POST['birthday']);
+		//unset($_POST['profilePicture']);
+		//unset($_POST['lang']);
+		//unset($_POST['name']);
 		
 		// Update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
@@ -189,7 +182,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 						"user"=>"noNotification", 
 						"data"=>$_POST),
 						UPDATE);	
-		$publish->send();
+		try{
+			$publish->send();
+		}catch (Exception $e) {
+			debug("ERROR4: ".$e->getMessage());
+		}
 		
 		if ($_POST['name']!= $_SESSION['myEdu']->details['name'] || 
 			$_POST['role']!=$_SESSION['myEdu']->details['role']) { 
@@ -209,7 +206,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (!empty($this->error)) {
 			$this->renderView("ExtendedProfileEdit");
 		} else {
-			
+			debug("Success");
 			$this->success = _("Complement profile registered successfully!");
 			$_SESSION['myEdu']->details = $_POST;
 			$_SESSION['myEdu']->reputation = $myrep;
