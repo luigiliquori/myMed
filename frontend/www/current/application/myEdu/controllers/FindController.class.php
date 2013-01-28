@@ -11,19 +11,16 @@ class FindController extends AuthenticatedController{
 			$this->fillObj($search); // for the filters
 
 			$this->result = $search->find(); 
-			debug(count($this->result));
 			$date = strtotime(date('d-m-Y')); 
 				
 			for($i = 0; $i < count($this->result); ++$i) {
 				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
 					$expiration_date = strtotime($this->result[$i]->end);
-					debug($this->result[$i]->title.": ".$this->result[$i]->end);
 					if($expiration_date < $date){
 						unset($this->result[$i]);
 					}
 				}
 			}
-			
 			$this->renderView("results");
 		}
 	}
@@ -36,7 +33,6 @@ class FindController extends AuthenticatedController{
 			$search->publisherID = $_SESSION['user']->id;
 			
 			$result = $search->find();
-			debug("NB PUBLICATION  de ".$search->publisher." :".sizeof($result));
 			foreach($result as $item) :
 				$item->publisher = $_SESSION['user']->id;
 				$item->publisherID = $_SESSION['user']->id;
@@ -46,23 +42,18 @@ class FindController extends AuthenticatedController{
 			$this->renderView("Find");
 		}
 		else if (isset($_GET['search'])){
-			debug("SEARCH CALL");
-
 			$search = new MyEduPublication();
 			$this->result = $search->find(); 
-			debug(count($this->result));
 			$date = strtotime(date('d-m-Y')); 
 				
 			for($i = 0; $i < count($this->result); ++$i) {
 				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
 					$expiration_date = strtotime($this->result[$i]->end);
-					debug($this->result[$i]->title.": ".$this->result[$i]->end);
 					if($expiration_date < $date){
 						unset($this->result[$i]);
 					}
 				}
 			}
-			debug(count($this->result));
 			// get userReputation
 			$this->getReputation($this->result);
 			$this->renderView("Find");

@@ -9,7 +9,7 @@
 	<? require_once('Categories.class.php'); ?>  
   	
   	<!-- Page header -->
-  	<? $title = _("Create a new publication");	
+  	<? $title = _("Create publication");	
 	   print_header_bar(true, "defaultHelpPopup", $title); ?>
 
 	<!-- Page content -->
@@ -28,7 +28,7 @@
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to publish") ?> ?</h3>
-				<?= _("Some explanation goes here")?>
+				<?= _("<<<<< Some explanation goes here >>>>>")?>
 				</p>
 			</div>
 			
@@ -74,25 +74,25 @@
 				
 				<h3><?= _('Other information') ?> :</h3>
 					<select name="area" id="area" data-native-menu="false">
-					<option value=""> Area </option>
+					<option value=""> <?= _("Area")?> </option>
 					<? foreach (Categories::$areas as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
 					<select name="category" id="category" data-native-menu="false">
-						<option value=""> Category </option>
+						<option value=""> <?= _("Category")?> </option>
 					<? foreach (Categories::$categories as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
 					<select name="locality" id="locality" data-native-menu="false">
-						<option value=""> Locality </option>
+						<option value=""> <?= _("Locality")?> </option>
 					<? foreach (Categories::$localities as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
 					<select name="organization" id="organization" data-native-menu="false">
-						<option value=""> Organization </option>
+						<option value=""> <?= _("Organization")?> </option>
 					<? foreach (Categories::$organizations as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
@@ -113,7 +113,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<?= _("Help text")?> 
+		<?= _("<<<<< Help text >>>>>")?> 
 	</div>
 	
 </div>

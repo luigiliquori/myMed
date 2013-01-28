@@ -5,57 +5,62 @@
 <? require_once('header-bar.php'); ?>
 <? require_once('notifications.php'); ?>
 
-<div data-role="page" id="extendedprofileeditview">
+<div data-role="page">
 
 	<!-- Page header -->
 	<? $title = _("Edit Profile");
+
 	   print_header_bar(
 	   		'index.php?action=extendedProfile&method=show_user_profile&user='
 	   		.$_SESSION['user']->id.'', "defaultHelpPopup", $title); ?>
-	   		
-	
+
+	   
 	<!-- Page content -->
 	<div data-role="content">
 	
 		<? print_notification($this->success.$this->error); ?>
 	
 		<!-- Extended profile edit form -->
-		<form action="?action=ExtendedProfile&method=update" method="post" id="ExtendedProfileForm" data-ajax="false">
-		
-			<!-- Role -->
-			<p> Profile type: <strong><?= $_SESSION['myEdu']->details['role'] ?></strong></p>
+		<form action="?action=ExtendedProfile&method=update" method="POST" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
 			<input type="hidden" id="role" name="role" value="<?= $_SESSION['myEdu']->details['role'] ?>" />
+			<input type="hidden" name="id" value="<?= $_SESSION['myEdu']->profile ?>" />
+			<input type="hidden" name="form" value="edit" />
+
+			<!-- Role -->
+			<div style="text-align: center">
+				<label for="typeProfile"> <?= _("Profile type") ?>: </label>
+				<strong style="text-transform:uppercase;"><?= $_SESSION['myEdu']->details['role']?></strong>
+			</div>
 			<script type="text/javascript">
 				$("#extendedprofileeditview").on("pageshow", function() {  
-					switch ('<?= $_SESSION['myEdu']->details['role'] ?>') {
-								
-								case 'student':
-		    						$('#studentnumberfield').show();	
-		    						$('#facultyfield').show();
-		    						$('#universityfield').hide();
-		    						$('#coursesfield').hide();
-		    						$('#companytypefield').hide();
-		    						$('#siretfield').hide();
-		  							break; 
-		  						
-		  						case 'professor':
-		    						$('#studentnumberfield').hide();
-		    						$('#facultyfield').hide();
-		    						$('#universityfield').show();
-		    						$('#coursesfield').show();
-		    						$('#companytypefield').hide();
-		    						$('#siretfield').hide();
-		  							break;
-		
-		  						case 'company':
-		    						$('#studentnumberfield').hide();
-		    						$('#facultyfield').hide();
-		    						$('#universityfield').hide();
-		    						$('#coursesfield').hide();
-		    						$('#companytypefield').show();
-		    						$('#siretfield').show();
-		  							break;
-							}
+					switch ('<?= $_SESSION['myEdu']->details['role'] ?>') {			
+						case 'student':
+    						$('#studentnumberfield').show();	
+    						$('#facultyfield').show();
+    						$('#universityfield').hide();
+    						$('#coursesfield').hide();
+    						$('#companytypefield').hide();
+    						$('#siretfield').hide();
+  							break; 
+  						
+  						case 'professor':
+    						$('#studentnumberfield').hide();
+    						$('#facultyfield').hide();
+    						$('#universityfield').show();
+    						$('#coursesfield').show();
+    						$('#companytypefield').hide();
+    						$('#siretfield').hide();
+  							break;
+
+  						case 'company':
+    						$('#studentnumberfield').hide();
+    						$('#facultyfield').hide();
+    						$('#universityfield').hide();
+    						$('#coursesfield').hide();
+    						$('#companytypefield').show();
+    						$('#siretfield').show();
+  							break;
+						}
 				});
 			</script>
 			
@@ -70,11 +75,6 @@
 			<div data-role="fieldcontain">
 				<label for="lastName" style="text-align:right"><?= _("Last Name") ?> : </label>
 				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
-			</div>
-			<!-- Email -->		
-			<div data-role="fieldcontain">
-				<label for="textinputu6" style="text-align:right"><?= _('Email') ?>: </label><?= $_SESSION['user']->email ?>
-				
 			</div>
 			<!-- Birthday -->
 			<div data-role="fieldcontain">
@@ -95,9 +95,9 @@
 					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 				</select>
 			</div>
-			
+			<!--
 			<p><strong> MyEdu Profile details </strong></p>
-			<!-- MyEdu Extended Profile details -->
+			 MyEdu Extended Profile details -->
 			
 			<!-- Phone -->		
 			<div data-role="fieldcontain">

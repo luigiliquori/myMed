@@ -83,7 +83,7 @@
   							break;
 					
 					}">
-				<option value="">Select your category</option>
+				<option value=""><?= _("Select your category")?></option>
 				<? foreach (Categories::$roles as $k=>$v) :?>
 					<option value="<?= $k ?>"><?= $v ?></option>
 				<? endforeach ?>
@@ -146,8 +146,8 @@
 	<!-- Help Pop Up -->
 	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3><?= _("Help title.") ?></h3>
-		<p> <?= _("Help text") ?></p>
+		<h3><?= _("<<<<< Help title. >>>>>") ?></h3>
+		<p> <?= _("<<<<< Help text >>>>>") ?></p>
 		
 	</div>
 	

@@ -18,7 +18,6 @@ function print_header_bar($back_button = false,
 	
 	echo '<div data-role="header" data-theme="b" data-position="fixed">';
 	
-	
 	switch($back_button) {
 		
 		// No back button
@@ -46,8 +45,9 @@ function print_header_bar($back_button = false,
 							>' . _('Logout') . '</a>';
 			} else {
 				// ... otherwise back to the launchpad
-				echo '<a href="/" data-icon="arrow-l" data-ajax="false">' 
-					. _('back') . '</a>';
+				/*echo '<a href="/" data-icon="arrow-l" data-ajax="false">' 
+					. _('myMed') . '</a>';*/
+
 			}
 			break;
 		

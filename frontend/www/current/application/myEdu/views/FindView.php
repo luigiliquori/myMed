@@ -2,7 +2,9 @@
 
 <div id="find" data-role="page">
 
+
 	<? print_header_bar("?action=main", "defaultHelpPopup", "Search"); ?>
+
 	
 	<div data-role="content">
 		
@@ -14,7 +16,7 @@
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to find") ?>?</h3>
-				<?= _("Here how to find")?>
+				<?= _("Here is the search page job or internship for student and employee or trainee qualified for a business.")?>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
@@ -96,10 +98,10 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/>
-							<b><?= _("Category") ?></b>: <?= $item->category ?><br/>
-							<b><?= _("Area") ?></b>: <?= $item->area ?><br/>
-							<b><?= _("Organization") ?></b>: <?= $item->organization ?><br/><br/>
+							<b><?= _("Locality") ?></b>: <?= _($item->locality) ?><br/>
+							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
+							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
+							<b><?= _("Organization") ?></b>: <?= _($item->organization) ?><br/><br/>
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
@@ -108,20 +110,20 @@
 						<p style="display:inline; margin-left: 30px;">
 							Publisher ID: <?= $item->publisherID ?><br/>
 							<!-- Project reputation-->	
-							<p style="display:inline; margin-left: 30px;" > <b>Project Reputation:</b> </p>  
+							<p style="display:inline; margin-left: 30px;" > <b><?= _("Reputation")?>:</b> </p>  
 							<p style="display:inline; margin-left: 30px;" >
 								<?php
 									// Disable reputation stars if there are no votes yet 
 									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
-											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;" />
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;" />
 										<?php } else { ?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;"/>
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
