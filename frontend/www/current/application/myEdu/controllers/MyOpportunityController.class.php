@@ -20,7 +20,7 @@ class MyOpportunityController extends AuthenticatedController {
 			//$this->result = $selectedResults->find();
 			// get userReputation
 			//$this->getReputation($this->result);
-			$this->getSubscription();
+			//$this->getSubscription();
 			
 			
 			$this->renderView("MyOpportunity");
