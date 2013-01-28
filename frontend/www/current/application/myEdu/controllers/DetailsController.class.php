@@ -70,6 +70,19 @@ class DetailsController extends AuthenticatedController {
 		
 		$this->search_comment();
 		
+		// Need publisher role (student, professer, or company) so
+		// get publisher details
+		// Get the user details
+		
+		try {
+			$datamapper = new DataMapper;
+			$details = $datamapper->findById(new User($author));
+			$this->publisher_profile = new MyEduProfile($details['profile']);
+			$this->publisher_profile->details = $datamapper->findById($this->publisher_profile);
+		} catch (Exception $e) {
+			$this->redirectTo("main");
+		}
+				
 		// Render the view
 		$this->renderView("details");
 	}
@@ -84,7 +97,7 @@ class DetailsController extends AuthenticatedController {
 	function comment(){
 		debug("button comment");
 		if(!empty($_POST['wrapped1']) ){
-			$obj = new MyEduPublication();
+			$obj = new Comment();
 					
 			// Fill the object
 			$this->fillObj_comments($obj);
@@ -100,7 +113,7 @@ class DetailsController extends AuthenticatedController {
 	public function search_comment() {
 	
 		// -- Search
-		$search_comments = new MyEduPublication();
+		$search_comments = new Comment();
 		$this->fillObj($search_comments);
 		$this->result_comment = $search_comments->find();
 	

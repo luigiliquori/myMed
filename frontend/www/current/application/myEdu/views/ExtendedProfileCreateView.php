@@ -12,7 +12,7 @@
   	 
 	<!-- Page header bar -->
 	<? $title = _("Create profile");
-	   print_header_bar(true, "defaultHelpPopup", $title); ?>
+	   print_header_bar("?action=main", "defaultHelpPopup", $title, 'myEdu Home'); ?>
 	
 	   
 	<!-- Page content -->
@@ -39,6 +39,14 @@
 		
 		<!-- Create extended profile form -->
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
+			
+			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile -->
+			<input type="hidden" id="firstname" name="firstname" value="<?= $_SESSION['user']->firstName ?>" />
+			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->id ?>" />
+			<input type="hidden" id="lastname" name="lastname" value="<?= $_SESSION['user']->lastName ?>" />
+			<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+			<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
+			
 			
 			<!-- Role -->
 			<div data-role="fieldcontain">
@@ -81,30 +89,15 @@
 				<? endforeach ?>
 				</select>
 			</div>
-			<!-- Name -->
-			<div id="namefield" data-role="fieldcontain">
-				<label for="textinputu1" style="text-align:right" ><?= _('Name') ?>: </label>
-				<input id="textinputu1" name="name" placeholder="" value='' type="text" />
-			</div>
-			<!-- Address -->
-			<div data-role="fieldcontain">
-				<label for="textinputu4" style="text-align:right"><?= _('Address') ?>: </label>
-				<input id="textinputu4" name="address" placeholder="" value='' type="text" />
-			</div>
-			<!-- Email -->
-			<div data-role="fieldcontain">
-				<label for="textinputu5"  style="text-align:right"><?= _('Email') ?>: </label>
-				<input id="textinputu5" name="email" placeholder="" value='<?= $_SESSION['user']->email ?>' type="email" />
-			</div>
 			<!-- Phone -->		
 			<div data-role="fieldcontain">
 				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?>: </label>
 				<input id="textinputu6" name="phone" placeholder="" value='' type="tel" />
 			</div>
-			<!-- Description -->
+			<!-- Description / CV-->
 			<div data-role="fieldcontain">
-				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
+				<label for="desc"  style="text-align:right"><?= _('Description / <br/> Curriculum Vitae') ?>: </label>
+				<textarea id="desc" name="desc" placeholder="description, commentaires" style="height:120px;"></textarea>
 			</div>
 			<!-- For Students: student number -->
 			<div id="studentnumberfield" data-role="fieldcontain" class="ui-screen-hidden">
@@ -124,7 +117,7 @@
 			<!-- For Professor: Courses -->
 			<div id="coursesfield" data-role="fieldcontain">
 				<label for="courses"  style="text-align:right"><?= _('Courses') ?>: </label>
-				<input id="courses" name="courses" placeholder="The list of your courses"></input>
+				<textarea id="courses" style="height: 120px;" name="courses" placeholder="The list of your courses"></textarea>
 			</div>
 			<!-- For Companies: type -->
 			<div id="companytypefield" data-role="fieldcontain">

@@ -5,610 +5,840 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: myMed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-15 13:18+0100\n"
-"PO-Revision-Date: 2012-11-15 13:45+0100\n"
-"Last-Translator: lvanni <lvanni@inria.fr>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2013-01-25 05:11+0100\n"
+"PO-Revision-Date: 2013-01-25 05:24+0100\n"
+"Last-Translator: David Da Silva <contact@daviddasilva.net>\n"
+"Language-Team: Lognet <lognet.mymed@inria.fr>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.3\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: /home/m3phistos/git/lognet-mymed/frontend/www/current/application\n"
 
-msgid "Here you can modify your profile and list your active projects."
-msgstr "Qui puoi modificare il tuo profilo e listare i tuoi progetti già operativi."
-
-msgid "List my projects"
-msgstr "Listare miei progetti"
-
-msgid "Edit Profile and Projects"
-msgstr "Pubblica profilo e progetti"
-
-msgid "Edit Profile"
-msgstr "Pubblica profilo"
-
-msgid "Edit your Profile"
-msgstr "Pubblica tuo profilo"
-
-msgid "Manage users"
-msgstr "Gestisci utenti"
-
-msgid "Administration"
-msgstr "Amministrazione"
-
-msgid "Here you can change user category. <br /> Categories are: 'Admin', 'Normal user' and 'New User'."
-msgstr "Qui puoi cambiare la categoria utente. <br /> Le categorie sono: 'Amministratore', 'Utente normale' e 'Nuovo utente'."
-
-msgid "Here you can update your organization profile."
-msgstr "Qui è possibile aggiornare il profilo dell'organizzazione."
-
-msgid "Create a new profile of your organization."
-msgstr "Crea un nuovo profilo per la tua istituzione/ente"
-
-msgid "Fill the form with your organization details. All members of your organization can use this profile to register in myEurope"
-msgstr "Complila il formulario con i dettagli del tuo organismo/ente. Tutti i membri facentene parte potranno usare questo profilo per navigare in myEurope"
-
-#: ../system/common/common-utils.php:117
-msgid "Back"
-msgstr "Indietro"
-
-#: ../system/common/common-utils.php:121
-#: ../application/myMed/views/LoginView.php:43
-#: ../application/myEurope/doc/trads.php:8
-msgid "Sign in"
-msgstr "Connessione"
-
-#: ../system/common/common-utils.php:243
-#: ../application/myEurope/views/BlogsView.php:38
-msgid "Reply"
-msgstr "Rispondi"
-
-#: ../system/common/common-utils.php:268
-msgid "Tout / aucun"
-msgstr "Tutto / nessuno"
-
-#: ../system/common/common-utils.php:381
-msgid "obligatoire"
-msgstr "obbligatorio"
-
-#: ../system/common/common-utils.php:384
-msgid "optionnel"
-msgstr "facoltativo"
-
-#: ../system/common/common-utils.php:410
-#, php-format
-msgid "Le champ %s est obligatoire."
-msgstr "Il campo %s é obbligatorio."
-
-#: ../system/common/common-utils.php:522
-msgid "Exit"
-msgstr "Esci"
-
-#: ../system/common/common-utils.php:528
-msgid "Se connecter"
-msgstr "Connessione"
-
-#: ../system/common/common-utils.php:574
-#: ../system/common/common-utils.php:594
-msgid "Annuler"
-msgstr "Annulla"
-
-#: ../system/common/common-utils.php:577
-#: ../system/common/common-utils.php:596
-msgid "Précédent"
-msgstr "Indietro"
-
-#: ../system/common/common-utils.php:582
-#: ../system/common/common-utils.php:601
-msgid "Suivant"
-msgstr "Avanti"
-
-#: ../lib/dasp/ajax/Subscribe.php:27
-#, fuzzy
-msgid "Subscribed to: "
-msgstr "Abbonarsi"
-
-#: ../system/controllers/RegisterController.class.php:25
-#: ../application/myMed/controllers/ProfileController.class.php:27
-msgid "Email not valid"
-msgstr "Email non valida"
-
-#: ../system/controllers/RegisterController.class.php:88
-msgid "Erreur interne d'enregistrement"
-msgstr "Errore interno di registrazione"
-
-#: ../application/myMed/views/LoginView.php:19
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:19
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:19
 #, fuzzy
 msgid "Tour"
 msgstr "oppure"
 
-#: ../application/myMed/views/LoginView.php:42
-#: ../application/myMed/views/LoginView.php:112
-#: ../application/myMed/views/UpdateProfileView.php:42
-#: ../application/myEurope/views/ExtendedProfileEditView.php:66
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:46
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:116
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:42
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:112
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:42
 msgid "Password"
 msgstr ""
 
-#: ../application/myMed/views/LoginView.php:45
-#: ../application/myEurope/doc/trads.php:6
-#: ../application/myFSA/views/LoginView.php:39
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:47
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:43
+msgid "Sign in"
+msgstr "Connessione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:49
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:45
 msgid "Sign in with"
 msgstr "Connessione con"
 
-#: ../application/myMed/views/LoginView.php:100
-#: ../application/myMed/views/UpdateProfileView.php:17
-msgid "First Name"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:104
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:100
+#, fuzzy
+msgid "First name"
 msgstr "Nome"
 
-#: ../application/myMed/views/LoginView.php:104
-#: ../application/myMed/views/UpdateProfileView.php:20
-msgid "Last Name"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:108
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:104
+#, fuzzy
+msgid "Last name"
 msgstr "Cognome"
 
-#: ../application/myMed/views/LoginView.php:116
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:120
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:116
 msgid "Confirm"
 msgstr ""
 
-#: ../application/myMed/views/LoginView.php:122
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:126
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:122
 msgid "I accept the general terms and conditions"
 msgstr ""
 
-#: ../application/myMed/views/LoginView.php:126
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:130
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:126
 msgid "Send"
 msgstr "Inviare"
 
-#: ../application/myMed/views/LoginView.php:147
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:151
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:147
 msgid "about"
 msgstr "A proposito"
 
-#: ../application/myMed/views/LoginView.php:152
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:156
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:152
 msgid "More informations"
 msgstr "Informazioni"
 
-#: ../application/myMed/views/ProfileView.php:18
-msgid "Edit"
-msgstr "Esci"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:17
+msgid "First Name"
+msgstr "Nome"
 
-#: ../application/myMed/views/ProfileView.php:27
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:21
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:39
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:67
-msgid "About you"
-msgstr "Informazioni generali"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:20
+msgid "Last Name"
+msgstr "Cognome"
 
-#: ../application/myMed/views/ProfileView.php:58
-msgid "Your applications"
-msgstr "Le vostre applicazioni"
-
-#: ../application/myMed/views/UpdateProfileView.php:26
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:26
 msgid "Birthday"
 msgstr "Compleanno"
 
-#: ../application/myMed/views/UpdateProfileView.php:29
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:29
 msgid "Profile picture"
 msgstr "Foto profilo"
 
-#: ../application/myMed/views/UpdateProfileView.php:33
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:75
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:33
 msgid "Language"
 msgstr "Lingua"
 
-#: ../application/myMed/views/UpdateProfileView.php:49
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:49
 msgid "Password Confirmation"
 msgstr "Conferma password"
 
-#: ../application/myMed/views/UpdateProfileView.php:55
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:20
-#: ../application/myEurope/views/ExtendedProfileEditView.php:70
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:81
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:55
 msgid "Update"
 msgstr "Aggiorna"
 
-#: ../application/myMed/controllers/StoreController.class.php:38
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:18
+msgid "Edit"
+msgstr "Esci"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:27
+msgid "About you"
+msgstr "Informazioni generali"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:58
+msgid "Your applications"
+msgstr "Le vostre applicazioni"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/MainController.class.php:47
+msgid ""
+"You are using Internet Explorer, the interface is not optimized for it,\r\n"
+"\t\t\t\tplease download Chrome or Firefox for a better experience"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/StoreController.class.php:38
 msgid "Echec de sauvegarde "
 msgstr "Salvataggio fallito"
 
-#: ../application/myMed/controllers/ProfileController.class.php:33
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/ProfileController.class.php:27
+msgid "Email not valid"
+msgstr "Email non valida"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/ProfileController.class.php:31
+msgid "password empty"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/ProfileController.class.php:38
 msgid "Passwords do not match"
 msgstr "Password non corrispondente"
 
-#: ../application/myMed/controllers/ProfileController.class.php:73
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/ProfileController.class.php:80
 msgid "Wrong password"
 msgstr "Password errata"
 
-#: ../application/myEurope/controllers/DetailsController.class.php:110
-msgid "Partnership request sent"
-msgstr "Richiesta di partenariato inviata"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/ProfileController.class.php:108
+#, fuzzy
+msgid "Your profile has been successfully updated!"
+msgstr "L'offerta di partenariato è stata pubblicata con successo"
 
-#: ../application/myEurope/controllers/DetailsController.class.php:139
-msgid "Partner added"
-msgstr "Il partner è stato aggiunto"
-
-msgid "Details"
-msgstr "Dettagli"
-
-#: ../application/myEurope/views/AdminView.php:10
-msgid "list of organizations profiles in myEurope"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/MainView.php:12
+msgid "Institution"
 msgstr ""
 
-#: ../application/myEurope/views/AdminView.php:10
-msgid "Profiles list"
-msgstr "Profili"
-
-#: ../application/myEurope/views/AdminView.php:13
-msgid "Notify me of new users"
-msgstr "Notificami nuovi iscrizioni"
-
-#: ../application/myEurope/views/AdminView.php:19
-msgid "New users waiting for validation"
-msgstr "Nuovo utente in attesa di validazione "
-
-#: ../application/myEurope/views/AdminView.php:26
-msgid "Normal users"
-msgstr "Utente normale "
-
-#: ../application/myEurope/views/AdminView.php:35
-msgid "Admins"
-msgstr ""
-
-#: ../application/myEurope/views/BlogsView.php:12
-msgid "Notify me of new messages"
-msgstr "Notificami nuovi messaggi"
-
-#: ../application/myEurope/views/BlogsView.php:29
-#: ../application/myEurope/views/ResultsView.php:23
-msgid "Subscribe"
-msgstr "Abbonarsi"
-
-#: ../application/myEurope/views/BlogsView.php:34
-msgid "comments"
-msgstr "commenti"
-
-#: ../application/myEurope/views/BlogsView.php:64
-msgid "New Message"
-msgstr "Nuovo messaggio"
-
-#: ../application/myEurope/views/BlogsView.php:66
-#: ../application/myEurope/views/ResultsView.php:12
-msgid "title"
-msgstr "titolo"
-
-#: ../application/myEurope/views/BlogsView.php:69
-msgid "Post"
-msgstr "Postare"
-
-#: ../application/myEurope/views/BlogsView.php:84
-#: ../application/myEurope/views/DetailsView.php:61
-msgid "Sure?"
-msgstr "Conferma?"
-
-#: ../application/myEurope/views/DetailsView.php:27
-#: ../application/myEurope/views/MainView.php:311
-msgid "Keywords"
-msgstr "Parole chiave"
-
-#: ../application/myEurope/views/DetailsView.php:30
-msgid "Publication Date"
-msgstr "Data pubblicazione"
-
-#: ../application/myEurope/views/DetailsView.php:34
-msgid "Expiration Date"
-msgstr "Data limite"
-
-#: ../application/myEurope/views/DetailsView.php:41
-msgid "Partners"
-msgstr "Partner"
-
-#: ../application/myEurope/views/DetailsView.php:53
-msgid "Delete my offer"
-msgstr "Cancella la mia offerta"
-
-#: ../application/myEurope/views/DetailsView.php:55
-msgid "Partnership request"
-msgstr "Richiesta di partenariato"
-
-#: ../application/myEurope/views/ExtendedProfileEditView.php:11
-msgid "Territory type"
-msgstr "Tipo di territorio"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
-msgid "Users list"
-msgstr "Lista dei membri"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
-msgid "Users"
-msgstr "Utenti"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:25
-msgid "Register in myEurope with this profile"
-msgstr "Registrarsi su myEurope con questo profilo"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:27
-msgid "Back to profiles list"
-msgstr "Ritorno alla lista profili"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:34
-msgid "Delete user"
-msgstr "Cancella utente"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:36
-msgid "Delete my profile"
-msgstr "Cancella il mio profilo"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:42
-msgid "Edit my profile"
-msgstr "Modifica il mio profilo"
-
-msgid "Yes"
-msgstr "Sì"
-
-msgid "No"
-msgstr "No"
-
-msgid "Are you sure you want to delete your profile ?"
-msgstr "Sei sicuro di voler eliminare il tuo profilo ?"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:13
-#: ../application/myEurope/views/ExtendedProfileEditView.php:13
-msgid "Organization Name"
-msgstr "Nome dell'organizzazione"
-
-msgid "Organization email"
-msgstr "Email dell'organizzazione"
-
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:17
-#: ../application/myEurope/views/ExtendedProfileEditView.php:17
-msgid "Your category"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/ShowInstitutionCategoryView.php:34
+#, fuzzy
+msgid "Sous catégories"
 msgstr "Scegli una categoria "
 
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:29
-#: ../application/myEurope/views/ExtendedProfileEditView.php:29
-msgid "Address"
-msgstr "Indirizzo"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/ShowInstitutionCategoryView.php:52
+msgid "Articles"
+msgstr ""
 
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:33
-#: ../application/myEurope/views/ExtendedProfileEditView.php:33
-msgid "Action area"
-msgstr "Territorio d'intervento"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/ShowInstitutionCategoryView.php:69
+msgid "Ajouter une sous catégorie"
+msgstr ""
 
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:33
-#: ../application/myEurope/views/ExtendedProfileEditView.php:33
-msgid "Action territory"
-msgstr "Azione territorio"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/ShowInstitutionCategoryView.php:73
+msgid "Ajouter un article"
+msgstr ""
 
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:53
-#: ../application/myEurope/views/ExtendedProfileEditView.php:53
-msgid "Email"
-msgstr "Email"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/CreateInstitutionArticleView.php:8
+msgid "Nouvel article"
+msgstr ""
 
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:57
-#: ../application/myEurope/views/ExtendedProfileEditView.php:57
-msgid "Phone"
-msgstr "Telefono"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/CreateInstitutionArticleView.php:14
+msgid "Publier l'article"
+msgstr ""
 
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:61
-#: ../application/myEurope/views/ExtendedProfileEditView.php:61
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/CreateInstitutionCategoryView.php:8
+msgid "Nouvelle catégorie"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/CreateInstitutionCategoryView.php:14
+msgid "Ajouter"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/EditInstitutionCategoryView.php:8
+msgid "Edition de la catégorie "
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/EditInstitutionCategoryView.php:14
+msgid "Confirmer"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionArticleForm.php:4
+msgid "Article"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionArticleForm.php:4
+msgid "Article complet"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:13
+#, fuzzy
+msgid "Profil MyMed"
+msgstr "Profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:16
+msgid "Prénom"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:17
+#, fuzzy
+msgid "Nom"
+msgstr "No"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:18
+msgid "Date de naissance"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:19
+msgid "email"
+msgstr "email"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:22
+msgid "Mot de passe"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:23
+#, fuzzy
+msgid "Mot de passe (confirmation)"
+msgstr "Conferma password"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:30
+#, fuzzy
+msgid "Langue"
+msgstr "Lingua"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:33
+msgid "Vous devez choisir une langue."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionCategoryForm.php:5
+msgid "Titre"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionCategoryForm.php:7
 msgid "Description"
 msgstr "Descrizione"
 
-#: ../application/myEurope/views/ExtendedProfileCreateView.php:71
-msgid "Create this profile"
-msgstr "Crea questo profilo"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionCategoryForm.php:7
+#, fuzzy
+msgid "Description courte"
+msgstr "Descrizione"
 
-msgid "Create profile"
-msgstr "Crea profilo"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/footer.php:4
+#, fuzzy
+msgid "Choisissez la langue"
+msgstr "Scegli la lingua"
 
-#: ../application/myEurope/views/ExtendedProfileListView.php:14
-msgid "Hello, This is your first time on myEurope! Please register by creating your own profile."
-msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Si prega di registrarsi creando il proprio profilo."
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/header.php:36
+msgid "Il y a des erreurs dans le formulaire, merci de les corriger."
+msgstr ""
 
-#: ../application/myEurope/views/ExtendedProfileListView.php:18
-#: ../application/myEurope/doc/trads.php:17
-msgid "Create"
-msgstr "Crea"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/controllers/abstract/InstitutionNodeController.php:28
+msgid "a été publié"
+msgstr ""
 
-#: ../application/myEurope/views/ExtendedProfileListView.php:20
-#: ../application/myEurope/views/ResultsView.php:27
-msgid "filter"
-msgstr "filtra"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/controllers/abstract/InstitutionNodeController.php:40
+msgid "a été supprimé"
+msgstr ""
 
-#: ../application/myEurope/views/MainView.php:5
-msgid "Welcome"
-msgstr "Benvenuto"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/LoginView.php:13
+msgid "Why Register ?"
+msgstr ""
 
-#: ../application/myEurope/views/MainView.php:30
-msgid "Credits"
-msgstr "Crediti"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/LoginView.php:14
+msgid "MyMemoryWhyRegister"
+msgstr ""
 
-#: ../application/myEurope/views/MainView.php:12
-msgid "Search a partnership offer"
-msgstr "Trova offerta di partenariato"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/LoginView.php:22
+msgid "Login"
+msgstr "Login"
 
-msgid "Search partnership"
-msgstr "Trova partenariato"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/LoginView.php:32
+msgid "Register"
+msgstr "Register"
 
-#: ../application/myEurope/views/MainView.php:15
-msgid "Insert a partnership offer"
-msgstr "Sottometti offerta di partenariato"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileNeededView.php:3
+msgid "myMemory_presentation_text"
+msgstr "<p>Benvenuti sull'applicazione myMemory<br /> <br />myMemory offre un aiuto informatico ai pazienti affetti dalla malattia di Alzheimer</p>"
 
-#: ../application/myEurope/views/MainView.php:19
-#: ../application/myEurope/doc/trads.php:7
-msgid "About"
-msgstr "A proposito"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileNeededView.php:14
+#, fuzzy
+msgid "complete your profile"
+msgstr "Modifica il mio profilo"
 
-#: ../application/myEurope/views/MainView.php:38
-msgid "By topic"
-msgstr "Per tema"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileSudoDialogView.php:3
+#, fuzzy
+msgid "ConfirmationNeeded"
+msgstr "Conferma password"
 
-#: ../application/myEurope/views/MainView.php:39
-msgid "By phase"
-msgstr "Per fase"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileSudoDialogView.php:4
+msgid "MyMemory_SudoDialog"
+msgstr "Inserite la vostra password"
 
-#: ../application/myEurope/views/MainView.php:44
-msgid "Thèmes de projet"
-msgstr "Temi del progetto"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileSudoDialogView.php:10
+msgid "Validate"
+msgstr "Validare"
 
-#: ../application/myEurope/views/MainView.php:54
-msgid "Phases du projet"
-msgstr "Fasi del progetto"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileSudoDialogView.php:13
+#, fuzzy
+msgid "Cancel"
+msgstr "Francia"
 
-#: ../application/myEurope/views/MainView.php:71
-msgid "Bugs et problèmes rencontrés"
-msgstr "Bug e problemi riscontrati"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/StopEmergencyView.php:3
+msgid "MyMemory_StopNeedHelp"
+msgstr "Bloccare la richiesta di aiuto?"
 
-#: ../application/myEurope/views/MainView.php:74
-msgid "Améliorations proposées"
-msgstr "Migliorie proposte"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/StopEmergencyView.php:4
+msgid "MyMemory_askStopNeedHelp"
+msgstr "myMemory attualmente sta chiedendo aiuto. Siete sicuri di voler interrompere la richiesta?"
 
-#: ../application/myEurope/views/MainView.php:77
-msgid "Discussion libre"
-msgstr "Nessun programma di riferimento"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/StopEmergencyView.php:5
+msgid "MyMemory_confimStopNeedHelp"
+msgstr "Si,  interrompere la domanda di aiuto"
 
-#: ../application/myEurope/views/MainView.php:107
-msgid "keywords"
-msgstr "Parole chiave "
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/StopEmergencyView.php:6
+msgid "MyMemory_cancelStopNeedHelp"
+msgstr "No, continuare la domanda di aiuto"
 
-#: ../application/myEurope/views/MainView.php:109
-#: ../application/myEurope/views/MainView.php:313
-msgid "separated by a space"
-msgstr "separa con uno spazio"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/RegisterView.php:9
+#, fuzzy
+msgid "Account creation"
+msgstr "Comunicazione"
 
-#: ../application/myEurope/views/MainView.php:115
-#: ../application/myFSA/views/SearchView.php:35
-msgid "Search"
-msgstr "Ricerca "
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:64
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:45
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:95
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:143
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:190
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:260
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:285
+msgid "Exit"
+msgstr "Esci"
 
-#: ../application/myEurope/views/MainView.php:118
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:65
+msgid "Home"
+msgstr "Home"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:66
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:10
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:46
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:96
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:144
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:191
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:21
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:46
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:96
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:144
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:191
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:261
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:286
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:7
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ItineraireView.php:13
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/parts/header-bar.php:28
 msgid "Help"
 msgstr "Aiuto"
 
-#: ../application/myEurope/views/MainView.php:126
-msgid "Offer Themes"
-msgstr "Tematiche del progetto"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:70
+msgid "MyMemory_HomeDesc"
+msgstr "Pannello di controllo"
 
-#: ../application/myEurope/views/MainView.php:138
-#: ../application/myEurope/views/MainView.php:255
-msgid "Areas"
-msgstr "Zone geografiche del progetto"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:74
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:9
+#, fuzzy
+msgid "GoingBack"
+msgstr "Indietro"
 
-#: ../application/myEurope/views/MainView.php:145
-#: ../application/myEurope/views/MainView.php:262
-msgid "France"
-msgstr "Francia"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:75
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:19
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:5
+#, fuzzy
+msgid "NeedHelp"
+msgstr "Aiuto"
 
-#: ../application/myEurope/views/MainView.php:155
-#: ../application/myEurope/views/MainView.php:272
-msgid "Italy"
-msgstr "Italia"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:77
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/SocialView.php:16
+msgid "Profile"
+msgstr "Profilo"
 
-#: ../application/myEurope/views/MainView.php:165
-#: ../application/myEurope/views/MainView.php:282
-msgid "Other"
-msgstr "Altro"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:8
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:45
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:95
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:143
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:190
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:20
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:6
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ItineraireView.php:11
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/parts/header-bar.php:19
+msgid "Back"
+msgstr "Indietro"
 
-#: ../application/myEurope/views/MainView.php:179
-msgid "Category of searched partners"
-msgstr "Tipo di partner ricercati"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:18
+msgid "MyMemory_GoingBackDesc"
+msgstr "Schermata di ritorno attraverso i trasporti pubblici "
 
-#: ../application/myEurope/views/MainView.php:190
-#: ../application/myEurope/views/MainView.php:300
-msgid "Programme concerné par l'offre"
-msgstr "Programma di riferimento"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:26
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:63
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:64
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:65
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:63
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:64
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:65
+msgid "Domicile"
+msgstr "Domicilio"
 
-#: ../application/myEurope/views/MainView.php:227
-#: ../application/myFSA/views/PublishView.php:12
-msgid "Title"
-msgstr "Titolo "
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:44
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:94
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:142
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:189
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:88
+#, fuzzy
+msgid "EditProfile"
+msgstr "Pubblica profilo"
 
-#: ../application/myEurope/views/MainView.php:230
-msgid "partnership or project name"
-msgstr "Partenariato o nome del progetto"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:53
+msgid "MyMemory_EditProfileStep1Desc"
+msgstr "Schermata di edizione del profilo del paziente 1/5"
 
-#: ../application/myEurope/views/MainView.php:242
-msgid "Themes"
-msgstr "Tematiche"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:73
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:73
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:23
+msgid "DiseaseLevel"
+msgstr "Livello della malattia"
 
-#: ../application/myEurope/views/PublishView.php:190
-msgid "Program"
-msgstr "Programma"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:75
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:75
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:27
+msgid "DiseaseLevel1"
+msgstr "Leggero"
 
-#: ../application/myEurope/views/MainView.php:295
-msgid "Other options"
-msgstr "Altre opzioni"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:78
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:78
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:30
+msgid "DiseaseLevel2"
+msgstr "Moderato"
 
-#: ../application/myEurope/views/MainView.php:318
-msgid "Date of expiration"
-msgstr "Data limite"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:81
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:81
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:33
+msgid "DiseaseLevel3"
+msgstr "Avanzato"
 
-#: ../application/myEurope/views/MainView.php:320
-msgid "date in format year-month-day"
-msgstr "Data nel formato anno-mese-giorno"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:86
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:134
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:181
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:86
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:134
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:181
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:252
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:277
+msgid "Next"
+msgstr "Avanti"
 
-#: ../application/myEurope/views/PublishView.php:320
-msgid "Year"
-msgstr "Anno"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:103
+msgid "MyMemory_EditProfileStep2Desc"
+msgstr "Schermata di edizione del profilo del paziente 2/5"
 
-#: ../application/myEurope/views/PublishView.php:320
-msgid "Month"
-msgstr "Mese"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:112
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:112
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:39
+msgid "MyCaregiver"
+msgstr "Assistente"
 
-#: ../application/myEurope/views/PublishView.php:320
-msgid "Day"
-msgstr "Giorno"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:114
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:115
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:161
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:162
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:232
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:233
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:255
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:256
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:114
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:115
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:161
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:162
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:208
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:209
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:231
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:232
+#, fuzzy
+msgid "FirstName"
+msgstr "Nome"
 
-#: ../application/myEurope/views/MainView.php:329
-msgid "Your partnership"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:117
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:118
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:164
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:165
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:235
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:236
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:258
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:259
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:117
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:118
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:164
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:165
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:211
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:212
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:234
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:235
+#, fuzzy
+msgid "LastName"
+msgstr "Cognome"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:120
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:121
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:167
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:168
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:238
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:239
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:261
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:262
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:120
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:121
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:167
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:168
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:214
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:215
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:237
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:238
+#, fuzzy
+msgid "NickName"
+msgstr "Nome"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:123
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:124
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:170
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:171
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:241
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:242
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:264
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:265
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:123
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:124
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:170
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:171
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:217
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:218
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:240
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:241
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:42
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:49
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:80
+msgid "Address"
+msgstr "Indirizzo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:126
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:127
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:173
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:174
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:244
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:245
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:267
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:268
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:126
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:127
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:173
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:174
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:220
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:221
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:243
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:244
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:43
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:50
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:83
+msgid "Email"
+msgstr "Email"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:129
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:130
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:176
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:177
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:247
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:248
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:270
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:271
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:129
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:130
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:176
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:177
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:223
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:224
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:246
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:247
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:41
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:48
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:77
+msgid "Phone"
+msgstr "Telefono"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:151
+msgid "MyMemory_EditProfileStep3Desc"
+msgstr "Schermata di edizione del profilo del paziente 3/5"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:159
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:159
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:46
+msgid "MyDoctor"
+msgstr "Il mio dottore"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:198
+msgid "MyMemory_EditProfileStep4Desc"
+msgstr "Schermata di edizione del profilo del paziente 4/5"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:230
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:206
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:66
+msgid "callingslot1"
+msgstr "Seconda persona da chiamare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:253
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:229
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:69
+msgid "callingslot2"
+msgstr "Terza persona da chiamare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:277
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:351
+msgid "Save"
+msgstr "Registrare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:28
+msgid "MyMemory_NeedHelpDesc"
+msgstr "Schermata di chiamata degli assistenti nell'ordine stabilito"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:31
+msgid "StopNeedHelp"
+msgstr "Interrompere la domanda d'aiuto?"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:48
+msgid "MyMemory_Calling"
+msgstr "myMemory appelle la personne suivante:Parlez devant le micro SVP!"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:62
+msgid "MyMemory_Microphone"
+msgstr "Parlate davanti al microfono per favore!"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:69
+msgid "MyMemory_Mailling"
+msgstr "myMemory sta inviando un allarme via e-mail agli assistenti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:82
+msgid "MyMemory_MailSent"
+msgstr "Allarme inviato via e-mail!"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:44
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:94
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:142
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:189
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:259
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:284
+#, fuzzy
+msgid "CreateProfile"
+msgstr "Crea profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:53
+msgid "MyMemory_CreateProfileStep1Desc"
+msgstr "Ecran de création du profil du patient 1/6"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:103
+msgid "MyMemory_CreateProfileStep2Desc"
+msgstr "Schermata creazione del profilo paziente 2/6"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:151
+msgid "MyMemory_CreateProfileStep3Desc"
+msgstr "Schermata creazione del profilo paziente 3/6"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:198
+msgid "MyMemory_CreateProfileStep4Desc"
+msgstr "Schermata creazione del profilo paziente 4/6"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:268
+msgid "MyMemory_CreateProfileStep5Desc"
+msgstr "Schermata creazione del profilo paziente 5/6"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:275
+msgid "myMemory_Agreement"
+msgstr "Comprendo che questa applicazione abbia bisogno di conoscere la mia posizione in caso d'urgenza ed acconsento."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:293
+msgid "MyMemory_CreateProfileStep6Desc"
+msgstr "Schermata creazione del profilo paziente 6/6"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:302
+msgid "MyMemory_PerimeterHome"
+msgstr "perimetro della casa"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:305
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:318
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:331
+msgid "MyMemory_CallThisNumber"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:307
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:320
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:333
+msgid "MyMemory_IfOutsidePerimeter"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:315
+msgid "MyMemory_PerimeterNear"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:328
+msgid "MyMemory_PerimeterFar"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:341
+msgid "MyMemory_AutoCallFrequency"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:344
+msgid "MyMemory_CheckEvery"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:13
+msgid "MyMemory_ViewProfileDesc"
+msgstr "Inserzione del profilo esteso"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:19
+msgid "MyInfos"
+msgstr "Le mie informazioni"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:54
+msgid "CallingList"
+msgstr "Lista chiamate"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:63
+msgid "callingslot0"
+msgstr "Prima persona da chiamare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:72
+msgid "callingslot3"
+msgstr "Ultima persona da chiamare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ItineraireView.php:12
+msgid "RoadSheet"
+msgstr "Il calcolatore Céparou06 vi ha indicato un itinerario di marcia per arrivare a destinazione utilizzando i trasporti pubblici: seguitelo attentamente! Potete anche cliccare sull'icona Céparou06 in basso a sinistra per accedere al loro sito web."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/SocialView.php:15
+msgid "Homescreen"
+msgstr "Home"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/SocialView.php:17
+#, fuzzy
+msgid "Social"
+msgstr "Affari sociali"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:2
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/description.php:1
+msgid "myEuropeabout"
+msgstr "<b>myEurope</b> è una rete sociale che si appoggia al meta-social network <em>myMed</em>, a disposizione dei sindaci, delle istituzioni, degli esponenti politici nonché delle realtà economiche (industriali, turistiche...) del territorio della regione francese del sud est (PACA, Rhône-Alpes) e delle tre regioni italiane del nord ovest (Piemonte, Liguria, Valle d'Aosta), ovvero dei territori ammessi al programma Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia).L'applicazione permetterà ai sindaci dell'Euroregione Alpi-Mediterraneo (MedAlp) di trovare dei partner all'interno de'interregione stessa, a condizione che quest'ultimi siano iscritti alla rete myEurope, cosicché possano montare assieme dei progetti comuni, nell'ambito dei differenti programmi europei : Interreg Alcotra, di Med, FP7 ecc … <br /><br />Gli obbiettivi principali di myEurope sono dunque i seguenti :<ol><li>Aiutare attraverso il meccanismo di « Matchmaking » di myMed a mettere in comune delle idee ma anche delle risorse cosi  da poter sottomettere un progetto Interreg-Alcotra Med oppure ottenere dei finanziamenti europei (crediti FESR...)</li><li>Scambiare delle pratiche e degli interessi comuni transfrontalieri per quanto riguarda il montaggio dei progetti</li><li>Informare le persone iscritte alla rete sociale riguardo le differenti gare d'appalto dei progetti europei</li></ol>Questi scambi d'informazione saranno utili ai rappresentanti delle istituzioni francesi cosi come ai loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e italiane limitrofe, cosa che favorirà l'organizzazione delle attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti …)"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:3
+msgid "myMedabout"
+msgstr "Il progetto <b>myMed</b> nasce da una duplice constatazione: l'esistenza di un enorme potenziale di sviluppo di attività economiche nella zona transfrontaliera, oggetto dell’azione Alcotra e la stridente mancanza d'infrastrutture tecnicamente avanzate che ne permettano uno sviluppo armonioso. L'iniziativa myMed é frutto di una  collaborazione preesistente da più di 15 anni tra l’Istituto Nazionale di Ricerca in Informatica e Automatica (INRIA) di Sophia Antipolis e il Politecnico di Torino ai quali si sono aggiunti altri due partner: l’Università di Torino e l’Università del Piemonte Orientale."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:4
+msgid "About myMed"
+msgstr "A proposito di myMed"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:5
+msgid "About myEurope"
+msgstr "A proposito di myEurope"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:7
+msgid "About"
+msgstr "A proposito"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:9
+#, fuzzy
+msgid "Create an account"
+msgstr "crea nuovo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:10
+msgid "Partnerships"
 msgstr "Partenariato"
 
-#: ../application/myEurope/views/MainView.php:333
-msgid "Insert"
-msgstr "Inserisci"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:11
+msgid "Informations"
+msgstr "Informazioni"
 
-#: ../application/myEurope/views/PublishSuccessView.php:10
-msgid "Your partnership offer has been successfully published"
-msgstr "L'offerta di partenariato è stata pubblicata con successo"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:12
+msgid "Blog"
+msgstr "Buone prassi"
 
-msgid "Publish offer"
-msgstr "Pubblicare offerta"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:15
+msgid "Transborder social network"
+msgstr "Rete sociale transfrontaliera"
 
-#: ../application/myEurope/views/PublishSuccessView.php:13
-msgid "See similar offers"
-msgstr "Vedi offerte simili"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:16
+msgid "Existing Profiles"
+msgstr "Profilo già esistente"
 
-#: ../application/myEurope/views/ResultsView.php:9
-msgid "Sort by"
-msgstr "Seleziona per"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:17
+msgid "Create"
+msgstr "Crea"
 
-#: ../application/myEurope/views/ResultsView.php:14
-msgid "partner"
-msgstr "partner"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/AdminView.php:10
+msgid "list of organizations profiles in myEurope"
+msgstr ""
 
-#: ../application/myEurope/views/ResultsView.php:16
-msgid "date"
-msgstr "data"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/AdminView.php:10
+msgid "Profiles list"
+msgstr "Profili"
 
-#: ../application/myEurope/views/ResultsView.php:18
-msgid "reputation"
-msgstr "reputazione "
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/AdminView.php:13
+msgid "Notify me of new users"
+msgstr "Notificami nuovi iscrizioni"
 
-#: ../application/myEurope/views/ResultsView.php:22
-msgid "Subscribe to:"
-msgstr "Abbonarsi"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/AdminView.php:19
+msgid "New users waiting for validation"
+msgstr "Nuovo utente in attesa di validazione "
 
-#: ../application/myEurope/views/ResultsView.php:31
-msgid "Your search didn't match any result."
-msgstr "La ricerca non ha dato alcun risultato"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/AdminView.php:26
+msgid "Normal users"
+msgstr "Utente normale "
 
-#: ../application/myEurope/views/UnsubscribeView.php:11
-msgid "Unsubscribed"
-msgstr "Disabbonarsi"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/AdminView.php:35
+msgid "Admins"
+msgstr ""
 
-#: ../application/myEurope/views/UnsubscribeView.php:13
-msgid "You were not subscribed to these keywords"
-msgstr "Non sei abbonato a queste parole chiave"
-
-#: ../application/myEurope/views/WaitingForAcceptView.php:15
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/WaitingForAcceptView.php:15
 msgid ""
 "<b>Congratulations!</b> Your profile has been sent to myEurope team  \n"
 "\t\t\t<a href='mailto:myEuropeStaff@gmail.com'>myEuropeStaff@gmail.com</a>\t\t\n"
@@ -617,644 +847,2328 @@ msgstr ""
 "<b>Congratulazioni!</b> Il suo profilo è stato inviato a myEurope  \n"
 "\t<a href='mailto:myEuropeStaff@gmail.com'>myEuropeStaff@gmail.com</a>\t \t\t\tper essere validato "
 
-#: ../application/myEurope/models/Categories.php:17
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/BlogsView.php:12
+msgid "Notify me of new messages"
+msgstr "Notificami nuovi messaggi"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/BlogsView.php:29
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:23
+msgid "Subscribe"
+msgstr "Abbonarsi"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/BlogsView.php:34
+msgid "comments"
+msgstr "commenti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/BlogsView.php:38
+msgid "Reply"
+msgstr "Rispondi"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/BlogsView.php:64
+msgid "New Message"
+msgstr "Nuovo messaggio"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/BlogsView.php:66
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:12
+msgid "title"
+msgstr "titolo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/BlogsView.php:69
+msgid "Post"
+msgstr "Postare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/BlogsView.php:84
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/DetailsView.php:61
+msgid "Sure?"
+msgstr "Conferma?"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:12
+msgid "Search a partnership offer"
+msgstr "Trova offerta di partenariato"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:15
+msgid "Insert a partnership offer"
+msgstr "Sottometti offerta di partenariato"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:38
+msgid "By topic"
+msgstr "Per tema"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:39
+msgid "By phase"
+msgstr "Per fase"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:44
+msgid "Thèmes de projet"
+msgstr "Temi del progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:54
+msgid "Phases du projet"
+msgstr "Fasi del progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:71
+msgid "Bugs et problèmes rencontrés"
+msgstr "Bug e problemi riscontrati"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:74
+msgid "Améliorations proposées"
+msgstr "Migliorie proposte"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:77
+msgid "Discussion libre"
+msgstr "Nessun programma di riferimento"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:107
+msgid "keywords"
+msgstr "Parole chiave "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:109
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:313
+msgid "separated by a space"
+msgstr "separa con uno spazio"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:115
+msgid "Search"
+msgstr "Ricerca "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:126
+msgid "Offer Themes"
+msgstr "Tematiche del progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:138
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:255
+msgid "Areas"
+msgstr "Zone geografiche del progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:145
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:262
+msgid "France"
+msgstr "Francia"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:155
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:272
+msgid "Italy"
+msgstr "Italia"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:165
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:282
+msgid "Other"
+msgstr "Altro"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:179
+msgid "Category of searched partners"
+msgstr "Tipo di partner ricercati"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:190
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:300
+msgid "Programme concerné par l'offre"
+msgstr "Programma di riferimento"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:227
+msgid "Title"
+msgstr "Titolo "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:230
+msgid "partnership or project name"
+msgstr "Partenariato o nome del progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:242
+msgid "Themes"
+msgstr "Tematiche"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:295
+msgid "Other options"
+msgstr "Altre opzioni"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:311
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/DetailsView.php:27
+msgid "Keywords"
+msgstr "Parole chiave"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:318
+msgid "Date of expiration"
+msgstr "Data limite"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:320
+msgid "date in format year-month-day"
+msgstr "Data nel formato anno-mese-giorno"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:329
+msgid "Your partnership"
+msgstr "Partenariato"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:333
+msgid "Insert"
+msgstr "Inserisci"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileEditView.php:13
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileCreateView.php:13
+msgid "Organization Name"
+msgstr "Nome dell'organizzazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileEditView.php:17
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileCreateView.php:17
+msgid "Your category"
+msgstr "Scegli una categoria "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileEditView.php:33
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileCreateView.php:33
+#, fuzzy
+msgid "Territoire d'action"
+msgstr "Tipo di territorio"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileCreateView.php:71
+msgid "Create this profile"
+msgstr "Crea questo profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/UnsubscribeView.php:11
+msgid "Unsubscribed"
+msgstr "Disabbonarsi"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/UnsubscribeView.php:13
+msgid "You were not subscribed to these keywords"
+msgstr "Non sei abbonato a queste parole chiave"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:9
+msgid "Sort by"
+msgstr "Seleziona per"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:14
+msgid "partner"
+msgstr "partner"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:16
+msgid "date"
+msgstr "data"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:18
+msgid "reputation"
+msgstr "reputazione "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:22
+msgid "Subscribe to:"
+msgstr "Abbonarsi"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:27
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileListView.php:20
+msgid "filter"
+msgstr "filtra"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:31
+msgid "Your search didn't match any result."
+msgstr "La ricerca non ha dato alcun risultato"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:11
+msgid "You are a full-powered Admin, have fun!"
+msgstr "You are a full-powered Admin, have fun!"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:11
+#, fuzzy
+msgid "users list"
+msgstr "Lista dei membri"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:11
+msgid "Users"
+msgstr "Utenti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:25
+msgid "Register in myEurope with this profile"
+msgstr "Registrarsi su myEurope con questo profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:27
+msgid "Back to profiles list"
+msgstr "Ritorno alla lista profili"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:34
+msgid "Delete user"
+msgstr "Cancella utente"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:36
+#, fuzzy
+msgid "Delete profile"
+msgstr "Cancella il mio profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:42
+msgid "Edit my profile"
+msgstr "Modifica il mio profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/PublishSuccessView.php:10
+msgid "Your partnership offer has been successfully published"
+msgstr "L'offerta di partenariato è stata pubblicata con successo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/PublishSuccessView.php:13
+msgid "See similar offers"
+msgstr "Vedi offerte simili"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileListView.php:14
+#, fuzzy
+msgid "Hello, This is your first time on myEurope! Please register with an already existing profile or create yours"
+msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Si prega di registrarsi creando il proprio profilo."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/DetailsView.php:30
+msgid "Publication Date"
+msgstr "Data pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/DetailsView.php:34
+msgid "Expiration Date"
+msgstr "Data limite"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/DetailsView.php:41
+msgid "Partners"
+msgstr "Partner"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/DetailsView.php:53
+msgid "Delete my offer"
+msgstr "Cancella la mia offerta"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/DetailsView.php:55
+msgid "Partnership request"
+msgstr "Richiesta di partenariato"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:17
 msgid "Education, culture and sport"
 msgstr "Educazione, cultura e sport "
 
-#: ../application/myEurope/models/Categories.php:18
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:18
 msgid "Work and training"
 msgstr "Lavoro e tirocini"
 
-#: ../application/myEurope/models/Categories.php:19
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:19
 msgid "Enterprises, Research and Innovation"
 msgstr "Imprese, Ricerca ed Innovazione"
 
-#: ../application/myEurope/models/Categories.php:20
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:20
 msgid "Environment, Energies and Risk"
 msgstr "Ambiente, Energia e Rischi ambientali"
 
-#: ../application/myEurope/models/Categories.php:21
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:21
 msgid "Transport, Facilities and Zoning"
 msgstr "Trasporto, infrastrutture e pianificazione territoriale"
 
-#: ../application/myEurope/models/Categories.php:22
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:22
 msgid "Health and Consumer Protection"
 msgstr "Salute e tutela dei consumatori"
 
-#: ../application/myEurope/models/Categories.php:23
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:23
 msgid "Social Affairs"
 msgstr "Affari sociali"
 
-#: ../application/myEurope/models/Categories.php:24
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:24
 msgid "Agriculture"
 msgstr "Agricoltura"
 
-#: ../application/myEurope/models/Categories.php:25
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:25
 msgid "Fishing"
 msgstr "Pesca"
 
-#: ../application/myEurope/models/Categories.php:29
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:29
 msgid "Association - Coopérative - Mutuelle"
 msgstr "Associazione - Cooperativa - Mutua"
 
-#: ../application/myEurope/models/Categories.php:30
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:30
 msgid "Entreprise privée"
 msgstr "Ente privato"
 
-#: ../application/myEurope/models/Categories.php:31
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:31
 msgid "Chambre consulaire - Groupement professionnel"
 msgstr "Camera consolare - Consorzio professionale"
 
-#: ../application/myEurope/models/Categories.php:32
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:32
 msgid "Université - Recherche"
 msgstr "Università - Ricerca"
 
-#: ../application/myEurope/models/Categories.php:33
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:33
 msgid "Commune, intercommunalité - établissement public communal ou intercommunal"
 msgstr "Comune, intercomunalità - ente pubblico comunale o intercomunale"
 
-#: ../application/myEurope/models/Categories.php:34
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:34
 msgid "Département - établissement public départemental"
 msgstr "Provincia - ente pubblico provinciale"
 
-#: ../application/myEurope/models/Categories.php:35
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:35
 msgid "Région - établissement public régional"
 msgstr "Regione - ente pubblico regionale"
 
-#: ../application/myEurope/models/Categories.php:36
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:36
 #, fuzzy
 msgid "Service de l'Etat - établissement public de l'Etat"
 msgstr "Servizio statale - ente pubblico statale"
 
-#: ../application/myEurope/models/Categories.php:37
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:37
 msgid "Autre établissement ou groupement public"
 msgstr "Altro ente o raggruppamento pubblico"
 
-#: ../application/myEurope/models/Categories.php:38
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:38
 msgid "Autre"
 msgstr "Altro"
 
-#: ../application/myEurope/models/Categories.php:42
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:42
 msgid "Proposition libre"
 msgstr "Nessun programma di riferimento"
 
-#: ../application/myEurope/models/Categories.php:43
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:43
 msgid "Alcotra"
 msgstr "Alcotra"
 
-#: ../application/myEurope/models/Categories.php:44
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:44
 msgid "MED"
 msgstr "MED"
 
-#: ../application/myEurope/models/Categories.php:45
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:45
 msgid "Espace Alpin"
 msgstr "Spazio Alpino"
 
-#: ../application/myEurope/models/Categories.php:46
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:46
 msgid "IEVP CT MED"
 msgstr "IEVP CT MED"
 
-#: ../application/myEurope/models/Categories.php:47
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:47
 msgid "Interreg IV C"
 msgstr "Interreg IV C"
 
-#: ../application/myEurope/models/Categories.php:48
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:48
 msgid "Italie-France Maritime"
 msgstr "Italia-Francia Marittima"
 
-#: ../application/myEurope/models/Categories.php:53
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:53
 msgid "Ain"
 msgstr "Ain"
 
-#: ../application/myEurope/models/Categories.php:54
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:54
 msgid "Alpes-Maritimes"
 msgstr "Alpi Marittime"
 
-#: ../application/myEurope/models/Categories.php:55
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:55
 msgid "Alpes de Haute-Provence"
 msgstr "Alpi di Alta Provenza"
 
-#: ../application/myEurope/models/Categories.php:56
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:56
 msgid "Bouches-du-Rhône"
 msgstr "Bocche del Rodano"
 
-#: ../application/myEurope/models/Categories.php:57
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:57
 msgid "Drôme"
 msgstr "Drôme"
 
-#: ../application/myEurope/models/Categories.php:58
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:58
 msgid "Hautes-Alpes"
 msgstr "Alte Alpi"
 
-#: ../application/myEurope/models/Categories.php:59
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:59
 msgid "Haute-Savoie"
 msgstr "Alta Savoia"
 
-#: ../application/myEurope/models/Categories.php:60
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:60
 msgid "Isère"
 msgstr "Isère"
 
-#: ../application/myEurope/models/Categories.php:61
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:61
 msgid "Rhône"
 msgstr "Rodano"
 
-#: ../application/myEurope/models/Categories.php:62
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:62
 msgid "Savoie"
 msgstr "Savoia"
 
-#: ../application/myEurope/models/Categories.php:63
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:63
 msgid "Var"
 msgstr "Var"
 
-#: ../application/myEurope/models/Categories.php:64
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:64
 msgid "Vaucluse"
 msgstr "Vaucluse"
 
-#: ../application/myEurope/models/Categories.php:69
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:69
 msgid "Alessandria"
 msgstr "Alessandria"
 
-#: ../application/myEurope/models/Categories.php:70
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:70
 msgid "Aosta"
 msgstr "Aosta"
 
-#: ../application/myEurope/models/Categories.php:71
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:71
 msgid "Asti"
 msgstr "Asti"
 
-#: ../application/myEurope/models/Categories.php:72
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:72
 msgid "Biella"
 msgstr "Biella"
 
-#: ../application/myEurope/models/Categories.php:73
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:73
 msgid "Cuneo"
 msgstr "Cuneo"
 
-#: ../application/myEurope/models/Categories.php:74
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:74
 msgid "Genova"
 msgstr "Genova"
 
-#: ../application/myEurope/models/Categories.php:75
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:75
 msgid "Imperia"
 msgstr "Imperia"
 
-#: ../application/myEurope/models/Categories.php:76
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:76
 msgid "Savona"
 msgstr "Savona"
 
-#: ../application/myEurope/models/Categories.php:77
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:77
 msgid "Torino"
 msgstr "Torino"
 
-#: ../application/myEurope/models/Categories.php:78
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:78
 msgid "Vercelli"
 msgstr "Vercelli"
 
-#: ../application/myEurope/models/Categories.php:83
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:83
 msgid "Monaco"
 msgstr "Monaco"
 
-#: ../application/myEurope/models/Categories.php:84
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:84
 msgid "Switzerland"
 msgstr "Svizzera"
 
-#: ../application/myEurope/models/Categories.php:85
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:85
 msgid "Corsica"
 msgstr "Corsica"
 
-#: ../application/myEurope/models/Categories.php:89
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:89
 msgid "Ideas"
 msgstr "Aumentare"
 
-#: ../application/myEurope/models/Categories.php:90
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:90
 msgid "Partners search"
 msgstr "Partner"
 
-#: ../application/myEurope/models/Categories.php:91
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:91
 msgid "Application"
 msgstr "applicazione"
 
-#: ../application/myEurope/models/Categories.php:92
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:92
 msgid "Project implementation"
 msgstr ""
 
-#: ../application/myEurope/models/Categories.php:93
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:93
 msgid "Monitoring and evaluation"
 msgstr ""
 
-#: ../application/myEurope/models/Categories.php:94
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:94
 msgid "Communication"
 msgstr "Comunicazione"
 
-#: ../application/myEurope/models/Profile.php:45
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Profile.php:45
 msgid "Role"
 msgstr "Ruolo"
 
-#: ../application/myEurope/models/Profile.php:54
-msgid "email"
-msgstr "email"
-
-#: ../application/myEurope/models/Profile.php:55
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Profile.php:55
 msgid "phone"
 msgstr "tel"
 
-#: ../application/myEurope/models/Profile.php:56
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Profile.php:56
 msgid "address"
 msgstr "Indirizzo "
 
-#: ../application/myEurope/models/Profile.php:70
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Profile.php:70
 msgid "Members list"
 msgstr "Lista dei membri"
 
-#: ../application/myEurope/models/Profile.php:83
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Profile.php:83
 msgid "(You)"
 msgstr "(Io)"
 
-#: ../application/myEurope/doc/trads.php:2
-msgid "myEuropeabout"
-msgstr "<b>myEurope</b> è una rete sociale che si appoggia al meta-social network <em>myMed</em>, a disposizione dei sindaci, delle istituzioni, degli esponenti politici nonché delle realtà economiche (industriali, turistiche...) del territorio della regione francese del sud est (PACA, Rhône-Alpes) e delle tre regioni italiane del nord ovest (Piemonte, Liguria, Valle d'Aosta), ovvero dei territori ammessi al programma Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia).L'applicazione permetterà ai sindaci dell'Euroregione Alpi-Mediterraneo (MedAlp) di trovare dei partner all'interno de'interregione stessa, a condizione che quest'ultimi siano iscritti alla rete myEurope, cosicché possano montare assieme dei progetti comuni, nell'ambito dei differenti programmi europei : Interreg Alcotra, di Med, FP7 ecc … <br /><br />Gli obbiettivi principali di myEurope sono dunque i seguenti :<ol><li>Aiutare attraverso il meccanismo di « Matchmaking » di myMed a mettere in comune delle idee ma anche delle risorse cosi  da poter sottomettere un progetto Interreg-Alcotra Med oppure ottenere dei finanziamenti europei (crediti FESR...)</li><li>Scambiare delle pratiche e degli interessi comuni transfrontalieri per quanto riguarda il montaggio dei progetti</li><li>Informare le persone iscritte alla rete sociale riguardo le differenti gare d'appalto dei progetti europei</li></ol>Questi scambi d'informazione saranno utili ai rappresentanti delle istituzioni francesi cosi come ai loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e italiane limitrofe, cosa che favorirà l'organizzazione delle attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti …)"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/controllers/PublishController.class.php:80
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/controllers/ExtendedProfileRequired.class.php:55
+msgid "Your profile is not yet validated by admins"
+msgstr ""
 
-#: ../application/myEurope/doc/trads.php:3
-msgid "myMedabout"
-msgstr "Il progetto <b>myMed</b> nasce da una duplice constatazione: l'esistenza di un enorme potenziale di sviluppo di attività economiche nella zona transfrontaliera, oggetto dell’azione Alcotra e la stridente mancanza d'infrastrutture tecnicamente avanzate che ne permettano uno sviluppo armonioso. L'iniziativa myMed é frutto di una  collaborazione preesistente da più di 15 anni tra l’Istituto Nazionale di Ricerca in Informatica e Automatica (INRIA) di Sophia Antipolis e il Politecnico di Torino ai quali si sono aggiunti altri due partner: l’Università di Torino e l’Università del Piemonte Orientale."
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/controllers/PublishController.class.php:82
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/controllers/ExtendedProfileRequired.class.php:57
+msgid "This feature is restricted to Admin users"
+msgstr ""
 
-#: ../application/myEurope/doc/trads.php:4
-msgid "About myMed"
-msgstr "A proposito di myMed"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/controllers/ExtendedProfileRequired.class.php:27
+msgid "Your organization profile could not be found, make sure to have a valid one in the profiles list section"
+msgstr ""
 
-#: ../application/myEurope/doc/trads.php:5
-msgid "About myEurope"
-msgstr "A proposito di myEurope"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/controllers/DetailsController.class.php:110
+msgid "Partnership request sent"
+msgstr "Richiesta di partenariato inviata"
 
-#: ../application/myEurope/doc/trads.php:9
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/controllers/DetailsController.class.php:139
+msgid "Partner added"
+msgstr "Il partner è stato aggiunto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myFSA/views/SearchRoadView.php:17
+msgid "Départ"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myFSA/views/SearchRoadView.php:21
+msgid "Arrivée"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myFSA/views/ExtendedProfileFormView.php:44
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myFSA/views/ExtendedProfileFormView.php:79
+msgid "Soumettre"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplate/views/DetailsView.php:52
 #, fuzzy
-msgid "Create an account"
-msgstr "crea nuovo"
+msgid "Do you like the author?"
+msgstr "Vi piace questa idea di progetto ?"
 
-#: ../application/myEurope/doc/trads.php:10
-#: ../application/myFSA/views/PublishView.php:32
-msgid "Partnerships"
-msgstr "Partenariato"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplate/views/DetailsView.php:80
+#, fuzzy
+msgid "Do you like the content?"
+msgstr "Vi piace questa idea di progetto ?"
 
-#: ../application/myEurope/doc/trads.php:11
-msgid "Informations"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplate/views/parts/header-bar.php:10
+msgid "back"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplate/views/parts/header-bar.php:20
+msgid "Logout"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/LoginView.php:20
+#, fuzzy
+msgid "A message"
+msgstr "Nuovo messaggio"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:8
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:95
+msgid "Modify publication"
+msgstr "Modificare pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:19
+msgid "Edit publication"
+msgstr "Modifica pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:23
+msgid "Project reputation"
+msgstr "Reputazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:43
+msgid "Do you like the project idea ?"
+msgstr "Vi piace questa idea di progetto ?"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:60
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:65
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:101
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:46
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:29
+msgid "Area"
+msgstr "Zona"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:61
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:26
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:100
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:47
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:28
+msgid "Category"
+msgstr "Categoria"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:62
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:39
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:102
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:49
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:30
+msgid "Organization"
+msgstr "Organismo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:63
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:52
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:99
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:48
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:27
+msgid "Locality"
+msgstr "Località"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:110
+msgid "Delete publication"
+msgstr "Elimina pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/AboutView.php:7
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:32
+msgid "Credits"
+msgstr "Crediti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/AboutView.php:18
+msgid "<b>Application</b> description goes here."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/AboutView.php:23
+#, fuzzy
+msgid "More informations about myMed"
 msgstr "Informazioni"
 
-#: ../application/myEurope/doc/trads.php:12
-msgid "Blog"
-msgstr "Buone prassi"
-
-#: ../application/myEurope/doc/trads.php:13
-msgid "Profile"
-msgstr "Profilo"
-
-#: ../application/myEurope/doc/trads.php:15
-msgid "Transborder social network"
-msgstr "Rete sociale transfrontaliera"
-
-#: ../application/myEurope/doc/trads.php:16
-msgid "Existing Profiles"
-msgstr "Profilo già esistente"
-
-#: ../application/myFSA/views/DetailsView.php:63
-#: ../application/myFSA/views/DetailsView.php:73
-msgid "Author"
-msgstr "autore"
-
-#: ../application/myFSA/views/DetailsView.php:64
-#: ../application/myFSA/views/DetailsView.php:75
-#: ../application/myFSA/views/SearchView.php:26
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:16
 #, fuzzy
-msgid "Cathegory"
-msgstr "Scegli una categoria "
+msgid "How to find"
+msgstr "Come pubblicare"
 
-#: ../application/myFSA/views/DetailsView.php:65
-#: ../application/myFSA/views/SearchView.php:30
-msgid "Tittle"
-msgstr "Titolo "
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:17
+msgid "Here how to find"
+msgstr ""
 
-#: ../application/myFSA/views/SearchView.php:30
-msgid "Option"
-msgstr "Opzione "
-
-#: ../application/myFSA/views/SearchView.php:30
-msgid "Example"
-msgstr "Esempio "
-
-#: ../application/myFSA/views/DetailsView.php:78
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:21
 #, fuzzy
-msgid "Comments"
-msgstr "commenti"
+msgid "Find a publication"
+msgstr "Le vostre applicazioni"
 
-#: ../application/myFSA/views/DetailsView.php:97
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:35
 #, fuzzy
-msgid "Comment"
-msgstr "commenti"
+msgid "Advanced research"
+msgstr "Partner"
 
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:22
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:90
+#, fuzzy
+msgid "Last publications"
+msgstr "Le vostre applicazioni"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/RegisterView.php:8
+#, fuzzy
+msgid "Register a new account"
+msgstr "crea nuovo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:8
+#, fuzzy
+msgid "My Publication"
+msgstr "Data pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:19
+msgid "Little help"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:20
+#, fuzzy
+msgid "Few words "
+msgstr "Parole chiave"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:25
+msgid "New publication"
+msgstr "Nuova pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:31
+msgid "Results"
+msgstr "Risultati"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:18
+msgid "Welcome"
+msgstr "Benvenuto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:19
+msgid "MyEdu description goes here."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:25
+msgid "You have to login to access all the menu options"
+msgstr "Devi effettuare il login per accedere a tutte le opzioni del menu"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:28
+msgid "My opportunities"
+msgstr "Le mie possibilità"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:29
+msgid "My publications"
+msgstr "Le mie pubblicazioni"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:30
+msgid "Search a publication"
+msgstr "Ricercare una pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:31
+msgid "My profile"
+msgstr "Il mio profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:36
+msgid "How it works"
+msgstr "Come funziona"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:40
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:45
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:50
+#, fuzzy
+msgid "Help topic"
+msgstr "Per tema"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:41
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:46
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:51
+#, fuzzy
+msgid "Help description"
+msgstr "Descrizione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:12
+#, fuzzy
+msgid "Create a new publication"
+msgstr "Crea un nuovo blog"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:30
+msgid "How to publish"
+msgstr "Come pubblicare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:31
+msgid "Some explanation goes here"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:36
+msgid "Publish your project"
+msgstr "Pubblica progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:40
+msgid "Publication title goes here"
+msgstr "Titolo di pubblicazione va qui"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:45
+msgid "Day"
+msgstr "Giorno"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:51
+msgid "Month"
+msgstr "Mese"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:57
+msgid "Year"
+msgstr "Anno"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:64
+msgid "Enter a text description for your publication"
+msgstr "Immettere una descrizione del testo per la pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:75
+msgid "Other information"
+msgstr "Altre informazioni"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:104
+msgid "Publish"
+msgstr " Pubblicare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:116
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:157
+#, fuzzy
+msgid "Help text"
+msgstr "Testo libero"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:11
+msgid "Edit Profile"
+msgstr "Pubblica profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:85
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:34
+msgid "French"
+msgstr "Francese"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:86
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:33
+msgid "Italian"
+msgstr "Italiano"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:87
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:32
+msgid "English"
+msgstr "Inglese"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:95
+#, fuzzy
+msgid "MyEdu Profile Name"
+msgstr "Pubblica profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:120
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:111
+msgid "Student number"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:125
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:116
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:83
+msgid "Faculty"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:130
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:121
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:86
+msgid "University"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:135
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:126
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:87
+msgid "Courses"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:140
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:131
 #, fuzzy
 msgid "Company type"
 msgstr "Nome dell'azienda"
 
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:25
-msgid "Company name"
-msgstr "Nome dell'azienda"
-
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:28
-#, fuzzy
-msgid "Company address"
-msgstr "Nome dell'azienda"
-
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:31
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:145
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:136
 msgid "SIRET"
 msgstr "PARTITA IVA"
 
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:50
-msgid "Campus"
-msgstr ""
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:164
+msgid "Edit your Profile"
+msgstr "Pubblica tuo profilo"
 
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:53
-msgid "University"
-msgstr ""
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:165
+msgid "Here you can update your organization profile."
+msgstr "Qui è possibile aggiornare il profilo dell'organizzazione."
 
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:56
-msgid "Field of Studies"
-msgstr ""
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:14
+msgid "Create profile"
+msgstr "Crea profilo"
 
-#: ../application/myFSA/views/ExtendedProfileDisplayView.php:59
-msgid "Student number"
-msgstr ""
-
-#: ../application/myFSA/views/ExtendedProfileFormView.php:43
-#: ../application/myFSA/views/ExtendedProfileFormView.php:78
-msgid "Soumettre"
-msgstr ""
-
-#: ../application/myFSA/views/ExtendedProfileNeededView.php:9
-msgid "To use all options of myFSA please fill your profile"
-msgstr ""
-
-#: ../application/myFSA/views/ExtendedProfileNeededView.php:10
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:23
 #, fuzzy
-msgid "Fill your profile"
-msgstr "Modifica il mio profilo"
+msgid "Hello, This is your first time in this myApp! Please create a your extended profile"
+msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Si prega di registrarsi creando il proprio profilo."
 
-#: ../application/myFSA/views/PublishView.php:17
-msgid "Events"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:86
+msgid "Name"
+msgstr "Nome"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:143
+msgid "I accept the "
 msgstr ""
 
-#: ../application/myFSA/views/PublishView.php:20
-msgid "News"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:144
+msgid "general terms and conditions"
 msgstr ""
 
-#: ../application/myFSA/views/PublishView.php:23
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:156
 #, fuzzy
-msgid "Internship offers"
-msgstr "Sottometti offerta di partenariato"
+msgid "Help title."
+msgstr "titolo"
 
-#: ../application/myFSA/views/PublishView.php:26
-msgid "Job offers"
-msgstr ""
-
-#: ../application/myFSA/views/PublishView.php:29
-msgid "Rent Offices"
-msgstr ""
-
-#: ../application/myFSA/views/PublishView.php:35
-#, fuzzy
-msgid "Organization"
-msgstr "Nome dell'organizzazione"
-
-#: ../application/myFSA/views/PublishView.php:38
-#, fuzzy
-msgid "Company visits"
-msgstr "Azienda"
-
-#: ../application/myFSA/views/PublishView.php:68
-msgid "Publish"
-msgstr " Pubblicare"
-
-#: ../application/myFSA/views/SearchView.php:11
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:16
 msgid "No result found"
 msgstr "Nessun risultato trovato"
 
-#: ../application/myFSA/views/SearchView.php:23
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:24
+msgid "Users list"
+msgstr "Lista dei membri"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:42
 #, fuzzy
-msgid "Advanced searching"
-msgstr "Partner"
+msgid "User details"
+msgstr "Dettagli partenariato"
 
-msgid "If you find an error you can report it at this address: "
-msgstr "Se si trova un errore si può segnalare a questo indirizzo: "
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:58
+msgid "MyEdu extended profile details"
+msgstr ""
 
-#: ../application/myEurope/views/MainView.php:6
-msgid "MyEurope is an application of the Alcotra <b><em>myMed</em></b> project, which aims to link mayors and municipal transborders."
-msgstr "myEurope é un’applicazione del progetto Alcotra volta a mettere in relazione comuni ed enti transfrontalieri."
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:82
+msgid "Student Number"
+msgstr ""
 
-#: ../application/myEurope/views/MainView.php:7
-msgid "The idea is to provide a tool to simplify and support the creation of European projects as myMed."
-msgstr "L’idea di fondo é quella di fornire uno strumento utile a semplificare e promuovere la creazione di progetti europei quali myMed."
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:91
+#, fuzzy
+msgid "Company Type"
+msgstr "Nome dell'azienda"
 
-#: ../application/myEurope/views/MainView.php:333
-msgid "How it works"
-msgstr "Come funziona"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:92
+msgid "Siret"
+msgstr "Partita IVA"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:123
+msgid "Delete my profile"
+msgstr "Cancella il mio profilo"
 
-#: ../system/controllers/MainView.class.php:88
-msgid "Search directly here partnership offers"
-msgstr "Ricercate direttamente qui le offerte di partenariato"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:127
+msgid "Are you sure you want to delete your profile ?"
+msgstr "Sei sicuro di voler eliminare il tuo profilo ?"
 
-msgid "Insert your own partnership offers"
-msgstr "Inserite qui  le vostre offerte di partenariato"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:128
+msgid "Yes"
+msgstr "Sì"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:129
+msgid "No"
+msgstr "No"
 
-msgid "Give your opinion, share your experience and enrich the network myEurope"
-msgstr "Lasciateci un vostro parere, condividete con noi la vostra esperienza e contibuirete così ad arricchire la rete myMed"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:148
+#, fuzzy
+msgid "Edit Profile and Subscripions"
+msgstr "Pubblica profilo e progetti"
 
-msgid "Complete and manage your profile for a better visibility in myEurope"
-msgstr "Completate e gestite il vostro profilo per una migliore visibilità all’interno di myEurope"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:149
+#, fuzzy
+msgid "Here you can modify your profile and list your active subscriptions."
+msgstr "Qui puoi modificare il tuo profilo e listare i tuoi progetti già operativi."
 
-#: ../system/controllers/LoginView.class.php:88
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityView.php:19
+msgid "Litle help"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityView.php:25
+#, fuzzy
+msgid "New subscription"
+msgstr "Descrizione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:4
+msgid "Details"
+msgstr "Dettagli"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:37
+#, fuzzy
+msgid "Rate project"
+msgstr "Fasi del progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:47
+msgid "Assign a value from 1 (Poor idea) to 5 (Great idea!!)"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:62
+msgid "Author"
+msgstr "autore"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:66
+#, fuzzy
+msgid "Comments"
+msgstr "commenti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:87
+#, fuzzy
+msgid "Comment"
+msgstr "commenti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:13
+msgid "Aerospace"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:14
+msgid "Biomeccania"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:15
+msgid "Cinema"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:16
+msgid "Civil"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:17
+msgid "Data processing"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:18
+msgid "Electricity"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:19
+msgid "Electronics"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:20
+msgid "Energy"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:21
+msgid "Environment"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:22
+#, fuzzy
+msgid "Management"
+msgstr "Gestisci utenti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:23
+msgid "Material"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:24
+msgid "Mathematics"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:25
+msgid "Mechanics"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:26
+msgid "Motor vehicle"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:27
+msgid "Physics"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:28
+#, fuzzy
+msgid "Telecommunications"
+msgstr "Comunicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:32
+#, fuzzy
+msgid "Internship"
+msgstr "Sottometti offerta di partenariato"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:33
+msgid "Job"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:34
+msgid "Lecture note"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:35
+msgid "PHD Thesis"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:39
+#, fuzzy
+msgid "Aix"
+msgstr "Ain"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:41
+msgid "Marseille"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:42
+msgid "Nice"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:43
+msgid "Novara"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:44
+msgid "Toulon"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:45
+msgid "Turin"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:51
+msgid "Student"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:52
+#, fuzzy
+msgid "Professor"
+msgstr "Profili"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:53
+#, fuzzy
+msgid "Company"
+msgstr "Nome dell'azienda"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:57
+msgid "Amu"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:58
+msgid "Polito"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:59
+msgid "Unice"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:60
+msgid "Unipo"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:61
+msgid "Unitln"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:62
+msgid "Unito"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:67
+msgid "Title field can't be empty"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:71
+msgid "Text field can't be empty"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:75
+msgid "Area field can't be empty"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:79
+msgid "Category field can't be empty"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:97
+#, fuzzy
+msgid "Your publication offer has been successfully published"
+msgstr "L'offerta di partenariato è stata pubblicata con successo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ExtendedProfileRequired.class.php:38
+msgid "Your extended profile could not be found"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ExtendedProfileController.php:66
+msgid "You must accept the terms of use."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ExtendedProfileController.php:115
+msgid "Email field can't be empty"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ExtendedProfileController.php:201
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ExtendedProfileController.php:256
+msgid "Complement profile registered successfully!"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/LoginView.php:14
 msgid "Creating an account in myEurope will allow you to submit new projects and to participate in discussions in the topic \"Best Practices\"."
 msgstr "La creazione di un account in myEurope vi permetterà di sottomettere nuovi progetti e di partecipare di volta in volta alle discussioni nella rubrica \"Buone Prassi\"."
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/LoginView.php:15
 msgid "Don't forget that you have the possibility to use your social network accounts to create your profile: see button"
 msgstr "Non dimenticate che avete la possibilità di utilizzare i vostri preesistenti account di reti sociali  per creare il vostro profilo : tasto"
 
-#: ../application/myFSA/views/PublishView.php:23
-msgid "<h3>Don't forget:</h3><p>To fill the fields in "
-msgstr "<h3>Non dimenticate:</h3><p>Tiempire i campi in "
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/AdminView.php:5
+msgid "Administration"
+msgstr "Amministrazione"
 
-#: ../application/myFSA/views/PublishView.php:23
-msgid "</p><p>More options are met, more a project will be visible.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>"
-msgstr "</p><p>Altre opzioni sono soddisfatti, più il progetto sarà visibile.</p><p>Quando si controlla / riempire diversi campi in una categoria, risultati corrispondere ad almeno uno dei criteri selezionati.</p>"
-
-msgid "You have to login to access all the menu options"
-msgstr "Devi effettuare il login per accedere a tutte le opzioni del menu"
-
-#: ../application/myFSA/views/PublishView.php:68
-msgid "How to publish"
-msgstr "Come pubblicare"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:152
-msgid "local"
-msgstr "locale"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:152
-msgid "regional"
-msgstr "regionale"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:152
-msgid "departmental"
-msgstr "dipartimentale"
-
-msgid "Phases of the project"
-msgstr "Fasi del progetto"
-
-msgid "Project themes"
-msgstr "Temi del progetto"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:152
-msgid "international"
-msgstr "internazionale"
-
-#: ../application/myEurope/views/ExtendedProfileDisplayView.php:11
-msgid "You are a full-powered Admin, have fun!"
-msgstr "You are a full-powered Admin, have fun!"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:152
-msgid "urban"
-msgstr "urbano"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:152
-msgid "rural"
-msgstr "rurale"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:152
-msgid "mountain"
-msgstr "montano"
-
-#: ../application/myMemory/views/ExtendedProfileEditView.php:152
-msgid "maritime"
-msgstr "marittimo"
-
-#: ../application/myFSA/views/SearchView.php:35
-msgid "How to search"
-msgstr "Come si effettua una ricerca"
-
-#: ../application/myFSA/views/SearchView.php:35
-msgid "<p>Enter a list of <strong>keywords</strong> corresponding to your projects search or partnerships."
-msgstr "<p>Inserite una lista di parole <strong>chiave</strong> corrispondenti alla vostra ricerca di progetto o partenariato."
-
-#: ../application/myFSA/views/SearchView.php:35
-msgid "You can also use the options to filter your search or <strong>subscribe</strong> to a particular thematic.</p>"
-msgstr "Potete aiutarvi utilizzando le opzioni predefinite per filtrare la vostra ricerca od <strong>abbonarvi</strong> ad una tematica particolare.</p>"
-
-#: ../application/myFSA/views/SearchView.php:35
-msgid "Search a project"
-msgstr "Ricercare un progetto"
-
-#: ../application/myFSA/views/SearchView.php:35
-msgid "Our selection"
-msgstr "La nostra selezione"
-
-#: ../application/myFSA/views/SearchView.php:23
-msgid "<h3>Operation of search engine:</h3> <p>If you leave all fields <b>empty</b>, you get all offers published to date.</p><p>When you leave an <b>empty</b> category, she is not consider in the research.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>"
-msgstr "<h3>Il funzionamento del motore di ricerca:</h3> <p>Lasciando tutti i campi <b>vuoti</b> otterrete tutte le offerte pubblicate quest’oggi.</p><p>Dal momento che avrete selezionato / riempito più campi di una categoria i risultati corrisponderanno ad almeno uno dei criteri selezionati.</p>"
-
-#: ../application/myEurope/views/MainView.php:333
-msgid "<p>Enter a <b>title</b> for your project, then a <b>keywords</b> list separated by a space.<br />"
-msgstr "<p>Scegliete un <b>titolo</b> per il vostro progetto ed una lista di <b>parole chiave</b> separate da uno spazio.<br />"
-
-#: ../application/myEurope/views/MainView.php:333
-msgid "Write your offer using the online editor of myEurope. Do not hesitate to complete your brief project in the options (\"Option \" button)."
-msgstr "Descrivete la vostra offerta utilizzando l’editor online predefinito di myEurope. Potete completare la vostra scheda progettuale grazie alle opzioni."
-
-#: ../application/myFSA/views/PublishView.php:68
-msgid "Publish your project"
-msgstr "Pubblica progetto"
-
-#: ../application/myEurope/views/PublishSuccessView.php:10
-msgid "Free text"
-msgstr "Testo libero"
-
-#: ../application/myFSA/views/DetailsView.php:63
-msgid "Do you like the project idea ?"
-msgstr "Vi piace questa idea di progetto ?"
-
-#: ../application/myEurope/doc/trads.php:2
-#: ../application/myEurope/doc/description.php:1
-msgid "<b>MyEurope</b> is a social network which is based on the meta-social network <b><em>myMed</em></b>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program."
-msgstr "<b>myEurope</b> é una rete sociale facente parte della meta-rete sociale <em>myMed</em>, a disposizione dei comuni, delle istituzioni, dei rappresentanti politici locali nonché delle realtà economiche (industriali, turistiche…) del territorio della regione francese del Sud-Est (PACA, Rodano-Alpi) e delle tre regioni italiane del Nord Ovest (Liguria, Piemonte, Valle d’Aosta), ovvero dei territori  ammissibili al programma Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia)."
-
-msgid "This application will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.\n The main targets of <b><em>myMed</em></b> are :\n \t<ul>\n \t\t<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>\n \t\t<li>Exchange practices and common cross-border interests in the area of European project creation.</li>\n \t\t<li>Inform users about different European calls.</li>\n \t</ul>"
-msgstr "L’applicazione permetterà ai comuni dell’Euroregione Alpi-Mediterraneo  (MedAlp) di  trovare dei\tpartner, che siano chiaramente iscritti alla rete myEurope, nell’ambito dell’interregione e poter costituire assieme dei progetti comuni, nel quadro dei differenti programmi europei : Interreg Alcotra, de Med, FP7 ecc… <br /> <br />Gli obbiettivi principali di myEurope sono dunque i seguenti :<ol><li>Aiutarvi, attraverso il meccanismo di  « Matchmaking » myMed a mettere in comune delle idee ma anche dei mezzi al fine di poter sottomettere un\t\tprogetto Interreg Alcotra, Med od ottenere dei finanziamenti provenienti dall’Europa (crediti FEDER…).</li><li> Scambiare pratiche ed interessi comuni transfrontalieri nell’ambito del montaggio dei progetti</li><li>Informare  riguardo alle varie offerte d’appalto di progetti europei le persone iscritte alla rete sociale</li></ol>Questo scambio d’informazioni sarà utile agli esponenti politici locali francesi così come ad i loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e quelli delle regioni italiane limitrofe. Ciò favorirà l’organizzazione di attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti…)"
-
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/AdminView.php:45
 msgid "Add partnerships"
 msgstr "Aggiungere partenariato"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/AdminView.php:62
+msgid "Manage users"
+msgstr "Gestisci utenti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/AdminView.php:63
+msgid "Here you can change user category. <br /> Categories are: 'Admin', 'Normal user' and 'New User'."
+msgstr "Qui puoi cambiare la categoria utente. <br /> Le categorie sono: 'Amministratore', 'Utente normale' e 'Nuovo utente'."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/AboutView.php:17
+msgid "<b>MyEurope</b> is a social network which is based on the meta-social network <b><em>myMed</em></b>, available for City Halls, institutions or economic realities (industrial, tourism industry...) of the French South-East areas (PACA, Rhone-Alpes) and the three Italian North-Western Regions (Liguria, Piemonte, Valle d'Aosta), i.e. the areas eligible to the Alcotra Program."
+msgstr "<b>myEurope</b> é una rete sociale facente parte della meta-rete sociale <em>myMed</em>, a disposizione dei comuni, delle istituzioni, dei rappresentanti politici locali nonché delle realtà economiche (industriali, turistiche…) del territorio della regione francese del Sud-Est (PACA, Rodano-Alpi) e delle tre regioni italiane del Nord Ovest (Liguria, Piemonte, Valle d’Aosta), ovvero dei territori  ammissibili al programma Alcotra (Alpi Latine Cooperazione Transfrontaliera Francia-Italia)."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/AboutView.php:18
+msgid "This application will help the City Hall of the Alps-Mediterranean Euroregion to find partners, among those who joined the social network, in order to create projects together, within European Programs.\n The main targets of <b><em>myEurope</em></b> are :\n \t<ul style='text-align:left'>\n \t\t<li>Help, through the mechanism of myMed's \"matchmaking\", to gather ideas and resources for European project submission or obtain European funds.</li>\n \t\t<li>Exchange practices and common cross-border interests in the area of European project creation.</li>\n \t\t<li>Inform users about different European calls.</li>\n \t</ul>"
+
+msgstr "L’applicazione permetterà ai comuni dell’Euroregione Alpi-Mediterraneo  (MedAlp) di  trovare dei\tpartner, che siano chiaramente iscritti alla rete myEurope, nell’ambito dell’interregione e poter costituire assieme dei progetti comuni, nel quadro dei differenti programmi europei : Interreg Alcotra, de Med, FP7 ecc… <br /> <br />Gli obbiettivi principali di myEurope sono dunque i seguenti :<ul style='text-align:left'><li>Aiutarvi, attraverso il meccanismo di  « Matchmaking » myMed a mettere in comune delle idee ma anche dei mezzi al fine di poter sottomettere un\t\tprogetto Interreg Alcotra, Med od ottenere dei finanziamenti provenienti dall’Europa (crediti FEDER…).</li><li> Scambiare pratiche ed interessi comuni transfrontalieri nell’ambito del montaggio dei progetti</li><li>Informare  riguardo alle varie offerte d’appalto di progetti europei le persone iscritte alla rete sociale</li></ul>Questo scambio d’informazioni sarà utile agli esponenti politici locali francesi così come ad i loro omologhi italiani per poter instaurare un contatto permanente tra gli abitanti delle regioni francesi e quelli delle regioni italiane limitrofe. Ciò favorirà l’organizzazione di attività transfrontaliere (partenariato di progetti europei, cooperazioni in differenti ambiti…)"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/AboutView.php:26
+msgid "If you find an error you can report it at this address: "
+msgstr "Se si trova un errore si può segnalare a questo indirizzo: "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:5
+msgid "Publish offer"
+msgstr "Pubblicare offerta"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:21
+msgid "<p>Enter a <b>title</b> for your project, then a <b>keywords</b> list separated by a space.<br />"
+msgstr "<p>Scegliete un <b>titolo</b> per il vostro progetto ed una lista di <b>parole chiave</b> separate da uno spazio.<br />"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:22
+msgid "Write your offer using the online editor of myEurope. Do not hesitate to complete your brief project in the options (\"Option \" button)."
+msgstr "Descrivete la vostra offerta utilizzando l’editor online predefinito di myEurope. Potete completare la vostra scheda progettuale grazie alle opzioni."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:33
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:113
+msgid "Free text"
+msgstr "Testo libero"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:35
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:126
+msgid "Option"
+msgstr "Opzione "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:36
+msgid "Example"
+msgstr "Esempio "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:69
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/SearchView.php:38
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/SearchView.php:68
+msgid "Program"
+msgstr "Programma"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:126
+msgid "<h3>Don't forget:</h3><p>To fill the fields in "
+msgstr "<h3>Non dimenticate:</h3><p>Tiempire i campi in "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:127
+msgid "</p><p>More options are met, more a project will be visible.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>"
+msgstr "</p><p>Altre opzioni sono soddisfatti, più il progetto sarà visibile.</p><p>Quando si controlla / riempire diversi campi in una categoria, risultati corrispondere ad almeno uno dei criteri selezionati.</p>"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ModifyView.php:3
+#, fuzzy
+msgid "EditProject"
+msgstr "Pubblica profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ModifyView.php:13
+#, fuzzy
+msgid "Edit project"
+msgstr "Listare miei progetti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ModifyView.php:51
+#, fuzzy
+msgid "Project title"
+msgstr "Temi del progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:17
+msgid "MyEurope is an application of the Alcotra <b><em>myMed</em></b> project, which aims to link mayors and municipal transborders."
+msgstr "myEurope é un’applicazione del progetto Alcotra volta a mettere in relazione comuni ed enti transfrontalieri."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:18
+msgid "The idea is to provide a tool to simplify and support the creation of European projects as myMed."
+msgstr "L’idea di fondo é quella di fornire uno strumento utile a semplificare e promuovere la creazione di progetti europei quali myMed."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:44
+msgid "Search directly here partnership offers"
+msgstr "Ricercate direttamente qui le offerte di partenariato"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:49
+msgid "Insert your own partnership offers"
+msgstr "Inserite qui  le vostre offerte di partenariato"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:54
+msgid "Give your opinion, share your experience and enrich the network myEurope"
+msgstr "Lasciateci un vostro parere, condividete con noi la vostra esperienza e contibuirete così ad arricchire la rete myMed"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:59
+msgid "Complete and manage your profile for a better visibility in myEurope"
+msgstr "Completate e gestite il vostro profilo per una migliore visibilità all’interno di myEurope"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:56
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:29
+msgid "Action area"
+msgstr "Territorio d'intervento"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:64
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:37
+msgid "Action territory"
+msgstr "Azione territorio"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:66
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:39
+msgid "local"
+msgstr "locale"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:67
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:40
+msgid "departmental"
+msgstr "dipartimentale"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:68
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:41
+msgid "regional"
+msgstr "regionale"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:69
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:42
+#, fuzzy
+msgid "national"
+msgstr "internazionale"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:70
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:43
+msgid "international"
+msgstr "internazionale"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:76
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:49
+msgid "Territory type"
+msgstr "Tipo di territorio"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:77
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:50
+msgid "urban"
+msgstr "urbano"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:78
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:51
+msgid "rural"
+msgstr "rurale"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:79
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:52
+msgid "mountain"
+msgstr "montano"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:80
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:53
+msgid "maritime"
+msgstr "marittimo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:84
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:57
+msgid "Organization email"
+msgstr "Email dell'organizzazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ListUserProjectsView.php:2
+#, fuzzy
+msgid "Projects list"
+msgstr "Profili"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ListUserProjectsView.php:27
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ResultsView.php:28
+#, fuzzy
+msgid "Programme"
+msgstr "Programma"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:11
+msgid "Hello, This is your first time on myEurope! Please register by creating your own profile."
+msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Si prega di registrarsi creando il proprio profilo."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:85
+msgid "Create a new profile of your organization."
+msgstr "Crea un nuovo profilo per la tua istituzione/ente"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:86
+msgid "Fill the form with your organization details. All members of your organization can use this profile to register in myEurope"
+msgstr "Complila il formulario con i dettagli del tuo organismo/ente. Tutti i membri facentene parte potranno usare questo profilo per navigare in myEurope"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileDisplayView.php:24
+msgid "Close"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileDisplayView.php:58
+msgid "List my projects"
+msgstr "Listare miei progetti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileDisplayView.php:69
+msgid "Edit Profile and Projects"
+msgstr "Pubblica profilo e progetti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileDisplayView.php:70
+msgid "Here you can modify your profile and list your active projects."
+msgstr "Qui puoi modificare il tuo profilo e listare i tuoi progetti già operativi."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/SearchView.php:3
+msgid "Search partnership"
+msgstr "Trova partenariato"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/SearchView.php:19
+msgid "How to search"
+msgstr "Come si effettua una ricerca"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/SearchView.php:20
+msgid "<p>Enter a list of <strong>keywords</strong> corresponding to your projects search or partnerships."
+msgstr "<p>Inserite una lista di parole <strong>chiave</strong> corrispondenti alla vostra ricerca di progetto o partenariato."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/SearchView.php:21
+msgid "You can also use the options to filter your search or <strong>subscribe</strong> to a particular thematic.</p>"
+msgstr "Potete aiutarvi utilizzando le opzioni predefinite per filtrare la vostra ricerca od <strong>abbonarvi</strong> ad una tematica particolare.</p>"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/SearchView.php:25
+msgid "Search a project"
+msgstr "Ricercare un progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/SearchView.php:58
+msgid "Our selection"
+msgstr "La nostra selezione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/SearchView.php:109
+msgid "<h3>Operation of search engine:</h3> <p>If you leave all fields <b>empty</b>, you get all offers published to date.</p><p>When you leave an <b>empty</b> category, she is not consider in the research.</p><p>When you check / fill several fields in a category, results correspond to at least one of the criteria selected.</p>"
+msgstr "<h3>Il funzionamento del motore di ricerca:</h3> <p>Lasciando tutti i campi <b>vuoti</b> otterrete tutte le offerte pubblicate quest’oggi.</p><p>Dal momento che avrete selezionato / riempito più campi di una categoria i risultati corrisponderanno ad almeno uno dei criteri selezionati.</p>"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogResultView.php:8
+#, fuzzy
+msgid "Topics in cathegory"
+msgstr "Scegli una categoria "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogResultView.php:20
+#, fuzzy
+msgid "Publication date"
+msgstr "Data pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:11
+msgid "Phases of the project"
+msgstr "Fasi del progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:13
+#, fuzzy
+msgid "Partners_search"
+msgstr "Partner"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:15
+msgid "Project_implementation"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:16
+msgid "Monitoring_and_evaluation"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:19
+msgid "Project themes"
+msgstr "Temi del progetto"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:20
+#, fuzzy
+msgid "Education,_culture_and_sport"
+msgstr "Educazione, cultura e sport "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:21
+#, fuzzy
+msgid "Work_and_training"
+msgstr "Lavoro e tirocini"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:22
+#, fuzzy
+msgid "Enterprises,_Research_and_Innovation"
+msgstr "Imprese, Ricerca ed Innovazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:23
+#, fuzzy
+msgid "Transport,_Facilities_and_Zoning"
+msgstr "Trasporto, infrastrutture e pianificazione territoriale"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:24
+#, fuzzy
+msgid "Health_and_Consumer_Protection"
+msgstr "Salute e tutela dei consumatori"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogView.php:25
+#, fuzzy
+msgid "Social_Affairs"
+msgstr "Affari sociali"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogDetailsView.php:46
+#, fuzzy
+msgid "Rate publication"
+msgstr "applicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogDetailsView.php:64
+#, fuzzy
+msgid "Cathegory"
+msgstr "Scegli una categoria "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogDetailsView.php:65
+msgid "Date"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/models/Profile.class.php:60
+#, fuzzy
+msgid "Organization details"
+msgstr "Email dell'organizzazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/controllers/UpdateReputationController.class.php:17
+msgid "You can't rate your own project!"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/controllers/UpdateReputationController.class.php:41
+msgid "Thank you for your contribution!"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/controllers/UpdateReputationBlogController.class.php:22
+msgid "You can't rate your own publication!"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileView.php:16
+msgid "Bonjour,"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileView.php:18
+msgid "C'est la première fois que vous venez sur MyBénévolat."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileView.php:19
+msgid "Merci de renseigner votre profil."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileView.php:21
+msgid "Vous êtes ?"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileView.php:25
+msgid "Un bénévole"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileView.php:29
+#, fuzzy
+msgid "Une association"
+msgstr "Descrizione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListBenevolesView.php:6
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:21
+msgid "Bénévoles"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListBenevolesView.php:16
+msgid "Ajouter un bénévole"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListBenevolesView.php:22
+msgid "Liste des bénévoles"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListBenevolesView.php:28
+msgid "Aucun bénévole à afficher avec ces critères"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/MainNiceBenevolatView.php:11
+msgid "Bonjour <strong>Nice Bénévolat</strong>, que voulez vous faire ?"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/MainNiceBenevolatView.php:16
+msgid "Gérer les annonces / candidatures"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/MainNiceBenevolatView.php:22
+msgid "Gérer les associations"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/MainNiceBenevolatView.php:28
+msgid "Gérer les bénévoles"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:13
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileAssociationView.php:13
+#, fuzzy
+msgid "Mon Profil"
+msgstr "Profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:19
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileAssociationView.php:15
+#, fuzzy
+msgid "Associations"
+msgstr "applicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:36
+msgid "Le profil de Nice Bénévolat ne peut être changé."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:42
+msgid "Éditer"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:51
+msgid "Valider cette association"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:58
+msgid "Supprimer"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileAssociationView.php:19
+msgid "Édition"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileAssociationView.php:32
+msgid "Mettre à jour le profil"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:27
+msgid "Annonce passée"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:31
+#, fuzzy
+msgid "Postuler"
+msgstr "Postare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:37
+msgid "Annonce déjà promue"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:42
+msgid "Marquer comme promue"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:55
+#, fuzzy
+msgid "Candidatures"
+msgstr "Validare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:58
+msgid "Aucune candidature"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:70
+#, php-format
+msgid "Il y a actuellement %d candidatures pour cette annonce."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:71
+msgid "Contactez Nice Bénévolat pour en savoir davantage."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditAnnonceView.php:13
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsCandidatureView.php:14
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateCandidatureView.php:12
+msgid "Annonces"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditAnnonceView.php:15
+#, fuzzy
+msgid "Edition"
+msgstr "Esci"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditAnnonceView.php:26
+msgid "Enregistrer les modifications"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileBenevoleView.php:16
+msgid "Benevoles"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:16
+msgid "Ajouter une association"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:23
+msgid "Liste des associations"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:29
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:11
+msgid "toutes"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:30
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:52
+msgid "à valider"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:37
+msgid "Aucune association à afficher avec ces critères"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:42
+msgid "Afficher toutes les associations"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:11
+msgid "Nouveau bénévole"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:14
+msgid "Création de profil bénévole"
+msgstr ""
+
+msgid "Create publication"
+msgstr "Creazione pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:22
+msgid "Vous avez déjà un compte bénévole ?"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:24
+#, fuzzy
+msgid "connectez vous"
+msgstr "Connessione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:27
+msgid "Merci de remplir votre profil."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:31
+#, fuzzy
+msgid "Créer le profil"
+msgstr "Crea profilo"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsCandidatureView.php:16
+msgid "Candidature de "
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsCandidatureView.php:25
+#, fuzzy
+msgid "Candidat"
+msgstr "Validare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsCandidatureView.php:36
+msgid "Voir le profil complet"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsCandidatureView.php:40
+#, fuzzy
+msgid "Candidature"
+msgstr "Validare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:16
+msgid "Mauvais type the compt"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:20
+msgid "Vous êtes loggué avec un compte"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:21
+msgid "mais cette action nécéssite un compte"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:23
+msgid "Merci de vous logguer avec un autre compte ou de créer un nouveau profil"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:28
+msgid "Se délogguer"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ErrorView.php:10
+msgid "Retour"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateCandidatureView.php:14
+#, fuzzy
+msgid "Candidater"
+msgstr "Validare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateCandidatureView.php:19
+#, php-format
+msgid "Réponse à l'annonce '%s'"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateCandidatureView.php:26
+#, fuzzy
+msgid "Message"
+msgstr "Nuovo messaggio"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateCandidatureView.php:28
+msgid "Poster la candidature"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:6
+msgid "mes critères"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:9
+#, fuzzy
+msgid "valides"
+msgstr "Validare"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:10
+msgid "passées / promues"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:37
+msgid "Connexion"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:43
+msgid "Veuillez indiquer dans votre profil si vous êtes un bénévole ou une association"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:48
+msgid "Poster une annonce"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:54
+msgid "Liste des annonces"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:56
+#, fuzzy
+msgid "de"
+msgstr "data"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:67
+msgid "Aucune annonce à afficher avec ces critères"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:78
+msgid "déjà promue"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:81
+msgid "passée"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:92
+msgid "Compétences"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:97
+#, fuzzy
+msgid "Parution"
+msgstr "reputazione "
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:101
+#, fuzzy
+msgid "Fin"
+msgstr "Ain"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:11
+msgid "Nouvelle association"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:14
+msgid "Création de profil association"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:22
+msgid "Vous avez déjà un compte association ?"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:27
+msgid "Merci de remplir la fiche de l'association."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileMyMedForm.php:17
+msgid "Nom de l'association"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:15
+#, fuzzy
+msgid "Information administratives"
+msgstr "Informazioni"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:20
+msgid "Vous devez renseigner le téléphone de l'association."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:23
+#, fuzzy
+msgid "N° SIRET"
+msgstr "PARTITA IVA"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:25
+msgid "Site web"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:27
+msgid "Adresse postale"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:36
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:40
+msgid "Vous devez sélectionner de 1 à 4 compétences."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:42
+#, fuzzy
+msgid "Types de missions proposées"
+msgstr "Migliorie proposte"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:45
+msgid "\tVous devez sélectionner au moins 1 type de missions."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:3
+#, fuzzy
+msgid "Description de l'annonce"
+msgstr "Descrizione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:7
+#, fuzzy
+msgid "Association"
+msgstr "applicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:9
+msgid "Vous devez choisir une association."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:18
+msgid "<h3>Compétences requises</h3>"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:27
+#, fuzzy
+msgid "Informations pratiques"
+msgstr "Informazioni"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:30
+msgid "Quartier"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:31
+msgid "Type de mission"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:33
+#, fuzzy
+msgid "Date de parution"
+msgstr "Data limite"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:34
+msgid "Date de fin"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:15
+#, fuzzy
+msgid "Informations personnelles"
+msgstr "Informazioni"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:18
+#, fuzzy
+msgid "Téléphone"
+msgstr "tel"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:22
+msgid "Vous devez renseigner votre sexe."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:25
+msgid "Situation professionelle"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:27
+msgid "Vous devez renseigner votre situation professionelle."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:48
+msgid "Types de missions souhaitées"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:57
+msgid "Mobilité (quartiers de nice)"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:60
+msgid "Vous devez sélectionner au moins un secteur de mobilité."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:70
+msgid "Disponibilités"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:73
+msgid "Vous devez sélectionner au moins un créneau de disponibilités."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:79
+msgid "Prévenez moi par email en cas de futures offres correspondantes."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSexe.php:6
+#, fuzzy
+msgid "Homme"
+msgstr "commenti"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSexe.php:7
+msgid "Femme"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesDisponibilites.php:5
+msgid "Semaine, en journée"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesDisponibilites.php:6
+msgid "Semaine, le soir"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesDisponibilites.php:7
+msgid "WE, en journée"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesDisponibilites.php:8
+msgid "WE, le soir"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSituation.php:5
+#, fuzzy
+msgid "Actif"
+msgstr "Attività"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSituation.php:6
+msgid "Sans emploi"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSituation.php:7
+msgid "Retraité"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSituation.php:8
+msgid "Etudiant"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMissions.php:5
+msgid "Ponctuel"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMissions.php:6
+msgid "Régulier"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMissions.php:7
+msgid "Urgence"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:6
+msgid "-- Non défini --"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:7
+msgid "Plaine et coteaux "
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:8
+msgid "Collines niçoises "
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:9
+msgid "Trois collines "
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:10
+msgid "Rives du Paillon "
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:11
+msgid "Est littoral "
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:12
+msgid "Nord centre ville "
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:13
+msgid "Coeur de ville "
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:14
+msgid "Ouest littoral"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:5
+msgid "Accompagnement (social professionnel)"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:6
+msgid "Accueil / Orientation"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:7
+msgid "Administration - Direction - Management"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:8
+msgid "Alphabétisation - Formation - Enseignement - Soutien scolaire"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:9
+#, fuzzy
+msgid "Animation"
+msgstr "applicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:11
+msgid "Comptabilité gestion"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:12
+msgid "Distribution Collecte"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:13
+msgid "Ecoute"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:14
+msgid "Informatique, Internet"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:15
+msgid "Juridique"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:16
+msgid "Logistique - Conseil - Secrétariat - Administration courante"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:17
+msgid "Travaux (manuels et techniques)"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:18
+msgid "Visite domicile"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:19
+msgid "Visite hôpital"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:20
+msgid "Visite prison"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:43
+msgid "Vous n'avez pas les droits d'écriture sur cette annonce"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:91
+msgid "Nice Bénévolat"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:98
+msgid "-- Choisir --"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:139
+msgid "Votre annonce a bien été publiée"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:162
+msgid "Annonce supprimée"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:231
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:259
+msgid "Annonce mise à jour"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/CandidatureController.php:64
+msgid "Votre candidature a été enregistrée"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/LoginController.class.php:66
+#, fuzzy
+msgid "Password field can't be empty"
+msgstr "Password non corrispondente"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/LoginController.class.php:95
+#, fuzzy
+msgid "Incorrect password"
+msgstr "Password errata"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/NiceBenevolatAdminController.class.php:30
+msgid "Compte NiceBenevolat correctement activé"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:106
+msgid "Vous n'avez pas le droit d'accéder à ce profil"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:111
+msgid "Vous n'avez pas le droit de modifier ce profil"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:122
+msgid "L'email ne peut pas être vide."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:162
+msgid "Le mot de passe est vide"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:166
+msgid "Le mot de passe de confirmation est vide"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:170
+msgid "Le mot de passe et le mot de passe de confirmation sont différents"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:190
+msgid "Seul Nice Bénévolat peut créer de nouveaux utilisateurs"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:361
+msgid "Félicitation, votre profil a été créé. Allez voir vos mail pour l'activer."
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:365
+msgid "Profil correctement créé"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:475
+msgid "Vous n'avez pas les droits de valider cette association"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:480
+msgid "Ceci n'est pas une association"
+msgstr ""
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:495
+msgid "Association validée"
+msgstr ""
+
+#~ msgid "Tout / aucun"
+#~ msgstr "Tutto / nessuno"
+
+#~ msgid "obligatoire"
+#~ msgstr "obbligatorio"
+
+#~ msgid "optionnel"
+#~ msgstr "facoltativo"
+
+#~ msgid "Le champ %s est obligatoire."
+#~ msgstr "Il campo %s é obbligatorio."
+
+#~ msgid "Annuler"
+#~ msgstr "Annulla"
+
+#~ msgid "Précédent"
+#~ msgstr "Indietro"
+
+#~ msgid "Suivant"
+#~ msgstr "Avanti"
+
+#, fuzzy
+#~ msgid "Subscribed to: "
+#~ msgstr "Abbonarsi"
+
+#~ msgid "Erreur interne d'enregistrement"
+#~ msgstr "Errore interno di registrazione"
+
+#~ msgid "Tittle"
+#~ msgstr "Titolo "
+
+#~ msgid "Company name"
+#~ msgstr "Nome dell'azienda"
+
+#, fuzzy
+#~ msgid "Company address"
+#~ msgstr "Nome dell'azienda"
+
+#, fuzzy
+#~ msgid "Company visits"
+#~ msgstr "Azienda"
+
 #~ msgid "Admin"
 #~ msgstr "Admin"
+
 #~ msgid "Log Out"
 #~ msgstr "Disconnessione"
+
 #~ msgid "Journal des bonnes pratiques"
 #~ msgstr "Registro delle \"buone prassi\""
+
 #~ msgid "Bonnes Pratiques Générales"
 #~ msgstr "\"Buone prassi\" generali"
+
 #~ msgid "Par quoi commencer ?"
 #~ msgstr "Da cosa cominciare?"
+
 #~ msgid "Pourquoi chercher un partenariat européen ?"
 #~ msgstr "Perchè cercare un partenariato europeo ?"
+
 #~ msgid "Vos témoignages"
 #~ msgstr "Le vostre testimonianze"
+
 #~ msgid "Quelques idées"
 #~ msgstr "Qualche idea"
+
 #~ msgid "Journal des \"Beta\" testeurs de myEurope"
 #~ msgstr "Giornale dei \"Beta-tester\" di myEurope"
-#~ msgid "Create a new blog"
-#~ msgstr "Crea un nuovo blog"
+
 #~ msgid "Restricted page for admins"
 #~ msgstr "Pagina riservata agli admins"
+
 #~ msgid "Access"
 #~ msgstr "Entra"
+
 #~ msgid "Options"
 #~ msgstr "Opzioni"
+
 #~ msgid "We also support OpenId"
 #~ msgstr "Supportiamo anche OpenId"
+
 #~ msgid "log in with openid"
 #~ msgstr "Registrarsi con openid"
+
 #~ msgid "Réseau social transfontalier"
 #~ msgstr "Rete sociale transfrontaliera"
+
 #~ msgid "Ensemble par-delà les frontières"
 #~ msgstr "Insieme oltre i confini"
-#~ msgid "Choose a language"
-#~ msgstr "Scegli la lingua"
-msgid "French"
-msgstr "Francese"
 
-msgid "Italian"
-msgstr "Italiano"
-
-msgid "English"
-msgstr "Inglese"
-
-#~ msgid "Next"
-#~ msgstr "Avanti"
-#~ msgid "Validate"
-#~ msgstr "Validare"
 #~ msgid "Beta Testers Blog"
 #~ msgstr "Beta tester Blog"
-#~ msgid "Search a partner"
-#~ msgstr "Trovare un'offerta"
+
 #~ msgid "All"
 #~ msgstr "Tutto"
+
 #~ msgid "Alpin Space"
 #~ msgstr "Spazio Alpino"
+
 #~ msgid "Insert an offer"
 #~ msgstr "Sottomettere un'offerta"
-msgid "Results"
-msgstr "Risultati"
+
 #~ msgid "Places"
 #~ msgstr "Luogo"
+
 #~ msgid ""
 #~ "This \"sociapp\" will help the City Hall of the Alps-Mediterranean "
 #~ "Euroregion to find partners, among those who joined the social network, "
@@ -1285,6 +3199,7 @@ msgstr "Risultati"
 #~ "\t\t<li>Informare le persone iscritte alla rete sociale riguardo le "
 #~ "differenti gare d'appalto dei progetti europei.</li>\n"
 #~ "\t</ul>\t "
+
 #~ msgid ""
 #~ "These information exchanges will be useful to French elected "
 #~ "representatives and their Italian counterparts in order to establish a "
@@ -1297,62 +3212,78 @@ msgstr "Risultati"
 #~ "e italiane limitrofe, cosa che favorirà l'organizzazione delle attività "
 #~ "transfrontaliere (partenariato di progetti europei, cooperazioni in "
 #~ "differenti ambiti …)."
+
 #~ msgid "Select your language"
 #~ msgstr "Lingua"
+
 #~ msgid "State-owned enterprise"
 #~ msgstr "Ente pubblico"
+
 #~ msgid "Town hall"
 #~ msgstr "Comune"
+
 #~ msgid "Region"
 #~ msgstr "Regione"
+
 #~ msgid "Department"
 #~ msgstr "Provincia"
+
 #~ msgid "Commercial activity"
 #~ msgstr "Attività commerciale"
-#~ msgid "Siret"
-#~ msgstr "Partita IVA"
-#~ msgid "Name"
-#~ msgstr "Nome"
-#~ msgid "Activity"
-#~ msgstr "Attività"
+
 #~ msgid "Research"
 #~ msgstr "Ricerca"
+
 #~ msgid "Active partnership"
 #~ msgstr "Partenariato attivo"
+
 #~ msgid "Themes:"
 #~ msgstr "Tematiche "
+
 #~ msgid "Keywords:"
 #~ msgstr "Parole chiave  "
-#~ msgid "Partnership details"
-#~ msgstr "Dettagli partenariato"
+
 #~ msgid "Edit my offer"
 #~ msgstr "Pubblicare la mia offerta"
+
 #~ msgid "role"
 #~ msgstr "ruolo"
+
 #~ msgid "Share"
 #~ msgstr "Condividere"
+
 #~ msgid "Sport"
 #~ msgstr "Sport"
-#~ msgid "Add to contacts" 
+
+#~ msgid "Add to contacts"
 #~ msgstr "Aggiungere ai contatti"
+
 #~ msgid "Theme1"
 #~ msgstr "Tema1"
+
 #~ msgid "Theme2"
 #~ msgstr "Tema2"
+
 #~ msgid "Theme3"
 #~ msgstr "Tema3"
+
 #~ msgid "Theme4"
 #~ msgstr "Tema4"
+
 #~ msgid "Theme5"
 #~ msgstr "Tema5"
+
 #~ msgid "delete"
 #~ msgstr "Cancella"
+
 #~ msgid "reply"
 #~ msgstr "Rispondi"
+
 #~ msgid "Respond to the blog >>>>>>html editor"
 #~ msgstr "Rispondi"
+
 #~ msgid "edit"
 #~ msgstr "Modificare"
+
 #~ msgid "Filter results"
 #~ msgstr "Filtrare i risultati"
-

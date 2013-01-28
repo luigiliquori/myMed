@@ -2,10 +2,12 @@
 
 <div id="find" data-role="page">
 
-	<? print_header_bar(true, true, "Search"); ?>
+	<? $title = _("Search publication");
+	print_header_bar("?action=main", "defaultHelpPopup", $title, 'myEdu Home'); ?>
+
 	
 	<div data-role="content">
-	
+		
 		<form action="index.php?action=find" method="POST" data-ajax="false">
 			<input type="hidden" id="find_area" name="area" value="" />
 			<input type="hidden" id="find_category" name="category" value="" />
@@ -14,7 +16,7 @@
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to find") ?>?</h3>
-				<?= _("Here how to find")?>
+				<?= _("<<<<< Here how to find >>>>>")?>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
@@ -108,7 +110,7 @@
 						<p style="display:inline; margin-left: 30px;">
 							Publisher ID: <?= $item->publisherID ?><br/>
 							<!-- Project reputation-->	
-							<p style="display:inline; margin-left: 30px;" > <b>Project Reputation:</b> </p>  
+							<p style="display:inline; margin-left: 30px;" > <b><?= _("Reputation")?>:</b> </p>  
 							<p style="display:inline; margin-left: 30px;" >
 								<?php
 									// Disable reputation stars if there are no votes yet 

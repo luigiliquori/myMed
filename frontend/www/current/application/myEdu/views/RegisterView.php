@@ -6,7 +6,7 @@
 
 	<!-- Page Header -->
 	<? $title = _("Register a new account");
-	   print_header_bar(true, false, $title); ?>
+	   print_header_bar('back', false, $title); ?>
 	
 	<!-- Page content -->
 	<div data-role="content">

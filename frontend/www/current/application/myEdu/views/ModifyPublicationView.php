@@ -6,7 +6,7 @@
 
 	<!-- Page header -->
 	<? $title = _("Modify publication");
-	print_header_bar(true, false, $title); ?>
+	print_header_bar("?action=publish&method=show_user_publications", false, $title, 'MyPublications'); ?>
 	
 	<!-- Page content -->
 	<div data-role="content" >
@@ -73,7 +73,7 @@
     				</script>
 					
 					<!-- CONTACT -->			
-					<p><b>Contact</b>: <?= str_replace("MYMED_", "", $this->result->publisherID) ?><br/></p>
+					<p><b><?_ ("Contact")?></b>: <?= str_replace("MYMED_", "", $this->result->publisherID) ?><br/></p>
 					
 					<!-- Keywords an timeline
 					<p style="position: relative; margin-left: 30px;">

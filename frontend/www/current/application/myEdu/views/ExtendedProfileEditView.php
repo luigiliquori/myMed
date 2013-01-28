@@ -9,8 +9,10 @@
 
 	<!-- Page header -->
 	<? $title = _("Edit Profile");
-	   print_header_bar(true, "defaultHelpPopup", $title); ?>
-	
+	   print_header_bar(
+	   		'index.php?action=extendedProfile&method=show_user_profile&user='
+	   		.$_SESSION['user']->id.'', "defaultHelpPopup", $title, "back to Profile"); ?>
+	   		
 	
 	<!-- Page content -->
 	<div data-role="content">
@@ -22,6 +24,7 @@
 		
 			<!-- Role -->
 			<p> Profile type: <strong><?= $_SESSION['myEdu']->details['role'] ?></strong></p>
+			<input type="hidden" id="role" name="role" value="<?= $_SESSION['myEdu']->details['role'] ?>" />
 			<script type="text/javascript">
 				$("#extendedprofileeditview").on("pageshow", function() {  
 					switch ('<?= $_SESSION['myEdu']->details['role'] ?>') {
@@ -68,6 +71,11 @@
 				<label for="lastName" style="text-align:right"><?= _("Last Name") ?> : </label>
 				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			</div>
+			<!-- Email -->		
+			<div data-role="fieldcontain">
+				<label for="textinputu6" style="text-align:right"><?= _('Email') ?>: </label><?= $_SESSION['user']->email ?>
+				
+			</div>
 			<!-- Birthday -->
 			<div data-role="fieldcontain">
 				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
@@ -90,21 +98,7 @@
 			
 			<p><strong> MyEdu Profile details </strong></p>
 			<!-- MyEdu Extended Profile details -->
-			<!-- MyEdu name -->
-			<div data-role="fieldcontain">
-				<label for="textinputu1" style="text-align:right"><?= _('MyEdu Profile Name') ?>: </label>
-				<input id="textinputu1" name="name" placeholder="" value="<?= $_SESSION['myEdu']->details['name'] ?>" type="text" />
-			</div>
-			<!-- Address -->
-			<div data-role="fieldcontain">
-				<label for="textinputu4" style="text-align:right"><?= _('Address') ?>: </label>
-				<input id="textinputu4" name="address" placeholder="" value="<?= $_SESSION['myEdu']->details['address'] ?>"  type="text" />
-			</div>
-			<!-- Email -->
-			<div data-role="fieldcontain">
-				<label for="textinputu5"  style="text-align:right"><?= _('Email') ?>: </label>
-				<input id="textinputu5" name="email" placeholder="" value="<?= $_SESSION['myEdu']->details['email'] ?>"  type="email" />
-			</div>
+			
 			<!-- Phone -->		
 			<div data-role="fieldcontain">
 				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?>: </label>
@@ -113,7 +107,7 @@
 			<!-- Description -->
 			<div data-role="fieldcontain">
 				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEdu']->details['desc'] ?></textarea>
+				<textarea id="desc" style="height: 120px;" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEdu']->details['desc'] ?></textarea>
 			</div>
 			<!-- For Students: student number -->
 			<div id="studentnumberfield" data-role="fieldcontain" class="ui-screen-hidden">
@@ -133,7 +127,7 @@
 			<!-- For Professor: Courses -->
 			<div id="coursesfield" data-role="fieldcontain">
 				<label for="courses"  style="text-align:right"><?= _('Courses') ?>: </label>
-				<input id="courses" name="courses" placeholder="The list of your courses" value="<?= $_SESSION['myEdu']->details['courses'] ?>"></input>
+				<textarea id="courses" style="height: 120px;" name="courses" placeholder="The list of your courses" value="<?= $_SESSION['myEdu']->details['courses'] ?>"></textarea>
 			</div>
 			<!-- For Companies: type -->
 			<div id="companytypefield" data-role="fieldcontain">
