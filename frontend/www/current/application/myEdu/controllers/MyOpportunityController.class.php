@@ -23,7 +23,6 @@ class MyOpportunityController extends AuthenticatedController {
 	}
 	
 	
-	
 	/**
 	 * get all subscriptions
 	 */
