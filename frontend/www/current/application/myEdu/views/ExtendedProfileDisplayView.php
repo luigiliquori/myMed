@@ -53,7 +53,7 @@
 			<li>
 				<p>
 					<!-- Role -->
-					<?= _("Role") ?>: <strong style="color:#444;"><?= $this->profile->details['role'] ?></strong><br/>
+					<?= _("Role") ?>: <strong style="color:#444;"><?= _($this->profile->details['role']) ?></strong><br/>
 				</p>
 				<p>
 					<img src="./img/email_icon.png" style="height: 22px;vertical-align: bottom;"/>

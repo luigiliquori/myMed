@@ -1655,7 +1655,7 @@ msgstr ""
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:116
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:83
 msgid "Faculty"
-msgstr ""
+msgstr "Faculté"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:130
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:121
@@ -1667,7 +1667,7 @@ msgstr "Université"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:126
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:87
 msgid "Courses"
-msgstr ""
+msgstr "Cours"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:140
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:131
@@ -1723,22 +1723,20 @@ msgid "Users list"
 msgstr "liste des membres"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:42
-#, fuzzy
 msgid "User details"
-msgstr "Détails partenariat"
+msgstr "Détails utilisateur"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:58
 msgid "MyEdu extended profile details"
-msgstr ""
+msgstr "Détails du profil étendu MyEdu"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:82
 msgid "Student Number"
-msgstr ""
+msgstr "Numéro étudiant"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:91
-#, fuzzy
 msgid "Company Type"
-msgstr "Type de l'entreprise"
+msgstr "Type de la compagnie"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:92
 msgid "Siret"
@@ -1761,14 +1759,12 @@ msgid "No"
 msgstr "Non"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:148
-#, fuzzy
 msgid "Edit Profile and Subscripions"
-msgstr "Modifier profil et projets"
+msgstr "Modifier profil et subscriptions"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:149
-#, fuzzy
 msgid "Here you can modify your profile and list your active subscriptions."
-msgstr "Vous pouvez modifier ici votre profil et lister vos projets actifs."
+msgstr "Vous pouvez modifier ici votre profil et lister vos subscriptions actives."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityView.php:19
 msgid "Litle help"
@@ -1886,13 +1882,25 @@ msgstr "Thèse"
 msgid "Student"
 msgstr "Etudiant"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:51
+msgid "student"
+msgstr "étudiant"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:52
 msgid "Professor"
 msgstr "Professeur"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:52
+msgid "professor"
+msgstr "professeur"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:53
 msgid "Company"
 msgstr "Compagnie"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:53
+msgid "company"
+msgstr "compagnie"
 
 msgid "Select your category"
 msgstr "Sélectionner votre catégorie"
