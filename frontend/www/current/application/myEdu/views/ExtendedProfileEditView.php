@@ -1,11 +1,11 @@
 <!-- ----------------------------- -->
-<!-- ExtendedProfileEdit View   -->
+<!-- ExtendedProfileEdit View      -->
 <!-- ----------------------------- -->
 
 <? require_once('header-bar.php'); ?>
 <? require_once('notifications.php'); ?>
 
-<div data-role="page">
+<div data-role="page" id="extendedprofileeditview">
 
 	<!-- Page header -->
 	<? $title = _("Edit Profile");
@@ -127,7 +127,7 @@
 			<!-- For Professor: Courses -->
 			<div id="coursesfield" data-role="fieldcontain">
 				<label for="courses"  style="text-align:right"><?= _('Courses') ?>: </label>
-				<textarea id="courses" style="height: 120px;" name="courses" placeholder="The list of your courses" value="<?= $_SESSION['myEdu']->details['courses'] ?>"></textarea>
+				<textarea id="courses" style="height: 120px;" name="courses" placeholder="The list of your courses"><?= $_SESSION['myEdu']->details['courses'] ?></textarea>
 			</div>
 			<!-- For Companies: type -->
 			<div id="companytypefield" data-role="fieldcontain">

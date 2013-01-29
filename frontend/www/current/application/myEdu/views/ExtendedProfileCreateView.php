@@ -42,7 +42,7 @@
 			
 			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile -->
 			<input type="hidden" id="firstname" name="firstname" value="<?= $_SESSION['user']->firstName ?>" />
-			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->id ?>" />
+			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
 			<input type="hidden" id="lastname" name="lastname" value="<?= $_SESSION['user']->lastName ?>" />
 			<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
