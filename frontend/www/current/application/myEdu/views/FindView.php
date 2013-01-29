@@ -2,7 +2,8 @@
 
 <div id="find" data-role="page">
 
-	<? print_header_bar("?action=main", "defaultHelpPopup", "Search"); ?>
+	<? $title = _("Search"); 
+	print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
 
 	
 	<div data-role="content">
