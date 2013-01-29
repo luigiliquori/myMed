@@ -16,6 +16,14 @@ class MyOpportunityController extends AuthenticatedController {
 		if (isset($_GET['opportunities'])){
 			debug("OPPORTUNITIES CALL");
 			// render all the publications
+<<<<<<< Updated upstream
+=======
+			//$selectedResults = new MyEduPublication();
+			//$this->result = $selectedResults->find();
+			// get userReputation
+			//$this->getReputation($this->result);
+			//$this->getSubscription();
+>>>>>>> Stashed changes
 			$this->find_publication();
 			
 			$this->renderView("MyOpportunity");
@@ -65,6 +73,7 @@ class MyOpportunityController extends AuthenticatedController {
 					}
 					$this->result= $search->find();
 					error_log("LOGROM RES: ".$this->result[1]);
+
 					//array_push($this->$search_result,$search->find());
 				}
 			}
