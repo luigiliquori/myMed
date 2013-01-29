@@ -13,6 +13,7 @@
 	
 		<!-- Notification pop up -->
 		<? include_once 'notifications.php'; ?>
+		<? print_notification($this->success.$this->error); ?>
 			
 		<!-- App description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
