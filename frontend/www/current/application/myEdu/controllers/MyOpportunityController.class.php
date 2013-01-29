@@ -16,11 +16,6 @@ class MyOpportunityController extends AuthenticatedController {
 		if (isset($_GET['opportunities'])){
 			debug("OPPORTUNITIES CALL");
 			// render all the publications
-			//$selectedResults = new MyEduPublication();
-			//$this->result = $selectedResults->find();
-			// get userReputation
-			//$this->getReputation($this->result);
-			//$this->getSubscription();
 			$this->find_publication();
 			
 			$this->renderView("MyOpportunity");
@@ -49,11 +44,11 @@ class MyOpportunityController extends AuthenticatedController {
 		$subscriptionsRaw = $this->getSubscription();
 		error_log("LOGROM subRAw ". count($subscriptionsRaw));
 		if(count($subscriptionsRaw) !=0  ){
-			//$this->search_result = array();
+			$this->search_result = array();
 			foreach ($subscriptionsRaw as $key=>$values){
 				$preds = explode("pred",$key);
+				$search = new MyEduPublication();
 				foreach($preds as $key2){
-					$search = new MyEduPublication();
 					switch($key2{0}){
 						case '1':
 							$search->category= substr($key2,1);
@@ -68,11 +63,10 @@ class MyOpportunityController extends AuthenticatedController {
 							$search->area = substr($key2,1);
 							break;
 					}
-					$this->result= $search->find();
-					error_log("LOGROM RES: ".$this->result[1]);
-
-					//array_push($this->$search_result,$search->find());
 				}
+				$this->result= $search->find();
+				error_log("LOGROM RES: ".$this->result[1]);
+				array_push($this->search_result,$search->find());
 			}
 		}
 	}
