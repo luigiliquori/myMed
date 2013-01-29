@@ -1084,9 +1084,8 @@ msgid "Delete user"
 msgstr "Cancella utente"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:36
-#, fuzzy
 msgid "Delete profile"
-msgstr "Cancella il mio profilo"
+msgstr "Cancella profilo"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:42
 msgid "Edit my profile"
@@ -1101,7 +1100,6 @@ msgid "See similar offers"
 msgstr "Vedi offerte simili"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileListView.php:14
-#, fuzzy
 msgid "Hello, This is your first time on myEurope! Please register with an already existing profile or create yours"
 msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Si prega di registrarsi creando il proprio profilo."
 
@@ -1718,9 +1716,8 @@ msgid "Create profile"
 msgstr "Crea profilo"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:23
-#, fuzzy
-msgid "Hello, This is your first time in this myApp! Please create a your extended profile"
-msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Si prega di registrarsi creando il proprio profilo."
+msgid "Hello, This is your first time in myEdu! Please create your extended profile."
+msgstr "Buongiorno, E' la sua prima connessione a myEdu! Si prega di creare il tuo profilo esteso."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:86
 msgid "Name"

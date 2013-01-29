@@ -29,7 +29,7 @@
 			<!-- Role -->
 			<div style="text-align: center">
 				<label for="typeProfile"> <?= _("Profile type") ?>: </label>
-				<strong style="text-transform:uppercase;"><?= $_SESSION['myEdu']->details['role']?></strong>
+				<strong style="text-transform:uppercase;"><?= _($_SESSION['myEdu']->details['role'])?></strong>
 			</div>
 			<script type="text/javascript">
 				$("#extendedprofileeditview").on("pageshow", function() {  

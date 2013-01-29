@@ -301,7 +301,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Show the user Extended profile 
 	 */
 	function showUserProfile($user) {
-		
+		$userID=$user;
 		// Get the user details
 		$user = new User($user);
 		try {
@@ -320,8 +320,10 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Get reputation
 		$this->profile->parseProfile();
-		if (!empty($details['profile'])) 
-			$this->profile->reputation = pickFirst(getReputation(array($details['profile'])));
+		if (!empty($details['profile'])){
+			$this->getReputation($userID);
+			$this->profile->reputation = $this->reputationMap[$userID];
+		}
 		
 		$this->renderView("ExtendedProfileDisplay");
 	}
@@ -341,7 +343,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Get reputation
 		$this->profile->parseProfile();
-		$this->profile->reputation = pickFirst(getReputation(array($id)));
+		//$this->profile->reputation = pickFirst(getReputation(array($id)));
+		$this->getReputation($id);
+		$this->profile->reputation = $this->reputationMap[$id];
 	
 		$this->renderView("ExtendedProfileDisplay");
 	}
@@ -414,5 +418,32 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		endforeach;
 		
 		//$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
+	}
+	
+	/**
+	 * Get the reputation of the user in each application
+	 * @param unknown $applicationList
+	 */
+	private function getReputation($id) {
+		$request = new Request("ReputationRequestHandler", READ);
+		$request->addArgument("application",  APPLICATION_NAME);
+		$request->addArgument("producer",  $id);
+		$request->addArgument("consumer",  $_SESSION['user']->id);
+	
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+	
+		if (isset($responseObject->data->reputation)) {
+			debug("response");
+			$value =  json_decode($responseObject->data->reputation) * 100;
+		} else {
+			debug("no");
+			$value = 100;
+		}
+	
+		// Save reputation values
+		$this->reputationMap[$id] = $value;
+		debug("VALUE: ".$value);
+		$this->noOfRatesMap[$id] = $responseObject->dataObject->reputation->noOfRatings;
 	}
 }
