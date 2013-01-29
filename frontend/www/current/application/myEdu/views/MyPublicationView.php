@@ -7,7 +7,7 @@
 	<!-- Page header bar -->
 	<? $title = _("My Publication");
 	   print_header_bar("?action=main", false, $title); ?>
-
+	
 		
 	<!-- Page content -->
 	<div data-role="content" >
@@ -17,7 +17,7 @@
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
-			<p><?= _("<<<<< Few words >>>>>")?></p>
+			<p><?= _("Here is the space summarizing all of your publications, as well as a way to create new ones.")?></p>
 		</div>
 		<br />
 	

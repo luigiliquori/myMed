@@ -56,7 +56,7 @@
 					<?= _("Role") ?>: <strong style="color:#444;"><?= $this->profile->details['role'] ?></strong><br/>
 				</p>
 				<p>
-					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
+					<img src="./img/email_icon.png" style="height: 22px;vertical-align: bottom;"/>
 					<?=
 					(empty($this->profile->details['email'])?" ": _("email").": <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
 					(empty($this->profile->details['phone'])?" ":_("phone").": <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
@@ -86,7 +86,7 @@
 				?>
 				<br/>
 				<p>
-					Description: <p style="margin-left:30px"><?= empty($this->profile->details['desc'])?" ":$this->profile->details['desc'] ?></p>
+					<?= _("Description")?>: <p style="margin-left:30px"><?= empty($this->profile->details['desc'])?" ":$this->profile->details['desc'] ?></p>
 				</p>
 				
 				
