@@ -20,6 +20,10 @@
 			<p><?= _("Few words ")?></p>
 		</div>
 		<br />
+		
+		<?php 
+			//echo var_dump($this->search_result);
+		?>
 	
 		<!-- New subscription button -->
 		<a href="?action=myOpportunityManagement" data-icon="pencil" data-role="button" data-inline="true" data-theme="e" style="float: right;"><?= _("New subscription") ?></a><br />	
@@ -28,22 +32,18 @@
 		<br />
 		<br />
 		
-		<?php 
-			echo $this->result;
-		?>
-		
 		<!-- List of user publications -->
 		<ul data-role="listview" >
 		
 			<li data-role="list-divider"><?= _("Results") ?></li>
 			
-			<? if (count($this->result) == 0) :?>
+			<? if (count($this->search_result) == 0) :?>
 			<li>
 				<h4><?= _("No result found")?></h4>
 			</li>
 			<? endif ?>
-
-			<? foreach($this->result as $item) : ?>
+			<? foreach($this->search_result as $result):?>
+			<? foreach($result as $item) : ?>
 				<li>
 					<a href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
@@ -78,6 +78,7 @@
 					</a>
 				</li>
 			<? endforeach ?>
+			<? endforeach?>
 			
 		</ul>
 			
