@@ -25,16 +25,16 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Execute the called controller method
 		if(isset($_GET['method'])){
-			debug("GET METHOD: ".$_GET['method']);
+			
 			switch ($_GET['method']){
+				
 				// Edit user extended profile
 				case 'edit':
 					if(isset($_SESSION['myEdu']))
 						$this->renderView("ExtendedProfileEdit");
 					break;
-				case 'update';
-					$this->updateProfile();
-					break;
+				
+				// Show a user pforile
 				case 'show_user_profile':
 					// If the user is not a guest but has not got an Extended 
 					// profile forward him to ExtendedProfileCreate View
@@ -104,7 +104,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	/** 
 	 * Update an Extended profile 
 	 */
-	function updateProfile() {
+	function update() {
 		$_POST['email'] =$_SESSION['user']->email;
 		$id = $_SESSION['myEdu']->profile;
 		

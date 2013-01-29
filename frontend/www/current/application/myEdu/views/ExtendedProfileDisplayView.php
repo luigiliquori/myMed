@@ -37,10 +37,10 @@
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 					<div class="ui-block-a" style="width: 110px;">
-						<a title="<?= $this->profile->details['name'] ?>"><img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"></a>
+						<img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 					</div>
 					<div class="ui-block-b">
-						<p><strong><?= $this->profile->details['firstname']." ".$this->profile->details['lastname'] ?></strong></p>
+						<p><strong><?= $this->profile->details['firstName']." ".$this->profile->details['lastName'] ?></strong></p>
 						<p><?= $this->profile->details['birthday'] ?> </p>
 						<p><?= $lang?></p>
 						<p><a href="mailto:<?= prettyprintId($this->profile->details['email']) ?>"><?= prettyprintId($this->profile->details['email']) ?></a></p>
@@ -74,7 +74,7 @@
 						
 						case 'professor':
 							echo empty($this->profile->details['university']) ? " " : "<p>". _("University").": "."<span>".$this->profile->details['university']."</span></p>";
-							echo empty($this->profile->details['courses']) ? " " : "<p>". _("Courses").": "."<span>".$this->profile->details['Courses']."</span></p>";
+							echo empty($this->profile->details['courses']) ? " " : "<p>". _("Courses").": "."<span>".$this->profile->details['courses']."</span></p>";
 							break;
 						
 						case 'company':
