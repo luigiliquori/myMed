@@ -1419,7 +1419,7 @@ msgstr "Vi piace questa idea di progetto ?"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplate/views/parts/header-bar.php:10
 msgid "back"
-msgstr ""
+msgstr "indietro"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplate/views/parts/header-bar.php:20
 msgid "Logout"
@@ -1568,9 +1568,16 @@ msgstr "Le mie possibilità"
 msgid "My publications"
 msgstr "Le mie pubblicazioni"
 
+msgid "MyEdu is a network allowing the linking between students, associations and companies (training, employment, etc.)."
+msgstr "MyEdu è una rete che permette il collegamento tra studenti, associazioni e aziende (formazione, occupazione, ecc.)."
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:30
 msgid "Search a publication"
 msgstr "Ricercare una pubblicazione"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:30
+msgid "Search publication"
+msgstr "Ricercare pubblicazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:31
 msgid "My profile"
