@@ -12,7 +12,7 @@
   	 
 	<!-- Page header bar -->
 	<? $title = _("Create profile");
-	   print_header_bar("?action=main", "defaultHelpPopup", $title, 'myEdu Home'); ?>
+	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
 	
 	   
 	<!-- Page content -->

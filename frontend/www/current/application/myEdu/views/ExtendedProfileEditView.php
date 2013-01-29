@@ -9,9 +9,12 @@
 
 	<!-- Page header -->
 	<? $title = _("Edit Profile");
-	   print_header_bar('index.php?action=extendedProfile&method=show_user_profile&user='.$_SESSION['user']->id.'', "defaultHelpPopup", $title, "back to Profile"); ?>
-	   		
-	
+
+	   print_header_bar(
+	   		'index.php?action=extendedProfile&method=show_user_profile&user='
+	   		.$_SESSION['user']->id.'', "defaultHelpPopup", $title); ?>
+
+	   
 	<!-- Page content -->
 	<div data-role="content">
 	

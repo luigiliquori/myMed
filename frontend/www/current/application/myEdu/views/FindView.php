@@ -2,8 +2,7 @@
 
 <div id="find" data-role="page">
 
-	<? $title = _("Search publication");
-	print_header_bar("?action=main", "defaultHelpPopup", $title, 'myEdu Home'); ?>
+	<? print_header_bar("?action=main", "defaultHelpPopup", "Search"); ?>
 
 	
 	<div data-role="content">
