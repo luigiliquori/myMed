@@ -28,6 +28,10 @@
 		<br />
 		<br />
 		
+		<?php 
+			echo $this->result;
+		?>
+		
 		<!-- List of user publications -->
 		<ul data-role="listview" >
 		
@@ -41,7 +45,7 @@
 
 			<? foreach($this->result as $item) : ?>
 				<li>
-					<a href="?action=publish&method=modify_publication&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+					<a href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
