@@ -11,7 +11,7 @@ class Categories {
 
 Categories::$areas = array(
 	"Aerospace"			=> _("Aerospace"),
-	"Biomeccania"		=> _("Biomeccania"),
+	"Biomechanics"		=> _("Biomechanics"),
 	"Cinema" 			=> _("Cinema"),
 	"Civil" 			=> _("Civil"),
 	"Data processing" 	=> _("Data processing"),
