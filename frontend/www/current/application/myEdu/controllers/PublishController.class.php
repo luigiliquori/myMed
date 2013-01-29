@@ -96,8 +96,8 @@ class PublishController extends ExtendedProfileRequired {
 	
 				$this->success = _("Your publication offer has been successfully published");
 	
-				// Return to main controller
-				$this->forwardTo("main");
+				// Return to publish view
+				$this->redirectTo("?action=publish&method=show_user_publications");
 	
 			}
 		}
