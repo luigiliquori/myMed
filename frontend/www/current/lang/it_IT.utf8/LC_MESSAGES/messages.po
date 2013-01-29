@@ -1900,6 +1900,15 @@ msgstr "Job"
 msgid "Lecture note"
 msgstr "Appunti"
 
+msgid "Add a new subscription"
+msgstr "Aggiungere un nuovo abbonamento"
+
+msgid "My subscriptions"
+msgstr "Il mio abbonamento"
+
+msgid "Delete subscription"
+msgstr "Cancellare abbonamento"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:35
 msgid "PHD Thesis"
 msgstr "Tesi"

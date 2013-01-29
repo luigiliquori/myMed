@@ -3,8 +3,8 @@
 <div data-role="page" id =myopportunitymanagement>
 
 	<!-- Page header bar -->
-	<? $title = _("Managing my opportunities");
-	   print_header_bar(true, true, $title); ?>
+	<? $title = _("Manage opportunities");
+	   print_header_bar("?action=myOpportunity&opportunities=true", true, $title); ?>
 	
 		
 	<!-- Page content -->
@@ -21,7 +21,7 @@
 	</div>
 	
 	<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Adding new subscription') ?> :</h3>
+				<h3><?= _('Add a new subscription') ?> :</h3>
 					<form action="index.php?action=myOpportunityManagement" method="POST" data-ajax="false">
 						<input type="hidden" id="addSubscription" name="addSubscription" value="" />
 			

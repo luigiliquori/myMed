@@ -902,6 +902,9 @@ msgstr "Séparés par un espace"
 msgid "Search"
 msgstr "Rechercher"
 
+msgid "Manage opportunities"
+msgstr "Gérer opportunités"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:126
 msgid "Offer Themes"
 msgstr "Thématiques de votre projet"
@@ -1876,6 +1879,12 @@ msgstr "Emploi"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:34
 msgid "Lecture note"
 msgstr "Note de cours"
+
+msgid "Add a new subscription"
+msgstr "Ajouter une nouvelle subscription"
+
+msgid "My subscriptions"
+msgstr "Mes suscriptions"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:35
 msgid "PHD Thesis"
@@ -2857,6 +2866,9 @@ msgstr ""
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:16
 msgid "Logistique - Conseil - Secrétariat - Administration courante"
 msgstr ""
+
+msgid "Delete subscription"
+msgstr "Supprimer souscription"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:17
 msgid "Travaux (manuels et techniques)"
