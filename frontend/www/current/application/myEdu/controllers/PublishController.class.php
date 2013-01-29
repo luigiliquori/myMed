@@ -39,16 +39,6 @@ class PublishController extends ExtendedProfileRequired {
 
 
 	/**
-	 *  Update (modify) user's publication
-	 */
-	public function update() {
-	
-		// Update is just re-publish on the same predicate
-		$this->create();
-	}
-
-	
-	/**
 	 *  Submit a new user publication
 	 */
 	public function create() {
@@ -62,7 +52,7 @@ class PublishController extends ExtendedProfileRequired {
 				
 		} else {
 	
-			// Check publication fields
+			// Check mandatory fields
 			if (empty($_POST['title'])) {
 				$this->error = _("Title field can't be empty");
 				$this->renderView("NewPublication");
@@ -102,6 +92,16 @@ class PublishController extends ExtendedProfileRequired {
 			}
 		}
 	
+	}
+	
+	
+	/**
+	 *  Update (modify) user's publication
+	 */
+	public function update() {
+	
+		// Update is just re-publish on the same predicate
+		$this->create();
 	}
 	
 	
