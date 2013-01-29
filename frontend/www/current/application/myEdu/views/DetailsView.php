@@ -64,14 +64,15 @@
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 						<?= _("Do you like the project idea ?") ?><br /><br />
-						<form id="form1" action="#" method="get" data-ajax="false">
+						<form id="form1" action="?action=updateReputation&reputa=10" method="get" data-ajax="false">
 							<input type="hidden" name="action" value="updateReputation" />
+							<input type="hidden" name="reputation" id="reputation" />
 							<input type="hidden" name="isData" value="1" />
 							<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 							<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
-							<label for="reputation"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
-							<input type="range" name="reputation" id="reputation" value="3" min="1" max="5" data-mini="true" step="1"/>
-							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputation').val()*2);">
+							<label for="reputationslider"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
+							<input type="range" name="reputationslider" id="reputationslider" value="3" min="1" max="5" data-mini="true" step="1"/>
+							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
 						</form>
 					</div>	
 					
