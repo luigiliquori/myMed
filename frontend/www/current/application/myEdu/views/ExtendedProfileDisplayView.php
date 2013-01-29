@@ -53,10 +53,10 @@
 			<li>
 				<p>
 					<!-- Role -->
-					<?= _("Role") ?>: <strong style="color:#444;"><?= $this->profile->details['role'] ?></strong><br/>
+					<?= _("Role") ?>: <strong style="color:#444;"><?= _($this->profile->details['role']) ?></strong><br/>
 				</p>
 				<p>
-					<img src="./img/email_icon.png" style="height: 22px;vertical-align: bottom;"/>
+					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
 					<?=
 					(empty($this->profile->details['email'])?" ": _("email").": <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
 					(empty($this->profile->details['phone'])?" ":_("phone").": <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
@@ -69,7 +69,7 @@
 					switch($this->profile->details['role']) {
 						
 						case 'student':
-							echo empty($this->profile->details['studentnumber']) ? " " : "<p>". _("Student Number").": "."<span>".$this->profile->details['studentnumber']."</span></p>";
+							echo empty($this->profile->details['studentnumber']) ? " " : "<p>". _("Student number").": "."<span>".$this->profile->details['studentnumber']."</span></p>";
 							echo empty($this->profile->details['faculty']) ? " " : "<p>". _("Faculty").": "."<span>".$this->profile->details['faculty']."</span></p>";							break;
 						
 						case 'professor':
@@ -91,11 +91,12 @@
 				
 				
 				<br />
-				
+				<? if(($this->profile->details['role']!='professor')): ?>
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <a href="#reppopup" style="font-size: 16px;" title="<?= $this->reputation['up'] ?> votes +, <?= $this->reputation['down'] ?> votes -"><?= $this->reputation['up'] - $this->reputation['down'] ?></a>
+					<?= _("reputation")?>: <?= $this->profile->reputation ?></a>
 				</p>
 				<br />
+				<?php endif; ?>
 					
 			</li>	
 		</ul> <!-- END show user profile -->	

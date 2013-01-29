@@ -20,7 +20,7 @@
 	
 		<br>
 		<div data-role="header" data-theme="e">
-			<h1 style="white-space: normal;"><?= _("Hello, This is your first time in this myApp! Please create a your extended profile") ?></h1>
+			<h1 style="white-space: normal;"><?= _("Hello, This is your first time in myEdu! Please create your extended profile.") ?></h1>
 		</div>
 		<br />
 		

@@ -100,8 +100,8 @@
 						<!-- Author REPUTATION pop up -->
 						<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center;">
 							<?= _("Do you like the author?") ?><br /><br />
-							<a href="?action=updateReputation&reputation=10&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="g" data-icon="plus">Of course yes!</a><br />
-							<a href="?action=updateReputation&reputation=0&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus">No, not really...</a>
+							<a href="?action=updateReputation&reputation=10&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="g" data-icon="plus"><?= _("Of course yes!")?></a><br />
+							<a href="?action=updateReputation&reputation=0&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus"><?= _("No, not really...")?></a>
 						</div>	
 						<!-- END Author REPUTATION -->
 					<?php endif; ?>			
