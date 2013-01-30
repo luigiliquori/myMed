@@ -1696,7 +1696,7 @@ msgstr ""
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:135
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:126
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:87
-msgid "Courses"
+msgid "Course"
 msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:140

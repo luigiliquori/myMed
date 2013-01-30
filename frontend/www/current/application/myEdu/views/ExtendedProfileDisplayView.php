@@ -93,7 +93,7 @@
 				<br />
 				<? if(($this->profile->details['role']!='professor')): ?>
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <?= $this->profile->reputation ?></a>
+					<?= _("reputation")?>: <?= $this->profile->reputation ?>
 				</p>
 				<br />
 				<?php endif; ?>
@@ -123,7 +123,6 @@
 				<? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 		<? endif; ?>
-		
 	
 	</div> <!-- END Page content -->
 	

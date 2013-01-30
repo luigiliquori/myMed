@@ -69,6 +69,7 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		$this->search_comment();
+		$this->search_apply();
 		
 		// Need publisher role (student, professer, or company) so
 		// get publisher details
@@ -94,42 +95,30 @@ class DetailsController extends AuthenticatedController {
 		}
 	}
 	
-	function comment(){
-		debug("button comment");
-		if(!empty($_POST['wrapped1']) ){
-			$obj = new Comment();
-					
-			// Fill the object
-			$this->fillObj_comments($obj);
-			$obj->publish();
-		
-			$this->result = $obj;
-		}
-		debug($_SESSION['predicate']." ".$_SESSION['author']);
-		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
+	function apply(){
+		debug("button apply");
 	}
 	
 	//searching comments
 	public function search_comment() {
-	
-		// -- Search
 		$search_comments = new Comment();
-		$this->fillObj($search_comments);
+		$this->fillObjComment($search_comments);
 		$this->result_comment = $search_comments->find();
 	
 	}
 	
-	private function fillObj_comments($obj) {
-		$time = time();
+	public function search_apply() {
+		$search_applies = new Apply();
+		$this->fillObjApply($search_applies);
+		$this->result_apply = $search_applies->find();
+	}
+
+	private function fillObjComment($obj) {
 		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
-		$obj->pred2 = $time;
-		$obj->wrapped1 =$_POST['wrapped1'];
-		$obj->wrapped2 =$_SESSION['user']->profilePicture;
-	
 	}
 	
-	private function fillObj($obj) {
-		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
+	private function fillObjApply($obj) {
+		$obj->pred1 = 'apply&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 	}
 }
 ?>

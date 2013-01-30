@@ -1,7 +1,7 @@
 <?
 
 /** 
- * Comments of Publications
+ * Comments of Comments
  * 
  */
 class Comment extends GenericDataBean {
