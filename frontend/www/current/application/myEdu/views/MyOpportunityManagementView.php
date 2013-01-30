@@ -3,8 +3,8 @@
 <div data-role="page" id =myopportunitymanagement>
 
 	<!-- Page header bar -->
-	<? $title = _("Managing my opportunities");
-	   print_header_bar(true, true, $title); ?>
+	<? $title = _("Manage opportunities");
+	   print_header_bar("?action=myOpportunity&opportunities=true", true, $title); ?>
 	
 		
 	<!-- Page content -->
@@ -21,7 +21,7 @@
 	</div>
 	
 	<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Adding new subscription') ?> :</h3>
+				<h3><?= _('Add a new subscription') ?> :</h3>
 					<form action="index.php?action=myOpportunityManagement" method="POST" data-ajax="false">
 						<input type="hidden" id="addSubscription" name="addSubscription" value="" />
 			
@@ -98,7 +98,9 @@
 						echo '<div class="ui-block-a">';
 						echo _("Subscription ").$index.":<br />";
 						foreach($preds as $key2){
-							echo substr($key2,1)." ";
+							if($key2 != ""){
+								echo _(substr($key2,1)).", ";
+							}
 						}
 						echo '</div><div class="ui-block-b">';
 						echo '<a href="?action=myOpportunityManagement&removeSubscription=true&predicate='.$key.'"  data-role="button" data-theme="r" data-inline="true" style="float: right;">'._("Delete subscription").'</a></div></div></li>';

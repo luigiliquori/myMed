@@ -6,7 +6,7 @@
 
 	<!-- Page header bar -->
 	<? $title = _("My opportunities");
-	   print_header_bar(true, false, $title); ?>
+	   print_header_bar("?action=main", false, $title); ?>
 	
 		
 	<!-- Page content -->
@@ -50,25 +50,25 @@
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
-							<b><?= _("Area") ?></b>: <?= $item->area ?><br/>
-							<b><?= _("Category") ?></b>: <?= $item->category ?><br/>
-							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/><br/>
+							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
+							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
+							<b><?= _("Locality") ?></b>: <?= _($item->locality) ?><br/><br/>
 							<b>Publisher ID:</b><?= $item->publisherID ?><br/> 
 								<!-- Project reputation-->	
-								<p style="display:inline; margin-left: 30px;" > <b>Project Reputation:</b> </p>  
+								<p style="display:inline; margin-left: 30px;" > <b><?= _("Project reputation")?>:</b> </p>  
 								<p style="display:inline; margin-left: 30px;" >
 									<?php
 										// Disable reputation stars if there are no votes yet 
 										if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
 										<?php for($i=1 ; $i <= 5 ; $i++) {?>
-												<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+												<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;"/>
 										<?php } ?>
 									<?php else: ?>
 										<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 											<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
-												<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;" />
+												<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;" />
 											<?php } else { ?>
-												<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+												<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;"/>
 											<?php } ?>
 										<? } ?>
 									<?php endif; ?>

@@ -58,8 +58,8 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p><br/>
-					<a data-role="button" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	
+					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
+						<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	<br/>
 					
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
@@ -94,8 +94,8 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates </p><br/>
-						<a data-role="button" data-mini="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" ><?= _("Rate author") ?></a>			
+						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>
+							<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" ><?= _("Rate author") ?></a>			
 						
 						<!-- Author REPUTATION pop up -->
 						<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center;">
