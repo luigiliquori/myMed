@@ -10,7 +10,7 @@
   	
   	<!-- Page header -->
   	<? $title = _("Create publication");	
-	   print_header_bar(true, "defaultHelpPopup", $title); ?>
+	   print_header_bar("?action=publish&method=show_user_publications", "defaultHelpPopup", $title); ?>
 
 	<!-- Page content -->
 	<div data-role="content">
@@ -82,7 +82,10 @@
 					<select name="category" id="category" data-native-menu="false">
 						<option value=""> <?= _("Category")?> </option>
 					<? foreach (Categories::$categories as $k=>$v) :?>
-						<option value="<?= $k ?>"><?= $v ?></option>
+						<?= ($k == 'Course' &&  
+							!($_SESSION['myEdu']->details['role']=='professor')) ? '' : 
+						'<option value="'.$k.'">'.$v.'</option>';
+						?>
 					<? endforeach ?>
 					</select>
 					<select name="locality" id="locality" data-native-menu="false">

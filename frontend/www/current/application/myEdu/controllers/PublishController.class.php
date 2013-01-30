@@ -69,12 +69,19 @@ class PublishController extends ExtendedProfileRequired {
 				$this->error = _("Category field can't be empty");
 				$this->renderView("NewPublication");
 					
-			} else{
+			} else if (empty($_POST['locality'])) {
+				$this->error = _("Locality field can't be empty");
+				$this->renderView("NewPublication");
+					
+			} else if (empty($_POST['organization'])) {
+				$this->error = _("Organization field can't be empty");
+				$this->renderView("NewPublication");
+			} else {
 	
 				// All required fields are filled, publish it
 				$obj = new MyEduPublication();
 				$obj->publisher = $_SESSION['user']->id;    // Publisher ID
-				$obj->type = 'myEduPublication';			// Publication type
+				//$obj->type = 'myEduPublication';			// Publication type
 				$obj->area = $_POST['area'];				// Area
 				$obj->category = $_POST['category'];		// Category
 				$obj->locality = $_POST['locality'];		// Locality
@@ -113,7 +120,7 @@ class PublishController extends ExtendedProfileRequired {
 		$obj = new MyEduPublication();
 		$obj->publisherID = $_SESSION['user']->id;  // Publisher ID
 		$obj->publisher = $_SESSION['user']->id;    // Publisher ID
-		$obj->type = 'myEduPublication';			// Publication type
+		//$obj->type = 'myEduPublication';			// Publication type
 		$obj->area = $_POST['area'];				// Area
 		$obj->category = $_POST['category'];		// Category
 		$obj->locality = $_POST['locality'];		// Locality

@@ -121,7 +121,7 @@
 			<!-- List of user subscriptions -->
 			<br />
 				<? if (isset($_SESSION['myEdu'])): ?>
-				<a type="button" href="?action=" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My opportunities") ?></a>
+				<a type="button" href="?action=myOpportunity&opportunities=true" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My opportunities") ?></a>
 				<? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 		<? endif; ?>
