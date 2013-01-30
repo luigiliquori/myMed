@@ -15,7 +15,7 @@
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 			<li>
 			<p>
-				<?= _("<<<<<< <b>Application</b> description goes here. >>>>>>") ?>
+				<?= _("<b>MyEdu</b> is an application that has the goal of improving communication between the university and students. <br/>Through myEdu, the university can publish ads on thesis, internships and job opportunities; while students can enjoy all this information through any device with a browser and an Internet connection.<br/>It is also possible to register for one or more topics of interest and receive in its own box email notifications from new content posted on the site.<br/>Soon will be possible to share teaching materials and tutor!") ?>
 			</p>
 			</li>
 		</ul>

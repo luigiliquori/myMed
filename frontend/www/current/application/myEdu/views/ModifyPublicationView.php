@@ -6,7 +6,7 @@
 
 	<!-- Page header -->
 	<? $title = _("Modify publication");
-	print_header_bar("?action=publish&method=show_user_publications", false, $title, 'MyPublications'); ?>
+	print_header_bar("?action=publish&method=show_user_publications", false, $title); ?>
 	
 	<!-- Page content -->
 	<div data-role="content" >

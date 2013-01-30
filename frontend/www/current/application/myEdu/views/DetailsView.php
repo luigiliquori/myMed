@@ -2,7 +2,7 @@
 
 <div data-role="page">
   <? $title = _("Details");
-	 print_header_bar("?action=Find&search=true", false, $title,"Back to search"); ?>
+	 print_header_bar("?action=Find&search=true", false, $title); ?>
 	
 	<div data-role="content" >
 	
@@ -14,8 +14,6 @@
 			
 			<br />	
 			<h3><?= _("Description") ?></h3>
-								
-
 				<div>
 					<!-- TITLE -->
 					<h3><?= $this->result->title ?> :</h3>
@@ -60,20 +58,21 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p><br/>
-					<a data-role="button" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	
+					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
+						<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	<br/>
 					
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 						<?= _("Do you like the project idea ?") ?><br /><br />
-						<form id="form1" action="#" method="get" data-ajax="false">
+						<form id="form1" action="?action=updateReputation&reputa=10" method="get" data-ajax="false">
 							<input type="hidden" name="action" value="updateReputation" />
+							<input type="hidden" name="reputation" id="reputation" />
 							<input type="hidden" name="isData" value="1" />
 							<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 							<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
-							<label for="reputation"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
-							<input type="range" name="reputation" id="reputation" value="3" min="1" max="5" data-mini="true" step="1"/>
-							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputation').val()*2);">
+							<label for="reputationslider"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
+							<input type="range" name="reputationslider" id="reputationslider" value="3" min="1" max="5" data-mini="true" step="1"/>
+							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
 						</form>
 					</div>	
 					
@@ -95,14 +94,14 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates </p><br/>
-						<a data-role="button" data-mini="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" ><?= _("Rate author") ?></a>			
+						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>
+							<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" ><?= _("Rate author") ?></a>			
 						
 						<!-- Author REPUTATION pop up -->
 						<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center;">
 							<?= _("Do you like the author?") ?><br /><br />
-							<a href="?action=updateReputation&reputation=10&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="g" data-icon="plus">Of course yes!</a><br />
-							<a href="?action=updateReputation&reputation=0&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus">No, not really...</a>
+							<a href="?action=updateReputation&reputation=10&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="g" data-icon="plus"><?= _("Of course yes!")?></a><br />
+							<a href="?action=updateReputation&reputation=0&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus"><?= _("No, not really...")?></a>
 						</div>	
 						<!-- END Author REPUTATION -->
 					<?php endif; ?>			
@@ -149,14 +148,14 @@
 		 					
 		 				</div>
 					<? endforeach ?>
-		 			
-		 			<!-- adding new comments -->
-		 			<form action="?action=comment" method="POST" data-ajax="false">
-		 				<textarea name="wrapped1"></textarea>
-		 				<input type="hidden" name="method" value="Comment" />
-						<input type="submit" value="<?= _('Comment') ?>" />
-		 			</form>
-	 	
+		 			<? if(!$_SESSION['user']->is_guest){ ?>
+			 			<!-- adding new comments if logged -->
+			 			<form action="?action=comment" method="POST" data-ajax="false">
+			 				<textarea name="wrapped1"></textarea>
+			 				<input type="hidden" name="method" value="Comment" />
+							<input type="submit" value="<?= _('Comment') ?>" />
+			 			</form>
+	 				<? } ?>
 	 			</div>
 			</div>
 		</div>

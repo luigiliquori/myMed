@@ -12,7 +12,7 @@
   	 
 	<!-- Page header bar -->
 	<? $title = _("Create profile");
-	   print_header_bar("?action=main", "defaultHelpPopup", $title, 'myEdu Home'); ?>
+	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
 	
 	   
 	<!-- Page content -->
@@ -20,7 +20,7 @@
 	
 		<br>
 		<div data-role="header" data-theme="e">
-			<h1 style="white-space: normal;"><?= _("Hello, This is your first time in this myApp! Please create a your extended profile") ?></h1>
+			<h1 style="white-space: normal;"><?= _("Hello, This is your first time in myEdu! Please create your extended profile.") ?></h1>
 		</div>
 		<br />
 		
@@ -42,7 +42,7 @@
 			
 			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile -->
 			<input type="hidden" id="firstname" name="firstname" value="<?= $_SESSION['user']->firstName ?>" />
-			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->id ?>" />
+			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
 			<input type="hidden" id="lastname" name="lastname" value="<?= $_SESSION['user']->lastName ?>" />
 			<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
@@ -83,7 +83,7 @@
   							break;
 					
 					}">
-				<option value="">Select your category</option>
+				<option value=""><?= _("Select your category")?></option>
 				<? foreach (Categories::$roles as $k=>$v) :?>
 					<option value="<?= $k ?>"><?= $v ?></option>
 				<? endforeach ?>
@@ -146,8 +146,8 @@
 	<!-- Help Pop Up -->
 	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3><?= _("Help title.") ?></h3>
-		<p> <?= _("Help text") ?></p>
+		<h3><?= _("<<<<< Help title. >>>>>") ?></h3>
+		<p> <?= _("<<<<< Help text >>>>>") ?></p>
 		
 	</div>
 	

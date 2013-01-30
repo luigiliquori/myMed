@@ -45,8 +45,8 @@ function print_header_bar($back_button = false,
 							>' . _('Logout') . '</a>';
 			} else {
 				// ... otherwise back to the launchpad
-				echo '<a href="/" data-icon="arrow-l" data-ajax="false">' 
-					. _('myMed') . '</a>';
+				/*echo '<a href="/" data-icon="arrow-l" data-ajax="false">' 
+					. _('myMed') . '</a>';*/
 			}
 			break;
 		

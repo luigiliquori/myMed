@@ -5,10 +5,8 @@
 <div data-role="page" id ="mypublicationview">
 
 	<!-- Page header bar -->
-
-	<? $title = _("My publications");
-	   print_header_bar("?action=main", false, $title, "myEdu Home"); ?>
-
+	<? $title = _("My Publication");
+	   print_header_bar("?action=main", false, $title); ?>
 	
 		
 	<!-- Page content -->
@@ -19,7 +17,7 @@
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
-			<p><?= _("<<<<< Few words >>>>>")?></p>
+			<p><?= _("Here is the space summarizing all of your publications, as well as a way to create new ones.")?></p>
 		</div>
 		<br />
 	
@@ -57,14 +55,14 @@
 									// Disable reputation stars if there are no votes yet 
 									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:130px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
-											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;" />
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:130px; margin-top:3px;" />
 										<?php } else { ?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:130px; margin-top:3px;"/>
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>

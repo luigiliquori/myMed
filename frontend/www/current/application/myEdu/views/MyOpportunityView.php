@@ -6,7 +6,7 @@
 
 	<!-- Page header bar -->
 	<? $title = _("My opportunities");
-	   print_header_bar(true, false, $title); ?>
+	   print_header_bar("?action=main", false, $title); ?>
 	
 		
 	<!-- Page content -->
@@ -20,6 +20,10 @@
 			<p><?= _("Few words ")?></p>
 		</div>
 		<br />
+		
+		<?php 
+			//echo var_dump($this->search_result);
+		?>
 	
 		<!-- New subscription button -->
 		<a href="?action=myOpportunityManagement" data-icon="pencil" data-role="button" data-inline="true" data-theme="e" style="float: right;"><?= _("New subscription") ?></a><br />	
@@ -33,38 +37,38 @@
 		
 			<li data-role="list-divider"><?= _("Results") ?></li>
 			
-			<? if (count($this->result) == 0) :?>
+			<? if (count($this->search_result) == 0) :?>
 			<li>
 				<h4><?= _("No result found")?></h4>
 			</li>
 			<? endif ?>
-
-			<? foreach($this->result as $item) : ?>
+			<? foreach($this->search_result as $result):?>
+			<? foreach($result as $item) : ?>
 				<li>
-					<a href="?action=publish&method=modify_publication&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+					<a href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
-							<b><?= _("Area") ?></b>: <?= $item->area ?><br/>
-							<b><?= _("Category") ?></b>: <?= $item->category ?><br/>
-							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/><br/>
+							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
+							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
+							<b><?= _("Locality") ?></b>: <?= _($item->locality) ?><br/><br/>
 							<b>Publisher ID:</b><?= $item->publisherID ?><br/> 
 								<!-- Project reputation-->	
-								<p style="display:inline; margin-left: 30px;" > <b>Project Reputation:</b> </p>  
+								<p style="display:inline; margin-left: 30px;" > <b><?= _("Project reputation")?>:</b> </p>  
 								<p style="display:inline; margin-left: 30px;" >
 									<?php
 										// Disable reputation stars if there are no votes yet 
 										if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
 										<?php for($i=1 ; $i <= 5 ; $i++) {?>
-												<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+												<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;"/>
 										<?php } ?>
 									<?php else: ?>
 										<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 											<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
-												<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;" />
+												<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;" />
 											<?php } else { ?>
-												<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:175px; margin-top:3px;"/>
+												<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;"/>
 											<?php } ?>
 										<? } ?>
 									<?php endif; ?>
@@ -74,6 +78,7 @@
 					</a>
 				</li>
 			<? endforeach ?>
+			<? endforeach?>
 			
 		</ul>
 			

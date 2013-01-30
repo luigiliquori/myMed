@@ -12,9 +12,11 @@
   	<? 	$title = _("Profile");
   	  	// Check the previous usr for the back button, if it is a publication details
   	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
-  	   		print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title, 'back to Publication'); 
+  	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
+  	   		print_header_bar('back', "defaultHelpPopup", $title); 
+
   	  	else
-  	   		print_header_bar("?action=main", "defaultHelpPopup", $title, 'myEdu Home');
+  	   		print_header_bar("?action=main", "defaultHelpPopup", $title);
   	   ?>
 	
 	<!-- Page content -->
@@ -37,10 +39,10 @@
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 					<div class="ui-block-a" style="width: 110px;">
-						<a title="<?= $this->profile->details['name'] ?>"><img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"></a>
+						<img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 					</div>
 					<div class="ui-block-b">
-						<p><strong><?= $this->profile->details['firstname']." ".$this->profile->details['lastname'] ?></strong></p>
+						<p><strong><?= $this->profile->details['firstName']." ".$this->profile->details['lastName'] ?></strong></p>
 						<p><?= $this->profile->details['birthday'] ?> </p>
 						<p><?= $lang?></p>
 						<p><a href="mailto:<?= prettyprintId($this->profile->details['email']) ?>"><?= prettyprintId($this->profile->details['email']) ?></a></p>
@@ -53,7 +55,7 @@
 			<li>
 				<p>
 					<!-- Role -->
-					<?= _("Role") ?>: <strong style="color:#444;"><?= $this->profile->details['role'] ?></strong><br/>
+					<?= _("Role") ?>: <strong style="color:#444;"><?= _($this->profile->details['role']) ?></strong><br/>
 				</p>
 				<p>
 					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
@@ -69,12 +71,12 @@
 					switch($this->profile->details['role']) {
 						
 						case 'student':
-							echo empty($this->profile->details['studentnumber']) ? " " : "<p>". _("Student Number").": "."<span>".$this->profile->details['studentnumber']."</span></p>";
+							echo empty($this->profile->details['studentnumber']) ? " " : "<p>". _("Student number").": "."<span>".$this->profile->details['studentnumber']."</span></p>";
 							echo empty($this->profile->details['faculty']) ? " " : "<p>". _("Faculty").": "."<span>".$this->profile->details['faculty']."</span></p>";							break;
 						
 						case 'professor':
 							echo empty($this->profile->details['university']) ? " " : "<p>". _("University").": "."<span>".$this->profile->details['university']."</span></p>";
-							echo empty($this->profile->details['courses']) ? " " : "<p>". _("Courses").": "."<span>".$this->profile->details['Courses']."</span></p>";
+							echo empty($this->profile->details['courses']) ? " " : "<p>". _("Courses").": "."<span>".$this->profile->details['courses']."</span></p>";
 							break;
 						
 						case 'company':
@@ -86,16 +88,17 @@
 				?>
 				<br/>
 				<p>
-					Description: <p style="margin-left:30px"><?= empty($this->profile->details['desc'])?" ":$this->profile->details['desc'] ?></p>
+					<?= _("Description")?>: <p style="margin-left:30px"><?= empty($this->profile->details['desc'])?" ":$this->profile->details['desc'] ?></p>
 				</p>
 				
 				
 				<br />
-				
+				<? if(($this->profile->details['role']!='professor')): ?>
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <a href="#reppopup" style="font-size: 16px;" title="<?= $this->reputation['up'] ?> votes +, <?= $this->reputation['down'] ?> votes -"><?= $this->reputation['up'] - $this->reputation['down'] ?></a>
+					<?= _("reputation")?>: <?= $this->profile->reputation ?></a>
 				</p>
 				<br />
+				<?php endif; ?>
 					
 			</li>	
 		</ul> <!-- END show user profile -->	
