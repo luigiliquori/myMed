@@ -1699,11 +1699,8 @@ msgstr ""
 msgid "Course"
 msgstr "Corsi"
 
-msgid "My courses"
-msgstr "I miei corsi"
-
-msgid "Apply to this course"
-msgstr "Postuler pour ce cours"
+msgid "My candidatures"
+msgstr "Le mie applicazioni"
 
 msgid "Students list"
 msgstr "Gli studenti lista"

@@ -116,9 +116,7 @@ class PublishController extends ExtendedProfileRequired {
 	 *  Delete user's publication and all the students applies if category=course and the comments
 	 */
 	public function delete() {
-		if($_POST['category']=='Course'){
-			$this->delete_Applies();
-		}
+		$this->delete_Applies();
 		$this->delete_Comments();
 		
 		$obj = new MyEduPublication();

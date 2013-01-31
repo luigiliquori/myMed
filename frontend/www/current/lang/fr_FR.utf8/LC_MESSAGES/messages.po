@@ -106,17 +106,20 @@ msgstr "Actualiser"
 msgid "Edit"
 msgstr "Modifier"
 
-msgid "My courses"
-msgstr "Mes cours"
+msgid "My candidatures"
+msgstr "Mes candidatures"
 
-msgid "Course name"
-msgstr "Nom du cours"
+msgid "Publication name"
+msgstr "Nom de la publication"
 
-msgid "Students list"
-msgstr "Liste des étudiants"
+msgid "Applicants"
+msgstr "Candidats"
 
 msgid "Accept"
 msgstr "Accepter"
+
+msgid "Apply"
+msgstr "Postuler"
 
 msgid "Refuse"
 msgstr "Refuser"
@@ -124,8 +127,8 @@ msgstr "Refuser"
 msgid "Student name"
 msgstr "Nom de l'étudiant"
 
-msgid "Teacher email"
-msgstr "Email du professeur"
+msgid "Author email"
+msgstr "Email de l'auteur"
 
 msgid "waiting"
 msgstr "en attente"

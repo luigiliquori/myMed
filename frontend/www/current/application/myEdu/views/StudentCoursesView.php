@@ -37,10 +37,10 @@
 					<a data-ajax="false" href="?action=details&predicate=<?= $item->pred3 ?>&author=<?= $item->teacher ?>">			
 						<div class="ui-grid-a">
 							<div class="ui-block-a">
-								<?= _("Course name") ?>: <b><?= $item->title ?></b>
+								<?= _("Publication name") ?>: <b><?= $item->title ?></b>
 							</div>
 							<div class="ui-block-b">
-								<?= _("Teacher email") ?>: <b><?= $item->teacher ?></b>
+								<?= _("Author email") ?>: <b><?= $item->teacher ?></b>
 								<div data-role="controlgroup" data-type="horizontal" style="float: right;">
 									<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
 								</div>

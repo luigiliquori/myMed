@@ -33,9 +33,15 @@
 						<?
 						if(isset($_SESSION['myEdu'])):	
 							$date=strtotime(date('d-m-Y'));
-							$courseDate=strtotime($this->result->end);
-						
-							if($_SESSION['myEdu']->details['role']=='student' && $this->result->category=='Course' && $courseDate > $date){ 
+							$expired=false;
+							if(!empty($this->result->end)  && $this->result->end!="--"){
+								$expDate=strtotime($this->result->end);
+								if($expDate < $date){
+									$expired=true;
+								}
+							}
+							
+							if($expired==false && $_GET['author']!=$_SESSION['user']->id){
 								$applied=false;
 								foreach ($this->result_apply as $item) :
 									if($item->publisherID==$_SESSION['user']->id){ // already applied
@@ -47,9 +53,17 @@
 						 			<form action="?action=apply&method=apply" method="POST" data-ajax="false">
 						 				<input type="hidden" name="method" value="Apply" />
 						 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
-						 				<input type="hidden" name="teacher" value="<?= $this->result->publisherID ?>" />
-						 				<input type="hidden" name="teacherName" value="<?= $this->result->publisherID ?>" />
-										<input type="submit" data-inline="true" value="<?= _('Apply to this course') ?>" />
+						 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
+						 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
+						 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />
+						 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+						 				<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+						 				<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
+						 				<input type="hidden" name="date" value="<?= $this->result->date ?>" />
+						 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
+						 				<input type="hidden" name="text" value="<?= $this->result->text ?>" />
+						 				<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
+										<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
 						 			</form>
 			 				 <? }
 							 }
@@ -220,13 +234,13 @@
 	 			<? if($_GET['author']==$_SESSION['user']->id){ ?>
 		 			<!-- STUDENTS APPLICATIONS -->
 					<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
-		 				<h3><?= _('Students list') ?></h3>
+		 				<h3><?= _('Applicants') ?></h3>
 			 			<ul data-role="listview" data-filter="false" >
 			 			<?foreach ($this->result_apply as $item) :?>
 			 				<li>
 				 				<div class="ui-grid-a">
 									<div class="ui-block-a">
-										<?= _("Student name") ?>: <b><?= $item->publisherName ?></b>
+										<?= _("Name") ?>: <b><?= $item->publisherName ?></b>
 									</div>
 									<div class="ui-block-b">
 										<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
