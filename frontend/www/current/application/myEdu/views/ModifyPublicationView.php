@@ -88,8 +88,12 @@
 							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 							<input type="hidden" name="area" value="<?= $this->result->area ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
-							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+							<?php if ($this->result->category == 'Course'):?>
+								<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
+								<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
+							<? endif; ?>
 							<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
+							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
 							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="text" id="text"/>
 							<input type="submit" data-icon="check" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Modify publication') ?>" onclick="$('#text').val($('#projecttext').val());"/>

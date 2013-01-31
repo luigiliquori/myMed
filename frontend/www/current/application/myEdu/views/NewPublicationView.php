@@ -79,7 +79,15 @@
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
-					<select name="category" id="category" data-native-menu="false">
+					<select name="category" id="category" data-native-menu="false" 
+							onChange=" 
+								if($('select#category').val() == 'Course') {
+									$('#maxappliersdiv').show();
+								} else {
+									$('#maxappliersdiv').hide();
+								}
+								
+					" >
 						<option value=""> <?= _("Category")?> </option>
 					<? foreach (Categories::$categories as $k=>$v) :?>
 						<?= ($k == 'Course' &&  
@@ -88,6 +96,11 @@
 						?>
 					<? endforeach ?>
 					</select>
+					<div data-role="fieldcontain" id="maxappliersdiv" name="maxappliersdiv" style="text-align:right; display: none; margin-right:30px;">
+						<label for="maxappliers" ><?=_(" Max course appliers number: "); ?></label>
+	    				<input type="text" name="maxappliers" id="maxappliers" value="30" style="width:80px; text-align:right;"/>
+					</div>
+					<input type="hidden" id="currentappliers" name="currentappliers" value="-1" />
 					<select name="locality" id="locality" data-native-menu="false">
 						<option value=""> <?= _("Locality")?> </option>
 					<? foreach (Categories::$localities as $k=>$v) :?>
