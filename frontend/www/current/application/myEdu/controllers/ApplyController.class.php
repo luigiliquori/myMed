@@ -31,6 +31,10 @@ class ApplyController extends AuthenticatedController {
 		$obj->title = $_POST['title'];
 		debug($obj->pred3);
 		$obj->publish();
+		$mailman = EmailNotification(strtr($_POST['teacher'],"MYMED_", ""),_("Someone apply to your publication"),_("Someone apply to your publication ").$_POST['title']._(" please check on the web interface"));
+		$mailman->send();
+		$mailman2 = EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your application is awaiting validation"),_("Your application to ").$_POST['title']._("is awaiting validation"));
+		$mailman2->send();
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
 	}
 	
@@ -47,6 +51,8 @@ class ApplyController extends AuthenticatedController {
 		$obj->title = $_POST['title'];
 		
 		$obj->publish();
+		$mailman = EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your application is accepted"),_("Your application to ").$_POST['title']._(" has been accepted"));
+		$mailman->send();
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
 	}
 	
@@ -62,7 +68,8 @@ class ApplyController extends AuthenticatedController {
 		$obj->teacher = $_POST['teacher'];
 		$obj->accepted = 'accepted';
 		$obj->title = $_POST['title'];
-	
+		$mailman = EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your apply is refused"),_("Your apply to ").$_POST['title']._("has been refused"));
+		$mailman->send();
 		$obj->delete();
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
 	}
