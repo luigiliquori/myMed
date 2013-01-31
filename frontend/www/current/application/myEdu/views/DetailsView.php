@@ -17,14 +17,11 @@
 					<!-- APPLY FOR STUDENTS IF PUBLICATION=COURSE -->
 					<div style="position: absolute; right: 24px;">
 						<?
-						if(isset($_SESSION['myEdu'])):
-							$user = new User($_SESSION['user']->id);
-							$mapper = new DataMapper;
-							$details = $mapper->findById($user);
-							$profile = new MyEduProfile($details['profile']);
-							$profile->details = $mapper->findById($profile);
-	
-							if($profile->details['role']=='student' && $this->result->category=='Course'){ 
+						if(isset($_SESSION['myEdu'])):	
+							$date=strtotime(date('d-m-Y'));
+							$courseDate=strtotime($this->result->end);
+						
+							if($_SESSION['myEdu']->details['role']=='student' && $this->result->category=='Course' && $courseDate > $date){ 
 								$applied=false;
 								foreach ($this->result_apply as $item) :
 									if($item->publisherID==$_SESSION['user']->id){ // already applied
@@ -33,14 +30,25 @@
 									}
 								endforeach;
 								if($applied==false){?>
-						 			<form action="?action=apply" method="POST" data-ajax="false">
+						 			<form action="?action=apply&method=apply" method="POST" data-ajax="false">
 						 				<input type="hidden" name="method" value="Apply" />
+						 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
+						 				<input type="hidden" name="teacher" value="<?= $this->result->publisherID ?>" />
+						 				<input type="hidden" name="teacherName" value="<?= $this->result->publisherID ?>" />
 										<input type="submit" data-inline="true" value="<?= _('Apply to this course') ?>" />
 						 			</form>
 			 				 <? }
 							 }
-						endif;?>	
+							 if($_GET['author']==$_SESSION['user']->id){ ?> <!-- the user is the author of this publication: can update -->
+								<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
+						  <? }
+						endif;?>
+						
 					</div>
+					
+					
+					
+					
 					<!-- TITLE -->
 					<h3><?= $this->result->title ?> :</h3>
 					
@@ -65,8 +73,13 @@
 				<?php  // Only user wit myEdu extended profile can rate 
 					   if(isset($_SESSION['myEdu'])) : ?>
 	    		<div>
-	    		
+	    			
 	    			<!-- Publication reputation -->
+	    			<?
+	    			$date=strtotime(date('d-m-Y'));
+	    			$courseDate=strtotime($this->result->end);
+	    			if(($this->result->category=='Course' && $courseDate<$date) || $this->result->category!='Course'){
+	    			?>
 	    			<p style="display:inline; font-size:80%;">Publication rate:</p>
 						<?php
 							// Disable reputation stars if there are no votes yet 
@@ -101,6 +114,7 @@
 							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
 						</form>
 					</div>	
+					<? } ?>
 					
 					<!-- Author reputation (only for students and companies) -->
 					<?php if(!($this->publisher_profile->details['role']=='professor')): ?>
@@ -182,19 +196,54 @@
 							<input type="submit" value="<?= _('Comment') ?>" />
 			 			</form>
 	 				<? } ?>
-	 			</div>
+	 			</div><br>
 	 			
-	 			<!-- APPLIES -->
-				<div data-role="collapsible" data-content-theme="d" data-collapsed="false">
-	 				<h3><?= _('Applies') ?></h3>
-					<br/>
-		 			<?foreach ($this->result_apply as $item) :?>
-		 				<div data-theme="b" data-content-theme="b" data-mini="true">
-		 					<li><?= "Student: ".$item->publisherName." ID:".$item->publisherID." Accepted: ".$item->accepted?></li>
-		 					<?= $item->pred1?>
-		 				</div>
-					<? endforeach ?>
-			</div>
+	 			<? if($_GET['author']==$_SESSION['user']->id){ ?>
+		 			<!-- STUDENTS APPLICATIONS -->
+					<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+		 				<h3><?= _('Students list') ?></h3>
+			 			<ul data-role="listview" data-filter="false" >
+			 			<?foreach ($this->result_apply as $item) :?>
+			 				<li>
+				 				<div class="ui-grid-a">
+									<div class="ui-block-a">
+										<?= _("Student name") ?>: <b><?= $item->publisherName ?></b>
+									</div>
+									<div class="ui-block-b">
+										<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
+										<div data-role="controlgroup" data-type="horizontal" style="float: right;">
+											<? if($item->accepted!='accepted'): ?>
+						 	    				<form action="?action=apply&method=accept" method="POST" data-ajax="false" style="float:left">
+									 				<input type="hidden" name="method" value="Accept" />
+									 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
+									 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
+									 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
+									 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
+									 				<input type="hidden" name="teacher" value="<?= $item->teacher ?>" />
+									 				<input type="hidden" name="title" value="<?= $item->title ?>" />
+									 				
+													<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Accept') ?>" />
+									 			</form>
+											<? endif;?>
+											<form action="?action=apply&method=refuse" method="POST" data-ajax="false" style="float:right">
+								 				<input type="hidden" name="method" value="Refuse" />
+								 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
+								 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
+								 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
+								 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
+								 				<input type="hidden" name="teacher" value="<?= $item->teacher ?>" />
+								 				<input type="hidden" name="title" value="<?= $item->title ?>" />
+								 				
+												<input data-role="button" type="submit" data-theme="r" data-inline="true" data-mini="true" value="<?= _('Refuse') ?>" />
+								 			</form>
+										</div>
+									</div>
+								</div>
+			 				</li>
+						<? endforeach ?>
+						</ul>
+					</div>
+				<? } ?>
 		</div>
 		
 	</div>

@@ -1697,7 +1697,22 @@ msgstr ""
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:126
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:87
 msgid "Course"
-msgstr ""
+msgstr "Corsi"
+
+msgid "My courses"
+msgstr "I miei corsi"
+
+msgid "Apply to this course"
+msgstr "Postuler pour ce cours"
+
+msgid "Students list"
+msgstr "Gli studenti lista"
+
+msgid "Course name"
+msgstr "Nome del corso"
+
+msgid "Teacher email"
+msgstr "Insegnante e-mail"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:140
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:131

@@ -106,10 +106,14 @@ class PublishController extends ExtendedProfileRequired {
 	
 	
 	/**
-	 *  Delete user's publication 
+	 *  Delete user's publication and all the students applies if category=course and the comments
 	 */
 	public function delete() {
-					
+		if($_POST['category']=='Course'){
+			$this->delete_Applies();
+		}
+		$this->delete_Comments();
+		
 		$obj = new MyEduPublication();
 		$obj->publisherID = $_SESSION['user']->id;  // Publisher ID
 		$obj->publisher = $_SESSION['user']->id;    // Publisher ID
@@ -129,6 +133,26 @@ class PublishController extends ExtendedProfileRequired {
 		
 		// Render MyPublications View
 		$this->showUserPublications();
+	}
+	
+	function delete_Applies(){
+		$search_by_userid = new Apply();
+		$search_by_userid->pred1 = 'apply&'.$_POST['predicate'].'&'.$_POST['author'];
+		$result = $search_by_userid->find();
+		
+		foreach($result as $item) :
+			$item->delete();
+		endforeach;
+	}
+	
+	function delete_Comments(){
+		$search_by_userid = new Comment();
+		$search_by_userid->pred1 = 'comment&'.$_POST['predicate'].'&'.$_POST['author'];
+		$result = $search_by_userid->find();
+		
+		foreach($result as $item) :
+			$item->delete();
+		endforeach;
 	}
 	
 	

@@ -95,10 +95,6 @@ class DetailsController extends AuthenticatedController {
 		}
 	}
 	
-	function apply(){
-		debug("button apply");
-	}
-	
 	//searching comments
 	public function search_comment() {
 		$search_comments = new Comment();

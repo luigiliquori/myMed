@@ -5,7 +5,7 @@
 <div data-role="page" id ="mypublicationview">
 
 	<!-- Page header bar -->
-	<? $title = _("My Publication");
+	<? $title = _("My publications");
 	   print_header_bar("?action=main", false, $title); ?>
 	
 		
@@ -38,7 +38,7 @@
 
 			<? foreach($this->result as $item) : ?>
 				<li>
-					<a href="?action=publish&method=modify_publication&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
