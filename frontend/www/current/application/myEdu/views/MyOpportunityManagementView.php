@@ -4,7 +4,7 @@
 
 	<!-- Page header bar -->
 	<? $title = _("Manage opportunities");
-	   print_header_bar("?action=myOpportunity&opportunities=true", true, $title); ?>
+	   print_header_bar("?action=myOpportunity&opportunities=true", myoppmngtViewHelpPopup, $title); ?>
 	
 		
 	<!-- Page content -->
@@ -108,5 +108,12 @@
 					}
 					echo '</ul>';
 				?>
+			</div>
+			
+			<!-- Help popup -->
+			<div data-role="popup" id="myoppmngtViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<h3><?= _("My Opportuninty Management  help") ?></h3>
+				<p> <?= _(" <<<<<< A description here. >>>>>>") ?></p>
 			</div>
 </div>

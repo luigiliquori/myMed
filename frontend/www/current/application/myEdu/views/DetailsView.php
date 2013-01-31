@@ -7,11 +7,17 @@
   		// TODO bugfix: back to ResultsView does not work
   		// Save the last valid DetailView page referer 
   		// (another DetailView is not a valid referer)
+  		
+  		// If come from ResultsView goto ?action=find&search=true (FindView)
   		if(strpos($_SERVER['HTTP_REFERER'],"?action=find") &&
   		   !strpos($_SERVER['HTTP_REFERER'],"&search=true")) {
   			$_SESSION['detailsview_valid_referer'] = '?action=find&search=true';
-  		} else if(!strpos($_SERVER['HTTP_REFERER'],"?action=details") &&
-  		   !strpos($_SERVER['HTTP_REFERER'],"?action=updateReputation")) {
+  		} 
+  		// Do not save back link if come from DetailsView, updateReputation popup
+  		// or ModifyPublicationView
+  		else if(!strpos($_SERVER['HTTP_REFERER'],"?action=details") &&
+  		   !strpos($_SERVER['HTTP_REFERER'],"?action=updateReputation") &&
+  		   !strpos($_SERVER['HTTP_REFERER'],"&method=modify_publication") 	) {
   			$_SESSION['detailsview_valid_referer'] = $_SERVER['HTTP_REFERER'];
   		}
   		print_header_bar($_SESSION['detailsview_valid_referer'], false, $title);

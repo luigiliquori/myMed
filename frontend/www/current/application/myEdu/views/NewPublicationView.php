@@ -41,19 +41,19 @@
 				
 				<h3><?= _('Date of expiration') ?> :</h3>
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
-					<select id="publish_day_content" data-inline="true">
+					<select id="publish_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
 					<?php for ($i = 1; $i <= 31; $i++) { ?>
 						<option value="<?= $i ?>"><?= $i ?></option>
 					<?php } ?>
 					</select>
-					<select id="publish_month_content" data-inline="true">
+					<select id="publish_month_content" name="expire_month" data-inline="true">
 						<option value=""><?= _("Month")?></option>
 					<?php for ($i = 1; $i <= 12; $i++) { ?>
 						<option value="<?= $i ?>"><?= $i ?></option>
 					<?php } ?>
 					</select>
-					<select id="publish_year_content" data-inline="true">
+					<select id="publish_year_content" name="expire_year" data-inline="true">
 						<option value=""><?= _("Year")?></option>
 					<?php for ($i = 2012; $i <= 2042; $i++) { ?>
 						<option value="<?= $i ?>"><?= $i ?></option>
