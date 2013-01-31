@@ -2080,7 +2080,7 @@ msgstr "Temi del progetto"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:17
 msgid "MyEurope is an application of the Alcotra <b><em>myMed</em></b> project, which aims to link mayors and municipal transborders."
-msgstr "myEurope é un’applicazione del progetto Alcotra volta a mettere in relazione comuni ed enti transfrontalieri."
+msgstr "myEurope é un’applicazione del progetto Alcotra <b><em>myMed</em></b> volta a mettere in relazione comuni ed enti transfrontalieri."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:18
 msgid "The idea is to provide a tool to simplify and support the creation of European projects as myMed."

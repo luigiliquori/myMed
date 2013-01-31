@@ -55,13 +55,7 @@
 						 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 						 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
 						 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
-						 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />
 						 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
-						 				<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
-						 				<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
-						 				<input type="hidden" name="date" value="<?= $this->result->date ?>" />
-						 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
-						 				<input type="hidden" name="text" value="<?= $this->result->text ?>" />
 						 				<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
 										<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
 						 			</form>
@@ -71,12 +65,8 @@
 								<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
 						  <? }
 						endif;?>
-						
 					</div>
-					
-					
-					
-					
+						
 					<!-- TITLE -->
 					<h3><?= $this->result->title ?> :</h3>
 					
@@ -234,7 +224,11 @@
 	 			<? if($_GET['author']==$_SESSION['user']->id){ ?>
 		 			<!-- STUDENTS APPLICATIONS -->
 					<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
-		 				<h3><?= _('Applicants') ?></h3>
+						<? if($this->result->category=='Course'){ ?>
+		 					<h3><?= _('Applicants') ?>: <?= ($this->result->currentappliers==-1)?0:$this->result->currentappliers ?>/<?= $this->result->maxappliers ?></h3>
+			 			<? }else{ ?>
+			 				<h3><?= _('Applicants') ?> </h3>
+			 			<? } ?>
 			 			<ul data-role="listview" data-filter="false" >
 			 			<?foreach ($this->result_apply as $item) :?>
 			 				<li>
@@ -252,7 +246,15 @@
 									 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
 									 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
 									 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
-									 				<input type="hidden" name="teacher" value="<?= $item->teacher ?>" />
+									 				<input type="hidden" name="author" value="<?= $item->teacher ?>" />
+									 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
+									 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
+									 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />
+									 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+									 				<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+									 				<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
+									 				<input type="hidden" name="date" value="<?= $this->result->end ?>" />
+									 				<input type="hidden" name="text" value="<?= $this->result->text ?>" />
 									 				<input type="hidden" name="title" value="<?= $item->title ?>" />
 									 				
 													<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Accept') ?>" />
@@ -264,8 +266,17 @@
 								 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
 								 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
 								 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
-								 				<input type="hidden" name="teacher" value="<?= $item->teacher ?>" />
 								 				<input type="hidden" name="title" value="<?= $item->title ?>" />
+								 				<input type="hidden" name="author" value="<?= $item->teacher ?>" />
+								 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
+								 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
+								 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />
+								 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+								 				<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+								 				<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
+								 				<input type="hidden" name="date" value="<?= $this->result->end ?>" />
+								 				<input type="hidden" name="text" value="<?= $this->result->text ?>" />
+								 				<input type="hidden" name="accepted" value="<?= $item->accepted ?>" />
 								 				
 												<input data-role="button" type="submit" data-theme="r" data-inline="true" data-mini="true" value="<?= _('Refuse') ?>" />
 								 			</form>
