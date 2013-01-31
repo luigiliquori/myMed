@@ -70,7 +70,7 @@ class FindController extends AuthenticatedController{
 		if($_POST['organizationBox']) $obj->organization = $_POST['organization'];
 		
 		$obj->category = $_POST['category'];
-
+		$obj->type = 'myEduPublication';
 		$obj->end 	= $_POST['date'];
 
 		$obj->title = $_POST['title'];
