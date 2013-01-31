@@ -1,8 +1,22 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page">
-  <? $title = _("Details");
-	 print_header_bar("?action=Find&search=true", false, $title); ?>
+  
+	<!-- Header bar -->
+  	<? $title = _("Details");
+  		// TODO bugfix: back to ResultsView does not work
+  		// Save the last valid DetailView page referer 
+  		// (another DetailView is not a valid referer)
+  		if(strpos($_SERVER['HTTP_REFERER'],"?action=find") &&
+  		   !strpos($_SERVER['HTTP_REFERER'],"&search=true")) {
+  			$_SESSION['detailsview_valid_referer'] = '?action=find&search=true';
+  		} else if(!strpos($_SERVER['HTTP_REFERER'],"?action=details") &&
+  		   !strpos($_SERVER['HTTP_REFERER'],"?action=updateReputation")) {
+  			$_SESSION['detailsview_valid_referer'] = $_SERVER['HTTP_REFERER'];
+  		}
+  		print_header_bar($_SESSION['detailsview_valid_referer'], false, $title);
+
+	?>
 	
 	<div data-role="content" >
 	
@@ -134,9 +148,14 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>
-							<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" ><?= _("Rate author") ?></a>			
-						
+						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>							
+						<?php 
+							// A user cannot rate himself
+							if (!($this->result->publisherID == $_SESSION['user']->id)) {
+								echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate author") .'</a>';
+							}
+						?>
+
 						<!-- Author REPUTATION pop up -->
 						<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center;">
 							<?= _("Do you like the author?") ?><br /><br />

@@ -3,16 +3,19 @@
 <!-- --------------------------- -->
 
 <? require_once('header-bar.php'); ?>
-<? require_once('notifications.php'); ?>
+
 
 <div data-role="page" id="extendedprofilecreateview" >
 	
 	<? require_once('Categories.class.php'); ?>  
   	 
-  	 
 	<!-- Page header bar -->
 	<? $title = _("Create profile");
 	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
+	   
+	<!-- Notification pop up -->
+	<? include_once 'notifications.php'; ?>
+	<? print_notification($this->success.$this->error); ?>
 	
 	   
 	<!-- Page content -->
@@ -41,9 +44,9 @@
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
 			
 			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile -->
-			<input type="hidden" id="firstname" name="firstname" value="<?= $_SESSION['user']->firstName ?>" />
+			<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
 			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
-			<input type="hidden" id="lastname" name="lastname" value="<?= $_SESSION['user']->lastName ?>" />
+			<input type="hidden" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			
@@ -134,7 +137,7 @@
 			<input id="service-term" type="checkbox" name="checkCondition" style="display: inline-block; top: 8px;"/>
 			<span style="display:inline-block;margin-left: 40px;">
 				<?= _("I accept the ")?>
-				<a href="<?= APP_ROOT ?>/conds" rel="external"><?= _("general terms and conditions")?></a>
+				<a href="../myMed/doc/CGU_fr.pdf" rel="external"><?= _("general terms and conditions")?></a>
 			</span>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-theme="e" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>

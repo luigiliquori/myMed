@@ -66,15 +66,20 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	public function create() {
 			
-		// Check form fiels
-		if(!$_POST['checkCondition']){
+		// Check mandatory fiels
+		if (!$_POST['role']) {
+			$this->error = _("Please specify your category");
+			$this->renderView("ExtendedProfileCreate");
+		} else if(!$_POST['checkCondition']) {
 			$this->error = _("You must accept the terms of use.");
 			$this->renderView("ExtendedProfileCreate");
-		}
+		}  
+		
 	
 		// Unset post vale that we don't need
 		unset($_POST['form']);
 		unset($_POST['checkCondition']);
+		
 		// Set id and description
 		$_POST['id'] = hash("md5", time().$_POST['name']);
 		$_POST['desc'] = nl2br($_POST['desc']);

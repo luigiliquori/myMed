@@ -98,7 +98,9 @@
 						echo '<div class="ui-block-a">';
 						echo _("Subscription ").$index.":<br />";
 						foreach($preds as $key2){
-							echo substr($key2,1)." ";
+							if($key2 != ""){
+								echo _(substr($key2,1)).", ";
+							}
 						}
 						echo '</div><div class="ui-block-b">';
 						echo '<a href="?action=myOpportunityManagement&removeSubscription=true&predicate='.$key.'"  data-role="button" data-theme="r" data-inline="true" style="float: right;">'._("Delete subscription").'</a></div></div></li>';
