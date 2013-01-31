@@ -1,23 +1,24 @@
 <?
 
 /** 
- * Comments of Comments
+ * Comments of Applies
  * 
  */
-class Comment extends GenericDataBean {
+class Apply extends GenericDataBean {
 	
 	/** Some predicates .
 	 * Register them in the contructor with appropriate ontologyID */
-	public $type = "comment";
+	public $type = "apply";
 	public $pred1;
 	public $pred2;
+	public $pred3;
+	public $teacher;
 	
 	/** Some data (got after a "details" query).
 	 *  Register them in the contructor with appropriate ontologyID */
-	public $text;
+	public $accepted;
 	
-	public $wrapped1;
-	public $wrapped2;
+	public $title;
 
 	/** Register the attributes either as predicates / data fields */
 	public function __construct(
@@ -27,16 +28,18 @@ class Comment extends GenericDataBean {
 				
 				// Predicate attributes
 				array(
-						"publisher"	=> KEYWORD,
+						"publisher"	=> KEYWORD, // student ID
 						"type"	=> KEYWORD,
 						"pred1" => KEYWORD,
-						"pred2" => GPS),
+						"pred2" => GPS,
+						"pred3" => KEYWORD, // pred of the publication
+						"teacher" => KEYWORD), // publication author ID
 				
 				// Data attributes 
 				array("text" => TEXT),
 				
 				// Wrapped attributes
-				array("wrapped1", "wrapped2"),
+				array("accepted", "title"),
 				
 				$predicateStr);
 		
