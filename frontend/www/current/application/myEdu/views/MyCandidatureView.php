@@ -2,10 +2,10 @@
 <!-- MyPublication View -->
 <!-- ------------------ -->
 
-<div data-role="page" id ="studentcoursesview">
+<div data-role="page" id ="mycandidatureesview">
 
 	<!-- Page header bar -->
-	<? $title = _("My courses");
+	<? $title = _("My candidatures");
 	   print_header_bar("?action=main", false, $title); ?>
 	
 		
@@ -17,7 +17,7 @@
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
-			<p><?= _("Here is the space summarizing all of your courses.")?></p>
+			<p><?= _("Here is the space summarizing all of your candidatures.")?></p>
 		</div>
 		<br />
 	
@@ -34,14 +34,16 @@
 
 			<? foreach($this->result as $item) : ?>
 				<li>
-					<a data-ajax="false" href="?action=details&predicate=<?= $item->pred3 ?>&author=<?= $item->teacher ?>">			
-						<div class="ui-grid-a">
+					<a data-ajax="false" href="?action=details&predicate=<?= $item->pred3 ?>&author=<?= $item->author ?>">			
+						<div class="ui-grid-b">
 							<div class="ui-block-a">
 								<?= _("Publication name") ?>: <b><?= $item->title ?></b>
 							</div>
 							<div class="ui-block-b">
-								<?= _("Author email") ?>: <b><?= $item->teacher ?></b>
-								<div data-role="controlgroup" data-type="horizontal" style="float: right;">
+								<?= _("Author email") ?>: <b><?= $item->author ?></b>
+							</div>
+							<div class="ui-block-c">
+								<div style="float: right;">
 									<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
 								</div>
 							</div>

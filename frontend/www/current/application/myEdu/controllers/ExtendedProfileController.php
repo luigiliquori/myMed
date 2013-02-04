@@ -166,12 +166,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		
 		$_POST['id'] = $id;
-		//unset($_POST['firstName']);
-		//unset($_POST['lastName']);
-		//unset($_POST['birthday']);
-		//unset($_POST['profilePicture']);
-		//unset($_POST['lang']);
-		//unset($_POST['name']);
 		
 		// Update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
@@ -324,6 +318,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (!empty($details['profile'])){
 			$this->getReputation($user->id);
 			$this->profile->reputation = $this->reputationMap[$user->id];
+			$this->nbrates = $this->noOfRatesMap[$user->id];
 		}
 		
 		$this->renderView("ExtendedProfileDisplay");
@@ -346,6 +341,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->profile->parseProfile();
 		$this->getReputation($id);
 		$this->profile->reputation = $this->reputationMap[$id];
+		$this->nbrates = $this->noOfRatesMap[$id];
 	
 		$this->renderView("ExtendedProfileDisplay");
 	}

@@ -1,10 +1,10 @@
 <?php 
 
 /**
- * Retrive the list of a user publication and render
- * MyPublicationView 
+ * Retrive the list of a user candidatures and render
+ * MyCandidatureView 
  */
-class StudentCoursesController extends AuthenticatedController {
+class MyCandidatureController extends AuthenticatedController {
 	
 	/**
 	 * This will create a temporary Profile with the informations submited by POST.
@@ -15,8 +15,7 @@ class StudentCoursesController extends AuthenticatedController {
 		parent::handleRequest();
 		
 		switch ($_GET['method']){
-			// Show the user publications list
-			case 'show_student_courses':
+			case 'show_candidatures':
 				$this->search_apply();
 				break;
 		}
@@ -27,7 +26,7 @@ class StudentCoursesController extends AuthenticatedController {
 		$search_applies->publisher=$_SESSION['user']->id;
 		$this->result = $search_applies->find();
 
-		$this->renderView("StudentCourses");
+		$this->renderView("MyCandidature");
 		
 	}
 }

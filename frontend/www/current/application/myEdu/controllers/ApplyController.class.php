@@ -37,7 +37,7 @@ class ApplyController extends AuthenticatedController {
 			$obj->pred1 = 'apply&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 			$obj->pred2 = $time;
 			$obj->pred3 = $_SESSION['predicate']; // pred of the publication
-			$obj->teacher = $_POST['author'];
+			$obj->author = $_POST['author'];
 			$obj->accepted = 'waiting'; // 'accepted' when the author accepts the student
 			$obj->title = $_POST['title'];
 			$obj->publish();
@@ -48,21 +48,6 @@ class ApplyController extends AuthenticatedController {
 			$mailman2->send();
 		}
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
-	}
-	
-	function update_nb_Appliers($newCurrentAppliers){
-		$obj = new MyEduPublication();
-		$obj->publisher = $_POST['author'];
-		$obj->area = $_POST['area'];				
-		$obj->category = $_POST['category'];		
-		$obj->locality = $_POST['locality'];		
-		$obj->organization = $_POST['organization'];
-		$obj->end 	= $_POST['date'];				
-		$obj->title = $_POST['title'];				
-		$obj->text 	= $_POST['text'];
-		$obj->maxappliers 	= $_POST['maxappliers'];
-		$obj->currentappliers = $newCurrentAppliers;
-		$obj->publish();
 	}
 	
 	function accept(){
@@ -89,7 +74,7 @@ class ApplyController extends AuthenticatedController {
 			$obj->pred1=$_POST['pred1'];
 			$obj->pred2 = $_POST['pred2'];
 			$obj->pred3 = $_POST['pred3'];
-			$obj->teacher = $_POST['author'];
+			$obj->author = $_POST['author'];
 			$obj->accepted = 'accepted';
 			$obj->title = $_POST['title'];
 			$obj->publish();
@@ -120,7 +105,7 @@ class ApplyController extends AuthenticatedController {
 		$obj->pred1=$_POST['pred1'];
 		$obj->pred2 = $_POST['pred2'];
 		$obj->pred3 = $_POST['pred3'];
-		$obj->teacher = $_POST['author'];
+		$obj->author = $_POST['author'];
 		$obj->accepted = $_POST['accepted'];
 		$obj->title = $_POST['title'];
 		$obj->delete();
@@ -129,6 +114,21 @@ class ApplyController extends AuthenticatedController {
 		$mailman->send();
 		
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
+	}
+	
+	function update_nb_Appliers($newCurrentAppliers){
+		$obj = new MyEduPublication();
+		$obj->publisher = $_POST['author'];
+		$obj->area = $_POST['area'];
+		$obj->category = $_POST['category'];
+		$obj->locality = $_POST['locality'];
+		$obj->organization = $_POST['organization'];
+		$obj->end 	= $_POST['date'];
+		$obj->title = $_POST['title'];
+		$obj->text 	= $_POST['text'];
+		$obj->maxappliers 	= $_POST['maxappliers'];
+		$obj->currentappliers = $newCurrentAppliers;
+		$obj->publish();
 	}
 }
 ?>

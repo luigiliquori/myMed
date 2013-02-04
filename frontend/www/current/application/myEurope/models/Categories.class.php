@@ -26,16 +26,16 @@ Categories::$themes = array(
 );
 
 Categories::$roles = array(
-	"assoc"           => _("Association - Coopérative - Mutuelle"),
-	"entr"            => _("Entreprise privée"),
-	"chamb"           => _("Chambre consulaire - Groupement professionnel"),
-	"univ"            => _("Université - Recherche"),
-	"commune"         => _("Commune, intercommunalité - établissement public communal ou intercommunal"),
-	"departement"     => _("Département - établissement public départemental"),
-	"region"          => _("Région - établissement public régional"),
-	"etat"            => _("Service de l'Etat - établissement public de l'Etat"),
-	"autreEtPublic"   => _("Autre établissement ou groupement public"),
-	"autre"           => _("Autre")
+	"assoc"           => _("Association - Cooperative - Mutual"),
+	"entr"            => _("Private enterprise"),
+	"chamb"           => _("Consular Chamber - Professional Association"),
+	"univ"            => _("University - Research"),
+	"commune"         => _("City, inter communality - communal or intercommunal public institution"),
+	"departement"     => _("Department - departmental public institution"),
+	"region"          => _("Region - regional public institution"),
+	"etat"            => _("Department of State - State public institution"),
+	"autreEtPublic"   => _("Another facility or public group"),
+	"autre"           => _("Other")
 );
 
 Categories::$calls = array(

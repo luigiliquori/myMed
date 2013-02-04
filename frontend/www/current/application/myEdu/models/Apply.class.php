@@ -12,7 +12,7 @@ class Apply extends GenericDataBean {
 	public $pred1;
 	public $pred2;
 	public $pred3;
-	public $teacher;
+	public $author;
 	
 	/** Some data (got after a "details" query).
 	 *  Register them in the contructor with appropriate ontologyID */
@@ -33,7 +33,7 @@ class Apply extends GenericDataBean {
 						"pred1" => KEYWORD,
 						"pred2" => GPS,
 						"pred3" => KEYWORD, // pred of the publication
-						"teacher" => KEYWORD), // publication author ID
+						"author" => KEYWORD), // publication author ID
 				
 				// Data attributes 
 				array("text" => TEXT),

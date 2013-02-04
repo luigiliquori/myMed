@@ -25,10 +25,12 @@
 		<br><br>
 		<?php	
 	   		// Select language
-			$lang="";
-			if($_SESSION['user']->lang=="en") $lang=_("English");
-			else if($_SESSION['user']->lang=="it") $lang=_("Italian");
-			else $lang=_("French");
+			$lang="No defined";
+	   		if($_SESSION['user']->lang){
+				if($_SESSION['user']->lang=="en") $lang=_("English");
+				else if($_SESSION['user']->lang=="it") $lang=_("Italian");
+				else $lang=_("French");
+			}
 		?>
 		
 		<!-- Show user profile -->
@@ -95,7 +97,7 @@
 				<br />
 				<? if(($this->profile->details['role']!='professor')): ?>
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <?= $this->profile->reputation ?>
+					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> rates)
 				</p>
 				<br />
 				<?php endif; ?>
