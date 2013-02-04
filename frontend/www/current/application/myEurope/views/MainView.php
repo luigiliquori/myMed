@@ -49,14 +49,14 @@
 						<p><?= _("Insert your own partnership offers") ?></p>
 				</li>
 				<li>
-					<img alt="blog" src="img/icons/blog.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("Blog") ?></strong></p>
-						<p><?= _("Give your opinion, share your experience and enrich the network myEurope") ?></p>
-				</li>
-				<li>
 					<img alt="profile" src="img/icons/profile<?= $_SESSION['user']->is_guest ? "_guest" : "" ?>.png" Style="position:absolute; left:0px; width: 64px">
 					<p><strong><?= _("Profile") ?></strong></p>
 					<p><?= _("Complete and manage your profile for a better visibility in myEurope") ?></p>
+				</li>
+				<li>
+					<img alt="blog" src="img/icons/blog.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("Blog") ?></strong></p>
+						<p><?= _("Give your opinion, share your experience and enrich the network myEurope") ?></p>
 				</li>
 			</ul>
 			<br />	

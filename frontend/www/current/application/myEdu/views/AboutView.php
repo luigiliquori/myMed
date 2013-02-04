@@ -12,20 +12,18 @@
 		<h1 style="display: inline-block;vertical-align: 20%;"><?= APPLICATION_NAME ?></h1>
 		<!-- <h3 style="margin-top: -5px;"><?= _(APPLICATION_LABEL) ?></h3>-->
 		<br>
-		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
-			<li>
-			<p>
+		<div data-role="collapsible" data-theme="d" data-collapsed="false" data-content-theme="d">
+			<p style='text-align:left'>
 				<?= _("<b>MyEdu</b> is an application that has the goal of improving communication between the university and students. <br/>Through myEdu, the university can publish ads on thesis, internships and job opportunities; while students can enjoy all this information through any device with a browser and an Internet connection.<br/>It is also possible to register for one or more topics of interest and receive in its own box email notifications from new content posted on the site.<br/>Soon will be possible to share teaching materials and tutor!") ?>
 			</p>
-			</li>
-		</ul>
-		<p>
-			<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= _("More informations") ?></a>
-		</p>
-		<p>
-			<?= _("If you find an error you can report it at this address: ")?><a href="http://mymed22.sophia.inria.fr/bugreport/index.php" target="_blank"> http://mymed22.sophia.inria.fr/bugreport/index.php </a>
-		</p>
-		<br/><br/>
+			<p>
+				<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= _("More informations") ?></a>
+			</p>
+			<p>
+				<?= _("If you find an error you can report it at this address: ")?><a href="http://mymed22.sophia.inria.fr/bugreport/index.php" target="_blank"> http://mymed22.sophia.inria.fr/bugreport/index.php </a>
+			</p>
+			<br/>
+			<br/>
 		<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>
 	</div>
 

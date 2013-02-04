@@ -47,8 +47,10 @@ class PublishRequest extends Request {
 
 	/* --------------------------------------------------------- */
 	/* Public methods */
+	/* 	Parameters: Level (*optional) sets the level of broadcasting in
+	/*				the Index Table (default: predicate length)
 	/* --------------------------------------------------------- */
-	public /*void*/ function send() {		
+	public /*void*/ function send($level = false) {		
 		
 		// Build the request
 		if (empty($this->userID)) {
@@ -70,6 +72,11 @@ class PublishRequest extends Request {
 		parent::addArgument("user", $this->userID);
 		parent::addArgument("predicate", $predicate);
 		parent::addArgument("data", $data);
+		
+		// Limit the broadcasting in the Index Table
+		if($level != false) {
+			parent::addArgument("level", $level);
+		}
 		
 		$responsejSon = parent::send();
 		$responseObject = json_decode($responsejSon);

@@ -19,9 +19,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (isset($_SESSION['user']) && $_SESSION['user']->is_guest) {
 			$this->forwardTo('login');
 		}
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			DEBUG("post");
-		}
 		
 		// Execute the called controller method
 		if(isset($_GET['method'])){
@@ -69,15 +66,20 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	public function create() {
 			
-		// Check form fiels
-		if(!$_POST['checkCondition']){
+		// Check mandatory fiels
+		if (!$_POST['role']) {
+			$this->error = _("Please specify your category");
+			$this->renderView("ExtendedProfileCreate");
+		} else if(!$_POST['checkCondition']) {
 			$this->error = _("You must accept the terms of use.");
 			$this->renderView("ExtendedProfileCreate");
-		}
+		}  
+		
 	
 		// Unset post vale that we don't need
 		unset($_POST['form']);
 		unset($_POST['checkCondition']);
+		
 		// Set id and description
 		$_POST['id'] = hash("md5", time().$_POST['name']);
 		$_POST['desc'] = nl2br($_POST['desc']);
@@ -342,14 +344,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Get reputation
 		$this->profile->parseProfile();
-		//$this->profile->reputation = pickFirst(getReputation(array($id)));
 		$this->getReputation($id);
 		$this->profile->reputation = $this->reputationMap[$id];
 	
 		$this->renderView("ExtendedProfileDisplay");
 	}
-	
-	
 	
 	/** 
 	 * Delete a user and its profile 

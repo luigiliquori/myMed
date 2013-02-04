@@ -95,7 +95,7 @@
 				<br />
 				<? if(($this->profile->details['role']!='professor')): ?>
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <?= $this->profile->reputation ?></a>
+					<?= _("reputation")?>: <?= $this->profile->reputation ?>
 				</p>
 				<br />
 				<?php endif; ?>
@@ -121,11 +121,10 @@
 			<!-- List of user subscriptions -->
 			<br />
 				<? if (isset($_SESSION['myEdu'])): ?>
-				<a type="button" href="?action=" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My opportunities") ?></a>
+				<a type="button" href="?action=myOpportunity&opportunities=true" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My opportunities") ?></a>
 				<? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 		<? endif; ?>
-		
 	
 	</div> <!-- END Page content -->
 	

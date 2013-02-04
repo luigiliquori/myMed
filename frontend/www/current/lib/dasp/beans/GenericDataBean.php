@@ -325,14 +325,14 @@ abstract class GenericDataBean {
 	/**
 	 * Publish the content of this bean to the backend.
 	 */
-	public function publish() {
+	public function publish($level = false) {
 		$this->wrapData();
 		$pr = new PublishRequest(
 				null,
 				$this,
 				$this->publisherID,
 				$this->NAMESPACE);
-		$pr->send();
+		$pr->send($level);
 	}
 	
 	/**

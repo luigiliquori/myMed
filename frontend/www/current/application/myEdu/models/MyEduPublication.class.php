@@ -8,7 +8,7 @@ class MyEduPublication extends GenericDataBean {
 	
 	/** Some predicates .
 	 * Register them in the contructor with appropriate ontologyID */
-	public $type = "myEduPublication";
+	public $type = 'myEduPublication';
 	public $area;
 	public $category;
 	public $locality;
@@ -18,6 +18,8 @@ class MyEduPublication extends GenericDataBean {
 	 *  Register them in the contructor with appropriate ontologyID */
 	public $title;
 	public $text;
+	public $maxappliers;			// Max appliers to a course
+	public $currentappliers;		// Current appliers to a course
 	
 	public $pred1;
 	public $pred2;
@@ -41,7 +43,9 @@ class MyEduPublication extends GenericDataBean {
 						"pred2" => GPS),
 				
 				// Data attributes 
-				array("text" => TEXT),
+				array("text" => TEXT, 
+					  "maxappliers" => TEXT,
+					  "currentappliers" => TEXT),
 				
 				// Wrapped attributes
 				array("title", "end"),

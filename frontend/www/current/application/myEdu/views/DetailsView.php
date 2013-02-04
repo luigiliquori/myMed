@@ -1,8 +1,28 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page">
-  <? $title = _("Details");
-	 print_header_bar("?action=Find&search=true", false, $title); ?>
+  
+	<!-- Header bar -->
+  	<? $title = _("Details");
+  		// TODO bugfix: back to ResultsView does not work
+  		// Save the last valid DetailView page referer 
+  		// (another DetailView is not a valid referer)
+  		
+  		// If come from ResultsView goto ?action=find&search=true (FindView)
+  		if(strpos($_SERVER['HTTP_REFERER'],"?action=find") &&
+  		   !strpos($_SERVER['HTTP_REFERER'],"&search=true")) {
+  			$_SESSION['detailsview_valid_referer'] = '?action=find&search=true';
+  		} 
+  		// Do not save back link if come from DetailsView, updateReputation popup
+  		// or ModifyPublicationView
+  		else if(!strpos($_SERVER['HTTP_REFERER'],"?action=details") &&
+  		   !strpos($_SERVER['HTTP_REFERER'],"?action=updateReputation") &&
+  		   !strpos($_SERVER['HTTP_REFERER'],"&method=modify_publication") 	) {
+  			$_SESSION['detailsview_valid_referer'] = $_SERVER['HTTP_REFERER'];
+  		}
+  		print_header_bar($_SESSION['detailsview_valid_referer'], false, $title);
+
+	?>
 	
 	<div data-role="content" >
 	
@@ -11,10 +31,48 @@
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
 			<div data-role="collapsible" data-collapsed="false">
-			
 			<br />	
 			<h3><?= _("Description") ?></h3>
 				<div>
+					<!-- APPLY FOR STUDENTS IF PUBLICATION=COURSE -->
+					<div style="position: absolute; right: 24px;">
+						<?
+						if(isset($_SESSION['myEdu'])):	
+							$date=strtotime(date('d-m-Y'));
+							$expired=false;
+							if(!empty($this->result->end)  && $this->result->end!="--"){
+								$expDate=strtotime($this->result->end);
+								if($expDate < $date){
+									$expired=true;
+								}
+							}
+							
+							if($expired==false && $_GET['author']!=$_SESSION['user']->id){
+								$applied=false;
+								foreach ($this->result_apply as $item) :
+									if($item->publisherID==$_SESSION['user']->id){ // already applied
+										$applied=true;
+										break;
+									}
+								endforeach;
+								if($applied==false){?>
+						 			<form action="?action=apply&method=apply" method="POST" data-ajax="false">
+						 				<input type="hidden" name="method" value="Apply" />
+						 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
+						 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
+						 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
+						 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+						 				<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
+										<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
+						 			</form>
+			 				 <? }
+							 }
+							 if($_GET['author']==$_SESSION['user']->id){ ?> <!-- the user is the author of this publication: can update -->
+								<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
+						  <? }
+						endif;?>
+					</div>
+						
 					<!-- TITLE -->
 					<h3><?= $this->result->title ?> :</h3>
 					
@@ -39,8 +97,13 @@
 				<?php  // Only user wit myEdu extended profile can rate 
 					   if(isset($_SESSION['myEdu'])) : ?>
 	    		<div>
-	    		
+	    			
 	    			<!-- Publication reputation -->
+	    			<?
+	    			$date=strtotime(date('d-m-Y'));
+	    			$courseDate=strtotime($this->result->end);
+	    			if(($this->result->category=='Course' && $courseDate<$date) || $this->result->category!='Course'){
+	    			?>
 	    			<p style="display:inline; font-size:80%;">Publication rate:</p>
 						<?php
 							// Disable reputation stars if there are no votes yet 
@@ -75,6 +138,7 @@
 							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
 						</form>
 					</div>	
+					<? } ?>
 					
 					<!-- Author reputation (only for students and companies) -->
 					<?php if(!($this->publisher_profile->details['role']=='professor')): ?>
@@ -94,9 +158,14 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>
-							<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" ><?= _("Rate author") ?></a>			
-						
+						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>							
+						<?php 
+							// A user cannot rate himself
+							if (!($this->result->publisherID == $_SESSION['user']->id)) {
+								echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate author") .'</a>';
+							}
+						?>
+
 						<!-- Author REPUTATION pop up -->
 						<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center;">
 							<?= _("Do you like the author?") ?><br /><br />
@@ -156,8 +225,75 @@
 							<input type="submit" value="<?= _('Comment') ?>" />
 			 			</form>
 	 				<? } ?>
-	 			</div>
-			</div>
+	 			</div><br>
+	 			
+	 			<? if($_GET['author']==$_SESSION['user']->id){ ?>
+		 			<!-- STUDENTS APPLICATIONS -->
+					<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+						<? if($this->result->category=='Course'){ ?>
+		 					<h3><?= _('Applicants') ?>: <?= ($this->result->currentappliers==-1)?0:$this->result->currentappliers ?>/<?= $this->result->maxappliers ?></h3>
+			 			<? }else{ ?>
+			 				<h3><?= _('Applicants') ?> </h3>
+			 			<? } ?>
+			 			<ul data-role="listview" data-filter="false" >
+			 			<?foreach ($this->result_apply as $item) :?>
+			 				<li>
+				 				<div class="ui-grid-a">
+									<div class="ui-block-a">
+										<?= _("Name") ?>: <b><?= $item->publisherName ?></b>
+									</div>
+									<div class="ui-block-b">
+										<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
+										<div data-role="controlgroup" data-type="horizontal" style="float: right;">
+											<? if($item->accepted!='accepted'): ?>
+						 	    				<form action="?action=apply&method=accept" method="POST" data-ajax="false" style="float:left">
+									 				<input type="hidden" name="method" value="Accept" />
+									 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
+									 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
+									 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
+									 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
+									 				<input type="hidden" name="author" value="<?= $item->teacher ?>" />
+									 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
+									 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
+									 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />
+									 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+									 				<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+									 				<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
+									 				<input type="hidden" name="date" value="<?= $this->result->end ?>" />
+									 				<input type="hidden" name="text" value="<?= $this->result->text ?>" />
+									 				<input type="hidden" name="title" value="<?= $item->title ?>" />
+									 				
+													<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Accept') ?>" />
+									 			</form>
+											<? endif;?>
+											<form action="?action=apply&method=refuse" method="POST" data-ajax="false" style="float:right">
+								 				<input type="hidden" name="method" value="Refuse" />
+								 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
+								 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
+								 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
+								 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
+								 				<input type="hidden" name="title" value="<?= $item->title ?>" />
+								 				<input type="hidden" name="author" value="<?= $item->teacher ?>" />
+								 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
+								 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
+								 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />
+								 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+								 				<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+								 				<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
+								 				<input type="hidden" name="date" value="<?= $this->result->end ?>" />
+								 				<input type="hidden" name="text" value="<?= $this->result->text ?>" />
+								 				<input type="hidden" name="accepted" value="<?= $item->accepted ?>" />
+								 				
+												<input data-role="button" type="submit" data-theme="r" data-inline="true" data-mini="true" value="<?= _('Refuse') ?>" />
+								 			</form>
+										</div>
+									</div>
+								</div>
+			 				</li>
+						<? endforeach ?>
+						</ul>
+					</div>
+				<? } ?>
 		</div>
 		
 	</div>

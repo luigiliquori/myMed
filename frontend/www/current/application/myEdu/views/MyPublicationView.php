@@ -5,7 +5,7 @@
 <div data-role="page" id ="mypublicationview">
 
 	<!-- Page header bar -->
-	<? $title = _("My Publication");
+	<? $title = _("My publications");
 	   print_header_bar("?action=main", false, $title); ?>
 	
 		
@@ -38,7 +38,7 @@
 
 			<? foreach($this->result as $item) : ?>
 				<li>
-					<a href="?action=publish&method=modify_publication&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
@@ -50,24 +50,24 @@
 							<b>Publisher ID:</b><?= $item->publisherID ?><br/> 
 							<!-- Project reputation-->	
 							<p style="display:inline; margin-left: 30px;" > <b><?= _("Project reputation")?>:</b> </p>  
-							<p style="display:inline; margin-left: 30px;" >
+							<p style="display:inline; " >
 								<?php
 									// Disable reputation stars if there are no votes yet 
 									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:130px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
-											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:130px; margin-top:3px;" />
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;" />
 										<?php } else { ?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:130px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;"/>
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
-								<p style="display:inline; margin-left:35px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
 							</p>
+							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
 						</p>			
 					</a>
 				</li>

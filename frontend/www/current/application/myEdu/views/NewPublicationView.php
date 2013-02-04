@@ -10,7 +10,7 @@
   	
   	<!-- Page header -->
   	<? $title = _("Create publication");	
-	   print_header_bar(true, "defaultHelpPopup", $title); ?>
+	   print_header_bar("?action=publish&method=show_user_publications", "defaultHelpPopup", $title); ?>
 
 	<!-- Page content -->
 	<div data-role="content">
@@ -41,19 +41,19 @@
 				
 				<h3><?= _('Date of expiration') ?> :</h3>
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
-					<select id="publish_day_content" data-inline="true">
+					<select id="publish_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
 					<?php for ($i = 1; $i <= 31; $i++) { ?>
 						<option value="<?= $i ?>"><?= $i ?></option>
 					<?php } ?>
 					</select>
-					<select id="publish_month_content" data-inline="true">
+					<select id="publish_month_content" name="expire_month" data-inline="true">
 						<option value=""><?= _("Month")?></option>
 					<?php for ($i = 1; $i <= 12; $i++) { ?>
 						<option value="<?= $i ?>"><?= $i ?></option>
 					<?php } ?>
 					</select>
-					<select id="publish_year_content" data-inline="true">
+					<select id="publish_year_content" name="expire_year" data-inline="true">
 						<option value=""><?= _("Year")?></option>
 					<?php for ($i = 2012; $i <= 2042; $i++) { ?>
 						<option value="<?= $i ?>"><?= $i ?></option>
@@ -79,12 +79,28 @@
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
-					<select name="category" id="category" data-native-menu="false">
+					<select name="category" id="category" data-native-menu="false" 
+							onChange=" 
+								if($('select#category').val() == 'Course') {
+									$('#maxappliersdiv').show();
+								} else {
+									$('#maxappliersdiv').hide();
+								}
+								
+					" >
 						<option value=""> <?= _("Category")?> </option>
 					<? foreach (Categories::$categories as $k=>$v) :?>
-						<option value="<?= $k ?>"><?= $v ?></option>
+						<?= ($k == 'Course' &&  
+							!($_SESSION['myEdu']->details['role']=='professor')) ? '' : 
+						'<option value="'.$k.'">'.$v.'</option>';
+						?>
 					<? endforeach ?>
 					</select>
+					<div data-role="fieldcontain" id="maxappliersdiv" name="maxappliersdiv" style="text-align:right; display: none; margin-right:30px;">
+						<label for="maxappliers" ><?=_(" Max course appliers number: "); ?></label>
+	    				<input type="text" name="maxappliers" id="maxappliers" value="30" style="width:80px; text-align:right;"/>
+					</div>
+					<input type="hidden" id="currentappliers" name="currentappliers" value="-1" />
 					<select name="locality" id="locality" data-native-menu="false">
 						<option value=""> <?= _("Locality")?> </option>
 					<? foreach (Categories::$localities as $k=>$v) :?>

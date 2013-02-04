@@ -106,6 +106,36 @@ msgstr "Actualiser"
 msgid "Edit"
 msgstr "Modifier"
 
+msgid "My candidatures"
+msgstr "Mes candidatures"
+
+msgid "Publication name"
+msgstr "Nom de la publication"
+
+msgid "Applicants"
+msgstr "Candidats"
+
+msgid "Accept"
+msgstr "Accepter"
+
+msgid "Apply"
+msgstr "Postuler"
+
+msgid "Refuse"
+msgstr "Refuser"
+
+msgid "Student name"
+msgstr "Nom de l'étudiant"
+
+msgid "Author email"
+msgstr "Email de l'auteur"
+
+msgid "waiting"
+msgstr "en attente"
+
+msgid "accepted"
+msgstr "accepté"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:27
 msgid "About you"
 msgstr "A propos de vous"
@@ -1671,7 +1701,7 @@ msgstr "Université"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:135
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:126
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:87
-msgid "Courses"
+msgid "Course"
 msgstr "Cours"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:140
