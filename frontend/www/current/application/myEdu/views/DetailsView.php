@@ -246,7 +246,7 @@
 									 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
 									 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
 									 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
-									 				<input type="hidden" name="author" value="<?= $item->teacher ?>" />
+									 				<input type="hidden" name="author" value="<?= $item->author ?>" />
 									 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
 									 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
 									 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />
@@ -267,7 +267,7 @@
 								 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
 								 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
 								 				<input type="hidden" name="title" value="<?= $item->title ?>" />
-								 				<input type="hidden" name="author" value="<?= $item->teacher ?>" />
+								 				<input type="hidden" name="author" value="<?= $item->author ?>" />
 								 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
 								 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
 								 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />

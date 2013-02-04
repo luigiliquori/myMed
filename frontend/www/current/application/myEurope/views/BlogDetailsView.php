@@ -61,7 +61,7 @@
 				<!-- END Publication REPUTATION -->
 								
 				<p style="position: relative; margin-left: 30px;">
-					<b><?= _("Cathegory")?></b>: <?= $this->result->pred1 ?><br/>
+					<b><?= _("Cathegory")?></b>: <?= _($this->result->pred1) ?><br/>
 					<b><?= _("Date")?></b>: <?= date('Y-m-d', $this->result->begin) ?><br/>
 				</p>
 				

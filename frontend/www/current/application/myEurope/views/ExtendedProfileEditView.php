@@ -90,7 +90,7 @@
 			</div>
 			<div data-role="fieldcontain">
 				<label for="desc" style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEurope']->details['desc'] ?></textarea>
+				<textarea id="desc" name="desc" placeholder="<?= _("description, comments")?>"><?= $_SESSION['myEurope']->details['desc'] ?></textarea>
 			</div>
 			<br />
 			<div data-role="fieldcontain">

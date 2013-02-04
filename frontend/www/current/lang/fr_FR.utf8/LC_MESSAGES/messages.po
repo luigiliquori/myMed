@@ -1166,44 +1166,43 @@ msgid "Fishing"
 msgstr "Pêche"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:29
-msgid "Association - Coopérative - Mutuelle"
-msgstr ""
+msgid "Association - Cooperative - Mutual"
+msgstr "Association - Coopérative - Mutuelle"
+
+msgid "description, comments"
+msgstr "description, commentaires"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:30
-msgid "Entreprise privée"
-msgstr ""
+msgid "Private enterprise"
+msgstr "Entreprise privée"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:31
-msgid "Chambre consulaire - Groupement professionnel"
-msgstr ""
+msgid "Consular Chamber - Professional Association"
+msgstr "Chambre consulaire - Groupement professionnel"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:32
-msgid "Université - Recherche"
-msgstr ""
+msgid "University - Research"
+msgstr "Université - Recherche"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:33
-msgid "Commune, intercommunalité - établissement public communal ou intercommunal"
-msgstr ""
+msgid "City, inter communality - communal or intercommunal public institution"
+msgstr "Commune, intercommunalité - établissement public communal ou intercommunal"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:34
-msgid "Département - établissement public départemental"
-msgstr ""
+msgid "Department - departmental public institution"
+msgstr "Département - établissement public départemental"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:35
-msgid "Région - établissement public régional"
-msgstr ""
+msgid "Region - regional public institution"
+msgstr "Région - établissement public régional"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:36
-msgid "Service de l'Etat - établissement public de l'Etat"
-msgstr ""
+msgid "Department of State - State public institution"
+msgstr "Service de l'Etat - établissement public de l'Etat"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:37
-msgid "Autre établissement ou groupement public"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:38
-msgid "Autre"
-msgstr "Autre"
+msgid "Another facility or public group"
+msgstr "Autre établissement ou groupement public"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:42
 msgid "Proposition libre"
@@ -2237,11 +2236,10 @@ msgid "<h3>Operation of search engine:</h3> <p>If you leave all fields <b>empty<
 msgstr "<h3>Fonctionnement du moteur de recherche:</h3><p>Si vous laissez tous les champs <b>vides</b>, vous obtenez toutes les offres publiées à ce jour.</p><p>Lorsque vous laissez une catégorie <b>vide</b>, elle n'est pas prise en compte dans la recherche.</p><p>Lorsque vous cochez / remplissez plusieurs champs dans une catégorie, les résultats correspondront à au moins un des critères coché.</p>"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogResultView.php:8
-msgid "Topics in cathegory"
+msgid "Topics in category"
 msgstr "Rubriques dans la catégorie"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogResultView.php:20
-#, fuzzy
 msgid "Publication date"
 msgstr "Date de publication"
 

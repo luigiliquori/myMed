@@ -824,7 +824,7 @@ msgstr "Profili"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/AdminView.php:13
 msgid "Notify me of new users"
-msgstr "Notificami nuovi iscrizioni"
+msgstr "Notificami nuove iscrizioni"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/AdminView.php:19
 msgid "New users waiting for validation"
@@ -1129,7 +1129,7 @@ msgstr "Educazione, cultura e sport "
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:18
 msgid "Work and training"
-msgstr "Lavoro e tirocini"
+msgstr "Lavoro e formazione professionale"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:19
 msgid "Enterprises, Research and Innovation"
@@ -1141,15 +1141,15 @@ msgstr "Ambiente, Energia e Rischi ambientali"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:21
 msgid "Transport, Facilities and Zoning"
-msgstr "Trasporto, infrastrutture e pianificazione territoriale"
+msgstr "Trasporto, infrastrutture e pianificazione del territorio"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:22
 msgid "Health and Consumer Protection"
-msgstr "Salute e tutela dei consumatori"
+msgstr "Salute e protezione dei consumatori"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:23
 msgid "Social Affairs"
-msgstr "Affari sociali"
+msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:24
 msgid "Agriculture"
@@ -1160,45 +1160,40 @@ msgid "Fishing"
 msgstr "Pesca"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:29
-msgid "Association - Coopérative - Mutuelle"
+msgid "Association - Cooperative - Mutual"
 msgstr "Associazione - Cooperativa - Mutua"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:30
-msgid "Entreprise privée"
+msgid "Private enterprise"
 msgstr "Ente privato"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:31
-msgid "Chambre consulaire - Groupement professionnel"
+msgid "Consular Chamber - Professional Association"
 msgstr "Camera consolare - Consorzio professionale"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:32
-msgid "Université - Recherche"
+msgid "University - Research"
 msgstr "Università - Ricerca"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:33
-msgid "Commune, intercommunalité - établissement public communal ou intercommunal"
+msgid "City, inter communality - communal or intercommunal public institution"
 msgstr "Comune, intercomunalità - ente pubblico comunale o intercomunale"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:34
-msgid "Département - établissement public départemental"
+msgid "Department - departmental public institution"
 msgstr "Provincia - ente pubblico provinciale"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:35
-msgid "Région - établissement public régional"
+msgid "Region - regional public institution"
 msgstr "Regione - ente pubblico regionale"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:36
-#, fuzzy
-msgid "Service de l'Etat - établissement public de l'Etat"
-msgstr "Servizio statale - ente pubblico statale"
+msgid "Department of State - State public institution"
+msgstr "Organismo statale - ente pubblico statale"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:37
-msgid "Autre établissement ou groupement public"
+msgid "Another facility or public group"
 msgstr "Altro ente o raggruppamento pubblico"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:38
-msgid "Autre"
-msgstr "Altro"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:42
 msgid "Proposition libre"
@@ -1330,23 +1325,23 @@ msgstr "Corsica"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:89
 msgid "Ideas"
-msgstr "Aumentare"
+msgstr "Descrizione dell'idea di progetto"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:90
 msgid "Partners search"
-msgstr "Partner"
+msgstr "Ricerca dei partner di progetto"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:91
 msgid "Application"
-msgstr "applicazione"
+msgstr "Applicazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:92
 msgid "Project implementation"
-msgstr ""
+msgstr "Attuazione del progetto"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:93
 msgid "Monitoring and evaluation"
-msgstr ""
+msgstr "Monitoraggio e valutazione del progetto"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:94
 msgid "Communication"
@@ -1764,9 +1759,8 @@ msgid "Users list"
 msgstr "Lista dei membri"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:42
-#, fuzzy
 msgid "User details"
-msgstr "Dettagli partenariato"
+msgstr "Dati utente"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:58
 msgid "MyEdu extended profile details"
@@ -2120,7 +2114,7 @@ msgstr "locale"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:67
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:40
 msgid "departmental"
-msgstr "dipartimentale"
+msgstr "provinciale"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:68
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:41
@@ -2129,9 +2123,8 @@ msgstr "regionale"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:69
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:42
-#, fuzzy
 msgid "national"
-msgstr "internazionale"
+msgstr "nazionale"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:70
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:43
@@ -2197,7 +2190,7 @@ msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileDisplayView.php:58
 msgid "List my projects"
-msgstr "Listare miei progetti"
+msgstr "Lista i miei progetti"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileDisplayView.php:69
 msgid "Edit Profile and Projects"
@@ -2236,12 +2229,10 @@ msgid "<h3>Operation of search engine:</h3> <p>If you leave all fields <b>empty<
 msgstr "<h3>Il funzionamento del motore di ricerca:</h3> <p>Lasciando tutti i campi <b>vuoti</b> otterrete tutte le offerte pubblicate quest’oggi.</p><p>Dal momento che avrete selezionato / riempito più campi di una categoria i risultati corrisponderanno ad almeno uno dei criteri selezionati.</p>"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogResultView.php:8
-#, fuzzy
-msgid "Topics in cathegory"
-msgstr "Scegli una categoria "
+msgid "Topics in category"
+msgstr "Argomenti di categoria"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/BlogResultView.php:20
-#, fuzzy
 msgid "Publication date"
 msgstr "Data pubblicazione"
 
@@ -2311,9 +2302,8 @@ msgid "Date"
 msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/models/Profile.class.php:60
-#, fuzzy
 msgid "Organization details"
-msgstr "Email dell'organizzazione"
+msgstr "Dati organizzazione"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/controllers/UpdateReputationController.class.php:17
 msgid "You can't rate your own project!"
@@ -2717,6 +2707,9 @@ msgstr ""
 #, fuzzy
 msgid "Description de l'annonce"
 msgstr "Descrizione"
+
+msgid "description, comments"
+msgstr "inserisci una descrizione, un commento"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:7
 #, fuzzy
