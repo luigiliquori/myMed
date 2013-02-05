@@ -4,8 +4,8 @@
 <div id="findview" data-role="page">
 
 	<? $title = _("Search"); 
-	print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
-			
+	   print_header_bar("?action=main", "findViewHelpPopup", $title); ?>
+
 	<div data-role="content">
 		
 		<form name="frm" action="index.php?action=find" method="POST" data-ajax="false">
@@ -148,5 +148,13 @@
 		</div>
 			
 	</div>
+	
+	<!-- Help popup -->
+	<div data-role="popup" id="findViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<h3><?= _("FindView help") ?></h3>
+		<p> <?= _(" <<<<<< A description here. >>>>>>") ?></p>
+	</div>
+	
 </div>
 
