@@ -56,6 +56,7 @@ Categories::$roles = array(
 
 Categories::$organizations = array(
 	"Amu"     	=> _("Amu"),
+	"Companies" => _("Companies"),
 	"Polito"	=> _("Polito"),
 	"Unice"     => _("Unice"),
 	"Unipo"     => _("Unipo"),

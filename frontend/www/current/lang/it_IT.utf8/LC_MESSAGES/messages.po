@@ -2090,7 +2090,7 @@ msgstr "Inserite qui  le vostre offerte di partenariato"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:54
 msgid "Give your opinion, share your experience and enrich the network myEurope"
-msgstr "Lasciateci un vostro parere, condividete con noi la vostra esperienza e contibuirete così ad arricchire la rete myMed"
+msgstr "Lasciateci un vostro parere, condividete con noi la vostra esperienza e contribuirete così ad arricchire la rete myMed"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:59
 msgid "Complete and manage your profile for a better visibility in myEurope"
