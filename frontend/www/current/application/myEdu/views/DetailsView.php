@@ -34,7 +34,7 @@
 			<br />	
 			<h3><?= _("Description") ?></h3>
 				<div>
-					<!-- APPLY FOR STUDENTS IF PUBLICATION=COURSE -->
+					<!-- APPLY -->
 					<div style="position: absolute; right: 24px;">
 						<?
 						if(isset($_SESSION['myEdu'])):	
@@ -94,8 +94,8 @@
 				</div>
 				
 				<!-- Reputation -->
-				<?php  // Only user wit myEdu extended profile can rate 
-					   if(isset($_SESSION['myEdu'])) : ?>
+				<?php  // Only user with myEdu Basic/Extended profile can rate 
+				if(!$_SESSION['user']->is_guest) : ?>
 	    		<div>
 	    			
 	    			<!-- Publication reputation -->
@@ -122,8 +122,10 @@
 							<? } ?>
 						<?php endif; ?>
 					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
-						<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	<br/>
-					
+					<? if (!($this->result->publisherID == $_SESSION['user']->id)) { ?>
+						<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>
+					<? } ?>
+					<br/>
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 						<?= _("Do you like the project idea ?") ?><br /><br />
@@ -201,7 +203,11 @@
 
 				<!-- Comments -->
 				<div data-role="collapsible" data-content-theme="d">
-	 				<h3><?= _('Comments') ?></h3>
+				<? if($_SESSION['user']->is_guest){ ?>
+					<h3><?= _('Comments: <i>You have to be logged in to be able to comment!</i>') ?></h3>
+				<? }else{ ?>
+	 				<h3><?= _('Comments') ?> </h3>
+	 			<? } ?>
 		 			<!-- displaying comments -->
 					<br/>
 		 			<?foreach ($this->result_comment as $item) :?>

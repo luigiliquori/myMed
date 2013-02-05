@@ -1147,7 +1147,19 @@ msgstr "Environnement, risques et énergies"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:21
 msgid "Transport, Facilities and Zoning"
-msgstr "Transports, insfrastructures, aménagement du territoire"
+msgstr "Transports, infrastructures, aménagement du territoire"
+
+msgid "Select category"
+msgstr "Sélectionner catégorie"
+
+msgid "Select organization"
+msgstr "Sélectionner organisme"
+
+msgid "Select locality"
+msgstr "Sélectionner localité"
+
+msgid "Select area"
+msgstr "Sélectionner zone"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:22
 msgid "Health and Consumer Protection"
@@ -1562,6 +1574,12 @@ msgstr ""
 msgid "You have to login to access all the menu options"
 msgstr "Vous devez vous connecter pour accéder à toutes les options du menu"
 
+msgid "You have to create your extended profile to access all the menu options"
+msgstr "Vous devez créer votre profil étendu pour accéder à toutes les options du menu"
+
+msgid "Comments: <i>You have to be logged in to be able to comment!</i>"
+msgstr "Commentaires: <i>Vous devez vous connecter pour pouvoir commenter!</i>"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:28
 msgid "My opportunities"
 msgstr "Mes opportunités"
@@ -1736,6 +1754,9 @@ msgstr "Nom"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:143
 msgid "I accept the "
 msgstr "J'accepte les "
+
+msgid "Opportunities list"
+msgstr "Liste d'opportunités"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:144
 msgid "general terms and conditions"

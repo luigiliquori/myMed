@@ -25,7 +25,7 @@
 		<br><br>
 		<?php	
 	   		// Select language
-			$lang="No defined";
+			$lang="Not defined";
 	   		if($_SESSION['user']->lang){
 				if($_SESSION['user']->lang=="en") $lang=_("English");
 				else if($_SESSION['user']->lang=="it") $lang=_("Italian");
@@ -41,7 +41,7 @@
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 					<div class="ui-block-a" style="width: 110px;">
-						<img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
+						<img src="<?= $this->profile->details['profilePicture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 					</div>
 					<div class="ui-block-b">
 						<p><strong><?= $this->profile->details['firstName']." ".$this->profile->details['lastName'] ?></strong></p>
@@ -120,11 +120,6 @@
 				<a type="button" href="?action=ExtendedProfile&method=delete"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
 				<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
 			</div>
-			<!-- List of user subscriptions -->
-			<br />
-				<? if (isset($_SESSION['myEdu'])): ?>
-				<a type="button" href="?action=myOpportunity&opportunities=true" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My opportunities") ?></a>
-				<? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 		<? endif; ?>
 	
