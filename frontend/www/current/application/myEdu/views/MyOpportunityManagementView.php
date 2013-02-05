@@ -22,62 +22,73 @@
 	
 	<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Add a new subscription') ?> :</h3>
-					<form action="index.php?action=myOpportunityManagement" method="POST" data-ajax="false">
+				
+				<form action="index.php?action=myOpportunityManagement" method="POST" data-ajax="false">
 						<input type="hidden" id="addSubscription" name="addSubscription" value="" />
 			
-	   			<fieldset data-role="controlgroup">
-					<!-- Categoria -->
-					<select name="Category" id="sub_category" id="call">
-						<option value=""><?= _("Category") ?></option>
-						<? foreach (Categories::$categories as $k=>$v) :?>
-							<option value="<?= $k ?>"><?= $v ?></option>
-						<? endforeach ?>
-					</select>
-				</fieldset>
-					
-					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-						<div class="ui-block-a">
-							<input type="checkbox" name="organizationBox" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
-						</div>
-						<div class="ui-block-b">
-							<select name="organization" id="sub_organization" id="call" data-native-menu="false">
-								<option value=""></option>
-								<? foreach (Categories::$organizations as $k=>$v) :?>
+			   			<fieldset data-role="controlgroup">
+							<!-- Categoria -->
+							<select name="Category" id="sub_category" data-native-menu="false">
+								<option value=""><?= _("Category") ?></option>
+								<? foreach (Categories::$categories as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
 							</select>
-						</div>
-					</div>
-					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-						<div class="ui-block-a">
-							<input type="checkbox" name="localityBox" id="check-view-b"/> <label for="check-view-b"><?= _("Locality")?></label>
-						</div>
-						<div class="ui-block-b">
-							<select name="locality" id="sub_locality" id="call" data-native-menu="false">
-								<option value=""></option>
-								<? foreach (Categories::$localities as $k=>$v) :?>
-									<option value="<?= $k ?>"><?= $v ?></option>
-								<? endforeach ?>
-							</select>
-						</div>
-					</div>
-					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-						<div class="ui-block-a">
-							<input type="checkbox" name="areaBox" id="check-view-c"/> <label for="check-view-c"><?= _("Area")?></label>
-						</div>
-						<div class="ui-block-b">
-							<select name="Area" id="sub_area" id="call">
-								<option value=""></option>
-									<? foreach (Categories::$areas as $k=>$v) :?>
+						</fieldset>
+						<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
+							<div class="ui-block-a">
+								<input type="checkbox" name="organizationBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
+								<label for="check-view-a"><?= _("Organization")?></label>
+							</div>
+							<div class="ui-block-b">
+								<select disabled name="organization" id="find_organization_content" data-native-menu="false">
+									<option value=""><?= _('Select organization') ?></option>
+									<? foreach (Categories::$organizations as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
 									<? endforeach ?>
-							</select>
+								</select>
+							</div>
 						</div>
-				</div>
-			
-				<div style="text-align: center;">
-					<input type="submit" data-icon="plus" data-theme="g" value="<?=_('Subscribe') ?>"  data-iconpos="right" data-inline="true"/>
-				</div>
+						<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
+							<div class="ui-block-a">
+								<input type="checkbox" onclick="toggle(this, '#find_locality_content')" name="localityBox" id="check-view-b"/> <label for="check-view-b"><?= _("Locality")?></label>
+							</div>
+							<div class="ui-block-b">
+								<select disabled name="locality" id="find_locality_content" data-native-menu="false">
+									<option value=""><?= _('Select locality') ?></option>
+									<? foreach (Categories::$localities as $k=>$v) :?>
+										<option value="<?= $k ?>"><?= $v ?></option>
+									<? endforeach ?>
+								</select>
+							</div>
+						</div>
+						<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
+							<div class="ui-block-a">
+								<input type="checkbox" onclick="toggle(this, '#find_area_content')" name="areaBox" id="check-view-c"/> 
+								<label for="check-view-c"><?= _("Area")?></label>
+							</div>
+							<div class="ui-block-b">
+								<select disabled name="Area" id="find_area_content" data-native-menu="false">
+									<option value=""><?= _('Select area') ?></option>
+										<? foreach (Categories::$areas as $k=>$v) :?>
+											<option value="<?= $k ?>"><?= $v ?></option>
+										<? endforeach ?>
+								</select>
+							</div>
+						</div>
+						<script type="text/javascript"> 	
+							function toggle(chkbox, id) {
+							    if(chkbox.checked){
+								    $(id).selectmenu('enable');
+								}else {
+									$(id).selectmenu("disable");
+								}
+							}
+						</script>
+				
+					<div style="text-align: center;">
+						<input type="submit" data-icon="plus" data-theme="g" value="<?=_('Subscribe') ?>"  data-iconpos="right" data-inline="true"/>
+					</div>
 				</form>
 			</div>
 			

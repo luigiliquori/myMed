@@ -134,7 +134,7 @@
 			</div>
 			<br/>
 			<!-- Accept terms and conditions -->
-			<input id="service-term" type="checkbox" name="checkCondition" style="display: inline-block; top: 8px;"/>
+			<input id="service-term" type="checkbox" name="checkCondition" style="display:inline-block;float:right;top:5px;width:17px;height:17px"/>
 			<span style="display:inline-block;margin-left: 40px;">
 				<?= _("I accept the ")?>
 				<a href="../myMed/doc/CGU_fr.pdf" rel="external"><?= _("general terms and conditions")?></a>

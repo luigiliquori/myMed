@@ -1,14 +1,14 @@
 <!-- 2nd Page : Find/Subscribe -->
+<? require_once('header-bar.php'); ?>
 
-<div id="find" data-role="page">
+<div id="findview" data-role="page">
 
 	<? $title = _("Search"); 
 	   print_header_bar("?action=main", "findViewHelpPopup", $title); ?>
 
-	
 	<div data-role="content">
 		
-		<form action="index.php?action=find" method="POST" data-ajax="false">
+		<form name="frm" action="index.php?action=find" method="POST" data-ajax="false">
 			<input type="hidden" id="find_area" name="area" value="" />
 			<input type="hidden" id="find_category" name="category" value="" />
 			<input type="hidden" id="find_organization" name="organization" value="" />
@@ -24,25 +24,26 @@
 			
 	   			<fieldset data-role="controlgroup">
 					<!-- Categoria -->
-					<select name="Category" id="find_category_content" id="call">
-						<option value=""><?= _("Category") ?></option>
+					<select name="Category" id="find_category_content" data-native-menu="false">
+						<option value=""><?= _("Select category") ?></option>
 						<? foreach (Categories::$categories as $k=>$v) :?>
 							<option value="<?= $k ?>"><?= $v ?></option>
 						<? endforeach ?>
 					</select>
 				</fieldset>
-			
+
 				<!-- ADVANCED RESEARCH -->
 				<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="d" data-mini="true" style="margin-left:25px; margin-right:25px; margin-top:20px">
 					<h3><?= _("Advanced research")?></h3>
 					
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="organizationBox" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
+							<input type="checkbox" name="organizationBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
+							<label for="check-view-a"><?= _("Organization")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="organization" id="find_organization_content" id="call" data-native-menu="false">
-								<option value=""></option>
+							<select disabled name="organization" id="find_organization_content" data-native-menu="false">
+								<option value=""><?= _('Select organization') ?></option>
 								<? foreach (Categories::$organizations as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
@@ -51,11 +52,11 @@
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="localityBox" id="check-view-b"/> <label for="check-view-b"><?= _("Locality")?></label>
+							<input type="checkbox" onclick="toggle(this, '#find_locality_content')" name="localityBox" id="check-view-b"/> <label for="check-view-b"><?= _("Locality")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="locality" id="find_locality_content" id="call" data-native-menu="false">
-								<option value=""></option>
+							<select disabled name="locality" id="find_locality_content" data-native-menu="false">
+								<option value=""><?= _('Select locality') ?></option>
 								<? foreach (Categories::$localities as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
@@ -64,17 +65,27 @@
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="areaBox" id="check-view-c"/> <label for="check-view-c"><?= _("Area")?></label>
+							<input type="checkbox" onclick="toggle(this, '#find_area_content')" name="areaBox" id="check-view-c"/> 
+							<label for="check-view-c"><?= _("Area")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="Area" id="find_area_content" id="call">
-								<option value=""></option>
+							<select disabled name="Area" id="find_area_content" data-native-menu="false">
+								<option value=""><?= _('Select area') ?></option>
 									<? foreach (Categories::$areas as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
 									<? endforeach ?>
 							</select>
 						</div>
 					</div>
+					<script type="text/javascript"> 	
+						function toggle(chkbox, id) {
+						    if(chkbox.checked){
+							    $(id).selectmenu('enable');
+							}else {
+								$(id).selectmenu("disable");
+							}
+						}
+					</script>
 				</div>
 			
 				<div style="text-align: center;">

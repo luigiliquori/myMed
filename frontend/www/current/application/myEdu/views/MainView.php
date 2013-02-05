@@ -22,11 +22,14 @@
 		</div>
 		
 		<!-- App Main menu -->
-		<?php if ($_SESSION['user']->is_guest) { ?>
+	<?php if ($_SESSION['user']->is_guest) { ?>
 			<!-- User not authenticated -->
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
 			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" data-ajax="false"><?=_("Sign in")?></a><br />
-		<?php } ?>		
+	<?php } ?>	
+	<?php if (!$_SESSION['user']->is_guest && !isset($_SESSION['myEdu'])) { ?>
+			<p Style="text-align: center; font-style:italic;"><?= _("You have to create your extended profile to access all the menu options") ?></p>
+	<?php } ?>	
 		<a href="?action=myOpportunity&opportunities=true" data-icon="star" data-role="button" data-ajax="false" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My opportunities") ?></a><br />	
 		<a href="index.php?action=publish&method=show_user_publications" data-icon="pencil" data-role="button" data-ajax="false"  <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEdu'])) ? " class='ui-disabled'" : "" ?>><?= _("My publications") ?></a><br />
 		<a href="?action=Find&search=true" data-role="button" data-icon="search"><?= _("Search publication") ?></a><br />

@@ -35,7 +35,7 @@
 		<!-- List of user publications -->
 		<ul data-role="listview" >
 		
-			<li data-role="list-divider"><?= _("Results") ?></li>
+			<li data-role="list-divider"><?= _("Opportunities list") ?></li>
 			
 			<? if (count($this->search_result) == 0) :?>
 			<li>

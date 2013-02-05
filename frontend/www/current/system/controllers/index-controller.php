@@ -148,6 +148,7 @@ switch ($LANG) {
 		break;
 }
 debug($LOCALE);
+if(isset($_SESSION['user'])) $_SESSION['user']->lang = $LANG;
 
 /////////////////////////////////////////////////////////////////////////////
 putenv('LANGUAGE='.$LOCALE);
