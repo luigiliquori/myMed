@@ -60,7 +60,7 @@
 			<!-- Role -->
 			<div data-role="fieldcontain">
 				<label for="role" class="select" style="text-align:right"><?= _("Your category") ?>:</label>
-				<select name="role" id="role" data-native-menu="false" onChange="
+				<select name="role" id="role" data-theme="e" data-native-menu="false" onChange="
 					
 					switch ($('#role').val()) {
 						
