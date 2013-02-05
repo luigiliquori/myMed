@@ -35,6 +35,7 @@ class MyOpportunityManagementController extends AuthenticatedController {
 		$subscribeObject->pred2 = $_POST['organization'];
 		$subscribeObject->pred3 = $_POST['locality'];
 		$subscribeObject->pred4 = $_POST['Area'];
+		$subscribeObject->data1 = $_POST['nameSub'];
 		$subscribeObject->subscribe();
 		$this->success = _("Subscribe success");
 	}
@@ -48,6 +49,7 @@ class MyOpportunityManagementController extends AuthenticatedController {
 		$request->addArgument("userID", $_SESSION['user']->id);
 		$request->addArgument("predicate",$_GET['predicate']);
 		$request->send();
+		$this->success = _("Deleted subscription");
 	}
 	
 	/**
@@ -59,6 +61,11 @@ class MyOpportunityManagementController extends AuthenticatedController {
 		$request->addArgument("userID", $_SESSION['user']->id);
 		$responsejSon = $request->send();
 		$this->response = $responsejSon;
+		$this->subscriptionName = $this->getSubscriptionName();
+	}
+	
+	function getSubscriptionName(){
+		
 	}
 }
 

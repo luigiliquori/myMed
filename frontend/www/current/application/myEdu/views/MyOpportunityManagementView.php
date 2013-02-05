@@ -25,17 +25,26 @@
 				
 				<form action="index.php?action=myOpportunityManagement" method="POST" data-ajax="false">
 						<input type="hidden" id="addSubscription" name="addSubscription" value="" />
-			
+
+										<!-- subscription name -->
+	   				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
+	   					<div class="ui-block-a">
+	   						<input type="checkbox" name="nameSubCheck" id="check-view-d"/> <label for="check-view-d"><?= _("Subscription Name")?></label>
+	   					</div>
+	   					<div class="ui-block-b">
+							<input type="text" name="nameSub" id="nameSub" value="" />
+						</div>
+					</div>
 			   			<fieldset data-role="controlgroup">
 							<!-- Categoria -->
 							<select name="Category" id="sub_category" data-native-menu="false">
-								<option value=""><?= _("Category") ?></option>
+								<option value=""><?= _(" Select category") ?></option>
 								<? foreach (Categories::$categories as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
 							</select>
-						</fieldset>
-						<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
+				</fieldset>
+					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 							<div class="ui-block-a">
 								<input type="checkbox" name="organizationBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
 								<label for="check-view-a"><?= _("Organization")?></label>
@@ -108,6 +117,7 @@
 						echo '<li><div class="ui-grid-a">';
 						echo '<div class="ui-block-a">';
 						echo _("Subscription ").$index.":<br />";
+						//echo _("Subscription ")..":<br />";
 						foreach($preds as $key2){
 							if($key2 != ""){
 								echo _(substr($key2,1)).", ";
