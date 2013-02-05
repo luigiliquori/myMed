@@ -38,11 +38,13 @@
 			<li data-role="list-divider"><?= _("Opportunities list") ?></li>
 			
 			<? if (count($this->search_result) == 0) :?>
-			<li>
+			<!-- <li>
 				<h4><?= _("No result found")?></h4>
-			</li>
+			</li>-->
+			<?php $entries_number=0;?>
 			<? endif ?>
 			<? foreach($this->search_result as $result):?>
+			<?php $entries_number += count($result);?>
 			<? foreach($result as $item) : ?>
 				<li>
 					<a href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
@@ -79,6 +81,11 @@
 				</li>
 			<? endforeach ?>
 			<? endforeach?>
+			<? if($entries_number == 0):?>
+				<li>
+					<h4><?= _("No result found")?></h4>
+				</li>
+			<?php endif ?>
 			
 		</ul>
 			
