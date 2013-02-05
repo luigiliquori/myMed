@@ -959,6 +959,9 @@ msgstr "Italie"
 msgid "Other"
 msgstr "Autre"
 
+msgid "You can attach a message for the applier:"
+msgstr "Vous pouvez joindre un message pour le candidat:"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:179
 msgid "Category of searched partners"
 msgstr "Type de partenaire recherché"
