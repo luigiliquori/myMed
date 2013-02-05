@@ -88,6 +88,7 @@
 							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 							<input type="hidden" name="area" value="<?= $this->result->area ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+							<input type="hidden" name="end" value="<?= $this->result->end  ?>" />	
 							<?php if ($this->result->category == 'Course'):?>
 								<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
 								<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
@@ -105,6 +106,7 @@
 						<form action="?action=publish&method=delete" method="POST" data-ajax="false">
 							<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
+							<input type="hidden" name="end" value="<?= $this->result->end  ?>" />
 							<input type="hidden" name="area" value="<?= $this->result->area ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
 							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
