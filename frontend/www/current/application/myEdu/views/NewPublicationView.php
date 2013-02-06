@@ -10,7 +10,7 @@
   	
   	<!-- Page header -->
   	<? $title = _("Create publication");	
-	   print_header_bar("?action=publish&method=show_user_publications", "defaultHelpPopup", $title); ?>
+	   print_header_bar("?action=publish&method=show_user_publications", "helpPopup", $title); ?>
 
 	<!-- Page content -->
 	<div data-role="content">
@@ -27,8 +27,8 @@
 			<input type="hidden" id="date" name="date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-				<h3><?= _("How to publish") ?> ?</h3>
-				<?= _("<<<<< Some explanation goes here >>>>>")?>
+				<h3><?= _("<<<< TITLE >>>>") ?></h3>
+				<?= _("Create a new publication here.")?>
 				</p>
 			</div>
 			
@@ -36,8 +36,7 @@
 				<h3><?= _('Publish your project') ?> :</h3>
 				
 				<h3><?= _('Title') ?> : </h3>
-				<input id="textinputp3" class="postTitle" data-inline="true" name="title"
-					placeholder="<?= _("Publication title goes here") ?>" value='' type="text" />
+				<input id="textinputp3" class="postTitle" data-inline="true" name="title" value='' type="text" />
 				
 				<h3><?= _('Date of expiration') ?> :</h3>
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
@@ -61,7 +60,7 @@
 					</select>
 				</fieldset>
 					
-				<h3><?= _('Enter a text description for your publication') ?> :</h3>
+				<h3><?= _('Enter a text description') ?> :</h3>
 				<textarea id="text" name="text"></textarea>
 				<script type="text/javascript">
 					// Init cle editor on pageinit
@@ -72,7 +71,7 @@
 				
 				<br />
 				
-				<h3><?= _('Other information') ?> :</h3>
+				<h3><?= _('Other criteria') ?> :</h3>
 					<select name="area" id="area" data-native-menu="false">
 					<option value=""> <?= _("Area")?> </option>
 					<? foreach (Categories::$areas as $k=>$v) :?>
@@ -127,9 +126,9 @@
 		
 		
 	<!-- Help popup -->
-	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
+	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<?= _("<<<<< Help text >>>>>")?> 
+		<?= _("Fill out all of the parameters, such as title, expiration date, description, specialization, category, locality and company.")?> 
 	</div>
 	
 </div>

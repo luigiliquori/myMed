@@ -5,8 +5,8 @@
 <div data-role="page" id =myopportunity>
 
 	<!-- Page header bar -->
-	<? $title = _("My opportunities");
-	   print_header_bar("?action=main", false, $title); ?>
+	<? $title = _("My subscriptions");
+	   print_header_bar("?action=main", "helpPopup", $title); ?>
 	
 		
 	<!-- Page content -->
@@ -16,8 +16,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("Litle help") ?> ?</h3>
-			<p><?= _("Few words ")?></p>
+			<h3><?= _("<<<< TITLE >>>>>") ?></h3>
+			<p><?= _("See the subscriptions which myEdu has found according to your criteria. You can also create new subscriptions, with different criteria.")?></p>
 		</div>
 		<br />
 		
@@ -35,7 +35,7 @@
 		<!-- List of user publications -->
 		<ul data-role="listview" >
 		
-			<li data-role="list-divider"><?= _("Opportunities list") ?></li>
+			<li data-role="list-divider"><?= _("Results") ?></li>
 			
 			<? if (count($this->search_result) == 0) :?>
 			<!-- <li>
@@ -79,7 +79,7 @@
 						</p>			
 					</a>
 				</li>
-			<? endforeach ?>
+				<? endforeach ?>
 			<? endforeach?>
 			<? if($entries_number == 0):?>
 				<li>
@@ -88,7 +88,13 @@
 			<?php endif ?>
 			
 		</ul>
-			
+		
+		<!-- HELP POPUP -->
+		<!-- ----------------- -->
+		<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<p><?= _("Here, you can browse the offers that myEdu has found according to your subscriptions criteria.<br>To create new subscriptions, click on the 'New Subscription' button.")?></p>
+		</div>
 	</div>
 	<!-- END Page content -->
 	
