@@ -44,7 +44,8 @@ Categories::$localities = array(
 	"Novara"   		=> _("Novara"),
 	"Toulon"   		=> _("Toulon"),
 	"Turin"   		=> _("Turin"),
-	"Vercelli"   	=> _("Vercelli")
+	"Vercelli"   	=> _("Vercelli"),
+	"Other"			=> _("Other")
 );
 
 

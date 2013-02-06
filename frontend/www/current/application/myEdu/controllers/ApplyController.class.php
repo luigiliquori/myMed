@@ -79,7 +79,9 @@ class ApplyController extends AuthenticatedController {
 			$obj->title = $_POST['title'];
 			$obj->publish();
 			
-			$mailman = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your application is accepted"),_("Your application to ").$_POST['title']._(" has been accepted"));
+			$msgMail = $_POST['msgMail'];
+			
+			$mailman = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your application is accepted"),_("Your application to ").$_POST['title']._(" has been accepted")._('<br> Attached message: "').$msgMail.'"');
 			$mailman->send();
 		}
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
@@ -110,7 +112,9 @@ class ApplyController extends AuthenticatedController {
 		$obj->title = $_POST['title'];
 		$obj->delete();
 		
-		$mailman = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your apply is refused"),_("Your apply to ").$_POST['title']._("has been refused"));
+		$msgMail = $_POST['msgMail'];
+		
+		$mailman = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your apply is refused"),_("Your apply to ").$_POST['title']._("has been refused.")._('<br> Attached message: "').$msgMail.'"');
 		$mailman->send();
 		
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);

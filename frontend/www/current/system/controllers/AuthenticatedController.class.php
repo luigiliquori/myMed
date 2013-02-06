@@ -9,7 +9,7 @@ class AuthenticatedController extends AbstractController /* implements IReputati
 
 	/** The complete user */
 	public $user;
-	public static $bootstrapApplication = array("myEurope", "myRiviera", "myFSA", "myMemory", "myBen", "myEuroCIN", "myStudent", "myEdu");
+	public static $bootstrapApplication = array("myEurope", "myRiviera", "myFSA", "myMemory", "myEuroCIN", "myEdu","myBenevolat");
 	
 	
 	/**
