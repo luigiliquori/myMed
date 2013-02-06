@@ -61,8 +61,8 @@ class PublishController extends ExtendedProfileRequired {
 					     empty($_POST['expire_year'])) && 
 					     ($_POST['category'] == 'Course')) &&
 					     empty($_POST['end'])) {		
-					$this->error = _("Please provide a valide expiration date for the course");
-					$this->renderView("NewPublication");				
+				$this->error = _("Please provide a valide expiration date for the course");
+				$this->renderView("NewPublication");
 			} else if (empty($_POST['text'])) {
 				$this->error = _("Text field can't be empty");
 				$this->renderView("NewPublication");
@@ -73,10 +73,6 @@ class PublishController extends ExtendedProfileRequired {
 					
 			} else if (empty($_POST['category'])) {
 				$this->error = _("Category field can't be empty");
-				$this->renderView("NewPublication");
-					
-			} else if (empty($_POST['locality'])) {
-				$this->error = _("Locality field can't be empty");
 				$this->renderView("NewPublication");
 					
 			} else if (empty($_POST['organization'])) {
@@ -90,9 +86,9 @@ class PublishController extends ExtendedProfileRequired {
 		    } else {
 				
 				// All required fields are filled, publish it
-				$obj = new MyEduPublication();
+				$obj = new myTemplateExtendedPublication();
 				$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
-				//$obj->type = 'myEduPublication';				// Publication type
+				//$obj->type = 'myTemplateExtendedPublication';				// Publication type
 				$obj->area = $_POST['area'];					// Area
 				$obj->category = $_POST['category'];			// Category
 				if($_POST['category'] == 'Course' && 
@@ -100,7 +96,6 @@ class PublishController extends ExtendedProfileRequired {
 					$obj->maxappliers = $_POST['maxappliers'];			// Max appliers to the course and ...
 					$obj->currentappliers = $_POST['currentappliers'];  // ... current appliers
 				}
-				$obj->locality = $_POST['locality'];			// Locality
 				$obj->organization = $_POST['organization'];	// Organization
 				$obj->end 	= $_POST['date'];					// Expiration date
 				$obj->title = $_POST['title'];					// Title
@@ -138,13 +133,12 @@ class PublishController extends ExtendedProfileRequired {
 		$this->delete_Applies();
 		$this->delete_Comments();
 		
-		$obj = new MyEduPublication();
+		$obj = new myTemplateExtendedPublication();
 		$obj->publisherID = $_SESSION['user']->id;  // Publisher ID
 		$obj->publisher = $_SESSION['user']->id;    // Publisher ID
-		//$obj->type = 'myEduPublication';			// Publication type no used anymore
+		//$obj->type = 'myTemplateExtendedPublication';			// Publication type no used anymore
 		$obj->area = $_POST['area'];				// Area
 		$obj->category = $_POST['category'];		// Category
-		$obj->locality = $_POST['locality'];		// Locality
 		$obj->organization = $_POST['organization'];// Organization
 		$obj->end 	= $_POST['date'];				// Expiration date
 		$obj->title = $_POST['title'];				// Title
@@ -185,7 +179,7 @@ class PublishController extends ExtendedProfileRequired {
 	 */
 	private function showUserPublications() {
 		// Search User publications
-		$search = new MyEduPublication();
+		$search = new myTemplateExtendedPublication();
 		$search->publisher = $_SESSION['user']->id;  
 		$this->result = $search->find();
 		
@@ -206,7 +200,7 @@ class PublishController extends ExtendedProfileRequired {
 		$author = $_GET['author'];
 	
 		// Create an object
-		$obj = new MyEduPublication($predicate);
+		$obj = new myTemplateExtendedPublication($predicate);
 		$obj->publisherID = $author;
 	
 		// Fetches the details

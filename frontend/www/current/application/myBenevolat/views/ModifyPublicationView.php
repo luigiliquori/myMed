@@ -2,6 +2,8 @@
 <!-- ModifyPublication View -->
 <!-- ---------------------- -->
 
+
+<!-- Page view -->
 <div data-role="page" id="modifypublicationview">
 
 	<!-- Page header -->
@@ -60,7 +62,6 @@
 						<b><?= _("Area") ?></b>: <?= $this->result->area ?><br/>
 						<b><?= _("Category") ?></b>: <?= $this->result->category ?><br/>
 						<b><?= _("Organization") ?></b>: <?= $this->result->organization ?><br/>
-						<b><?= _("Locality") ?></b>: <?= $this->result->locality ?><br/><br/>
 					</p>
 					 
 					<!-- TEXT -->
@@ -86,15 +87,14 @@
 						<form action="?action=publish&method=update" method="POST" data-ajax="false" >
 							<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
+							<input type="hidden" name="end" value="<?= $this->result->end  ?>" />
 							<input type="hidden" name="area" value="<?= $this->result->area ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
-							<input type="hidden" name="end" value="<?= $this->result->end  ?>" />	
 							<?php if ($this->result->category == 'Course'):?>
 								<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
 								<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
 							<? endif; ?>
 							<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
-							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
 							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="text" id="text"/>
 							<input type="submit" data-icon="check" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Modify publication') ?>" onclick="$('#text').val($('#projecttext').val());"/>
@@ -109,7 +109,6 @@
 							<input type="hidden" name="end" value="<?= $this->result->end  ?>" />
 							<input type="hidden" name="area" value="<?= $this->result->area ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
-							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
 							<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
 							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="text" id="text"/>
