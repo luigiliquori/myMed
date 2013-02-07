@@ -3,8 +3,8 @@
 <div data-role="page" id =myopportunitymanagement>
 
 	<!-- Page header bar -->
-	<? $title = _("Manage opportunities");
-	   print_header_bar("?action=myOpportunity&opportunities=true", myoppmngtViewHelpPopup, $title); ?>
+	<? $title = _("Manage subscriptions");
+	   print_header_bar("?action=myOpportunity&opportunities=true", "helpPopup", $title); ?>
 	
 		
 	<!-- Page content -->
@@ -14,8 +14,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("Little help") ?> ?</h3>
-			<p><?= _("Few words ")?></p>
+			<h3><?= _("<<<< TITLE >>>>") ?></h3>
+			<p><?= _("Here you can manage your subscriptions.")?></p>
 		</div>
 		<br />
 	</div>
@@ -29,21 +29,27 @@
 										<!-- subscription name -->
 	   				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 	   					<div class="ui-block-a">
-	   						<input type="checkbox" name="nameSubCheck" id="check-view-d"/> <label for="check-view-d"><?= _("Subscription Name")?></label>
+	   						<input type="checkbox" onclick="toggleText(this, '#nameSub')" name="nameSubCheck" id="check-view-d"/> 
+	   						<label for="check-view-d"><?= _("Subscription name")?></label>
 	   					</div>
 	   					<div class="ui-block-b">
-							<input type="text" name="nameSub" id="nameSub" value="" />
+							<input disabled type="text" name="nameSub" id="nameSub" value=""/>
 						</div>
 					</div>
-			   			<fieldset data-role="controlgroup">
-							<!-- Categoria -->
-							<select name="Category" id="sub_category" data-native-menu="false">
-								<option value=""><?= _(" Select category") ?></option>
+		   			<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
+						<div class="ui-block-a">
+							<input type="checkbox" name="categoryBox" id="check-view-e" onclick="toggle(this, '#find_category_content')"/> 
+							<label for="check-view-e"><?= _("Category")?></label>
+						</div>
+						<div class="ui-block-b">
+							<select disabled name="Category" id="find_category_content" data-native-menu="false">
+								<option value=""><?= _("Select category") ?></option>
 								<? foreach (Categories::$categories as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
 							</select>
-				</fieldset>
+						</div>
+					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 							<div class="ui-block-a">
 								<input type="checkbox" name="organizationBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
@@ -93,10 +99,18 @@
 									$(id).selectmenu("disable");
 								}
 							}
+
+							function toggleText(chkbox, id) {
+							    if(chkbox.checked){
+								    $(id).textinput('enable');
+								}else {
+									$(id).textinput('disable'); 
+								}
+							}
 						</script>
 				
 					<div style="text-align: center;">
-						<input type="submit" data-icon="plus" data-theme="g" value="<?=_('Subscribe') ?>"  data-iconpos="right" data-inline="true"/>
+						<input type="submit" data-icon="plus" data-theme="g" value="<?=_('Subscribe') ?>"  data-iconpos="left" data-inline="true"/>
 					</div>
 				</form>
 			</div>
@@ -132,9 +146,8 @@
 			</div>
 			
 			<!-- Help popup -->
-			<div data-role="popup" id="myoppmngtViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+			<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<h3><?= _("My Opportuninty Management  help") ?></h3>
-				<p> <?= _(" <<<<<< A description here. >>>>>>") ?></p>
+				<p> <?= _("Here you can create subscriptions by selecting different parameters related to Universities, Companies, Localities and Themes.") ?></p>
 			</div>
 </div>

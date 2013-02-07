@@ -42,9 +42,9 @@ class ApplyController extends AuthenticatedController {
 			$obj->title = $_POST['title'];
 			$obj->publish();
 			
-			$mailman = new EmailNotification(strtr($_POST['author'],"MYMED_", ""),_("Someone apply to your publication"),_("Someone apply to your publication ").$_POST['title']._(" please check on the web interface"));
+			$mailman = new EmailNotification(substr($_POST['author'],6),_("Someone apply to your publication"),_("Someone apply to your publication ").$_POST['title']._(" please check on the web interface"));
 			$mailman->send();
-			$mailman2 = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your application is awaiting validation"),_("Your application to ").$_POST['title']._("is awaiting validation"));
+			$mailman2 = new EmailNotification(substr($_POST['publisher'],6),_("Your application is awaiting validation"),_("Your application to ").$_POST['title']._("is awaiting validation"));
 			$mailman2->send();
 		}
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
@@ -81,7 +81,7 @@ class ApplyController extends AuthenticatedController {
 			
 			$msgMail = $_POST['msgMail'];
 			
-			$mailman = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your application is accepted"),_("Your application to ").$_POST['title']._(" has been accepted")._('<br> Attached message: "').$msgMail.'"');
+			$mailman = new EmailNotification(substr($_POST['publisher'],6),_("Your application is accepted"),_("Your application to ").$_POST['title']._(" has been accepted")._('<br> Attached message: "').$msgMail.'"');
 			$mailman->send();
 		}
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
@@ -114,7 +114,7 @@ class ApplyController extends AuthenticatedController {
 		
 		$msgMail = $_POST['msgMail'];
 		
-		$mailman = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your apply is refused"),_("Your apply to ").$_POST['title']._("has been refused.")._('<br> Attached message: "').$msgMail.'"');
+		$mailman = new EmailNotification(substr($_POST['publisher'],6),_("Your apply is refused"),_("Your apply to ").$_POST['title']._("has been refused.")._('<br> Attached message: "').$msgMail.'"');
 		$mailman->send();
 		
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);

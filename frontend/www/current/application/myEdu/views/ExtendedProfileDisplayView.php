@@ -13,10 +13,10 @@
   	  	// Check the previous usr for the back button, if it is a publication details
   	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
   	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
-  	   		print_header_bar('back', "defaultHelpPopup", $title); 
+  	   		print_header_bar('back', "helpPopup", $title); 
 
   	  	else
-  	   		print_header_bar("?action=main", "defaultHelpPopup", $title);
+  	   		print_header_bar("?action=main", "helpPopup", $title);
   	   ?>
 	
 	<!-- Page content -->
@@ -127,10 +127,9 @@
 	
 	
 	<!-- Help popup -->
-	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3><?= _("Edit Profile and Subscripions") ?></h3>
-		<p> <?= _("Here you can modify your profile and list your active subscriptions.") ?></p>
+		<p> <?= _("You can modify your profile details such as your language, profile picture, phone number... by clicking on the 'Edit my profile' button..<br>'Delete my profile' button will delete your myEdu profile and all your publications, applications and comments.") ?></p>
 	</div>
 	
 	
