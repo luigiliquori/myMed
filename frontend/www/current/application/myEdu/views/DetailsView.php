@@ -89,6 +89,7 @@
 					 	else:
 					 		echo $author."";
 					 	endif;
+					 	if($_GET['author']==$_SESSION['user']->id) echo " "._("(You)");
 					?> 
 					<br/></p>					
 				</div>
@@ -97,13 +98,7 @@
 				<?php  // Only user with myEdu Basic/Extended profile can rate 
 				if(!$_SESSION['user']->is_guest) : ?>
 	    		<div>
-	    			
 	    			<!-- Publication reputation -->
-	    			<?
-	    			$date=strtotime(date('d-m-Y'));
-	    			$courseDate=strtotime($this->result->end);
-	    			if(($this->result->category=='Course' && $courseDate<$date) || $this->result->category!='Course'){
-	    			?>
 	    			<p style="display:inline; font-size:80%;">Publication rate:</p>
 						<?php
 							// Disable reputation stars if there are no votes yet 
@@ -122,9 +117,14 @@
 							<? } ?>
 						<?php endif; ?>
 					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
-					<? if (!($this->result->publisherID == $_SESSION['user']->id)) { ?>
-						<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>
-					<? } ?>
+					
+				 <? if ($this->result->publisherID != $_SESSION['user']->id) {
+		    			$date=strtotime(date('d-m-Y'));
+		    			$courseDate=strtotime($this->result->end);
+		    			if(($this->result->category=='Course' && $courseDate<$date) || $this->result->category!='Course'){ ?>	
+							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>
+					 <? }
+				 	} ?>
 					<br/>
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
@@ -140,10 +140,9 @@
 							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
 						</form>
 					</div>	
-					<? } ?>
 					
 					<!-- Author reputation (only for students and companies) -->
-					<?php if(!($this->publisher_profile->details['role']=='professor')): ?>
+					<?php if($this->publisher_profile->details['role']!='professor'): ?>
 						<p style="display:inline; font-size:80%;">Author reputation:</p>
 						<?php
 							// Disable reputation stars if there are no votes yet 
@@ -163,7 +162,7 @@
 						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>							
 						<?php 
 							// A user cannot rate himself
-							if (!($this->result->publisherID == $_SESSION['user']->id)) {
+							if ($this->result->publisherID != $_SESSION['user']->id) {
 								echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate author") .'</a>';
 							}
 						?>
@@ -263,7 +262,7 @@
 											
 					 	    				<form action="?action=apply&method=accept" method="POST" data-ajax="false">
 					 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>
-								 				<input type="hidden" name="method" value="Accept" />
+								 				<input type="hidden" name="method" value="<?= _('Accept')?>" />
 								 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
 								 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
 								 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
@@ -287,7 +286,7 @@
 											<?= _("You can attach a message for the applier:") ?>
 											<form action="?action=apply&method=refuse" method="POST" data-ajax="false">
 												<textarea id="msgMail" name="msgMail" style="height: 120px;"></textarea><br>
-								 				<input type="hidden" name="method" value="Refuse" />
+								 				<input type="hidden" name="method" value="<?= _('Refuse')?>" />
 								 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
 								 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
 								 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />

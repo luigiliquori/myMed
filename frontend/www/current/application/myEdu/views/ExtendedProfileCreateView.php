@@ -11,7 +11,7 @@
   	 
 	<!-- Page header bar -->
 	<? $title = _("Create profile");
-	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
+	   print_header_bar("?action=main", "helpPopup", $title); ?>
 	   
 	<!-- Notification pop up -->
 	<? include_once 'notifications.php'; ?>
@@ -147,10 +147,9 @@
 	
 	
 	<!-- Help Pop Up -->
-	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3><?= _("<<<<< Help title. >>>>>") ?></h3>
-		<p> <?= _("<<<<< Help text >>>>>") ?></p>
+		<p> <?= _("Create your myEdu Profile as an oriented profile according to your status (student, professor, company), to use myEdu network in the best conditions.") ?></p>
 		
 	</div>
 	

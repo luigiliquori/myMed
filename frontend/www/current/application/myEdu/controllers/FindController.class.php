@@ -21,6 +21,7 @@ class FindController extends AuthenticatedController{
 					}
 				}
 			}
+			$this->getReputation($this->result);
 			$this->renderView("results");
 		}
 	}
@@ -65,16 +66,16 @@ class FindController extends AuthenticatedController{
 		
 		$obj->publisher = $_POST['publisher'];
 		
-		if($_POST['localityBox']) $obj->locality = $_POST['locality'];
-		if($_POST['areaBox']) $obj->area = $_POST['area'];
-		if($_POST['organizationBox']) $obj->organization = $_POST['organization'];
+		if(isset($_POST['localityBox']) && $_POST['localityBox'] && isset($_POST['locality'])) $obj->locality = $_POST['locality'];
+		if(isset($_POST['areaBox']) && $_POST['areaBox'] && isset($_POST['area'])) $obj->area = $_POST['area'];
+		if(isset($_POST['organizationBox']) && $_POST['organizationBox'] && isset($_POST['organization'])) $obj->organization = $_POST['organization'];
 		
-		$obj->category = $_POST['category'];
+		if(isset($_POST['category'])) $obj->category = $_POST['category'];
 		$obj->type = 'myEduPublication';
-		$obj->end 	= $_POST['date'];
+		//$obj->end 	= $_POST['date'];
 
-		$obj->title = $_POST['title'];
-		$obj->text 	= $_POST['text'];
+		//$obj->title = $_POST['title'];
+		//$obj->text 	= $_POST['text'];
 	}
 	
 	/**
