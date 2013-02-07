@@ -16,12 +16,12 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		parent::handleRequest();
 		$this->mapper = new DataMapper;
 		
-		// If the user is a guest, forward to login
+		// Forward to login guest user
 		if (isset($_SESSION['user']) && $_SESSION['user']->is_guest) {
 			$this->forwardTo('login');
 		}
 		
-		// Execute the called controller method
+		// Execute the called method (do not use ACL) 
 		if(isset($_GET['method'])){
 			
 			switch ($_GET['method']){
@@ -41,6 +41,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 					else
 						$this->showUserProfile($_GET['user']);
 					break;
+					
+				// Start a wizard for the creation of a new profile
+				case 'start_wizard':
+					if (!isset($_SESSION['myBenevolat']))
+						$this->renderView("CreateProfile".$_GET['type']);
 			}		
 		}
 	}
@@ -51,14 +56,15 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	function defaultMethod() {
 		
-		// If the user is not a guest but has not got an Extended
-		// profile forward him to ExtendedProfileCreate View
+		// If not a guest but has not got an Extended
+		// profile forward to ExtendedProfileCreateView
 		if (!isset($_SESSION['myBenevolat'])){
 			$this->renderView("ExtendedProfileCreate");
 		}else{
 			debug("Default method");
 			$this->showUserProfile($_SESSION['user']->id);
 		}
+		
 	}
 	
 	
@@ -66,48 +72,41 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Create a new Extended Profile 
 	 */
 	public function create() {
-			
-		// Check mandatory fiels
-		if (!$_POST['role']) {
-			$this->error = _("Please specify your category");
-			$this->renderView("ExtendedProfileCreate");
-		} else if(!$_POST['checkCondition']) {
-			$this->error = _("You must accept the terms of use.");
-			$this->renderView("ExtendedProfileCreate");
-		}  
+
+		// TODO Check mandatory fiels
 		
-	
 		// Unset post vale that we don't need
 		unset($_POST['form']);
 		unset($_POST['checkCondition']);
 		
-		// Set id and description
+		// Set user id 
 		$_POST['id'] = hash("md5", time().$_POST['name']);
-		$_POST['desc'] = nl2br($_POST['desc']);
-	
+		
 		// Create the new profile
 		$publish =  new RequestJson($this,
 						array("application"=>APPLICATION_NAME.":profiles",
 						"id"=>$_POST['id'], "data"=>$_POST,
-						"metadata"=>array("role"=>$_POST['role'],
-						"name"=>$_POST['name'])),
+						"metadata"=>array("type"=>$_POST['type'],
+							"name"=>$_POST['name'])),
 						CREATE);
 		$publish->send();
 	
-		// Check for errors
 		if (!empty($this->error))
 			$this->renderView("ExtendedProfileCreate");
 	
 		$this->createUser($_POST['id']);
 	
-		// Display the new created Extended Profile
-		$this->redirectTo("?action=ExtendedProfile&method=show_user_profile&user=".$_SESSION['user']->id);		
+		// Display the new profile
+		$this->redirectTo(
+				"?action=ExtendedProfile&method=show_user_profile&user="
+				.$_SESSION['user']->id);		
 	}
 	
 	/** 
 	 * Update an Extended profile 
 	 */
 	function update() {
+		
 		$_POST['email'] =$_SESSION['user']->email;
 		$id = $_SESSION['myBenevolat']->profile;
 		
@@ -217,7 +216,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 
 	
 	/** 
-	 * Delete an Extended profile and all its releated publication 
+	 * Delete an Extended profile and all releated publications 
 	 */
 	public function delete() {
 		
@@ -298,6 +297,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Show the user Extended profile 
 	 */
 	function showUserProfile($user) {
+		
 		// Get the user details
 		$user = new User($user);
 		try {
@@ -438,4 +438,5 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->reputationMap[$id] = $value;
 		$this->noOfRatesMap[$id] = $responseObject->dataObject->reputation->noOfRatings;
 	}
+	
 }

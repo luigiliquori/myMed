@@ -3,10 +3,14 @@
 require_once('Entry.class.php');
 
 /**
- * A user profile in myBenevolat
+ * A user profile in MyEdu
  */
-class myBenevolatProfile extends Entry {
+class MyBenevolatProfile extends Entry {
 
+	// ------------------------------------------------
+	// Attributes
+	// ------------------------------------------------
+	
 	// Members
 	public $users; 			
 	// Partnerships owned or joined
@@ -15,9 +19,10 @@ class myBenevolatProfile extends Entry {
 	public $details; 
 	
 	
-	/** 
-	 * Constructor 
-	 */
+	// ------------------------------------------------
+	// Constructor
+	// ------------------------------------------------
+	
 	public function __construct(
 			$id = null,
 			$data = null,

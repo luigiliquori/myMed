@@ -22,6 +22,10 @@
 	   		'index.php?action=extendedProfile&method=show_user_profile&user='
 	   		.$_SESSION['user']->id.'', "defaultHelpPopup", $title); ?>
 
+	   <!-- Print profile type -->
+	   <div class="ui-bar ui-bar-e" style="text-align: center" data-theme="e">
+	   		<h2> <?= _("Profile type") ?>: <strong style="text-transform:uppercase;"><?= _($_SESSION['myBenevolat']->details['type'])?></strong></h2>
+	   </div>
 	   
 	<!-- Page content -->
 	<div data-role="content">
@@ -30,30 +34,31 @@
 	
 		<!-- Extended profile edit form -->
 		<form action="?action=ExtendedProfile&method=update" method="POST" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
-			<input type="hidden" id="role" name="role" value="<?= $_SESSION['myBenevolat']->details['role'] ?>" />
+			
+			<input type="hidden" id="type" name="type" value="<?= $_SESSION['myBenevolat']->details['type'] ?>" />
 			<input type="hidden" name="id" value="<?= $_SESSION['myBenevolat']->profile ?>" />
-			<input type="hidden" name="form" value="edit" />
 
-			<!-- Role -->
+			<!-- Profile type -->
 			<div style="text-align: center">
-				<label for="typeProfile"> <?= _("Profile type") ?>: </label>
-				<strong style="text-transform:uppercase;"><?= _($_SESSION['myBenevolat']->details['role'])?></strong>
+				
 			</div>
 			<script type="text/javascript">
 				$("#extendedprofileeditview").on("pageshow", function() {  
-					switch ('<?= $_SESSION['myBenevolat']->details['role'] ?>') {			
-						case 'Role_1':
-							$('#role1field1div').show();	
-		   					$('#role1field2div').show();
-		   					$('#role2field1div').hide();
-		   					$('#role2field2div').hide();
-  							break; 
-  						
-  						case 'Role_2':
-  							$('#role1field1div').hide();	
-		   					$('#role1field2div').hide();
-		   					$('#role2field1div').show();
-		   					$('#role2field2div').show();  							
+					switch ('<?= $_SESSION['myBenevolat']->details['type'] ?>') {			
+
+						case 'volunteer':
+							$('#siretdiv').hide();
+							$('#websitediv').hide();	
+	  						break; 
+	  						
+	  					case 'association':
+	  						$('#siretdiv').show();
+	  						$('#websitediv').show();
+	  						$('#birthdaydiv').hide();
+	  						$('#sexdiv').hide();
+	  						$('#workdiv').hide();
+	  						$('#mobilitiesdiv').hide();
+	  						$('#disponibilitiesdiv').hide();	  						
 		   					break;
 
   					}
@@ -67,21 +72,25 @@
 				<label for="firstName" style="text-align:right"><?= _("First Name") ?> : </label>
 				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
 			</div>
+			
 			<!-- Last Name -->
 			<div data-role="fieldcontain">
 				<label for="lastName" style="text-align:right"><?= _("Last Name") ?> : </label>
 				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			</div>
+			
 			<!-- Birthday -->
-			<div data-role="fieldcontain">
+			<div data-role="fieldcontain" id="birthdaydiv" >
 				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
 				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			</div>
+			
 			<!-- Profile picture -->
 			<div data-role="fieldcontain">
 				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url): </label>
 				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			</div>
+			
 			<!-- User language -->
 			<div data-role="fieldcontain">
 				<label for="lang" style="text-align:right"><?= _("Language") ?>	: </label>
@@ -91,38 +100,145 @@
 					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 				</select>
 			</div>
-			<!--
-			<p><strong> myBenevolat Profile details </strong></p>
-			 myBenevolat Extended Profile details -->
 			
 			<!-- Phone -->		
 			<div data-role="fieldcontain">
-				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?>: </label>
-				<input id="textinputu6" name="phone" placeholder="" value="<?= $_SESSION['myBenevolat']->details['phone'] ?>"  type="tel" />
+				<label for="phone" style="text-align:right"><?= _('Phone') ?>: </label>
+				<input id="phone" name="phone" value="<?= $_SESSION['myBenevolat']->details['phone'] ?>"  type="tel" />
 			</div>
-			<!-- Description -->
+			
+			<!-- Address -->		
 			<div data-role="fieldcontain">
-				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" style="height: 120px;" name="desc" placeholder="description, commentaires"><?= $_SESSION['myBenevolat']->details['desc'] ?></textarea>
+				<label for="address" style="text-align:right"><?= _('Address') ?>: </label>
+				<input id="address" name="address" value="<?= $_SESSION['myBenevolat']->details['address'] ?>" />
 			</div>
-			<!-- Fields for role_1 -->
-			<div id="role1field1div" data-role="fieldcontain" class="ui-screen-hidden">
-				<label for="role1field1"  style="text-align:right"><?= _('Role 1 field 1') ?>: </label>
-				<input id="role1field1" name="role1field1" placeholder="Role 1 field 1" value="<?= $_SESSION['myBenevolat']->details['role1field1'] ?>"></input>
+			
+			<!-- Only Volunteer fields-->
+			<!-- Sex -->
+			<div id="sexdiv" data-role="fieldcontain" style="text-align:right">	
+				<fieldset data-role="controlgroup" name="sex" id="sex">
+					<legend> Sex: </legend>
+			     	<input type="radio" name="sex" id="male" value="male"/>
+			     	<label for="male">Male</label>
+					<input type="radio" name="sex" id="female" value="female"/>
+			     	<label for="female">Female</label>
+				</fieldset>
 			</div>
-			<div id="role1field2div" data-role="fieldcontain">
-				<label for="role1field2"  style="text-align:right"><?= _('Role 1 field 2') ?>: </label>
-				<textarea id="role1field2" name="role1field2" style="height: 120px;" placeholder="Role 1 field 2"><?= $_SESSION['myBenevolat']->details['role1field2'] ?></textarea>
+			
+			<!-- Work -->
+			<div id="workdiv" data-role="fieldcontain" id="work" style="text-align:right">	
+				<fieldset data-role="controlgroup">
+				<legend> Your work: </legend>
+		     	<input type="radio" name="work" id="active" value="active" />
+		     	<label for="active">Active</label>
+		     	<input type="radio" name="work" id="unemployed" value="unemployed" />
+		     	<label for="unemployed">Unemployed</label>
+		     	<input type="radio" name="work" id="retired" value="retired" />
+		     	<label for="retired">Retired</label>
+		     	<input type="radio" name="work" id="student" value="student" />
+		     	<label for="student">Student</label>
+				</fieldset>
 			</div>
-			<!-- Fields for role_2 -->
-			<div id="role2field1div" data-role="fieldcontain">
-				<label for="role2field1"  style="text-align:right"><?= _('Role 2 field 1') ?>: </label>
-				<input id="role2field1" name="role2field1" placeholder="Role 2 field 1" value="<?= $_SESSION['myBenevolat']->details['role2field1'] ?>"></input>
+			<!-- END Only Volunteer fields-->
+			
+			<!-- Only Association fields-->
+			<!-- Siret -->		
+			<div id="siretdiv" data-role="fieldcontain">
+				<label for="siret" style="text-align:right"><?= _('SIRET') ?>: </label>
+				<input id="siret" name="siret" value="<?= $_SESSION['myBenevolat']->details['siret'] ?>" />
 			</div>
-			<div id="role2field2div" data-role="fieldcontain">
-				<label for="role2field2"  style="text-align:right"><?= _('Role 2 field 2') ?>: </label>
-				<textarea id="role2field2" name="role2field2" style="height: 120px;" placeholder="Role 2 field 2"><?= $_SESSION['myBenevolat']->details['role2field2'] ?></textarea>
+			
+			<!-- Web Site -->		
+			<div id="websitediv" data-role="fieldcontain">
+				<label for="website" style="text-align:right"><?= _('Web site') ?>: </label>
+				<input id="website" name="website" value="<?= $_SESSION['myBenevolat']->details['website'] ?>" />
 			</div>
+			
+			<!-- END Only Association fields-->
+			
+			<!-- Competences list -->
+			<br/><br/>
+			<div class="ui-bar ui-bar-e" style="text-align: center" data-theme="e">
+				<h1 style="white-space: normal;">
+				<?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'):?>
+					<?= _("Your competences.") ?>
+				<?else:?>
+					<?= _("The competences you need.") ?>
+				<?endif;?>
+				</h1>
+			</div>
+			<br />
+			<div data-role="fieldcontain" style="text-align: center" id="competences">
+	    		<fieldset data-role="controlgroup">
+	    		<? foreach (Categories::$competences as $k=>$v) :?>
+					<input type="checkbox" name="competences-checkbox" id="<?=$k?>" value="<?=$k?>" />
+					<label for="<?=$k?>"> <?=$v?> </label>
+				<? endforeach ?>
+	    		</fieldset>
+	    	</div>
+	    	
+	    	<!-- Missions list -->
+			<br/><br/>
+			<div class="ui-bar ui-bar-e" style="text-align: center" data-theme="e">
+				<h1 style="white-space: normal;">
+				<?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'):?>
+					<?= _("Missions.") ?>
+				<?else:?>
+					<?= _("The missions you propose.") ?>
+				<?endif;?>
+				</h1>
+			</div>
+			<br />
+			<div data-role="fieldcontain" style="text-align: center" id="missions">
+	    		<fieldset data-role="controlgroup">
+	    		<? foreach (Categories::$missions as $k=>$v) :?>
+					<input type="checkbox" name="missions-checkbox" id="<?=$k?>" value="<?=$k?>" />
+					<label for="<?=$k?>"> <?=$v?> </label>
+				<? endforeach ?>
+	    		</fieldset>
+	    	</div>
+	    	
+
+	    	<!-- Only Volunteer fields -->	    	
+	    	<!-- Mobilities list -->
+			<br/><br/>
+			<div id="mobilitiesdiv">
+				<div class="ui-bar ui-bar-e" style="text-align: center" data-theme="e">
+					<h1 style="white-space: normal;">
+						<?= _("Your mobilities.") ?>
+					</h1>
+				</div>
+				<br />
+				<div data-role="fieldcontain" style="text-align: center" id="mobilities">
+		    		<fieldset data-role="controlgroup">
+		    		<? foreach (Categories::$mobilities as $k=>$v) :?>
+						<input type="checkbox" name="mobilities-checkbox" id="<?=$k?>" value="<?=$k?>" />
+						<label for="<?=$k?>"> <?=$v?> </label>
+					<? endforeach ?>
+		    		</fieldset>
+		    	</div>
+	    	</div>
+	    	
+	    	<!-- Disponibilities list -->
+			<br/><br/>
+			<div id="disponibilitiesdiv">
+				<div class="ui-bar ui-bar-e" style="text-align: center" data-theme="e">
+					<h1 style="white-space: normal;">
+						<?= _("Your avaibility.") ?>
+					</h1>
+				</div>
+				<br />
+				<div data-role="fieldcontain" style="text-align: center" id="disponibilities">
+		    		<fieldset data-role="controlgroup">
+		    		<? foreach (Categories::$disponibilities as $k=>$v) :?>
+						<input type="checkbox" name="disponibilities-checkbox" id="<?=$k?>" value="<?=$k?>" />
+						<label for="<?=$k?>"> <?=$v?> </label>
+					<? endforeach ?>
+		    		</fieldset>
+		    	</div>
+	    	</div>
+			<!-- END Only Volunteer fields-->
+						
 			<br/>
 			<div data-role="fieldcontain">
 				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
@@ -144,3 +260,46 @@
 	</div>
 	
 </div>
+
+
+<!-- Handle checkboxes and radio buttons -->
+<script type="text/javascript">
+
+	// Fill in values 
+	$(document).on("pageinit","#extendedprofileeditview", function() {
+
+		<?php if(isset($_SESSION['myBenevolat']->details['sex'])): ?>
+			<? if($_SESSION['myBenevolat']->details['sex']=='male'): ?>
+				$("input:radio").val(["male"]).checkboxradio("refresh");
+			<? else:?>
+				$("input:radio").val(["female"]).checkboxradio("refresh");
+			<?endif;?>
+		<? endif; ?>
+
+		<?php if(isset($_SESSION['myBenevolat']->details['work'])): ?>
+			
+		<? endif; ?>
+
+		<?php if(isset($_SESSION['myBenevolat']->details['competences'])): ?>
+		
+		<? endif; ?>
+
+		<?php if(isset($_SESSION['myBenevolat']->details['missions'])): ?>
+		
+		<? endif; ?>
+
+		<?php if(isset($_SESSION['myBenevolat']->details['mobilities'])): ?>
+		
+		<? endif; ?>
+
+		<?php if(isset($_SESSION['myBenevolat']->details['disponibilities'])): ?>
+		
+		<? endif; ?>
+		
+
+		
+		//$("input:checkbox").val(["accueil"]).checkboxradio("refresh");
+	});
+
+</script>
+			

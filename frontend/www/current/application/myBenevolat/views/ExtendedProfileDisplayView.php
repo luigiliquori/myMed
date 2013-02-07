@@ -17,7 +17,7 @@
 
 
 	<!-- Header bar -->
-  	<? 	$title = _("Profile");
+  	<? 	$title = _("Profile ".$this->profile->details['type']);
   	  	// Check the previous usr for the back button, if it is a publication details
   	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
   	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
@@ -62,50 +62,77 @@
 			</li>
 			
 			<!-- myBenevolatExtended profile details -->
-			<li data-role="list-divider"><?= _("myBenevolat extended profile details") ?></li>	
+			<li data-role="list-divider"><?= _($this->profile->details['type']." profile details") ?></li>	
 			<li>
 				<p>
 					<!-- Role -->
-					<?= _("Role") ?>: <strong style="color:#444;"><?= _($this->profile->details['role']) ?></strong><br/>
+					<b><?= _("Profile type") ?></b>: <strong style="color:#444;"><?= _($this->profile->details['type']) ?></strong><br/>
 				</p>
 				<p>
 					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
 					<?=
-					(empty($this->profile->details['email'])?" ": _("email").": <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
-					(empty($this->profile->details['phone'])?" ":_("phone").": <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
+					(empty($this->profile->details['email'])? " " : "<b>"._("email").":</b> <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
+					(empty($this->profile->details['phone'])? " " : "<b>"._("phone").":</b> <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
 					(empty($this->profile->details['address'])?" ":_("address").": "."<span>".$this->profile->details['address']."</span><br/>")
 					?>
 				</p>
 				<!-- Role's fields -->
 				<?php 
 					// Render role's fields
-					switch($this->profile->details['role']) {
+					switch($this->profile->details['type']) {
 						
-						case 'Role_1':
-							echo empty($this->profile->details['role1field1']) ? " " : "<p>". _("Role 1 field 1").": "."<span>".$this->profile->details['role1field1']."</span></p>";
-							echo empty($this->profile->details['role1field2']) ? " " : "<p>". _("Role 1 field 2").": "."<span>".$this->profile->details['role1field2']."</span></p>";							break;
+						case 'volunteer':
+							echo empty($this->profile->details['sex']) ? " " : "<p><b>". _("Sex").": </b>"."<span>".$this->profile->details['sex']."</span></p>";
+							echo empty($this->profile->details['work']) ? " " : "<p><b>". _("Working status").": </b>"."<span>".$this->profile->details['work']."</span></p>";
+							echo "<br/>";
+							echo "<p><b>". _("Competences").":</b><br/><p style='margin-left:20px'>";
+							$tokens = explode(" ", $this->profile->details['competences']);
+							array_pop($tokens);
+							foreach($tokens as $token) {
+								echo Categories::$competences[$token]."<br/>";
+							}
+							echo "</p></p><br/>";
+							echo "<p><b>". _("Missions").":</b><br/><p style='margin-left:20px'>";
+							$tokens = explode(" ", $this->profile->details['missions']);
+							array_pop($tokens);
+							foreach($tokens as $token) {
+								echo Categories::$missions[$token]."<br/>";
+							}
+							echo "</p></p><br/>";
+							echo "<p><b>". _("Mobilities").":</b><br/><p style='margin-left:20px'>";
+							$tokens = explode(" ", $this->profile->details['mobilities']);
+							array_pop($tokens);
+							foreach($tokens as $token) {
+								echo Categories::$mobilities[$token]."<br/>";
+							}
+							echo "</p></p><br/>";
+							echo "<p><b>". _("Disponibilities").":</b><br/><p style='margin-left:20px'>";
+							$tokens = explode(" ", $this->profile->details['disponibilities']);
+							array_pop($tokens);
+							foreach($tokens as $token) {
+								echo Categories::$disponibilities[$token]."<br/>";
+							}
+							echo "</p></p><br/>";
+							
+							
+							
+							break;
 						
-						case 'Role_2':
-							echo empty($this->profile->details['role2field1']) ? " " : "<p>". _("Role 2 field 1").": "."<span>".$this->profile->details['role2field1']."</span></p>";
-							echo empty($this->profile->details['role2field2']) ? " " : "<p>". _("Role 2 field 2").": "."<span>".$this->profile->details['role2field2']."</span></p>";
+						case 'association':
+							
 							break;
 
 								
 					}
 				?>
 				<br/>
-				<p>
-					<?= _("Description")?>: <p style="margin-left:30px"><?= empty($this->profile->details['desc'])?" ":$this->profile->details['desc'] ?></p>
-				</p>
-				
-				
-				<br />
-				<? if(($this->profile->details['role']!='professor')): ?>
+
+				<!-- Reputation -->
 				<p class="ui-li-aside">
 					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> rates)
 				</p>
 				<br />
-				<?php endif; ?>
+				
 					
 			</li>	
 		</ul> <!-- END show user profile -->	
