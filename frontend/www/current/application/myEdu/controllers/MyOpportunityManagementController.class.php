@@ -38,7 +38,12 @@ class MyOpportunityManagementController extends AuthenticatedController {
 		$organization = $_POST['organization'];
 		$locality =  $_POST['locality'];
 		$area = $_POST['Area'];
-		$pubTitle = $_POST['nameSub'];
+		if(!isset($_POST['nameSub']) || $_POST['nameSub'] == ""){
+			$pubTitle = "S".time();
+		}
+		else{
+			$pubTitle = $_POST['nameSub'];
+		}
 		$this->sub = $cat." ".$organization." ".$locality." ".$area." ".$pubTitle;
 		
 		//create subscription
