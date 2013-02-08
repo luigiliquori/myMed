@@ -11,6 +11,7 @@
 	<div data-role="content" >
 	
 		<? include_once 'notifications.php'; ?>
+		<?print_notification($this->success.$this->error);?>
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
@@ -115,31 +116,45 @@
 				</form>
 			</div>
 			
+			<?php 
+				function createlist($val){
+					$result="";
+					if(isset($val->category)){
+						$result .= _($val->category);
+					}
+					if(isset($val->organization)){
+						$result .= ", "._($val->organization);
+					}
+					if(isset($val->locality)){
+						$result .= ", "._($val->locality);
+					}
+					if(isset($val->area)){
+						$result .= ", "._($val->area);
+					}
+					return $result;
+				}
+			?>
+			
 			<!-- Subscription list -->
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('My subscriptions') ?> :</h3>
 				<?php
-					//echo $this->response."<br/><br/>";
-					$responseObject = json_decode($this->response);
-					$subscriptions = (array)$responseObject->dataObject->subscriptions;
-					$index=1;
+					//echo "SUB :".$this->sub."<br/><br/>";
+					//echo var_dump($this->response)."<br/><br/>";
 					echo '<ul data-role="listview" data-filter="true" >';
-					foreach ($subscriptions as $key=>$value){
-						//echo $key."    ";
-						$preds = explode("pred",$key);
-						//echo _("Subscription parameters:")."<br />";
+					foreach ($this->response as $val){
 						echo '<li><div class="ui-grid-a">';
 						echo '<div class="ui-block-a">';
-						echo _("Subscription ").$index.":<br />";
-						//echo _("Subscription ")..":<br />";
-						foreach($preds as $key2){
-							if($key2 != ""){
-								echo _(substr($key2,1)).", ";
-							}
-						}
+						echo _("Subscription ").$val->pubTitle.": <br/>";
+						echo createlist($val);
+						$predicate="category".$val->category."organization".$val->organization."locality".$val->locality."area".$val->area;
 						echo '</div><div class="ui-block-b">';
-						echo '<a href="?action=myOpportunityManagement&removeSubscription=true&predicate='.$key.'"  data-role="button" data-theme="r" data-inline="true" style="float: right;">'._("Delete subscription").'</a></div></div></li>';
-						$index++;
+						echo '<form action="?action=myOpportunityManagement" method="POST" data-ajax="false"  style="float: right;">
+								<input type="hidden" name="removeSubscription" value="true" />
+								<input type="hidden" name="predicate" value="'.$predicate.'"/>
+								<input type="hidden" name="publicationTitle" value="'.$val->pubTitle.'"/>
+								<input type="submit" data-icon="delete" data-theme="r" data-inline="true" value="'._("Delete subscription").'" />
+							  </form></div></div></li>';
 					}
 					echo '</ul>';
 				?>
