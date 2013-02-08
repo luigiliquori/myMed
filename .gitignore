@@ -9,6 +9,7 @@
 .fbprefs
 .pmd
 .checkstyle
+.buildpath
 
 .DS_Store
 
