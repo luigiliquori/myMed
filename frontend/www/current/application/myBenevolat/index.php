@@ -8,6 +8,7 @@ define('APPLICATION_NAME', "myBenevolat");
 define('APP_ROOT', __DIR__);
 define('MYMED_ROOT', __DIR__ . '/../..');
 define('MYMED_URL_ROOT', '../../');
+define('DATE_FORMAT', "d-m-Y");
 
 // Include main controller : Dispatches actions to individual controllers
 include(MYMED_ROOT . '/system/controllers/index-controller.php');

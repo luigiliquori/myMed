@@ -1449,8 +1449,8 @@ msgstr ""
 msgid "Do you like the author?"
 msgstr "Vi piace questa idea di progetto ?"
 
-msgid "Comments: <i>You have to be logged in to be able to comment!</i>"
-msgstr ""
+msgid "Comments: <i>You have to be logged in to comment!</i>"
+msgstr "Commenti: <i> Devi essere loggato per commentare!</i>"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplate/views/DetailsView.php:80
 #, fuzzy
@@ -1461,9 +1461,15 @@ msgstr "Vi piace questa idea di progetto ?"
 msgid "back"
 msgstr "indietro"
 
+msgid "You have to wait the administrator validation to access all the menu options"
+msgstr "Devi aspettare la convalida amministratore per accedere a tutte le opzioni di menu"
+
+msgid "You have to wait the administrator validation to update/delete your profile."
+msgstr "Devi aspettare la convalida all'amministratore di aggiornare / cancellare il tuo profilo."
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplate/views/parts/header-bar.php:20
 msgid "Logout"
-msgstr ""
+msgstr "Logout"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/LoginView.php:20
 #, fuzzy
@@ -3356,8 +3362,8 @@ msgstr ""
 #~ msgid "Theme5"
 #~ msgstr "Tema5"
 
-#~ msgid "delete"
-#~ msgstr "Cancella"
+msgid "Delete"
+msgstr "Cancella"
 
 #~ msgid "reply"
 #~ msgstr "Rispondi"
