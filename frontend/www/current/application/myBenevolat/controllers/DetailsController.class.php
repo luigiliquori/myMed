@@ -15,7 +15,6 @@ class DetailsController extends AuthenticatedController {
 			$_SESSION['user']->is_guest = 1;
 		}
 		
-		// Get arguments of the query
 		$predicate = $_GET['predicate'];
 		$author = $_GET['author'];
 		
@@ -24,7 +23,7 @@ class DetailsController extends AuthenticatedController {
 		$_SESSION['author'] = $author;
 		
 		// Create an object
-		$obj = new myBenevolatPublication($predicate);
+		$obj = new Annonce($predicate);
 		$obj->publisherID = $author;
 		
 		// Fetches the details
@@ -32,11 +31,12 @@ class DetailsController extends AuthenticatedController {
 		 
 		// Give this to the view
 		$this->result = $obj;
+		
 		// get author reputation
 		$request = new Request("ReputationRequestHandler", READ);
 		$request->addArgument("application",  APPLICATION_NAME);
-		$request->addArgument("producer",  $obj->publisherID);							
-		$request->addArgument("consumer",  $obj->publisherID);
+		$request->addArgument("producer",  $this->result->publisherID);							
+		$request->addArgument("consumer",  $this->result->publisherID);
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
@@ -52,7 +52,7 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["author_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		// get value reputation
-		$request->addArgument("producer",  $predicate.$obj->publisherID);	
+		$request->addArgument("producer",  $this->result->publisherID);	
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
@@ -67,49 +67,30 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["value"] = $value;
 		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
-		$this->search_comment();
 		$this->search_apply();
 		
 		// Need publisher role (student, professer, or company) so
 		// get publisher details
 		// Get the user details
-		
+		/*
 		try {
 			$datamapper = new DataMapper;
-			$details = $datamapper->findById(new User($author));
+			$details = $datamapper->findById(new User($_SESSION['user']->id));
 			$this->publisher_profile = new myBenevolatProfile($details['profile']);
 			$this->publisher_profile->details = $datamapper->findById($this->publisher_profile);
 		} catch (Exception $e) {
+			debug($e);
 			$this->redirectTo("main");
 		}
-				
+			*/	
 		// Render the view
-		$this->renderView("details");
-	}
-	
-	function defaultMethod() {
-		
-		if (isset($_GET['comment'])){
-			$this->comment();
-		}
-	}
-	
-	//searching comments
-	public function search_comment() {
-		$search_comments = new Comment();
-		$this->fillObjComment($search_comments);
-		$this->result_comment = $search_comments->find();
-	
+		$this->renderView("Details");
 	}
 	
 	public function search_apply() {
 		$search_applies = new Apply();
 		$this->fillObjApply($search_applies);
 		$this->result_apply = $search_applies->find();
-	}
-
-	private function fillObjComment($obj) {
-		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 	}
 	
 	private function fillObjApply($obj) {

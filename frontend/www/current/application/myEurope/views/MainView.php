@@ -3,7 +3,7 @@
 
 <div data-role="page" id="home">
 
-	<? print_header_bar(false, "defaultHelpPopup", $title, true); ?>
+	<? print_header_bar(false, "mainViewHelpPopup", false, true); ?>
 
 	<div data-role="content" >
 	
@@ -20,12 +20,16 @@
 		
 		<?php if ($_SESSION['user']->is_guest) { ?>
 				<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
+		<?php }else if(!$_SESSION['myEurope']){ ?>
+				<p Style="text-align: center; font-style:italic;"><?= _("You have to create your extended profile to access all the menu options") ?></p>
+		<?php }else if ($_SESSION['myEurope']->permission ==0) { ?>
+				<p Style="text-align: center; font-style:italic;"><?= _("You have to wait the administrator validation to access all the menu options") ?></p>
 		<?php }else{ ?> <br />
 		<?php }if ($_SESSION['user']->is_guest) { ?>
 		<a href="index.php?action=extendedProfile" rel="external" data-icon="signin" data-role="button" ><?=_("Sign in")?></a><br />
 		<?php } ?>
 		<a href="#search" data-role="button" data-icon="search"><?= _("Search a partnership offer") ?></a><br />
-		<a href="index.php#publish" data-icon="pencil" data-role="button" rel="external" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("Insert a partnership offer") ?></a><br />
+		<a href="index.php#publish" data-icon="pencil" data-role="button" rel="external" <?= ($_SESSION['user']->is_guest || $_SESSION['myEurope']->permission ==0) ? " class='ui-disabled'" : "" ?>><?= _("Insert a partnership offer") ?></a><br />
 		<a href="?action=extendedProfile" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("Profile") ?></a><br />
 		<a href="#Blog" data-icon="comment" data-role="button"><?= _("Blog") ?></a><br />
 		<a href="?action=about" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
@@ -34,7 +38,7 @@
 		<!-- HELP POPUP -->
 		<!-- ------------------ -->
 		
-		<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+		<div data-role="popup" id="mainViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<h3><?= _("How it works") ?> ?</h3>
 			<ul data-role="listview" data-theme="e">	
@@ -69,7 +73,3 @@
 <? include("SearchView.php"); ?>
 <? include("PublishView.php"); ?>
 <? include("BlogView.php"); ?>
-
-<?php include("footer.php")?>
-
-

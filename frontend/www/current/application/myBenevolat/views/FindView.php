@@ -16,93 +16,80 @@
 	<div data-role="content">
 		
 		<form action="index.php?action=find" method="POST" data-ajax="false">
-			<input type="hidden" id="find_area" name="area" value="" />
-			<input type="hidden" id="find_category" name="category" value="" />
-			<input type="hidden" id="find_organization" name="organization" value="" />
+			<input type="hidden" id="find_competence" name="competence" value="" />
+			<input type="hidden" id="find_quartier" name="quartier" value="" />
+			<input type="hidden" id="find_mission" name="mission" value="" />
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to find") ?>?</h3>
-				<?= _("Specify properties to retrieve releated publications.")?>
+				<?= _("Specify properties to retrieve releated announcements.")?>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Find a publication') ?> :</h3>
-			
-	   			<fieldset data-role="controlgroup">
+				<h3><?= _('Find an announcement') ?> :</h3>
+		
+				<fieldset data-role="controlgroup">
 					<!-- Categoria -->
-					<select name="Category" id="find_category_content" id="call" data-native-menu="false">
-						<option value=""><?= _("Category") ?></option>
-						<? foreach (Categories::$categories as $k=>$v) :?>
+					<select name="competence" id="find_competence_content" data-native-menu="false">
+						<option value=""><?= _("Select skill") ?></option>
+						<option value=""></option>
+						<? foreach (Categories::$competences as $k=>$v) :?>
+							<option value="<?= $k ?>"><?= $v ?></option>
+						<? endforeach ?>
+					</select>
+					<select name="quartier" id="find_quartier_content" data-native-menu="false">
+						<option value=""><?= _("Select district") ?></option>
+						<? foreach (Categories::$mobilite as $k=>$v) :?>
+							<option value="<?= $k ?>"><?= $v ?></option>
+						<? endforeach ?>
+					</select>
+					<select name="mission" id="find_mission_content" data-native-menu="false">
+						<option value=""><?= _("Select mission type") ?></option>
+						<? foreach (Categories::$missions as $k=>$v) :?>
 							<option value="<?= $k ?>"><?= $v ?></option>
 						<? endforeach ?>
 					</select>
 				</fieldset>
-			
-				<!-- ADVANCED RESEARCH -->
-				<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="d" data-mini="true" style="margin-left:25px; margin-right:25px; margin-top:20px">
-					<h3><?= _("Advanced research")?></h3>
-					
-					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-						<div class="ui-block-a">
-							<input type="checkbox" name="organizationBox" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
-						</div>
-						<div class="ui-block-b">
-							<select name="organization" id="find_organization_content" id="call" data-native-menu="false">
-								<option value=""></option>
-								<? foreach (Categories::$organizations as $k=>$v) :?>
-									<option value="<?= $k ?>"><?= $v ?></option>
-								<? endforeach ?>
-							</select>
-						</div>
-					</div>
-					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-						<div class="ui-block-a">
-							<input type="checkbox" name="areaBox" id="check-view-c"/> <label for="check-view-c"><?= _("Area")?></label>
-						</div>
-						<div class="ui-block-b">
-							<select name="Area" id="find_area_content" id="call" data-native-menu="false">
-								<option value=""></option>
-									<? foreach (Categories::$areas as $k=>$v) :?>
-										<option value="<?= $k ?>"><?= $v ?></option>
-									<? endforeach ?>
-							</select>
-						</div>
-					</div>
-				</div>
-			
-				<div style="text-align: center;">
-					<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>"  data-iconpos="right" data-inline="true" onclick="
-						$('#find_area').val($('#find_area_content').val());
-						$('#find_category').val($('#find_category_content').val());
-						$('#find_organization').val($('#find_organization_content').val());
-					"/>
-				</div>
+			</div>
+			<div style="text-align: center;">
+				<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>"  data-iconpos="right" data-inline="true" onclick="
+					$('#find_competence').val($('#find_competence_content').val());
+					$('#find_quartier').val($('#find_quartier_content').val());
+					$('#find_mission').val($('#find_mission_content').val());
+				"/>
 			</div>
 		</form>
 		
 		<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-			<h3><?= _('Last publications') ?> :</h3>
+			<h3><?= _('All the announcements') ?> :</h3>
 			<ul data-role="listview" data-filter="true" >
+			<? if (count($this->result) == 0) :?>
+				<li>
+					<h4><?= _("No result found")?></h4>
+				</li>
+			<? endif ?>
 			<? foreach($this->result as $item) : ?>
 				<li>
 					<!-- Print Publisher reputation -->
-					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
+					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">			
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
-						
+						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
-							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
-							<b><?= _("Organization") ?></b>: <?= _($item->organization) ?><br/><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
-						</p>
-						
-						<br/>
-						
-						<p style="display:inline; margin-left: 30px;">
-							Publisher ID: <?= $item->publisherID ?><br/>
+							<b><?= _('Date of publication') ?></b>: <?= $item->begin ?><br/>
+							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
+							<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$item->typeMission] ?><br/>
+							<b><?= _("Quartier") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
+							<b><?= _("Competences") ?></b>: 
+						 <? if(gettype($item->competences)=="string"){ ?> <!-- only 1 skill -> string and not array -->
+								<?= Categories::$competences[$item->competences]?><br/><br/>
+						 <? }else{ ?>
+								<? foreach($item->competences as $competences): echo Categories::$competences[$competences]." - "; endforeach;?><br/><br/>
+						 <? } ?>
+							<b>Association ID:</b><?= $item->publisherID?><br/> 
+							
 							<!-- Project reputation-->	
 							<p style="display:inline; margin-left: 30px;" > <b><?= _("Reputation")?>:</b> </p>  
-							<p style="display:inline; margin-left: 30px;" >
+							<p style="display:inline; " >
 								<?php
 									// Disable reputation stars if there are no votes yet 
 									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
@@ -118,15 +105,14 @@
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
-								<p style="display:inline; margin-left:35px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
 							</p>
-						</p>
+							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+						</p>			
 					</a>
 				</li>
 			<? endforeach ?>
 			</ul>
 		</div>
-			
 	</div>
 	
 	<!-- Help popup -->

@@ -11,7 +11,7 @@ function print_header_bar($print_back_button = false, $idHelpPopup = "defaultHel
 	
 	// Pring logout button
 	if($print_logout_button && !($_SESSION['user']->is_guest)) {
-		echo '<a href="?action=logout" class="ui-btn-left" data-role="button" rel="external" data-icon="off" data-iconpos="notext" data-theme="r">Sign out</a>';
+		echo '<a href="?action=logout" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="off" data-iconpos="notext">' . _('Logout') . '</a>';
 	}
 		  
 	if($print_back_button) {

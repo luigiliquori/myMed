@@ -1610,6 +1610,9 @@ msgstr "Bienvenue"
 msgid "MyEdu description goes here."
 msgstr ""
 
+msgid "You have to wait the administrator validation to access all the menu options"
+msgstr "Vous devez attendre la validation par un administrateur pour accéder à toutes les options du menu"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:25
 msgid "You have to login to access all the menu options"
 msgstr "Vous devez vous connecter pour accéder à toutes les options du menu"
@@ -1617,7 +1620,10 @@ msgstr "Vous devez vous connecter pour accéder à toutes les options du menu"
 msgid "You have to create your extended profile to access all the menu options"
 msgstr "Vous devez créer votre profil étendu pour accéder à toutes les options du menu"
 
-msgid "Comments: <i>You have to be logged in to be able to comment!</i>"
+msgid "You have to wait the administrator validation to update/delete your profile."
+msgstr "Vous devez attendre la validation par un administrateur pour modifier/supprimer votre profil."
+
+msgid "Comments: <i>You have to be logged in to comment!</i>"
 msgstr "Commentaires: <i>Vous devez vous connecter pour pouvoir commenter!</i>"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:28
@@ -3338,8 +3344,8 @@ msgstr ""
 #~ msgid "Theme5"
 #~ msgstr "Théme5"
 
-#~ msgid "delete"
-#~ msgstr "Supprimer"
+msgid "Delete"
+msgstr "Supprimer"
 
 #~ msgid "reply"
 #~ msgstr "Répondre"

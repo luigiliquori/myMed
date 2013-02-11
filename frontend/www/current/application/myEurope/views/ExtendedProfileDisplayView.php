@@ -13,6 +13,10 @@
 				<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" data-theme="e"> <?= _("Users list") ?> </a>
 			</div>
 			<br>
+		<? elseif ($_SESSION['myEurope']->permission ==0): ?>
+			<div data-role="header" data-theme="e">
+				<h1 style="white-space: normal;"><?= _("You have to wait the administrator validation to update/delete your profile.") ?></h1>
+			</div> 
 		<? endif ?>
 		
 		<? 
@@ -37,15 +41,14 @@
 			<br />
 			<? endif; ?>
 		-->	
-			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope'])): ?>
+			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope']) && $_SESSION['myEurope']->permission >0): ?>
 			<br />
-			<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
-			
-			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
+				<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
 				
-			<div data-role="popup" id="popupDeleteProfile" class="ui-content" Style="text-align: center; width: 18em;">
+				<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
+				
+				<div data-role="popup" id="popupDeleteProfile" class="ui-content" Style="text-align: center; width: 18em;">
 					<?= _("Are you sure you want to delete your profile ?") ?><br /><br />
-			
 					<a type="button" href="?action=ExtendedProfile&delete=true"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
 					<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
 				</div>

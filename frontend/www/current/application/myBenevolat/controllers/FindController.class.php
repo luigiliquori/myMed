@@ -7,11 +7,16 @@ class FindController extends AuthenticatedController{
 		parent::handleRequest();
 	
 		if ($_SERVER['REQUEST_METHOD'] == "POST") { // search button			
-			$search = new myBenevolatPublication();
-			$this->fillObj($search); // for the filters
-
+			$search = new Annonce();
+			
+			if($_POST['competence']) $search->competences = $_POST['competence'];
+			if($_POST['mission']) $search->typeMission = $_POST['mission'];	
+			if($_POST['quartier']) $search->quartier = $_POST['quartier'];
+			
+			$search->validated='false';
+			
 			$this->result = $search->find(); 
-			$date = strtotime(date('d-m-Y')); 
+			$date = strtotime(date(DATE_FORMAT)); 
 				
 			for($i = 0; $i < count($this->result); ++$i) {
 				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
@@ -21,6 +26,7 @@ class FindController extends AuthenticatedController{
 					}
 				}
 			}
+			$this->getReputation($this->result);
 			$this->renderView("results");
 		}
 	}
@@ -29,7 +35,7 @@ class FindController extends AuthenticatedController{
 		if(isset($_GET['delete_publications'])){
 			$search = new myBenevolatPublication();
 
-			$search->publisher = $_SESSION['user']->id;
+			//$search->publisher = $_SESSION['user']->id;
 			$search->publisherID = $_SESSION['user']->id;
 			
 			$result = $search->find();
@@ -41,10 +47,15 @@ class FindController extends AuthenticatedController{
 			
 			$this->renderView("Find");
 		}
-		else if (isset($_GET['search'])){
-			$search = new myBenevolatPublication();
-			$this->result = $search->find(); 
-			$date = strtotime(date('d-m-Y')); 
+		else if (isset($_GET['search'])){ // from main menu: search annonce
+			debug("FINDVIEW initialisation");
+			
+			$search = new Annonce();
+			$search->validated='false';
+
+			$this->result = $search->find();
+
+			$date = strtotime(date(DATE_FORMAT));
 				
 			for($i = 0; $i < count($this->result); ++$i) {
 				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
@@ -58,22 +69,6 @@ class FindController extends AuthenticatedController{
 			$this->getReputation($this->result);
 			$this->renderView("Find");
 		}
-	}
-	
-	// Fill object with POST values
-	private function fillObj($obj) {
-		
-		$obj->publisher = $_POST['publisher'];
-		
-		if($_POST['areaBox']) $obj->area = $_POST['area'];
-		if($_POST['organizationBox']) $obj->organization = $_POST['organization'];
-		
-		$obj->category = $_POST['category'];
-		$obj->type = 'myBenevolatPublication';
-		$obj->end 	= $_POST['date'];
-
-		$obj->title = $_POST['title'];
-		$obj->text 	= $_POST['text'];
 	}
 	
 	/**
@@ -103,13 +98,6 @@ class FindController extends AuthenticatedController{
 	
 		endforeach;
 	
-	}
-	
-	function deleteAllPublications(){
-		$search = new myBenevolatPublication();
-		$search->publisher = $_SESSION['user']->id;
-		$search->publisherID = $_SESSION['user']->id;
-		$this->result = $search->delete();
 	}
 }
 
