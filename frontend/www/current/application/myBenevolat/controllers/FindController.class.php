@@ -11,21 +11,11 @@ class FindController extends AuthenticatedController{
 			
 			if($_POST['competence']) $search->competences = $_POST['competence'];
 			if($_POST['mission']) $search->typeMission = $_POST['mission'];	
-			if($_POST['quartier']) $search->quartier = $_POST['quartier'];
+			if($_POST['quartier']) $search->quartier = $_POST['quartier'];			
 			
-			$search->validated='false';
+			$res = $search->find(); 
+			$this->filter_array($res);
 			
-			$this->result = $search->find(); 
-			$date = strtotime(date(DATE_FORMAT)); 
-				
-			for($i = 0; $i < count($this->result); ++$i) {
-				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
-					$expiration_date = strtotime($this->result[$i]->end);
-					if($expiration_date < $date){
-						unset($this->result[$i]);
-					}
-				}
-			}
 			$this->getReputation($this->result);
 			$this->renderView("results");
 		}
@@ -34,8 +24,6 @@ class FindController extends AuthenticatedController{
 	function defaultMethod() {
 		if(isset($_GET['delete_publications'])){
 			$search = new myBenevolatPublication();
-
-			//$search->publisher = $_SESSION['user']->id;
 			$search->publisherID = $_SESSION['user']->id;
 			
 			$result = $search->find();
@@ -51,24 +39,37 @@ class FindController extends AuthenticatedController{
 			debug("FINDVIEW initialisation");
 			
 			$search = new Annonce();
-			$search->validated='false';
+			$res = $search->find(); 
+			$this->filter_array($res);
 
-			$this->result = $search->find();
-
-			$date = strtotime(date(DATE_FORMAT));
-				
-			for($i = 0; $i < count($this->result); ++$i) {
-				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
-					$expiration_date = strtotime($this->result[$i]->end);
-					if($expiration_date < $date){
-						unset($this->result[$i]);
-					}
-				}
-			}
 			// get userReputation
 			$this->getReputation($this->result);
 			$this->renderView("Find");
 		}
+	}
+	
+	private function filter_array($res1){
+		// filter by the expiration date
+		$date = strtotime(date(DATE_FORMAT));
+	
+		$res2 = array();
+		foreach($res1 as $item):
+			if(!empty($item->end) && $item->end!="--"){
+				$expiration_date = strtotime($item->end);
+				if($date <= $expiration_date){
+					array_push($res2, $item);
+				}
+			}
+		endforeach;
+	
+		// filter by the validation status
+		$this->result = array();
+		foreach($res2 as $item):
+			$item->getDetails();
+			if($item->validated=="validated"){
+				array_push($this->result, $item);
+			}
+		endforeach;
 	}
 	
 	/**

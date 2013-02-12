@@ -157,12 +157,13 @@
 							  </form></div></div></li>';
 					}
 					echo '</ul>';
-				?>
+				?>	
 			</div>
+			
 			
 			<!-- Help popup -->
 			<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
-				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<a href="#" data-rel="back" data-role="button" data-theme="a"  data-iconpos="notext" class="ui-btn-right">Close</a>
 				<p> <?= _("Here you can create subscriptions by selecting different parameters related to Universities, Companies, Localities and Themes.") ?></p>
 			</div>
 </div>

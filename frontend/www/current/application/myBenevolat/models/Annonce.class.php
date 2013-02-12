@@ -43,10 +43,10 @@ class Annonce extends GenericDataBean {
 				"quartier" => ENUM),
 		
 			// Data attributes
-			array("text" => TEXT),
+			array("text" => TEXT, "validated" => TEXT),
 				
 			// Wrapped attributes
-			array("validated", "promue", "begin", "end"),
+			array("promue", "begin", "end"),
 			
 			$predicateStr);
 		

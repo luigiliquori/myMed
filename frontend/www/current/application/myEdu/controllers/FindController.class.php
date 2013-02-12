@@ -10,17 +10,9 @@ class FindController extends AuthenticatedController{
 			$search = new MyEduPublication();
 			$this->fillObj($search); // for the filters
 
-			$this->result = $search->find(); 
-			$date = strtotime(date('d-m-Y')); 
-				
-			for($i = 0; $i < count($this->result); ++$i) {
-				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
-					$expiration_date = strtotime($this->result[$i]->end);
-					if($expiration_date < $date){
-						unset($this->result[$i]);
-					}
-				}
-			}
+			$res = $search->find(); 
+			$this->filter_array($res);
+			
 			$this->getReputation($this->result);
 			$this->renderView("results");
 		}
@@ -44,21 +36,30 @@ class FindController extends AuthenticatedController{
 		}
 		else if (isset($_GET['search'])){
 			$search = new MyEduPublication();
-			$this->result = $search->find(); 
-			$date = strtotime(date('d-m-Y')); 
-				
-			for($i = 0; $i < count($this->result); ++$i) {
-				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
-					$expiration_date = strtotime($this->result[$i]->end);
-					if($expiration_date < $date){
-						unset($this->result[$i]);
-					}
-				}
-			}
+			$res = $search->find(); 
+			$this->filter_array($res);
+			
 			// get userReputation
 			$this->getReputation($this->result);
 			$this->renderView("Find");
 		}
+	}
+	
+	private function filter_array($res1){
+		// filter by the expiration date
+		$date = strtotime(date('d-m-Y')); 
+	
+		$this->result = array();
+		foreach($res1 as $item):
+			if(!empty($item->end) && $item->end!="--"){
+				$expiration_date = strtotime($item->end);
+				if($date <= $expiration_date){
+					array_push($this->result, $item);
+				}
+			}else{ // no expiration date
+				array_push($this->result, $item);
+			}
+		endforeach;
 	}
 	
 	// Fill object with POST values

@@ -34,6 +34,10 @@ class MyOpportunityManagementController extends AuthenticatedController {
 	 */
 	function addSubscription(){
 		//retrieve variables
+		if(empty($_POST['Category']) && empty($_POST['organization']) && empty($_POST['locality']) && empty($_POST['Area'])){
+			$this->error = _("You have to choose at least one parameter");
+			$this->renderView("myOpportunityManagement");
+		}
 		$cat = $_POST['Category'];
 		$organization = $_POST['organization'];
 		$locality =  $_POST['locality'];
