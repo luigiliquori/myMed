@@ -56,10 +56,7 @@
 								<?= Categories::$competences[$item->competences]?><br/><br/>
 						 <? }else{ ?>
 								<? foreach($item->competences as $competences): echo Categories::$competences[$competences]." - "; endforeach;?><br/><br/>
-						 <? }
-							$validated='waiting admin validation'; 
-							if($item->validated=="true")$validated="validated by the admin"; ?>
-							<b>Status: </b><?= _($validated) ?><br/>
+						 <? } ?>
 							
 							<!-- Project reputation-->	
 							<p style="display:inline; margin-left: 30px;" > <b><?= _("Reputation")?>:</b> </p>  

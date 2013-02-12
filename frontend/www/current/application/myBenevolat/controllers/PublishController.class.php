@@ -85,18 +85,7 @@ class PublishController extends ExtendedProfileRequired {
 				$obj = new Annonce();
 				$obj->publisher = $_SESSION['user']->id;	// Publisher ID
 				$obj->type = "annonce";
-				
-				debug(gettype($_POST['competences']));
-				foreach($_POST['competences'] as $competence):
-					debug($competence);
-				endforeach;
-				if(count($_POST['competences'])==1){
-					$obj->competences = $_POST['competences'];
-					debug("une seule compétence");
-				}else{ 
-					$obj->competences = $_POST['competences'];	// array of competences	
-					debug("plusieurs compétences");
-				}
+				$obj->competences = $_POST['competences'];	// array of competences	
 				$obj->typeMission = $_POST['mission'];	
 				$obj->quartier = $_POST['quartier'];
 				if(isset($_POST['begin'])) $obj->begin = $_POST['begin'];
@@ -106,8 +95,11 @@ class PublishController extends ExtendedProfileRequired {
 				$obj->text = $_POST['text'];	
 				if(isset($_POST['promue'])) $obj->promue = $_POST['promue'];
 				else $obj->promue = "false";
-				if(isset($_POST['validated'])) $obj->validated = $_POST['validated'];
-				else $obj->validated = "false";				
+				if(isset($_POST['validated'])){
+					$obj->validated = $_POST['validated'];
+				}else{
+					$obj->validated = "waiting";				
+				}
 				
 				// sets the level of broadcasting in the Index Table
 				$level = 3;  
@@ -150,7 +142,7 @@ class PublishController extends ExtendedProfileRequired {
 	 *  Delete user's publication and all the students applies if category=course and the comments
 	 */
 	public function delete() {
-		//$this->delete_Applies();
+		$this->delete_Applies();
 		
 		$predicate = $_POST['predicate'];
 		$author = $_POST['author'];
