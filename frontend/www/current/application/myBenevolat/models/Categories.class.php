@@ -12,22 +12,11 @@ class Categories {
  	static $competences;
  	static $mobilite;
  	static $missions;
+
 }
 
-/* MyBenevolat roles */
-Categories::$roles = array(
-	"Volunteer" => _("Volunteer"),
-	"Association" => _("Association")	
-);
 
-/* MyBenevolat situation professionelle*/
-Categories::$profession = array(
-		"active" => _("Active"),
-		"unemployed" => _("Unemployed"),
-		"retired" => _("Retired"),
-		"student" => _("Student")
-);
-
+/* MyBenevolat professional competences */
 Categories::$competences = array(
 	"accompagnement" 	=> _("Accompagnement (social professionnel)"),
 	"accueil" 			=> _("Accueil / Orientation"),
@@ -47,6 +36,7 @@ Categories::$competences = array(
 	"visite_prison" 	=> _("Visite prison")
 );
 
+/* MyBenevolat mobilitie */
 Categories::$mobilite = array(
 	"undef"				=> _("-- Non défini --"),
 	"plaine_coteaux"	=> _("Plaine et coteaux "),
@@ -59,9 +49,11 @@ Categories::$mobilite = array(
 	"ouest_littoral" 	=> _("Ouest littoral")
 );
 
+/* MyBenevolat missions */
 Categories::$missions = array(
 	"ponctuel"	=> _("Ponctuel"),
 	"regulier" 	=> _("Régulier"),
 	"urgence" 	=> _("Urgence")
 );
+
 ?>
