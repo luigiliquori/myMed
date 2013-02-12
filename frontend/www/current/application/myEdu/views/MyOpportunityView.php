@@ -21,14 +21,32 @@
 		</div>
 		<br />
 		
-		<?php 
-			//echo var_dump($this->search_result);
-		?>
+		<script type="text/javascript">
+				
+		</script>
 	
 		<!-- New subscription button -->
-		<a href="?action=myOpportunityManagement" data-icon="pencil" data-role="button" data-inline="true" data-theme="e" style="float: right;"><?= _("New subscription") ?></a><br />	
-		<br />
-		<br />
+		<div class="ui-grid-a">
+			<div class="ui-block-a" style="float: left;">
+				<?php if(count($this->subscriptions_name)!=0):?>
+				<form action=?action=myOpportunity&opportunities=true method="POST" data-ajax="false"/>
+					<select name="Subscription_list" id="Subscription_list" data-inline="true" style="float: left;" onchange="this.form.submit();">
+						<?php foreach($this->subscriptions_name as $value):?>
+							<?php if($value == $this->actual_subscription_name):?>
+								<option selected value="<?= $value ?>"><?= $value ?></option>
+							<?php else :?>
+								<option value="<?= $value ?>"><?= $value ?></option>
+							<?php endif;?>
+						<?php endforeach;?>
+					</select>
+					<!-- <input type="submit" value="<?= _("OK")?>" data-inline="true"/>-->
+				</form>
+				<?php endif;?>
+			</div>
+			<div class="ui-block-b" style="float: right;">
+				<a href="?action=myOpportunityManagement" data-icon="pencil" data-role="button" data-inline="true" data-theme="e" style="float: right;"><?= _("Manage subscriptions") ?></a><br />	
+			</div>
+		</div>
 		<br />
 		<br />
 		
@@ -37,15 +55,8 @@
 		
 			<li data-role="list-divider"><?= _("Results") ?></li>
 			
-			<? if (count($this->search_result) == 0) :?>
-			<!-- <li>
-				<h4><?= _("No result found")?></h4>
-			</li>-->
-			<?php $entries_number=0;?>
-			<? endif ?>
-			<? foreach($this->search_result as $result):?>
-			<?php $entries_number += count($result);?>
-			<? foreach($result as $item) : ?>
+			<?php $entries_number = count($this->search_result);?>
+			<? foreach($this->search_result as $item) : ?>
 				<li>
 					<a href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
@@ -80,7 +91,7 @@
 					</a>
 				</li>
 				<? endforeach ?>
-			<? endforeach?>
+			<? //endforeach?>
 			<? if($entries_number == 0):?>
 				<li>
 					<h4><?= _("No result found")?></h4>
