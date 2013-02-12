@@ -278,7 +278,8 @@
 
 	/* Show a warning pop up */ 
 	function warningPopUp(message) {
-		$("#notificationPopup").popup({ history: false });
+		$("#notificationPopup").popup();
+		//$("#notificationPopup").popup({ history: false });
 		$("#popupMessage").text(message);
 		$("#notificationPopup").popup("open");
 	}
