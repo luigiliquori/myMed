@@ -27,15 +27,16 @@
 	   		<h2> <?= _("Profile type") ?>: <strong style="text-transform:uppercase;"><?= _($_SESSION['myBenevolat']->details['type'])?></strong></h2>
 	   </div>
 	   
+	   
 	<!-- Page content -->
 	<div data-role="content">
 	
 		<? print_notification($this->success.$this->error); ?>
 	
 		<!-- Extended profile edit form -->
-		<form action="?action=ExtendedProfile&method=update" method="POST" name="ExtendedProfileForm" id="ExtendedProfileForm" data-ajax="false">
-			
-			<input type="hidden" id="type" name="type" value="<?= $_SESSION['myBenevolat']->details['type'] ?>" />
+		<!-- Final wizard form -->
+		<form action="?action=ExtendedProfile&method=update" id="profileForm" method="POST" data-ajax="false">
+						
 			<input type="hidden" name="id" value="<?= $_SESSION['myBenevolat']->profile ?>" />
 
 			<!-- Profile type -->
@@ -44,6 +45,7 @@
 			</div>
 			<script type="text/javascript">
 				$("#extendedprofileeditview").on("pageshow", function() {  
+					
 					switch ('<?= $_SESSION['myBenevolat']->details['type'] ?>') {			
 
 						case 'volunteer':
@@ -57,8 +59,7 @@
 	  						$('#birthdaydiv').hide();
 	  						$('#sexdiv').hide();
 	  						$('#workdiv').hide();
-	  						$('#mobilitiesdiv').hide();
-	  						$('#disponibilitiesdiv').hide();	  						
+	  						$('#mobilitediv').hide();	  						
 		   					break;
 
   					}
@@ -153,7 +154,6 @@
 				<label for="website" style="text-align:right"><?= _('Web site') ?>: </label>
 				<input id="website" name="website" value="<?= $_SESSION['myBenevolat']->details['website'] ?>" />
 			</div>
-			
 			<!-- END Only Association fields-->
 			
 			<!-- Competences list -->
@@ -200,38 +200,19 @@
 	    	
 
 	    	<!-- Only Volunteer fields -->	    	
-	    	<!-- Mobilities list -->
+	    	<!-- Mobilite list -->
 			<br/><br/>
-			<div id="mobilitiesdiv">
+			<div id="mobilitediv">
 				<div class="ui-bar ui-bar-e" style="text-align: center" data-theme="e">
 					<h1 style="white-space: normal;">
-						<?= _("Your mobilities.") ?>
+						<?= _("Your mobilite.") ?>
 					</h1>
 				</div>
 				<br />
-				<div data-role="fieldcontain" style="text-align: center" id="mobilities">
+				<div data-role="fieldcontain" style="text-align: center" id="mobilite">
 		    		<fieldset data-role="controlgroup">
-		    		<? foreach (Categories::$mobilities as $k=>$v) :?>
-						<input type="checkbox" name="mobilities-checkbox" id="<?=$k?>" value="<?=$k?>" />
-						<label for="<?=$k?>"> <?=$v?> </label>
-					<? endforeach ?>
-		    		</fieldset>
-		    	</div>
-	    	</div>
-	    	
-	    	<!-- Disponibilities list -->
-			<br/><br/>
-			<div id="disponibilitiesdiv">
-				<div class="ui-bar ui-bar-e" style="text-align: center" data-theme="e">
-					<h1 style="white-space: normal;">
-						<?= _("Your avaibility.") ?>
-					</h1>
-				</div>
-				<br />
-				<div data-role="fieldcontain" style="text-align: center" id="disponibilities">
-		    		<fieldset data-role="controlgroup">
-		    		<? foreach (Categories::$disponibilities as $k=>$v) :?>
-						<input type="checkbox" name="disponibilities-checkbox" id="<?=$k?>" value="<?=$k?>" />
+		    		<? foreach (Categories::$mobilite as $k=>$v) :?>
+						<input type="checkbox" name="mobilite-checkbox" id="<?=$k?>" value="<?=$k?>" />
 						<label for="<?=$k?>"> <?=$v?> </label>
 					<? endforeach ?>
 		    		</fieldset>
@@ -241,8 +222,31 @@
 						
 			<br/>
 			<div data-role="fieldcontain">
+				
+				<!-- Password -->
 				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
 				<input type="password" id="password" name="password" />
+				
+				<!-- MyMed basic profile fields -->
+				<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
+				<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
+				<input type="hidden" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
+				<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+				<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
+				
+				<!-- Extended profile fields -->
+				<input type="hidden" id="type" name="type" value="<?= $_SESSION['myBenevolat']->details['type'] ?>" />
+				<input type="hidden" id="validated" name="validated" value="false"/>
+				<input type="hidden" id="sex" name="sex" />
+				<input type="hidden" id="phone" name="phone" value="" />
+				<input type="hidden" id="work" name="work" value="" />
+				<input type="hidden" id="address" name="address" value="" />
+				<input type="hidden" id="website" name="website" value="" />
+				<input type="hidden" id="siret" name="siret" value="" />
+				<input type="hidden" id="competences" name="competences" value="" />
+				<input type="hidden" id="missions" name="missions" value="" />
+				<input type="hidden" id="mobilite" name="mobilite" value="" />
+				
 			</div>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
@@ -262,44 +266,140 @@
 </div>
 
 
+	<!-- Notification messages pop up -->
+<div data-role="popup" id="notificationPopup" data-transition="flip" data-theme="e" class="ui-content">
+	<p id="popupMessage" name="popupMessage"><p>
+</div>';
+
+
 <!-- Handle checkboxes and radio buttons -->
 <script type="text/javascript">
 
 	// Fill in values 
-	$(document).on("pageinit","#extendedprofileeditview", function() {
+	//$(document).on("pageshow","#extendedprofileeditview", function() {
 
+		// Reset checked controls
+		$("input[name=sex]").prop('checked',false);//.checkboxradio('refresh');
+		$("input[name=work]").prop('checked',false);//.checkboxradio('refresh');
+		$("input[name='competences-checkbox']").prop('checked',false);//.checkboxradio('refresh');
+		$("input[name='missions-checkbox']").prop('checked',false);//.checkboxradio('refresh');
+		$("input[name='mobilite-checkbox']").prop('checked',false);//.checkboxradio('refresh');
+
+		// Check proper values
 		<?php if(isset($_SESSION['myBenevolat']->details['sex'])): ?>
-			<? if($_SESSION['myBenevolat']->details['sex']=='male'): ?>
-				$("input:radio").val(["male"]).checkboxradio("refresh");
-			<? else:?>
-				$("input:radio").val(["female"]).checkboxradio("refresh");
-			<?endif;?>
+		$("input[name=sex]").filter('[value=<?= $_SESSION['myBenevolat']->details['sex']?>]').prop('checked',true);//.checkboxradio('refresh');
 		<? endif; ?>
 
 		<?php if(isset($_SESSION['myBenevolat']->details['work'])): ?>
-			
+		$("input[name=work]").filter('[value=<?= $_SESSION['myBenevolat']->details['work']?>]').prop('checked',true);//.checkboxradio('refresh');
 		<? endif; ?>
 
 		<?php if(isset($_SESSION['myBenevolat']->details['competences'])): ?>
-		
+			<? $tokens = explode(" ", $_SESSION['myBenevolat']->details['competences']);
+			   array_pop($tokens);
+				foreach ($tokens as $t) : ?>
+				$("input[name=competences-checkbox]").filter('[value=<?= $t?>]').prop('checked',true);//.checkboxradio('refresh');
+				<? endforeach ?>
 		<? endif; ?>
 
 		<?php if(isset($_SESSION['myBenevolat']->details['missions'])): ?>
-		
+			<? $tokens = explode(" ", $_SESSION['myBenevolat']->details['missions']);
+			   array_pop($tokens);
+				foreach ($tokens as $t) : ?>
+				$("input[name=missions-checkbox]").filter('[value=<?= $t?>]').prop('checked',true);//.checkboxradio('refresh');
+				<? endforeach ?>
 		<? endif; ?>
 
-		<?php if(isset($_SESSION['myBenevolat']->details['mobilities'])): ?>
-		
+		<?php if(isset($_SESSION['myBenevolat']->details['mobilite'])): ?>
+			<? $tokens = explode(" ", $_SESSION['myBenevolat']->details['mobilite']);
+			   array_pop($tokens);
+				foreach ($tokens as $t) : ?>
+				$("input[name=mobilite-checkbox]").filter('[value=<?= $t?>]').prop('checked',true);//.checkboxradio('refresh');
+				<? endforeach ?>
 		<? endif; ?>
-
-		<?php if(isset($_SESSION['myBenevolat']->details['disponibilities'])): ?>
 		
-		<? endif; ?>
-		
+	//});
 
 		
-		//$("input:checkbox").val(["accueil"]).checkboxradio("refresh");
+	/* Override default submit function */
+	$('#profileForm').submit(function() {
+
+		
+		switch('<?= $_SESSION['myBenevolat']->details['type'] ?>') {
+	
+				case 'volunteer':
+
+					// Validate volunteer fields			
+					if(!$('#phone').val()) {
+					warningPopUp('Please provide a valid telephone number');
+					break;
+					}
+					if(!$("#sex :radio:checked").val()) {
+						warningPopUp('Please specify your sex');
+						break;
+					}
+					if(!$("#work :radio:checked").val()) {
+						warningPopUp('Please specify your working status');
+						break;
+					}
+
+					// Fill volunteer profile fields
+					$("input[id=phone]").val($('#phone').val());
+					$("input[id=sex]").val($('#sex').val());
+					$("input[id=work]").val($('#phone').val());
+					$("input[id=address]").val($('#address').val());
+					$("input[id=competences]").val($("input[name*=competences]:checked"));
+					$("input[id=missions]").val($("input[name*=missions]:checked"));
+					$("input[id=mobilite]").val($("input[name*=mobilite]:checked"));
+												
+					break;
+
+				case 'association':
+
+					// Validate association fields
+					if(!$('#phone').val()) {
+						warningPopUp('Please provide a valid telephone number');
+						return false;
+					}
+					if(!$("#address").val()) {
+						warningPopUp('Please specify a valid address');
+						return false;
+					}
+					var n_competences = $("input[name*=competences]:checked").size(); 
+					if(!(n_competences>=1)) {
+						warningPopUp('Choose at least one competence you need');
+						return false;
+					}
+					profile.competences = $("input[name*=competences]:checked");
+					var n_missions = $("input[name*=missions]:checked").size(); 
+					if(!(n_missions>=1)) {
+						warningPopUp('Choose at least one mission');
+						return false;
+					}
+								
+					// Fill association fields
+					$("input[id=phone]").val($('#phone').val());
+					$("input[id=website]").val($('#website').val());
+					$("input[id=siret]").val($('#siret').val());
+					$("input[id=address]").val($('#address').val());
+					$("input[id=competences]").val($("input[name*=competences]:checked"));
+					$("input[id=missions]").val($("input[name*=missions]:checked"));
+					
+					break;
+			}
+				 
+			
+			// Submit the form
+			return true;
 	});
 
+	
+	/* Show a warning pop up */ 
+	function warningPopUp(message) {
+		$("#notificationPopup").popup({ history: false });
+		$("#popupMessage").text(message);
+		$("#notificationPopup").popup("open");	
+	}
+	
 </script>
 			

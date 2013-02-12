@@ -73,8 +73,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	public function create() {
 
-		// TODO Check mandatory fiels
-		
 		// Unset post vale that we don't need
 		unset($_POST['form']);
 		unset($_POST['checkCondition']);

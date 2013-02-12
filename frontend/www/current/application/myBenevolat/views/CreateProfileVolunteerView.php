@@ -58,7 +58,7 @@
 <div data-role="page" id="step2_volunteer" >	
 
 	<!-- Header bar -->
-	<? print_header_bar("?action=ExtendedProfile", false, "Step 2 - competences"); ?>
+	<? print_header_bar("#step1_volunteer", false, "Step 2 - competences"); ?>
 		
 			<!-- Competences list -->
 			<div data-role="header" data-theme="e">
@@ -89,7 +89,7 @@
 <div data-role="page" id="step3_volunteer" >	
 
 	<!-- Header bar -->
-	<? print_header_bar("?action=ExtendedProfile", false, "Step 3 - missions and mobility"); ?>
+	<? print_header_bar("#step2_volunteer", false, "Step 3 - missions and mobility"); ?>
 	
 		<!-- Missions list -->
 		<div data-role="header" data-theme="e">
@@ -107,53 +107,21 @@
     		</fieldset>
     	</div><br><br><br>
     	
-    	<!-- Mobilities list -->
+    	<!-- mobilite list -->
 		<div data-role="header" data-theme="e">
 			<h1 style="white-space: normal;">
-				<?= _("Please choose your mobilities.") ?>
+				<?= _("Please choose your mobilite.") ?>
 			</h1>
 		</div>
 		<br />
-		<div data-role="fieldcontain" style="text-align: center" id="mobilities">
+		<div data-role="fieldcontain" style="text-align: center" id="mobilite">
     		<fieldset data-role="controlgroup">
-    		<? foreach (Categories::$mobilities as $k=>$v) :?>
-				<input type="checkbox" name="mobilities-checkbox" id="<?=$k?>" value="<?=$k?>" />
+    		<? foreach (Categories::$mobilite as $k=>$v) :?>
+				<input type="checkbox" name="mobilite-checkbox" id="<?=$k?>" value="<?=$k?>" />
 				<label for="<?=$k?>"><?=$v?></label>
 			<? endforeach ?>
     		</fieldset>
     	</div>
-		
-		<!-- Next and previous buttons -->
-		<div style="text-align:right; margin-right: 40px;">
-			<a href="#step2_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
-			<a href="" data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext()">Next</a>
-		</div>
-	
-</div> <!-- END - STEP 3 VOLUNTEER -->
-
-
-<!-- STEP 4 VOLUNTEER - Disponibilities -->
-<div data-role="page" id="step4_volunteer" >	
-
-	<!-- Header bar -->
-	<? print_header_bar("?action=ExtendedProfile", false, "Step 4 - disponibilities "); ?>
-		
-    	<!-- Disponibilities list -->
-		<div data-role="header" data-theme="e">
-			<h1 style="white-space: normal;">
-				<?= _("Please specify your disponibilities.") ?>
-			</h1>
-		</div>
-		<br/>
-		<div data-role="fieldcontain" style="text-align: center" id="disponibilities">
-    		<fieldset data-role="controlgroup">
-    		<? foreach (Categories::$disponibilities as $k=>$v) :?>
-				<input type="checkbox" name="disponibilities-checkbox" id="<?=$k?>" value="<?=$k?>" />
-				<label for="<?=$k?>"><?=$v?></label>
-			<? endforeach ?>
-    		</fieldset>
-    	</div>
-		<br/><br/><br/>
 		
 		<!-- Container for final wizard form -->
 		<div style="text-align:right; margin-right: 40px;">
@@ -178,15 +146,15 @@
 				<input type="hidden" id="work" name="work" value="" />
 				<input type="hidden" id="competences" name="competences" value="" />
 				<input type="hidden" id="missions" name="missions" value="" />
-				<input type="hidden" id="mobilities" name="mobilities" value="" />
-				<input type="hidden" id="disponibilities" name="disponibilities" value="" />
+				<input type="hidden" id="mobilite" name="mobilite" value="" />
 				
 				<!-- Submit button-->
 				<input type="submit" id="submit" value="Create the profile" data-inline="true" data-theme="g" />
 			</form>
 		</div>
 	
-</div> <!-- END - STEP 4 VOLUNTEER -->
+</div> <!-- END - STEP 3 VOLUNTEER -->
+
 
 
 <!-- Notification messages pop up -->
@@ -220,15 +188,10 @@
 				missions = missions + profile.missions[i].value + " ";
 			$("input[id=missions]").val(missions);
 
-			var mobilities = "";
-			for(var i=0; i<profile.mobilities.size(); i++)
-				mobilities = mobilities + profile.mobilities[i].value + " ";
-			$("input[id=mobilities]").val(mobilities);
-
-			var disponibilities = "";
-			for(var i=0; i<profile.disponibilities.size(); i++)
-				disponibilities = disponibilities + profile.disponibilities[i].value + " ";
-			$("input[id=disponibilities]").val(disponibilities);
+			var mobilite = "";
+			for(var i=0; i<profile.mobilite.size(); i++)
+				mobilite = mobilite + profile.mobilite[i].value + " ";
+			$("input[id=mobilite]").val(mobilite);
 
 			// Submit the form
 			return true;
@@ -247,8 +210,7 @@
 		this.work;
 		this.competences;
 		this.missions;
-		this.mobilities;
-		this.disponibilities;
+		this.mobilite;
 	}
 
 	/* Store the profile data */
@@ -294,31 +256,21 @@
 				$.mobile.changePage('#step3_volunteer');
 				break;
 
-			// Step 3
+			// Step 3 - final wizard step
 			case 'step3_volunteer':
 				// Validate fields 
 				if($("input[name*=missions]:checked").size()<1) {
 					warningPopUp('You must choose at least 1 mission');
-					break;
-				}
-				if($("input[name*=mobilities]:checked").size()<1) {
-					warningPopUp('You must choose at least 1 mobility');
-					break;
-				}
-				profile.missions = $("input[name*=missions]:checked");
-				profile.mobilities = $("input[name*=mobilities]:checked");
-				$.mobile.changePage('#step4_volunteer');
-				break;
-
-			// Step 4
-			case 'step4_volunteer':
-				// Validate fields 
-				if($("input[name*=disponibilities]:checked").size()<1) {
-					warningPopUp('You must choose at least 1 disponibility');
 					return false;
 				}
-				profile.disponibilities = $("input[name*=disponibilities]:checked");
+				if($("input[name*=mobilite]:checked").size()<1) {
+					warningPopUp('You must choose at least 1 mobility');
+					return false;
+				}
+				profile.missions = $("input[name*=missions]:checked");
+				profile.mobilite = $("input[name*=mobilite]:checked");
 				break;
+
 		}
 
 		return true;

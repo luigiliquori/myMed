@@ -57,7 +57,7 @@
 <div data-role="page" id="step2_association" >	
 
 	<!-- Header bar -->
-	<? print_header_bar("?action=ExtendedProfile", false, "Step 2 - Competences and Missions "); ?>
+	<? print_header_bar("#step1_association", false, "Step 2 - Competences and Missions "); ?>
 		
 		<!-- Competences list -->
 		<div data-role="header" data-theme="e">

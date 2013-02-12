@@ -99,30 +99,34 @@
 								echo Categories::$missions[$token]."<br/>";
 							}
 							echo "</p></p><br/>";
-							echo "<p><b>". _("Mobilities").":</b><br/><p style='margin-left:20px'>";
-							$tokens = explode(" ", $this->profile->details['mobilities']);
+							echo "<p><b>". _("Mobilite").":</b><br/><p style='margin-left:20px'>";
+							$tokens = explode(" ", $this->profile->details['mobilite']);
 							array_pop($tokens);
 							foreach($tokens as $token) {
-								echo Categories::$mobilities[$token]."<br/>";
+								echo Categories::$mobilite[$token]."<br/>";
 							}
 							echo "</p></p><br/>";
-							echo "<p><b>". _("Disponibilities").":</b><br/><p style='margin-left:20px'>";
-							$tokens = explode(" ", $this->profile->details['disponibilities']);
-							array_pop($tokens);
-							foreach($tokens as $token) {
-								echo Categories::$disponibilities[$token]."<br/>";
-							}
-							echo "</p></p><br/>";
-							
-							
 							
 							break;
 						
 						case 'association':
+							echo "<br/>";
+							echo "<p><b>". _("Competences needed").":</b><br/><p style='margin-left:20px'>";
+							$tokens = explode(" ", $this->profile->details['competences']);
+							array_pop($tokens);
+							foreach($tokens as $token) {
+								echo Categories::$competences[$token]."<br/>";
+							}
+							echo "</p></p><br/>";
+							echo "<p><b>". _("Missions").":</b><br/><p style='margin-left:20px'>";
+							$tokens = explode(" ", $this->profile->details['missions']);
+							array_pop($tokens);
+							foreach($tokens as $token) {
+								echo Categories::$missions[$token]."<br/>";
+							}
 							
 							break;
-
-								
+							
 					}
 				?>
 				<br/>
@@ -143,7 +147,7 @@
 		<div style="text-align: center;">
 			<br />
 			<!-- Edit profile-->
-			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true" data-ajax="false"><?= _('Edit my profile') ?></a>
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<!-- Pop up delete profile -->	
