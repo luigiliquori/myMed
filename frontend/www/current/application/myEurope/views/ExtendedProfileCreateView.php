@@ -66,7 +66,7 @@
 				<textarea id="desc" name="desc" placeholder="description, commentaires"></textarea>
 			</div>
 			<br/>
-			<input id="service-term" type="checkbox" name="checkCondition" style="display: inline-block; top: 8px;"/>
+			<input id="service-term" type="checkbox" name="checkCondition" style="display: inline-block; top:5px;width:17px;height:17px"/>
 			<span style="display:inline-block;margin-left: 40px;">
 				<?= _("I accept the ")?>
 				<a href="<?= APP_ROOT ?>/conds" rel="external"><?= _("general terms and conditions")?></a>

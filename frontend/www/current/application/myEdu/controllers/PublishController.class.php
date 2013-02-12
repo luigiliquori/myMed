@@ -92,7 +92,6 @@ class PublishController extends ExtendedProfileRequired {
 				// All required fields are filled, publish it
 				$obj = new MyEduPublication();
 				$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
-				//$obj->type = 'myEduPublication';				// Publication type
 				$obj->area = $_POST['area'];					// Area
 				$obj->category = $_POST['category'];			// Category
 				if($_POST['category'] == 'Course' && 
@@ -141,7 +140,6 @@ class PublishController extends ExtendedProfileRequired {
 		$obj = new MyEduPublication();
 		$obj->publisherID = $_SESSION['user']->id;  // Publisher ID
 		$obj->publisher = $_SESSION['user']->id;    // Publisher ID
-		//$obj->type = 'myEduPublication';			// Publication type no used anymore
 		$obj->area = $_POST['area'];				// Area
 		$obj->category = $_POST['category'];		// Category
 		$obj->locality = $_POST['locality'];		// Locality

@@ -54,7 +54,7 @@
 					</select>
 					<select id="publish_year_content" name="expire_year" data-inline="true">
 						<option value=""><?= _("Year")?></option>
-					<?php for ($i = 2012; $i <= 2042; $i++) { ?>
+					<?php for ($i = 2013; $i <= 2020; $i++) { ?>
 						<option value="<?= $i ?>"><?= $i ?></option>
 					<?php } ?>
 					</select>

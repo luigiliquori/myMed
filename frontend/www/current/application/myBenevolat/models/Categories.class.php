@@ -7,60 +7,53 @@
  */
 class Categories {
 	
+ 	static $roles;
+ 	static $profession;
  	static $competences;
+ 	static $mobilite;
  	static $missions;
- 	static $mobilities;
- 	static $disponibilities;
- 	
+
 }
 
 
 /* MyBenevolat professional competences */
 Categories::$competences = array(
 	"accompagnement" 	=> _("Accompagnement (social professionnel)"),
-	"accueil"			=> _("Accueil / Orientation"),
-	"administration"	=> _("Administration - Direction - Management"),
+	"accueil" 			=> _("Accueil / Orientation"),
+	"administration" 	=> _("Administration - Direction - Management"),
 	"soutien_scolaire" 	=> _("Alphabétisation - Formation - Enseignement - Soutien scolaire"),
 	"animation" 		=> _("Animation"),
 	"communication" 	=> _("Communication"),
 	"comptabilite" 		=> _("Comptabilité gestion"),
 	"collecte" 			=> _("Distribution Collecte"),
-	"ecoute"			=> _("Ecoute"),
+	"ecoute" 			=> _("Ecoute"),
 	"informatique" 		=> _("Informatique, Internet"),
 	"juridique" 		=> _("Juridique"),
 	"logistique" 		=> _("Logistique - Conseil - Secrétariat - Administration courante"),
 	"travaux" 			=> _("Travaux (manuels et techniques)"),
-	"visite_domicile" 	=> _("Visite domicile"),
-	"visite_hopital" 	=> _("Visite hôpital"),
+	"visite_domicile"	=> _("Visite domicile"),
+	"visite_hopital"	=> _("Visite hôpital"),
 	"visite_prison" 	=> _("Visite prison")
+);
+
+/* MyBenevolat mobilitie */
+Categories::$mobilite = array(
+	"undef"				=> _("-- Non défini --"),
+	"plaine_coteaux"	=> _("Plaine et coteaux "),
+	"collines_nicoises" => _("Collines niçoises "),
+	"trois_collines" 	=> _("Trois collines "),
+	"rives_paillon" 	=> _("Rives du Paillon "),
+	"est_littoral" 		=> _("Est littoral "),
+	"nord_centre_ville" => _("Nord centre ville "),
+	"coeur_ville" 		=> _("Coeur de ville "),
+	"ouest_littoral" 	=> _("Ouest littoral")
 );
 
 /* MyBenevolat missions */
 Categories::$missions = array(
-	"ponctuel"	=>	_("Ponctuel"),
-	"regulier"	=>	_("Régulier"),
-	"urgence"	=>	_("Urgence")
+	"ponctuel"	=> _("Ponctuel"),
+	"regulier" 	=> _("Régulier"),
+	"urgence" 	=> _("Urgence")
 );
 
-/* MyBenevolat mobilities */
-Categories::$mobilities = array(
-	"undef" 			=>	_("-- Non défini --"),
-	"plaine_coteaux"	=>	_("Plaine et coteaux "),
-	"collines_nicoises"	=>	_("Collines niçoises "),
-	"trois_collines"	=>	_("Trois collines "),
-	"rives_paillon"		=>	_("Rives du Paillon "),
-	"est_littoral"		=>	_("Est littoral "),
-	"nord_centre_ville"	=>	_("Nord centre ville "),
-	"coeur_ville"		=>	_("Coeur de ville "),
-	"ouest_littoral"	=>	_("Ouest littoral")
-);
-
-/* MyBenevolat disponibilities */
-Categories::$disponibilities = array(
-	"semaine_journee"	=>	_("Semaine, en journée"),
-	"semaine_soir"		=>	_("Semaine, le soir"),
-	"we_journee"		=>	_("WE, en journée"),
-	"we_soir"			=>	_("WE, le soir")#
-);
-	
 ?>

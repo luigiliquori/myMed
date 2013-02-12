@@ -203,7 +203,7 @@
 				<!-- Comments -->
 				<div data-role="collapsible" data-content-theme="d">
 				<? if($_SESSION['user']->is_guest){ ?>
-					<h3><?= _('Comments: <i>You have to be logged in to be able to comment!</i>') ?></h3>
+					<h3><?= _('Comments: <i>You have to be logged in to comment!</i>') ?></h3>
 				<? }else{ ?>
 	 				<h3><?= _('Comments') ?> </h3>
 	 			<? } ?>
