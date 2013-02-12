@@ -93,8 +93,11 @@
 					<h3><?= $this->result->title ?> :</h3>
 					
 					<!-- TEXT -->
-					<?= $this->result->text ?>
-				
+					<?= $this->result->text ?><br>
+					
+					<? if($this->result->publisherID==$_SESSION['user']->id){ ?>
+						Status: <?= $this->result->validated ?>
+					<? } ?>
 					<!-- CONTACT -->			
 					<p><b><?= _("Author")?></b> : 
 					<?php
