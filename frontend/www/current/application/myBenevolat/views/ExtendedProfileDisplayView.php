@@ -109,7 +109,8 @@
 							
 							break;
 						
-						case 'association':
+						case 'admin':
+						case 'association' :
 							echo empty($this->profile->details['siret']) ? " " : "<p><b>". _("SIRET").": </b>"."<span>".$this->profile->details['siret']."</span></p>";
 							echo empty($this->profile->details['website']) ? " " : "<p><b>". _("Website").": </b>"."<span>".$this->profile->details['website']."</span></p>";
 							echo "<br/>";

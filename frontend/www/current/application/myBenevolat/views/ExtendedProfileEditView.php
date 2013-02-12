@@ -48,7 +48,8 @@
 							$('#siretdiv').hide();
 							$('#websitediv').hide();	
 	  						break; 
-	  						
+
+						case 'admin':
 	  					case 'association':
 	  						$('#siretdiv').show();
 	  						$('#websitediv').show();
@@ -355,6 +356,7 @@
 												
 					break;
 
+				case 'admin':
 				case 'association':
 
 					// Validate association fields

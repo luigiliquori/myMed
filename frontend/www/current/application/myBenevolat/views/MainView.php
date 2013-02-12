@@ -26,23 +26,42 @@
 		
 		<!-- App Main menu -->
 		<?php if ($_SESSION['user']->is_guest) { ?>
-			<!-- User not authenticated -->
+			<!-- User not authenticated - Sign in -->
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
 			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" data-ajax="false"><?=_("Sign in")?></a><br />
-		<?php } ?>		
-	<!--<a href="?action=mySubscription&subscriptions=true" data-icon="star" data-role="button" data-ajax="false" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My subscriptions") ?></a><br /> -->
+		<?php } ?>
+		
+		<!--<a href="?action=mySubscription&subscriptions=true" data-icon="star" data-role="button" data-ajax="false" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My subscriptions") ?></a><br /> -->
+		
+		<?php if(($_SESSION['myBenevolat']->details['type'] == 'association') || 
+				 ($_SESSION['myBenevolat']->details['type'] == 'admin')): ?>
+		<!-- Associations and Admins links -->
 		<a href="index.php?action=publish&method=show_user_announcements" data-icon="pencil" data-role="button" data-ajax="false"  <?= ($_SESSION['user']->is_guest /*|| !isset($_SESSION['myBenevolat'])*/) ? " class='ui-disabled'" : "" ?>><?= _("My announcements") ?></a><br />
+		<? endif; ?>
+		
+		
+		<!-- Find view -->
 		<a href="?action=Find&search=true" data-role="button" data-icon="search"><?= _("Search announcement") ?></a><br />
 		
-		<a href="?action=Candidature&method=show_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("My candidatures") ?></a><br />
 		
+		<?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'): ?>
+		<!-- Volunteer candidatures -->
+		<a href="?action=Candidature&method=show_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("My candidatures") ?></a><br />
+		<? endif;?>
+		
+		
+		<!-- Profile view -->
 		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
 
-		<!-- /!\ if admin: /!\ -->
-		<h3>ADMINISTRATION:</h3>
-		<a href="?action=Candidature&method=show_all_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("All the candidatures /!\ ADMIN /!\\ ") ?></a><br />
-		<a href="?action=Validation&method=show_all_validations" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("All the validations /!\ ADMIN /!\\ ") ?></a><br />
 		
+		<?php if($_SESSION['myBenevolat']->details['type'] == 'admin'): ?>
+		<!-- Admin links -->
+		<h3>ADMINISTRATION:</h3>
+		<a href="?action=Candidature&method=show_all_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("All the candidatures") ?></a><br />
+		<a href="?action=Validation&method=show_all_validations" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("All the validations") ?></a><br />
+		<? endif;?>
+		
+		<!-- About dialog -->
 		<a href="index.php#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
 		
 		<!-- endif -->
