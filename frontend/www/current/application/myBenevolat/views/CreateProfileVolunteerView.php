@@ -131,7 +131,7 @@
 			<form action="?action=ExtendedProfile&method=create" id="profileForm" method="POST">
 				
 				<!-- Back link-->
-				<a href="#step3_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
+				<a href="#step2_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
 				
 				<!-- MyMed basic profile fields -->
 				<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
