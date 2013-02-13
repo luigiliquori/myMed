@@ -24,6 +24,7 @@
 		<!-- Submit a new publication form -->
 		<form id="newannouncementform" action="index.php?action=publish&method=create" method="POST" data-ajax="false">
 			<input type="hidden" id="date" name="date" value="" />
+			<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to publish") ?> ?</h3>
@@ -34,10 +35,10 @@
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Publish your project') ?> :</h3>
 				
-				<h3><?= _('Title') ?> *: </h3>
+				<h3><?= _('Title') ?><b>*</b> :</h3>
 				<input id="textinputp3" class="postTitle" data-inline="true" name="title" value='' type="text" />
 				
-				<h3><?= _('Date de fin') ?> *:</h3>
+				<h3><?= _('Date de fin') ?><b>*</b> :</h3>
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
 					<select id="expire_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
@@ -59,7 +60,7 @@
 					</select>
 				</fieldset>
 				
-				<h3><?= _('Description') ?> *:</h3>
+				<h3><?= _('Description') ?><b>*</b> :</h3>
 				<textarea id="text" name="text"></textarea>
 				<script type="text/javascript">
 	  				$("#newannouncementview").on("pageshow", function() {  
@@ -67,26 +68,27 @@
      		 		});
     			</script>
 					
-				<h3><?= _("Compétences requises (de 1 à 4)")?> *:</h3>
+				<h3><?= _("Compétences requises (de 1 à 4)")?><b>*</b> :</h3>
 				<? foreach (Categories::$competences as $k=>$v) :?>
 					<input type="checkbox" name="competences[]" id="<?= $k?>" value="<?= $k ?>"><label for="<?= $k?>"><?= $v ?></label>
 				<? endforeach ?>
 				
 				
-				<h3><?= _("Informations pratiques") ?> *:</h3>
+				<h3><?= _("Informations pratiques") ?> :</h3>
 				
 				<select name="quartier" id="quartier" data-native-menu="false">
-					<option value=""> <?= _("Quartier")?> </option>
+					<option value=""> <?= _("Quartier")?><b>*</b></option>
 					<? foreach (Categories::$mobilite as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 				</select>
 				<select name="mission" id="mission" data-native-menu="false">
-					<option value=""> <?= _("Type de mission")?> </option>
+					<option value=""> <?= _("Type de mission")?><b>*</b></option>
 					<? foreach (Categories::$missions as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 				</select>
+				<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			</div>
 			
 			<div style="text-align: center;">

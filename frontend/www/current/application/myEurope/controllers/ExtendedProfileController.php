@@ -121,6 +121,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	function updateProfile(){
+		if(!$_POST['name']){
+			$this->error = _("Organization name field can't be empty");
+			$this->renderView("ExtendedProfileEdit");
+		}
+		if(!$_POST['email']){
+			$this->error = _("Organization email field can't be empty");
+			$this->renderView("ExtendedProfileEdit");
+		}
 		$name = $_POST['name'];
 		$email = $_POST['email'];
 		$id = $_POST['id'];
@@ -138,7 +146,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['password']);
 		if( empty($pass) ){
 			// TODO i18n
-			$this->error = _("Email field can't be empty");
+			$this->error = _("Password field can't be empty");
 			$this->renderView("ExtendedProfileEdit");
 		}
 		$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
@@ -226,7 +234,15 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// we clear these ones
 		unset($_POST['form']);
-			
+		
+		if(!$_POST['name']){
+			$this->error = _("Organization name field can't be empty");
+			$this->renderView("ExtendedProfileCreate");
+		}
+		if(!$_POST['email']){
+			$this->error = _("Organization email field can't be empty");
+			$this->renderView("ExtendedProfileCreate");
+		}
 		if(!$_POST['checkCondition']){
 			$this->error = _("You must accept the terms of use.");
 			$this->renderView("ExtendedProfileCreate");

@@ -13,12 +13,12 @@ class RegisterController extends AbstractController {
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			// Preconditions TODO : i18n of error messages
-			if($_POST['password'] != $_POST['confirm']){
+			if( empty($_POST['email']) ){
+				$this->error = _("Email field can't be empty");
+			} else if($_POST['password'] != $_POST['confirm']){
 				$this->error = _("Passwords do not match");
 			} else if( empty($_POST['password']) ){
 				$this->error = _("Password field can't be empty");
-			} else if( empty($_POST['email']) ){
-				$this->error = _("Email field can't be empty");
 			} else if(!$_POST['checkCondition']){
 				$this->error = _("You must accept the terms of use.");
 			} else if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false){

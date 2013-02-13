@@ -6,6 +6,7 @@
 	   print_header_bar(true, "defaultHelpPopup", $title); ?>
 
 	<div data-role="content">
+		<? print_notification($this->success.$this->error);?>
 		<br>
 		<div data-role="header" data-theme="e">
 			<h1 style="white-space: normal;"><?= _("Hello, This is your first time on myEurope! Please register by creating your own profile.") ?></h1>
@@ -14,7 +15,7 @@
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
 			<input type="hidden" name="form" value="create" />
 			<div data-role="fieldcontain">
-				<label for="textinputu1" style="text-align:right" ><?= _('Organization Name') ?>: </label>
+				<label for="textinputu1" style="text-align:right" ><?= _('Organization Name') ?><b>*</b>: </label>
 				<input id="textinputu1" name="name" placeholder="" value='' type="text" />
 			</div>
 			<div data-role="fieldcontain">
@@ -54,7 +55,7 @@
 				</fieldset>
 			</div>
 			<div data-role="fieldcontain">
-				<label for="textinputu5"  style="text-align:right"><?= _('Organization email') ?>: </label>
+				<label for="textinputu5"  style="text-align:right"><?= _('Organization email') ?><b>*</b>: </label>
 				<input id="textinputu5" name="email" placeholder="" value='<? /*=$_SESSION['user']->email*/ ?>' type="email" />
 			</div>		
 			<div data-role="fieldcontain">
@@ -71,6 +72,7 @@
 				<?= _("I accept the ")?>
 				<a href="<?= APP_ROOT ?>/conds" rel="external"><?= _("general terms and conditions")?></a>
 			</span>
+			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-theme="e" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
 			</div>

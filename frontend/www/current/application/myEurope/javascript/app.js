@@ -7,7 +7,7 @@ $(document).ready(function() {
 	// Start Tuto if needed
 	myEuropeUserNeedsHelp = getCookie("myEuropeUserNeedsHelp");
 	if(!$('#isGuest').val() || $('#isGuest').val() == "" || !myEuropeUserNeedsHelp){
-		setTimeout(function(){ $('#openHelp').click();}, 1000);
+		//setTimeout(function(){ $('#openHelp').click();}, 1000);
 		setCookie("myEuropeUserNeedsHelp", false, 365);
 	}
 });

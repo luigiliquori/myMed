@@ -26,7 +26,7 @@ class CandidatureController extends AuthenticatedController {
 	
 	private function search_all_applies(){
 		$search_applies = new Apply();
-		$this->result = $search_applies->find();
+		$this->result_apply = $search_applies->find();
 
 		$this->renderView("AllCandidatures");
 	}

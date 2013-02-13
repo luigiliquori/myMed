@@ -21,7 +21,7 @@
 					<form action="?action=publish&method=update" method="POST" data-ajax="false">
 						<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 						<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
-						<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
+						<input type="hidden" name="publisher" value="<?= $this->result->publisherID ?>" />
 						<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
 						<input type="hidden" name="promue" value="<?= $this->result->promue ?>" />
 						<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />

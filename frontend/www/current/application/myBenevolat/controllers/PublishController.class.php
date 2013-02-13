@@ -83,7 +83,7 @@ class PublishController extends ExtendedProfileRequired {
 				
 				// All required fields are filled, publish it
 				$obj = new Annonce();
-				$obj->publisher = $_SESSION['user']->id;	// Publisher ID
+				$obj->publisher = $_POST['publisher'];	// Publisher ID
 				$obj->type = "annonce";
 				$obj->competences = $_POST['competences'];	// array of competences	
 				$obj->typeMission = $_POST['mission'];	
@@ -95,11 +95,9 @@ class PublishController extends ExtendedProfileRequired {
 				$obj->text = $_POST['text'];	
 				if(isset($_POST['promue'])) $obj->promue = $_POST['promue'];
 				else $obj->promue = "false";
-				if(isset($_POST['validated'])){
-					$obj->validated = $_POST['validated'];
-				}else{
-					$obj->validated = "waiting";				
-				}
+				if(isset($_POST['validated'])) $obj->validated = $_POST['validated'];
+				else $obj->validated = "waiting";				
+				
 				
 				// sets the level of broadcasting in the Index Table
 				$level = 3;  
