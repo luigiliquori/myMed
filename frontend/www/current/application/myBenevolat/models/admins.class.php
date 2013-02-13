@@ -4,13 +4,13 @@
  */
 class admins {
 
-	static $mail;
+	static $mails;
 
 }
 
 /* List of admins' emails */
 admins::$mails = array(
-		'admin@yopmail.com'
+		'admin1@yopmail.com'
 );
 
 ?>

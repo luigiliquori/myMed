@@ -3,7 +3,7 @@
 require_once('Entry.class.php');
 
 /**
- * A user profile in MyEdu
+ * A user profile in MyBenevolat
  */
 class MyBenevolatProfile extends Entry {
 
@@ -12,7 +12,7 @@ class MyBenevolatProfile extends Entry {
 	// ------------------------------------------------
 	
 	// Members
-	public $users; 			
+	public $users;
 	// Partnerships owned or joined
 	public $partnerships; 	
 	// All profile data

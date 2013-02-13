@@ -66,7 +66,7 @@
 			</h1>
 		</div>
 		<br />
-		<div data-role="fieldcontain" style="text-align: center" id="competences">
+		<div data-role="fieldcontain" style="text-align: center" >
     		<fieldset data-role="controlgroup">
     		<? foreach (Categories::$competences as $k=>$v) :?>
 				<input type="checkbox" name="competences-checkbox" id="<?=$k?>" value="<?=$k?>" />
@@ -82,7 +82,7 @@
 			</h1>
 		</div>
 		<br />
-		<div data-role="fieldcontain" style="text-align: center" id="missions">
+		<div data-role="fieldcontain" style="text-align: center">
     		<fieldset data-role="controlgroup">
     		<? foreach (Categories::$missions as $k=>$v) :?>
 				<input type="checkbox" name="missions-checkbox" id="<?=$k?>" value="<?=$k?>" />
@@ -120,7 +120,6 @@
 				<input type="submit" id="submit" value="Create the profile" data-inline="true" data-theme="g" />
 			</form>
 		</div>	
-			
 			
 		
 </div> <!-- END - STEP 2 ASSOCIATION -->
