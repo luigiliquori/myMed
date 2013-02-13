@@ -40,7 +40,7 @@
 				} elseif($_SESSION['myBenevolat']->permission == 2) {
 					echo _("Administrator");
 				} ?>
-			<?php elseif($_SESSION['myBenevolat']->details['type']=='Volunteer'):?>
+			<?php elseif($_SESSION['myBenevolat']->details['type']=='volunteer'):?>
 				<?= _("Volunteer")?>
 			<? endif;?>
 		</h1>
@@ -169,7 +169,7 @@
 		<div style="text-align: center;">
 			<br />
 			<!-- Edit profile-->
-			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true" data-ajax="false"><?= _('Edit my profile') ?></a>
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<!-- Pop up delete profile -->	
