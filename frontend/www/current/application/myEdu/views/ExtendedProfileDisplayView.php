@@ -41,12 +41,14 @@
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 					<div class="ui-block-a" style="width: 110px;">
-						<img src="<?= $this->profile->details['profilePicture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
+						<img src="<?= $this->profile->details['picture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 					</div>
 					<div class="ui-block-b">
 						<p><strong><?= $this->profile->details['firstName']." ".$this->profile->details['lastName'] ?></strong></p>
 						<p><?= $this->profile->details['birthday'] ?> </p>
-						<p><?= $lang?></p>
+						<? if (isset($_SESSION['myEdu']) && $_GET['user'] == $_SESSION['user']->id ): ?>
+							<p><?= $lang?></p>
+						<? endif; ?>
 						<p><a href="mailto:<?= prettyprintId($this->profile->details['email']) ?>"><?= prettyprintId($this->profile->details['email']) ?></a></p>
 					</div>
 				</div>
