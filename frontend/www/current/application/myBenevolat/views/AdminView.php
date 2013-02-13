@@ -12,23 +12,26 @@
 <div data-role="page" id="adminview">
 
 	<!-- Header bar-->
-  	<? $title = _("Administration");
-	   print_header_bar(true, "defaultHelpPopup", $title); ?>
+  	<? $title = _("Manage assotiations ");
+	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
+	   
+	<!-- Filter -->
+	<div data-role="header" data-theme="e">
+		<br/>
+		<h1 style="white-space: normal;">
+			<?= _("Validate associations") ?>
+		</h1>
+		<br/>
+	</div>
 	
 	<!-- Page content -->
-	<div data-role="content">
-	
-		<br/>
-		<!-- <a type="button" href="?action=ExtendedProfile&list" data-mini="true" data-inline="true" rel="external"  data-icon="list" title="<?= _('list of organizations profiles in myEurope') ?>"><?= _("Profiles list") ?></a>--> 				
-		
-		<a type="button" data-inline="true" data-mini="true" data-theme="e" data-icon="warning-sign" style="float: right;"
-		onclick='subscribe($(this), "<?= APPLICATION_NAME ?>:users", "<?= APPLICATION_NAME ?>:users", []); $(this).addClass("ui-disabled");'><?= _("Notify me of new users") ?></a>
-		
+	<div data-role="content" >
+			
 		<input id="user_permission" name="permission" value="" type="hidden" />
 		<input id="user_id" name="id" value="" type="hidden" />
-		<br /><br />
+	
 		<ul data-role="listview" data-filter="true" >
-			<li data-role="list-divider"><?= _("New users waiting for validation") ?><span class="ui-li-count"><?= count($this->blocked) ?></span></li>
+			<li data-role="list-divider"><?= _("New associations waiting for validation") ?><span class="ui-li-count"><?= count($this->blocked) ?></span></li>
 		<? foreach( $this->blocked as $i => $item ) : ?>
 			<li>
 				<a href="?action=ExtendedProfile&user=<?= urlencode($item->id) ?>"><span class="<?= $item->id==$_SESSION['user']->id?"ui-link":"" ?>"><?= $item->email ?></span></a>

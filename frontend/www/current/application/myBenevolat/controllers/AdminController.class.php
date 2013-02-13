@@ -8,10 +8,10 @@ class AdminController extends ExtendedProfileRequired {
 	/* Default method */
 	function defaultMethod() {
 		
+		// Search all myBenevolatUser
 		$find = new RequestJson( $this, 
-					array("application"=>APPLICATION_NAME.":profiles", 
-					"predicates"=>array()));
-		
+					array("application"=>APPLICATION_NAME.":users",
+						  "predicates"=>array()));
 		try{
 			$res = $find->send();
 		}
@@ -23,6 +23,8 @@ class AdminController extends ExtendedProfileRequired {
 		$this->blocked = array();
 		$this->normals = array();
 		$this->admins = array();
+		
+		// Filter associations
 		array_walk($this->users, array($this,"userFilter"));
 		
 		$this->renderView("admin");
@@ -43,22 +45,19 @@ class AdminController extends ExtendedProfileRequired {
 		$this->forwardTo("admin");
 	}
 	
-	/* User filter */
+	/* Filter assocation basing on permissions */
 	public function userFilter($var) {
 		
 		//$var->id = filter_var($var->id, FILTER_SANITIZE_EMAIL);
-		if (isset($var->id)) {
+		if ( isset($var->id) && isset($var->profiletype) && #
+			 ($var->profiletype=='association')) {
 			
+			// Filter association basing on permissions
 			if ($var->permission < 1){
-
 				$this->blocked[] = $var;
-			
 			} else if ($var->permission == 1){
-
 				$this->normals[] = $var;
-			
 			} else {
-
 				$this->admins[] = $var;
 			}
 		}

@@ -12,6 +12,7 @@
 		
 		<!-- Container div to give objects a margin -->
 		<div style="margin:30px; ">
+			
 			<!-- Phone -->
 			<div data-role="fieldcontain" >
 				<label for="phone" style="text-align:right"> Phone: </label>
