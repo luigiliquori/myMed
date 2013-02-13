@@ -98,7 +98,7 @@
 			<form action="?action=ExtendedProfile&method=create" id="profileForm" method="POST">
 				
 				<!-- Back link-->
-				<a href="#step2_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
+				<a href="#step1_association" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
 				
 				<!-- MyMed basic profile fields -->
 				<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
@@ -110,7 +110,7 @@
 				<!-- Extended profile fields -->
 				<input type="hidden" id="type" name="type" value="association" />
 				<input type="hidden" id="siret" name="siret" value="" />
-				<input type="hidden" id="websit" name="website" value="" />
+				<input type="hidden" id="website" name="website" value="" />
 				<input type="hidden" id="phone" name="phone" value="" />
 				<input type="hidden" id="address" name="address" value="" />
 				<input type="hidden" id="competences" name="competences" value="" />

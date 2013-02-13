@@ -40,7 +40,7 @@
 				} elseif($_SESSION['myBenevolat']->permission == 2) {
 					echo _("Administrator");
 				} ?>
-			<?php elseif($_SESSION['myBenevolat']->details['type']=='Volunteer'):?>
+			<?php elseif($_SESSION['myBenevolat']->details['type']=='volunteer'):?>
 				<?= _("Volunteer")?>
 			<? endif;?>
 		</h1>

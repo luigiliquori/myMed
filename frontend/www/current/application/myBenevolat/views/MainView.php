@@ -44,7 +44,7 @@
 		<a href="?action=Find&search=true" data-role="button" data-icon="search"><?= _("Search announcement") ?></a><br />
 		
 		
-		<?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'): ?>
+		<?php if($_SESSION['myBenevolat']->details['type'] == 'association'): ?>
 		<!-- Volunteer candidatures -->
 		<a href="?action=Candidature&method=show_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("My candidatures") ?></a><br />
 		<? endif;?>
