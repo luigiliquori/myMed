@@ -51,7 +51,7 @@
 		
 		
 		<!-- Profile view -->
-		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
+		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= isset($_SESSION['myBenevolat']) ? _("My profile") : _("Create a profile") ?></a><br />
 
 		
 		<?php if($_SESSION['myBenevolat']->permission == '2'): ?>
