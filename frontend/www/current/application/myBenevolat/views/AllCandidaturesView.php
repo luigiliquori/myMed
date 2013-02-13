@@ -28,81 +28,57 @@
 		<ul data-role="listview" data-filter="false" >
 			<li data-role="list-divider"><?= _("Results") ?></li>
 			
-			<? if (count($this->result) == 0) :?>
+			<? if (count($this->result_apply) == 0) :?>
 			<li>
 				<h4><?= _("No result found")?></h4>
 			</li>
 			<? endif ?>
- 			<?foreach ($this->result as $item) :?>
+ 			<?foreach ($this->result_apply as $item) :?>
  				<li>
-	 				<div class="ui-grid-b">
+	 				<fieldset class="ui-grid-c">
 						<div class="ui-block-a">
-							<?= _("Applier") ?>: <b><?= $item->publisherName ?></b>
+							<?= _("Applier") ?>: <b><?= $item->publisher ?></b>
 						</div>
 						<div class="ui-block-b">
 							<?= _("Annonce") ?>: <b><?= $item->title ?></b>
-					</div>
-					<div class="ui-block-c">
-						<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
-						<div data-role="controlgroup" data-type="horizontal" style="float: right;">
-							<? if($item->accepted!='accepted'): ?>
-								<a style="float:left" type="button" href="#popupAccept" data-rel="popup" data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a>
-							<? endif; ?>
-							<a style="float:right" type="button" href="#popupRefuse" data-rel="popup" data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a>
 						</div>
-						
-						
-						<div data-role="popup" id="popupAccept" class="ui-content" Style="text-align: center; width: 18em;">
-							<?= _("You can attach a message for the applier:") ?>
-							
-	 	    				<form action="?action=apply&method=accept" method="POST" data-ajax="false">
-	 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>
-				 				<input type="hidden" name="method" value="<?= _('Accept')?>" />
-				 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
-				 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
-				 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
-				 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
-				 				<input type="hidden" name="author" value="<?= $item->author ?>" />
-				 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
-				 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
-				 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />
-				 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
-				 				<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
-				 				<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
-				 				<input type="hidden" name="date" value="<?= $this->result->end ?>" />
-				 				<input type="hidden" name="text" value="<?= $this->result->text ?>" />
-				 				<input type="hidden" name="title" value="<?= $item->title ?>" />
-				 				
-								<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />
-				 			</form>
+						<div class="ui-block-c">
+							<?= _("De ") ?>: <b><?= $item->author ?></b>
 						</div>
-						
-						<div data-role="popup" id="popupRefuse" class="ui-content" Style="text-align: center; width: 18em;">
-							<?= _("You can attach a message for the applier:") ?>
-							<form action="?action=apply&method=refuse" method="POST" data-ajax="false">
-								<textarea id="msgMail" name="msgMail" style="height: 120px;"></textarea><br>
-				 				<input type="hidden" name="method" value="<?= _('Refuse')?>" />
-				 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
-				 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
-				 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
-				 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
-				 				<input type="hidden" name="title" value="<?= $item->title ?>" />
-				 				<input type="hidden" name="author" value="<?= $item->author ?>" />
-				 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
-				 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
-				 				<input type="hidden" name="area" value="<?= $this->result->area ?>" />
-				 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
-				 				<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
-				 				<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
-				 				<input type="hidden" name="date" value="<?= $this->result->end ?>" />
-				 				<input type="hidden" name="text" value="<?= $this->result->text ?>" />
-				 				<input type="hidden" name="accepted" value="<?= $item->accepted ?>" />
-				 				
-								<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />
-					 			</form>
+						<div class="ui-block-d">
+							<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
+							<div data-role="controlgroup" data-type="horizontal" style="float: right;">
+							 <? if($item->accepted!='accepted'): ?>
+								<!-- <a style="float:left" type="button" href="#popupAccept" data-rel="popup" data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a> -->
+									<form action="?action=apply&method=accept" method="POST" data-ajax="false" style="float:left">
+			 	    				<!-- <textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br> -->
+						 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
+						 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
+						 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
+						 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
+						 				<input type="hidden" name="author" value="<?= $item->author ?>" />
+						 				<input type="hidden" name="title" value="<?= $item->title ?>" />
+						 				
+										<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Accept') ?>" />
+						 			</form>
+								
+							 <? endif; ?>
+							 <form action="?action=apply&method=refuse" method="POST" data-ajax="false" style="float:right">
+							<!-- 	<textarea id="msgMail" name="msgMail" style="height: 120px;"></textarea><br> -->
+					 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
+					 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
+					 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
+					 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
+					 				<input type="hidden" name="title" value="<?= $item->title ?>" />
+					 				<input type="hidden" name="author" value="<?= $item->author ?>" />
+					 				<input type="hidden" name="accepted" value="<?= $item->accepted ?>" />
+					 				
+									<input data-role="button" type="submit" data-theme="r" data-inline="true" data-mini="true" value="<?= _('Refuse') ?>" />
+						 		</form>
+							<!-- <a style="float:right" type="button" href="#popupRefuse" data-rel="popup" data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a> -->
 							</div>
 						</div>
-					</div>
+					</fieldset>
  				</li>
 			<? endforeach ?>
 		</ul>

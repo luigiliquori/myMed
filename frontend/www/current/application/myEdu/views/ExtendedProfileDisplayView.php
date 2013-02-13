@@ -129,7 +129,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<p> <?= _("You can modify your profile details such as your language, profile picture, phone number... by clicking on the 'Edit my profile' button..<br>'Delete my profile' button will delete your myEdu profile and all your publications, applications and comments.") ?></p>
+		<p> <?= _("You can modify your profile details such as your language, profile picture, phone number... by clicking on the 'Edit my profile' button.<br>'Delete my profile' button will delete your myEdu profile and all your publications, applications and comments.") ?></p>
 	</div>
 	
 	
