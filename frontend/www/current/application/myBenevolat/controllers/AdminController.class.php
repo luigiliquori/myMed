@@ -63,5 +63,78 @@ class AdminController extends ExtendedProfileRequired {
 		}
 	}
 	
+	/** Delete an association extended profile and its publication */
+	public function delete() {
+	
+		$this->deletePublications($_GET['id']);
+		$this->deleteUser($_GET['id']);
+	
+		$this->forwardTo("admin");
+	}
+	
+	
+	/** Delete a user and its profile */
+	function deleteUser($id) {
+	
+		// Delete the user if exists
+		$find = new RequestJson($this,
+				array("application"=>APPLICATION_NAME.":users",
+						"id"=>$id));
+		try{
+			$user = $find->send();
+		} catch(Exception $e) {
+		}
+		if (isset($user)){
+			$publish = new RequestJson(
+					$this,
+					array("application"=>APPLICATION_NAME.":profiles",
+							"id"=>$user->details->profile,
+							"field"=>"user_".$id),
+					DELETE);
+			$publish->send();
+		}
+	
+		$publish = new RequestJson($this,
+				array("application"=>APPLICATION_NAME.":users",
+						"id"=>$id),
+				DELETE);
+		$publish->send();
+	
+		// Session myBenevolat is not still valid
+		unset($_SESSION['myBenevolat']);
+	
+		$this->success = "done";
+	
+	}
+	
+	
+	/** Delete a user profile */
+	function deleteProfile($id){
+	
+		$publish = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":profiles","id"=>$id),
+				DELETE);
+		$publish->send();
+	
+		$this->success = "done";
+		$this->renderView("main");
+	}
+	
+	
+	/** Delete user's publications */
+	function deletePublications($id){
+	
+		$search_by_userid = new myBenevolatPublication();
+		$search_by_userid->publisher = $id;
+		$result = $search_by_userid->find();
+	
+		foreach($result as $item) :
+		$item->delete();
+		endforeach;
+	
+		//$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
+	}
+	
 }
 ?>

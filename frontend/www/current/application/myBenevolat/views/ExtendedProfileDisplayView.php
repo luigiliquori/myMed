@@ -17,9 +17,10 @@
 
 
 	<!-- Header bar -->	
-  	<? 	$title = _("Your Profile");
+  	<? 	$title = _("Profile");
   	  	// Check the previous usr for the back button, if it is a publication details
-  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
+  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate") || 
+  	  	   strpos($_SERVER['HTTP_REFERER'],"?action=admin"))
   	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
   	   		print_header_bar('back', "defaultHelpPopup", $title); 
 
