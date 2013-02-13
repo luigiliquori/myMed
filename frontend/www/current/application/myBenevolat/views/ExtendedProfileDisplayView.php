@@ -109,7 +109,10 @@
 							
 							break;
 						
-						case 'association':
+						case 'admin':
+						case 'association' :
+							echo empty($this->profile->details['siret']) ? " " : "<p><b>". _("SIRET").": </b>"."<span>".$this->profile->details['siret']."</span></p>";
+							echo empty($this->profile->details['website']) ? " " : "<p><b>". _("Website").": </b>"."<span>".$this->profile->details['website']."</span></p>";
 							echo "<br/>";
 							echo "<p><b>". _("Competences needed").":</b><br/><p style='margin-left:20px'>";
 							$tokens = explode(" ", $this->profile->details['competences']);
@@ -147,7 +150,7 @@
 		<div style="text-align: center;">
 			<br />
 			<!-- Edit profile-->
-			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true" data-ajax="false"><?= _('Edit my profile') ?></a>
+			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<!-- Pop up delete profile -->	

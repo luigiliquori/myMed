@@ -3,18 +3,16 @@
 <!-- Edit a user extended profile details -->
 <!-- ------------------------------------ -->
 
-
-<!-- Header bar functions -->
 <? require_once('header-bar.php'); ?>
-
-
-<!-- Notification pop up -->
-<? require_once('notifications.php'); ?>
-
 
 <!-- Page view -->
 <div data-role="page" id="extendedprofileeditview">
 
+	
+	<!-- Notification pop up -->
+	<? include_once 'notifications.php'; ?>
+	<? print_notification($this->success.$this->error); ?>
+		
 	<!-- Page header -->
 	<? $title = _("Edit Profile");
 
@@ -31,11 +29,9 @@
 	<!-- Page content -->
 	<div data-role="content">
 	
-		<? print_notification($this->success.$this->error); ?>
-	
 		<!-- Extended profile edit form -->
 		<!-- Final wizard form -->
-		<form action="?action=ExtendedProfile&method=update" id="profileForm" method="POST" data-ajax="false">
+		<form action="?action=ExtendedProfile&method=update" id="profileForm" method="POST" data-ajax="false" >
 						
 			<input type="hidden" name="id" value="<?= $_SESSION['myBenevolat']->profile ?>" />
 
@@ -52,7 +48,8 @@
 							$('#siretdiv').hide();
 							$('#websitediv').hide();	
 	  						break; 
-	  						
+
+						case 'admin':
 	  					case 'association':
 	  						$('#siretdiv').show();
 	  						$('#websitediv').show();
@@ -117,26 +114,26 @@
 			<!-- Only Volunteer fields-->
 			<!-- Sex -->
 			<div id="sexdiv" data-role="fieldcontain" style="text-align:right">	
-				<fieldset data-role="controlgroup" name="sex" id="sex">
+				<fieldset data-role="controlgroup">
 					<legend> Sex: </legend>
-			     	<input type="radio" name="sex" id="male" value="male"/>
+			     	<input type="radio" name="sex-radio" id="male" value="male"/>
 			     	<label for="male">Male</label>
-					<input type="radio" name="sex" id="female" value="female"/>
+					<input type="radio" name="sex-radio" id="female" value="female"/>
 			     	<label for="female">Female</label>
 				</fieldset>
 			</div>
 			
 			<!-- Work -->
-			<div id="workdiv" data-role="fieldcontain" id="work" style="text-align:right">	
+			<div id="workdiv" data-role="fieldcontain" style="text-align:right">	
 				<fieldset data-role="controlgroup">
 				<legend> Your work: </legend>
-		     	<input type="radio" name="work" id="active" value="active" />
+		     	<input type="radio" name="work-radio" id="active" value="active" />
 		     	<label for="active">Active</label>
-		     	<input type="radio" name="work" id="unemployed" value="unemployed" />
+		     	<input type="radio" name="work-radio" id="unemployed" value="unemployed" />
 		     	<label for="unemployed">Unemployed</label>
-		     	<input type="radio" name="work" id="retired" value="retired" />
+		     	<input type="radio" name="work-radio" id="retired" value="retired" />
 		     	<label for="retired">Retired</label>
-		     	<input type="radio" name="work" id="student" value="student" />
+		     	<input type="radio" name="work-radio" id="student" value="student" />
 		     	<label for="student">Student</label>
 				</fieldset>
 			</div>
@@ -168,7 +165,7 @@
 				</h1>
 			</div>
 			<br />
-			<div data-role="fieldcontain" style="text-align: center" id="competences">
+			<div data-role="fieldcontain" style="text-align: center">
 	    		<fieldset data-role="controlgroup">
 	    		<? foreach (Categories::$competences as $k=>$v) :?>
 					<input type="checkbox" name="competences-checkbox" id="<?=$k?>" value="<?=$k?>" />
@@ -189,7 +186,7 @@
 				</h1>
 			</div>
 			<br />
-			<div data-role="fieldcontain" style="text-align: center" id="missions">
+			<div data-role="fieldcontain" style="text-align: center">
 	    		<fieldset data-role="controlgroup">
 	    		<? foreach (Categories::$missions as $k=>$v) :?>
 					<input type="checkbox" name="missions-checkbox" id="<?=$k?>" value="<?=$k?>" />
@@ -209,7 +206,7 @@
 					</h1>
 				</div>
 				<br />
-				<div data-role="fieldcontain" style="text-align: center" id="mobilite">
+				<div data-role="fieldcontain" style="text-align: center">
 		    		<fieldset data-role="controlgroup">
 		    		<? foreach (Categories::$mobilite as $k=>$v) :?>
 						<input type="checkbox" name="mobilite-checkbox" id="<?=$k?>" value="<?=$k?>" />
@@ -226,35 +223,25 @@
 				<!-- Password -->
 				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
 				<input type="password" id="password" name="password" />
-				
-				<!-- MyMed basic profile fields -->
-				<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
-				<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
-				<input type="hidden" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
-				<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
-				<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
-				
-				<!-- Extended profile fields -->
-				<input type="hidden" id="type" name="type" value="<?= $_SESSION['myBenevolat']->details['type'] ?>" />
-				<input type="hidden" id="validated" name="validated" value="false"/>
-				<input type="hidden" id="sex" name="sex" />
-				<input type="hidden" id="phone" name="phone" value="" />
-				<input type="hidden" id="work" name="work" value="" />
-				<input type="hidden" id="address" name="address" value="" />
-				<input type="hidden" id="website" name="website" value="" />
-				<input type="hidden" id="siret" name="siret" value="" />
-				<input type="hidden" id="competences" name="competences" value="" />
-				<input type="hidden" id="missions" name="missions" value="" />
-				<input type="hidden" id="mobilite" name="mobilite" value="" />
-				
 			</div>
+			
+			<!-- MyMed basic profile fields -->
+			<input type="hidden" id="email_h" name="email" value="<?= $_SESSION['user']->email ?>" />
+			
+			<!-- Extended profile fields -->
+			<input type="hidden" id="type" name="type" value="<?= $_SESSION['myBenevolat']->details['type'] ?>" />
+			<input type="hidden" id="validated" name="validated" value="false"/>
+			<input type="hidden" id="sex" name="sex" />
+			<input type="hidden" id="work" name="work" value="" />
+			<input type="hidden" id="competences" name="competences" value="" />
+			<input type="hidden" id="missions" name="missions" value="" />
+			<input type="hidden" id="mobilite" name="mobilite" value="" />
+			
 			<div style="text-align: center;">
-				<input type="submit" data-inline="true" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
+				<input id="submit" type="submit" data-inline="true" data-role="button" data-icon="ok" data-theme="g" value="<?= _('Update') ?>"/>
 			</div>
 		</form>
 		
-	</div> <!-- END page-->
-	
 	
 	<!-- Help popup -->
 	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
@@ -263,42 +250,34 @@
 		<p> <?= _("Here you can update your organization profile.") ?></p>
 	</div>
 	
-</div>
-
-
+	
 	<!-- Notification messages pop up -->
-<div data-role="popup" id="notificationPopup" data-transition="flip" data-theme="e" class="ui-content">
-	<p id="popupMessage" name="popupMessage"><p>
-</div>';
-
-
+	<div data-role="popup" id="formerrorPopup" data-transition="flip" data-theme="e" class="ui-content">
+		<p id="popupMessage"><p>
+	</div>
+	
+	
 <!-- Handle checkboxes and radio buttons -->
 <script type="text/javascript">
 
-	// Fill in values 
-	//$(document).on("pageshow","#extendedprofileeditview", function() {
 
-		// Reset checked controls
-		$("input[name=sex]").prop('checked',false);//.checkboxradio('refresh');
-		$("input[name=work]").prop('checked',false);//.checkboxradio('refresh');
-		$("input[name='competences-checkbox']").prop('checked',false);//.checkboxradio('refresh');
-		$("input[name='missions-checkbox']").prop('checked',false);//.checkboxradio('refresh');
-		$("input[name='mobilite-checkbox']").prop('checked',false);//.checkboxradio('refresh');
+	// Fill checkbox and radio controls   
+	$(document).on("pageshow", function() {
 
 		// Check proper values
 		<?php if(isset($_SESSION['myBenevolat']->details['sex'])): ?>
-		$("input[name=sex]").filter('[value=<?= $_SESSION['myBenevolat']->details['sex']?>]').prop('checked',true);//.checkboxradio('refresh');
+		$("input[name=sex-radio]").filter('[value=<?= $_SESSION['myBenevolat']->details['sex'] ?>]').prop('checked',true).checkboxradio('refresh');
 		<? endif; ?>
 
 		<?php if(isset($_SESSION['myBenevolat']->details['work'])): ?>
-		$("input[name=work]").filter('[value=<?= $_SESSION['myBenevolat']->details['work']?>]').prop('checked',true);//.checkboxradio('refresh');
+		$("input[name=work-radio]").filter('[value=<?= $_SESSION['myBenevolat']->details['work'] ?>]').prop('checked',true).checkboxradio('refresh');
 		<? endif; ?>
 
 		<?php if(isset($_SESSION['myBenevolat']->details['competences'])): ?>
 			<? $tokens = explode(" ", $_SESSION['myBenevolat']->details['competences']);
 			   array_pop($tokens);
 				foreach ($tokens as $t) : ?>
-				$("input[name=competences-checkbox]").filter('[value=<?= $t?>]').prop('checked',true);//.checkboxradio('refresh');
+				$("input[name=competences-checkbox]").filter('[value=<?= $t?>]').prop('checked',true).checkboxradio('refresh');
 				<? endforeach ?>
 		<? endif; ?>
 
@@ -306,7 +285,7 @@
 			<? $tokens = explode(" ", $_SESSION['myBenevolat']->details['missions']);
 			   array_pop($tokens);
 				foreach ($tokens as $t) : ?>
-				$("input[name=missions-checkbox]").filter('[value=<?= $t?>]').prop('checked',true);//.checkboxradio('refresh');
+				$("input[name=missions-checkbox]").filter('[value=<?= $t?>]').prop('checked',true).checkboxradio('refresh');
 				<? endforeach ?>
 		<? endif; ?>
 
@@ -314,16 +293,15 @@
 			<? $tokens = explode(" ", $_SESSION['myBenevolat']->details['mobilite']);
 			   array_pop($tokens);
 				foreach ($tokens as $t) : ?>
-				$("input[name=mobilite-checkbox]").filter('[value=<?= $t?>]').prop('checked',true);//.checkboxradio('refresh');
+				$("input[name=mobilite-checkbox]").filter('[value=<?= $t?>]').prop('checked',true).checkboxradio('refresh');
 				<? endforeach ?>
 		<? endif; ?>
 		
-	//});
+	});
 
 		
 	/* Override default submit function */
 	$('#profileForm').submit(function() {
-
 		
 		switch('<?= $_SESSION['myBenevolat']->details['type'] ?>') {
 	
@@ -332,28 +310,53 @@
 					// Validate volunteer fields			
 					if(!$('#phone').val()) {
 					warningPopUp('Please provide a valid telephone number');
-					break;
+						return false;
 					}
-					if(!$("#sex :radio:checked").val()) {
+					
+					if(!$("input[name='sex-radio']:radio:checked").val()) {
 						warningPopUp('Please specify your sex');
-						break;
+						return false;
 					}
-					if(!$("#work :radio:checked").val()) {
+					if(!$("input[name='work-radio']:radio:checked").val()) {
 						warningPopUp('Please specify your working status');
-						break;
+						return false;
 					}
+					var n_competences = $("input[name*=competences]:checked").size(); 
+					if(!(n_competences>=1 && n_competences<=4)) {
+						warningPopUp('You must choose from 1 to 4 competences');
+						return false;;
+					}
+					if($("input[name*=missions]:checked").size()<1) {
+						warningPopUp('You must choose at least 1 mission');
+						return false;
+					}
+					if($("input[name*=mobilite]:checked").size()<1) {
+						warningPopUp('You must choose at least 1 mobility');
+						return false;
+					}	
 
 					// Fill volunteer profile fields
-					$("input[id=phone]").val($('#phone').val());
-					$("input[id=sex]").val($('#sex').val());
-					$("input[id=work]").val($('#phone').val());
-					$("input[id=address]").val($('#address').val());
-					$("input[id=competences]").val($("input[name*=competences]:checked"));
-					$("input[id=missions]").val($("input[name*=missions]:checked"));
-					$("input[id=mobilite]").val($("input[name*=mobilite]:checked"));
+					$("input[id=sex]").val($("input[name='sex-radio']:radio:checked").val());
+					$("input[id=work]").val($("input[name='work-radio']:radio:checked").val());
+					var competences = "";
+					var checked = $("input[name*=competences]:checked");
+					for(var i=0; i<checked.size(); i++)
+						competences = competences + checked[i].value + " ";
+					$("input[id=competences]").val(competences);
+					var missions = "";
+					var checked = $("input[name*=missions]:checked");
+					for(var i=0; i<checked.size(); i++)
+						missions = missions + checked[i].value + " ";
+					$("input[id=missions]").val(missions);
+					var mobilite = "";
+					var checked = $("input[name*=mobilite]:checked");
+					for(var i=0; i<checked.size(); i++)
+						mobilite = mobilite + checked[i].value + " ";
+					$("input[id=mobilite]").val(mobilite);
 												
 					break;
 
+				case 'admin':
 				case 'association':
 
 					// Validate association fields
@@ -370,7 +373,6 @@
 						warningPopUp('Choose at least one competence you need');
 						return false;
 					}
-					profile.competences = $("input[name*=competences]:checked");
 					var n_missions = $("input[name*=missions]:checked").size(); 
 					if(!(n_missions>=1)) {
 						warningPopUp('Choose at least one mission');
@@ -378,12 +380,17 @@
 					}
 								
 					// Fill association fields
-					$("input[id=phone]").val($('#phone').val());
-					$("input[id=website]").val($('#website').val());
-					$("input[id=siret]").val($('#siret').val());
-					$("input[id=address]").val($('#address').val());
-					$("input[id=competences]").val($("input[name*=competences]:checked"));
-					$("input[id=missions]").val($("input[name*=missions]:checked"));
+					var competences = "";
+					var checked = $("input[name*=competences]:checked");
+					for(var i=0; i<checked.size(); i++)
+						competences = competences + checked[i].value + " ";
+					$("input[id=competences]").val(competences);
+
+					var missions = "";
+					var checked = $("input[name*=missions]:checked");
+					for(var i=0; i<checked.size(); i++)
+						missions = missions + checked[i].value + " ";
+					$("input[id=missions]").val(missions);
 					
 					break;
 			}
@@ -396,10 +403,16 @@
 	
 	/* Show a warning pop up */ 
 	function warningPopUp(message) {
-		$("#notificationPopup").popup({ history: false });
-		$("#popupMessage").text(message);
-		$("#notificationPopup").popup("open");	
+		$("#formerrorPopup").popup({ history: false });
+		$("p#popupMessage").text(message);
+		$("#formerrorPopup").popup("open");	
 	}
-	
+
 </script>
+
+		</div> <!-- END page content -->
+	
+</div>
+
+
 			
