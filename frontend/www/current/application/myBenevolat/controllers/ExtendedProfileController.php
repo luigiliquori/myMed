@@ -96,7 +96,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (!empty($this->error))
 			$this->renderView("ExtendedProfileCreate");
 	
-		$this->createUser($_POST['id']);
+		$this->createUser($_POST['id'], $_POST['type']);
 	
 		// Display the new profile
 		$this->redirectTo(
@@ -233,24 +233,34 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	/** 
 	 * Create a new user 
 	 */
-	function createUser($profile){
+	function createUser($profile, $type){
 	
-		// Permission is 2 if the user is in the list of admins, otherwise 1
-		$permission 
-			= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 1;
+		switch ($type) {
+			
+			case 'volunteer':
+				$permission = 1;
+			
+			case 'association':
+				// 2 if the assosiation is admin
+				// otherwise 0 (not validated association
+				$permission 
+					= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 0;
+		}
+		
 			
 		$user = array(
 				'permission'=> $permission,
 				'email'=> $_SESSION['user']->email,
-				'profile'=> $profile
+				'profile'=> $profile,
+				"profiletype"=> "association",
 		);
 		
 		
 		$publish = new RequestJson(
 					$this,
-					array("application"=>APPLICATION_NAME.":users", 
+					array("application"=>APPLICATION_NAME.":users",
 					"id"=>$_SESSION['user']->id, 
-					"data"=>$user, 
+					"data"=>$user,  
 					"metadata"=>$user),
 					CREATE);
 		$publish->send();
