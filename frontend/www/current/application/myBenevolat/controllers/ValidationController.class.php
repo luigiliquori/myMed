@@ -45,8 +45,8 @@ class ValidationController extends AuthenticatedController {
 	private function accept(){
 		$obj = new Annonce();
 		$obj->publisher = $_POST['publisher'];
-		debug($obj->publisher);
 		$obj->type = "annonce";
+		$obj->id = $_POST['id'];
 		$obj->competences = $_POST['competences'];	// array of competences
 		$obj->typeMission = $_POST['mission'];
 		$obj->quartier = $_POST['quartier'];

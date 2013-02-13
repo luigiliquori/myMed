@@ -45,10 +45,10 @@
 			<br />	
 			<h3><?= _("Description") ?></h3>
 				<div>
-					<!-- APPLY FOR STUDENTS IF PUBLICATION=COURSE -->
+					<!-- APPLY FOR VOLUNTEERS -->
 					<div style="position: absolute; right: 24px;">
 						<?
-						//if(isset($_SESSION['myBenevolat'])):	/* /!\!!!!!!!!!!a mettre quand profiles up!!!!!!!!!!/!\ */
+						if(isset($_SESSION['myBenevolat']) && $_SESSION['myBenevolat']->details['type'] == 'volunteer'):
 							$date=strtotime(date(DATE_FORMAT));
 							$expired=false;
 							if(!empty($this->result->end)  && $this->result->end!="--"){
@@ -58,7 +58,7 @@
 								}
 							}
 							
-							if($expired==false && $this->result->publisherID!=$_SESSION['user']->id){
+							if($expired==false){
 								$applied=false;
 								foreach ($this->result_apply as $item) :
 									if($item->publisherID==$_SESSION['user']->id){ // already applied
@@ -75,18 +75,17 @@
 										<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
 						 			</form>
 			 				 <? }
-							 }
-							 if($this->result->publisherID==$_SESSION['user']->id){ ?> <!-- the user is the author of this publication: can update -->
-								<div data-type="horizontal">
-									<a style="float: left" data-role="button" data-icon="pencil" data-inline="true" href="?action=publish&method=modify_announcement&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
-									<form action="?action=publish&method=delete" method="POST" data-ajax="false" style="float: right">
-										<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
-										<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
-										<input type="submit" data-icon="delete" data-inline="true" data-theme="r" value="<?= _('Delete') ?>" />
-						 			</form> 
-						 		</div>
-						  <? }
-						//endif;?>
+							}
+						endif;
+						if($this->result->publisherID==$_SESSION['user']->id): ?> <!-- the user is the author of this publication: can update -->
+							<div data-type="horizontal">
+								<a style="float: left" data-role="button" data-icon="pencil" data-inline="true" href="?action=publish&method=modify_announcement&id=<?= $_GET['id'] ?>"><?= _("Edit")?></a>
+								<form action="?action=publish&method=delete" method="POST" data-ajax="false" style="float: right">
+									<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
+									<input type="submit" data-icon="delete" data-inline="true" data-theme="r" value="<?= _('Delete') ?>" />
+					 			</form> 
+					 		</div>
+					 <? endif; ?>
 					</div>
 						
 					<!-- TITLE -->
@@ -95,19 +94,32 @@
 					<!-- TEXT -->
 					<?= $this->result->text ?><br>
 					
-					<? if($this->result->publisherID==$_SESSION['user']->id){ ?>
-						Status: <?= $this->result->validated ?>
+					<? if($this->result->publisherID==$_SESSION['user']->id){ 
+						$status = "";
+						if($this->result->validated=="waiting")
+							$status = _("Waiting the administrator validation");
+						else $status = _("Has been validated by an administrator");
+						echo "<p><b>Status</b>: ".$status."</p>" ?>
 					<? } ?>
 					<!-- CONTACT -->			
 					<p><b><?= _("Author")?></b> : 
-					<?php
-						// Other users' profiles are only accessible from myMed user with ExtendedProfile
-						$author = str_replace("MYMED_", "", $this->result->publisherID); 
-						if(isset($_SESSION['myBenevolat'])):
+					<?  if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association') || ($_SESSION['myBenevolat']->details['type'] == 'admin'))){
+							$author = str_replace("MYMED_", "", $this->result->publisherID); 
 							echo "<a href=?action=extendedProfile&method=show_user_profile&user=".$this->result->publisherID.">".$author."</a>";
-					 	else:
-					 		echo $author."";
-					 	endif;
+						 		
+						 	if($this->result->publisherID==$_SESSION['user']->id) echo " "._("(You)");
+						}else{ // volunteer or guest
+							$user = new User($this->result->publisherID);
+							try {
+								$mapper = new DataMapper;
+								$details = $mapper->findById($user);
+							} catch (Exception $e) {}
+							$profile = new myBenevolatProfile($details['profile']);
+							try {
+								$profile->details = $mapper->findById($profile);
+							} catch (Exception $e) {}
+							echo $profile->details['firstName']." ".$profile->details['lastName'];
+						}
 					?> 
 					<br/></p>					
 				</div>
@@ -136,8 +148,10 @@
 							<? } ?>
 						<?php endif; ?>
 					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
-						<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	<br/>
-					
+						<? if ($this->result->publisherID != $_SESSION['user']->id) { ?>
+							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	
+						<? } ?>
+						<br/>
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 						<?= _("Do you like the project idea ?") ?><br /><br />
@@ -145,7 +159,6 @@
 							<input type="hidden" name="action" value="updateReputation" />
 							<input type="hidden" name="reputation" id="reputation" />
 							<input type="hidden" name="isData" value="1" />
-						<!--	<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" /> -->
 							<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
 							<label for="reputationslider"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
 							<input type="range" name="reputationslider" id="reputationslider" value="3" min="1" max="5" data-mini="true" step="1"/>
@@ -181,8 +194,8 @@
 					<!-- Author REPUTATION pop up -->
 					<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center;">
 						<?= _("Do you like the author?") ?><br /><br />
-						<a href="?action=updateReputation&reputation=10&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="g" data-icon="plus"><?= _("Of course yes!")?></a><br />
-						<a href="?action=updateReputation&reputation=0&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus"><?= _("No, not really...")?></a>
+						<a href="?action=updateReputation&reputation=10" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="g" data-icon="plus"><?= _("Of course yes!")?></a><br />
+						<a href="?action=updateReputation&reputation=0" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus"><?= _("No, not really...")?></a>
 					</div>	
 					<!-- END Author REPUTATION -->
 							

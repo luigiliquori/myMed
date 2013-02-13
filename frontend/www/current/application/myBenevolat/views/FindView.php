@@ -71,7 +71,7 @@
 			<? foreach($this->result as $item) : ?>
 				<li>
 					<!-- Print Publisher reputation -->
-					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">			
+					<a data-ajax="false" href="?action=details&id=<?= $item->id ?>">			
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
@@ -84,8 +84,7 @@
 								<?= Categories::$competences[$item->competences]?><br/><br/>
 						 <? }else{ ?>
 								<? foreach($item->competences as $competences): echo Categories::$competences[$competences]." , "; endforeach;?><br/><br/>
-						 <? } ?>
-							<b>Association ID:</b><?= $item->publisherID?><br/> 
+						 <? } ?> 
 							
 							<!-- Project reputation-->	
 							<p style="display:inline; margin-left: 30px;" > <b><?= _("Reputation")?>:</b> </p>  

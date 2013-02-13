@@ -67,6 +67,7 @@
 	 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>
 				 				<input type="hidden" name="method" value="<?= _('Accept')?>" />
 				 				<input type="hidden" name="publisher" value="<?= $item->publisherID ?>" />
+				 				<input type="hidden" name="id" value="<?= $item->id ?>" />
 								<input type="hidden" name="begin" value="<?= $item->begin ?>" />
 								<input type="hidden" name="promue" value="<?= $item->promue ?>" />
 				 				<input type="hidden" name="date" value="<?= $item->end ?>" />
