@@ -54,11 +54,12 @@
 		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
 
 		
-		<?php if($_SESSION['myBenevolat']->details['type'] == 'admin'): ?>
+		<?php if($_SESSION['myBenevolat']->permission == '2'): ?>
 		<!-- Admin links -->
 		<h3>ADMINISTRATION:</h3>
 		<a href="?action=Candidature&method=show_all_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("All the candidatures") ?></a><br />
 		<a href="?action=Validation&method=show_all_validations" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("All the validations") ?></a><br />
+		<a href="?action=admin" data-role="button" data-icon="pencil" ><?= _("Manage associations") ?></a><br />
 		<? endif;?>
 		
 		<!-- About dialog -->

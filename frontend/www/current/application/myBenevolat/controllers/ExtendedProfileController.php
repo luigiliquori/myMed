@@ -5,6 +5,9 @@
  * Handles all the function releated to the Extended Profile:
  *  show, creation, update, delete, 
  */
+
+include('admins.class.php');
+
 class ExtendedProfileController extends ExtendedProfileRequired {
 
 
@@ -83,9 +86,10 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Create the new profile
 		$publish =  new RequestJson($this,
 						array("application"=>APPLICATION_NAME.":profiles",
-						"id"=>$_POST['id'], "data"=>$_POST,
+						"id"=>$_POST['id'], 
+						"data"=>$_POST,
 						"metadata"=>array("type"=>$_POST['type'],
-							"name"=>$_POST['name'])),
+						"name"=>$_POST['name'])),
 						CREATE);
 		$publish->send();
 	
@@ -231,13 +235,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	function createUser($profile){
 	
-		// Permission is 2 if the user is an admin, otherwise 1
-		$permission = (
-				strcontain($_SESSION['user']->email, "@inria.fr")
-				|| $_SESSION['user']->email=="luigi.liquori@gmail.com"
-				|| $_SESSION['user']->email=="bredasarah@gmail.com"
-				|| $_SESSION['user']->email=="myalpmed@gmail.com"
-		)? 2 : 1;
+		// Permission is 2 if the user is in the list of admins, otherwise 1
+		$permission 
+			= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 1;
 			
 		$user = array(
 				'permission'=> $permission,

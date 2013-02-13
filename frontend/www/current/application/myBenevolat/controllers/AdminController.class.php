@@ -9,7 +9,7 @@ class AdminController extends ExtendedProfileRequired {
 	function defaultMethod() {
 		
 		$find = new RequestJson( $this, 
-					array("application"=>APPLICATION_NAME.":users", 
+					array("application"=>APPLICATION_NAME.":profiles", 
 					"predicates"=>array()));
 		
 		try{
