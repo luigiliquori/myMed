@@ -42,11 +42,8 @@
 						<div class="ui-grid-b">
 							<div class="ui-block-a">
 								<?= _("Publication name") ?>: <b><?= $item->title ?></b>
-							</div>
+							</div>							
 							<div class="ui-block-b">
-								<?= _("Author email") ?>: <b><?= $item->author ?></b>
-							</div>
-							<div class="ui-block-c">
 								<div style="float: right;">
 									<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
 								</div>

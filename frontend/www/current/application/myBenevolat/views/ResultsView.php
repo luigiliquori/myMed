@@ -26,7 +26,7 @@
 			<? foreach($this->result as $item) : ?>
 				<li>
 					<!-- Print Publisher reputation -->
-					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">	
+					<a data-ajax="false" href="?action=details&id=<?= $item->id ?>">	
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">

@@ -8,7 +8,7 @@
 
 	<!-- Page header -->
 	<? $title = _("Modify announcement");
-	print_header_bar("?action=details&predicate=".$_GET['predicate']."&author=".$_GET['author'], false, $title); ?>
+	print_header_bar("?action=details&id=".$_GET['id'], false, $title); ?>
 	<!-- Page content -->
 	<div data-role="content" >
 		<? print_notification($this->success.$this->error); ?>
@@ -19,9 +19,8 @@
 				<h3><?= _("Edit announcement") ?></h3>				
 				<div>
 					<form action="?action=publish&method=update" method="POST" data-ajax="false">
-						<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
-						<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
 						<input type="hidden" name="publisher" value="<?= $this->result->publisherID ?>" />
+						<input type="hidden" name="id" value="<?= $this->result->id ?>" />
 						<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
 						<input type="hidden" name="promue" value="<?= $this->result->promue ?>" />
 						<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />

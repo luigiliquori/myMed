@@ -2089,6 +2089,24 @@ msgstr "Le champs zone doit être rempli"
 msgid "Category field can't be empty"
 msgstr "Le champs catégorie doit être rempli"
 
+msgid "Student number field can't be empty"
+msgstr "Le champs numéro d'étudiant doit être rempli"
+
+msgid "Faculty field can't be empty"
+msgstr "Le champs faculté doit être rempli"
+
+msgid "University field can't be empty"
+msgstr "Le champs université doit être rempli"
+
+msgid "Courses field can't be empty"
+msgstr "Le champs cours doit être rempli"
+
+msgid "Company type field can't be empty"
+msgstr "Le champs type de l'entreprise doit être rempli"
+
+msgid "SIRET field can't be empty"
+msgstr "Le champs SIRET doit être rempli"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:97
 msgid "Your publication offer has been successfully published"
 msgstr "Votre offre de partenariat a été publiée avec succès"
