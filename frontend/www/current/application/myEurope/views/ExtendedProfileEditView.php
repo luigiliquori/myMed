@@ -41,7 +41,7 @@
 			
 			
 			<div data-role="fieldcontain">
-				<label for="textinputu1" style="text-align:right"><?= _('Organization Name') ?>: </label>
+				<label for="textinputu1" style="text-align:right"><?= _('Organization Name') ?><b>*</b>: </label>
 				<input id="textinputu1" name="name" placeholder="" value="<?= $_SESSION['myEurope']->details['name'] ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
@@ -81,7 +81,7 @@
 				</fieldset>
 			</div>	
 			<div data-role="fieldcontain">
-				<label for="textinputu5" style="text-align:right"><?= _('Organization email') ?>: </label>
+				<label for="textinputu5" style="text-align:right"><?= _('Organization email') ?><b>*</b>: </label>
 				<input id="textinputu5" name="email" placeholder="" value="<?= $_SESSION['myEurope']->details['email'] ?>" type="email" />
 			</div>
 			<div data-role="fieldcontain">
@@ -97,6 +97,7 @@
 				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
 				<input type="password" id="password" name="password" />
 			</div>
+			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
 			</div>

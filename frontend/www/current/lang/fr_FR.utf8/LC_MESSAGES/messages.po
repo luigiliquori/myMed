@@ -986,7 +986,7 @@ msgstr "Veuillez spécifier votre catégorie"
 msgid "Create your myEdu Profile as an oriented profile according to your status (student, professor, company), to use myEdu network in the best conditions."
 msgstr "Créez votre profil myEdu en spécifiant votre profession (étudiant, professeur, compagnie), afin d'utilier le réseau myEdu dans les meilleures conditions."
 
-msgid "You can modify your profile details such as your language, profile picture, phone number... by clicking on the 'Edit my profile' button..<br>'Delete my profile' button will delete your myEdu profile and all your publications, applications and comments."
+msgid "You can modify your profile details such as your language, profile picture, phone number... by clicking on the 'Edit my profile' button.<br>'Delete my profile' button will delete your myEdu profile and all your publications, applications and comments."
 msgstr "Vous pouvez modifier le détail de votre profil, comme votre langue, photo de profil, numéro de téléphone... en cliquant sur le bouton 'Modifier mon profil'.<br>Le bouton 'Supprimer mon profil' supprimera votre profil myEdu ainsi que toutes vos publications, candidatures et commentaires."
 
 msgid "Browse your applications and see if you have been accepted.<br>You can click on each result to see the detail publication."
@@ -2055,9 +2055,27 @@ msgstr "compagnie"
 msgid "Select your category"
 msgstr "Sélectionner votre catégorie"
 
+msgid "Mandatory fields"
+msgstr "Champs obligatoires"
+
+msgid "Max course appliers number"
+msgstr "Nombre max de candidats au cours"
+
+msgid "Specify a valid value for the maximum number of course appliers"
+msgstr "Spécicifez une valeur valide pour le nombre maximum de candidats au cours"
+
+msgid "Mandatory if you publish a course"
+msgstr "Obligatoire si vous publiez un cours"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:67
 msgid "Title field can't be empty"
 msgstr "Le champs titre doit être rempli"
+
+msgid "Organization name field can't be empty"
+msgstr "Le champs nom de l'organisation doit être rempli"
+
+msgid "Organization email field can't be empty"
+msgstr "Le champs email de l'organisation doit être rempli"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:71
 msgid "Text field can't be empty"

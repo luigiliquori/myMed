@@ -32,9 +32,11 @@ class ApplyController extends AuthenticatedController {
 		$obj->pred1 = 'apply&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 		$obj->pred2 = $time;
 		$obj->pred3 = $_SESSION['predicate']; // pred of the publication
-		$obj->author = $_POST['author'];
+		$obj->author = $_SESSION['author'];
 		$obj->accepted = 'waiting'; // 'accepted' when the author accepts the student
 		$obj->title = $_POST['title'];
+		
+		debug("APPLIER: ".$obj->publisher." AUTHOR: ".$obj->author);
 		$obj->publish();
 		
 		//$mailman = new EmailNotification(strtr($_POST['author'],"MYMED_", ""),_("Someone apply to your publication"),_("Someone apply to your publication ").$_POST['title']._(" please check on the web interface"));
@@ -53,6 +55,10 @@ class ApplyController extends AuthenticatedController {
 		$obj = new Apply();
 		$obj->type = 'apply';
 		$obj->publisherID = $_POST['publisher'];
+		
+		debug("APPLIER ".$_POST['publisher']." AUTHOR ".$_POST['author']);
+		debug($_POST['pred3']);
+		
 		$obj->publisher = $_POST['publisher'];
 		$obj->pred1=$_POST['pred1'];
 		$obj->pred2 = $_POST['pred2'];
@@ -75,6 +81,7 @@ class ApplyController extends AuthenticatedController {
 	function refuse() {
 		$obj = new Apply();
 		$obj->type = 'apply';
+		debug("APPLIER ".$_POST['publisher']." AUTHOR ".$_POST['author']);
 		$obj->publisherID = $_POST['publisher'];
 		$obj->publisher = $_POST['publisher'];
 		$obj->pred1=$_POST['pred1'];

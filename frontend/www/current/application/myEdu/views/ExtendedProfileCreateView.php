@@ -53,7 +53,7 @@
 			
 			<!-- Role -->
 			<div data-role="fieldcontain">
-				<label for="role" class="select" style="text-align:right"><?= _("Your category") ?>:</label>
+				<label for="role" class="select" style="text-align:right"><?= _("Your category")?><b>*</b> :</label>
 				<select name="role" id="role" data-native-menu="false" onChange="
 					
 					switch ($('#role').val()) {
@@ -139,6 +139,7 @@
 				<?= _("I accept the ")?>
 				<a href="../myMed/doc/CGU_fr.pdf" rel="external"><?= _("general terms and conditions")?></a>
 			</span>
+			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-theme="e" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
 			</div>

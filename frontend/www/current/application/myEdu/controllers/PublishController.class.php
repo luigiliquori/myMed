@@ -56,10 +56,7 @@ class PublishController extends ExtendedProfileRequired {
 			if (empty($_POST['title'])) {
 				$this->error = _("Title field can't be empty");
 				$this->renderView("NewPublication");
-			} else if (((empty($_POST['expire_day']) || 
-					     empty($_POST['expire_month']) || 
-					     empty($_POST['expire_year'])) && 
-					     ($_POST['category'] == 'Course')) &&
+			} else if (((empty($_POST['expire_day']) ||  empty($_POST['expire_month']) ||  empty($_POST['expire_year'])) && ($_POST['category'] == 'Course')) &&
 					     empty($_POST['end'])) {		
 					$this->error = _("Please provide a valide expiration date for the course");
 					$this->renderView("NewPublication");				
@@ -82,10 +79,8 @@ class PublishController extends ExtendedProfileRequired {
 			} else if (empty($_POST['organization'])) {
 				$this->error = _("Organization field can't be empty");
 				$this->renderView("NewPublication");
-			} else if ($_POST['category'] == 'Course' && 
-					   !is_numeric($_POST['maxappliers'])) {
-				$this->error = _("Specify a valid value for the maximum number 
-								  of course appliers");
+			} else if ($_POST['category'] == 'Course' && !is_numeric($_POST['maxappliers'])) {
+				$this->error = _("Specify a valid value for the maximum number of course appliers");
 				$this->renderView("NewPublication");
 		    } else {
 				

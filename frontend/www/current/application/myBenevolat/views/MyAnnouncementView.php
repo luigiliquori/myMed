@@ -55,7 +55,7 @@
 						 <? if(gettype($item->competences)=="string"){ ?> <!-- only 1 skill -> string and not array -->
 								<?= Categories::$competences[$item->competences]?><br/><br/>
 						 <? }else{ ?>
-								<? foreach($item->competences as $competences): echo Categories::$competences[$competences]." - "; endforeach;?><br/><br/>
+								<? foreach($item->competences as $competences): echo Categories::$competences[$competences]." , "; endforeach;?><br/><br/>
 						 <? } ?>
 							
 							<!-- Project reputation-->	
