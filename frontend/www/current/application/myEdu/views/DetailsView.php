@@ -68,7 +68,32 @@
 			 				 <? }
 							 }
 							 if($_GET['author']==$_SESSION['user']->id){ ?> <!-- the user is the author of this publication: can update -->
-								<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
+								<div data-type="horizontal">
+									<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
+						  			<a data-role="button" data-inline="true" href="#popupDeleteAnnonce" data-theme="r" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
+						  			
+						  			<!-- Pop up delete -->	
+									<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
+										<?= _("Are you sure you want to delete this publication?") ?><br /><br />
+										<div data-type="horizontal">
+											<form action="?action=publish&method=delete" method="POST" data-ajax="false" >
+												<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
+												<input type="hidden" name="type" value="<?= $this->result->type ?>" />
+												<input type="hidden" name="end" value="<?= $this->result->end  ?>" />
+												<input type="hidden" name="area" value="<?= $this->result->area ?>" />
+												<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+												<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+												<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
+												<input type="hidden" name="title" value="<?= $this->result->title ?>" />
+												<input type="hidden" name="text" id="text"/>
+												<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
+												<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
+												<input type="submit" data-icon="ok" data-theme="g" data-inline="true" value="<?= _('Yes') ?>" />
+								 			</form>
+											<a href="#"  data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
+										</div>
+									</div>
+								</div>
 						  <? }
 						endif;?>
 					</div>
@@ -251,14 +276,68 @@
 										<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
 										<div data-role="controlgroup" data-type="horizontal" style="float: right;">
 											<? if($item->accepted!='accepted'): ?>
-												<a style="float:left" type="button" href="#popupAccept" data-rel="popup" data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a>
+												<!-- <a style="float:left" type="button" href="#popupAccept" data-rel="popup" data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a>-->
+												<a style="float:left;" type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->pred3 ?>","<?= $item->author ?>","<?= $this->result->maxappliers ?>","<?= $this->result->currentappliers ?>","<?= $this->result->area ?>","<?= $this->result->category ?>","<?= $this->result->locality ?>","<?= $this->result->organization ?>","<?= $this->result->end ?>","<?= $this->result->text ?>","<?= $item->title ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a>
 											<? endif; ?>
-											<a style="float:right" type="button" href="#popupRefuse" data-rel="popup" data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a>
+											<!-- <a style="float:right" type="button" href="#popupRefuse" data-rel="popup" data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a>-->
+											<a style="float:left;" type="button" href="#" onclick='generate_refuse_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->pred3 ?>","<?= $item->author ?>","<?= $this->result->maxappliers ?>","<?= $this->result->currentappliers ?>","<?= $this->result->area ?>","<?= $this->result->category ?>","<?= $this->result->locality ?>","<?= $this->result->organization ?>","<?= $this->result->end ?>","<?= $this->result->text ?>","<?= $item->title ?>","<?= $item->accepted ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a>
 										</div>
 										
+										<script type="text/javascript">
+											function generate_accept_popup(publisher, pred1,pred2,pred3,author,maxappliers,currentappliers,area,category,locality,organization,end,text,title){
+												$("#popupAccept").html('<?= _("You can attach a message for the applier:") ?>\
+													<form action="?action=apply&method=accept" method="POST" data-ajax="false">\
+								 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
+											 				<input type="hidden" name="method" value="<?= _('Accept')?>" />\
+											 				<input type="hidden" name="publisher" value="'+publisher+'" />\
+											 				<input type="hidden" name="pred1" value="'+pred1+'" />\
+											 				<input type="hidden" name="pred2" value="'+pred2+' />\
+											 				<input type="hidden" name="pred3" value="'+pred3+'" />\
+											 				<input type="hidden" name="author" value="'+author+'" />\
+											 				<input type="hidden" name="maxappliers" value="'+maxappliers+'" />\
+											 				<input type="hidden" name="currentappliers" value="'+currentappliers+'" />\
+											 				<input type="hidden" name="area" value="'+area+'" />\
+											 				<input type="hidden" name="category" value="'+category+'"/>\
+											 				<input type="hidden" name="locality" value="'+locality+'" />\
+											 				<input type="hidden" name="organization" value="'+organization+'" />\
+											 				<input type="hidden" name="date" value="'+end+'" />\
+											 				<input type="hidden" name="text" value="'+text+'" />\
+											 				<input type="hidden" name="title" value="'+title+'" />\
+											 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />\
+											 			</form>');
+									 			$("#popupAccept").popup("open");
+											}
+
+
+											function generate_refuse_popup(publisher, pred1,pred2,pred3,author,maxappliers,currentappliers,area,category,locality,organization,end,text,title,accepted){
+												$("#popupRefuse").html('<?= _("You can attach a message for the applier:") ?>\
+														<form action="?action=apply&method=accept" method="POST" data-ajax="false">\
+									 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
+												 				<input type="hidden" name="method" value="<?= _('Accept')?>" />\
+												 				<input type="hidden" name="publisher" value="'+publisher+'" />\
+												 				<input type="hidden" name="pred1" value="'+pred1+'" />\
+												 				<input type="hidden" name="pred2" value="'+pred2+' />\
+												 				<input type="hidden" name="pred3" value="'+pred3+'" />\
+												 				<input type="hidden" name="author" value="'+author+'" />\
+												 				<input type="hidden" name="maxappliers" value="'+maxappliers+'" />\
+												 				<input type="hidden" name="currentappliers" value="'+currentappliers+'" />\
+												 				<input type="hidden" name="area" value="'+area+'" />\
+												 				<input type="hidden" name="category" value="'+category+'"/>\
+												 				<input type="hidden" name="locality" value="'+locality+'" />\
+												 				<input type="hidden" name="organization" value="'+organization+'" />\
+												 				<input type="hidden" name="date" value="'+end+'" />\
+												 				<input type="hidden" name="text" value="'+text+'" />\
+												 				<input type="hidden" name="title" value="'+title+'" />\
+												 				<input type="hidden" name="accepted" value="'+accepted+'" />\
+												 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />\
+												 			</form>');
+										 			$("#popupRefuse").popup("open");
+											}
+										</script>
 										
+										<!-- POPUP ACCEPT -->
 										<div data-role="popup" id="popupAccept" class="ui-content" Style="text-align: center; width: 18em;">
-											<?= _("You can attach a message for the applier:") ?>
+											<!--<?= _("You can attach a message for the applier:") ?>
 											
 					 	    				<form action="?action=apply&method=accept" method="POST" data-ajax="false">
 					 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>
@@ -279,11 +358,12 @@
 								 				<input type="hidden" name="title" value="<?= $item->title ?>" />
 								 				
 												<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />
-								 			</form>
+								 			</form>-->
 										</div>
 										
+										<!-- POPUP REFUSE -->
 										<div data-role="popup" id="popupRefuse" class="ui-content" Style="text-align: center; width: 18em;">
-											<?= _("You can attach a message for the applier:") ?>
+											<!--<?= _("You can attach a message for the applier:") ?>
 											<form action="?action=apply&method=refuse" method="POST" data-ajax="false">
 												<textarea id="msgMail" name="msgMail" style="height: 120px;"></textarea><br>
 								 				<input type="hidden" name="method" value="<?= _('Refuse')?>" />
@@ -303,7 +383,7 @@
 								 				<input type="hidden" name="text" value="<?= $this->result->text ?>" />
 								 				<input type="hidden" name="accepted" value="<?= $item->accepted ?>" />
 								 				
-												<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />
+												<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />-->
 								 			</form>
 										</div>
 									</div>

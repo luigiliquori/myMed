@@ -43,7 +43,7 @@
 							<?= _("Annonce") ?>: <b><?= $item->title ?></b>
 						</div>
 						<div class="ui-block-c">
-							<?= _("De ") ?>: <b><?= $item->author ?></b>
+							<?= _("Author ") ?>: <b><?= $item->author ?></b>
 						</div>
 						<div class="ui-block-d">
 							<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
@@ -55,7 +55,7 @@
 						 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
 						 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
 						 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
-						 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
+						 				<input type="hidden" name="id" value="<?= $item->idAnnonce ?>" />
 						 				<input type="hidden" name="author" value="<?= $item->author ?>" />
 						 				<input type="hidden" name="title" value="<?= $item->title ?>" />
 						 				
@@ -68,7 +68,7 @@
 					 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
 					 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
 					 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
-					 				<input type="hidden" name="pred3" value="<?= $item->pred3 ?>" />
+					 				<input type="hidden" name="id" value="<?= $item->idAnnonce ?>" />
 					 				<input type="hidden" name="title" value="<?= $item->title ?>" />
 					 				<input type="hidden" name="author" value="<?= $item->author ?>" />
 					 				<input type="hidden" name="accepted" value="<?= $item->accepted ?>" />

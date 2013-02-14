@@ -112,7 +112,9 @@
 					<? endforeach ?>
 					</select>
 					<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
-					<p><b>**</b>: <i><?= _("Mandatory if you publish a course")?></i></p>
+					<?if($_SESSION['myEdu']->details['role']=='professor'):?>
+						<p><b>**</b>: <i><?= _("Mandatory if you publish a course")?></i></p>
+					<?endif;?>
 			</div>
 			
 			<div style="text-align: center;">

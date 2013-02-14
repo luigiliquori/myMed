@@ -1,6 +1,7 @@
 <div data-role="page">
+ 
  <? $title = _("Projects list");
-	 print_header_bar(true, false, $title); ?>
+	 print_header_bar("?action=extendedProfile", false, $title); ?>
 	
 	<div data-role="content" >
 	

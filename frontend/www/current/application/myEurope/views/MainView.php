@@ -3,7 +3,7 @@
 
 <div data-role="page" id="home">
 
-	<? print_header_bar(false, "mainViewHelpPopup", false, true); ?>
+	<? print_header_bar("logout", "mainViewHelpPopup", false, true); ?>
 
 	<div data-role="content" >
 	

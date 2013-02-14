@@ -78,9 +78,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 
 		// Unset post vale that we don't need
 		unset($_POST['form']);
-		unset($_POST['checkCondition']);
 		
 		// Set user id 
+		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['id'] = hash("md5", time().$_POST['name']);
 		
 		// Create the new profile
@@ -96,7 +96,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (!empty($this->error))
 			$this->renderView("ExtendedProfileCreate");
 	
-		$this->createUser($_POST['id']);
+		$this->createUser($_POST['id'], $_POST['type']);
 	
 		// Display the new profile
 		$this->redirectTo(
@@ -168,9 +168,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		
 		$_POST['id'] = $id;
+		$_POST['picture'] = $_POST['profilePicture'];
 		
 		// Update of the organization profile informations
-		$_POST['desc'] = nl2br($_POST['desc']);
 		$myrep = $_SESSION['myBenevolat']->reputation; 
 		$users = $_SESSION['myBenevolat']->users;
 		$publish =  new RequestJson(
@@ -187,7 +187,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		
 		if ($_POST['name']!= $_SESSION['myBenevolat']->details['name'] || 
-			$_POST['role']!=$_SESSION['myBenevolat']->details['role']) { 
+			$_POST['type']!=$_SESSION['myBenevolat']->details['type']) { 
 			
 			//also update profiles indexes
 			$publish =  new RequestJson(
@@ -195,7 +195,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 							array("application"=>APPLICATION_NAME.":profiles", 
 							"id"=>$_POST['id'], 
 							"user"=>"noNotification", 
-							"metadata"=>array("role"=>$_POST['role'], 
+							"metadata"=>array("type"=>$_POST['type'], 
 							"name"=>$_POST['name'])),
 							CREATE);
 			$publish->send();
@@ -233,24 +233,34 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	/** 
 	 * Create a new user 
 	 */
-	function createUser($profile){
+	function createUser($profile, $type){
 	
-		// Permission is 2 if the user is in the list of admins, otherwise 1
-		$permission 
-			= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 1;
+		switch ($type) {
+			
+			case 'volunteer':
+				$permission = 1;
+			
+			case 'association':
+				// 2 if the assosiation is admin
+				// otherwise 0 (not validated association
+				$permission 
+					= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 0;
+		}
+		
 			
 		$user = array(
 				'permission'=> $permission,
 				'email'=> $_SESSION['user']->email,
-				'profile'=> $profile
+				'profile'=> $profile,
+				"profiletype"=> $type,
 		);
 		
 		
 		$publish = new RequestJson(
 					$this,
-					array("application"=>APPLICATION_NAME.":users", 
+					array("application"=>APPLICATION_NAME.":users",
 					"id"=>$_SESSION['user']->id, 
-					"data"=>$user, 
+					"data"=>$user,  
 					"metadata"=>$user),
 					CREATE);
 		$publish->send();

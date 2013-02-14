@@ -1,5 +1,3 @@
-
-
 <div data-role="page" id =myopportunitymanagement>
 
 	<!-- Page header bar -->
@@ -139,8 +137,6 @@
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('My subscriptions') ?> :</h3>
 				<?php
-					//echo "SUB :".$this->sub."<br/><br/>";
-					//echo var_dump($this->response)."<br/><br/>";
 					echo '<ul data-role="listview" data-filter="true" >';
 					foreach ($this->response as $val){
 						echo '<li><div class="ui-grid-a">';
@@ -149,15 +145,39 @@
 						echo createlist($val);
 						$predicate="category".$val->category."organization".$val->organization."locality".$val->locality."area".$val->area;
 						echo '</div><div class="ui-block-b">';
-						echo '<form action="?action=myOpportunityManagement" method="POST" data-ajax="false"  style="float: right;">
-								<input type="hidden" name="removeSubscription" value="true" />
-								<input type="hidden" name="predicate" value="'.$predicate.'"/>
-								<input type="hidden" name="publicationTitle" value="'.$val->pubTitle.'"/>
-								<input type="submit" data-icon="delete" data-theme="r" data-inline="true" value="'._("Delete subscription").'" />
-							  </form></div></div></li>';
+						//echo '<a href="#" onclick=\'generate_delete_popup("'.$predicate.'","'.$val->pubTitle.'")\' data-icon="delete" type="button" data-rel="popup" data-theme="r" data-inline="true" style="float: right;">'._("Delete subscription").'</a>';
+						echo '<a href="#" onclick=\'generate_delete_popup("'.$predicate.'","'.$val->pubTitle.'")\' data-icon="delete" type="button" data-theme="r" data-inline="true" style="float: right;">'._("Delete subscription").'</a>';
+						echo '</div></div></li>';
 					}
 					echo '</ul>';
 				?>	
+			</div>
+			
+			<script type="text/javascript">
+				function generate_delete_popup(predicate,pubTitle){
+					//$("#deletePopup").html("ça marche");
+					//$("#deletePopup").html(eval('<a href="#" data-type="button" data-theme="g">hello</a>'));
+					$("#deletePopup").html("<?= _("Are you sure ?")?>"+'\
+							<div class="ui-grid-a">\
+							<div class="ui-block-a">\
+							 <form action="?action=myOpportunityManagement" method="POST" data-ajax="false">\
+							 <input type="hidden" name="removeSubscription" value="true" />\
+							 <input type="hidden" name="predicate" value="'+predicate+'"/>\
+							 <input type="hidden" name="publicationTitle" value="'+pubTitle+'"/>\
+							 <input type="submit" data-theme="g" data-inline="true" value="<?= _("Yes")?>" />\
+							</form>\
+							 <\div>\
+							 <div class="ui-block-b">\
+							 <form action="?action=myOpportunityManagement" method="POST" >\
+							 <input type="submit" data-theme="g" data-inline="true" value="<?= _("No")?>" />\
+							 </form>\
+							<\div><\div>');
+					$("#deletePopup").popup("open");
+				}
+			</script>
+			
+			<div data-role="popup" class="ui-content" id="deletePopup">
+			ça ne marche pas ne soit pas dégouté
 			</div>
 			
 			

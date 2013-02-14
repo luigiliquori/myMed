@@ -2,13 +2,25 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page">
-  <? $title = _("Profile");
-	 print_header_bar(true, "defaultHelpPopup", $title); ?>
+
+ 	<?php 	
+ 		$title = _("Profile");
+	   	// Handle different referer
+	 	if(strpos($_SERVER['HTTP_REFERER'],"?action=details")) {
+	 		print_header_bar($_SERVER['HTTP_REFERER'], false, $title);
+		} elseif(strpos($_SERVER['HTTP_REFERER'],"?action=Admin") &&
+				 $_GET['user'] != $_SESSION['user']->id) {
+			print_header_bar("?action=Admin", false, $title);
+		} else {
+			print_header_bar("?action=main", false, $title);
+		}
+	?>
 	
 	<div data-role="content">
 		<br><br>
 		
-		<? if ($_SESSION['myEurope']->permission >=2) : ?>
+		<? if ($_SESSION['myEurope']->permission >=2 && 
+			   $_GET['user'] == $_SESSION['user']->id) : ?>
 			<div style="text-align: center;">
 				<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" data-theme="e"> <?= _("Users list") ?> </a>
 			</div>

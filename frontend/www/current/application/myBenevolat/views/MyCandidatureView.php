@@ -38,17 +38,19 @@
 
 			<? foreach($this->result as $item) : ?>
 				<li>
-					<a data-ajax="false" href="?action=details&predicate=<?= $item->pred3 ?>&author=<?= $item->author ?>">			
-						<div class="ui-grid-b">
+					<a data-ajax="false" href="?action=details&id=<?= $item->idAnnonce ?>">			
+						<div class="ui-grid-a">
 							<div class="ui-block-a">
 								<?= _("Publication name") ?>: <b><?= $item->title ?></b>
-							</div>
+							</div>							
 							<div class="ui-block-b">
-								<?= _("Author email") ?>: <b><?= $item->author ?></b>
-							</div>
-							<div class="ui-block-c">
 								<div style="float: right;">
-									<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
+									<?= _("Status") ?>: 
+									<?  $status = "";
+										if($item->accepted=="waiting")
+											$status = _("Waiting the administrator validation");
+										else $status = _("Has been validated by an administrator");
+										echo "<b>".$status."</b>" ?>
 								</div>
 							</div>
 						</div>

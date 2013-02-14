@@ -85,6 +85,8 @@ class PublishController extends ExtendedProfileRequired {
 				$obj = new Annonce();
 				$obj->publisher = $_POST['publisher'];	// Publisher ID
 				$obj->type = "annonce";
+				if(isset($_POST['id'])) $obj->id = $_POST['id'];
+				else $obj->id = uniqid();
 				$obj->competences = $_POST['competences'];	// array of competences	
 				$obj->typeMission = $_POST['mission'];	
 				$obj->quartier = $_POST['quartier'];
@@ -95,9 +97,11 @@ class PublishController extends ExtendedProfileRequired {
 				$obj->text = $_POST['text'];	
 				if(isset($_POST['promue'])) $obj->promue = $_POST['promue'];
 				else $obj->promue = "false";
-				if(isset($_POST['validated'])) $obj->validated = $_POST['validated'];
-				else $obj->validated = "waiting";				
-				
+				if(isset($_POST['validated'])) $obj->validated = $_POST['validated']; // update
+				else{ // create
+					if($_POST['permission']=="2") $obj->validated = "validated";// auto validation if admin
+					else $obj->validated = "waiting"; 				
+				}
 				
 				// sets the level of broadcasting in the Index Table
 				$level = 3;  
@@ -115,11 +119,10 @@ class PublishController extends ExtendedProfileRequired {
 	
 	public function update() {
 		// Modification on keywords pred doesn't overwrite the old object but duplicate
-		$predicate = $_POST['predicate'];
-		$author = $_POST['author'];
-		
-		$oldAnn = new Annonce($predicate);
-		$oldAnn->publisherID = $author;
+		$request = new Annonce();
+		$request->id = $_POST['id'];
+		$res = $request->find();
+		$oldAnn = $res[0];
 		$oldAnn->getDetails();
 		
 		$oldAnn->delete(); //delete the old announcement
@@ -142,14 +145,10 @@ class PublishController extends ExtendedProfileRequired {
 	public function delete() {
 		$this->delete_Applies();
 		
-		$predicate = $_POST['predicate'];
-		$author = $_POST['author'];
-		
-		// Create an object
-		$obj = new Annonce($predicate);
-		$obj->publisherID = $author;
-		
-		// Fetches the details
+		$request = new Annonce();
+		$request->id = $_GET['id'];
+		$res = $request->find();
+		$obj = $res[0];
 		$obj->getDetails();
 		
 		$obj->delete();
@@ -190,14 +189,10 @@ class PublishController extends ExtendedProfileRequired {
 	 * 
 	 */
 	private function modifyAnnouncement() {
-		$predicate = $_GET['predicate'];
-		$author = $_GET['author'];
-		
-		// Create an object
-		$obj = new Annonce($predicate);
-		$obj->publisherID = $author;
-		
-		// Fetches the details
+		$request = new Annonce();
+		$request->id = $_GET['id'];
+		$res = $request->find();
+		$obj = $res[0];
 		$obj->getDetails();
 		
 		// Give this to the view
