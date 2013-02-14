@@ -253,7 +253,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				'permission'=> $permission,
 				'email'=> $_SESSION['user']->email,
 				'profile'=> $profile,
-				"profiletype"=> "association",
+				"profiletype"=> $type,
 		);
 		
 		

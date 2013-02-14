@@ -39,7 +39,7 @@
 	        	<a rel="external" data-icon="check" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>" data-theme="g"><?= _("Validate association") ?></a>
 			</li>
 		<? endforeach ?>
-			<li data-role="list-divider"><?= _("Normal users") ?><span class="ui-li-count"><?= count($this->normals) ?></span></li>
+			<li data-role="list-divider"><?= _("Validated associations") ?><span class="ui-li-count"><?= count($this->normals) ?></span></li>
 		<? foreach( $this->normals as $i => $item ) : ?>
 			
 			<li>

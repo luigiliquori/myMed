@@ -31,7 +31,7 @@
 	
 		<!-- Extended profile edit form -->
 		<!-- Final wizard form -->
-		<form action="?action=ExtendedProfile&method=update" id="profileForm" method="POST" data-ajax="false" >
+		<form action="?action=ExtendedProfile&method=update" id="updateProfileForm" method="POST" data-ajax="false" >
 						
 			<input type="hidden" name="id" value="<?= $_SESSION['myBenevolat']->profile ?>" />
 
@@ -301,7 +301,7 @@
 
 		
 	/* Override default submit function */
-	$('#profileForm').submit(function() {
+	$('#updateProfileForm').submit(function() {
 		
 		switch('<?= $_SESSION['myBenevolat']->details['type'] ?>') {
 	
