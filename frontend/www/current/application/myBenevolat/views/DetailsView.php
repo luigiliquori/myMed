@@ -48,7 +48,7 @@
 					<!-- APPLY FOR VOLUNTEERS -->
 					<div style="position: absolute; right: 24px;">
 						<?
-						if(isset($_SESSION['myBenevolat']) && $_SESSION['myBenevolat']->details['type'] == 'volunteer' && ($_SESSION['myBenevolat']->permission != '0')):
+						if(isset($_SESSION['myBenevolat']) && $_SESSION['myBenevolat']->details['type'] == 'volunteer'):
 							$date=strtotime(date(DATE_FORMAT));
 							$expired=false;
 							if(!empty($this->result->end)  && $this->result->end!="--"){
@@ -71,6 +71,7 @@
 						 				<input type="hidden" name="method" value="Apply" />
 						 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 						 				<input type="hidden" name="mission" value="<?= $this->result->typeMission ?>" />
+						 				<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr() ?>" />
 						 				<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
 						 				<input type="hidden" name="id" value="<?= $this->result->id ?>" />
 										<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
@@ -84,10 +85,14 @@
 									<a style="float: left" data-role="button" data-icon="pencil" data-inline="true" href="?action=publish&method=modify_announcement&id=<?= $_GET['id'] ?>"><?= _("Edit")?></a>
 							 <? endif; 
 							    if($this->result->publisherID==$_SESSION['user']->id || $_SESSION['myBenevolat']->permission == '2'){?> 
-									<form action="?action=publish&method=delete" method="POST" data-ajax="false" style="float: right">
-										<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
-										<input type="submit" data-icon="delete" data-inline="true" data-theme="r" value="<?= _('Delete') ?>" />
-						 			</form> 
+									<a type="button" href="#popupDeleteAnnonce" data-theme="r" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
+									
+									<!-- Pop up delete -->	
+									<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
+										<?= _("Are you sure you want to delete this announcement?") ?><br /><br />
+										<a type="button" href="?action=publish&method=delete&id=<?= $_GET['id'] ?>"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
+										<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
+									</div>
 						 	  <? } ?>
 					 		</div>
 					</div>

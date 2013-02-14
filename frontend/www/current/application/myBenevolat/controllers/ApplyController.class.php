@@ -29,10 +29,10 @@ class ApplyController extends AuthenticatedController {
 		$obj = new Apply();
 		$time = time();
 		$obj->publisher = $_SESSION['user']->id;    // applier's ID
-		$obj->pred1 = 'apply&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
+		$obj->pred1 = 'apply&'.$_POST['predicate'].'&'.$_POST['author'];
 		$obj->pred2 = $time;
 		$obj->idAnnonce = $_POST['id']; // id of the publication
-		$obj->author = $_SESSION['author'];
+		$obj->author = $_POST['author'];
 		$obj->accepted = 'waiting'; // 'accepted' when the author accepts the student
 		$obj->title = $_POST['title'];
 		

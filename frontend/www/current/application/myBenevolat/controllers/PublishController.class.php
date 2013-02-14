@@ -146,7 +146,7 @@ class PublishController extends ExtendedProfileRequired {
 		$this->delete_Applies();
 		
 		$request = new Annonce();
-		$request->id = $_POST['id'];
+		$request->id = $_GET['id'];
 		$res = $request->find();
 		$obj = $res[0];
 		$obj->getDetails();

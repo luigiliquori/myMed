@@ -32,8 +32,8 @@ class DetailsController extends AuthenticatedController {
 		// Give this to the view
 		$this->result = $annonce;
 		
-		$_SESSION['predicate'] = $annonce->getPredicateStr();
-		$_SESSION['author'] = $annonce->publisherID;
+		//$_SESSION['predicate'] = $annonce->getPredicateStr();
+		//$_SESSION['author'] = $annonce->publisherID;
 		
 		// get author reputation
 		$request = new Request("ReputationRequestHandler", READ);
@@ -83,7 +83,7 @@ class DetailsController extends AuthenticatedController {
 	}
 	
 	private function fillObjApply($obj) {
-		$obj->pred1 = 'apply&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
+		$obj->pred1 = 'apply&'.$this->result->getPredicateStr().'&'.$this->result->publisherID;
 	}
 }
 ?>
