@@ -85,6 +85,8 @@ class PublishController extends ExtendedProfileRequired {
 				$obj = new Annonce();
 				$obj->publisher = $_POST['publisher'];	// Publisher ID
 				$obj->type = "annonce";
+				if(isset($_POST['id'])) $obj->id = $_POST['id'];
+				else $obj->id = uniqid();
 				$obj->competences = $_POST['competences'];	// array of competences	
 				$obj->typeMission = $_POST['mission'];	
 				$obj->quartier = $_POST['quartier'];
@@ -115,11 +117,16 @@ class PublishController extends ExtendedProfileRequired {
 	
 	public function update() {
 		// Modification on keywords pred doesn't overwrite the old object but duplicate
-		$predicate = $_POST['predicate'];
-		$author = $_POST['author'];
+		//$predicate = $_POST['predicate'];
+		//$author = $_POST['author'];
 		
-		$oldAnn = new Annonce($predicate);
-		$oldAnn->publisherID = $author;
+		//$oldAnn = new Annonce($predicate);
+		//$oldAnn->publisherID = $author;
+		//$oldAnn->getDetails();
+		$request = new Annonce();
+		$request->id = $_POST['id'];
+		$res = $request->find();
+		$oldAnn = $res[0];
 		$oldAnn->getDetails();
 		
 		$oldAnn->delete(); //delete the old announcement
@@ -142,14 +149,20 @@ class PublishController extends ExtendedProfileRequired {
 	public function delete() {
 		$this->delete_Applies();
 		
-		$predicate = $_POST['predicate'];
-		$author = $_POST['author'];
+		//$predicate = $_POST['predicate'];
+		//$author = $_POST['author'];
 		
 		// Create an object
-		$obj = new Annonce($predicate);
-		$obj->publisherID = $author;
+		//$obj = new Annonce($predicate);
+		//$obj->publisherID = $author;
 		
 		// Fetches the details
+		//$obj->getDetails();
+		
+		$request = new Annonce();
+		$request->id = $_POST['id'];
+		$res = $request->find();
+		$obj = $res[0];
 		$obj->getDetails();
 		
 		$obj->delete();
@@ -190,14 +203,20 @@ class PublishController extends ExtendedProfileRequired {
 	 * 
 	 */
 	private function modifyAnnouncement() {
-		$predicate = $_GET['predicate'];
-		$author = $_GET['author'];
+		//$predicate = $_GET['predicate'];
+		//$author = $_GET['author'];
 		
 		// Create an object
-		$obj = new Annonce($predicate);
-		$obj->publisherID = $author;
+		//$obj = new Annonce($predicate);
+		//$obj->publisherID = $author;
 		
 		// Fetches the details
+		//$obj->getDetails();
+		
+		$request = new Annonce();
+		$request->id = $_POST['id'];
+		$res = $request->find();
+		$obj = $res[0];
 		$obj->getDetails();
 		
 		// Give this to the view

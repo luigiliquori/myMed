@@ -15,22 +15,25 @@ class DetailsController extends AuthenticatedController {
 			$_SESSION['user']->is_guest = 1;
 		}
 		
-		$predicate = $_GET['predicate'];
-		$author = $_GET['author'];
+		$request = new Annonce();
+		$request->id = $_GET['id'];
+		$res = $request->find();
 		
-		//signing up datas to the session will be used during adding comments
-		$_SESSION['predicate'] = $predicate;
-		$_SESSION['author'] = $author;
+		// Should have only one result
+		if (sizeof($res) != 1) {
+			throw new InternalError("Expected one result for Annonce(id=$id). Got " . sizeof($res));
+		}
 		
-		// Create an object
-		$obj = new Annonce($predicate);
-		$obj->publisherID = $author;
+		$annonce = $res[0];
 		
 		// Fetches the details
-		$obj->getDetails();
+		$annonce->getDetails();
 		 
 		// Give this to the view
-		$this->result = $obj;
+		$this->result = $annonce;
+		
+		$_SESSION['predicate'] = $annonce->getPredicateStr();
+		$_SESSION['author'] = $annonce->publisherID;
 		
 		// get author reputation
 		$request = new Request("ReputationRequestHandler", READ);
@@ -51,7 +54,7 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["author"] = $value;
 		$this->reputation["author_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
-		// get value reputation
+		// get publication reputation
 		$request->addArgument("producer",  $this->result->publisherID);	
 		
 		$responsejSon = $request->send();
@@ -66,35 +69,9 @@ class DetailsController extends AuthenticatedController {
 		// Save the reputation and the number of ratings
 		$this->reputation["value"] = $value;
 		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
-		
-		$this->search_apply();
-		
-		// Need publisher role (student, professer, or company) so
-		// get publisher details
-		// Get the user details
-		/*
-		try {
-			$datamapper = new DataMapper;
-			$details = $datamapper->findById(new User($_SESSION['user']->id));
-			$this->publisher_profile = new myBenevolatProfile($details['profile']);
-			$this->publisher_profile->details = $datamapper->findById($this->publisher_profile);
-		} catch (Exception $e) {
-			debug($e);
-			$this->redirectTo("main");
-		}
-			*/	
+
 		// Render the view
 		$this->renderView("Details");
-	}
-	
-	public function search_apply() {
-		$search_applies = new Apply();
-		$this->fillObjApply($search_applies);
-		$this->result_apply = $search_applies->find();
-	}
-	
-	private function fillObjApply($obj) {
-		$obj->pred1 = 'apply&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 	}
 }
 ?>

@@ -17,14 +17,14 @@ class UpdateReputationController extends DetailsController {
 			$request = new Request("InteractionRequestHandler", UPDATE);
 			$request->addArgument("application",  APPLICATION_NAME);
 			if(isset($_GET['isData'])){
-				$request->addArgument("producer", $_GET['predicate'].$_GET['author']);
+				$request->addArgument("producer", $_SESSION['predicate'].$_SESSION['author']);
 			} else {
-				$request->addArgument("producer",  $_GET['author']);	
+				$request->addArgument("producer",  $_SESSION['author']);	
 			}				
 			$request->addArgument("consumer",  $_SESSION['user']->id);
 			$request->addArgument("start",  time());
 			$request->addArgument("end",  time());
-			$request->addArgument("predicate",  $_GET['predicate']);
+			$request->addArgument("predicate",  $_SESSION['predicate']);
 			$request->addArgument("feedback",  $_GET['reputation']/10);
 
 // 			try {

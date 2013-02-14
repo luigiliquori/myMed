@@ -8,7 +8,7 @@ class Annonce extends GenericDataBean {
 	// ------------------------------------------------
 	
 	/** Key: Annonce ID */
-	//public $id;
+	public $id;
 	public $type = "annonce";
 	public $pred1;
 	public $pred2;
@@ -34,7 +34,7 @@ class Annonce extends GenericDataBean {
 			array(
 				"publisher" => KEYWORD,
 				"type"	=> KEYWORD,
-				//"id" => KEYWORD,
+				"id" => KEYWORD,
 				"title" => KEYWORD,
 				"pred1" => KEYWORD,
 				"pred2" => GPS,
