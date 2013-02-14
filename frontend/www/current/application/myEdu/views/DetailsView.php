@@ -68,7 +68,32 @@
 			 				 <? }
 							 }
 							 if($_GET['author']==$_SESSION['user']->id){ ?> <!-- the user is the author of this publication: can update -->
-								<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
+								<div data-type="horizontal">
+									<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
+						  			<a data-role="button" data-inline="true" href="#popupDeleteAnnonce" data-theme="r" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
+						  			
+						  			<!-- Pop up delete -->	
+									<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
+										<?= _("Are you sure you want to delete this publication?") ?><br /><br />
+										<div data-type="horizontal">
+											<form action="?action=publish&method=delete" method="POST" data-ajax="false" >
+												<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
+												<input type="hidden" name="type" value="<?= $this->result->type ?>" />
+												<input type="hidden" name="end" value="<?= $this->result->end  ?>" />
+												<input type="hidden" name="area" value="<?= $this->result->area ?>" />
+												<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+												<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+												<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
+												<input type="hidden" name="title" value="<?= $this->result->title ?>" />
+												<input type="hidden" name="text" id="text"/>
+												<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
+												<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
+												<input type="submit" data-icon="ok" data-theme="g" data-inline="true" value="<?= _('Yes') ?>" />
+								 			</form>
+											<a href="#"  data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
+										</div>
+									</div>
+								</div>
 						  <? }
 						endif;?>
 					</div>
