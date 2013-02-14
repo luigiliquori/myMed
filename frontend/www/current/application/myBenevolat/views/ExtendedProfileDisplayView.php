@@ -86,10 +86,11 @@
 				<p>
 					<!-- Role -->
 					<b><?= _("Profile type") ?></b>: <strong style="color:#444;"><?= _($this->profile->details['type']) ?></strong><br/>
+					<?= (empty($this->profile->details['associationname']) ? " " : "<b>"._("Association name").": </b>".$this->profile->details['associationname']."<br/>") ?>
 				</p>
 				<p>
 					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
-					<?=
+					<?=					
 					(empty($this->profile->details['email'])? " " : "<b>"._("email").":</b> <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
 					(empty($this->profile->details['phone'])? " " : "<b>"._("phone").":</b> <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
 					(empty($this->profile->details['address'])?" ":_("address").": "."<span>".$this->profile->details['address']."</span><br/>")

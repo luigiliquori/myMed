@@ -18,6 +18,12 @@
 	<!-- Container div to give objects a margin -->
 	<div data-role="content" style="margin:30px; ">
 		
+		<!-- Association name -->
+		<div data-role="fieldcontain" >
+			<label for="associationname" style="text-align:right"> <?= _('Association Name') ?></label>
+			<input type="text" name="associationname" id="associationname" />
+		</div>
+		
 		<!-- Phone -->
 		<div data-role="fieldcontain" >
 			<label for="phone" style="text-align:right"> Phone: </label>
@@ -109,6 +115,7 @@
 				
 				<!-- Extended profile fields -->
 				<input type="hidden" id="type" name="type" value="association" />
+				<input type="hidden" id="associationname" name="associationname" />
 				<input type="hidden" id="siret" name="siret" value="" />
 				<input type="hidden" id="website" name="website" value="" />
 				<input type="hidden" id="phone" name="phone" value="" />
@@ -140,7 +147,7 @@
 		if(handleNext()) {
 			
 			// Fill the form
-			
+			$("input[id=associationname]").val(profile.associationname);
 			$("input[id=phone]").val(profile.phone);
 			$("input[id=siret]").val(profile.siret);
 			$("input[id=website]").val(profile.website);
@@ -169,6 +176,7 @@
 	/* Association profile */
 	function associationProfile() {
 
+		this.associationname;
 		this.phone;
 		this.siret;
 		this.website;
@@ -189,7 +197,12 @@
 
 			// Step 2 
 			case 'step1_association':
+
 				// Validate fields
+				if(!$('#associationname').val()) {
+					warningPopUp('Please provide an association name');
+					break;
+				}
 				if(!$('#phone').val()) {
 					warningPopUp('Please provide a valid telephone number');
 					break;
@@ -200,6 +213,7 @@
 				}
 				
 				// Fill profile fields
+				profile.associationname = $('#associationname').val();
 				profile.phone = $('#phone').val();
 				profile.website = $('#website').val();
 				profile.siret = $('#siret').val();
@@ -207,6 +221,7 @@
 				$.mobile.changePage('#step2_association');
 				break;
 
+				
 			// Step 2 
 			case 'step2_association':
 				// Validate fields
