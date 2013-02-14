@@ -8,32 +8,31 @@
 <div data-role="page" id="step1_association">	
 
 	<!-- Header bar -->
-	<? print_header_bar("?action=ExtendedProfile", false, "Step 1 - personal info"); ?>
-		
-	<!-- Message -->
-	<div class="ui-bar ui-bar-e" style="text-align: center">
-		<h1><?= _("Please fill in your personal info.") ?></h1>
-	</div>
+	<? print_header_bar("?action=ExtendedProfile", false, "Step 1 - association info"); ?>
 		
 	<!-- Container div to give objects a margin -->
-	<div data-role="content" style="margin:30px; ">
-		
+	<div data-role="content" style="margin:30px; ">	
+		<!-- Message -->
+		<div class="ui-bar ui-bar-e">
+			<h1><?= _("Please fill in your association information:") ?></h1>
+		</div>
+		<br/>
 		<!-- Association name -->
 		<div data-role="fieldcontain" >
-			<label for="associationname" style="text-align:right"> <?= _('Association Name') ?></label>
+			<label for="associationname" style="text-align:right"> <?= _('Association Name')?><b>*</b> :</label>
 			<input type="text" name="associationname" id="associationname" />
 		</div>
 		
 		<!-- Phone -->
 		<div data-role="fieldcontain" >
-			<label for="phone" style="text-align:right"> Phone: </label>
+			<label for="phone" style="text-align:right"> <?= _("Phone")?><b>*</b> : </label>
 			<input type="text" name="phone" id="phone" placeholder="00 00 00 00 00" />
 		</div>
 		
 		<!-- Siret number -->
 		<div data-role="fieldcontain" >
-			<label for="siret" style="text-align:right"> SIRET: </label>
-			<input type="text" name="siret" id="siret" placeholder="(optional)" />
+			<label for="siret" style="text-align:right"> <?= _("SIRET")?><b>*</b> :</label>
+			<input type="text" name="siret" id="siret"/>
 		</div>
 		
 		<!-- Web Site -->
@@ -47,9 +46,10 @@
 			<label for="address" style="text-align:right"> Address: </label>
 			<input type="text" name="address" id="address" />
 		</div>
+		<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 					
 		<!-- Next and previous buttons -->
-		<div style="text-align:right; margin-right: 40px;">
+		<div style="text-align:center;">
 			<a href="?action=ExtendedProfile" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
 			<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext()">Next</a>
 		</div>
@@ -63,42 +63,38 @@
 <div data-role="page" id="step2_association" >	
 
 	<!-- Header bar -->
-	<? print_header_bar("#step1_association", false, "Step 2 - Competences and Missions "); ?>
+	<? print_header_bar("#step1_association", false, "Step 2 - Skills and Missions "); ?>
 		
+	<div data-role="content" style="margin:30px; ">
 		<!-- Competences list -->
-		<div data-role="header" data-theme="e">
+		<div class="ui-bar ui-bar-e">
 			<h1 style="white-space: normal;">
-				<?= _("Please choose form competences you need.") ?>
+				<?= _("Please choose the skills you need (1 to 4)") ?><b>*</b> :
 			</h1>
 		</div>
 		<br />
-		<div data-role="fieldcontain" style="text-align: center" >
-    		<fieldset data-role="controlgroup">
-    		<? foreach (Categories::$competences as $k=>$v) :?>
-				<input type="checkbox" name="competences-checkbox" id="<?=$k?>" value="<?=$k?>" />
-				<label for="<?=$k?>"> <?=$v?> </label>
-			<? endforeach ?>
-    		</fieldset>
-    	</div><br><br><br>
+	<?  foreach (Categories::$competences as $k=>$v) :?>
+			<input type="checkbox" name="competences-checkbox" id="<?=$k?>" value="<?=$k?>" />
+			<label for="<?=$k?>"> <?=$v?> </label>
+	 <? endforeach ?>
+    	<br><br>
 		
 		<!-- Missions list -->
-		<div data-role="header" data-theme="e">
+		<div class="ui-bar ui-bar-e">
 			<h1 style="white-space: normal;">
-				<?= _("Please choose the type of mission you propose.") ?>
+				<?= _("Please choose the type of mission you propose") ?><b>*</b> :
 			</h1>
 		</div>
 		<br />
-		<div data-role="fieldcontain" style="text-align: center">
-    		<fieldset data-role="controlgroup">
-    		<? foreach (Categories::$missions as $k=>$v) :?>
-				<input type="checkbox" name="missions-checkbox" id="<?=$k?>" value="<?=$k?>" />
-				<label for="<?=$k?>"><?=$v?></label>
-			<? endforeach ?>
-    		</fieldset>
-    	</div><br><br><br>
+     <? foreach (Categories::$missions as $k=>$v) :?>
+			<input type="checkbox" name="missions-checkbox" id="<?=$k?>" value="<?=$k?>" />
+			<label for="<?=$k?>"><?=$v?></label>
+	 <? endforeach ?>
+    	
+    	<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			
 		<!-- Container for final wizard form -->
-		<div style="text-align:right; margin-right: 40px;">
+		<div style="text-align:center;">
 			
 			<!-- Final wizard form -->
 			<form action="?action=ExtendedProfile&method=create" id="profileForm" method="POST">
@@ -127,7 +123,7 @@
 				<input type="submit" id="submit" value="Create the profile" data-inline="true" data-theme="g" />
 			</form>
 		</div>	
-			
+	</div>	
 		
 </div> <!-- END - STEP 2 ASSOCIATION -->
 
@@ -207,8 +203,8 @@
 					warningPopUp('Please provide a valid telephone number');
 					break;
 				}
-				if(!$("#address").val()) {
-					warningPopUp('Please specify a valid address');
+				if(!$("#siret").val()) {
+					warningPopUp('Please provide a siret');
 					break;
 				}
 				
