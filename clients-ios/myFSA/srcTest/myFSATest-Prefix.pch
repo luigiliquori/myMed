@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'myEuropeTest' target in the 'myEuropeTest' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
