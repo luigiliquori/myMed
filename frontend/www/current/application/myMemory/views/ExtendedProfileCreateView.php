@@ -304,7 +304,7 @@ function handleMSForm(e) {
 						
 						<label for="AutoCall0"><?= _("MyMemory_CallThisNumber"); ?></label>
 						<input type="text" name="AutoCall0" name="AutoCall0" placeholder="06....." />
-						<label for="PerimeterHome" ><?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+						<label for="PerimeterHome" ><?= _("MyMemory_IfOutsidePerimeter"); ?> (m)</label>
 						<input type="range" name="PerimeterHome" id="PerimeterHome" value="100" min="20" max="200" />
 					</div>
 				</fieldset>
@@ -317,7 +317,7 @@ function handleMSForm(e) {
 						
 						<label for="AutoCall1"><?= _("MyMemory_CallThisNumber"); ?></label>
 						<input type="text" name="AutoCall1" name="AutoCall1" placeholder="06....." />
-						<label for="PerimeterNear" ><?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+						<label for="PerimeterNear" ><?= _("MyMemory_IfOutsidePerimeter"); ?> (m)</label>
 						<input type="range" name="PerimeterNear" id="PerimeterNear" value="250" min="100" max="700" />
 					</div>
 				</fieldset>
@@ -330,7 +330,7 @@ function handleMSForm(e) {
 						
 						<label for="AutoCall2"><?= _("MyMemory_CallThisNumber"); ?></label>
 						<input type="text" name="AutoCall2" name="AutoCall2" placeholder="06....." />
-						<label for="PerimeterFar" ><?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+						<label for="PerimeterFar" ><?= _("MyMemory_IfOutsidePerimeter"); ?> (m)</label>
 						<input type="range" name="PerimeterFar" id="PerimeterFar" value="1000" min="500" max="2000" />
 					</div>
 				</fieldset>

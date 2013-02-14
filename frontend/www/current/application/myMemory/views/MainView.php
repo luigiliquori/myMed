@@ -79,5 +79,9 @@
 		if ($_SESSION['autocall_active'] && $_SESSION['isMobile']){
 			echo '<span data-role="button" data-theme="e">Surveillance activée</span>';
 		}
+		
+		echo "<pre>";
+		print_r($_SESSION);
+		echo "</pre>";
 		?>
 </div>

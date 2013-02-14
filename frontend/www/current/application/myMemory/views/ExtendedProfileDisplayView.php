@@ -85,6 +85,31 @@
 			<?php }?>
 		</div>
 		
+		<?php if ($_SESSION['ExtendedProfile']->diseaseLevel == '3') {?>
+		
+		<div data-role="collapsible"  data-content-theme="d">
+			<h3><?= _("AutoCall");?></h3>
+			
+				<div data-role="collapsible"  data-content-theme="d">
+					<h3><?= _("MyMemory_PerimeterHome"); ?></h3>
+					<p><?= _("MyMemory_CallThisNumber"); ?> : <strong><?= $_SESSION['ExtendedProfile']->callingListAutoCall['0']; ?></strong> <?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+							<?= $_SESSION['ExtendedProfile']->perimeter_home; ?> m.</p>
+				</div>
+				<div data-role="collapsible"  data-content-theme="d">
+					<h3><?= _("MyMemory_PerimeterNearby"); ?></h3>
+					<p><?= _("MyMemory_CallThisNumber"); ?> : <strong><?= $_SESSION['ExtendedProfile']->callingListAutoCall['1']; ?></strong> <?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+							<?= $_SESSION['ExtendedProfile']->perimeter_nearby; ?> m.</p>
+				</div>
+				<div data-role="collapsible"  data-content-theme="d">
+					<h3><?= _("MyMemory_PerimeterFar"); ?></h3>
+					<p><?= _("MyMemory_CallThisNumber"); ?> : <strong><?= $_SESSION['ExtendedProfile']->callingListAutoCall['2']; ?></strong> <?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+							<?= $_SESSION['ExtendedProfile']->perimeter_far; ?> m.</p>
+				</div>
+				<br />
+				<p><?= _("MyMemory_AutoCallFrequency"); ?> : <?= $_SESSION['ExtendedProfile']->autocall_frequency; ?> min.</p>
+		</div>
+		<?php }?>
+		
 		<a href="?action=ExtendedProfile&edit=false" data-role="button" data-rel="dialog" data-transition="pop" data-theme="b" data-icon="gear"><?= _("EditProfile"); ?></a>
 	</div>
 
