@@ -81,6 +81,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['checkCondition']);
 		
 		// Set user id 
+		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['id'] = hash("md5", time().$_POST['name']);
 		
 		// Create the new profile

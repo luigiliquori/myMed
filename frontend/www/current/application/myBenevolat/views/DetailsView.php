@@ -48,7 +48,7 @@
 					<!-- APPLY FOR VOLUNTEERS -->
 					<div style="position: absolute; right: 24px;">
 						<?
-						if(isset($_SESSION['myBenevolat']) && $_SESSION['myBenevolat']->details['type'] == 'volunteer'):
+						if(isset($_SESSION['myBenevolat']) && $_SESSION['myBenevolat']->details['type'] == 'volunteer' && ($_SESSION['myBenevolat']->permission != '0')):
 							$date=strtotime(date(DATE_FORMAT));
 							$expired=false;
 							if(!empty($this->result->end)  && $this->result->end!="--"){

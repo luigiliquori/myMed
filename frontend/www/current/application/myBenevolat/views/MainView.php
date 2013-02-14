@@ -36,7 +36,7 @@
 		<?php if(($_SESSION['myBenevolat']->details['type'] == 'association') || 
 				 ($_SESSION['myBenevolat']->details['type'] == 'admin')): ?>
 		<!-- Associations and Admins links -->
-		<a href="index.php?action=publish&method=show_user_announcements" data-icon="pencil" data-role="button" data-ajax="false"  <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myBenevolat'])) ? " class='ui-disabled'" : "" ?>><?= _("My announcements") ?></a><br />
+		<a href="index.php?action=publish&method=show_user_announcements" data-icon="pencil" data-role="button" data-ajax="false"  <?= ($_SESSION['myBenevolat']->permission == '0') ? " class='ui-disabled'" : "" ?>><?= _("My announcements") ?></a><br />
 		<? endif; ?>
 		
 		
