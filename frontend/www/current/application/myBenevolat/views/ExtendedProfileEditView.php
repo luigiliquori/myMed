@@ -45,12 +45,14 @@
 					switch ('<?= $_SESSION['myBenevolat']->details['type'] ?>') {			
 
 						case 'volunteer':
+							$('#associationnamediv').hide();
 							$('#siretdiv').hide();
 							$('#websitediv').hide();	
 	  						break; 
 
 						case 'admin':
 	  					case 'association':
+	  						$('#associationname').show();
 	  						$('#siretdiv').show();
 	  						$('#websitediv').show();
 	  						$('#birthdaydiv').hide();
@@ -97,6 +99,12 @@
 					<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
 					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 				</select>
+			</div>
+			
+			<!-- Association name -->		
+			<div data-role="fieldcontain" id="associationnamediv">
+				<label for="associationname" style="text-align:right"><?= _('Association name') ?>: </label>
+				<input id="associationname" name="associationname" value="<?= $_SESSION['myBenevolat']->details['associationname'] ?>" />
 			</div>
 			
 			<!-- Phone -->		
@@ -305,8 +313,7 @@
 		switch('<?= $_SESSION['myBenevolat']->details['type'] ?>') {
 	
 				case 'volunteer':
-
-					// Validate volunteer fields			
+					// Validate volunteer fields
 					if(!$('#phone').val()) {
 					warningPopUp('Please provide a valid telephone number');
 						return false;
@@ -358,7 +365,11 @@
 				case 'admin':
 				case 'association':
 
-					// Validate association fields
+					// Validate association fields			
+					if(!$('#associationname').val()) {
+					warningPopUp('Please provide an association name');
+						return false;
+					}
 					if(!$('#phone').val()) {
 						warningPopUp('Please provide a valid telephone number');
 						return false;
