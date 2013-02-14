@@ -773,7 +773,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "src/myFSA-Prefix.pch";
-				INFOPLIST_FILE = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/Users/epmancini/mymed/lognet-mymed/clients-ios/myFSA/src/myFSA-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/src/myFSA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -848,7 +848,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "src/myFSA-Prefix.pch";
-				INFOPLIST_FILE = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/Users/epmancini/mymed/lognet-mymed/clients-ios/myFSA/src/myFSA-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/src/myFSA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -870,7 +870,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "src/myFSA-Prefix.pch";
-				INFOPLIST_FILE = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/Users/epmancini/mymed/lognet-mymed/clients-ios/myFSA/src/myFSA-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/src/myFSA-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
