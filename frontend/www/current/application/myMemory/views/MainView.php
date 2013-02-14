@@ -71,7 +71,7 @@
 	</div>
 	
 	<div>
-		<a href="?action=GoingBack" rel="external" data-role="button" data-theme="a" class="mymed-big-button" data-icon="home"><?= _("GoingBack"); ?></a>
+		<a href="?action=GoingBack" rel="external" data-role="button" data-theme="g" class="mymed-big-button" data-icon="home"><?= _("GoingBack"); ?></a>
 		<a href="?action=NeedHelp" rel="external" data-role="button" data-theme="r" class="mymed-big-button" data-icon="alert"><?= _("NeedHelp"); ?></a>
 	</div>
 		<a href="?action=ExtendedProfile" data-role="button" data-theme="b" data-icon="profile"><?= _("Profile"); ?></a>
