@@ -72,20 +72,24 @@
 						 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 						 				<input type="hidden" name="mission" value="<?= $this->result->typeMission ?>" />
 						 				<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
+						 				<input type="hidden" name="id" value="<?= $this->result->id ?>" />
 										<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
 						 			</form>
 			 				 <? }
 							}
-						endif;
-						if($this->result->publisherID==$_SESSION['user']->id): ?> <!-- the user is the author of this publication: can update -->
+						endif; ?>
+						 
 							<div data-type="horizontal">
-								<a style="float: left" data-role="button" data-icon="pencil" data-inline="true" href="?action=publish&method=modify_announcement&id=<?= $_GET['id'] ?>"><?= _("Edit")?></a>
-								<form action="?action=publish&method=delete" method="POST" data-ajax="false" style="float: right">
-									<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
-									<input type="submit" data-icon="delete" data-inline="true" data-theme="r" value="<?= _('Delete') ?>" />
-					 			</form> 
+							 <? if($this->result->publisherID==$_SESSION['user']->id): ?>
+									<a style="float: left" data-role="button" data-icon="pencil" data-inline="true" href="?action=publish&method=modify_announcement&id=<?= $_GET['id'] ?>"><?= _("Edit")?></a>
+							 <? endif; 
+							    if($this->result->publisherID==$_SESSION['user']->id || $_SESSION['myBenevolat']->permission == '2'){?> 
+									<form action="?action=publish&method=delete" method="POST" data-ajax="false" style="float: right">
+										<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
+										<input type="submit" data-icon="delete" data-inline="true" data-theme="r" value="<?= _('Delete') ?>" />
+						 			</form> 
+						 	  <? } ?>
 					 		</div>
-					 <? endif; ?>
 					</div>
 						
 					<!-- TITLE -->
@@ -102,25 +106,25 @@
 						echo "<p><b>Status</b>: ".$status."</p>" ?>
 					<? } ?>
 					<!-- CONTACT -->			
-					<p><b><?= _("Author")?></b> : 
-					<?  if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association') || ($_SESSION['myBenevolat']->details['type'] == 'admin'))){
-							$author = str_replace("MYMED_", "", $this->result->publisherID); 
-							echo "<a href=?action=extendedProfile&method=show_user_profile&user=".$this->result->publisherID.">".$author."</a>";
+					<p><b><?= _("Association name")?></b> : 
+					<?
+					$user = new User($this->result->publisherID);
+					try {
+						$mapper = new DataMapper;
+						$details = $mapper->findById($user);
+					} catch (Exception $e) {}
+					$profile = new myBenevolatProfile($details['profile']);
+					try {
+						$profile->details = $mapper->findById($profile);
+					} catch (Exception $e) {}
+					  
+					if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association') || ($_SESSION['myBenevolat']->details['type'] == 'admin'))){
+						echo "<a href=?action=extendedProfile&method=show_user_profile&user=".$this->result->publisherID.">".$profile->details['associationname']."</a>";
 						 		
-						 	if($this->result->publisherID==$_SESSION['user']->id) echo " "._("(You)");
-						}else{ // volunteer or guest
-							$user = new User($this->result->publisherID);
-							try {
-								$mapper = new DataMapper;
-								$details = $mapper->findById($user);
-							} catch (Exception $e) {}
-							$profile = new myBenevolatProfile($details['profile']);
-							try {
-								$profile->details = $mapper->findById($profile);
-							} catch (Exception $e) {}
-							echo $profile->details['firstName']." ".$profile->details['lastName'];
-						}
-					?> 
+						if($this->result->publisherID==$_SESSION['user']->id) echo " "._("(Yours)");
+					}else{ // volunteer or guest
+						echo $profile->details['associationname'];
+					}?> 
 					<br/></p>					
 				</div>
 				

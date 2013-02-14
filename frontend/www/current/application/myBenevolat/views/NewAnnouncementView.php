@@ -24,6 +24,7 @@
 		<!-- Submit a new publication form -->
 		<form id="newannouncementform" action="index.php?action=publish&method=create" method="POST" data-ajax="false">
 			<input type="hidden" id="date" name="date" value="" />
+			<input type="hidden" id="permission" name="permission" value="<?= $_SESSION['myBenevolat']->permission?>" />
 			<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">

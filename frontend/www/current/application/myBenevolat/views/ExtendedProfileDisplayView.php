@@ -33,17 +33,18 @@
 		<!-- Print profile type -->
 		<div data-role="header" data-theme="e">
 			<h1 style="white-space: normal;">
-			<?  if($_SESSION['myBenevolat']->details['type']=='association') :
+			<?  if($_SESSION['myBenevolat']->details['type']=='association'){
 					if($_SESSION['myBenevolat']->permission == 0) {
 						echo _("Your association has not been validated yet");
 					} elseif($_SESSION['myBenevolat']->permission == 1) {
 						echo _("Validated association");
 					} elseif($_SESSION['myBenevolat']->permission == 2) {
 						echo _("Administrator");
-					}  elseif($_SESSION['myBenevolat']->details['type']=='volunteer'){
-						echo _("Volunteer");
 					}
-				endif; ?>
+				}else if($_SESSION['myBenevolat']->details['type']=='volunteer'){
+					echo _("Volunteer");
+				}
+				?>
 			</h1>
 		</div>
 		<br>

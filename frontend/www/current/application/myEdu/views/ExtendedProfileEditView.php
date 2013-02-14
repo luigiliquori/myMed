@@ -95,9 +95,8 @@
 					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 				</select>
 			</div>
-			<!--
-			<p><strong> MyEdu Profile details </strong></p>
-			 MyEdu Extended Profile details -->
+			
+			<!-- MyEdu Extended Profile details -->
 			
 			<!-- Phone -->		
 			<div data-role="fieldcontain">
