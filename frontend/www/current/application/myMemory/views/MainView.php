@@ -63,17 +63,19 @@
 	<div data-role="header" data-position="inline">
 		<a href="../../index.php" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete"><?= _("Exit"); ?></a>
 	 	<h1><?= _("Home"); ?></h1>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+	 	<a href="#mainViewHelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 	
-	<div class="description-box">
-	<?= _("MyMemory_HomeDesc") ?>
-	</div>
 	
-	<div>
-		<a href="?action=GoingBack" rel="external" data-role="button" data-theme="g" class="mymed-big-button" data-icon="home"><?= _("GoingBack"); ?></a>
-		<a href="?action=NeedHelp" rel="external" data-role="button" data-theme="r" class="mymed-big-button" data-icon="alert"><?= _("NeedHelp"); ?></a>
-	</div>
+	<div data-role="content" >
+		<div class="description-box">
+		<?= _("MyMemory_HomeDesc") ?>
+		</div>
+		
+		<div>
+			<a href="?action=GoingBack" rel="external" data-role="button" data-theme="g" class="mymed-big-button" data-icon="home"><?= _("GoingBack"); ?></a>
+			<a href="?action=NeedHelp" rel="external" data-role="button" data-theme="r" class="mymed-big-button" data-icon="alert"><?= _("NeedHelp"); ?></a>
+		</div>
 		<a href="?action=ExtendedProfile" data-role="button" data-theme="b" data-icon="profile"><?= _("Profile"); ?></a>
 		<?php 
 		if ($_SESSION['autocall_active'] && $_SESSION['isMobile']){
@@ -84,4 +86,22 @@
 		//print_r($_SESSION);
 		//echo "</pre>";
 		?>
+			
+			
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="mainViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_MainViewHelp"); ?>
+		</div>	
+			
+			
+			
+			
+			
+			
+	</div>	
 </div>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: myMed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-14 17:13+0100\n"
+"POT-Creation-Date: 2013-02-14 18:30+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: David Da Silva <contact@daviddasilva.net>\n"
 "Language-Team: Lognet <lognet.mymed@inria.fr>\n"
@@ -322,11 +322,11 @@ msgstr "Création d'un compte"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:64
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:45
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:95
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:143
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:190
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:260
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:285
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:104
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:161
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:217
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:296
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:330
 msgid "Exit"
 msgstr "Quitter"
 
@@ -337,53 +337,75 @@ msgstr "Accueil"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:66
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:10
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:46
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:96
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:144
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:191
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:286
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:105
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:162
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:218
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:322
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:21
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:46
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:96
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:144
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:191
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:261
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:286
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:105
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:162
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:218
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:297
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:331
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:7
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ItineraireView.php:13
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/parts/header-bar.php:28
 msgid "Help"
 msgstr "Aide"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:70
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:72
 msgid "MyMemory_HomeDesc"
 msgstr "Ecran de contrôle"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:74
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:76
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:9
 msgid "GoingBack"
 msgstr "Amène-moi chez..."
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:75
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:77
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:19
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:5
 msgid "NeedHelp"
 msgstr "Besoin d'aide"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:77
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:79
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/SocialView.php:16
 msgid "Profile"
 msgstr "Profil"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:80
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:82
 msgid "Autocall_active"
 msgstr "<<< Surveillance activée >>>"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:97
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:57
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:94
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:151
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:207
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:312
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:396
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:95
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:94
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:151
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:207
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:287
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:321
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:405
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:122
+msgid "How it works"
+msgstr "Comment ça marche"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:98
+msgid "MyMemory_MainViewHelp"
+msgstr "<p>Le bouton \"Amène-moi chez ....\" vous permet de rentrer chez une personne avec les transports publiques en commun<br/> Le bouton \"Besoin d'aide\" appelle dans un ordre prédefini dans vore profil les personnes que vous aviez saisi et, en dernier ressort, le SAMU<br/> Le bouton \"Profil\" vous permet de saisir les données concernant vos aidants. </p>"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:8
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:45
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:95
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:143
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:190
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:285
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:104
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:161
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:217
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:321
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:20
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:6
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ItineraireView.php:11
@@ -405,11 +427,15 @@ msgstr "Ecran de retour avec les transports en commun"
 msgid "Domicile"
 msgstr "Domicile"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:58
+msgid "MyMemory_GoingBackHelp"
+msgstr "<p>Choisissez l'endroit où vous voulez rentrer : le calculateur d'itineraire Equipage06 vous indiquera les horaires des bus à prendre</p>"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:44
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:94
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:142
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:189
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:284
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:103
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:160
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:216
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:320
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:113
 msgid "EditProfile"
 msgstr "Modifier profil"
@@ -443,236 +469,256 @@ msgid "DiseaseLevel3"
 msgstr "Avancé"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:86
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:134
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:181
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:277
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:143
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:199
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:304
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:86
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:134
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:181
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:252
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:277
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:143
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:199
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:279
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:313
 msgid "Next"
 msgstr "Suivant"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:103
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:95
+msgid "MyMemory_EditProfileStep1Help"
+msgstr "Editez votre domicile et le niveau de votre maladie"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:112
 msgid "MyMemory_EditProfileStep2Desc"
 msgstr "Ecran d'edition du profil du patient 2/5"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:112
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:112
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:121
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:121
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:39
 msgid "MyCaregiver"
 msgstr "Mon aide-soignant"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:114
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:115
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:161
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:162
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:232
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:233
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:255
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:256
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:114
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:115
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:161
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:162
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:208
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:209
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:231
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:232
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:123
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:124
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:179
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:180
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:259
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:260
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:282
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:283
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:123
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:124
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:179
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:180
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:235
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:236
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:258
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:259
 msgid "FirstName"
 msgstr "Prénom "
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:117
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:118
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:164
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:165
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:235
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:236
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:258
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:259
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:117
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:118
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:164
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:165
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:211
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:212
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:234
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:235
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:126
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:127
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:182
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:183
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:262
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:263
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:285
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:286
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:126
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:127
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:182
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:183
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:238
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:239
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:261
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:262
 msgid "LastName"
 msgstr "Nom"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:120
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:121
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:167
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:168
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:238
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:239
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:261
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:262
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:120
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:121
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:167
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:168
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:214
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:215
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:237
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:238
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:129
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:130
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:185
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:186
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:265
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:266
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:288
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:289
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:129
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:130
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:185
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:186
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:241
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:242
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:264
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:265
 msgid "NickName"
 msgstr "Surnom"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:123
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:124
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:170
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:171
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:241
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:242
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:264
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:265
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:123
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:124
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:170
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:171
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:217
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:218
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:240
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:241
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:132
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:133
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:188
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:189
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:268
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:269
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:291
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:292
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:132
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:133
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:188
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:189
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:244
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:245
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:267
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:268
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:42
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:49
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:80
 msgid "Address"
 msgstr "Adresse"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:126
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:127
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:173
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:174
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:244
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:245
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:267
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:268
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:126
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:127
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:173
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:174
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:220
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:221
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:243
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:244
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:135
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:136
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:191
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:192
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:271
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:272
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:294
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:295
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:135
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:136
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:191
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:192
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:247
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:248
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:270
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:271
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:43
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:50
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:83
 msgid "Email"
 msgstr "E-mail"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:129
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:130
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:176
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:177
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:247
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:248
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:270
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:271
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:129
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:130
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:176
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:177
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:223
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:224
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:246
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:247
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:138
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:139
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:194
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:195
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:274
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:275
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:297
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:298
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:138
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:139
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:194
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:195
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:250
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:251
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:273
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:274
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:41
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:48
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:77
 msgid "Phone"
 msgstr "Téléphone"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:151
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:152
+msgid "MyMemory_EditProfileStep2Help"
+msgstr "Editez les coordonnées de votre Aide-soignant"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:169
 msgid "MyMemory_EditProfileStep3Desc"
 msgstr "Ecran de édition du profil du patient 3/5"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:159
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:159
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:177
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:177
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:46
 msgid "MyDoctor"
 msgstr "Mon médecin"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:198
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:208
+msgid "MyMemory_EditProfileStep3Help"
+msgstr "Editez les coordonnées de votre medecin traitant"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:225
 msgid "MyMemory_EditProfileStep4Desc"
 msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:230
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:206
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:257
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:233
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:66
 msgid "callingslot1"
 msgstr "Deuxième personne à appeller"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:253
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:229
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:280
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:256
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:69
 msgid "callingslot2"
 msgstr "Troisième personne à appeller"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:293
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:313
+msgid "MyMemory_EditProfileStep4Help"
+msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:329
 msgid "MyMemory_EditProfileStep5Desc"
 msgstr "Ecran d'edition du profil du patient 5/5"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:302
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:302
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:338
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:347
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:94
 msgid "MyMemory_PerimeterHome"
 msgstr "Périmètre du domicile"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:305
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:318
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:331
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:305
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:318
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:331
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:341
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:354
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:367
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:350
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:363
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:376
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:95
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:100
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:105
 msgid "MyMemory_CallThisNumber"
 msgstr "Appeler ce numéro de téléphone "
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:307
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:320
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:333
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:307
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:320
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:333
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:343
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:356
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:369
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:352
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:365
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:378
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:95
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:100
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:105
 msgid "MyMemory_IfOutsidePerimeter"
 msgstr "Si la personne s'éloigne de "
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:315
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:315
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:351
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:360
 msgid "MyMemory_PerimeterNear"
 msgstr "Périmètre voisinage"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:328
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:328
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:364
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:373
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:104
 msgid "MyMemory_PerimeterFar"
 msgstr "Périmètre éloigné"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:341
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:341
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:377
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:386
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:109
 msgid "MyMemory_AutoCallFrequency"
 msgstr "Fréquence de surveillance"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:344
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:344
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:380
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:389
 msgid "MyMemory_CheckEvery"
 msgstr "Vérifier la position toutes les ... (minutes)"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:351
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:351
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:387
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:396
 msgid "Save"
 msgstr "Enregistrer"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:397
+msgid "MyMemory_EditProfileStep5Help"
+msgstr "Cette section n'est utilisée que si vous avez renseigné le niveau de la maladie comme étant \"avancé\".<br />Définissez les numéros de téléphones et le rayon des différents périmètres de surveillance. MyMemory vous avertira si le patient sort de ces zones."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:28
 msgid "MyMemory_NeedHelpDesc"
@@ -680,7 +726,7 @@ msgstr "Ecran d'appel des aidants dans l'ordre établi"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:31
 msgid "StopNeedHelp"
-msgstr "Arrêter la demande d'aide"
+msgstr "Arrêter"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:48
 msgid "MyMemory_Calling"
@@ -698,12 +744,16 @@ msgstr "myMemory envoie une alerte par e-mail aux aides soignants..."
 msgid "MyMemory_MailSent"
 msgstr "Alertes par e-mail envoyées!"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:96
+msgid "MyMemory_NeedHelpHelp"
+msgstr "myMemory est en train d'appeler ou d'envoyer un SMS a vos aidants"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:44
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:94
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:142
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:189
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:259
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:284
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:103
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:160
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:216
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:295
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:329
 msgid "CreateProfile"
 msgstr "Création du profil"
 
@@ -711,29 +761,54 @@ msgstr "Création du profil"
 msgid "MyMemory_CreateProfileStep1Desc"
 msgstr "Ecran de création du profil du patient 1/5"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:103
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:95
+msgid "MyMemory_CreateProfileStep1Help"
+msgstr "Insérez votre domicile et le niveau de votre maladie"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:112
 msgid "MyMemory_CreateProfileStep2Desc"
 msgstr "Ecran de création du profil du patient 2/5"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:151
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:152
+msgid "MyMemory_CreateProfileStep2Help"
+msgstr "Insérez les coordonnées de votre Aide-soignant"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:169
 msgid "MyMemory_CreateProfileStep3Desc"
 msgstr "Ecran de création du profil du patient 3/5"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:198
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:208
+msgid "MyMemory_CreateProfileStep3Help"
+msgstr "Insérez les coordonnées de votre médecin traitant"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:225
 msgid "MyMemory_CreateProfileStep4Desc"
 msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:268
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:288
+#, fuzzy
+msgid "MyMemory_CreateProfileStep4Help"
+msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:304
 msgid "MyMemory_CreateProfileStep5Desc"
 msgstr "Ecran de création du profile du patient 5/5"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:275
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:311
 msgid "myMemory_Agreement"
 msgstr "Je comprend que cette application a besoin de connaître ma position en cas d'urgence et j'y consent."
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:293
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:322
+msgid "MyMemory_CreateProfileStep5Help"
+msgstr "Il faut accepter les conditions d'usage ..."
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:338
 msgid "MyMemory_CreateProfileStep6Desc"
 msgstr "Ecran de création du profil du patient 6/6"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:406
+msgid "MyMemory_CreateProfileStep6Help"
+msgstr "Cette section n'est utilisée que si vous avez renseigné le niveau de la maladie comme étant \"avancé\".<br />Définissez les numéros de téléphones et le rayon des différents périmètres de surveillance. MyMemory vous avertira si le patient sort de ces zones."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:13
 msgid "MyMemory_ViewProfileDesc"
@@ -762,6 +837,10 @@ msgstr "Surveillance"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:99
 msgid "MyMemory_PerimeterNearby"
 msgstr "Périmètre voisinage"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:123
+msgid "MyMemory_DisplayProfileHelp"
+msgstr "Cet écran décrit votre profil étendu: il est très important car il permettra de noter toutes vos coordonnées et celle de vos aidants qui vous aideront le cas écheant : remplissez avec soin cette partie, merci."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ItineraireView.php:12
 msgid "RoadSheet"
@@ -1124,10 +1203,6 @@ msgstr "Mes candidatures"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:61
 msgid "All the validations"
 msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:72
-msgid "How it works"
-msgstr "Comment ça marche"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:76
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:81

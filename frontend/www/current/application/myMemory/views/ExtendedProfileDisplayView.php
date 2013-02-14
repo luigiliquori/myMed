@@ -4,7 +4,7 @@
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("NeedHelp"); ?></h1>
 		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#displayProfileHelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 	
 	<div data-role="content" data-theme="a">
@@ -111,6 +111,16 @@
 		<?php }?>
 		
 		<a href="?action=ExtendedProfile&edit=false" data-role="button" data-rel="dialog" data-transition="pop" data-theme="b" data-icon="gear"><?= _("EditProfile"); ?></a>
+	</div>
+	
+	<!-- ------------------ -->
+	<!-- HELP POPUP -->
+	<!-- ------------------ -->
+	
+	<div data-role="popup" id="displayProfileHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<h3><?= _("How it works") ?></h3>
+		<?= _("MyMemory_DisplayProfileHelp"); ?>
 	</div>
 
 	
