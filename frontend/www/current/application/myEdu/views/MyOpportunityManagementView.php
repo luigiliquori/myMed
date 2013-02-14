@@ -177,7 +177,7 @@
 			</script>
 			
 			<div data-role="popup" class="ui-content" id="deletePopup">
-			ça ne marche pas soit pas dégouté
+			ça ne marche pas ne soit pas dégouté
 			</div>
 			
 			
