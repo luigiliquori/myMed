@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: myMed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-14 16:53+0100\n"
+"POT-Creation-Date: 2013-02-14 17:13+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: David Da Silva <contact@daviddasilva.net>\n"
 "Language-Team: Lognet <lognet.mymed@inria.fr>\n"
@@ -374,6 +374,10 @@ msgstr "Besoin d'aide"
 msgid "Profile"
 msgstr "Profil"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:80
+msgid "Autocall_active"
+msgstr "<<< Surveillance activée >>>"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:8
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:45
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:95
@@ -406,7 +410,7 @@ msgstr "Domicile"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:142
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:189
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:284
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:108
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:113
 msgid "EditProfile"
 msgstr "Modifier profil"
 
@@ -615,7 +619,7 @@ msgstr "Ecran d'edition du profil du patient 5/5"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:302
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:302
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:91
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:94
 msgid "MyMemory_PerimeterHome"
 msgstr "Périmètre du domicile"
 
@@ -625,9 +629,9 @@ msgstr "Périmètre du domicile"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:305
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:318
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:331
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:92
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:97
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:102
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:95
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:100
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:105
 msgid "MyMemory_CallThisNumber"
 msgstr "Appeler ce numéro de téléphone "
 
@@ -637,9 +641,9 @@ msgstr "Appeler ce numéro de téléphone "
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:307
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:320
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:333
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:92
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:97
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:102
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:95
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:100
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:105
 msgid "MyMemory_IfOutsidePerimeter"
 msgstr "Si la personne s'éloigne de "
 
@@ -650,13 +654,13 @@ msgstr "Périmètre voisinage"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:328
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:328
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:101
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:104
 msgid "MyMemory_PerimeterFar"
 msgstr "Périmètre éloigné"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:341
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:341
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:106
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:109
 msgid "MyMemory_AutoCallFrequency"
 msgstr "Fréquence de surveillance"
 
@@ -751,11 +755,11 @@ msgstr "Première personne à appeller"
 msgid "callingslot3"
 msgstr "Dernière personne à appeller"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:88
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:91
 msgid "AutoCall"
 msgstr "Surveillance"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:96
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:99
 msgid "MyMemory_PerimeterNearby"
 msgstr "Périmètre voisinage"
 
