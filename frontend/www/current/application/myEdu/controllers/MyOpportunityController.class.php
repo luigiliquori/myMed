@@ -50,7 +50,7 @@ class MyOpportunityController extends AuthenticatedController {
 		$sub_array=$this->getSubscription();
 		if(count($sub_array) != 0){
 			$this->actual_subscription_name = $sub_array[0]->pubTitle;
-			$this->find_publication($sub_array->category, $sub_array->locality,$sub_array->organization,$sub_array->area);
+			$this->find_publication($sub_array[0]->category, $sub_array[0]->locality,$sub_array[0]->organization,$sub_array->area);
 		}
 	}
 	
