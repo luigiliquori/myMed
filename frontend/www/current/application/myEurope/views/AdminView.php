@@ -2,8 +2,9 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page" id="users">
+  
   <? $title = _("Administration");
-	 print_header_bar(true, "defaultHelpPopup", $title); ?>
+	 print_header_bar("?action=ExtendedProfile", "defaultHelpPopup", $title); ?>
 	
 	<div data-role="content">
 		<br/>

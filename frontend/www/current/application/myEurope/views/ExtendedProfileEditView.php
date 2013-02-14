@@ -3,7 +3,7 @@
 
 <div data-role="page">
 	<? $title = _("Edit Profile");
-	 print_header_bar(true, "defaultHelpPopup", $title); ?>
+	 print_header_bar("?action=extendedProfile", "defaultHelpPopup", $title); ?>
 	
 	
 	<div data-role="content">

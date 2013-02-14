@@ -89,7 +89,7 @@ class MyOpportunityManagementController extends AuthenticatedController {
 		error_log(var_dump($object));
 		$deleteObject = new MyEduSubscriptionBean();
 		$deleteObject->type = $this->subscribetype;
-		$deleteObject->publisherID = $_SESSION['user']->id;
+		//$deleteObject->publisherID = $_SESSION['user']->id;
 		$deleteObject->publisher = $_SESSION['user']->id;
 		//error_log("LOGROM : pubTitle ". $object->pubTitle." type: ".$object->type);
 		$deleteObject->pubTitle = $_POST['publicationTitle'];

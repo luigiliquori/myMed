@@ -1,8 +1,11 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page">
-  <? $title = _("Details");
-	 print_header_bar(true, false, $title); ?>
+
+  <?php $title = _("Details");
+  	// TODO: cannot return to ResultsView, but onlyl to search view
+	print_header_bar("?action=main#search", false, $title);
+  ?>
 	
 	<div data-role="content" >
 	

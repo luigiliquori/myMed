@@ -2,8 +2,9 @@
 <? require_once('notifications.php'); ?>
 
 <div data-role="page" id="new" >
+	
 	<? $title = _("Create profile");
-	   print_header_bar(true, "defaultHelpPopup", $title); ?>
+	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
 
 	<div data-role="content">
 		<? print_notification($this->success.$this->error);?>

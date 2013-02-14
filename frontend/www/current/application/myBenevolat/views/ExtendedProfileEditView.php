@@ -301,6 +301,7 @@
 		switch('<?= $_SESSION['myBenevolat']->details['type'] ?>') {
 	
 				case 'volunteer':
+					
 					// Validate volunteer fields
 					if(!$('#phone').val()) {
 					warningPopUp('Please provide a valid telephone number');
