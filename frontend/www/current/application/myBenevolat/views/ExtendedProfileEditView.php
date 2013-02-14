@@ -218,10 +218,9 @@
 			<!-- END Only Volunteer fields-->
 						
 			<br/>
-			<div data-role="fieldcontain">
-				
+			<div data-role="fieldcontain" style="text-align: center">
 				<!-- Password -->
-				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
+				<label for="password" ><?= _("Password") ?>:</label>
 				<input type="password" id="password" name="password" />
 			</div>
 			

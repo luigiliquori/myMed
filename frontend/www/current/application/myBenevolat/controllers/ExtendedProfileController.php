@@ -78,7 +78,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 
 		// Unset post vale that we don't need
 		unset($_POST['form']);
-		unset($_POST['checkCondition']);
 		
 		// Set user id 
 		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
@@ -169,9 +168,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		
 		$_POST['id'] = $id;
+		$_POST['picture'] = $_POST['profilePicture'];
 		
 		// Update of the organization profile informations
-		$_POST['desc'] = nl2br($_POST['desc']);
 		$myrep = $_SESSION['myBenevolat']->reputation; 
 		$users = $_SESSION['myBenevolat']->users;
 		$publish =  new RequestJson(
@@ -188,7 +187,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		
 		if ($_POST['name']!= $_SESSION['myBenevolat']->details['name'] || 
-			$_POST['role']!=$_SESSION['myBenevolat']->details['role']) { 
+			$_POST['type']!=$_SESSION['myBenevolat']->details['type']) { 
 			
 			//also update profiles indexes
 			$publish =  new RequestJson(
@@ -196,7 +195,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 							array("application"=>APPLICATION_NAME.":profiles", 
 							"id"=>$_POST['id'], 
 							"user"=>"noNotification", 
-							"metadata"=>array("role"=>$_POST['role'], 
+							"metadata"=>array("type"=>$_POST['type'], 
 							"name"=>$_POST['name'])),
 							CREATE);
 			$publish->send();
