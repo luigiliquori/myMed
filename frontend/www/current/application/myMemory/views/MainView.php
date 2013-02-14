@@ -80,8 +80,8 @@
 			echo '<span data-role="button" data-theme="e">Surveillance activée</span>';
 		}
 		
-		echo "<pre>";
-		print_r($_SESSION);
-		echo "</pre>";
+		//echo "<pre>";
+		//print_r($_SESSION);
+		//echo "</pre>";
 		?>
 </div>
