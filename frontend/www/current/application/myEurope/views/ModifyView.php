@@ -1,7 +1,7 @@
 <div data-role="page" id="modify">
 
 	<? $title = _("EditProject");
-	print_header_bar(true, false, $title); ?>
+	   print_header_bar("?action=ListUserProjects", false, $title); ?>
 	
 	<div data-role="content" >
 	
@@ -70,7 +70,7 @@
 					
 					<!-- MODIFY -->
 					<?if ($this->result->publisherID == $_SESSION['user']->id){ ?>
-						<form action="?action=main" method="POST" data-ajax="false" >
+						<form action="?action=publish" method="POST" data-ajax="false" >
 							<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 							<input type="hidden" name="theme" value="<?= $this->result->theme ?>" />

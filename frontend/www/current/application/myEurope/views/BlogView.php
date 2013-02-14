@@ -1,7 +1,7 @@
 <div data-role="page" id="Blog" data-ajax="false">
 	
  <? $title = _("Blog");
-	print_header_bar(true, false, $title); ?>
+	print_header_bar("?action=main", false, $title); ?>
 	
 	<div data-role="content" >
 	

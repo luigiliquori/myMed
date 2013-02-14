@@ -1,6 +1,8 @@
 <div data-role="page" id="BlogResult" data-ajax="false">
+	
 	<? $title = _("Results");
-	print_header_bar(true, false, $title); ?>	
+	print_header_bar("?action=main#Blog", false, $title); ?>
+		
 	<div data-role="content" data-ajax="false">
 	<? include_once 'notifications.php'; ?>
 		<br />
