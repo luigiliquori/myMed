@@ -159,7 +159,8 @@
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 						<?= _("Do you like the project idea ?") ?><br /><br />
-						<form id="form1" action="?action=updateReputation&reputa=10" method="get" data-ajax="false">
+						<form id="form1" action="?action=updateReputation&reputa=10" method="post" data-ajax="false">
+							<input type="hidden" name="id" id="id" value="<?= $this->result->id ?>" />
 							<input type="hidden" name="action" value="updateReputation" />
 							<input type="hidden" name="reputation" id="reputation" />
 							<input type="hidden" name="isData" value="1" />
@@ -198,8 +199,13 @@
 					<!-- Author REPUTATION pop up -->
 					<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center;">
 						<?= _("Do you like the author?") ?><br /><br />
-						<a href="?action=updateReputation&reputation=10" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="g" data-icon="plus"><?= _("Of course yes!")?></a><br />
-						<a href="?action=updateReputation&reputation=0" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus"><?= _("No, not really...")?></a>
+						<form id="rateAuthor" action="?action=updateReputation" method="post" data-ajax="false" >
+							<input type="hidden" name="value" id="value" />
+							<input type="hidden" name="id" id="id" value="<?= $this->result->id ?>" />
+							<input type="hidden" name="reputation" id="reputation" />
+							<input type="submit" value="<?= _("Of course yes!")?>" data-mini="true" data-theme="g" data-icon="plus" onClick="$('#value').val(10)" >
+							<input type="submit" value="<?= _("No, not really...")?>" data-mini="true" data-theme="r" data-icon="minus" onClick="$('#value').val(0)" > 
+						</form>
 					</div>	
 					<!-- END Author REPUTATION -->
 							

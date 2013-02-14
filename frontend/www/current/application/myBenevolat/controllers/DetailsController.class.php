@@ -55,7 +55,7 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["author_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		// get publication reputation
-		$request->addArgument("producer",  $this->result->publisherID);	
+		$request->addArgument("producer",  $_SESSION['predicate'].$this->result->publisherID);	
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);

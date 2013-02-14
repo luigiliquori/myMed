@@ -1,22 +1,19 @@
 <?php
 
 /**
- *
- * Enter description here ...
- * @author lvanni
- *
+ *  Update reputation controller
  */
 class UpdateReputationController extends DetailsController {
 	
 	public /*void*/ function handleRequest() {
 		
 		// update the reputation of the application
-		if(isset($_GET['reputation'])) {
+		if(isset($_POST['reputation'])) {
 
 			// Get the reputation of the user in each the application
 			$request = new Request("InteractionRequestHandler", UPDATE);
 			$request->addArgument("application",  APPLICATION_NAME);
-			if(isset($_GET['isData'])){
+			if(isset($_POST['isData'])){
 				$request->addArgument("producer", $_SESSION['predicate'].$_SESSION['author']);
 			} else {
 				$request->addArgument("producer",  $_SESSION['author']);	
@@ -25,7 +22,7 @@ class UpdateReputationController extends DetailsController {
 			$request->addArgument("start",  time());
 			$request->addArgument("end",  time());
 			$request->addArgument("predicate",  $_SESSION['predicate']);
-			$request->addArgument("feedback",  $_GET['reputation']/10);
+			$request->addArgument("feedback",  $_POST['reputation']/10);
 
 // 			try {
 				$responsejSon = $request->send();
@@ -41,6 +38,8 @@ class UpdateReputationController extends DetailsController {
 // 			}
 		}	
 		
+		// Set the id in GET variables becouse the details controller use them 
+		$_GET['id'] = $_POST['id'];
 		parent::handleRequest();
 		
 	}
