@@ -11,7 +11,7 @@ class Apply extends GenericDataBean {
 	public $type = "apply";
 	public $pred1;
 	public $pred2;
-	public $pred3;
+	public $idAnnonce;
 	public $author;
 	
 	/** Some data (got after a "details" query).
@@ -32,7 +32,7 @@ class Apply extends GenericDataBean {
 						"type"	=> KEYWORD,
 						"pred1" => KEYWORD,
 						"pred2" => GPS,
-						"pred3" => KEYWORD, // pred of the publication
+						"idAnnonce" => KEYWORD, // id of the publication
 						"author" => KEYWORD), // publication author ID
 				
 				// Data attributes 

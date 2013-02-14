@@ -70,8 +70,20 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["value"] = $value;
 		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 
+		$this->search_apply();
+		
 		// Render the view
 		$this->renderView("Details");
+	}
+	
+	public function search_apply() {
+		$search_applies = new Apply();
+		$this->fillObjApply($search_applies);
+		$this->result_apply = $search_applies->find();
+	}
+	
+	private function fillObjApply($obj) {
+		$obj->pred1 = 'apply&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 	}
 }
 ?>
