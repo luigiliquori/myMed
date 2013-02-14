@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:MyMedClient/MyMedClient.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:myConsolato/myConsolato.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:myEurope/myEurope.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:myEdu/myEdu.xcodeproj">
+   </FileRef>
+</Workspace>

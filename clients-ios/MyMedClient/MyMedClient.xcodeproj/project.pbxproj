@@ -1,0 +1,266 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		632F2F5216BF1D0E009A4309 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632F2F5116BF1D0E009A4309 /* Foundation.framework */; };
+		632F2F5516BF1D0E009A4309 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 632F2F5416BF1D0E009A4309 /* main.m */; };
+		632F2F5916BF1D0F009A4309 /* MyMedClient.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 632F2F5816BF1D0F009A4309 /* MyMedClient.1 */; };
+		632F2F6116BF1D97009A4309 /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 632F2F6016BF1D46009A4309 /* RestClient.m */; };
+		63D35B3516CB9C37003D6F4F /* MyMedClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D35B3416CB9C37003D6F4F /* MyMedClient.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		632F2F4C16BF1D0E009A4309 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				632F2F5916BF1D0F009A4309 /* MyMedClient.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		632F2F4E16BF1D0E009A4309 /* MyMedClient */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MyMedClient; sourceTree = BUILT_PRODUCTS_DIR; };
+		632F2F5116BF1D0E009A4309 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		632F2F5416BF1D0E009A4309 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		632F2F5716BF1D0F009A4309 /* MyMedClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyMedClient-Prefix.pch"; sourceTree = "<group>"; };
+		632F2F5816BF1D0F009A4309 /* MyMedClient.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = MyMedClient.1; sourceTree = "<group>"; };
+		632F2F5F16BF1D46009A4309 /* RestClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestClient.h; sourceTree = "<group>"; };
+		632F2F6016BF1D46009A4309 /* RestClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RestClient.m; sourceTree = "<group>"; };
+		632F2F6216BF1DF7009A4309 /* conf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = conf.h; sourceTree = "<group>"; };
+		63D35B3316CB9C37003D6F4F /* MyMedClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMedClient.h; sourceTree = "<group>"; };
+		63D35B3416CB9C37003D6F4F /* MyMedClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMedClient.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		632F2F4B16BF1D0E009A4309 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				632F2F5216BF1D0E009A4309 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		632F2F4516BF1D0E009A4309 = {
+			isa = PBXGroup;
+			children = (
+				632F2F5316BF1D0E009A4309 /* MyMedClient */,
+				632F2F5016BF1D0E009A4309 /* Frameworks */,
+				632F2F4F16BF1D0E009A4309 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		632F2F4F16BF1D0E009A4309 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				632F2F4E16BF1D0E009A4309 /* MyMedClient */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		632F2F5016BF1D0E009A4309 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				632F2F5116BF1D0E009A4309 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		632F2F5316BF1D0E009A4309 /* MyMedClient */ = {
+			isa = PBXGroup;
+			children = (
+				632F2F6216BF1DF7009A4309 /* conf.h */,
+				632F2F5F16BF1D46009A4309 /* RestClient.h */,
+				632F2F6016BF1D46009A4309 /* RestClient.m */,
+				632F2F5416BF1D0E009A4309 /* main.m */,
+				632F2F5816BF1D0F009A4309 /* MyMedClient.1 */,
+				632F2F5616BF1D0F009A4309 /* Supporting Files */,
+				63D35B3316CB9C37003D6F4F /* MyMedClient.h */,
+				63D35B3416CB9C37003D6F4F /* MyMedClient.m */,
+			);
+			path = MyMedClient;
+			sourceTree = "<group>";
+		};
+		632F2F5616BF1D0F009A4309 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				632F2F5716BF1D0F009A4309 /* MyMedClient-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		632F2F4D16BF1D0E009A4309 /* MyMedClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 632F2F5C16BF1D0F009A4309 /* Build configuration list for PBXNativeTarget "MyMedClient" */;
+			buildPhases = (
+				632F2F4A16BF1D0E009A4309 /* Sources */,
+				632F2F4B16BF1D0E009A4309 /* Frameworks */,
+				632F2F4C16BF1D0E009A4309 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyMedClient;
+			productName = MyMedClient;
+			productReference = 632F2F4E16BF1D0E009A4309 /* MyMedClient */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		632F2F4616BF1D0E009A4309 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = Escogitare;
+			};
+			buildConfigurationList = 632F2F4916BF1D0E009A4309 /* Build configuration list for PBXProject "MyMedClient" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 632F2F4516BF1D0E009A4309;
+			productRefGroup = 632F2F4F16BF1D0E009A4309 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				632F2F4D16BF1D0E009A4309 /* MyMedClient */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		632F2F4A16BF1D0E009A4309 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				632F2F5516BF1D0E009A4309 /* main.m in Sources */,
+				632F2F6116BF1D97009A4309 /* RestClient.m in Sources */,
+				63D35B3516CB9C37003D6F4F /* MyMedClient.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		632F2F5A16BF1D0F009A4309 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		632F2F5B16BF1D0F009A4309 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		632F2F5D16BF1D0F009A4309 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyMedClient/MyMedClient-Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		632F2F5E16BF1D0F009A4309 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyMedClient/MyMedClient-Prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		632F2F4916BF1D0E009A4309 /* Build configuration list for PBXProject "MyMedClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				632F2F5A16BF1D0F009A4309 /* Debug */,
+				632F2F5B16BF1D0F009A4309 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		632F2F5C16BF1D0F009A4309 /* Build configuration list for PBXNativeTarget "MyMedClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				632F2F5D16BF1D0F009A4309 /* Debug */,
+				632F2F5E16BF1D0F009A4309 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 632F2F4616BF1D0E009A4309 /* Project object */;
+}
