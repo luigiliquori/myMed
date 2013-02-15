@@ -38,7 +38,18 @@
 	<div data-role="content" >
 	
 		<?print_notification($this->success.$this->error);?>
-	
+		
+		
+		<? if($this->result->publisherID==$_SESSION['user']->id){ 
+			$status = "";
+			if($this->result->validated=="waiting")
+				$status = _("Waiting the administrator validation");
+			else $status = _("Validated announcement"); ?>
+			<div data-role="header" data-theme="e">
+				<h1 style="white-space: normal;"> <?= $status ?> </h1>
+			</div>
+		<? } ?>
+		
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
 			<div data-role="collapsible" data-collapsed="false">
@@ -79,7 +90,8 @@
 			 				 <? }
 							}
 						endif; ?>
-						 
+						 	
+						 	<!-- MODIFY / DELETE FOR THE OWNER (admin can delete too) -->
 							<div data-type="horizontal">
 							 <? if($this->result->publisherID==$_SESSION['user']->id): ?>
 									<a style="float: left" data-role="button" data-icon="pencil" data-inline="true" href="?action=publish&method=modify_announcement&id=<?= $_GET['id'] ?>"><?= _("Edit")?></a>
@@ -89,9 +101,33 @@
 									
 									<!-- Pop up delete -->	
 									<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
-										<?= _("Are you sure you want to delete this announcement?") ?><br /><br />
-										<a type="button" href="?action=publish&method=delete&id=<?= $_GET['id'] ?>"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
-										<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
+									 <? if($_SESSION['myBenevolat']->permission == '2' && $this->result->publisherID!=$_SESSION['user']->id){ // deleted by the admin: send a mail to the author to inform him
+									 		echo _("You can attach a message for the applier:"); ?> 
+									 		<form action="?action=publish&method=delete" method="POST" data-ajax="false">
+									 			<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>
+												<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
+							 					<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr()?>" />
+							 					<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
+												<input type="hidden" name="title" value="<?=  $this->result->title?>" />
+							 					<input data-role="button" type="submit" data-theme="r" data-icon="ok" data-inline="true" value="<?= _('Delete') ?>" />
+							 				</form>
+									 <? }else{
+											echo _("Are you sure you want to delete this announcement?") ?>
+											<br /><br />
+											<fieldset class="ui-grid-a">
+												<div class="ui-block-a">
+													<form action="?action=publish&method=delete" method="POST" data-ajax="false">
+														<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
+									 					<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr()?>" />
+									 					<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
+									 					<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('Yes') ?>" />
+									 				</form>
+									 			</div>
+									 			<div class="ui-block-b">
+													<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
+												</div>
+											</fieldset>
+									  <? } ?>
 									</div>
 						 	  <? } ?>
 					 		</div>
@@ -103,13 +139,6 @@
 					<!-- TEXT -->
 					<?= $this->result->text ?><br>
 					
-					<? if($this->result->publisherID==$_SESSION['user']->id){ 
-						$status = "";
-						if($this->result->validated=="waiting")
-							$status = _("Waiting the administrator validation");
-						else $status = _("Has been validated by an administrator");
-						echo "<p><b>Status</b>: ".$status."</p>" ?>
-					<? } ?>
 					<!-- CONTACT -->			
 					<p><b><?= _("Association name")?></b> : 
 					<?

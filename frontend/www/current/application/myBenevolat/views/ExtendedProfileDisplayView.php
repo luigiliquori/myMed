@@ -30,23 +30,26 @@
 	
 	<!-- Page content -->
 	<div data-role="content">
-		<!-- Print profile type -->
-		<div data-role="header" data-theme="e">
-			<h1 style="white-space: normal;">
-			<?  if($_SESSION['myBenevolat']->details['type']=='association'){
-					if($_SESSION['myBenevolat']->permission == 0) {
-						echo _("Your association has not been validated yet");
-					} elseif($_SESSION['myBenevolat']->permission == 1) {
-						echo _("Validated association");
-					} elseif($_SESSION['myBenevolat']->permission == 2) {
-						echo _("Administrator");
+
+	 <? if (isset($_SESSION['myBenevolat']) && $_GET['user'] == $_SESSION['user']->id ): ?>
+			<!-- Print profile type -->
+			<div data-role="header" data-theme="e">
+				<h1 style="white-space: normal;">
+				<?  if($_SESSION['myBenevolat']->details['type']=='association'){
+						if($_SESSION['myBenevolat']->permission == 0) {
+							echo _("Your association has not been validated yet");
+						} elseif($_SESSION['myBenevolat']->permission == 1) {
+							echo _("Validated association");
+						} elseif($_SESSION['myBenevolat']->permission == 2) {
+							echo _("Administrator");
+						}
+					}else if($_SESSION['myBenevolat']->details['type']=='volunteer'){
+						echo _("Volunteer");
 					}
-				}else if($_SESSION['myBenevolat']->details['type']=='volunteer'){
-					echo _("Volunteer");
-				}
-				?>
-			</h1>
-		</div>
+					?>
+				</h1>
+			</div>
+	 <? endif; ?>
 		<br>
 		<?php	
 	   		// Select language
@@ -71,7 +74,9 @@
 					<div class="ui-block-b">
 						<p><strong><?= $this->profile->details['firstName']." ".$this->profile->details['lastName'] ?></strong></p>
 						<p><?= $this->profile->details['birthday'] ?> </p>
-						<p><?= $lang?></p>
+						<? if (isset($_SESSION['myBenevolat']) && $_GET['user'] == $_SESSION['user']->id ): ?>
+							<p><?= $lang?></p>
+						<? endif; ?>
 						<p><a href="mailto:<?= prettyprintId($this->profile->details['email']) ?>"><?= prettyprintId($this->profile->details['email']) ?></a></p>
 					</div>
 				</div>

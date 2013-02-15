@@ -1,5 +1,7 @@
 <?php 
 
+include("models/EmailNotification.class.php");
+
 /**
  * Valid methods for PublishController are:
  *  - create: render the NewPublicationView that permits user to fill and
@@ -146,7 +148,7 @@ class PublishController extends ExtendedProfileRequired {
 		$this->delete_Applies();
 		
 		$request = new Annonce();
-		$request->id = $_GET['id'];
+		$request->id = $_POST['id'];
 		$res = $request->find();
 		$obj = $res[0];
 		$obj->getDetails();
@@ -154,6 +156,14 @@ class PublishController extends ExtendedProfileRequired {
 		$obj->delete();
 		$this->result = $obj;
 		$this->success = "Deleted !";
+		
+		if(isset($_POST['msgMail'])){ // deleted by the admin -> send a mail to the author to inform him
+			$msgMail = "";
+			if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the admin: "').$_POST['msgMail'].'"';
+			
+			$mailman = new EmailNotification(substr($_POST['author'],6),_("Your announcement has been removed"),_("Your announcement ").$_POST['title']._(" has been removed by an admin.").$msgMail);
+			$mailman->send();
+		}
 		
 		$this->showUserAnnouncement();
 	}

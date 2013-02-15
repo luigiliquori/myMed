@@ -49,34 +49,44 @@
 							<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
 							<div data-role="controlgroup" data-type="horizontal" style="float: right;">
 							 <? if($item->accepted!='accepted'): ?>
-								<!-- <a style="float:left" type="button" href="#popupAccept" data-rel="popup" data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a> -->
-									<form action="?action=apply&method=accept" method="POST" data-ajax="false" style="float:left">
-			 	    				<!-- <textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br> -->
-						 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
-						 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
-						 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
-						 				<input type="hidden" name="id" value="<?= $item->idAnnonce ?>" />
-						 				<input type="hidden" name="author" value="<?= $item->author ?>" />
-						 				<input type="hidden" name="title" value="<?= $item->title ?>" />
-						 				
-										<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Accept') ?>" />
-						 			</form>
-								
-							 <? endif; ?>
-							 <form action="?action=apply&method=refuse" method="POST" data-ajax="false" style="float:right">
-							<!-- 	<textarea id="msgMail" name="msgMail" style="height: 120px;"></textarea><br> -->
-					 				<input type="hidden" name="publisher" value="<?= $item->publisher ?>" />
-					 				<input type="hidden" name="pred1" value="<?= $item->pred1 ?>" />
-					 				<input type="hidden" name="pred2" value="<?= $item->pred2 ?>" />
-					 				<input type="hidden" name="id" value="<?= $item->idAnnonce ?>" />
-					 				<input type="hidden" name="title" value="<?= $item->title ?>" />
-					 				<input type="hidden" name="author" value="<?= $item->author ?>" />
-					 				<input type="hidden" name="accepted" value="<?= $item->accepted ?>" />
-					 				
-									<input data-role="button" type="submit" data-theme="r" data-inline="true" data-mini="true" value="<?= _('Refuse') ?>" />
-						 		</form>
-							<!-- <a style="float:right" type="button" href="#popupRefuse" data-rel="popup" data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a> -->
+									<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->idAnnonce ?>","<?= $item->author ?>","<?= $item->title ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a>
+							<?  endif; ?>			
+								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->idAnnonce ?>","<?= $item->author ?>","<?= $item->title ?>","<?= $item->accepted ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a>
 							</div>
+							<script type="text/javascript">
+								function generate_accept_popup(publisher, pred1,pred2,idAnnonce,author,title){
+									$("#popupAccept").html('<?= _("You can attach a message for the applier:") ?>\
+										<form action="?action=apply&method=accept" method="POST" data-ajax="false">\
+				 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
+							 				<input type="hidden" name="publisher" value="'+publisher+'" />\
+							 				<input type="hidden" name="pred1" value="'+pred1+'" />\
+							 				<input type="hidden" name="pred2" value="'+pred2+'" />\
+							 				<input type="hidden" name="id" value="'+idAnnonce+'" />\
+							 				<input type="hidden" name="author" value="'+author+'" />\
+							 				<input type="hidden" name="title" value="'+title+'" />\
+							 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />\
+							 			</form>');
+						 			$("#popupAccept").popup("open");
+								}
+
+								function generate_refuse_popup(publisher, pred1,pred2,idAnnonce,author,title,accepted){
+									$("#popupRefuse").html('<?= _("You can attach a message for the applier:") ?>\
+										<form action="?action=apply&method=refuse" method="POST" data-ajax="false">\
+				 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
+							 				<input type="hidden" name="publisher" value="'+publisher+'" />\
+							 				<input type="hidden" name="pred1" value="'+pred1+'" />\
+							 				<input type="hidden" name="pred2" value="'+pred2+'" />\
+							 				<input type="hidden" name="id" value="'+idAnnonce+'" />\
+							 				<input type="hidden" name="author" value="'+author+'" />\
+							 				<input type="hidden" name="title" value="'+title+'" />\
+							 				<input type="hidden" name="accepted" value="'+accepted+'" />\
+							 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />\
+							 			</form>');
+							 		$("#popupRefuse").popup("open");
+								}
+							</script>
+							<div data-role="popup" id="popupAccept" class="ui-content" Style="text-align: center; width: 18em;"></div>
+							<div data-role="popup" id="popupRefuse" class="ui-content" Style="text-align: center; width: 18em;"></div>
 						</div>
 					</fieldset>
  				</li>
