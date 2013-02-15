@@ -1,7 +1,12 @@
 <div data-role="page" data-ajax="false">
 
 	<? $title = _("Details");
-	print_header_bar(true, false, $title); ?>
+	   // Only BlogResultsView are valid referer
+		if(strpos($_SERVER['HTTP_REFERER'],"?action=blog&method=Search")) {
+			$_SESSION['detailsview_valid_referer'] = $_SERVER['HTTP_REFERER'];
+		}
+		print_header_bar($_SESSION['detailsview_valid_referer'], false, $title);
+	 ?>
 	
 	<div data-role="content">
 	

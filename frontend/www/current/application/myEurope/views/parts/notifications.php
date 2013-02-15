@@ -12,12 +12,12 @@ function print_notification($message) {
 		echo '
 		<script type="text/javascript">
 		
-		// Go back in the history has problem in Chrome. Do not return back in the history when the pop up disappear.
-		$( "#notificationPopup" ).popup({ history: false });
-		
-		$(document).ready(function() {
-			$( "#notificationPopup" ).popup("open");
-		 });
+			$(document).ready(function() {
+				// Go back in the history has problem in Chrome. 
+				// Do not return back in the history when the pop up disappear.
+				$( "#notificationPopup" ).popup({ history: false });
+				$( "#notificationPopup" ).popup("open");
+		 	});
 		 </script>
 		 ';
 	}  

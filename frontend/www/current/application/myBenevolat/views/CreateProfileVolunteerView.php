@@ -11,17 +11,22 @@
 	<? print_header_bar("?action=ExtendedProfile", false, "Step 1 - personal info"); ?>
 		
 		<!-- Container div to give objects a margin -->
-		<div style="margin:30px; ">
+		<div data-role="content" style="margin:30px; ">
+			
+			<div class="ui-bar ui-bar-e">
+				<h1><?= _("Please fill in your personal information:") ?></h1>
+			</div>
+			<br/>
 			<!-- Phone -->
 			<div data-role="fieldcontain" >
-				<label for="phone" style="text-align:right"> Phone: </label>
-				<input type="text" name="phone" id="phone" placeholder="00 00 00 00 00 (Mandatory)" />
+				<label for="phone" style="text-align:right"> <?= _("Phone")?><b>*</b>: </label>
+				<input type="text" name="phone" id="phone" placeholder="00 00 00 00 00" />
 			</div>
 			
 			<!-- Sex -->
 			<div data-role="fieldcontain" style="text-align:right">	
 				<fieldset data-role="controlgroup" name="sex" id="sex">
-					<legend> Sex: </legend>
+					<legend> Sex<b>*</b>: </legend>
 			     	<input type="radio" name="sex" id="male" value="male"/>
 			     	<label for="male">Male</label>
 					<input type="radio" name="sex" id="female" value="female"/>
@@ -32,20 +37,20 @@
 			<!-- Work -->
 			<div data-role="fieldcontain" id="work" style="text-align:right">	
 				<fieldset data-role="controlgroup">
-				<legend> Your work: </legend>
-		     	<input type="radio" name="work" id="active" value="active" />
-		     	<label for="active">Active</label>
-		     	<input type="radio" name="work" id="unemployed" value="unemployed" />
-		     	<label for="unemployed">Unemployed</label>
-		     	<input type="radio" name="work" id="retired" value="retired" />
-		     	<label for="retired">Retired</label>
-		     	<input type="radio" name="work" id="student" value="student" />
-		     	<label for="student">Student</label>
+					<legend> Your work<b>*</b>: </legend>
+			     	<input type="radio" name="work" id="active" value="active" />
+			     	<label for="active">Active</label>
+			     	<input type="radio" name="work" id="unemployed" value="unemployed" />
+			     	<label for="unemployed">Unemployed</label>
+			     	<input type="radio" name="work" id="retired" value="retired" />
+			     	<label for="retired">Retired</label>
+			     	<input type="radio" name="work" id="student" value="student" />
+			     	<label for="student">Student</label>
 				</fieldset>
 			</div>
-			
+			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			<!-- Next and previous buttons -->
-			<div style="text-align:right; margin-right: 40px;">
+			<div style="text-align:center;">
 				<a href="?action=ExtendedProfile" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
 				<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext()">Next</a>
 			</div>
@@ -58,29 +63,29 @@
 <div data-role="page" id="step2_volunteer" >	
 
 	<!-- Header bar -->
-	<? print_header_bar("#step1_volunteer", false, "Step 2 - competences"); ?>
+	<? print_header_bar("#step1_volunteer", false, "Step 2 - skills"); ?>
 		
-			<!-- Competences list -->
-			<div data-role="header" data-theme="e">
-				<h1 style="white-space: normal;">
-					<?= _("Please choose form 1 to 4 competences.") ?>
-				</h1>
-			</div>
-			<br />
-			<div data-role="fieldcontain" style="text-align: center" id="competences">
-	    		<fieldset data-role="controlgroup">
-	    		<? foreach (Categories::$competences as $k=>$v) :?>
-					<input type="checkbox" name="competences-checkbox" id="<?=$k?>" value="<?=$k?>" />
-					<label for="<?=$k?>"> <?=$v?> </label>
-				<? endforeach ?>
-	    		</fieldset>
-	    	</div>
-			
-			<!-- Next and previous buttons -->
-			<div style="text-align:right; margin-right: 40px;">
-				<a href="#step1_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true"> Previous </a>
-				<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext();"> Next </a>
-			</div>
+	<div data-role="content" style="margin:30px; ">
+		<!-- Competences list -->
+		<div class="ui-bar ui-bar-e" data-theme="e">
+			<h1 style="white-space: normal;">
+				<?= _("Please choose your skills (1 to 4)") ?><b>*</b> :
+			</h1>
+		</div>
+		<br />
+		<div id="competences">
+    	<?  foreach (Categories::$competences as $k=>$v) :?>
+			<input type="checkbox" name="competences-checkbox" id="<?=$k?>" value="<?=$k?>" />
+			<label for="<?=$k?>"> <?=$v?> </label>
+		 <? endforeach ?>
+    	</div>
+		<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
+		<!-- Next and previous buttons -->
+		<div style="text-align:center;">
+			<a href="#step1_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true"> Previous </a>
+			<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext();"> Next </a>
+		</div>
+	</div>
 		
 </div> <!-- END - STEP 2 VOLUNTEER -->
 
@@ -90,47 +95,43 @@
 
 	<!-- Header bar -->
 	<? print_header_bar("#step2_volunteer", false, "Step 3 - missions and mobility"); ?>
-	
+	<div data-role="content" style="margin:30px; ">
 		<!-- Missions list -->
-		<div data-role="header" data-theme="e">
+		<div class="ui-bar ui-bar-e" data-theme="e">
 			<h1 style="white-space: normal;">
-				<?= _("Please choose the type of mission.") ?>
+				<?= _("Please choose the type of mission") ?><b>*</b>:
 			</h1>
 		</div>
 		<br />
-		<div data-role="fieldcontain" style="text-align: center" id="missions">
-    		<fieldset data-role="controlgroup">
-    		<? foreach (Categories::$missions as $k=>$v) :?>
+		<div id="missions">
+    	 <? foreach (Categories::$missions as $k=>$v) :?>
 				<input type="checkbox" name="missions-checkbox" id="<?=$k?>" value="<?=$k?>" />
 				<label for="<?=$k?>"><?=$v?></label>
-			<? endforeach ?>
+		 <? endforeach ?>
     		</fieldset>
-    	</div><br><br><br>
+    	</div><br><br>
     	
     	<!-- mobilite list -->
-		<div data-role="header" data-theme="e">
+		<div class="ui-bar ui-bar-e" data-theme="e">
 			<h1 style="white-space: normal;">
-				<?= _("Please choose your mobilite.") ?>
+				<?= _("Please choose your mobilite") ?><b>*</b>:
 			</h1>
 		</div>
 		<br />
-		<div data-role="fieldcontain" style="text-align: center" id="mobilite">
-    		<fieldset data-role="controlgroup">
-    		<? foreach (Categories::$mobilite as $k=>$v) :?>
+		<div id="mobilite">
+    	 <? foreach (Categories::$mobilite as $k=>$v) :?>
 				<input type="checkbox" name="mobilite-checkbox" id="<?=$k?>" value="<?=$k?>" />
 				<label for="<?=$k?>"><?=$v?></label>
-			<? endforeach ?>
-    		</fieldset>
+		 <? endforeach ?>
     	</div>
+		<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 		
 		<!-- Container for final wizard form -->
-		<div style="text-align:right; margin-right: 40px;">
-			
+		<div style="text-align:center;">	
 			<!-- Final wizard form -->
 			<form action="?action=ExtendedProfile&method=create" id="profileForm" method="POST">
-				
 				<!-- Back link-->
-				<a href="#step3_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
+				<a href="#step2_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
 				
 				<!-- MyMed basic profile fields -->
 				<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
@@ -152,7 +153,7 @@
 				<input type="submit" id="submit" value="Create the profile" data-inline="true" data-theme="g" />
 			</form>
 		</div>
-	
+	</div>
 </div> <!-- END - STEP 3 VOLUNTEER -->
 
 

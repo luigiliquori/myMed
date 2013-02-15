@@ -95,9 +95,8 @@
 					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 				</select>
 			</div>
-			<!--
-			<p><strong> MyEdu Profile details </strong></p>
-			 MyEdu Extended Profile details -->
+			
+			<!-- MyEdu Extended Profile details -->
 			
 			<!-- Phone -->		
 			<div data-role="fieldcontain">
@@ -111,37 +110,39 @@
 			</div>
 			<!-- For Students: student number -->
 			<div id="studentnumberfield" data-role="fieldcontain" class="ui-screen-hidden">
-				<label for="studentnumber"  style="text-align:right"><?= _('Student number') ?>: </label>
+				<label for="studentnumber"  style="text-align:right"><?= _('Student number') ?><b>*</b> : </label>
 				<input id="studentnumber" name="studentnumber" placeholder="Your student number" value="<?= $_SESSION['myEdu']->details['studentnumber'] ?>" ></input>
 			</div>
 			<!-- For Students: school faculty-->
 			<div id="facultyfield" data-role="fieldcontain">
-				<label for="faculty"  style="text-align:right"><?= _('Faculty') ?>: </label>
+				<label for="faculty"  style="text-align:right"><?= _('Faculty') ?><b>*</b> : </label>
 				<input id="faculty" name="faculty" placeholder="Your School faculty" value="<?= $_SESSION['myEdu']->details['faculty'] ?>" ></input>
 			</div>
 			<!-- For Professor: University -->
 			<div id="universityfield" data-role="fieldcontain">
-				<label for="university"  style="text-align:right"><?= _('University') ?>: </label>
+				<label for="university"  style="text-align:right"><?= _('University') ?><b>*</b> : </label>
 				<input id="university" name="university" placeholder="Your University" value="<?= $_SESSION['myEdu']->details['university'] ?>"></input>
 			</div>
 			<!-- For Professor: Courses -->
 			<div id="coursesfield" data-role="fieldcontain">
-				<label for="courses"  style="text-align:right"><?= _('Courses') ?>: </label>
+				<label for="courses"  style="text-align:right"><?= _('Courses') ?> <b>*</b>: </label>
 				<textarea id="courses" style="height: 120px;" name="courses" placeholder="The list of your courses"><?= $_SESSION['myEdu']->details['courses'] ?></textarea>
 			</div>
 			<!-- For Companies: type -->
 			<div id="companytypefield" data-role="fieldcontain">
-				<label for="companytype"  style="text-align:right"><?= _('Company type') ?>: </label>
+				<label for="companytype"  style="text-align:right"><?= _('Company type') ?> <b>*</b>: </label>
 				<input id="companytype" name="companytype" placeholder="Company type" value="<?= $_SESSION['myEdu']->details['companytype'] ?>"></input>
 			</div>
 			<!-- For Companies: siret -->
 			<div id="siretfield" data-role="fieldcontain">
-				<label for="siret"  style="text-align:right"><?= _('SIRET') ?>: </label>
+				<label for="siret"  style="text-align:right"><?= _('SIRET') ?> <b>*</b>: </label>
 				<input id="siret" name="siret" placeholder="Write your SIRET number " value="<?= $_SESSION['myEdu']->details['siret'] ?>"></input>
 			</div>
-			<br/>
 			<div data-role="fieldcontain">
-				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
+				<label for="siret"  style="text-align:right"><b>*</b>: <i><?= _("Mandatory fields")?></i></label>
+			</div>
+			<div data-role="fieldcontain">
+				<label for="password" style="text-align:right"><?= _("Password") ?> :</label>
 				<input type="password" id="password" name="password" />
 			</div>
 			<div style="text-align: center;">

@@ -16,10 +16,11 @@
 <div data-role="page" id="extendedprofiledisplayview">
 
 
-	<!-- Header bar -->
-  	<? 	$title = _("Profile ".$this->profile->details['type']);
+	<!-- Header bar -->	
+  	<? 	$title = _("Profile");
   	  	// Check the previous usr for the back button, if it is a publication details
-  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
+  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate") || 
+  	  	   strpos($_SERVER['HTTP_REFERER'],"?action=admin"))
   	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
   	   		print_header_bar('back', "defaultHelpPopup", $title); 
 
@@ -27,11 +28,26 @@
   	   		print_header_bar("?action=main", "defaultHelpPopup", $title);
   	   ?>
 	
-	
 	<!-- Page content -->
 	<div data-role="content">
-		
-		<br><br>
+		<!-- Print profile type -->
+		<div data-role="header" data-theme="e">
+			<h1 style="white-space: normal;">
+			<?  if($_SESSION['myBenevolat']->details['type']=='association'){
+					if($_SESSION['myBenevolat']->permission == 0) {
+						echo _("Your association has not been validated yet");
+					} elseif($_SESSION['myBenevolat']->permission == 1) {
+						echo _("Validated association");
+					} elseif($_SESSION['myBenevolat']->permission == 2) {
+						echo _("Administrator");
+					}
+				}else if($_SESSION['myBenevolat']->details['type']=='volunteer'){
+					echo _("Volunteer");
+				}
+				?>
+			</h1>
+		</div>
+		<br>
 		<?php	
 	   		// Select language
 			$lang="No defined";
@@ -67,10 +83,11 @@
 				<p>
 					<!-- Role -->
 					<b><?= _("Profile type") ?></b>: <strong style="color:#444;"><?= _($this->profile->details['type']) ?></strong><br/>
+					<?= (empty($this->profile->details['associationname']) ? " " : "<b>"._("Association name").": </b>".$this->profile->details['associationname']."<br/>") ?>
 				</p>
 				<p>
 					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
-					<?=
+					<?=					
 					(empty($this->profile->details['email'])? " " : "<b>"._("email").":</b> <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
 					(empty($this->profile->details['phone'])? " " : "<b>"._("phone").":</b> <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
 					(empty($this->profile->details['address'])?" ":_("address").": "."<span>".$this->profile->details['address']."</span><br/>")
@@ -150,7 +167,7 @@
 		<div style="text-align: center;">
 			<br />
 			<!-- Edit profile-->
-			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true" data-ajax="false"><?= _('Edit my profile') ?></a>
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<!-- Pop up delete profile -->	

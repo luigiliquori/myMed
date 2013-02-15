@@ -2792,6 +2792,25 @@ msgid "Specify a valid value for the maximum number of course appliers"
 msgstr "Spécicifez une valeur valide pour le nombre maximum de candidats au cours"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:107
+msgid "Student number field can't be empty"
+msgstr "Le champs numéro d'étudiant doit être rempli"
+
+msgid "Faculty field can't be empty"
+msgstr "Le champs faculté doit être rempli"
+
+msgid "University field can't be empty"
+msgstr "Le champs université doit être rempli"
+
+msgid "Courses field can't be empty"
+msgstr "Le champs cours doit être rempli"
+
+msgid "Company type field can't be empty"
+msgstr "Le champs type de l'entreprise doit être rempli"
+
+msgid "SIRET field can't be empty"
+msgstr "Le champs SIRET doit être rempli"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:97
 msgid "Your publication offer has been successfully published"
 msgstr "Votre offre de partenariat a été publiée avec succès"
 

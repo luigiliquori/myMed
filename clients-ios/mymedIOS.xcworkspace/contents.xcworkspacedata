@@ -12,5 +12,8 @@
    </FileRef>
    <FileRef
       location = "group:myEdu/myEdu.xcodeproj">
+   </FileRef>   
+   <FileRef
+      location = "group:myFSA/myFSA.xcodeproj">
    </FileRef>
 </Workspace>
