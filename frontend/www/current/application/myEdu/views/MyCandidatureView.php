@@ -2,11 +2,11 @@
 <!-- MyPublication View -->
 <!-- ------------------ -->
 
-<div data-role="page" id ="studentcoursesview">
+<div data-role="page" id ="mycandidatureesview">
 
 	<!-- Page header bar -->
-	<? $title = _("My courses");
-	   print_header_bar("?action=main", false, $title); ?>
+	<? $title = _("My candidatures");
+	   print_header_bar("?action=main", "helpPopup", $title); ?>
 	
 		
 	<!-- Page content -->
@@ -17,7 +17,7 @@
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
-			<p><?= _("Here is the space summarizing all of your courses.")?></p>
+			<p><?= _("Here you can browse all your applications.")?></p>
 		</div>
 		<br />
 	
@@ -27,21 +27,24 @@
 			<li data-role="list-divider"><?= _("Results") ?></li>
 			
 			<? if (count($this->result) == 0) :?>
-			<li>
-				<h4><?= _("No result found")?></h4>
-			</li>
+				<li>
+					<h4><?= _("No result found")?></h4>
+				</li>
 			<? endif ?>
 
 			<? foreach($this->result as $item) : ?>
 				<li>
-					<a data-ajax="false" href="?action=details&predicate=<?= $item->pred3 ?>&author=<?= $item->teacher ?>">			
-						<div class="ui-grid-a">
+					<a data-ajax="false" href="?action=details&predicate=<?= $item->pred3 ?>&author=<?= $item->author ?>">			
+						<div class="ui-grid-b">
 							<div class="ui-block-a">
 								<?= _("Publication name") ?>: <b><?= $item->title ?></b>
 							</div>
 							<div class="ui-block-b">
-								<?= _("Author email") ?>: <b><?= $item->teacher ?></b>
-								<div data-role="controlgroup" data-type="horizontal" style="float: right;">
+								<?= _("Author email") ?>: <b><?= substr($item->author,6) ?></b>
+								
+							</div>
+							<div class="ui-block-c">
+								<div style="float: right;">
 									<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
 								</div>
 							</div>
@@ -51,7 +54,12 @@
 			<? endforeach ?>
 			
 		</ul>
-			
+		<!-- HELP POPUP -->
+		<!-- ----------------- -->
+		<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<p><?= _("Browse your applications and see if you have been accepted.<br>You can click on each result to see the detail publication.")?></p>
+		</div>	
 	</div>
 	<!-- END Page content -->
 	

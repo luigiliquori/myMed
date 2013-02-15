@@ -1,11 +1,13 @@
 <div data-role="page" id="BlogResult" data-ajax="false">
+	
 	<? $title = _("Results");
-	print_header_bar(true, false, $title); ?>	
+	print_header_bar("?action=main#Blog", false, $title); ?>
+		
 	<div data-role="content" data-ajax="false">
 	<? include_once 'notifications.php'; ?>
 		<br />
 		<ul data-role="listview" data-filter="true" data-inset="true" data-filter-placeholder="...">
-			<li data-role="list-divider"><?= _("Topics in cathegory")?>: <?= $this->cathegory ?></li>		
+			<li data-role="list-divider"><?= _("Topics in category")?>: <?= _($this->cathegory) ?></li>		
 			<? if (count($this->result) == 0) :?>
 				<li>
 					<h4><?= _("No result found")?></h4>

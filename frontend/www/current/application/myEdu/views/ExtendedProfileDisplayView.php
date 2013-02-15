@@ -13,10 +13,10 @@
   	  	// Check the previous usr for the back button, if it is a publication details
   	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
   	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
-  	   		print_header_bar('back', "defaultHelpPopup", $title); 
+  	   		print_header_bar('back', "helpPopup", $title); 
 
   	  	else
-  	   		print_header_bar("?action=main", "defaultHelpPopup", $title);
+  	   		print_header_bar("?action=main", "helpPopup", $title);
   	   ?>
 	
 	<!-- Page content -->
@@ -25,10 +25,12 @@
 		<br><br>
 		<?php	
 	   		// Select language
-			$lang="";
-			if($_SESSION['user']->lang=="en") $lang=_("English");
-			else if($_SESSION['user']->lang=="it") $lang=_("Italian");
-			else $lang=_("French");
+			$lang="Not defined";
+	   		if($_SESSION['user']->lang){
+				if($_SESSION['user']->lang=="en") $lang=_("English");
+				else if($_SESSION['user']->lang=="it") $lang=_("Italian");
+				else $lang=_("French");
+			}
 		?>
 		
 		<!-- Show user profile -->
@@ -39,12 +41,14 @@
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 					<div class="ui-block-a" style="width: 110px;">
-						<img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
+						<img src="<?= $this->profile->details['picture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 					</div>
 					<div class="ui-block-b">
 						<p><strong><?= $this->profile->details['firstName']." ".$this->profile->details['lastName'] ?></strong></p>
 						<p><?= $this->profile->details['birthday'] ?> </p>
-						<p><?= $lang?></p>
+						<? if (isset($_SESSION['myEdu']) && $_GET['user'] == $_SESSION['user']->id ): ?>
+							<p><?= $lang?></p>
+						<? endif; ?>
 						<p><a href="mailto:<?= prettyprintId($this->profile->details['email']) ?>"><?= prettyprintId($this->profile->details['email']) ?></a></p>
 					</div>
 				</div>
@@ -95,7 +99,7 @@
 				<br />
 				<? if(($this->profile->details['role']!='professor')): ?>
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <?= $this->profile->reputation ?>
+					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> rates)
 				</p>
 				<br />
 				<?php endif; ?>
@@ -118,11 +122,6 @@
 				<a type="button" href="?action=ExtendedProfile&method=delete"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
 				<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
 			</div>
-			<!-- List of user subscriptions -->
-			<br />
-				<? if (isset($_SESSION['myEdu'])): ?>
-				<a type="button" href="?action=myOpportunity&opportunities=true" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My opportunities") ?></a>
-				<? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 		<? endif; ?>
 	
@@ -130,10 +129,9 @@
 	
 	
 	<!-- Help popup -->
-	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3><?= _("Edit Profile and Subscripions") ?></h3>
-		<p> <?= _("Here you can modify your profile and list your active subscriptions.") ?></p>
+		<p> <?= _("You can modify your profile details such as your language, profile picture, phone number... by clicking on the 'Edit my profile' button.<br>'Delete my profile' button will delete your myEdu profile and all your publications, applications and comments.") ?></p>
 	</div>
 	
 	

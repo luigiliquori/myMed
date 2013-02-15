@@ -9,6 +9,7 @@
 .fbprefs
 .pmd
 .checkstyle
+.buildpath
 
 .DS_Store
 
@@ -27,5 +28,6 @@ backend/src/com/mymed/tests/results/
 
 *.mo
 *.po
-backend/conf/config.xml
 
+.buildpath
+firelogger.php

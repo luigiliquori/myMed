@@ -69,8 +69,35 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Check mandatory fiels
 		if (!$_POST['role']) {
 			$this->error = _("Please specify your category");
-			$this->renderView("ExtendedProfileCreate");
-		} else if(!$_POST['checkCondition']) {
+		}
+		if($_POST['role']=='student'){
+			if(!$_POST['studentnumber']){
+				$this->error = _("Student number field can't be empty");
+				$this->renderView("ExtendedProfileCreate");
+			}if(!$_POST['faculty']){
+				$this->error = _("Faculty field can't be empty");
+				$this->renderView("ExtendedProfileCreate");
+			}	
+		}
+		if($_POST['role']=='professor'){
+			if(!$_POST['university']){
+				$this->error = _("University field can't be empty");
+				$this->renderView("ExtendedProfileCreate");
+			}if(!$_POST['courses']){
+				$this->error = _("Courses field can't be empty");
+				$this->renderView("ExtendedProfileCreate");
+			}
+		}
+		if($_POST['role']=='company'){
+			if(!$_POST['companytype']){
+				$this->error = _("Company type field can't be empty");
+				$this->renderView("ExtendedProfileCreate");
+			}if(!$_POST['siret']){
+				$this->error = _("SIRET field can't be empty");
+				$this->renderView("ExtendedProfileCreate");
+			}
+		}
+		if(!$_POST['checkCondition']) {
 			$this->error = _("You must accept the terms of use.");
 			$this->renderView("ExtendedProfileCreate");
 		}  
@@ -81,6 +108,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['checkCondition']);
 		
 		// Set id and description
+		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['id'] = hash("md5", time().$_POST['name']);
 		$_POST['desc'] = nl2br($_POST['desc']);
 	
@@ -107,6 +135,34 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Update an Extended profile 
 	 */
 	function update() {
+		if($_POST['role']=='student'){
+			if(!$_POST['studentnumber']){
+				$this->error = _("Student number field can't be empty");
+				$this->renderView("ExtendedProfileEdit");
+			}if(!$_POST['faculty']){
+				$this->error = _("Faculty field can't be empty");
+				$this->renderView("ExtendedProfileEdit");
+			}
+		}
+		if($_POST['role']=='professor'){
+			if(!$_POST['university']){
+				$this->error = _("University field can't be empty");
+				$this->renderView("ExtendedProfileEdit");
+			}if(!$_POST['courses']){
+				$this->error = _("Courses field can't be empty");
+				$this->renderView("ExtendedProfileEdit");
+			}
+		}
+		if($_POST['role']=='company'){
+			if(!$_POST['companytype']){
+				$this->error = _("Company type field can't be empty");
+				$this->renderView("ExtendedProfileEdit");
+			}if(!$_POST['siret']){
+				$this->error = _("SIRET field can't be empty");
+				$this->renderView("ExtendedProfileEdit");
+			}
+		}
+		
 		$_POST['email'] =$_SESSION['user']->email;
 		$id = $_SESSION['myEdu']->profile;
 		
@@ -139,6 +195,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Update of the profile informations
 		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['login'] = $_SESSION['user']->email;
+		$_POST['picture'] = $_POST['profilePicture'];
 		
 		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($_POST)));
 		try {
@@ -164,14 +221,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->error = $e->getMessage();
 			$this->renderView("ExtendedProfileEdit");
 		}
-		
 		$_POST['id'] = $id;
-		//unset($_POST['firstName']);
-		//unset($_POST['lastName']);
-		//unset($_POST['birthday']);
-		//unset($_POST['profilePicture']);
-		//unset($_POST['lang']);
-		//unset($_POST['name']);
 		
 		// Update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
@@ -324,6 +374,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (!empty($details['profile'])){
 			$this->getReputation($user->id);
 			$this->profile->reputation = $this->reputationMap[$user->id];
+			$this->nbrates = $this->noOfRatesMap[$user->id];
 		}
 		
 		$this->renderView("ExtendedProfileDisplay");
@@ -346,6 +397,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->profile->parseProfile();
 		$this->getReputation($id);
 		$this->profile->reputation = $this->reputationMap[$id];
+		$this->nbrates = $this->noOfRatesMap[$id];
 	
 		$this->renderView("ExtendedProfileDisplay");
 	}

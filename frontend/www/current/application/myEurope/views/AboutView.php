@@ -2,7 +2,7 @@
 
 <div data-role="page">
  <? $title = _("Credits");
-	print_header_bar(true, false, $title); ?>
+	print_header_bar('back', false, $title); ?>
 	
 	<div data-role="content" class="content">
 		<!-- <a href="/application/myMed/" rel="external"><img alt="myMed" src="/application/myMed/img/logo-mymed-250c.png" style="margin-top: -15px;"/></a>-->

@@ -3,7 +3,7 @@
 
 <div data-role="page" id="publish">
   <? $title = _("Publish offer");	
-	 print_header_bar(true, "publishHelpPopup", $title); ?>
+	 print_header_bar("?action=main", "publishHelpPopup", $title); ?>
 
 	<div data-role="content">
 	
@@ -26,16 +26,23 @@
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Publish your project') ?> :</h3>
 				
-				<h3><?= _('Title') ?> : </h3>
+				<h3><?= _('Title') ?><b>*</b> : </h3>
 				<input id="textinputp3" class="postTitle" data-inline="true" name="title"
 					placeholder="<?= _("partnership or project name") ?>" value='' type="text" />
 				
-				<h3><?= _('Free text') ?> :</h3>
+				<h3><?= _('Free text') ?><b>*</b> :</h3>
 				<div data-role="controlgroup" data-type="horizontal"> 
 					<a href="#publishOptionPopup" data-rel="popup" data-role="button" data-inline="true" data-icon="gear" data-mini="true"><?= _("Option") ?></a>
 					<a href="#publishExamplePopup" data-rel="popup" data-role="button" data-inline="true" data-icon="star" data-mini="true" data-theme="e" data-iconpos="right"><?= _("Example") ?></a>
 				</div>
-				<textarea id="CLEeditor" name="text"></textarea>
+				<textarea id="text" name="text"></textarea>
+				<script type="text/javascript">
+						// Init cle editor on pageinit
+	  					$("#publish").on("pageshow", function() {  
+    						$("#text").cleditor();
+     		 			});
+    			</script>
+				<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 				<br />
 			</div>
 			

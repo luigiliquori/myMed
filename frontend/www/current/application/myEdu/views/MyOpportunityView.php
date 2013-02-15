@@ -5,8 +5,8 @@
 <div data-role="page" id =myopportunity>
 
 	<!-- Page header bar -->
-	<? $title = _("My opportunities");
-	   print_header_bar("?action=main", false, $title); ?>
+	<? $title = _("My subscriptions");
+	   print_header_bar("?action=main", "helpPopup", $title); ?>
 	
 		
 	<!-- Page content -->
@@ -16,19 +16,37 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("Litle help") ?> ?</h3>
-			<p><?= _("Few words ")?></p>
+			<h3><?= _("<<<< TITLE >>>>>") ?></h3>
+			<p><?= _("See the subscriptions which myEdu has found according to your criteria. You can also create new subscriptions, with different criteria.")?></p>
 		</div>
 		<br />
 		
-		<?php 
-			//echo var_dump($this->search_result);
-		?>
+		<script type="text/javascript">
+				
+		</script>
 	
 		<!-- New subscription button -->
-		<a href="?action=myOpportunityManagement" data-icon="pencil" data-role="button" data-inline="true" data-theme="e" style="float: right;"><?= _("New subscription") ?></a><br />	
-		<br />
-		<br />
+		<div class="ui-grid-a">
+			<div class="ui-block-a" style="float: left;">
+				<?php if(count($this->subscriptions_name)!=0):?>
+				<form action=?action=myOpportunity&opportunities=true method="POST" data-ajax="false"/>
+					<select name="Subscription_list" id="Subscription_list" data-inline="true" style="float: left;" onchange="this.form.submit();">
+						<?php foreach($this->subscriptions_name as $value):?>
+							<?php if($value == $this->actual_subscription_name):?>
+								<option selected value="<?= $value ?>"><?= $value ?></option>
+							<?php else :?>
+								<option value="<?= $value ?>"><?= $value ?></option>
+							<?php endif;?>
+						<?php endforeach;?>
+					</select>
+					<!-- <input type="submit" value="<?= _("OK")?>" data-inline="true"/>-->
+				</form>
+				<?php endif;?>
+			</div>
+			<div class="ui-block-b" style="float: right;">
+				<a href="?action=myOpportunityManagement" data-icon="pencil" data-role="button" data-inline="true" data-theme="e" style="float: right;"><?= _("Manage subscriptions") ?></a><br />	
+			</div>
+		</div>
 		<br />
 		<br />
 		
@@ -37,13 +55,8 @@
 		
 			<li data-role="list-divider"><?= _("Results") ?></li>
 			
-			<? if (count($this->search_result) == 0) :?>
-			<li>
-				<h4><?= _("No result found")?></h4>
-			</li>
-			<? endif ?>
-			<? foreach($this->search_result as $result):?>
-			<? foreach($result as $item) : ?>
+			<?php $entries_number = count($this->search_result);?>
+			<? foreach($this->search_result as $item) : ?>
 				<li>
 					<a href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
@@ -77,11 +90,22 @@
 						</p>			
 					</a>
 				</li>
-			<? endforeach ?>
-			<? endforeach?>
+				<? endforeach ?>
+			<? //endforeach?>
+			<? if($entries_number == 0):?>
+				<li>
+					<h4><?= _("No result found")?></h4>
+				</li>
+			<?php endif ?>
 			
 		</ul>
-			
+		
+		<!-- HELP POPUP -->
+		<!-- ----------------- -->
+		<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<p><?= _("Here, you can browse the offers that myEdu has found according to your subscriptions criteria.<br>To create new subscriptions, click on the 'New Subscription' button.")?></p>
+		</div>
 	</div>
 	<!-- END Page content -->
 	

@@ -21,6 +21,7 @@ class MyPublicationController extends AuthenticatedController {
 		$search->publisher = "FAKE_USER_ID";
 		// END TODO FIX : use fake user for now
 		$this->result = $search->find();
+		$this->getReputation($this->result);
 		
 		// Render MyPublicationView
 		$this->renderView("MyPublication");

@@ -44,7 +44,8 @@ Categories::$localities = array(
 	"Novara"   		=> _("Novara"),
 	"Toulon"   		=> _("Toulon"),
 	"Turin"   		=> _("Turin"),
-	"Vercelli"   	=> _("Vercelli")
+	"Vercelli"   	=> _("Vercelli"),
+	"Other"			=> _("Other")
 );
 
 
@@ -56,6 +57,7 @@ Categories::$roles = array(
 
 Categories::$organizations = array(
 	"Amu"     	=> _("Amu"),
+	"Companies" => _("Companies"),
 	"Polito"	=> _("Polito"),
 	"Unice"     => _("Unice"),
 	"Unipo"     => _("Unipo"),

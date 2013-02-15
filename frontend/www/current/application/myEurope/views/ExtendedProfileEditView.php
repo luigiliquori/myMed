@@ -3,7 +3,7 @@
 
 <div data-role="page">
 	<? $title = _("Edit Profile");
-	 print_header_bar(true, "defaultHelpPopup", $title); ?>
+	 print_header_bar("?action=extendedProfile", "defaultHelpPopup", $title); ?>
 	
 	
 	<div data-role="content">
@@ -41,7 +41,7 @@
 			
 			
 			<div data-role="fieldcontain">
-				<label for="textinputu1" style="text-align:right"><?= _('Organization Name') ?>: </label>
+				<label for="textinputu1" style="text-align:right"><?= _('Organization Name') ?><b>*</b>: </label>
 				<input id="textinputu1" name="name" placeholder="" value="<?= $_SESSION['myEurope']->details['name'] ?>" type="text" />
 			</div>
 			<div data-role="fieldcontain">
@@ -81,7 +81,7 @@
 				</fieldset>
 			</div>	
 			<div data-role="fieldcontain">
-				<label for="textinputu5" style="text-align:right"><?= _('Organization email') ?>: </label>
+				<label for="textinputu5" style="text-align:right"><?= _('Organization email') ?><b>*</b>: </label>
 				<input id="textinputu5" name="email" placeholder="" value="<?= $_SESSION['myEurope']->details['email'] ?>" type="email" />
 			</div>
 			<div data-role="fieldcontain">
@@ -90,13 +90,14 @@
 			</div>
 			<div data-role="fieldcontain">
 				<label for="desc" style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEurope']->details['desc'] ?></textarea>
+				<textarea id="desc" name="desc" placeholder="<?= _("description, comments")?>"><?= $_SESSION['myEurope']->details['desc'] ?></textarea>
 			</div>
 			<br />
 			<div data-role="fieldcontain">
 				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
 				<input type="password" id="password" name="password" />
 			</div>
+			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
 			</div>

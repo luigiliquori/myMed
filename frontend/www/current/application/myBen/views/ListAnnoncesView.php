@@ -69,8 +69,7 @@ $filters[ANN_ALL] = _("toutes");
 		<? else : ?>
 		<ul data-role="listview" data-theme="d" data-inset="true">
 			<?  foreach ($this->annonces as $annonce) : ?>
-			<li><a data-ajax="false"
-				href="<?= url("annonce:details", array("id" => $annonce->id)) ?>">
+			<li><a data-ajax="false" href="<?= url("annonce:details", array("id" => $annonce->id)) ?>">
 
 					<h3>
 						<?= $annonce->titre ?>

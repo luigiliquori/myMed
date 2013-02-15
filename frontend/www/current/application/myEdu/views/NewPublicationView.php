@@ -10,7 +10,7 @@
   	
   	<!-- Page header -->
   	<? $title = _("Create publication");	
-	   print_header_bar("?action=publish&method=show_user_publications", "defaultHelpPopup", $title); ?>
+	   print_header_bar("?action=publish&method=show_user_publications", "helpPopup", $title); ?>
 
 	<!-- Page content -->
 	<div data-role="content">
@@ -27,19 +27,18 @@
 			<input type="hidden" id="date" name="date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-				<h3><?= _("How to publish") ?> ?</h3>
-				<?= _("<<<<< Some explanation goes here >>>>>")?>
+				<h3><?= _("<<<< TITLE >>>>") ?></h3>
+				<?= _("Create a new publication here.")?>
 				</p>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Publish your project') ?> :</h3>
 				
-				<h3><?= _('Title') ?> : </h3>
-				<input id="textinputp3" class="postTitle" data-inline="true" name="title"
-					placeholder="<?= _("Publication title goes here") ?>" value='' type="text" />
+				<h3><?= _('Title') ?><b>*</b> : </h3>
+				<input id="textinputp3" class="postTitle" data-inline="true" name="title" value='' type="text" />
 				
-				<h3><?= _('Date of expiration') ?> :</h3>
+				<h3><?= _('Date of expiration')?><?if($_SESSION['myEdu']->details['role']=='professor') echo "<b>**</b>"?> :</h3> 
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
 					<select id="publish_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
@@ -55,13 +54,13 @@
 					</select>
 					<select id="publish_year_content" name="expire_year" data-inline="true">
 						<option value=""><?= _("Year")?></option>
-					<?php for ($i = 2012; $i <= 2042; $i++) { ?>
+					<?php for ($i = 2013; $i <= 2020; $i++) { ?>
 						<option value="<?= $i ?>"><?= $i ?></option>
 					<?php } ?>
 					</select>
 				</fieldset>
 					
-				<h3><?= _('Enter a text description for your publication') ?> :</h3>
+				<h3><?= _('Enter a text description') ?><b>*</b> :</h3>
 				<textarea id="text" name="text"></textarea>
 				<script type="text/javascript">
 					// Init cle editor on pageinit
@@ -72,9 +71,9 @@
 				
 				<br />
 				
-				<h3><?= _('Other information') ?> :</h3>
+				<h3><?= _('Other criteria') ?> :</h3>
 					<select name="area" id="area" data-native-menu="false">
-					<option value=""> <?= _("Area")?> </option>
+					<option value=""> <?= _("Area")?><b>*</b></option>
 					<? foreach (Categories::$areas as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
@@ -86,9 +85,8 @@
 								} else {
 									$('#maxappliersdiv').hide();
 								}
-								
 					" >
-						<option value=""> <?= _("Category")?> </option>
+						<option value=""> <?= _("Category")?><b>*</b></option>
 					<? foreach (Categories::$categories as $k=>$v) :?>
 						<?= ($k == 'Course' &&  
 							!($_SESSION['myEdu']->details['role']=='professor')) ? '' : 
@@ -96,24 +94,27 @@
 						?>
 					<? endforeach ?>
 					</select>
-					<div data-role="fieldcontain" id="maxappliersdiv" name="maxappliersdiv" style="text-align:right; display: none; margin-right:30px;">
-						<label for="maxappliers" ><?=_(" Max course appliers number: "); ?></label>
+					<div data-role="fieldcontain" id="maxappliersdiv" name="maxappliersdiv" style="text-align:right; display: none; margin-right:20px;">
+						<label for="maxappliers"><?=_("Max course appliers number") ?><b>*</b> :</label>
 	    				<input type="text" name="maxappliers" id="maxappliers" value="30" style="width:80px; text-align:right;"/>
 					</div>
 					<input type="hidden" id="currentappliers" name="currentappliers" value="-1" />
 					<select name="locality" id="locality" data-native-menu="false">
-						<option value=""> <?= _("Locality")?> </option>
+						<option value=""> <?= _("Locality")?><b>*</b></option>
 					<? foreach (Categories::$localities as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
 					<select name="organization" id="organization" data-native-menu="false">
-						<option value=""> <?= _("Organization")?> </option>
+						<option value=""> <?= _("Organization")?><b>*</b></option>
 					<? foreach (Categories::$organizations as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
-				
+					<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
+					<?if($_SESSION['myEdu']->details['role']=='professor'):?>
+						<p><b>**</b>: <i><?= _("Mandatory if you publish a course")?></i></p>
+					<?endif;?>
 			</div>
 			
 			<div style="text-align: center;">
@@ -127,9 +128,9 @@
 		
 		
 	<!-- Help popup -->
-	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
+	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<?= _("<<<<< Help text >>>>>")?> 
+		<?= _("Fill out all of the parameters, such as title, expiration date, description, specialization, category, locality and company.")?> 
 	</div>
 	
 </div>

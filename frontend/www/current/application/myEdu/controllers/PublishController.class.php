@@ -56,12 +56,10 @@ class PublishController extends ExtendedProfileRequired {
 			if (empty($_POST['title'])) {
 				$this->error = _("Title field can't be empty");
 				$this->renderView("NewPublication");
-			} else if ((empty($_POST['expire_day']) || 
-					    empty($_POST['expire_month']) || 
-					    empty($_POST['expire_year'])) && 
-					   ($_POST['category'] == 'Course')) {		
-				$this->error = _("Please provide a valide expiration date for the course");
-				$this->renderView("NewPublication");
+			} else if (((empty($_POST['expire_day']) ||  empty($_POST['expire_month']) ||  empty($_POST['expire_year'])) && ($_POST['category'] == 'Course')) &&
+					     empty($_POST['end'])) {		
+					$this->error = _("Please provide a valide expiration date for the course");
+					$this->renderView("NewPublication");				
 			} else if (empty($_POST['text'])) {
 				$this->error = _("Text field can't be empty");
 				$this->renderView("NewPublication");
@@ -81,17 +79,14 @@ class PublishController extends ExtendedProfileRequired {
 			} else if (empty($_POST['organization'])) {
 				$this->error = _("Organization field can't be empty");
 				$this->renderView("NewPublication");
-			} else if ($_POST['category'] == 'Course' && 
-					   !is_numeric($_POST['maxappliers'])) {
-				$this->error = _("Specify a valid value for the maximum number 
-								  of course appliers");
+			} else if ($_POST['category'] == 'Course' && !is_numeric($_POST['maxappliers'])) {
+				$this->error = _("Specify a valid value for the maximum number of course appliers");
 				$this->renderView("NewPublication");
 		    } else {
 				
 				// All required fields are filled, publish it
 				$obj = new MyEduPublication();
 				$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
-				//$obj->type = 'myEduPublication';				// Publication type
 				$obj->area = $_POST['area'];					// Area
 				$obj->category = $_POST['category'];			// Category
 				if($_POST['category'] == 'Course' && 
@@ -140,7 +135,6 @@ class PublishController extends ExtendedProfileRequired {
 		$obj = new MyEduPublication();
 		$obj->publisherID = $_SESSION['user']->id;  // Publisher ID
 		$obj->publisher = $_SESSION['user']->id;    // Publisher ID
-		//$obj->type = 'myEduPublication';			// Publication type no used anymore
 		$obj->area = $_POST['area'];				// Area
 		$obj->category = $_POST['category'];		// Category
 		$obj->locality = $_POST['locality'];		// Locality
