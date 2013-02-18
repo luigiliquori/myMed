@@ -7,7 +7,7 @@
 	<div data-role="header" data-position="inline">
 		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
 	 	<h1><?= _("GoingBack"); ?></h1>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+	 	<a href="#goingBackViewHelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 
@@ -30,7 +30,7 @@
 			<?php
 			$i = 0;
 			foreach($_SESSION['ExtendedProfile']->callingList as $data) {
-				if($data->type == "emergency" ) continue;
+				if($data->type == "emergency" || $data->nickname == "Emergency") continue;
 				?>
 				<li class="ui-btn ui-btn-icon-right ul-li-has-arrow ui-li" style="padding-bottom:1em;">
 					<a href="?action=itineraire&amp;address=<?= $data->address; ?>" class="ui-link-inherit" data-ajax="false">
@@ -45,6 +45,19 @@
 			?>
 			
 		</ul>
+		
+		
+		
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="goingBackViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_GoingBackHelp"); ?>
+		</div>	
+		
 	</div>
 	
 	

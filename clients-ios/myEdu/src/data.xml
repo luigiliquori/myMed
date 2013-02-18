@@ -1,0 +1,106 @@
+<data>
+    <text>Here you can check the list of the universities interested by myMed Alcotra project.</text>
+        <page title="Université de Nice Sophia-Antipolis" url="http://unice.fr/">
+                <item title="Agronomie, agroalimentaire, nutrition" />
+                <item title="Arts et design" />
+                <item title="Communication, information, journalisme" />
+                <item title="Documentation, archives" />
+                <item title="Droit, administration publique, propriété intellectuelle et industrielle" />
+                <item title="Economie, gestion, management, marketing" />
+                <item title="Education, formation des enseignants" />
+                <item title="Géographie, aménagement" />
+                <item title="Histoire" />
+                <item title="Ingénierie et technologies" />
+                <item title="Lettres, langues, sciences du langage" />
+                <item title="Mathématiques et informatique" />
+                <item title="Philosophie, éthique" />
+                <item title="Physique, chimie, matériaux" />
+                <item title="Psychologie, sociologie, démographie, ethnographie" />
+                <item title="Relations internationales, études européennes, études régionales" />
+                <item title="Sciences de la terre et de l'univers, environnement" />
+                <item title="Sciences de la vie et de la santé, psychologie" />
+                <item title="Sciences du sport" />
+                <item title="Sciences politiques" />
+                <item title="Théologie" />
+                <item title="Urbanisme, architecture" />
+        </page>
+        <page title="Université du Sud-Toulon-Var" url="http://www.univ-tln.fr/">
+                <item title="Commerce, Gestion, Droit, Fonction publique" />
+                <item title="Lettres, Langues, Sciences Humaines" />
+                <item title="Sciences, Techniques, Industries" />
+                <item title="Sport, Social, Santé" />
+        </page>
+        <page title="Université Aix-Marseille" url="http://www.univ-amu.fr/">
+                <item title="Arts" subtitle="Aix, Marseille, Lambesc" />
+                <item title="Administration des Entreprises" subtitle="Aix" />
+                <item title="Biologie" subtitle="Aix, Marseille" />
+                <item title="Chimie" subtitle="Aix, Marseille" />
+                <item title="Droit et Sciences Politiques" subtitle="Aix, Marseille, Arles" />
+                <item title="Economie et Gestion" subtitle="Aix" />
+                <item title="Education, formation des enseignants" />
+                <item title="Informatique et Intéraction" subtitle="Aix, Marseille" />
+                <item title="Ingénierie" subtitle="Marseille" />
+                <item title="Journalisme et Communication" subtitle="Aix" />
+                <item title="Lettres" subtitle="Aix, Marseille, Lambesc" />
+                <item title="Langues" subtitle="Aix, Marseille, Lambesc" />
+                <item title="Management Publique" subtitle="Aix" />
+                <item title="Mathématique" subtitle="Aix, Marseille" />
+                <item title="Mécanique" subtitle="Aix, Marseille" />
+                <item title="Medecine" subtitle="Marseille" />
+                <item title="Musique" subtitle="Aix" />
+                <item title="Odontologie" subtitle="Marseille" />
+                <item title="Pharmacie" subtitle="Marseille" />
+                <item title="Physique" subtitle="Aix, Marseille" />
+                <item title="SATIS : Sciences, Arts et Technique de l'Image et du Son" subtitle="Aix, Marseille" />
+                <item title="Sciences Maieutique" subtitle="Marseille" />
+                <item title="Sciences Humaines" subtitle="Aix, Marseille, Lambesc" />
+                <item title="Sciences du Sport" subtitle="Marseille" />
+        </page>
+
+            <page title="Politecnico di Torino" url="http://www.polito.it/">
+                <!--
+                <page title="Ingegneria" subtitle="Anagrafe/Cittadinanza/Stato civile">
+                    <text>Test text 1</text>
+                </page>
+                     -->
+                <item title="Architettura" />
+                <item title="Ingegneria" />
+            </page>
+        <page title="Università di Torino" url="http://www.unito.it/">
+                <item title="Agraria" />
+                <item title="Economia" />
+                <item title="Farmacia" />
+                <item title="Lettere e Filosofia" />
+                <item title="Lingue e Letterature Straniere" />
+                <item title="Medicina e Chirurgia" />
+                <item title="Medicina e Chirurgia - 'S. Luigi Gonzaga'" />
+                <item title="Medicina Veterinaria" />
+                <item title="Psicologia" />
+                <item title="Scienze della Formazione" />
+                <item title="Scienze Matematiche Fisiche e Naturali" />
+                <item title="Scienze Politiche" />
+        </page>
+        <page title="Università di Genova" url="www.unige.it/">
+                <item title="Architettura" />
+                <item title="Economia" />
+                <item title="Farmacia" />
+                <item title="Giurisprudenza" />
+                <item title="Ingegneria" />
+                <item title="Lettere e Filosofia" />
+                <item title="Lingue e Letterature Straniere" />
+                <item title="Medicina e Chirurgia" />
+                <item title="Scienze della Formazione" />
+                <item title="Scienze Matematiche Fisiche e Naturali" />
+                <item title="Scienze Politiche" />
+        </page>
+        <page title="Università del Piemonte Orientale" url="http://www.unipmn.it">
+                <item title="Economia" subtitle="Novara" />
+                <item title="Farmacia" subtitle="Novara" />
+                <item title="Giurisprudenza" subtitle="Alessandria" />
+                <item title="Lettere e Filosofia" subtitle="Vercelli" />
+                <item title="Medicina e Chirurgia" subtitle="Novara" />
+                <item title="Scienze della Salute" subtitle="Novara" />
+                <item title="Scienze Matematiche Fisiche e Naturali" subtitle="Alessandria" />
+                <item title="Scienze Politiche" subtitle="Alessandria" />
+        </page>
+ </data>
