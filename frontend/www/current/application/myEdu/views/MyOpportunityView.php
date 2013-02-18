@@ -16,8 +16,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("<<<< TITLE >>>>>") ?></h3>
-			<p><?= _("See the subscriptions which myEdu has found according to your criteria. You can also create new subscriptions, with different criteria.")?></p>
+			<h3><?= _("My subscriptions") ?></h3>
+			<p><?= _("Browse your subscriptions or create a new one, by clicking on the \"Manage subscriptions\" button.")?></p>
 		</div>
 		<br />
 		
@@ -30,7 +30,7 @@
 			<div class="ui-block-a" style="float: left;">
 				<?php if(count($this->subscriptions_name)!=0):?>
 				<form action=?action=myOpportunity&opportunities=true method="POST" data-ajax="false"/>
-					<select name="Subscription_list" id="Subscription_list" data-inline="true" style="float: left;" onchange="this.form.submit();">
+					<select name="Subscription_list" id="Subscription_list" data-inline="true" style="float: left;" onchange="this.form.submit();" data-native-menu="false">
 						<?php foreach($this->subscriptions_name as $value):?>
 							<?php if($value == $this->actual_subscription_name):?>
 								<option selected value="<?= $value ?>"><?= $value ?></option>
@@ -63,9 +63,10 @@
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
-							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
-							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
-							<b><?= _("Locality") ?></b>: <?= _($item->locality) ?><br/><br/>
+							<b><?= _("Topic") ?></b>: <?= Categories::$areas[$item->area] ?><br/>
+							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
+							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
+							<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$item->organization] ?><br/><br/>
 							<b>Publisher ID:</b><?= $item->publisherID ?><br/> 
 								<!-- Project reputation-->	
 								<p style="display:inline; margin-left: 30px;" > <b><?= _("Project reputation")?>:</b> </p>  
@@ -104,7 +105,7 @@
 		<!-- ----------------- -->
 		<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<p><?= _("Here, you can browse the offers that myEdu has found according to your subscriptions criteria.<br>To create new subscriptions, click on the 'New Subscription' button.")?></p>
+			<p><?= _("Set up parameters of your subscriptions that will allows to interact with the social network myEdu.")?></p>
 		</div>
 	</div>
 	<!-- END Page content -->

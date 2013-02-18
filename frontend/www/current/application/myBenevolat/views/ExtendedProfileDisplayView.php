@@ -183,11 +183,11 @@
 			</div>
 			<!-- List of user subscriptions -->
 			<br />
-				<? if (isset($_SESSION['myBenevolat'])): ?>
+		 <? if (isset($_SESSION['myBenevolat'])): ?>
 				<a type="button" href="?action=mySubscription&subscriptions=true" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My subscriptions") ?></a>
-				<? endif; ?>
+		 <? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
-		<? endif; ?>
+	<? endif; ?>
 	
 	</div> <!-- END Page content -->
 	

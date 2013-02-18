@@ -74,7 +74,7 @@
 						  			
 						  			<!-- Pop up delete -->	
 									<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
-										<?= _("Are you sure you want to delete this publication?") ?><br /><br />
+										<?= _("Are you sure you want to delete this offer?") ?><br /><br />
 										<fieldset class="ui-grid-a">
 											<div class="ui-block-a">
 												<form action="?action=publish&method=delete" method="POST" data-ajax="false" >
@@ -128,7 +128,7 @@
 				if(!$_SESSION['user']->is_guest) : ?>
 	    		<div>
 	    			<!-- Publication reputation -->
-	    			<p style="display:inline; font-size:80%;">Publication rate:</p>
+	    			<p style="display:inline; font-size:80%;">Offer rate:</p>
 						<?php
 							// Disable reputation stars if there are no votes yet 
 							if($this->reputation["value_noOfRatings"] == '0') : ?> 
@@ -151,7 +151,7 @@
 		    			$date=strtotime(date('d-m-Y'));
 		    			$courseDate=strtotime($this->result->end);
 		    			if(($this->result->category=='Course' && $courseDate<$date) || $this->result->category!='Course'){ ?>	
-							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>
+							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate offer") ?></a>
 					 <? }
 				 	} ?>
 					<br/>
@@ -306,8 +306,9 @@
 										 				<input type="hidden" name="date" value="'+end+'" />\
 										 				<input type="hidden" name="text" value="'+text+'" />\
 										 				<input type="hidden" name="title" value="'+title+'" />\
-										 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />\
+										 				<input data-role="button" type="submit" data-icon="ok" data-theme="g" data-inline="true" value="<?= _('Send') ?>" />\
 										 			</form>');
+												$("#popupAccept").trigger("create");
 									 			$("#popupAccept").popup("open");
 											}
 
@@ -331,8 +332,9 @@
 										 				<input type="hidden" name="text" value="'+text+'" />\
 										 				<input type="hidden" name="title" value="'+title+'" />\
 										 				<input type="hidden" name="accepted" value="'+accepted+'" />\
-										 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />\
+										 				<input data-role="button" type="submit" data-icon="ok" data-theme="g" data-inline="true" value="<?= _('Send') ?>" />\
 										 			</form>');
+												$("#popupRefuse").trigger("create");
 									 			$("#popupRefuse").popup("open");
 											}
 										</script>

@@ -13,8 +13,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("<<<< TITLE >>>>") ?></h3>
-			<p><?= _("Here you can manage your subscriptions.")?></p>
+			<h3><?= _("Manage your subscriptions") ?></h3>
+			<p><?= _("Set up parameters of your subscriptions.")?></p>
 		</div>
 		<br />
 	</div>
@@ -52,7 +52,7 @@
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 							<div class="ui-block-a">
 								<input type="checkbox" name="organizationBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
-								<label for="check-view-a"><?= _("Organization")?></label>
+								<label for="check-view-a"><?= _("Organization to address")?></label>
 							</div>
 							<div class="ui-block-b">
 								<select disabled name="organization" id="find_organization_content" data-native-menu="false">
@@ -65,7 +65,8 @@
 						</div>
 						<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 							<div class="ui-block-a">
-								<input type="checkbox" onclick="toggle(this, '#find_locality_content')" name="localityBox" id="check-view-b"/> <label for="check-view-b"><?= _("Locality")?></label>
+								<input type="checkbox" onclick="toggle(this, '#find_locality_content')" name="localityBox" id="check-view-b"/> 
+								<label for="check-view-b"><?= _("Locality where have a look")?></label>
 							</div>
 							<div class="ui-block-b">
 								<select disabled name="locality" id="find_locality_content" data-native-menu="false">
@@ -79,11 +80,11 @@
 						<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 							<div class="ui-block-a">
 								<input type="checkbox" onclick="toggle(this, '#find_area_content')" name="areaBox" id="check-view-c"/> 
-								<label for="check-view-c"><?= _("Area")?></label>
+								<label for="check-view-c"><?= _("Topic")?></label>
 							</div>
 							<div class="ui-block-b">
 								<select disabled name="Area" id="find_area_content" data-native-menu="false">
-									<option value=""><?= _('Select area') ?></option>
+									<option value=""><?= _('Select topic') ?></option>
 										<? foreach (Categories::$areas as $k=>$v) :?>
 											<option value="<?= $k ?>"><?= $v ?></option>
 										<? endforeach ?>
@@ -158,25 +159,27 @@
 					//$("#deletePopup").html("ça marche");
 					//$("#deletePopup").html(eval('<a href="#" data-type="button" data-theme="g">hello</a>'));
 					$("#deletePopup").html("<?= _("Are you sure ?")?>"+'\
-							<div class="ui-grid-a">\
+						<div class="ui-grid-a">\
 							<div class="ui-block-a">\
-							 <form action="?action=myOpportunityManagement" method="POST" data-ajax="false">\
-							 <input type="hidden" name="removeSubscription" value="true" />\
-							 <input type="hidden" name="predicate" value="'+predicate+'"/>\
-							 <input type="hidden" name="publicationTitle" value="'+pubTitle+'"/>\
-							 <input type="submit" data-theme="g" data-inline="true" value="<?= _("Yes")?>" />\
-							</form>\
-							 <\div>\
-							 <div class="ui-block-b">\
-							 <form action="?action=myOpportunityManagement" method="POST" >\
-							 <input type="submit" data-theme="g" data-inline="true" value="<?= _("No")?>" />\
-							 </form>\
-							<\div><\div>');
+								<form action="?action=myOpportunityManagement" method="POST" data-ajax="false">\
+									<input type="hidden" name="removeSubscription" value="true" />\
+									<input type="hidden" name="predicate" value="'+predicate+'"/>\
+									<input type="hidden" name="publicationTitle" value="'+pubTitle+'"/>\
+									<input type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _("Yes")?>" />\
+								</form>\
+							</div>\
+							<div class="ui-block-b">\
+								<form action="?action=myOpportunityManagement" method="POST" >\
+							 		<input type="submit" data-theme="r" data-icon="delete" data-inline="true" value="<?= _("No")?>" />\
+							 	</form>\
+							</div>\
+						</div>');
+					$("#deletePopup").trigger("create");
 					$("#deletePopup").popup("open");
 				}
 			</script>
 			
-			<div data-role="popup" class="ui-content" id="deletePopup">
+			<div data-role="popup" class="ui-content" id="deletePopup" style="text-align:center">
 			ça ne marche pas ne soit pas dégouté
 			</div>
 			
@@ -184,6 +187,6 @@
 			<!-- Help popup -->
 			<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 				<a href="#" data-rel="back" data-role="button" data-theme="a"  data-iconpos="notext" class="ui-btn-right">Close</a>
-				<p> <?= _("Here you can create subscriptions by selecting different parameters related to Universities, Companies, Localities and Themes.") ?></p>
+				<p> <?= _("Set up parameters of your subscriptions.") ?></p>
 			</div>
 </div>

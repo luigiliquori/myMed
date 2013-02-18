@@ -77,26 +77,27 @@ class FindController extends AuthenticatedController{
 	 * @param unknown $applicationList
 	 */
 	private function getReputation($resultList) {
-		foreach($resultList as $item) :
-			
-		$request = new Request("ReputationRequestHandler", READ);
-		$request->addArgument("application",  APPLICATION_NAME);
-		$request->addArgument("producer",  $item->getPredicateStr().$item->publisherID);
-		$request->addArgument("consumer",  $_SESSION['user']->id);
-	
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-	
-		if (isset($responseObject->data->reputation)) {
-			$value =  json_decode($responseObject->data->reputation) * 100;
-		} else {
-			$value = 100;
-		}
-	
-		// Save reputation values
-		$this->reputationMap[$item->getPredicateStr().$item->publisherID] = $value;
-		$this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] = $responseObject->dataObject->reputation->noOfRatings;
-	
+		
+		foreach($resultList as $item) :	
+			$request = new Request("ReputationRequestHandler", READ);
+			$request->addArgument("application",  APPLICATION_NAME);
+			$request->addArgument("producer",  $item->getPredicateStr().$item->publisherID);
+			$request->addArgument("consumer",  $_SESSION['user']->id);
+		
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+		
+			if (isset($responseObject->data->reputation)) {
+				$value =  json_decode($responseObject->data->reputation) * 100;
+			} else {
+				$value = 100;
+			}
+			debug("from find view: ".$value);
+		
+			// Save reputation values
+			$this->reputationMap[$item->getPredicateStr().$item->publisherID] = $value;
+			$this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] = $responseObject->dataObject->reputation->noOfRatings;
+		
 		endforeach;
 	
 	}

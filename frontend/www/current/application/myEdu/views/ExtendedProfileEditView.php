@@ -10,9 +10,7 @@
 	<!-- Page header -->
 	<? $title = _("Edit Profile");
 
-	   print_header_bar(
-	   		'index.php?action=extendedProfile&method=show_user_profile&user='
-	   		.$_SESSION['user']->id.'', false, $title); ?>
+	   print_header_bar('index.php?action=extendedProfile&method=show_user_profile&user='.$_SESSION['user']->id.'', false, $title); ?>
 
 	   
 	<!-- Page content -->

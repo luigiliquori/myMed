@@ -25,15 +25,15 @@
 	<?php if ($_SESSION['user']->is_guest) { ?>
 			<!-- User not authenticated -->
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
-			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" data-ajax="false"><?=_("Sign in")?></a><br />
+			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connection")?></a><br />
 	<?php } ?>	
 	<?php if (!$_SESSION['user']->is_guest && !isset($_SESSION['myEdu'])) { ?>
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to create your extended profile to access all the menu options") ?></p>
 	<?php } ?>	
 		<a href="?action=myOpportunity&opportunities=true" data-icon="star" data-role="button" data-ajax="false" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My subscriptions") ?></a><br />	
-		<a href="index.php?action=publish&method=show_user_publications" data-icon="pencil" data-role="button" data-ajax="false"  <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEdu'])) ? " class='ui-disabled'" : "" ?>><?= _("My publications") ?></a><br />
-		<a href="?action=Find&search=true" data-role="button" data-icon="search"><?= _("Search publication") ?></a><br />
-		<a href="?action=MyCandidature&method=show_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEdu'])) ? " class='ui-disabled'" : "" ?>><?= _("My candidatures") ?></a><br />
+		<a href="index.php?action=publish&method=show_user_publications" data-icon="pencil" data-role="button" data-ajax="false"  <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEdu'])) ? " class='ui-disabled'" : "" ?>><?= _("My offers") ?></a><br />
+		<a href="?action=Find&search=true" data-role="button" data-icon="search"><?= _("Search offer") ?></a><br />
+		<a href="?action=MyCandidature&method=show_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEdu'])) ? " class='ui-disabled'" : "" ?>><?= _("My offer's applications") ?></a><br />
 		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
 
 		<a href="index.php#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
@@ -46,7 +46,7 @@
 				<?php if ($_SESSION['user']->is_guest) { ?>
 				<li>
 					<img alt="publish" src="img/icons/info.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("Sign in") ?></strong></p>
+						<p><strong><?= _("Connection") ?></strong></p>
 						<p><?= _("Enter your username and password to access the myEdu network.<br>You can access myEdu through other social networks, such as Facebook, Twitter, Google+....<br>If you do not have a login, you can create one.") ?></p>
 				</li>
 				<? } ?>
@@ -57,18 +57,18 @@
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/publish.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("My publications") ?></strong></p>
-						<p><?= _("See your publications.") ?></p>
+						<p><strong><?= _("My offers") ?></strong></p>
+						<p><?= _("See all your offers.") ?></p>
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/search.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("Search publication")?></strong></p>
-						<p><?= _("Search for a publication according to your criteria.") ?></p>
+						<p><strong><?= _("Search offer")?></strong></p>
+						<p><?= _("Search an offer according to your criteria.") ?></p>
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/publish.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("My candidatures")?></strong></p>
-						<p><?= _("See your candidatures.") ?></p>
+						<p><strong><?= _("My offer's applications")?></strong></p>
+						<p><?= _("Check all your offer's applications.") ?></p>
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/profile.png" Style="position:absolute; left:0px; width: 64px">

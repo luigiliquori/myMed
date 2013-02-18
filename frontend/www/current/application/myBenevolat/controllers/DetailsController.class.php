@@ -16,7 +16,10 @@ class DetailsController extends AuthenticatedController {
 		}
 		
 		$request = new Annonce();
+		if(isset($_POST['id']))
+			$_GET['id'] = $_POST['id'];
 		$request->id = $_GET['id'];
+		
 		$res = $request->find();
 		
 		// Should have only one result
@@ -25,21 +28,17 @@ class DetailsController extends AuthenticatedController {
 		}
 		
 		$annonce = $res[0];
-		
-		// Fetches the details
 		$annonce->getDetails();
+		$predicate = $annonce->getPredicateStr();
 		 
 		// Give this to the view
 		$this->result = $annonce;
 		
-		//$_SESSION['predicate'] = $annonce->getPredicateStr();
-		//$_SESSION['author'] = $annonce->publisherID;
-		
 		// get author reputation
 		$request = new Request("ReputationRequestHandler", READ);
 		$request->addArgument("application",  APPLICATION_NAME);
-		$request->addArgument("producer",  $this->result->publisherID);							
-		$request->addArgument("consumer",  $this->result->publisherID);
+		$request->addArgument("producer",  $annonce->publisherID);							
+		$request->addArgument("consumer",  $annonce->publisherID);
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
@@ -55,7 +54,7 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["author_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		// get publication reputation
-		$request->addArgument("producer",  $this->result->publisherID);	
+		$request->addArgument("producer",  $predicate.$annonce->publisherID);	
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
