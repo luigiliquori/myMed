@@ -4,7 +4,7 @@
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("NeedHelp"); ?></h1>
 		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#displayProfileHelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 	
 	<div data-role="content" data-theme="a">
@@ -85,7 +85,42 @@
 			<?php }?>
 		</div>
 		
+		<?php if ($_SESSION['ExtendedProfile']->diseaseLevel == '3') {?>
+		
+		<div data-role="collapsible"  data-content-theme="d">
+			<h3><?= _("AutoCall");?></h3>
+			
+				<div data-role="collapsible"  data-content-theme="d">
+					<h3><?= _("MyMemory_PerimeterHome"); ?></h3>
+					<p><?= _("MyMemory_CallThisNumber"); ?> : <strong><?= $_SESSION['ExtendedProfile']->callingListAutoCall['0']; ?></strong> <?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+							<?= $_SESSION['ExtendedProfile']->perimeter_home; ?> m.</p>
+				</div>
+				<div data-role="collapsible"  data-content-theme="d">
+					<h3><?= _("MyMemory_PerimeterNearby"); ?></h3>
+					<p><?= _("MyMemory_CallThisNumber"); ?> : <strong><?= $_SESSION['ExtendedProfile']->callingListAutoCall['1']; ?></strong> <?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+							<?= $_SESSION['ExtendedProfile']->perimeter_nearby; ?> m.</p>
+				</div>
+				<div data-role="collapsible"  data-content-theme="d">
+					<h3><?= _("MyMemory_PerimeterFar"); ?></h3>
+					<p><?= _("MyMemory_CallThisNumber"); ?> : <strong><?= $_SESSION['ExtendedProfile']->callingListAutoCall['2']; ?></strong> <?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+							<?= $_SESSION['ExtendedProfile']->perimeter_far; ?> m.</p>
+				</div>
+				<br />
+				<p><?= _("MyMemory_AutoCallFrequency"); ?> : <?= $_SESSION['ExtendedProfile']->autocall_frequency; ?> min.</p>
+		</div>
+		<?php }?>
+		
 		<a href="?action=ExtendedProfile&edit=false" data-role="button" data-rel="dialog" data-transition="pop" data-theme="b" data-icon="gear"><?= _("EditProfile"); ?></a>
+	</div>
+	
+	<!-- ------------------ -->
+	<!-- HELP POPUP -->
+	<!-- ------------------ -->
+	
+	<div data-role="popup" id="displayProfileHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<h3><?= _("How it works") ?></h3>
+		<?= _("MyMemory_DisplayProfileHelp"); ?>
 	</div>
 
 	
