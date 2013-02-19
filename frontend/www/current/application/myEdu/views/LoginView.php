@@ -5,7 +5,7 @@
 <div data-role="page" id="loginView" >
 
 	<!-- Header bar -->
-	<? $title = _("Sign in");
+	<? $title = _("Connect");
        print_header_bar("?action=main", false, $title); ?>
 	
 	<!-- Page content -->
@@ -17,8 +17,8 @@
 	
  		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Why Register ?") ?></h3>
-			<p><?= _("Creating an account in myEdu will allow you to submit new publications and to apply.") ?></p>
-			<p><?= _("Don't forget that you have the possibility to use your social network accounts to create your profile: see button")?> "<?= _("Sign in with") ?>"</p>
+			<p><?= _("By registering to myEdu you will be able to manage your subscriptions and your applications.") ?></p>
+			<p><?= _("Don't forget that you have the possibility to use your social network accounts to create your profile: see button")?> "<?= _("Connect with") ?>"</p>
 		</div>
 		
 		<form action="?action=login" method="post" data-ajax="false">
@@ -26,16 +26,16 @@
 			<!-- Sign in with an account -->
 			<div data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true">	
 				<div data-role="collapsible" data-collapsed="false">
-					<h3><?= _("Login") ?></h3>
+					<h3><?= _("Connection") ?></h3>
 					<input type="hidden" name="signin" value="1" />
-					<div style="text-align: left;"><?= _("Email")?><b>*</b> :</div>
+					<div style="text-align: left;"><?= _("E-mail")?><b>*</b> :</div>
 					<input type="text" name="login" id="login" data-theme="c"/>
 				    <div style="text-align: left;"><?= _("Password")?><b>*</b> :</div>
 				    <input type="password" name="password" id="password" data-inline="true"  data-theme="c"/>  
 				    <p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 				    <div data-role="controlgroup" data-type="horizontal">
-				 	    <input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Sign in") ?>" />
-						<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Sign in with") ?></a>
+				 	    <input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Connect") ?>" />
+						<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Connect with") ?></a>
 						<a href="#registerView" data-role="button" data-inline="true" data-mini="true" data-icon="pencil" data-iconpos="right"><?= _("Register") ?></a>	
 					</div>
 			    </div>

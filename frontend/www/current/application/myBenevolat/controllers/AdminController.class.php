@@ -42,6 +42,24 @@ class AdminController extends ExtendedProfileRequired {
 						UPDATE);
 		$publish->send();
 		
+		$title="";$content="";
+		if($_GET['perm']==1 && $_GET['promoted']=="true"){ // has been validated
+			$title = _("Your association has been validated");
+			$content = _("Your association has been validated. You can now publish announcement.");
+		}
+		else if($_GET['perm']==1 && $_GET['promoted']=="false"){ // has been passed to validated from admin
+			$title = _("Your association is no longer administrator");
+			$content = _("Your association is no longer administrator. Your admin rights have been removed.");
+		}else if($_GET['perm']==2){
+			$title = _("Your association has been promoted administrator");
+			$content = _("Your association has been promoted administrator. You are now fully-powered!");
+		}
+		
+		$email = $_GET['email'];
+		$mailman = new EmailNotification($email,$title,$content);
+		$mailman->send();
+		
+		
 		$this->forwardTo("admin");
 	}
 	
@@ -63,12 +81,16 @@ class AdminController extends ExtendedProfileRequired {
 		}
 	}
 	
-	/** Delete an association extended profile and its publication */
+	/** Delete an association extended profile and its announcements */
 	public function delete() {
 	
-		$this->deletePublications($_GET['id']);
+		$this->deleteAnnouncements($_GET['id']);
 		$this->deleteUser($_GET['id']);
 	
+		$email = $_GET['email'];
+		$mailman = new EmailNotification($email,_("Your association has been removed"),_("Your association has been removed."));
+		$mailman->send();
+		
 		$this->forwardTo("admin");
 	}
 	
@@ -122,19 +144,22 @@ class AdminController extends ExtendedProfileRequired {
 	}
 	
 	
-	/** Delete user's publications */
-	function deletePublications($id){
-	
-		$search_by_userid = new myBenevolatPublication();
+	/** Delete user's announcements and applies on them */
+	function deleteAnnouncements($id){
+		
+		$search_by_userid = new Annonce();
 		$search_by_userid->publisher = $id;
 		$result = $search_by_userid->find();
 	
-		foreach($result as $item) :
-		$item->delete();
+		foreach($result as $annonce) :
+			$search_applies_annonce = new Apply();
+			$search_applies_annonce->pred1 = 'apply&'.$annonce->getPredicateStr().'&'.$id;
+			$applies = $search_applies_annonce->find();
+			foreach($applies as $apply){
+				$apply->delete();
+			}
+			$annonce->delete();
 		endforeach;
-	
-		//$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 	}
-	
 }
 ?>

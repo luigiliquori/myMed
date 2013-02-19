@@ -5,7 +5,7 @@
 <div data-role="page" id ="mypublicationview">
 
 	<!-- Page header bar -->
-	<? $title = _("My publications");
+	<? $title = _("My offers");
 	   print_header_bar("?action=main", "helpPopup", $title); ?>
 	
 		
@@ -16,19 +16,19 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("<<<<< TITLE >>>>>") ?> ?</h3>
-			<p><?= _("Browse and create your publications here.")?></p>
+			<h3><?= _("Offers management") ?></h3>
+			<p><?= _("Check and create your offers.")?></p>
 		</div>
 		<br />
 	
 		<!-- New publication button -->
-		<a href="index.php?action=publish&method=new_publication" data-icon="pencil" data-role="button" ><?= _("New publication") ?></a><br />	
+		<a href="index.php?action=publish&method=new_publication" data-icon="pencil" data-role="button" ><?= _("New offer") ?></a><br />	
 		<br />
 		
 		<!-- List of user publications -->
 		<ul data-role="listview" >
 		
-			<li data-role="list-divider"><?= _("Results") ?></li>
+			<li data-role="list-divider"><?= _("Your offers") ?></li>
 			
 			<? if (count($this->result) == 0) :?>
 			<li>
@@ -43,10 +43,10 @@
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
-							<b><?= _("Area") ?></b>: <?= $item->area ?><br/>
-							<b><?= _("Category") ?></b>: <?= $item->category ?><br/>
-							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/>
-							<b><?= _("Organization") ?></b>: <?= $item->organization ?><br/><br/>
+							<b><?= _("Topic") ?></b>: <?= Categories::$areas[$item->area] ?><br/>
+							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
+							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
+							<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$item->organization] ?><br/><br/>
 							<b>Publisher ID:</b><?= $item->publisherID ?><br/> 
 							<!-- Project reputation-->	
 							<p style="display:inline; margin-left: 30px;" > <b><?= _("Reputation")?>:</b> </p>  
@@ -78,7 +78,7 @@
 		<!-- ----------------- -->
 		<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<p><?= _("Browse your publications or create a new one, by clicking on the 'New publication' button.")?></p>
+			<p><?= _("Display and create your offers by clicking on the button \"New offer\".")?></p>
 		</div>	
 	</div>
 	<!-- END Page content -->

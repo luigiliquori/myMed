@@ -55,49 +55,49 @@
 						</div>
 						<div class="ui-block-b">
 							<div data-role="controlgroup" data-type="horizontal" style="float: right;">
-								<a style="float:left" type="button" href="#popupAccept" data-rel="popup" data-theme="g" data-inline="true" data-mini="true"><?= _('Validate') ?></a>
-								<a style="float:right" type="button" href="#popupRefuse" data-rel="popup" data-theme="r" data-inline="true" data-mini="true"><?= _('Delete') ?></a>
+							<?  $competences = "";
+								if(gettype($item->competences)=="array") $competences = implode(ENUM_SEPARATOR, $item->competences);
+								else $competences = $item->competences; ?>
+								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->id ?>","<?= $item->begin ?>","<?= $item->promue ?>","<?= $item->end ?>","<?= $item->text ?>","<?= $item->title ?>", "<?= $competences ?>", "<?= $item->typeMission ?>", "<?= $item->quartier ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Valider') ?></a>		
+								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->getPredicateStr() ?>","<?= $item->publisher ?>","<?= $item->title ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Supprimer') ?></a>
 							</div>
 						</div>
-						
-						<div data-role="popup" id="popupAccept" class="ui-content" Style="text-align: center; width: 18em;">
-							<?= _("You can attach a message for the applier:") ?>
-							
-	 	    				<form action="?action=validation&method=accept" method="POST" data-ajax="false">
-	 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>
-				 				<input type="hidden" name="method" value="<?= _('Accept')?>" />
-				 				<input type="hidden" name="publisher" value="<?= $item->publisherID ?>" />
-				 				<input type="hidden" name="id" value="<?= $item->id ?>" />
-								<input type="hidden" name="begin" value="<?= $item->begin ?>" />
-								<input type="hidden" name="promue" value="<?= $item->promue ?>" />
-				 				<input type="hidden" name="date" value="<?= $item->end ?>" />
-				 				<input type="hidden" name="text" value="<?= $item->text ?>" />
-				 				<input type="hidden" name="title" value="<?= $item->title ?>" />
-				 			 <? if(gettype($item->competences)=="string"){ ?>
-				 					<input type="hidden" name="competences[]" value="<?= $item->competences ?>" />
-				 			 <? }else{ 
-				 			 		foreach($item->competences as $value){
-				 			 			echo '<input type="hidden" name="competences[]" value="'. $value. '">';
-				 			 		}
-				 			 	}?>	
-				 				<input type="hidden" name="mission" value="<?= $item->typeMission ?>" />
-				 				<input type="hidden" name="quartier" value="<?= $item->quartier ?>" />
-				 				
-								<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />
-				 			</form>
-						</div>
-					
-						<div data-role="popup" id="popupRefuse" class="ui-content" Style="text-align: center; width: 18em;">
-							<?= _("You can attach a message for the applier:") ?>
-							<form action="?action=validation&method=refuse" method="POST" data-ajax="false">
-								<textarea id="msgMail" name="msgMail" style="height: 120px;"></textarea><br>
-				 				<input type="hidden" name="method" value="<?= _('Refuse')?>" />
-				 				<input type="hidden" name="predicate" value="<?= $item->getPredicateStr() ?>" />
-								<input type="hidden" name="author" value="<?= $item->publisherID ?>" />
-				 				
-								<input data-role="button" type="submit" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Send') ?>" />
-					 		</form>
-						</div>
+						<script type="text/javascript">
+							function generate_accept_popup(publisher,id,begin,promue,end,text,title,competences,typeMission,quartier){
+								$("#popupAccept").html('<?= _("You can attach a message for the applier:") ?>\
+									<form action="?action=validation&method=accept" method="POST" data-ajax="false">\
+			 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
+										<input type="hidden" name="publisher" value="'+publisher+'" />\
+						 				<input type="hidden" name="id" value="'+id+'" />\
+										<input type="hidden" name="begin" value="'+begin+'" />\
+										<input type="hidden" name="promue" value="'+promue+'" />\
+						 				<input type="hidden" name="date" value="'+end+'" />\
+						 				<input type="hidden" name="text" value="'+text+'" />\
+						 				<input type="hidden" name="title" value="'+title+'" />\
+						 			 	<input type="hidden" name="competences" value="'+competences+'" />\
+						 				<input type="hidden" name="mission" value="'+typeMission+'" />\
+						 				<input type="hidden" name="quartier" value="'+quartier+'" />\
+						 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('Send') ?>" />\
+						 			</form>');
+								$("#popupAccept").trigger('create');
+					 			$("#popupAccept").popup("open");
+							}
+
+							function generate_refuse_popup(predicate,publisherID,title){
+								$("#popupRefuse").html('<?= _("You can attach a message for the applier:") ?>\
+									<form action="?action=validation&method=refuse" method="POST" data-ajax="false">\
+			 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
+						 				<input type="hidden" name="predicate" value="'+predicate+'" />\
+						 				<input type="hidden" name="author" value="'+publisherID+'" />\
+						 				<input type="hidden" name="title" value="'+title+'" />\
+						 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('Send') ?>" />\
+						 			</form>');
+								$("#popupRefuse").trigger('create');
+						 		$("#popupRefuse").popup("open");
+							}
+						</script>
+						<div data-role="popup" id="popupAccept" class="ui-content" Style="text-align: center; width: 18em;"></div>
+						<div data-role="popup" id="popupRefuse" class="ui-content" Style="text-align: center; width: 18em;"></div>
 					</div>
  				</li>
 			<? endforeach ?>

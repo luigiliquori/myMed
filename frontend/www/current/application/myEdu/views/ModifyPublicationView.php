@@ -5,7 +5,7 @@
 <div data-role="page" id="modifypublicationview">
 
 	<!-- Page header -->
-	<? $title = _("Modify publication");
+	<? $title = _("Modify offer");
 	print_header_bar("?action=details&predicate=".$_GET['predicate']."&author=".$_GET['author'], false, $title); ?>
 	
 	<!-- Page content -->
@@ -16,13 +16,13 @@
 			<div data-role="collapsible" data-collapsed="false">
 			
 			<br />	
-			<h3><?= _("Edit publication") ?></h3>
+			<h3><?= _("Edit offer") ?></h3>
 				<div>
 					<!-- TITLE -->
 					<h3><?= _("Title")?>: <?= $this->result->title ?> </h3>
 					<p style="position: relative; margin-left: 30px;">
-						<b><?= _('Date of expiration') ?></b>: <?= $this->result->end ?><br/><br/>
-						<b><?= _("Area") ?></b>: <?= $this->result->area ?><br/>
+						<b><?= _('Deadline') ?></b>: <?= $this->result->end ?><br/><br/>
+						<b><?= _("Topic") ?></b>: <?= $this->result->area ?><br/>
 						<b><?= _("Category") ?></b>: <?= $this->result->category ?><br/>
 						<b><?= _("Organization") ?></b>: <?= $this->result->organization ?><br/>
 						<b><?= _("Locality") ?></b>: <?= $this->result->locality ?><br/><br/>
@@ -63,7 +63,7 @@
 								<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
 								<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 								<input type="hidden" name="text" id="text"/>
-								<input type="submit" data-icon="check" data-theme="g" data-inline="true" value="<?= _('Modify publication') ?>" onclick="$('#text').val($('#projecttext').val());"/>
+								<input type="submit" data-icon="check" data-theme="g" data-inline="true" value="<?= _('Modify offer') ?>" onclick="$('#text').val($('#projecttext').val());"/>
 				 			</form>
 						<? } ?>		
 					</div>

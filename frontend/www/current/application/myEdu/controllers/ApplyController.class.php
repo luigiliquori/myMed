@@ -1,4 +1,7 @@
 <? 
+
+include("models/EmailNotification.class.php");
+
 class ApplyController extends AuthenticatedController {
 	
 	public function handleRequest() {
@@ -42,9 +45,9 @@ class ApplyController extends AuthenticatedController {
 			$obj->title = $_POST['title'];
 			$obj->publish();
 			
-			$mailman = new EmailNotification(substr($_POST['author'],6),_("Someone apply to your publication"),_("Someone apply to your publication ").$_POST['title']._(" please check on the web interface"));
+			$mailman = new EmailNotification(str_replace("MYMED_", "", $_POST['author']),_("Someone apply to your publication"),_("Someone apply to your publication ").$_POST['title']._(" please check on the web interface."));
 			$mailman->send();
-			$mailman2 = new EmailNotification(substr($_POST['publisher'],6),_("Your application is awaiting validation"),_("Your application to ").$_POST['title']._("is awaiting validation"));
+			$mailman2 = new EmailNotification(str_replace("MYMED_", "", $obj->publisher),_("Your application is awaiting validation"),_("Your application to ").$_POST['title']._(" is awaiting validation."));
 			$mailman2->send();
 		}
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
@@ -79,9 +82,10 @@ class ApplyController extends AuthenticatedController {
 			$obj->title = $_POST['title'];
 			$obj->publish();
 			
-			$msgMail = $_POST['msgMail'];
+			$msgMail = "";
+			if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the author: "').$_POST['msgMail'].'"';
 			
-			$mailman = new EmailNotification(substr($_POST['publisher'],6),_("Your application is accepted"),_("Your application to ").$_POST['title']._(" has been accepted")._('<br> Attached message: "').$msgMail.'"');
+			$mailman = new EmailNotification(str_replace("MYMED_", "", $_POST['publisher']),_("Your application is accepted"),_("Your application to ").$_POST['title']._(" has been accepted.").$msgMail);
 			$mailman->send();
 		}
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);
@@ -112,9 +116,10 @@ class ApplyController extends AuthenticatedController {
 		$obj->title = $_POST['title'];
 		$obj->delete();
 		
-		$msgMail = $_POST['msgMail'];
+		$msgMail = "";
+		if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the author: "').$_POST['msgMail'].'"';
 		
-		$mailman = new EmailNotification(substr($_POST['publisher'],6),_("Your apply is refused"),_("Your apply to ").$_POST['title']._("has been refused.")._('<br> Attached message: "').$msgMail.'"');
+		$mailman = new EmailNotification(str_replace("MYMED_", "", $_POST['publisher']),_("Your apply is refused"),_("Your apply to ").$_POST['title']._(" has been refused.").$msgMail);
 		$mailman->send();
 		
 		header("location: index.php?action=details&predicate=".$_SESSION['predicate']."&author=".$_SESSION['author']);

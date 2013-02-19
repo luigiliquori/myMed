@@ -20,11 +20,11 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Locality") ?></b>: <?= _($item->locality) ?><br/>
-							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
-							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
-							<b><?= _("Organization") ?></b>: <?= _($item->organization) ?><br/><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
+							<b><?= _("Topic") ?></b>: <?= Categories::$areas[$item->area] ?><br/>
+							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
+							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
+							<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$item->organization] ?><br/><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
 						<br/>
