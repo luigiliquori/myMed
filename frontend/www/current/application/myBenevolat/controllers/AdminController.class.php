@@ -8,18 +8,23 @@ class AdminController extends ExtendedProfileRequired {
 	/* Default method */
 	function defaultMethod() {
 		
-		// Search all myBenevolatUser
-		$find = new RequestJson( $this, 
-					array("application"=>APPLICATION_NAME.":users",
+		// Search for associations and admin 
+		$associations = $this->getProfiles('association');
+		$admins = $this->getProfiles('admin');
+		$results = array_merge($associations->results, $admins->results);
+		
+		
+		/*$find = new RequestJson( $this, 
+					array("application"=>APPLICATION_NAME.":profiles",
 						  "predicates"=>array()));
 		try{
 			$res = $find->send();
 		}
 		catch(Exception $e){
-		}
+		}*/
 			
 		$this->success = "";		
-		$this->users = $res->results;
+		$this->users = $results;
 		$this->blocked = array();
 		$this->normals = array();
 		$this->admins = array();
@@ -29,6 +34,23 @@ class AdminController extends ExtendedProfileRequired {
 		
 		$this->renderView("admin");
 	}
+	
+	
+	/* Search for a specific profile type */
+	function getProfiles($type) {
+		
+		$find = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":profiles:".$type,
+					  "predicates"=>array()));
+		try{
+			$res = $find->send();
+		}
+		catch(Exception $e){
+			// TODO handle errors here
+		}
+		return $res;
+	}
+	
 	
 	
 	/* Update Permission */
