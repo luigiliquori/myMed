@@ -14,7 +14,7 @@
 		<br>
 		<div data-role="collapsible" data-theme="d" data-collapsed="false" data-content-theme="d">
 			<p style='text-align:left'>
-				<?= _("<b>MyEdu</b> is an application that has the goal of improving communication between the university and students. <br/>Through myEdu, the university can publish ads on thesis, internships and job opportunities; while students can enjoy all this information through any device with a browser and an Internet connection.<br/>It is also possible to register for one or more topics of interest and receive in its own box email notifications from new content posted on the site.<br/>Soon will be possible to share teaching materials and tutor!") ?>
+				<?= _("<b>MyEdu</b> is an application that has the goal of improving communication between the university and students. <br/>Through myEdu, the university can publish ads on thesis, internships and job opportunities; while students can enjoy all this information through any device with a browser and an Internet connection.<br/>It is also possible to register for one or more topics of interest and receive in its own box email notifications from new content posted on the site.") ?>
 			</p>
 			<p>
 				<a href="http://www-sop.inria.fr/teams/lognet/MYMED/" target="_blank"><?= _("More informations") ?></a>

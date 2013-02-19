@@ -141,6 +141,11 @@
 					<!-- TEXT -->
 					<?= $this->result->text ?><br>
 					
+				 <? if($this->result->publisherID==$_SESSION['user']->id){
+				 		$this->search_validated_apply();
+						echo _("<p><b>Number of volunteers: </b>").count($this->validated_apply)."</p>";
+					} ?>
+					
 					<!-- CONTACT: volunteers can only see the association name, no contact by email/phone... -->			
 					<p><b><?= _("Association name")?></b> : 
 					<?
@@ -153,11 +158,11 @@
 					try {
 						$profile->details = $mapper->findById($profile);
 					} catch (Exception $e) {}
-					  
+					
 					if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association') || ($_SESSION['myBenevolat']->details['type'] == 'admin'))){
-						echo "<a href=?action=extendedProfile&method=show_user_profile&user=".$this->result->publisherID.">".$profile->details['associationname']."</a>";
-						 		
+						echo "<a href=?action=extendedProfile&method=show_user_profile&user=".$this->result->publisherID.">".$profile->details['associationname']."</a>";	
 						if($this->result->publisherID==$_SESSION['user']->id) echo " "._("(Yours)");
+					
 					}else{ // volunteer or guest
 						echo $profile->details['associationname'];
 					}?> 
@@ -185,7 +190,17 @@
 						 	} 
 						endif; ?>
 						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
-						 <? if ($this->result->publisherID != $_SESSION['user']->id) { ?>
+						 
+						 <?
+						 $date=strtotime(date(DATE_FORMAT));
+						 $expired=false;
+						 if(!empty($this->result->end)  && $this->result->end!="--"){
+						 	$expDate=strtotime($this->result->end);
+						 	if($expDate < $date){
+						 		$expired=true;
+						 	}
+						 } /* can rate the announcement if the user is not the author and if the date has expired  */
+						 if ($this->result->publisherID != $_SESSION['user']->id && ($expired==true || empty($this->result->end) || $this->result->end=="--")) { ?>
 								<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	
 						 <? } ?>
 						<br/>
