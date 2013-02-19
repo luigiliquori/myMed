@@ -9,7 +9,7 @@
 	<? require_once('Categories.class.php'); ?>  
   	
   	<!-- Page header -->
-  	<? $title = _("Create publication");	
+  	<? $title = _("Offer's creation");	
 	   print_header_bar("?action=publish&method=show_user_publications", "helpPopup", $title); ?>
 
 	<!-- Page content -->
@@ -27,18 +27,18 @@
 			<input type="hidden" id="date" name="date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-				<h3><?= _("<<<< TITLE >>>>") ?></h3>
-				<?= _("Create a new publication here.")?>
+				<h3><?= _("Offer's creation") ?></h3>
+				<?= _("Create your offer by filling all the mandadtory fields.")?>
 				</p>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Publish your project') ?> :</h3>
+				<h3><?= _('Publish your offer') ?> :</h3>
 				
 				<h3><?= _('Title') ?><b>*</b> : </h3>
 				<input id="textinputp3" class="postTitle" data-inline="true" name="title" value='' type="text" />
 				
-				<h3><?= _('Date of expiration')?><?if($_SESSION['myEdu']->details['role']=='professor') echo "<b>**</b>"?> :</h3> 
+				<h3><?= _('Deadline')?><?if($_SESSION['myEdu']->details['role']=='professor') echo "<b>**</b>"?> :</h3> 
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
 					<select id="publish_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
@@ -60,7 +60,7 @@
 					</select>
 				</fieldset>
 					
-				<h3><?= _('Enter a text description') ?><b>*</b> :</h3>
+				<h3><?= _('Description') ?><b>*</b> :</h3>
 				<textarea id="text" name="text"></textarea>
 				<script type="text/javascript">
 					// Init cle editor on pageinit
@@ -73,7 +73,7 @@
 				
 				<h3><?= _('Other criteria') ?> :</h3>
 					<select name="area" id="area" data-native-menu="false">
-					<option value=""> <?= _("Area")?><b>*</b></option>
+					<option value=""> <?= _("Topic")?><b>*</b></option>
 					<? foreach (Categories::$areas as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
@@ -106,13 +106,15 @@
 					<? endforeach ?>
 					</select>
 					<select name="organization" id="organization" data-native-menu="false">
-						<option value=""> <?= _("Organization")?><b>*</b></option>
+						<option value=""> <?= _("Institution")?><b>*</b></option>
 					<? foreach (Categories::$organizations as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
 					<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
-					<p><b>**</b>: <i><?= _("Mandatory if you publish a course")?></i></p>
+					<?if($_SESSION['myEdu']->details['role']=='professor'):?>
+						<p><b>**</b>: <i><?= _("Mandatory if you publish a course")?></i></p>
+					<?endif;?>
 			</div>
 			
 			<div style="text-align: center;">
@@ -128,7 +130,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<?= _("Fill out all of the parameters, such as title, expiration date, description, specialization, category, locality and company.")?> 
+		<?= _("Create your offer by filling all the mandadtory fields.")?> 
 	</div>
 	
 </div>

@@ -1,5 +1,7 @@
 <?php 
 
+include("models/EmailNotification.class.php");
+
 /**
  * Retrive the list of a user candidatures and render
  * MyCandidatureView 
@@ -44,10 +46,14 @@ class ValidationController extends AuthenticatedController {
 	
 	private function accept(){
 		$obj = new Annonce();
+		
 		$obj->publisher = $_POST['publisher'];
+		$obj->publisherID = $_POST['publisher'];
 		$obj->type = "annonce";
 		$obj->id = $_POST['id'];
-		$obj->competences = $_POST['competences'];	// array of competences
+		$competences = explode(ENUM_SEPARATOR, $_POST['competences']);
+		if (sizeof($competences) == 1) $competences = $competences[0];
+		$obj->competences = $competences;
 		$obj->typeMission = $_POST['mission'];
 		$obj->quartier = $_POST['quartier'];
 		$obj->begin = $_POST['begin'];
@@ -61,10 +67,18 @@ class ValidationController extends AuthenticatedController {
 		$level = 3;
 		$obj->publish($level);
 		
+		$msgMail = "";
+		if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the admin: "').$_POST['msgMail'].'"';
+		
+		$mailman = new EmailNotification(substr($_POST['publisher'],6),_("Your announcement is validated"),_("Your announcement ").$_POST['title']._(" has been validated.").$msgMail);
+		$mailman->send();
+		
 		$this->redirectTo("?action=Validation&method=show_all_validations");
 	}
 	
 	private function refuse(){
+		$this->delete_Applies();
+		
 		$predicate = $_POST['predicate'];
 		$author = $_POST['author'];
 		
@@ -73,7 +87,24 @@ class ValidationController extends AuthenticatedController {
 		$obj->getDetails();
 		
 		$obj->delete();
+		
+		$msgMail = "";
+		if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the admin: "').$_POST['msgMail'].'"';
+		
+		$mailman = new EmailNotification(substr($_POST['author'],6),_("Your announcement is refused"),_("Your announcement ").$_POST['title']._(" has been refused and therefore removed.").$msgMail);
+		$mailman->send();
+		
 		$this->redirectTo("?action=Validation&method=show_all_validations");
+	}
+	
+	function delete_Applies(){
+		$search_by_userid = new Apply();
+		$search_by_userid->pred1 = 'apply&'.$_POST['predicate'].'&'.$_POST['author'];
+		$result = $search_by_userid->find();
+	
+		foreach($result as $item) :
+			$item->delete();
+		endforeach;
 	}
 }
 

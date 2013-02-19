@@ -5,7 +5,7 @@
 <div data-role="page" id ="mycandidatureesview">
 
 	<!-- Page header bar -->
-	<? $title = _("My candidatures");
+	<? $title = _("My offer's applications");
 	   print_header_bar("?action=main", "helpPopup", $title); ?>
 	
 		
@@ -16,8 +16,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
-			<p><?= _("Here you can browse all your applications.")?></p>
+			<h3><?= _("My offer's applications") ?></h3>
+			<p><?= _("Check your applications and see whether you have been accepted.")?></p>
 		</div>
 		<br />
 	
@@ -58,7 +58,7 @@
 		<!-- ----------------- -->
 		<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<p><?= _("Browse your applications and see if you have been accepted.<br>You can click on each result to see the detail publication.")?></p>
+			<p><?= _("Check your applications and see whether you have been accepted.")?></p>
 		</div>	
 	</div>
 	<!-- END Page content -->

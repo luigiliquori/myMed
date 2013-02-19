@@ -43,7 +43,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("CreateProfile"); ?></h1>
 		<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete"><?= _('Exit') ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#createProfileStep1HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -85,6 +85,15 @@ function handleMSForm(e) {
 			
 			<input type="submit" name="submit1" data-theme="b" value="<?= _("Next"); ?>" />
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="createProfileStep1HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_CreateProfileStep1Help"); ?>
+		</div>
 	</div>
 </div>
 
@@ -93,7 +102,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("CreateProfile"); ?></h1>
 	 	<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete"><?= _('Exit') ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#createProfileStep2HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -133,6 +142,15 @@ function handleMSForm(e) {
 			</div>
 			<input type="submit" name="submit2" data-theme="b" value="<?= _("Next"); ?>" />
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="createProfileStep2HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_CreateProfileStep2Help"); ?>
+		</div>
 	</div>
 </div>
 
@@ -141,7 +159,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("CreateProfile"); ?></h1>
 	 	<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete"><?= _('Exit') ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#createProfileStep3HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -180,6 +198,15 @@ function handleMSForm(e) {
 			</div>
 			<input type="submit" name="submit3" data-theme="b" value="<?= _("Next"); ?>" />
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="createProfileStep3HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_CreateProfileStep3Help"); ?>
+		</div>
 	</div>
 </div>
 
@@ -188,7 +215,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("CreateProfile"); ?></h1>
 	 	<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete"><?= _('Exit') ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#createProfileStep4HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -251,6 +278,15 @@ function handleMSForm(e) {
 			</div>
 			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Next') ?>" data-theme="b"/>
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="createProfileStep4HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_CreateProfileStep4Help"); ?>
+		</div>
 	</div>
 </div>
 <div data-role="page" id="step5">
@@ -258,7 +294,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("CreateProfile"); ?></h1>
 	 	<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete"><?= _('Exit') ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#createProfileStep5HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -276,6 +312,15 @@ function handleMSForm(e) {
 
 			<input type="submit" name="submit5" data-theme="b" value="<?= _("Next"); ?>" />
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="createProfileStep5HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_CreateProfileStep5Help"); ?>
+		</div>
 	</div>
 </div>
 <div data-role="page" id="step6">
@@ -283,7 +328,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("CreateProfile"); ?></h1>
 		<a href="?action=logout" rel="external" data-role="button" data-theme="r" class="ui-btn-left" data-icon="delete"><?= _('Exit') ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#createProfileStep6HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -304,7 +349,7 @@ function handleMSForm(e) {
 						
 						<label for="AutoCall0"><?= _("MyMemory_CallThisNumber"); ?></label>
 						<input type="text" name="AutoCall0" name="AutoCall0" placeholder="06....." />
-						<label for="PerimeterHome" ><?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+						<label for="PerimeterHome" ><?= _("MyMemory_IfOutsidePerimeter"); ?> (m)</label>
 						<input type="range" name="PerimeterHome" id="PerimeterHome" value="100" min="20" max="200" />
 					</div>
 				</fieldset>
@@ -317,7 +362,7 @@ function handleMSForm(e) {
 						
 						<label for="AutoCall1"><?= _("MyMemory_CallThisNumber"); ?></label>
 						<input type="text" name="AutoCall1" name="AutoCall1" placeholder="06....." />
-						<label for="PerimeterNear" ><?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+						<label for="PerimeterNear" ><?= _("MyMemory_IfOutsidePerimeter"); ?> (m)</label>
 						<input type="range" name="PerimeterNear" id="PerimeterNear" value="250" min="100" max="700" />
 					</div>
 				</fieldset>
@@ -330,7 +375,7 @@ function handleMSForm(e) {
 						
 						<label for="AutoCall2"><?= _("MyMemory_CallThisNumber"); ?></label>
 						<input type="text" name="AutoCall2" name="AutoCall2" placeholder="06....." />
-						<label for="PerimeterFar" ><?= _("MyMemory_IfOutsidePerimeter"); ?></label>
+						<label for="PerimeterFar" ><?= _("MyMemory_IfOutsidePerimeter"); ?> (m)</label>
 						<input type="range" name="PerimeterFar" id="PerimeterFar" value="1000" min="500" max="2000" />
 					</div>
 				</fieldset>
@@ -351,5 +396,14 @@ function handleMSForm(e) {
 			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Save') ?>" data-theme="b"/>
 			
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="createProfileStep6HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_CreateProfileStep6Help"); ?>
+		</div>
 	</div>
 </div>

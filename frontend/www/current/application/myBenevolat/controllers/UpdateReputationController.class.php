@@ -14,35 +14,29 @@ class UpdateReputationController extends DetailsController {
 			$request = new Request("InteractionRequestHandler", UPDATE);
 			$request->addArgument("application",  APPLICATION_NAME);
 			if(isset($_POST['isData'])){
-				$request->addArgument("producer", $_SESSION['predicate'].$_SESSION['author']);
+				$request->addArgument("producer", $_POST['predicate'].$_POST['author']);
+
+
 			} else {
-				$request->addArgument("producer",  $_SESSION['author']);	
+				$request->addArgument("producer",  $_POST['author']);	
 			}				
 			$request->addArgument("consumer",  $_SESSION['user']->id);
 			$request->addArgument("start",  time());
 			$request->addArgument("end",  time());
-			$request->addArgument("predicate",  $_SESSION['predicate']);
+			$request->addArgument("predicate",  $_POST['predicate']);
 			$request->addArgument("feedback",  $_POST['reputation']/10);
 
-// 			try {
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-				
-				if($responseObject->status != 200) {
-					$this->error = $responseObject->description;
-				} else {
-					$this->success = _("Thank you for your contribution!");
-				}
-// 			} catch (Exception $e) {
-// 				$this->error = "Une erreur interne est survenue, veuillez réessayer plus tard...";
-// 			}
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			
+			if($responseObject->status != 200) {
+				$this->error = $responseObject->description;
+			} else {
+				$this->success = _("Thank you for your contribution!");
+			}
 		}	
-		
-		// Set the id in GET variables becouse the details controller use them 
-		$_GET['id'] = $_POST['id'];
-		parent::handleRequest();
-		
-	}
 
+		parent::handleRequest();
+	}
 }
 ?>
