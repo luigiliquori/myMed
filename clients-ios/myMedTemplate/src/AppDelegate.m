@@ -8,13 +8,15 @@
 
 #import "AppDelegate.h"
 
-#import "ViewController.h"
 #import "MyMedClient.h"
 #import "RemoteHtmlViewController.h"
 #import "CreditsViewController.h"
 #import "ChecklistViewController.h"
 #import "FirstScreenViewController.h"
 #import "conf.h"
+#import "TestFlight.h"
+#import "PagesViewController.h"
+#import "NavigationModel.h"
 
 @implementation AppDelegate
 
@@ -25,7 +27,6 @@
 {
     self.window = nil;
     self.tabBarController = nil;
-
     [super dealloc];
 }
 
@@ -34,6 +35,7 @@
     // To force the preloading of web data
     [MyMedClient GetInstance];
     
+
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -42,25 +44,13 @@
 #ifdef TESTING
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif
-    [TestFlight takeOff:@"9f666649-4b5d-40dc-98f5-e205270b2a7b"];
+    [TestFlight takeOff:@"7695892d-e163-4d6d-9c7f-e82721ebefee"];
 #endif
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 
     // Main
-    
-    UIViewController *vcMain;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        vcMain = [[[ViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil] autorelease];
-    } else {
-        vcMain = [[[ViewController alloc] initWithNibName:@"ViewController_iPad" bundle:nil] autorelease];
-    }
-    vcMain.title = NSLocalizedString(@"myEurope", nil);
-    UINavigationController *navMain = [[[UINavigationController alloc] initWithRootViewController:vcMain] autorelease];
-    navMain.navigationBar.tintColor = [UIColor colorWithRed:0.3 green:0.6 blue:0.85 alpha:1.0];
-    navMain.title = NSLocalizedString(@"Social Network", nil);
-    navMain.tabBarItem.image = [UIImage imageNamed:@"group"];
-    
+    UIColor *color = [UIColor colorWithRed:0.1 green:0.4 blue:0.65 alpha:1.0];
     
     NSString *xibName;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -70,15 +60,18 @@
     }
     
     FirstScreenViewController *firstVC = [[[FirstScreenViewController alloc] initWithNibName:xibName bundle:nil] autorelease];
-    firstVC.title = NSLocalizedString(@"myEurope", nil);
-    firstVC.tabBarItem.image = [UIImage imageNamed:@"icoeu"];
+    firstVC.tabBarItem.image = [UIImage imageNamed:@"gradhat"];
+    firstVC.title = NSLocalizedString(@"myEdu", nil);
+    UINavigationController *firstNav = [[[UINavigationController alloc] initWithRootViewController:firstVC] autorelease];
+    firstNav.navigationBar.tintColor = color;
+    firstNav.title = NSLocalizedString(@"myEdu", nil);
     
-    /*
+    
     RemoteHtmlViewController *mainVC = [[[RemoteHtmlViewController alloc] initWithNibName:@"RemoteHtmlViewController" bundle:nil] autorelease];
     mainVC.title = NSLocalizedString(@"Social Network", nil);
     mainVC.tabBarItem.image = [UIImage imageNamed:@"group"];
     mainVC.url = WEBAPP_URL;
-    */
+
     
     // Credits
     CreditsViewController *creditsVc = [[[CreditsViewController alloc] initWithNibName:@"CreditsViewController" bundle:nil] autorelease];
@@ -93,19 +86,26 @@
     helpVc.tabBarItem.image = [UIImage imageNamed:@"icohelp.png"];
     */
     
+    
     ChecklistViewController *checkVc=[[[ChecklistViewController alloc] initWithNibName:@"ChecklistViewController" bundle:nil] autorelease];
-    checkVc.title = NSLocalizedString(@"Checklist", nil);
+    checkVc.title = NSLocalizedString(@"To do", nil);
     checkVc.tabBarItem.image = [UIImage imageNamed:@"checkmark.png"];
     UINavigationController *checkNav = [[[UINavigationController alloc] initWithRootViewController:checkVc] autorelease];
-    checkNav.navigationBar.tintColor = [UIColor colorWithRed:0.1 green:0.4 blue:0.65 alpha:1.0];
-
+    checkNav.navigationBar.tintColor = color;
+    
+    
+    NavigationModel *navPages = [NavigationModel getInstance];
+    PagesViewController *pagesVc=[[[PagesViewController alloc] initWithNibName:@"PagesViewController" bundle:nil] autorelease];
+    navPages.mainPage.title = NSLocalizedString(@"Universities", nil);
+    pagesVc.page = [navPages mainPage];
+    UINavigationController *pagesNav = [[[UINavigationController alloc] initWithRootViewController:pagesVc] autorelease];
+    pagesNav.navigationBar.tintColor = color;
+    pagesNav.title = NSLocalizedString(@"Universities", nil);
+    pagesNav.tabBarItem.image = [UIImage imageNamed:@"univlist"];
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navMain, firstVC, checkNav, creditsVc,  nil];
-    self.tabBarController.tabBar.tintColor = [UIColor colorWithRed:0.1 green:0.4 blue:0.65 alpha:1.0];
-    if ([self.tabBarController respondsToSelector:@selector(restorationIdentifier)]) {
-        self.tabBarController.restorationIdentifier = @"tabbar";
-    }
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, checkNav, pagesNav, creditsVc,  nil];
+    self.tabBarController.tabBar.tintColor = color;
     self.window.rootViewController = self.tabBarController;
 
     
