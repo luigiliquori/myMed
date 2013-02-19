@@ -43,7 +43,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("EditProfile"); ?></h1>
 		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#editProfileStep1HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -85,6 +85,15 @@ function handleMSForm(e) {
 			
 			<input type="submit" name="submit1" data-theme="b" value="<?= _("Next"); ?>" />
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="editProfileStep1HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_EditProfileStep1Help"); ?>
+		</div>
 	</div>
 </div>
 
@@ -93,7 +102,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("EditProfile"); ?></h1>
 		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#editProfileStep2HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -133,6 +142,15 @@ function handleMSForm(e) {
 			</div>
 			<input type="submit" name="submit2" data-theme="b" value="<?= _("Next"); ?>" />
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="editProfileStep2HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_EditProfileStep2Help"); ?>
+		</div>
 	</div>
 </div>
 
@@ -141,7 +159,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("EditProfile"); ?></h1>
 		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#editProfileStep3HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -180,6 +198,15 @@ function handleMSForm(e) {
 			</div>
 			<input type="submit" name="submit3" data-theme="b" value="<?= _("Next"); ?>" />
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="editProfileStep3HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_EditProfileStep3Help"); ?>
+		</div>
 	</div>
 </div>
 
@@ -188,7 +215,7 @@ function handleMSForm(e) {
 	<div data-role="header" data-position="inline">
 	 	<h1><?= _("EditProfile"); ?></h1>
 		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
-	 	<a href="#" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info"><?= _("Help"); ?></a>
+		<a href="#editProfileStep4HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>
 
 	<div data-role="content" data-theme="a">
@@ -199,7 +226,7 @@ function handleMSForm(e) {
 		</div>
 	
 		<form  method="post" class="msform" data-ajax="false">
-			<input type="hidden" name="nextStep" value="?action=ExtendedProfile" />
+			<input type="hidden" name="nextStep" value="step5" />
 			<!-- CALLING LIST -->
 			
 			<?php 
@@ -274,7 +301,100 @@ function handleMSForm(e) {
 				
 			</div>
 			<input type="hidden" name="agreement" value="true" />
-			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Save') ?>" data-theme="b"/>
+			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Next') ?>" data-theme="b"/>
 		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="editProfileStep4HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_EditProfileStep4Help"); ?>
+		</div>
+	</div>
+</div>
+<div data-role="page" id="step5">
+	<!-- Header -->
+	<div data-role="header" data-position="inline">
+	 	<h1><?= _("EditProfile"); ?></h1>
+		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
+		<a href="#editProfileStep5HelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
+	</div>
+
+	<div data-role="content" data-theme="a">
+	
+	
+		<div class="description-box">
+		<?= _("MyMemory_EditProfileStep5Desc"); ?>
+		</div>
+	
+		<form  method="post" class="msform" data-ajax="false">
+			<input type="hidden" name="nextStep" value="?action=ExtendedProfile" />
+			
+			
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<div role="heading" class="ui-controlgroup-label"><?= _("MyMemory_PerimeterHome"); ?></div>
+					<div class="ui-controlgroup-controls">
+						
+						<label for="AutoCall0"><?= _("MyMemory_CallThisNumber"); ?></label>
+						<input type="text" name="AutoCall0" name="AutoCall0" placeholder="06....." value="<?= $_SESSION['ExtendedProfile']->callingListAutoCall['0']; ?>"/>
+						<label for="PerimeterHome" ><?= _("MyMemory_IfOutsidePerimeter"); ?> (m)</label>
+						<input type="range" name="PerimeterHome" id="PerimeterHome" value="<?= $_SESSION['ExtendedProfile']->perimeter_home; ?>" min="20" max="200" />
+					</div>
+				</fieldset>
+			</div>
+			<br />
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<div role="heading" class="ui-controlgroup-label"><?= _("MyMemory_PerimeterNear"); ?></div>
+					<div class="ui-controlgroup-controls">
+						
+						<label for="AutoCall1"><?= _("MyMemory_CallThisNumber"); ?></label>
+						<input type="text" name="AutoCall1" name="AutoCall1" placeholder="06....." value="<?= $_SESSION['ExtendedProfile']->callingListAutoCall['1']; ?>"/>
+						<label for="PerimeterNear" ><?= _("MyMemory_IfOutsidePerimeter"); ?> (m)</label>
+						<input type="range" name="PerimeterNear" id="PerimeterNear" value="<?= $_SESSION['ExtendedProfile']->perimeter_nearby; ?>" min="100" max="700" />
+					</div>
+				</fieldset>
+			</div>
+			<br />
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<div role="heading" class="ui-controlgroup-label"><?= _("MyMemory_PerimeterFar"); ?></div>
+					<div class="ui-controlgroup-controls">
+						
+						<label for="AutoCall2"><?= _("MyMemory_CallThisNumber"); ?></label>
+						<input type="text" name="AutoCall2" name="AutoCall2" placeholder="06....." value="<?= $_SESSION['ExtendedProfile']->callingListAutoCall['2']; ?>"/>
+						<label for="PerimeterFar" ><?= _("MyMemory_IfOutsidePerimeter"); ?> (m)</label>
+						<input type="range" name="PerimeterFar" id="PerimeterFar" value="<?= $_SESSION['ExtendedProfile']->perimeter_far; ?>" min="500" max="2000" />
+					</div>
+				</fieldset>
+			</div>
+			<br />
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup">
+					<div role="heading" class="ui-controlgroup-label"><?= _("MyMemory_AutoCallFrequency"); ?></div>
+					<div class="ui-controlgroup-controls">
+						
+						<label for="AutoCallInterval"><?= _("MyMemory_CheckEvery"); ?></label>
+						<input type="text" name="AutoCallInterval" name="AutoCallInterval" placeholder="20" value="<?= $_SESSION['ExtendedProfile']->autocall_frequency; ?>"/>
+					</div>
+				</fieldset>
+			</div>
+			
+
+			<input type="submit" data-role="button" id="submitButton"  value="<?= _('Save') ?>" data-theme="b"/>
+			
+		</form>
+		<!-- ------------------ -->
+		<!-- HELP POPUP -->
+		<!-- ------------------ -->
+		
+		<div data-role="popup" id="editProfileStep5HelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px; margin-top:50px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?></h3>
+			<?= _("MyMemory_EditProfileStep5Help"); ?>
+		</div>
 	</div>
 </div>
