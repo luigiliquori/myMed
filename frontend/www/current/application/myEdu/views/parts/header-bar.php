@@ -48,7 +48,7 @@ function print_header_bar($back_button = false, $idHelpPopup = "defaultHelpPopup
 	}
 	
 	// Print application title
-	$version_application_name = APPLICATION_NAME." v1.0 alpha";
+	$version_application_name = APPLICATION_NAME." v1.0 beta";
 	$title = empty($title) ? $version_application_name : $title;
 	echo '<h1>' .$title. '</h1>';
 	
