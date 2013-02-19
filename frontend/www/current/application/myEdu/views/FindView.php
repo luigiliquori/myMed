@@ -3,7 +3,7 @@
 
 <div id="findview" data-role="page">
 
-	<? $title = _("Search"); 
+	<? $title = _("Search offer"); 
 	   print_header_bar("?action=main", "findViewHelpPopup", $title); ?>
 
 	<div data-role="content">
@@ -15,12 +15,12 @@
 			<input type="hidden" id="find_locality" name="locality" value="" />
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-				<h3><?= _("<<<< TITLE >>>>")?></h3>
-				<?= _("Here you can search for an internship, a job, a course... with other criteria.")?>
+				<h3><?= _("Search offer")?></h3>
+				<?= _("View the last offers and search offers according to your criteria.")?>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Find a publication') ?> :</h3>
+				<h3><?= _('Find an offer by criteria') ?> :</h3>
 			
 	   			<fieldset data-role="controlgroup">
 					<!-- Categoria -->
@@ -39,7 +39,7 @@
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
 							<input type="checkbox" name="organizationBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
-							<label for="check-view-a"><?= _("Organization")?></label>
+							<label for="check-view-a"><?= _("Offering's organism")?></label>
 						</div>
 						<div class="ui-block-b">
 							<select disabled name="organization" id="find_organization_content" data-native-menu="false">
@@ -66,11 +66,11 @@
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
 							<input type="checkbox" onclick="toggle(this, '#find_area_content')" name="areaBox" id="check-view-c"/> 
-							<label for="check-view-c"><?= _("Area")?></label>
+							<label for="check-view-c"><?= _("Topic")?></label>
 						</div>
 						<div class="ui-block-b">
 							<select disabled name="Area" id="find_area_content" data-native-menu="false">
-								<option value=""><?= _('Select area') ?></option>
+								<option value=""><?= _('Select topic') ?></option>
 									<? foreach (Categories::$areas as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
 									<? endforeach ?>
@@ -100,7 +100,7 @@
 		</form>
 		
 		<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-			<h3><?= _('Last publications') ?> :</h3>
+			<h3><?= _('Last offers') ?> :</h3>
 			<ul data-role="listview" data-filter="true" >
 			<? foreach($this->result as $item) : ?>
 				<li>
@@ -109,11 +109,11 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Locality") ?></b>: <?= _($item->locality) ?><br/>
-							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
-							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
-							<b><?= _("Organization") ?></b>: <?= _($item->organization) ?><br/><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
+							<b><?= _("Topic") ?></b>: <?= Categories::$areas[$item->area] ?><br/>
+							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
+							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
+							<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$item->organization] ?><br/><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
 						<br/>
@@ -152,7 +152,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="findViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<p> <?= _("Search easily and accurately, according to the criteria you have defined.") ?></p>
+		<p> <?= _("View the last offers and search offers according to your criteria.") ?></p>
 	</div>
 	
 </div>

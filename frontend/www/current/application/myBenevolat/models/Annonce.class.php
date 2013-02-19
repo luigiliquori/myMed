@@ -30,7 +30,7 @@ class Annonce extends GenericDataBean {
 	
 	public function __construct($predicateStr = null){
 		parent::__construct(
-		
+			// predicatesDef
 			array(
 				"publisher" => KEYWORD,
 				"type"	=> KEYWORD,
@@ -42,68 +42,14 @@ class Annonce extends GenericDataBean {
 				"typeMission" => ENUM,
 				"quartier" => ENUM),
 		
-			// Data attributes
+			// dataDef
 			array("text" => TEXT, "validated" => TEXT),
 				
-			// Wrapped attributes
+			// wrapDef
 			array("promue", "begin", "end"),
 			
 			$predicateStr);
 		
 	}
-	
-	// ---------------------------------------------------------------------
-	// Helpers
-	// ---------------------------------------------------------------------
-	
-	/** Retrieve all candidatures */
-	public function getCandidatures() {
-		
-		// Build a query to get them all 
-		$candidatureQuery = new Candidature();
-		$candidatureQuery->annonceID = $this->id;
-		
-		// Find all 
-		$candidatures = $candidatureQuery->find();
-		
-		return $candidatures;
-	}
-	
-	/** Retrieve all candidatures */
-	public function getAssociation() {
-		return ExtendedProfileRequired::getExtendedProfile($this->associationID);
-		
-	}
-	
-	/** Is this event passed ? */
-	public function isPassed() {
-		
-		if (empty($this->end)) return false;
-		
-		// End date
-		$date = DateTime::createFromFormat(DATE_FORMAT, $this->end);
-		$today = new DateTime('today');
-		
-		return $today > $date;
-	}
-	
-	// ---------------------------------------------------------------------
-	// Overriden methods
-	// ---------------------------------------------------------------------
-	
-	/** Promue is false by default */
-/*	public function publish() {
-		// No "promue" ? => false by default
-		if ($this->promue == null) {
-			$this->promue = "false";
-		}
-		if ($this->validated == null) {
-			$this->validated = "false";
-		}
-		
-		parent::publish();
-	}
-	*/
-	
 }
 ?>

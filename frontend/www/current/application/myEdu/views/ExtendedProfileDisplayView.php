@@ -9,7 +9,7 @@
 <div data-role="page" id="extendedprofiledisplayview">
 
 	<!-- Header bar -->
-  	<? 	$title = _("Profile");
+  	<? 	$title = _("My profile");
   	  	// Check the previous usr for the back button, if it is a publication details
   	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
   	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
@@ -113,7 +113,7 @@
 		<div style="text-align: center;">
 			<br />
 			<!-- Edit profile-->
-			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="pencil" data-inline="true"><?= _('Edit my profile') ?></a>
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<!-- Pop up delete profile -->	
@@ -122,6 +122,9 @@
 				<a type="button" href="?action=ExtendedProfile&method=delete"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
 				<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
 			</div>
+			<!-- List of user subscriptions -->
+			<br />
+			<a type="button" href="?action=myOpportunityManagement" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("Manage subscriptions") ?></a>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 		<? endif; ?>
 	
@@ -131,7 +134,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<p> <?= _("You can modify your profile details such as your language, profile picture, phone number... by clicking on the 'Edit my profile' button.<br>'Delete my profile' button will delete your myEdu profile and all your publications, applications and comments.") ?></p>
+		<p> <?= _("You can customize your profile with e.g. language, photo, web page, work, telephone, affiliation by click on the \"Edit my profile\" button.<br>You can erase definitively your myEdu profile by click on the \"Delete my profile\" button.") ?></p>
 	</div>
 	
 	

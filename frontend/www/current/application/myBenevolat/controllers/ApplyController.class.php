@@ -1,4 +1,7 @@
 <? 
+
+include("models/EmailNotification.class.php");
+
 /**
  * Implements the apply publication mechanism 
  */
@@ -37,13 +40,15 @@ class ApplyController extends AuthenticatedController {
 		$obj->title = $_POST['title'];
 		
 		$obj->publish();
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
+		/*$niceBenevolat = "EMAIL NICE BEBEVOLAT";
 		
-		//$mailman = new EmailNotification(strtr($_POST['author'],"MYMED_", ""),_("Someone apply to your publication"),_("Someone apply to your publication ").$_POST['title']._(" please check on the web interface"));
-		//$mailman->send();
-		//$mailman2 = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your application is awaiting validation"),_("Your application to ").$_POST['title']._("is awaiting validation"));
-		//$mailman2->send();
-		
-		header("location: index.php?action=details&id=".$_POST['id']);
+		$mailman = new EmailNotification($niceBenevolat,_("Someone apply to an announcement"),_("Someone apply to the announcement ").$_POST['title']._(" please check on the web interface and accept/refuse the candidature."));
+		$mailman->send();
+		*/
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
+		$this->success = _("Your request has been sent. You must wait for its validation.");
+		$this->redirectTo("?action=Candidature&method=show_candidatures");
 	}
 	
 	
@@ -62,10 +67,17 @@ class ApplyController extends AuthenticatedController {
 		$obj->author = $_POST['author'];
 		$obj->accepted = 'accepted';
 		$obj->title = $_POST['title'];
+		
 		$obj->publish();
 		
-		//$mailman = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your application is accepted"),_("Your application to ").$_POST['title']._(" has been accepted"));
-		//$mailman->send();
+		$msgMail = "";
+		if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the author: "').$_POST['msgMail'].'"';
+		
+		$mailman = new EmailNotification(substr($_POST['publisher'],6),_("Your application is accepted"),_("Your application to ").$_POST['title']._(" has been accepted").$msgMail);
+		$mailman->send();
+		
+		$mailman2 = new EmailNotification(substr($_POST['author'],6),_("You have a new volunteer"),_("A volunteer has been accepted for your announcement ").$_POST['title']);
+		$mailman2->send();
 		
 		header("location: index.php?action=Candidature&method=show_all_candidatures");
 	}
@@ -77,7 +89,6 @@ class ApplyController extends AuthenticatedController {
 	function refuse() {
 		$obj = new Apply();
 		$obj->type = 'apply';
-		debug("APPLIER ".$_POST['publisher']." AUTHOR ".$_POST['author']);
 		$obj->publisherID = $_POST['publisher'];
 		$obj->publisher = $_POST['publisher'];
 		$obj->pred1=$_POST['pred1'];
@@ -88,24 +99,13 @@ class ApplyController extends AuthenticatedController {
 		$obj->title = $_POST['title'];
 		$obj->delete();
 		
-		//$mailman = new EmailNotification(strtr($_POST['publisher'],"MYMED_", ""),_("Your apply is refused"),_("Your apply to ").$_POST['title']._("has been refused"));
-		//$mailman->send();
+		$msgMail = "";
+		if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the author: "').$_POST['msgMail'].'"';
+		
+		$mailman = new EmailNotification(substr($_POST['publisher'],6),_("Your apply is refused"),_("Your apply to ").$_POST['title']._(" has been refused.").$msgMail);
+		$mailman->send();
 		
 		header("location: index.php?action=Candidature&method=show_all_candidatures");
-	}
-	
-	function update_nb_Appliers($newCurrentAppliers){
-		$obj = new myBenevolatPublication();
-		$obj->publisher = $_POST['author'];
-		$obj->area = $_POST['area'];
-		$obj->category = $_POST['category'];
-		$obj->organization = $_POST['organization'];
-		$obj->end 	= $_POST['date'];
-		$obj->title = $_POST['title'];
-		$obj->text 	= $_POST['text'];
-		$obj->maxappliers 	= $_POST['maxappliers'];
-		$obj->currentappliers = $newCurrentAppliers;
-		$obj->publish();
 	}
 }
 ?>

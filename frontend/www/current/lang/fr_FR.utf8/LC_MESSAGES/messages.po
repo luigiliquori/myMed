@@ -31,13 +31,17 @@ msgstr "Mot de passe"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:47
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:43
-msgid "Sign in"
+msgid "Connection"
 msgstr "Connexion"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:49
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:45
-msgid "Sign in with"
+msgid "Connect with"
 msgstr "Se connecter par"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:49
+msgid "Connect"
+msgstr "Connexion"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:104
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:100
@@ -67,7 +71,7 @@ msgstr "Envoyer"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:151
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:147
 msgid "about"
-msgstr "A propos"
+msgstr "a propos"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:156
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:152
@@ -76,7 +80,7 @@ msgstr "Plus d'informations"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:17
 msgid "First Name"
-msgstr "Prénom "
+msgstr "Prénom"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:20
 msgid "Last Name"
@@ -106,6 +110,18 @@ msgstr "Actualiser"
 msgid "Edit"
 msgstr "Modifier"
 
+msgid "My offer's applications"
+msgstr "Mes adhésions aux offres"
+
+msgid "Student name"
+msgstr "Nom de l'étudiant"
+
+msgid "waiting"
+msgstr "en attente"
+
+msgid "accepted"
+msgstr "accepté"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:27
 msgid "About you"
 msgstr "A propos de vous"
@@ -118,10 +134,6 @@ msgstr "Profil dans vos applications"
 msgid ""
 "You are using Internet Explorer, the interface is not optimized for it,\r\n"
 "\t\t\t\tplease download Chrome or Firefox for a better experience"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/StoreController.class.php:38
-msgid "Echec de sauvegarde "
 msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/ProfileController.class.php:27
@@ -143,10 +155,6 @@ msgstr "Mot de passe erroné"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/ProfileController.class.php:108
 msgid "Your profile has been successfully updated!"
 msgstr "Votre profil à été mis à jour avec succès"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/MainView.php:12
-msgid "Institution"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/ShowInstitutionCategoryView.php:34
 msgid "Sous catégories"
@@ -213,7 +221,7 @@ msgid "Date de naissance"
 msgstr "Date de naissance"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:19
-msgid "email"
+msgid "e-mail"
 msgstr "e-mail"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:22
@@ -238,11 +246,14 @@ msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionCategoryForm.php:7
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionCategoryForm.php:7
 msgid "Description courte"
 msgstr ""
+
+msgid "Institution"
+msgstr "Organisme offrant"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/footer.php:4
 msgid "Choisissez la langue"
@@ -260,9 +271,12 @@ msgstr ""
 msgid "a été supprimé"
 msgstr ""
 
+msgid "Manage your subscriptions"
+msgstr "Gestion souscriptions"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/LoginView.php:13
 msgid "Why Register ?"
-msgstr ""
+msgstr "Pourquoi s'enregistrer ?"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/LoginView.php:14
 msgid "MyMemoryWhyRegister"
@@ -592,7 +606,7 @@ msgstr "Adresse"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:43
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:50
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:83
-msgid "Email"
+msgid "E-mail"
 msgstr "E-mail"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:138
@@ -913,21 +927,9 @@ msgstr "Créer un compte"
 msgid "How to publish"
 msgstr "Comment publier"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:31
-msgid "<<<<< Some explanation goes here >>>>>"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:36
-msgid "Publish your project"
-msgstr "Publier votre projet"
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:38
 msgid "Title"
 msgstr "Titre"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:41
-msgid "Date de fin"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:44
 msgid "Day"
@@ -941,47 +943,9 @@ msgstr "Mois"
 msgid "Year"
 msgstr "Année"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:71
-msgid "Compétences requises (de 1 à 4)"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:77
-msgid "Informations pratiques"
-msgstr "Informations pratiques"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:80
-msgid "Quartier"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:86
-msgid "Type de mission"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:95
 msgid "Publish"
 msgstr "Publier"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:107
-#, fuzzy
-msgid "<<<<< Help text >>>>>"
-msgstr "Texte libre"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:11
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:39
-#, fuzzy
-msgid "My announcements"
-msgstr "Administration"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:24
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:23
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyCandidatureView.php:23
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllCandidaturesView.php:23
-msgid "<<<<< Little help >>>>>"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:25
-msgid "<<<<>>>>"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:30
 msgid "New announcement"
@@ -1308,21 +1272,7 @@ msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionView.php:33
 msgid "New subscription"
-msgstr "Nouvel abonnement"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionView.php:57
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:59
-msgid "Area"
-msgstr "Zone"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionView.php:58
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:37
-msgid "Category"
-msgstr "Catégorie"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionView.php:61
-msgid "Project reputation"
-msgstr "Réputation du projet"
+msgstr "Nouvelle souscription"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:11
 #, fuzzy
@@ -1449,19 +1399,11 @@ msgstr "Non"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:176
 msgid "Edit Profile and Subscripions"
-msgstr "Modifier profil et subscriptions"
+msgstr "Modifier profil et souscriptions"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:177
 msgid "Here you can modify your profile and list your active subscriptions."
 msgstr "Vous pouvez modifier ici votre profil et lister vos subscriptions actives."
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:11
-msgid "Manage subscriptions"
-msgstr "Gérer abonnements"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:23
-msgid "Little help"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:24
 msgid "Create your subscriptions. You will recive all the message releated to the keywords you specify. "
@@ -1471,32 +1413,13 @@ msgstr ""
 msgid "Add a new subscription"
 msgstr "Ajouter une nouvelle subscription"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:46
-msgid "Organization"
-msgstr "Organisme"
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:72
 msgid "Subscribe"
 msgstr "S'abonner"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:92
-#, fuzzy
-msgid "Subscription "
-msgstr "Nom de l'abonnement"
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:99
 msgid "Delete subscription"
 msgstr "Supprimer souscription"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:109
-#, fuzzy
-msgid "My Subscriptions Management  help"
-msgstr "Nom de l'abonnement"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionManagementView.php:110
-#, fuzzy
-msgid " Add and remove subscriptions."
-msgstr "Ajouter une nouvelle subscription"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/CreateProfileAssociationView.php:15
 msgid "Please fill in your personal info."
@@ -1525,10 +1448,6 @@ msgstr "Auteur"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/DetailsView.php:139
 msgid "Rate publication"
 msgstr "Evaluer la publication"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/DetailsView.php:143
-msgid "Do you like the project idea ?"
-msgstr "Aimez-vous cette idée de projet ?"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/DetailsView.php:150
 msgid "Assign a value from 1 (Poor idea) to 5 (Great idea!!)"
@@ -1822,6 +1741,9 @@ msgstr "Déposer une offre de partenariat"
 msgid "By topic"
 msgstr "Par thème"
 
+msgid "By registering to myEdu you will be able to manage your subscriptions and your applications."
+msgstr "L'enregistrement à myEdu vous permettra de gêrer vos souscriptions et vos adhésions."
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:39
 msgid "By phase"
 msgstr "Par phase"
@@ -1879,9 +1801,21 @@ msgstr "Italie"
 msgid "Other"
 msgstr "Autre"
 
+msgid "Browse your subscriptions or create a new one, by clicking on the \"Manage subscriptions\" button."
+msgstr "Visualisez vos souscriptions ou créez en de nouvelles en cliquant sur le bouton \"Gêrer souscriptions\"."
+
+msgid "Check your applications and see whether you have been accepted."
+msgstr "Consultez vos demandes d'adhésions et voyez si elles ont été acceptées."
+
+msgid "You can customize your profile with e.g. language, photo, web page, work, telephone, affiliation by click on the \"Edit my profile\" button.<br>You can erase definitively your myEdu profile by click on the \"Delete my profile\" button."
+msgstr "Vous pouvez customiser votre profil myEdu avec par exemple votre langue, photo, page web, profession, téléphone, affiliation, en cliquant sur le bouton \"Modifier mon profil\".<br>Vous pouvez supprimer définitivement votre profil myEdu en cliquant sur le bouton \"Supprimer mon profil\"."
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:179
 msgid "Category of searched partners"
 msgstr "Type de partenaire recherché"
+
+msgid "Set up parameters of your subscriptions that will allows to interact with the social network myEdu."
+msgstr "Réglez les paramètres de vos souscriptions qui vous permettront d'intéragir avec le réseau social myEdu."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:190
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:300
@@ -1903,6 +1837,10 @@ msgstr "Autres options"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:311
 msgid "Keywords"
 msgstr "Mots-clés"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:318
+msgid "Deadline"
+msgstr "Date d'expiration"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:320
 msgid "date in format year-month-day"
@@ -2321,13 +2259,53 @@ msgid "Don't forget that you have the possibility to use your social network acc
 msgstr "N'oubliez pas que vous avez la possiblilité d'utiliser vos comptes de réseaux sociaux pour créer votre profil: voir bouton"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:8
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:100
-msgid "Modify publication"
-msgstr "Modifier publication"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:95
+msgid "Modify offer"
+msgstr "Modifier offre"
+
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:19
-msgid "Edit publication"
-msgstr "Modifier publication"
+msgid "Edit offer"
+msgstr "Modifier offre"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:23
+msgid "Project reputation"
+msgstr "Réputation du projet"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:43
+msgid "Do you like the project idea ?"
+msgstr "Aimez-vous cette idée de projet ?"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:60
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:65
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:101
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:46
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:29
+msgid "Area"
+msgstr "Zone"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:61
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:26
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:100
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:47
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:28
+msgid "Category"
+msgstr "Catégorie"
+
+msgid "Locality where have a look"
+msgstr "Localité où chercher"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:62
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:39
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:102
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:49
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ResultsView.php:30
+msgid "Organization"
+msgstr "Organisme"
+
+msgid "Organization to address"
+msgstr "Organisme à qui on s'addresse"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:63
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityManagementView.php:70
@@ -2336,6 +2314,14 @@ msgstr "Modifier publication"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:48
 msgid "Locality"
 msgstr "Localité"
+
+msgid "Topic"
+msgstr "Sujet"
+
+msgid "Select topic"
+msgstr "Sélectionner sujet"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:110
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ModifyPublicationView.php:76
 msgid "Contact"
@@ -2349,18 +2335,9 @@ msgstr "Supprimer publication"
 msgid "<b>MyEdu</b> is an application that has the goal of improving communication between the university and students. <br/>Through myEdu, the university can publish ads on thesis, internships and job opportunities; while students can enjoy all this information through any device with a browser and an Internet connection.<br/>It is also possible to register for one or more topics of interest and receive in its own box email notifications from new content posted on the site.<br/>Soon will be possible to share teaching materials and tutor!"
 msgstr "<b>MyEdu</b> est une application qui a pour but d'améliorer la communication entre l'université et les étudiants. <br/>A travers myEdu, les universités peuvent publier des annonces relatives aux thèses, stages et opportunités de travail; tandis que les étudiants peuvent profiter de toutes ces informations à travers n'importe quel dispositif équipé d'un navigateur et d'une connexion Internet.<br/>Il est aussi possible de s'inscrire à un ou plusieurs sujets d’intérêt et recevoir dans sa propre boîte mail les notifications par rapport aux nouveaux contenus publiés sur le site.<br/>Bientôt sera aussi possible de partager du matériel didactique et donner des cours particuliers!"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityManagementView.php:18
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:18
-msgid "<<<< TITLE >>>>"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityManagementView.php:19
 msgid "Here you can manage your subscriptions."
 msgstr "Gérez tous vos abonnements ici."
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityManagementView.php:34
-msgid "Subscription name"
-msgstr "Nom de l'abonnement"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityManagementView.php:47
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:28
@@ -2398,31 +2375,31 @@ msgstr "Chercher une publication"
 msgid "Advanced research"
 msgstr "Recherche avancée"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:103
-msgid "Last publications"
-msgstr "Dernières publications"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:90
+msgid "Last offers"
+msgstr "Dernières offres"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:155
 msgid "Search easily and accurately, according to the criteria you have defined."
 msgstr "Recherchez simplement et avec précision des offres en fonction des critères que vous aurez sélectionné."
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:8
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:34
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:60
-msgid "My publications"
-msgstr "Mes publications"
+msgid "Do you like that offer?"
+msgstr "Aimez-vous cette offre?"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:19
-msgid "<<<<< TITLE >>>>>"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:20
 msgid "Browse and create your publications here."
 msgstr "Visualisez et créez vos publications ici."
 
+msgid "Offer's creation"
+msgstr "Création d'une offre"
+
+msgid "Your offers"
+msgstr "Vos offres"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:25
-msgid "New publication"
-msgstr "Nouvelle publication"
+msgid "New offer"
+msgstr "Nouvelle offre"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyPublicationView.php:81
 msgid "Browse your publications or create a new one, by clicking on the 'New publication' button."
@@ -2444,10 +2421,29 @@ msgstr "myEdu est un réseau social permettant la mise en relation entre les Uni
 msgid "You have to create your extended profile to access all the menu options"
 msgstr "Vous devez créer votre profil étendu pour accéder à toutes les options du menu"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:35
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:65
-msgid "Search publication"
-msgstr "Rechercher une publication"
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:28
+msgid "My opportunities"
+msgstr "Mes opportunités"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:29
+msgid "My offers"
+msgstr "Mes offres"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:30
+msgid "Search an offer"
+msgstr "Rechercher une offre"
+
+msgid "Search offer"
+msgstr "Recherche d'offres"
+
+msgid "Offering's organism"
+msgstr "Organisme offrant"
+
+msgid "Find an offer by criteria"
+msgstr "Chercher une offre par critères"
+
+msgid "View the last offers and search offers according to your criteria."
+msgstr "Visualisez les dernières offres et cherchez des offres selon vos critères."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:50
 msgid "Enter your username and password to access the myEdu network.<br>You can access myEdu through other social networks, such as Facebook, Twitter, Google+....<br>If you do not have a login, you can create one."
@@ -2477,9 +2473,16 @@ msgstr "Accédez à votre profil myMed et myEdu."
 msgid "Create publication"
 msgstr "Créer publication"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:31
-msgid "Create a new publication here."
-msgstr "Crééz une nouvelle publication ici."
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:36
+msgid "Publish your project"
+msgstr "Publier votre projet"
+
+msgid "Publish your offer"
+msgstr "Publier votre offre"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:40
+msgid "Publication title goes here"
+msgstr "Titre de la publication ici"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/NewPublicationView.php:63
 msgid "Enter a text description"
@@ -2530,15 +2533,6 @@ msgstr "Cours"
 msgid "Company type"
 msgstr "Type de l'entreprise"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/UpdateProfileView.php:32
-#, fuzzy
-msgid "Italien"
-msgstr "Italien"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/UpdateProfileView.php:33
-msgid "Anglais"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:13
 msgid "Create profile"
 msgstr "Création profil"
@@ -2579,21 +2573,22 @@ msgstr "Type de la compagnie"
 msgid "Siret"
 msgstr "Siret"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:132
-msgid "You can modify your profile details such as your language, profile picture, phone number... by clicking on the 'Edit my profile' button.<br>'Delete my profile' button will delete your myEdu profile and all your publications, applications and comments."
-msgstr "Vous pouvez modifier le détail de votre profil, comme votre langue, photo de profil, numéro de téléphone... en cliquant sur le bouton 'Modifier mon profil'.<br>Le bouton 'Supprimer mon profil' supprimera votre profil myEdu ainsi que toutes vos publications, candidatures et commentaires."
+msgid "Are you sure ?"
+msgstr "Etes-vous sûr ?"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityView.php:19
-msgid "<<<< TITLE >>>>>"
-msgstr ""
+msgid "Are you sure you want to delete this offer?"
+msgstr "Etes-vous sûr de vouloir supprimer cette offre?"
+
+msgid "Manage subscriptions"
+msgstr "Gérer souscriptions"
+
+msgid "Subscription name"
+msgstr "Nom de la souscription"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityView.php:20
 msgid "See the subscriptions which myEdu has found according to your criteria. You can also create new subscriptions, with different criteria."
 msgstr "Consultez les abonnements que myEdu a sélectionné selon les critères que vous avez fixé. Vous pouvez aussi créer de nouveaux abonnements avec d'autres critères."
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityView.php:42
-msgid "OK"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MyOpportunityView.php:107
 msgid "Here, you can browse the offers that myEdu has found according to your subscriptions criteria.<br>To create new subscriptions, click on the 'New Subscription' button."
@@ -2696,6 +2691,21 @@ msgstr "Emploi"
 msgid "Lecture note"
 msgstr "Note de cours"
 
+msgid "See all your offers."
+msgstr "Accédez à toutes vos offres."
+
+msgid "Search an offer according to your criteria."
+msgstr "Recherchez une offre selon vos critères."
+
+msgid "Check all your offer's applications."
+msgstr "Accédez a toutes vos adhésions."
+
+msgid "Set up parameters of your subscriptions."
+msgstr "Saisissez les paramètres de vos souscriptions."
+
+msgid "Offers management"
+msgstr "Gestion offres"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:35
 msgid "Course"
 msgstr "Cours"
@@ -2704,29 +2714,18 @@ msgstr "Cours"
 msgid "PHD Thesis"
 msgstr "Thèse"
 
+msgid "Create your offer by filling all the mandadtory fields."
+msgstr "Créez votre offre en remplissant tous les champs obligatoires."
+
+msgid "Display and create your offers by clicking on the button \"New offer\"."
+msgstr "Visualisez et créez vos offres en cliquant sur le bouton \"Nouvelle offre\"."
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:40
 msgid "Aix"
 msgstr ""
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:42
-msgid "Marseille"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:43
-msgid "Nice"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:44
-msgid "Novara"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:45
-msgid "Toulon"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:46
-msgid "Turin"
-msgstr ""
+msgid "Check and create your offers."
+msgstr "Vérifiez and créez vos offres."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:53
 msgid "Student"
@@ -2740,35 +2739,6 @@ msgstr "Professeur"
 msgid "Company"
 msgstr "Compagnie"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:59
-msgid "Amu"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:60
-#, fuzzy
-msgid "Companies"
-msgstr "Compagnie"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:61
-msgid "Polito"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:62
-msgid "Unice"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:63
-msgid "Unipo"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:64
-msgid "Unitln"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:65
-msgid "Unito"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:68
 msgid "Area field can't be empty"
 msgstr "Le champs zone doit être rempli"
@@ -2776,16 +2746,6 @@ msgstr "Le champs zone doit être rempli"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:72
 msgid "Category field can't be empty"
 msgstr "Le champs catégorie doit être rempli"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:76
-#, fuzzy
-msgid "Locality field can't be empty"
-msgstr "Le champs titre doit être rempli"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:80
-#, fuzzy
-msgid "Organization field can't be empty"
-msgstr "Le champs nom de l'organisation doit être rempli"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:83
 msgid "Specify a valid value for the maximum number of course appliers"
@@ -2818,11 +2778,6 @@ msgstr "Votre offre de partenariat a été publiée avec succès"
 msgid "You have to choose at least one parameter"
 msgstr ""
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/MyOpportunityManagementController.class.php:97
-#, fuzzy
-msgid "Subscription Deleted"
-msgstr "Nom de l'abonnement"
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ExtendedProfileController.php:71
 msgid "Please specify your category"
 msgstr "Veuillez spécifier votre catégorie"
@@ -2832,62 +2787,47 @@ msgid "You must accept the terms of use."
 msgstr "Vous devez accepter les conditions d'utilisation."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:45
-#, fuzzy
 msgid "Someone apply to your publication"
-msgstr "Accédez à toutes les publications que vous avez créées."
+msgstr "Quelqu'un a candidaté à votre publication"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:45
-#, fuzzy
-msgid "Someone apply to your publication "
-msgstr "Accédez à toutes les publications que vous avez créées."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:45
 msgid " please check on the web interface"
-msgstr ""
+msgstr " vérifiez sur l'interface web"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:47
-#, fuzzy
 msgid "Your application is awaiting validation"
-msgstr "Nouveaux utilisateurs en attente de validation"
+msgstr "Votre candidature est en attente de validation"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:47
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:84
-#, fuzzy
 msgid "Your application to "
-msgstr "Profil dans vos applications"
+msgstr "Votre candidature à "
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:47
-#, fuzzy
 msgid "is awaiting validation"
-msgstr "Nouveaux utilisateurs en attente de validation"
+msgstr "est en attente de validation"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:84
-#, fuzzy
 msgid "Your application is accepted"
-msgstr "Profil dans vos applications"
+msgstr "Votre candidature est acceptée"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:84
-#, fuzzy
 msgid " has been accepted"
-msgstr "accepté"
+msgstr " a été acceptée"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:84
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:117
 msgid "<br> Attached message: \""
-msgstr ""
+msgstr "<br> Message joint: \""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:117
 msgid "Your apply is refused"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:117
-#, fuzzy
-msgid "Your apply to "
-msgstr "Profil dans vos applications"
+msgstr "Votre candidature est refusée"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ApplyController.class.php:117
 msgid "has been refused."
-msgstr ""
+msgstr "a été refusée"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/LoginView.php:14
 msgid "Creating an account in myEurope will allow you to submit new projects and to participate in discussions in the topic \"Best Practices\"."
@@ -2932,12 +2872,6 @@ msgstr "Rédigez votre offre à l'aide de l'éditeur en ligne de myEurope. N'hes
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:114
 msgid "Free text"
 msgstr "Texte libre"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:35
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:127
-#, fuzzy
-msgid "Option"
-msgstr "optionnel"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/PublishView.php:36
 msgid "Example"
@@ -3244,10 +3178,6 @@ msgstr "Voici l'espace récapitulant l'ensemble de vos publications, ainsi que l
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplateExtended/views/MainView.php:24
 msgid "<b>myTemplateExtended</b> is an example myMed application. <br/> You can customize it or using it parts to develop your own application. <br/> "
 msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplateExtended/views/NewPublicationView.php:46
-msgid "Publication title goes here"
-msgstr "Titre de la publication ici"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myTemplateExtended/views/NewPublicationView.php:70
 #, fuzzy
@@ -3901,136 +3831,6 @@ msgstr ""
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:495
 msgid "Association validée"
 msgstr ""
-
-#~ msgid "Student name"
-#~ msgstr "Nom de l'étudiant"
-
-#~ msgid "waiting"
-#~ msgstr "en attente"
-
-#~ msgid "Manage opportunities"
-#~ msgstr "Gérer opportunités"
-
-#, fuzzy
-#~ msgid "A message"
-#~ msgstr "Message"
-
-#, fuzzy
-#~ msgid "More informations about myMed"
-#~ msgstr "Plus d'informations"
-
-#, fuzzy
-#~ msgid "My Publication"
-#~ msgstr "Modifier publication"
-
-#~ msgid "Few words "
-#~ msgstr "Mots-clés "
-
-#~ msgid "My opportunities"
-#~ msgstr "Mes opportunités"
-
-#~ msgid "Search a publication"
-#~ msgstr "Rechercher une publication"
-
-#~ msgid ""
-#~ "MyEdu is a network allowing the linking between students, associations "
-#~ "and companies (training, employment, etc.)."
-#~ msgstr ""
-#~ "MyEdu est un réseau permettant la mise en relation entre étudiants, "
-#~ "associations et entreprises (stage, emploi, etc.)."
-
-#~ msgid ""
-#~ "Here is the search page job or internship for student and employee or "
-#~ "trainee qualified for a business."
-#~ msgstr ""
-#~ "Voici la page de recherche d'emploi ou de stage pour étudiant et "
-#~ "d'employé ou de stagiaire qualifié pour une entreprise."
-
-#, fuzzy
-#~ msgid "MyEdu Profile Name"
-#~ msgstr "Modifier profil"
-
-#~ msgid "Opportunities list"
-#~ msgstr "Liste d'opportunités"
-
-#, fuzzy
-#~ msgid "Help title."
-#~ msgstr "Titre"
-
-#~ msgid "student"
-#~ msgstr "étudiant"
-
-#~ msgid "professor"
-#~ msgstr "professeur"
-
-#~ msgid "company"
-#~ msgstr "compagnie"
-
-#, fuzzy
-#~ msgid "Partners_search"
-#~ msgstr "Recherche de partenaires"
-
-#, fuzzy
-#~ msgid "Project_implementation"
-#~ msgstr "Mise en oeuvre du projet"
-
-#, fuzzy
-#~ msgid "Monitoring_and_evaluation"
-#~ msgstr "Suivi et évaluation"
-
-#, fuzzy
-#~ msgid "Education,_culture_and_sport"
-#~ msgstr "Education, culture et sport "
-
-#, fuzzy
-#~ msgid "Work_and_training"
-#~ msgstr "Emploi et formation professionnelle"
-
-#, fuzzy
-#~ msgid "Enterprises,_Research_and_Innovation"
-#~ msgstr "Entreprises, innovation "
-
-#, fuzzy
-#~ msgid "Transport,_Facilities_and_Zoning"
-#~ msgstr "Transports, insfrastructures, aménagement du territoire"
-
-#, fuzzy
-#~ msgid "Health_and_Consumer_Protection"
-#~ msgstr "Santé et protection des consommateurs"
-
-#, fuzzy
-#~ msgid "Social_Affairs"
-#~ msgstr "Affaires sociales"
-
-#~ msgid "Create a profile"
-#~ msgstr "Création d'un profil"
-
-#~ msgid "Fill your profile"
-#~ msgstr "Compléter votre profil"
-
-#~ msgid "Fields title and text can't be empty!"
-#~ msgstr "Les champs titre et texte doivent être remplis!"
-
-#~ msgid "Company visits"
-#~ msgstr "Visite d’entreprise"
-
-#~ msgid "ListProjects"
-#~ msgstr "Liste de mes projets"
-
-#~ msgid "Company name"
-#~ msgstr "Nom de l'entreprise"
-
-#~ msgid "Company address"
-#~ msgstr "Adresse de l'entreprise"
-
-#~ msgid "No results found"
-#~ msgstr "Pas de résultat trouvé"
-
-#~ msgid "Tittle"
-#~ msgstr "Titre"
-
-#~ msgid "Loss of identifiers?"
-#~ msgstr "Pertes d'identifiants?"
 
 #~ msgid "An email has been sent to you!"
 #~ msgstr "Un mail vient de vous être envoyé!"
