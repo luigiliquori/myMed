@@ -30,7 +30,7 @@
 			<div class="ui-block-a" style="float: left;">
 				<?php if(count($this->subscriptions_name)!=0):?>
 				<form action=?action=myOpportunity&opportunities=true method="POST" data-ajax="false"/>
-					<select name="Subscription_list" id="Subscription_list" data-inline="true" style="float: left;" onchange="this.form.submit();" data-native-menu="false">
+					<select name="Subscription_list" id="Subscription_list" data-inline="true" style="float: left;" onchange="this.form.submit();"> <!--  data-native-menu="false" -->
 						<?php foreach($this->subscriptions_name as $value):?>
 							<?php if($value == $this->actual_subscription_name):?>
 								<option selected value="<?= $value ?>"><?= $value ?></option>
