@@ -399,11 +399,18 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 					DELETE);
 		$publish->send();
 		
+		// Delete profiles:type applications
+		$publish =  new RequestJson($this,
+				array("application"=>APPLICATION_NAME.":profiles:".$_SESSION['myBenevolat']->profiletype,
+						"id"=>$id),
+				DELETE);
+		$publish->send();
+		
 		// Session myBenevolat is not still valid
 		unset($_SESSION['myBenevolat']);
 		
 		$this->success = "done";
-	
+		
 	}
 	
 	
