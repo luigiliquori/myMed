@@ -5,6 +5,9 @@
       location = "group:MyMedClient/MyMedClient.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:myMedTemplate/myMedTemplate.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:myConsolato/myConsolato.xcodeproj">
    </FileRef>
    <FileRef
