@@ -246,6 +246,8 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				// otherwise 0 (not validated association
 				$permission 
 					= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 0;
+				$type
+					= (in_array($_SESSION['user']->email, admins::$mails)) ? 'admin' : $type;
 				break;
 		}
 		
@@ -270,8 +272,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Create another application that identify the type of profile,
 		// to do quick searches
-		$type
-			= (in_array($_SESSION['user']->email, admins::$mails)) ? 'admin' : $type;
 		$publish = new RequestJson(
 				$this,
 				array("application"=>APPLICATION_NAME.":profiles:".$type,
