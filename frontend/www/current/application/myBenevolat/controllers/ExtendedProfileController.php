@@ -222,7 +222,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	public function delete() {
 		
-		$this->deletePublications($_SESSION['user']->id); 
+		$this->deleteAnnouncements($_SESSION['user']->id); 
 		$this->deleteUser($_SESSION['user']->id);
 		
 		// Redirect to main view
@@ -423,20 +423,22 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	
-	/** 
-	 * Delete user's publications 
-	 */
-	function deletePublications($id){
+	/** Delete user's announcements and applies on them */
+	function deleteAnnouncements($id){
 		
-		$search_by_userid = new myBenevolatPublication();
+		$search_by_userid = new Annonce();
 		$search_by_userid->publisher = $id;
 		$result = $search_by_userid->find();
-		
-		foreach($result as $item) :
-			$item->delete();
+	
+		foreach($result as $annonce) :
+			$search_applies_annonce = new Apply();
+			$search_applies_annonce->pred1 = 'apply&'.$annonce->getPredicateStr().'&'.$id;
+			$applies = $search_applies_annonce->find();
+			foreach($applies as $apply){
+				$apply->delete();
+			}
+			$annonce->delete();
 		endforeach;
-		
-		//$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 	}
 	
 	/**

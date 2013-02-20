@@ -7,19 +7,18 @@
 
 /* $_SESSION['appliName'] is (has to be) defined in the index.php of the current application for the redirection after log in with the social network */
 
-/* Start session and load lib */
 session_start();
 require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
 
 /* If the oauth_token is old redirect to the connect page. */
 if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['oauth_token']) {
-  $_SESSION['oauth_status'] = 'oldtoken';
-  header('Location: ./clearsessions.php');
+  	$_SESSION['oauth_status'] = 'oldtoken';
+  	header('Location: ./clearsessions.php');
 }
 
 /* Create TwitteroAuth object with app key/secret and token key/secret from default phase */
-$connection = new TwitterOAuth(Twitter_APP_KEY, Twitter_APP_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
 
 /* Request access tokens from twitter */
 $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
@@ -34,31 +33,29 @@ unset($_SESSION['oauth_token_secret']);
 /* If HTTP response is 200 continue otherwise send to connect page to retry */
 if (200 == $connection->http_code) {
   /* The user has been verified and the access tokens can be saved for future use */
-  $_SESSION['status'] = 'verified';
+	$_SESSION['status'] = 'verified';
+  	debug("connection verified");
   
+  	$access_token = $_SESSION['access_token'];
   
-  $access_token = $_SESSION['access_token'];
+  	/* Create a TwitterOauth object with consumer/user tokens. */
   
-  /* Create a TwitterOauth object with consumer/user tokens. */
-  
-  /* If method is set change API call made. Test is called by default. */
-  $content = $connection->get('account/verify_credentials');
-  
-  require_once ROOT.'lib/dasp/beans/MUserBean.class.php';
-  $_SESSION['user3'] =(array) $content;
-  $_SESSION['userFromExternalAuth'] = MUserBean::constructFromTwitterOAuth((array) $content);
+  	/* If method is set change API call made. Test is called by default. */
+  	$parameters = array();
+  	$parameters['authorization_header'] = "false";
 
-  header('Location: '.getTrustRoot().$_SESSION['appliName'].'?action=login');
-  /*?>
-  <pre>
-        <?php print_r($content); ?>
-        
-        <?php  print_r($_SESSION['user']); ?>
-  </pre>
-<?*/
-  
-  
+  	$content = $connection->get('account/verify_credentials', $parameters);
+  	$array_content = (array)$content;
+  	if(!isset($array_content["errors"])){
+	  	
+	  	require_once ROOT.'lib/dasp/beans/MUserBean.class.php';
+	  	$_SESSION['user3'] =(array) $content;
+	  	$_SESSION['userFromExternalAuth'] = MUserBean::constructFromTwitterOAuth((array) $content);
+	
+	  	header('Location: '.getTrustRoot().$_SESSION['appliName'].'?action=login');
+  	}else{
+  		echo 'Error';
+  	}
 } else {
   /* Save HTTP status for error dialog on connnect page.*/
-  
 }

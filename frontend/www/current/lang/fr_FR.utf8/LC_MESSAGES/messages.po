@@ -909,10 +909,6 @@ msgstr ""
 msgid "Add partnerships"
 msgstr "Ajouter des partenariats"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AdminView.php:73
-msgid "Manage associations"
-msgstr "Gérer abonnements"
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AdminView.php:74
 #, fuzzy
 msgid "Here you can change associations category. <br /> Categories are: 'Admin', 'Validated association' and 'Not validated association'."
