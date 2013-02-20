@@ -44,7 +44,7 @@
 #ifdef TESTING
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif
-    [TestFlight takeOff:@"7695892d-e163-4d6d-9c7f-e82721ebefee"];
+    [TestFlight takeOff:@"9b71b33e-afb3-4db9-bc1c-a3fd06ddb33e"];
 #endif
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

@@ -1,10 +1,7 @@
 <?php
 
 /**
- *
- * Enter description here ...
- * @author lvanni
- *
+ *  Update reputation controller
  */
 class UpdateReputationController extends DetailsController {
 	
@@ -12,11 +9,14 @@ class UpdateReputationController extends DetailsController {
 		
 		// update the reputation of the application
 		if(isset($_POST['reputation'])) {
+
 			// Get the reputation of the user in each the application
 			$request = new Request("InteractionRequestHandler", UPDATE);
 			$request->addArgument("application",  APPLICATION_NAME);
 			if(isset($_POST['isData'])){
 				$request->addArgument("producer", $_POST['predicate'].$_POST['author']);
+
+
 			} else {
 				$request->addArgument("producer",  $_POST['author']);	
 			}				
@@ -35,6 +35,7 @@ class UpdateReputationController extends DetailsController {
 				$this->success = _("Thank you for your contribution!");
 			}
 		}	
+
 		parent::handleRequest();
 	}
 }

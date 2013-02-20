@@ -1,0 +1,22 @@
+To use this template:
+
+ 1 - Copy and rename the directory
+ 2 - Open the project myMedTemplate in the new directory with XCode
+ 3 - Rename the project in XCode 
+ 4 - Eventually fix some inconsistency due to the renaming operation
+ 5 - Update the bundle Identifiers
+ 6 - Update the file conf.h with the preferences of the new instance:
+     * new base url
+     * new application name
+     * preferred modules
+     * ...
+ 7 - Update local information files in all languages
+     * first.html for the presentation screen
+     * data.xml for the navigation pages
+     * ...
+ 8 - Update the translation
+ 9 - Update the icons
+     * 1024x1024 for iTunes
+     * 57x57, 72x72, 114x114, 144x144 for iPhones and iPads
+10 - Eventually update the startup images (Default*.png)
+11 - Update the testflight traking library id (in AppDelegate.m)
