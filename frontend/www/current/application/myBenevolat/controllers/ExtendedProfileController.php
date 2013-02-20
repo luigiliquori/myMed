@@ -239,17 +239,20 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			
 			case 'volunteer':
 				$permission = 1;
+				break;
 			
 			case 'association':
 				// 2 if the assosiation is admin
 				// otherwise 0 (not validated association
 				$permission 
 					= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 0;
+				break;
 		}
 		
 			
 		$user = array(
 				'permission'=> $permission,
+				'name'=> $_SESSION['user']->name,
 				'email'=> $_SESSION['user']->email,
 				'profile'=> $profile,
 				"profiletype"=> $type,
@@ -263,6 +266,19 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 					"data"=>$user,  
 					"metadata"=>$user),
 					CREATE);
+		$publish->send();
+		
+		// Create another application that identify the type of profile,
+		// to do quick searches
+		$type
+			= (in_array($_SESSION['user']->email, admins::$mails)) ? 'admin' : $type;
+		$publish = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":profiles:".$type,
+					  "id"=>$_SESSION['user']->id,
+					  "data"=>$user,
+					  "metadata"=>$user),
+					  CREATE);
 		$publish->send();
 		
 		$publish = new RequestJson(
