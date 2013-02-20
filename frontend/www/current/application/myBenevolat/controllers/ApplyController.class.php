@@ -42,15 +42,29 @@ class ApplyController extends AuthenticatedController {
 		$obj->publish();
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*$admins;
-		foreach($admins as $a){
-			$mailman = new EmailNotification(substr($a->email,6),_("Someone apply to an announcement"),_("Someone apply to the announcement ").$_POST['title']._(" please check on the web interface."));
-			$mailman->send();
+		$admins = $this->getProfiles("admin");
+		if($admins!=null){
+			$res = $admins->results;
+			foreach($res as $admin){
+				$mailman = new EmailNotification($admin->email,_("Someone apply to an announcement"),_("Someone apply to the announcement ").$_POST['title']._(".<br>Please check on the web interface."));
+				$mailman->send();
+			}
 		}
-		*/
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
 		$this->success = _("Your request has been sent. You must wait for its validation.");
 		$this->redirectTo("?action=Candidature&method=show_candidatures");
+	}
+	
+	function getProfiles($type) {
+		$find = new RequestJson( $this,
+				array("application"=>APPLICATION_NAME.":profiles:".$type,
+						"predicates"=>array()));
+		try{
+			$res = $find->send();
+		}
+		catch(Exception $e){
+		}
+		return $res;
 	}
 	
 	
