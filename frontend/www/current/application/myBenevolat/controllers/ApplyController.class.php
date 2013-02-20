@@ -40,11 +40,13 @@ class ApplyController extends AuthenticatedController {
 		$obj->title = $_POST['title'];
 		
 		$obj->publish();
-		///////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*$niceBenevolat = "EMAIL NICE BEBEVOLAT";
 		
-		$mailman = new EmailNotification($niceBenevolat,_("Someone apply to an announcement"),_("Someone apply to the announcement ").$_POST['title']._(" please check on the web interface and accept/refuse the candidature."));
-		$mailman->send();
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
+		/*$admins;
+		foreach($admins as $a){
+			$mailman = new EmailNotification(substr($a->email,6),_("Someone apply to an announcement"),_("Someone apply to the announcement ").$_POST['title']._(" please check on the web interface."));
+			$mailman->send();
+		}
 		*/
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
 		$this->success = _("Your request has been sent. You must wait for its validation.");

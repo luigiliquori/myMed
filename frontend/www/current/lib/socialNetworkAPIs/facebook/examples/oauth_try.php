@@ -4,6 +4,8 @@ require_once "oauth-common.php";
 
 session_start();
 
+debug("try");
+
 $_SESSION['state'] = md5(uniqid(rand(), TRUE)); //CSRF protection
 $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=". Facebook_APP_ID 
 . "&redirect_uri=" . urlencode(getReturnTo()) 

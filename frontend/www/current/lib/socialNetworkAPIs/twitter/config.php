@@ -9,7 +9,7 @@ define('ROOT', dirname(__FILE__).'/../../../');
 
 require_once ROOT.'system/common/PhpConsole.php';
 PhpConsole::start();
-debug('boo');
+debug('config twitter');
 require_once(ROOT.'system/config.php');
 
 function getTrustRoot() {

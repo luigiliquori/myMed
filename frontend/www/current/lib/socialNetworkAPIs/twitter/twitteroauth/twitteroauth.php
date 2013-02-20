@@ -77,8 +77,12 @@ class TwitterOAuth {
     if (!empty($oauth_callback)) {
       $parameters['oauth_callback'] = $oauth_callback;
     } 
+    debug($this->requestTokenURL()." ".$parameters['oauth_callback']);
     $request = $this->oAuthRequest($this->requestTokenURL(), 'GET', $parameters);
     $token = OAuthUtil::parse_parameters($request);
+    debug($request);
+    foreach($token as $k=>$v)
+    	debug($k." ".$v);
     $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
     return $token;
   }
@@ -179,6 +183,7 @@ class TwitterOAuth {
     if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
       $url = "{$this->host}{$url}.{$this->format}";
     }
+    debug("consumer: ".$this->consumer." token: ".$this->token." method: ".$method." url: ".$url." ".$parameters);
     $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
     $request->sign_request($this->sha1_method, $this->consumer, $this->token);
     switch ($method) {

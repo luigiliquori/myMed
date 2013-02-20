@@ -452,6 +452,7 @@ class OAuthRequest {
       false
     );
     $signature = $this->build_signature($signature_method, $consumer, $token);
+    debug("signature: ".$signature);
     $this->set_parameter("oauth_signature", $signature, false);
   }
 

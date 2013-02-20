@@ -77,7 +77,7 @@
 						 			 	<input type="hidden" name="competences" value="'+competences+'" />\
 						 				<input type="hidden" name="mission" value="'+typeMission+'" />\
 						 				<input type="hidden" name="quartier" value="'+quartier+'" />\
-						 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('Send') ?>" />\
+						 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('OK') ?>" />\
 						 			</form>');
 								$("#popupAccept").trigger('create');
 					 			$("#popupAccept").popup("open");
@@ -90,7 +90,7 @@
 						 				<input type="hidden" name="predicate" value="'+predicate+'" />\
 						 				<input type="hidden" name="author" value="'+publisherID+'" />\
 						 				<input type="hidden" name="title" value="'+title+'" />\
-						 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('Send') ?>" />\
+						 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('OK') ?>" />\
 						 			</form>');
 								$("#popupRefuse").trigger('create');
 						 		$("#popupRefuse").popup("open");

@@ -111,7 +111,7 @@
 							 					<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr()?>" />
 							 					<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
 												<input type="hidden" name="title" value="<?=  $this->result->title?>" />
-							 					<input data-role="button" type="submit" data-theme="r" data-icon="ok" data-inline="true" value="<?= _('Delete') ?>" />
+							 					<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('OK') ?>" />
 							 				</form>
 									 <? }else{
 											echo _("Are you sure you want to delete this announcement?") ?>
