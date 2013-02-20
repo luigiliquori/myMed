@@ -9,7 +9,7 @@ define('ROOT', dirname(__FILE__).'/../../../');
 
 require_once ROOT.'system/common/PhpConsole.php';
 PhpConsole::start();
-debug('boo');
+debug('config twitter');
 require_once(ROOT.'system/config.php');
 
 function getTrustRoot() {
@@ -25,7 +25,7 @@ function getScheme() {
 	return $scheme;
 }
 
-define('CONSUMER_KEY', 'LQjBz4v6WQmXSvkrQKUirg');
-define('CONSUMER_SECRET', 'ijFWf1fTzjcYxCYvUcYqqKSGOpDzGE72N91cOV2KyCs');
+define('CONSUMER_KEY', 'bNiImVmOCf4wdNPjEIsgw');
+define('CONSUMER_SECRET', 't3WP9o1jQUg6eIfNR9asU8YG0pCzPTa6ccak5sDsVc');
 define('OAUTH_CALLBACK', sprintf("%s://%s%s/callback.php",
 			getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF'])));

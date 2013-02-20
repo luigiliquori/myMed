@@ -48,6 +48,9 @@
 			<a href="?action=Candidature&method=show_candidatures" data-role="button" data-icon="pencil"><?= _("My candidatures") ?></a><br />
 	<?  endif; ?>
 		
+	 <? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->permission == '2')): ?>
+	 		<a href="?action=Volunteer&method=show_all_volunteers" data-role="button" data-icon="pencil"><?= _("Volunteers list") ?></a><br />
+	 <? endif; ?>
 		
 		<!-- Profile view -->
 		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= isset($_SESSION['myBenevolat']) ? _("My profile") : _("Create a profile") ?></a><br />

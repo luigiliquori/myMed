@@ -101,7 +101,7 @@ class MUserBean {
 		}
 		if (isset($user['email'])){ // unfortunately  twitter doesn't give email
 			$user['id'] = "MYMED_".$user['email'];
-		} else if ($user['screen_name']){
+		} else if (isset($user['screen_name'])){
 			$user['id'] = $user['screen_name'];
 		}
 		$user['socialNetworkName'] = 'Twitter-OAuth';

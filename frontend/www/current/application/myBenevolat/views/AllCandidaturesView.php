@@ -64,7 +64,7 @@
 							 				<input type="hidden" name="id" value="'+idAnnonce+'" />\
 							 				<input type="hidden" name="author" value="'+author+'" />\
 							 				<input type="hidden" name="title" value="'+title+'" />\
-							 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('Send') ?>" />\
+							 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('OK') ?>" />\
 							 			</form>');
 									$("#popupAccept").trigger('create');
 						 			$("#popupAccept").popup("open");
@@ -81,7 +81,7 @@
 							 				<input type="hidden" name="author" value="'+author+'" />\
 							 				<input type="hidden" name="title" value="'+title+'" />\
 							 				<input type="hidden" name="accepted" value="'+accepted+'" />\
-							 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('Send') ?>" />\
+							 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('OK') ?>" />\
 							 			</form>');
 									$("#popupRefuse").trigger('create');
 							 		$("#popupRefuse").popup("open");

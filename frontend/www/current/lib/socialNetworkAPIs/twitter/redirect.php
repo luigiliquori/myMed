@@ -6,8 +6,10 @@ require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
 
 /* Build TwitterOAuth object with client credentials. */
-$connection = new TwitterOAuth(Twitter_APP_KEY, Twitter_APP_SECRET);
- 
+//$connection = new TwitterOAuth("DRRf2tOoQvsktXBO66kuTw", "Vd7hu2rvFiKb6NFwHVtmm0Ie4hOTvClf19RsfUNnQ8"); 232
+$connection = new TwitterOAuth("bNiImVmOCf4wdNPjEIsgw", "t3WP9o1jQUg6eIfNR9asU8YG0pCzPTa6ccak5sDsVc"); // master
+//$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET); // defined in twitter/config.php
+
 /* Get temporary credentials. */
 $request_token = $connection->getRequestToken(OAUTH_CALLBACK);
 

@@ -8,7 +8,7 @@ debug('catch');
 
 session_start();
 
-if(!isset($_GET["code"])) {
+if(!isset($_GET["code"])) { // code is sent by facebook in response
 	debug('failed');
 	
 } else {
