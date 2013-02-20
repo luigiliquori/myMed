@@ -50,11 +50,12 @@ class AdminController extends ExtendedProfileRequired {
 					  "predicates"=>array()));
 		try{
 			$res = $find->send();
+			return $res;
 		}
 		catch(Exception $e){
 			// TODO handle errors here
 		}
-		return $res;
+		return null;
 	}
 	
 	

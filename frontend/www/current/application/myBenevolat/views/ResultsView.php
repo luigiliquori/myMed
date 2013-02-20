@@ -30,17 +30,16 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _('Date of publication') ?></b>: <?= $item->begin ?><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
+							<b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
 							<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$item->typeMission] ?><br/>
-							<b><?= _("Quartier") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
-							<b><?= _("Competences") ?></b>: 
+							<b><?= _("Disctrict") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
+							<b><?= _("Skills") ?></b>: 
 						 <? if(gettype($item->competences)=="string"){ ?> <!-- only 1 skill -> string and not array -->
 								<?= Categories::$competences[$item->competences]?><br/><br/>
 						 <? }else{ ?>
 								<? foreach($item->competences as $competences): echo Categories::$competences[$competences]." , "; endforeach;?><br/><br/>
 						 <? } ?>
-						 	<b>Association ID:</b><?= $item->publisherID?><br/> 
 							
 							<!-- Project reputation-->	
 							<p style="display:inline; margin-left: 30px;" > <b><?= _("Reputation")?>:</b> </p>  

@@ -9,7 +9,7 @@
 
 	<!-- Page header bar -->
 	<? $title = _("My subscriptions");
-	   print_header_bar("?action=main", false, $title); ?>
+	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
 	
 		
 	<!-- Page content -->
@@ -20,8 +20,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("Litle help") ?> ?</h3>
-			<p><?= _("Here you can manage your subsciptions. You will recive all the message releated to the keywords you specify. ")?></p>
+			<h3><?= _("My subscriptions capsule title") ?> ?</h3>
+			<p><?= _("My subscriptions capsule text")?></p>
 		</div>
 		<br />
 		
@@ -87,6 +87,10 @@
 			
 	</div>
 	<!-- END Page content -->
-	
+		<!-- Help popup -->
+	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<p> <?= _("My subscriptions help text") ?></p>
+	</div>
 </div>
 <!-- END Page mySubscriptionView-->

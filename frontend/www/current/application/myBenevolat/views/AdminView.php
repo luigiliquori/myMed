@@ -12,11 +12,17 @@
 <div data-role="page" id="adminview">
 
 	<!-- Header bar-->
-  	<? $title = _("Manage assotiations ");
+  	<? $title = _("Manage associations ");
 	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
 	
 	<!-- Page content -->
 	<div data-role="content">
+		<!-- Collapsible description -->
+		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
+			<h3><?= _("Manage associations capsule title") ?></h3>
+			<p><?= _("Manage associations capsule text")?></p>
+		</div>
+
 		<br><br>
 		<input id="user_permission" name="permission" value="" type="hidden" />
 		<input id="user_id" name="id" value="" type="hidden" />

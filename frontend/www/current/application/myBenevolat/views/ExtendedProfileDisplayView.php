@@ -17,7 +17,7 @@
 
 
 	<!-- Header bar -->	
-  	<? 	$title = _("Profile");
+  	<? 	$title = _("My profile");
   	  	// Check the previous usr for the back button, if it is a publication details
   	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate") || 
   	  	   strpos($_SERVER['HTTP_REFERER'],"?action=admin"))
@@ -195,8 +195,8 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3><?= _("Edit Profile and Subscripions") ?></h3>
-		<p> <?= _("Here you can modify your profile and list your active subscriptions.") ?></p>
+		<h3><?= _("Display profile help title") ?></h3>
+		<p> <?= _("Display profile help text") ?></p>
 	</div>
 	
 	
