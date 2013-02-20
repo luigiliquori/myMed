@@ -25,7 +25,8 @@ function getScheme() {
 	return $scheme;
 }
 
-define('CONSUMER_KEY', 'bNiImVmOCf4wdNPjEIsgw');
-define('CONSUMER_SECRET', 't3WP9o1jQUg6eIfNR9asU8YG0pCzPTa6ccak5sDsVc');
+//define('CONSUMER_KEY', 'DRRf2tOoQvsktXBO66kuTw'); define('CONSUMER_SECRET', 'Vd7hu2rvFiKb6NFwHVtmm0Ie4hOTvClf19RsfUNnQ8'); // machine 231
+define('CONSUMER_KEY', 'bNiImVmOCf4wdNPjEIsgw'); define('CONSUMER_SECRET', 't3WP9o1jQUg6eIfNR9asU8YG0pCzPTa6ccak5sDsVc'); // machine master
+
 define('OAUTH_CALLBACK', sprintf("%s://%s%s/callback.php",
 			getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF'])));

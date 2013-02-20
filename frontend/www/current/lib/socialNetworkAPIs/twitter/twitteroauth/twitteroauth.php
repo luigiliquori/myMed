@@ -182,6 +182,7 @@ class TwitterOAuth {
     if (strrpos($url, 'https://') !== 0 && strrpos($url, 'http://') !== 0) {
       $url = "{$this->host}{$url}.{$this->format}";
     }
+    debug("URL: ".$url);
 
     $request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
     $request->sign_request($this->sha1_method, $this->consumer, $this->token);
@@ -230,6 +231,7 @@ class TwitterOAuth {
     $this->http_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
     $this->http_info = array_merge($this->http_info, curl_getinfo($ci));
     $this->url = $url;
+    debug("url in http: ".$url);
     curl_close ($ci);
     return $response;
   }
