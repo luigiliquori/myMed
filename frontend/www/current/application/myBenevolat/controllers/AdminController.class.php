@@ -11,7 +11,13 @@ class AdminController extends ExtendedProfileRequired {
 		// Search for associations and admin 
 		$associations = $this->getProfiles('association');
 		$admins = $this->getProfiles('admin');
-		$results = array_merge($associations->results, $admins->results);
+		
+		if(isset($associations->results) && isset($admins->results))
+			$results = array_merge($associations->results, $admins->results);
+		elseif(isset($associations->results))
+			$results = $associations->results;
+		elseif(isset($admins->results))
+			$results = $admins->results;
 		
 		
 		/*$find = new RequestJson( $this, 
@@ -63,16 +69,71 @@ class AdminController extends ExtendedProfileRequired {
 						"metadata"=>array("permission" => $_GET['perm'])),
 						UPDATE);
 		$publish->send();
-		
+				
 		$title="";$content="";
 		if($_GET['perm']==1 && $_GET['promoted']=="true"){ // has been validated
+			
+			// Update permissions
+			$publish =  new RequestJson($this,
+							array("application"=>APPLICATION_NAME.":profiles:".$_GET['profiletype'],
+							"id"=>$_GET['id'],
+							"data"=>array("permission" => $_GET['perm'], "profiletype" => $_GET['profiletype']),
+							"metadata"=>array("permission" => $_GET['perm'], "profiletype" => $_GET['profiletype'])),
+							UPDATE);
+			$publish->send();
+			
 			$title = _("Your association has been validated");
 			$content = _("Your association has been validated. You can now publish announcement.");
 		}
 		else if($_GET['perm']==1 && $_GET['promoted']=="false"){ // has been passed to validated from admin
+			
+			// Remove from admin 
+			$publish =  new RequestJson($this,
+							array("application"=>APPLICATION_NAME.":profiles:admin",
+							"id"=>$_GET['id']),
+							DELETE);
+			$publish->send();
+			
+			// Add to associations
+			$user = array(
+					'permission'=> $_GET['perm'],
+					'name'=> $_GET['name'],
+					'email'=> $_GET['email'],
+					"profiletype"=> "association",
+			);
+			$publish =  new RequestJson($this,
+							array("application"=>APPLICATION_NAME.":profiles:association",
+							"id"=>$_GET['id'],
+							"data"=>$user,
+							"metadata"=>$user),
+							CREATE);
+			$publish->send();
+			
 			$title = _("Your association is no longer administrator");
 			$content = _("Your association is no longer administrator. Your admin rights have been removed.");
-		}else if($_GET['perm']==2){
+		}else if($_GET['perm']==2) {
+			
+			// Remove from associations
+			$publish =  new RequestJson($this,
+							array("application"=>APPLICATION_NAME.":profiles:association",
+							"id"=>$_GET['id']),
+							DELETE);
+			$publish->send();
+			// Add to admins
+			$user = array(
+					'permission'=> $_GET['perm'],
+					'name'=> $_GET['name'],
+					'email'=> $_GET['email'],
+					"profiletype"=> "admin",
+			);
+			$publish =  new RequestJson($this,
+							array("application"=>APPLICATION_NAME.":profiles:admin",
+							"id"=>$_GET['id'],
+							"data"=>$user,
+							"metadata"=>$user),
+							CREATE);
+			$publish->send();
+			
 			$title = _("Your association has been promoted administrator");
 			$content = _("Your association has been promoted administrator. You are now fully-powered!");
 		}
@@ -89,8 +150,9 @@ class AdminController extends ExtendedProfileRequired {
 	public function userFilter($var) {
 		
 		//$var->id = filter_var($var->id, FILTER_SANITIZE_EMAIL);
-		if ( isset($var->id) && isset($var->profiletype) && #
-			 ($var->profiletype=='association')) {
+		if (isset($var->id) && isset($var->profiletype) && #
+			($var->profiletype=='association' || 
+			 $var->profiletype=='admin')) {
 			
 			// Filter association basing on permissions
 			if ($var->permission < 1){
@@ -144,9 +206,14 @@ class AdminController extends ExtendedProfileRequired {
 				DELETE);
 		$publish->send();
 	
-		// Session myBenevolat is not still valid
-		unset($_SESSION['myBenevolat']);
-	
+		// Delete profiles:type application
+		// Remove from admin
+		$publish =  new RequestJson($this,
+				array("application"=>APPLICATION_NAME.":profiles:".$_GET['profiletype'],
+						"id"=>$_GET['id']),
+				DELETE);
+		$publish->send();
+		
 		$this->success = "done";
 	
 	}
