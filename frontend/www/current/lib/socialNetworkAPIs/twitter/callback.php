@@ -18,7 +18,7 @@ if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['o
 }
 
 /* Create TwitteroAuth object with app key/secret and token key/secret from default phase */
-$connection = new TwitterOAuth(Twitter_APP_KEY, Twitter_APP_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
 
 /* Request access tokens from twitter */
 $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
@@ -34,14 +34,17 @@ unset($_SESSION['oauth_token_secret']);
 if (200 == $connection->http_code) {
   /* The user has been verified and the access tokens can be saved for future use */
 	$_SESSION['status'] = 'verified';
-  
+  	debug("connection verified");
   
   	$access_token = $_SESSION['access_token'];
   
   	/* Create a TwitterOauth object with consumer/user tokens. */
   
   	/* If method is set change API call made. Test is called by default. */
-  	$content = $connection->get('account/verify_credentials');
+  	$parameters = array();
+  	$parameters['authorization_header'] = "false";
+
+  	$content = $connection->get('account/verify_credentials', $parameters);
   	$array_content = (array)$content;
   	if(!isset($array_content["errors"])){
 	  	
@@ -51,18 +54,8 @@ if (200 == $connection->http_code) {
 	
 	  	header('Location: '.getTrustRoot().$_SESSION['appliName'].'?action=login');
   	}else{
-  		echo 'Error of authentification';
+  		echo 'Error';
   	}
-	  	/*?>
-  	<pre>
-        <?php print_r($content); ?>
-        
-        <?php  print_r($_SESSION['user']); ?>
-  	</pre>
-	<?*/
-  
-  
 } else {
   /* Save HTTP status for error dialog on connnect page.*/
-  
 }
