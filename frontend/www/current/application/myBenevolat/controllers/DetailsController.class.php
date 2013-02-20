@@ -81,6 +81,15 @@ class DetailsController extends AuthenticatedController {
 		$this->result_apply = $search_applies->find();
 	}
 	
+	public function search_validated_apply(){
+		$this->validated_apply = array();
+		foreach($this->result_apply as $apply){
+			if($apply->accepted=="accepted"){
+				array_push($this->validated_apply, $apply);
+			}
+		}
+	}
+	
 	private function fillObjApply($obj) {
 		$obj->pred1 = 'apply&'.$this->result->getPredicateStr().'&'.$this->result->publisherID;
 	}
