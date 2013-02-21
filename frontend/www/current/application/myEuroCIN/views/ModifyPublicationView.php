@@ -87,7 +87,8 @@
 						<form action="?action=publish&method=update" method="POST" data-ajax="false" >
 							<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
-							<input type="hidden" name="end" value="<?= $this->result->end  ?>" />
+							<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
+							<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
 							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
 							<input type="hidden" name="language" value="<?= $this->result->language ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
@@ -102,12 +103,15 @@
 						<form action="?action=publish&method=delete" method="POST" data-ajax="false">
 							<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
-							<input type="hidden" name="end" value="<?= $this->result->end  ?>" />
+							<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
+							<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
 							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
 							<input type="hidden" name="language" value="<?= $this->result->language ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+							<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />
 							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="text" id="text"/>
+							<input type="hidden" name="validated" id="validated" value="<?= $this->result->validated ?>"/>
 							<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 							<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
 							<input type="submit" data-icon="delete" data-theme="r" data-inline="true" data-mini="true" value="<?= _('Delete publication') ?>" />

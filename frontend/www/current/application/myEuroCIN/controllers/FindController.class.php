@@ -7,26 +7,26 @@ class FindController extends AuthenticatedController{
 		parent::handleRequest();
 	
 		if ($_SERVER['REQUEST_METHOD'] == "POST") { // search button			
+							
 			$search = new myEuroCINPublication();
-			$this->fillObj($search); // for the filters
 
-			$this->result = $search->find(); 
-			$date = strtotime(date('d-m-Y')); 
+			if($_POST['locality']) $search->competences = $_POST['locality'];
+			if($_POST['language']) $search->language = $_POST['language'];
+			if($_POST['category']) $search->quartier = $_POST['category'];
 				
-			for($i = 0; $i < count($this->result); ++$i) {
-				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
-					$expiration_date = strtotime($this->result[$i]->end);
-					if($expiration_date < $date){
-						unset($this->result[$i]);
-					}
-				}
-			}
+			$res = $search->find();
+			$this->filter_array($res);
+				
+			$this->getReputation($this->result);
 			$this->renderView("results");
+			
 		}
 	}
 	
 	function defaultMethod() {
+		
 		if(isset($_GET['delete_publications'])){
+			
 			$search = new myEuroCINPublication();
 
 			$search->publisher = $_SESSION['user']->id;
@@ -42,25 +42,20 @@ class FindController extends AuthenticatedController{
 			$this->renderView("Find");
 		}
 		else if (isset($_GET['search'])){
+			
 			$search = new myEuroCINPublication();
-			$this->result = $search->find(); 
-			$date = strtotime(date('d-m-Y')); 
+			$this->result = $search->find();
+			 
+			$this->filter_array($this->result);
 				
-			for($i = 0; $i < count($this->result); ++$i) {
-				if(!empty($this->result[$i]->end) && $this->result[$i]->end!="--"){
-					$expiration_date = strtotime($this->result[$i]->end);
-					if($expiration_date < $date){
-						unset($this->result[$i]);
-					}
-				}
-			}
 			// get userReputation
 			$this->getReputation($this->result);
 			$this->renderView("Find");
 		}
+		
 	}
 	
-	// Fill object with POST values
+	/* Fill object with POST values */
 	private function fillObj($obj) {
 		
 		$obj->publisher = $_POST['publisher'];
@@ -75,6 +70,33 @@ class FindController extends AuthenticatedController{
 		$obj->title = $_POST['title'];
 		$obj->text 	= $_POST['text'];
 	}
+	
+	
+	/* Filter results basing on validate fields */
+	private function filter_array($res1){
+		// filter by the expiration date
+		$date = strtotime(date(DATE_FORMAT));
+	
+		$res2 = array();
+		foreach($res1 as $item):
+		if(!empty($item->end) && $item->end!="--"){
+			$expiration_date = strtotime($item->end);
+			if($date <= $expiration_date){
+				array_push($res2, $item);
+			}
+		}
+		endforeach;
+	
+		// filter by the validation status
+		$this->result = array();
+		foreach($res2 as $item):
+		$item->getDetails();
+		if($item->validated=="validated"){
+			array_push($this->result, $item);
+		}
+		endforeach;
+	}
+	
 	
 	/**
 	 * Get the reputation of the user in each application
