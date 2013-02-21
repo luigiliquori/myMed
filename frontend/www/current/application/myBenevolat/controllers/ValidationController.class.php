@@ -79,11 +79,11 @@ class ValidationController extends AuthenticatedController {
 	private function refuse(){
 		$this->delete_Applies();
 		
-		$predicate = $_POST['predicate'];
-		$author = $_POST['author'];
-		
-		$obj = new Annonce($predicate);
-		$obj->publisherID = $author;
+		$request = new Annonce();
+		$request->id = $_POST['id'];
+		$res = $request->find();
+
+		$obj = $res[0];
 		$obj->getDetails();
 		
 		$obj->delete();
@@ -99,7 +99,7 @@ class ValidationController extends AuthenticatedController {
 	
 	function delete_Applies(){
 		$search_by_userid = new Apply();
-		$search_by_userid->pred1 = 'apply&'.$_POST['predicate'].'&'.$_POST['author'];
+		$search_by_userid->pred1 = 'apply&'.$_POST['id'].'&'.$_POST['author'];
 		$result = $search_by_userid->find();
 	
 		foreach($result as $item) :

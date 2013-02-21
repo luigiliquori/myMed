@@ -59,7 +59,7 @@
 								if(gettype($item->competences)=="array") $competences = implode(ENUM_SEPARATOR, $item->competences);
 								else $competences = $item->competences; ?>
 								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->id ?>","<?= $item->begin ?>","<?= $item->promue ?>","<?= $item->end ?>","<?= $item->text ?>","<?= $item->title ?>", "<?= $competences ?>", "<?= $item->typeMission ?>", "<?= $item->quartier ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Validate') ?></a>		
-								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->getPredicateStr() ?>","<?= $item->publisher ?>","<?= $item->title ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Delete') ?></a>
+								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->id ?>","<?= $item->publisher ?>","<?= $item->title ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Delete') ?></a>
 							</div>
 						</div>
 						<script type="text/javascript">
@@ -83,11 +83,11 @@
 					 			$("#popupAccept").popup("open");
 							}
 
-							function generate_refuse_popup(predicate,publisherID,title){
+							function generate_refuse_popup(id,publisherID,title){
 								$("#popupRefuse").html('<?= _("You can attach a message for the applier:") ?>\
 									<form action="?action=validation&method=refuse" method="POST" data-ajax="false">\
 			 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
-						 				<input type="hidden" name="predicate" value="'+predicate+'" />\
+						 				<input type="hidden" name="id" value="'+id+'" />\
 						 				<input type="hidden" name="author" value="'+publisherID+'" />\
 						 				<input type="hidden" name="title" value="'+title+'" />\
 						 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('OK') ?>" />\

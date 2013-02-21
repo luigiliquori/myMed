@@ -91,7 +91,7 @@ class MySubscriptionController extends AuthenticatedController {
 			
 			$request = new Request("ReputationRequestHandler", READ);
 			$request->addArgument("application",  APPLICATION_NAME);
-			$request->addArgument("producer",  $item->getPredicateStr().$item->publisherID);
+			$request->addArgument("producer",  $item->id.$item->publisherID);
 			$request->addArgument("consumer",  $_SESSION['user']->id);
 		
 			$responsejSon = $request->send();
@@ -104,8 +104,8 @@ class MySubscriptionController extends AuthenticatedController {
 			}
 		
 			// Save reputation values
-			$this->reputationMap[$item->getPredicateStr().$item->publisherID] = $value;
-			$this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] = $responseObject->dataObject->reputation->noOfRatings;
+			$this->reputationMap[$item->id.$item->publisherID] = $value;
+			$this->noOfRatesMap[$item->id.$item->publisherID] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		endforeach;
 	

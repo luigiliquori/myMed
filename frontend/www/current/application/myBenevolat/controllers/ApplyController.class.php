@@ -32,7 +32,7 @@ class ApplyController extends AuthenticatedController {
 		$obj = new Apply();
 		$time = time();
 		$obj->publisher = $_SESSION['user']->id;    // applier's ID
-		$obj->pred1 = 'apply&'.$_POST['predicate'].'&'.$_POST['author'];
+		$obj->pred1 = 'apply&'.$_POST['id'].'&'.$_POST['author'];
 		$obj->pred2 = $time;
 		$obj->idAnnonce = $_POST['id']; // id of the publication
 		$obj->author = $_POST['author'];
@@ -84,7 +84,8 @@ class ApplyController extends AuthenticatedController {
 		$obj->accepted = 'accepted';
 		$obj->title = $_POST['title'];
 		
-		$obj->publish();
+		$level = 3;
+		$obj->publish($level);
 		
 		$msgMail = "";
 		if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the author: "').$_POST['msgMail'].'"';

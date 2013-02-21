@@ -439,7 +439,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	
 		foreach($result as $annonce) :
 			$search_applies_annonce = new Apply();
-			$search_applies_annonce->pred1 = 'apply&'.$annonce->getPredicateStr().'&'.$id;
+			$search_applies_annonce->pred1 = 'apply&'.$annonce->id.'&'.$id;
 			$applies = $search_applies_annonce->find();
 			foreach($applies as $apply){
 				$apply->delete();

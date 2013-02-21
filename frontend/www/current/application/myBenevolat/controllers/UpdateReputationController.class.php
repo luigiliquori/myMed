@@ -14,7 +14,7 @@ class UpdateReputationController extends DetailsController {
 			$request = new Request("InteractionRequestHandler", UPDATE);
 			$request->addArgument("application",  APPLICATION_NAME);
 			if(isset($_POST['isData'])){
-				$request->addArgument("producer", $_POST['predicate'].$_POST['author']);
+				$request->addArgument("producer", $_POST['id'].$_POST['author']);
 
 
 			} else {
@@ -23,7 +23,7 @@ class UpdateReputationController extends DetailsController {
 			$request->addArgument("consumer",  $_SESSION['user']->id);
 			$request->addArgument("start",  time());
 			$request->addArgument("end",  time());
-			$request->addArgument("predicate",  $_POST['predicate']);
+			$request->addArgument("predicate",  $_POST['id']);
 			$request->addArgument("feedback",  $_POST['reputation']/10);
 
 			$responsejSon = $request->send();

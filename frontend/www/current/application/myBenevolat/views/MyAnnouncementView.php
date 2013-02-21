@@ -63,13 +63,13 @@
 							<p style="display:inline; " >
 								<?php
 									// Disable reputation stars if there are no votes yet 
-									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
+									if($this->noOfRatesMap[$item->id.$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
 											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
+										<?php if($i*20-20 < $this->reputationMap[$item->id.$item->publisherID] ) { ?>
 											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;" />
 										<?php } else { ?>
 											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;"/>
@@ -77,7 +77,7 @@
 									<? } ?>
 								<?php endif; ?>
 							</p>
-							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->id.$item->publisherID] ?> rates </p>
 						</p>			
 					</a>
 				</li>
