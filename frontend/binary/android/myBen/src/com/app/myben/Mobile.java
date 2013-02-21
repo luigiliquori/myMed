@@ -22,7 +22,7 @@ public class Mobile extends Activity {
 	
 	public static final String TAG = "[ myMed ]";
 	public static final String MYMED_BACKEND_URL = "http://www.mymed.fr:8080/backend";
-	public static final String MYMED_FRONTEND_URL = "http://www.mymed.fr/application/myBen";
+	public static final String MYMED_FRONTEND_URL = "http://www.mymed.fr/application/myBenevolat";
 
 	public Mobile(){
 		this.webClient = new WebClient(this);
