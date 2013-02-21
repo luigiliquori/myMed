@@ -7,14 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Item.h"
 
-@interface Page : NSObject
+@interface Page : Item
 
 @property (nonatomic, readonly) NSMutableArray *subPages;
 @property (nonatomic, readonly) NSMutableArray *items;
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *subtitle;
 @property (nonatomic, retain) NSString *text;
-@property (nonatomic, retain) NSString *url;
 @property (nonatomic, assign) Page *parent;
 @end
