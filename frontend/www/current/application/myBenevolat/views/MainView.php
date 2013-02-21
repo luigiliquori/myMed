@@ -60,7 +60,7 @@
 		
 	<? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->permission == '2')): ?>
 			<!-- Admin links -->
-			<h3>ADMINISTRATION:</h3>
+			<h3><?= _("ADMINISTRATION")?>:</h3>
 			<a href="?action=Candidature&method=show_all_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("Manage candidatures") ?></a><br />
 			<a href="?action=Validation&method=show_all_validations" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("Manage validations") ?></a><br />
 			<a href="?action=admin" data-role="button" data-icon="pencil" ><?= _("Manage associations") ?></a><br />

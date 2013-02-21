@@ -42,7 +42,7 @@
 					<a data-ajax="false" href="?action=details&id=<?= $item->idAnnonce ?>">			
 						<div class="ui-grid-a">
 							<div class="ui-block-a">
-								<?= _("Publication name") ?>: <b><?= $item->title ?></b>
+								<?= _("Announcement name") ?>: <b><?= $item->title ?></b>
 							</div>							
 							<div class="ui-block-b">
 								<div style="float: right;">

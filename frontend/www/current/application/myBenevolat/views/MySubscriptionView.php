@@ -64,11 +64,11 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _('Date of publication') ?></b>: <?= $item->begin ?><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
+							<b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
 							<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$item->typeMission] ?><br/>
-							<b><?= _("Quartier") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
-							<b><?= _("Competences") ?></b>: 
+							<b><?= _("District") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
+							<b><?= _("Skills") ?></b>: 
 						 <? if(gettype($item->competences)=="string"){ ?> <!-- only 1 skill -> string and not array -->
 								<?= Categories::$competences[$item->competences]?><br/><br/>
 						 <? }else{ ?>
@@ -104,16 +104,8 @@
 				<li>
 					<h4><?= _("No result found")?></h4>
 				</li>
-			<?php endif ?>
-			
+	  <?php endif ?>
 		</ul>
-		
-		<!-- HELP POPUP -->
-		<!-- ----------------- -->
-		<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
-			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-			<p><?= _("Set up parameters of your subscriptions that will allows to interact with the social network myEdu.")?></p>
-		</div>
 	</div>
 	<!-- END Page content -->
 		<!-- Help popup -->

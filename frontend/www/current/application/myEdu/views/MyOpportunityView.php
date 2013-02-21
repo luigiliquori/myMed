@@ -62,7 +62,7 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
 							<b><?= _("Topic") ?></b>: <?= Categories::$areas[$item->area] ?><br/>
 							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
 							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
