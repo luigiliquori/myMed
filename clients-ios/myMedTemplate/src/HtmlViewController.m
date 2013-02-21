@@ -8,7 +8,7 @@
 
 #import "HtmlViewController.h"
 
-
+#import "conf.h"
 
 @interface HtmlViewController ()
 {
@@ -17,7 +17,7 @@
 @end
 
 @implementation HtmlViewController
-@synthesize webview=_webview, pagetitle=_pagetitle, bgImageView=_bgImageView;
+@synthesize webview=_webview, bgImageView=_bgImageView;
 @synthesize javascript=_javascript;
 @synthesize isReady=_isReady;
 @synthesize enableLoadRequest=_enableLoadRequest;
@@ -47,10 +47,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //if (self.javascript!=nil) {
-        //[self.webview stringByEvaluatingJavaScriptFromString:self.javascript];
-    //}
-    self.navigationItem.title = self.pagetitle;
     [super viewWillAppear:animated];
 }
 
@@ -69,7 +65,6 @@
     //client.delegate = nil;
     self.webview.delegate = nil;
     self.webview = nil;
-    self.pagetitle = nil;
     self.javascript = nil;
     self.bgImageView = nil;
     [super viewDidUnload];
@@ -87,9 +82,8 @@
 -(void) dataReady :(NSString *) data
 {
     NSLog(@"[HtmlViewController] Data ready");
-    MyMedClient *client = [MyMedClient GetInstance];
     self.enableLoadRequest = YES;
-    [self.webview loadHTMLString:data baseURL:client.appurl];
+    [self.webview loadHTMLString:data baseURL:[NSURL URLWithString:WEBAPP_URL]];
         //if (self.javascript!=nil) {
             //[self.webview stringByEvaluatingJavaScriptFromString:self.javascript];
         //}
@@ -110,17 +104,16 @@
     }
 }
 
+/*
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
     //Intercept link
+    
     NSURL *url = request.URL;
     
 	NSString *urlString = url.absoluteString;
     const NSUInteger index = [urlString rangeOfString:@"?"].location;
     if (index != NSNotFound) {
        NSString *params = [urlString substringFromIndex:index];
-	   NSLog(@"\n\n\n-------%@",params);
-       MyMedClient *client = [MyMedClient GetInstance];
-      [client loadUrl:params];
       self.enableLoadRequest = NO;
     }
     //MyMedClient *client = [MyMedClient GetInstance];
@@ -128,4 +121,5 @@
     //[client loadUrl:<#(NSString *)#>]
     return self.enableLoadRequest;
 }
+ */
 @end

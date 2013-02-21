@@ -26,8 +26,6 @@
 		6320CA7616BEE384001D193D /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C6A16BEB2DC00F2E889 /* CreditsViewController.m */; };
 		6320CA7716BEE384001D193D /* HtmlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C7616BEB2EC00F2E889 /* HtmlViewController.m */; };
 		6320CA7816BEE384001D193D /* HtmlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63425C7716BEB2EC00F2E889 /* HtmlViewController.xib */; };
-		6320CA7916BEE384001D193D /* RemoteHtmlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C8616BEB2F900F2E889 /* RemoteHtmlViewController.m */; };
-		6320CA7A16BEE384001D193D /* RemoteHtmlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63425C8716BEB2F900F2E889 /* RemoteHtmlViewController.xib */; };
 		6320CA7F16BEE390001D193D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C7D16BEB2F900F2E889 /* main.m */; };
 		6320CA8116BEE3AC001D193D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 63425C5A16BEB2CD00F2E889 /* Icon-72.png */; };
 		6320CA8216BEE3AC001D193D /* Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 63425C5B16BEB2CD00F2E889 /* Icon-144.png */; };
@@ -138,9 +136,6 @@
 		63425C7616BEB2EC00F2E889 /* HtmlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HtmlViewController.m; path = src/HtmlViewController.m; sourceTree = SOURCE_ROOT; };
 		63425C7716BEB2EC00F2E889 /* HtmlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HtmlViewController.xib; path = src/HtmlViewController.xib; sourceTree = SOURCE_ROOT; };
 		63425C7D16BEB2F900F2E889 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/main.m; sourceTree = SOURCE_ROOT; };
-		63425C8516BEB2F900F2E889 /* RemoteHtmlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemoteHtmlViewController.h; path = src/RemoteHtmlViewController.h; sourceTree = SOURCE_ROOT; };
-		63425C8616BEB2F900F2E889 /* RemoteHtmlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemoteHtmlViewController.m; path = src/RemoteHtmlViewController.m; sourceTree = SOURCE_ROOT; };
-		63425C8716BEB2F900F2E889 /* RemoteHtmlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RemoteHtmlViewController.xib; path = src/RemoteHtmlViewController.xib; sourceTree = SOURCE_ROOT; };
 		63425C9A16BEB31800F2E889 /* alcotra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alcotra.png; sourceTree = "<group>"; };
 		63425C9B16BEB31800F2E889 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		63425C9C16BEB31800F2E889 /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background2.jpg; sourceTree = "<group>"; };
@@ -358,9 +353,6 @@
 				63425C7516BEB2EC00F2E889 /* HtmlViewController.h */,
 				63425C7616BEB2EC00F2E889 /* HtmlViewController.m */,
 				63425C7716BEB2EC00F2E889 /* HtmlViewController.xib */,
-				63425C8516BEB2F900F2E889 /* RemoteHtmlViewController.h */,
-				63425C8616BEB2F900F2E889 /* RemoteHtmlViewController.m */,
-				63425C8716BEB2F900F2E889 /* RemoteHtmlViewController.xib */,
 			);
 			name = htmlviewers;
 			sourceTree = "<group>";
@@ -546,7 +538,6 @@
 				6320CA7416BEE384001D193D /* ChecklistViewController.xib in Resources */,
 				6320CA7516BEE384001D193D /* CreditsViewController.xib in Resources */,
 				6320CA7816BEE384001D193D /* HtmlViewController.xib in Resources */,
-				6320CA7A16BEE384001D193D /* RemoteHtmlViewController.xib in Resources */,
 				6320CA8116BEE3AC001D193D /* Icon-72.png in Resources */,
 				6320CA8216BEE3AC001D193D /* Icon-144.png in Resources */,
 				6320CA8316BEE3AC001D193D /* Icon.png in Resources */,
@@ -641,7 +632,6 @@
 				6320CA7316BEE384001D193D /* ChecklistViewController.m in Sources */,
 				6320CA7616BEE384001D193D /* CreditsViewController.m in Sources */,
 				6320CA7716BEE384001D193D /* HtmlViewController.m in Sources */,
-				6320CA7916BEE384001D193D /* RemoteHtmlViewController.m in Sources */,
 				6320CA7F16BEE390001D193D /* main.m in Sources */,
 				63056C8C16C161ED0044E167 /* NavigationModel.m in Sources */,
 				63056C8D16C161ED0044E167 /* Page.m in Sources */,

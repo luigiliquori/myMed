@@ -8,8 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "MyMedClient.h"
-#import "RemoteHtmlViewController.h"
 #import "CreditsViewController.h"
 #import "ChecklistViewController.h"
 #import "FirstScreenViewController.h"
@@ -17,6 +15,7 @@
 #import "TestFlight.h"
 #import "PagesViewController.h"
 #import "NavigationModel.h"
+#import "HtmlViewController.h"
 
 @implementation AppDelegate
 
@@ -33,9 +32,6 @@
 -(void) preloadData
 {
     // To force the preloading of web data
-    [MyMedClient GetInstance];
-    
-
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -67,10 +63,9 @@
     firstNav.title = NSLocalizedString(@"myEdu", nil);
     
     
-    RemoteHtmlViewController *mainVC = [[[RemoteHtmlViewController alloc] initWithNibName:@"RemoteHtmlViewController" bundle:nil] autorelease];
+    HtmlViewController *mainVC = [[[HtmlViewController alloc] initWithNibName:@"HtmlViewController" bundle:nil] autorelease];
     mainVC.title = NSLocalizedString(@"Social Network", nil);
     mainVC.tabBarItem.image = [UIImage imageNamed:@"group"];
-    mainVC.url = WEBAPP_URL;
 
     
     // Credits
