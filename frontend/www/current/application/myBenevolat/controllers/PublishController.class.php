@@ -52,7 +52,7 @@ class PublishController extends ExtendedProfileRequired {
 	/**
 	 *  Submit a new user announcement
 	 */
-	public function create() {
+	public function create($fromUpdate=false) {
 	
 		// Check if submit method has been called from the form
 		if (!($_SERVER['REQUEST_METHOD'] == "POST")) {
@@ -61,28 +61,25 @@ class PublishController extends ExtendedProfileRequired {
 		} else {
 			if (empty($_POST['title'])) {
 				$this->error = _("Title field can't be empty");
-				$this->renderView("NewAnnouncement");
 			} else if ((empty($_POST['expire_day']) || empty($_POST['expire_month']) || empty($_POST['expire_year'])) && empty($_POST['date'])) {		
 				$this->error = _("Please provide a valide expiration date for the course");
-				$this->renderView("NewAnnouncement");
 			} else if (empty($_POST['text'])) {
 				$this->error = _("Text field can't be empty");
-				$this->renderView("NewAnnouncement");
 					
 			} else if (empty($_POST['competences'])) {
 				$this->error = _("You have to choose at least 1 skill");
-				$this->renderView("NewAnnouncement");
 					
 			} else if(count($_POST['competences'])>4) {
 				$this->error = _("You can choose 4 skills maximum");
-				$this->renderView("NewAnnouncement");
 				
 			} else if (empty($_POST['mission'])) {
-				$this->error = _("You have to choose one mission type");
-				$this->renderView("NewAnnouncement");
-					
-		    } else {
-				
+				$this->error = _("You have to choose one mission type");	
+		    }
+		    if(!empty($this->error) && $fromUpdate==false){
+		    	$this->renderView("NewAnnouncement");
+		    }else if(!empty($this->error) && $fromUpdate==true){
+		    	$this->redirectTo("?action=publish&method=modify_announcement&id=".$_POST['id']);
+		    }else{
 				// All required fields are filled, publish it
 				$obj = new Annonce();
 				$obj->publisher = $_POST['publisher'];	// Publisher ID
@@ -110,10 +107,9 @@ class PublishController extends ExtendedProfileRequired {
 				$obj->publish($level);
 	
 				$this->success = _("Your announcement offer has been successfully published");
-	
-				// Return to publish view
-				$this->redirectTo("?action=publish&method=show_user_announcements");
-	
+				if($fromUpdate==false){
+					$this->redirectTo("?action=publish&method=show_user_announcements");
+				}
 			}
 		}
 	
@@ -127,17 +123,11 @@ class PublishController extends ExtendedProfileRequired {
 		$oldAnn = $res[0];
 		$oldAnn->getDetails();
 		
+		$this->create(true); //create the new one
+		debug("no error");
 		$oldAnn->delete(); //delete the old announcement
-		
-		$this->create(); //create the new one
-		
-		if(!empty($this->error)){
-			$this->redirectTo("?action=publish&method=modify_announcement&predicate=".$_POST['predicate']."&author=".$_POST['author']);
-		}
-		else{
-			$this->success = _("Announcement modified !");
-			$this->showUserAnnouncement();
-		}
+		$this->success = _("Announcement modified !");
+		$this->showUserAnnouncement();
 	}
 	
 	
@@ -170,7 +160,7 @@ class PublishController extends ExtendedProfileRequired {
 	
 	function delete_Applies(){
 		$search_by_userid = new Apply();
-		$search_by_userid->pred1 = 'apply&'.$_POST['predicate'].'&'.$_POST['author'];
+		$search_by_userid->pred1 = 'apply&'.$_POST['id'].'&'.$_POST['author'];
 		$result = $search_by_userid->find();
 		
 		foreach($result as $item) :
@@ -222,7 +212,7 @@ class PublishController extends ExtendedProfileRequired {
 			
 		$request = new Request("ReputationRequestHandler", READ);
 		$request->addArgument("application",  APPLICATION_NAME);
-		$request->addArgument("producer",  $item->getPredicateStr().$item->publisherID);
+		$request->addArgument("producer",  $item->id.$item->publisherID);
 		$request->addArgument("consumer",  $_SESSION['user']->id);
 	
 		$responsejSon = $request->send();
@@ -235,8 +225,8 @@ class PublishController extends ExtendedProfileRequired {
 		}
 	
 		// Save reputation values
-		$this->reputationMap[$item->getPredicateStr().$item->publisherID] = $value;
-		$this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] = $responseObject->dataObject->reputation->noOfRatings;
+		$this->reputationMap[$item->id.$item->publisherID] = $value;
+		$this->noOfRatesMap[$item->id.$item->publisherID] = $responseObject->dataObject->reputation->noOfRatings;
 	
 		endforeach;
 	

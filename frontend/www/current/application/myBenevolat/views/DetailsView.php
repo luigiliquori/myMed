@@ -81,7 +81,6 @@
 							 				<input type="hidden" name="method" value="Apply" />
 							 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							 				<input type="hidden" name="mission" value="<?= $this->result->typeMission ?>" />
-							 				<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr() ?>" />
 							 				<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
 							 				<input type="hidden" name="id" value="<?= $this->result->id ?>" />
 											<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
@@ -106,7 +105,6 @@
 									 		<form action="?action=publish&method=delete" method="POST" data-ajax="false">
 									 			<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>
 												<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
-												<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr()?>" />
 												<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
 												<input type="hidden" name="title" value="<?=  $this->result->title?>" />
 												<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('OK') ?>" />
@@ -118,7 +116,6 @@
 												<div class="ui-block-a">
 													<form action="?action=publish&method=delete" method="POST" data-ajax="false">
 														<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
-														<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr()?>" />
 														<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
 														<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('Yes') ?>" />
 													</form>
@@ -211,7 +208,6 @@
 							<input type="hidden" name="action" value="updateReputation" />
 							<input type="hidden" name="reputation" id="reputation" />
 							<input type="hidden" name="isData" value="1" />
-							<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr()?>" />
 						 	<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
 						 	<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
 						 					
@@ -254,7 +250,6 @@
 						<form action="?action=updateReputation" method="POST" data-ajax="false">
 							<input type="hidden" name="action" value="updateReputation" />
 							<input type="hidden" name="reputation" value=10 />
-							<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr()?>" />
 						 	<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
 						 	<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
 						 	<input type="submit" value="<?= _("Of course yes!")?>" data-mini="true" data-theme="g" data-icon="plus">
@@ -262,7 +257,6 @@
 						<form action="?action=updateReputation" method="POST" data-ajax="false">
 							<input type="hidden" name="action" value="updateReputation" />
 							<input type="hidden" name="reputation" value=0 />
-							<input type="hidden" name="predicate" value="<?= $this->result->getPredicateStr()?>" />
 						 	<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
 						 	<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
 						 	<input type="submit" value="<?= _("No, not really...")?>" data-mini="true" data-inline="true" data-theme="r" data-icon="minus">
