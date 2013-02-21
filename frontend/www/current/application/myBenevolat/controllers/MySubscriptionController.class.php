@@ -50,7 +50,7 @@ class MySubscriptionController extends AuthenticatedController {
 		$sub_array=$this->getSubscription();
 		if(count($sub_array) != 0){
 			$this->actual_subscription_name = $sub_array[0]->pubTitle;
-			$this->find_publication($sub_array[0]->category, $sub_array[0]->locality,$sub_array[0]->organization,$sub_array->area);
+			$this->find_publication($sub_array[0]->competence, $sub_array[0]->mobility,$sub_array[0]->mission);
 		}
 	}
 	
@@ -63,7 +63,7 @@ class MySubscriptionController extends AuthenticatedController {
 				$subscription= $val;
 			}
 		}
-		$this->find_publication($subscription->category, $subscription->locality, $subscription->organization, $subscription->area);
+		$this->find_publication($subscription->competence, $subscription->mobility, $subscription->mission);
 	}
 	
 	function get_publication_list($sub_array){
@@ -76,12 +76,12 @@ class MySubscriptionController extends AuthenticatedController {
 	/**
 	 * find publication according to subscriptions
 	 */
-	function find_publication($category,$locality,$organization,$area){
+	function find_publication($competence,$mobility,$mission){
 		$find_pub = new Annonce();
-		$find_pub->category=$category;
-		$find_pub->area = $area;
-		$find_pub->locality = $locality;
-		$find_pub->organization=$organization;
+		error_log("LOGROM competences ".$competence." mobility ".$mobility." mission ".$mission);
+		$find_pub->competences=$competence;
+		$find_pub->quartier = $mobility;
+		$find_pub->typeMission = $mission;
 		$this->search_result = $find_pub->find();
 		$this->getReputation($this->search_result);
 	}
