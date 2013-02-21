@@ -65,10 +65,10 @@ class FindController extends AuthenticatedController{
 		
 		$obj->publisher = $_POST['publisher'];
 		
-		if($_POST['areaBox']) $obj->area = $_POST['area'];
-		if($_POST['organizationBox']) $obj->organization = $_POST['organization'];
+		if($_POST['languageBox']) $obj->language = $_POST['language'];
+		if($_POST['categoryBox']) $obj->category = $_POST['category'];
 		
-		$obj->category = $_POST['category'];
+		$obj->locality = $_POST['locality'];
 		$obj->type = 'myEuroCINPublication';
 		$obj->end 	= $_POST['date'];
 

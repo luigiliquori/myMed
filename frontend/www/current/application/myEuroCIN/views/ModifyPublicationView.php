@@ -59,9 +59,9 @@
 					<h3><?= _("Title")?>: <?= $this->result->title ?> </h3>
 					<p style="position: relative; margin-left: 30px;">
 						<b><?= _('Date of expiration') ?></b>: <?= $this->result->end ?><br/><br/>
-						<b><?= _("Area") ?></b>: <?= $this->result->area ?><br/>
+						<b><?= _("Locality") ?></b>: <?= $this->result->locality ?><br/>
+						<b><?= _("Language") ?></b>: <?= $this->result->language ?><br/>
 						<b><?= _("Category") ?></b>: <?= $this->result->category ?><br/>
-						<b><?= _("Organization") ?></b>: <?= $this->result->organization ?><br/>
 					</p>
 					 
 					<!-- TEXT -->
@@ -88,13 +88,9 @@
 							<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 							<input type="hidden" name="end" value="<?= $this->result->end  ?>" />
-							<input type="hidden" name="area" value="<?= $this->result->area ?>" />
+							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+							<input type="hidden" name="language" value="<?= $this->result->language ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
-							<?php if ($this->result->category == 'Course'):?>
-								<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
-								<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
-							<? endif; ?>
-							<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
 							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="text" id="text"/>
 							<input type="submit" data-icon="check" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Modify publication') ?>" onclick="$('#text').val($('#projecttext').val());"/>
@@ -107,9 +103,9 @@
 							<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 							<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 							<input type="hidden" name="end" value="<?= $this->result->end  ?>" />
-							<input type="hidden" name="area" value="<?= $this->result->area ?>" />
+							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
+							<input type="hidden" name="language" value="<?= $this->result->language ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
-							<input type="hidden" name="organization" value="<?= $this->result->organization ?>" />
 							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="text" id="text"/>
 							<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />

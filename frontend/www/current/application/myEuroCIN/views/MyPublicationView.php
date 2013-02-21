@@ -47,9 +47,9 @@
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
-							<b><?= _("Area") ?></b>: <?= $item->area ?><br/>
-							<b><?= _("Category") ?></b>: <?= $item->category ?><br/>
-							<b><?= _("Organization") ?></b>: <?= $item->organization ?><br/><br/>
+							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/>
+							<b><?= _("Language") ?></b>: <?= $item->language ?><br/>
+							<b><?= _("Category") ?></b>: <?= $item->category ?><br/><br/>
 							<b>Publisher ID:</b><?= $item->publisherID ?><br/> 
 							<!-- Project reputation-->	
 							<p style="display:inline; margin-left: 30px;" > <b><?= _("Project reputation")?>:</b> </p>  

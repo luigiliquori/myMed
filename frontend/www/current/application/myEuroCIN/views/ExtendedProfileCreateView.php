@@ -34,17 +34,7 @@
 			<h1 style="white-space: normal;"><?= _("Hello, This is your first time in myEuroCIN! Please create your extended profile.") ?></h1>
 		</div>
 		<br />
-		
-		<script type="text/javascript">
-			// Hide all fields releated to specific profile	
-			$("#extendedprofilecreateview").on("pageshow", function() {  
-	    			$('#role1field1div').hide();	
-   					$('#role1field2div').hide();
-   					$('#role2field1div').hide();
-   					$('#role2field2div').hide();
-				});
-		</script>
-		
+
 		
 		<!-- Create extended profile form -->
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
@@ -56,62 +46,15 @@
 			<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			
-			
-			<!-- Role -->
-			<div data-role="fieldcontain">
-				<label for="role" class="select" style="text-align:right"><?= _("Your category") ?>:</label>
-				<select name="role" id="role" data-theme="e" data-native-menu="false" onChange="
-					
-					switch ($('#role').val()) {
-						
-						case 'Role_1':
-    						$('#role1field1div').show();
-    						$('#role1field2div').show();		
-    						$('#role2field1div').hide();
-    						$('#role2field2div').hide();
-  							break; 
-  						
-  						case 'Role_2':
-    						$('#role1field1div').hide();
-    						$('#role1field2div').hide();		
-    						$('#role2field1div').show();
-    						$('#role2field2div').show();
-  							break;
-
-					}">
-				<option value=""><?= _("Select your category")?></option>
-				<? foreach (Categories::$roles as $k=>$v) :?>
-					<option value="<?= $k ?>"><?= $v ?></option>
-				<? endforeach ?>
-				</select>
-			</div>
 			<!-- Phone -->		
 			<div data-role="fieldcontain">
 				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?>: </label>
 				<input id="textinputu6" name="phone" placeholder="" value='' type="tel" />
 			</div>
-			<!-- Description / CV-->
+			<!-- Description -->
 			<div data-role="fieldcontain">
-				<label for="desc"  style="text-align:right"><?= _('Description / <br/> Curriculum Vitae') ?>: </label>
+				<label for="desc"  style="text-align:right"><?= _('Description / <br/> Notes') ?>: </label>
 				<textarea id="desc" name="desc" placeholder="description, commentaires" style="height:120px;"></textarea>
-			</div>
-			<!-- Fields for role_1 -->
-			<div id="role1field1div" data-role="fieldcontain" class="ui-screen-hidden">
-				<label for="role1field1"  style="text-align:right"><?= _('Role 1 field 1') ?>: </label>
-				<input id="role1field1" name="role1field1" placeholder="Role 1 field 1" ></input>
-			</div>
-			<div id="role1field2div" data-role="fieldcontain">
-				<label for="role1field2"  style="text-align:right"><?= _('Role 1 field 2') ?>: </label>
-				<textarea id="role1field2" name="role1field2" style="height: 120px;" placeholder="Role 1 field 2"></textarea>
-			</div>
-			<!-- Fields for role_2 -->
-			<div id="role2field1div" data-role="fieldcontain">
-				<label for="role2field1"  style="text-align:right"><?= _('Role 2 field 1') ?>: </label>
-				<input id="role2field1" name="role2field1" placeholder="Role 2 field 1"></input>
-			</div>
-			<div id="role2field2div" data-role="fieldcontain">
-				<label for="role2field2"  style="text-align:right"><?= _('Role 2 field 2') ?>: </label>
-				<textarea id="role2field2" name="role2field2" style="height: 120px;" placeholder="Role 2 field 2"></textarea>
 			</div>
 			<br/>
 			<!-- Accept terms and conditions -->
