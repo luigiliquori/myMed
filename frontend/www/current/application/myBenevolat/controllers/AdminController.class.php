@@ -20,9 +20,9 @@ class AdminController extends ExtendedProfileRequired {
 			$results = $admins->results;
 		
 		
-		/*$find = new RequestJson( $this, 
-					array("application"=>APPLICATION_NAME.":profiles",
-						  "predicates"=>array()));
+		/*	$find = new RequestJson( $this, 
+							array("application"=>APPLICATION_NAME.":profiles",
+							"predicates"=>array()));
 		try{
 			$res = $find->send();
 		}
