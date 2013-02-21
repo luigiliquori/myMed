@@ -1,21 +1,21 @@
 <?php
 
-class myBenevolatSubscriptionBean extends GenericDataBean{
+class MyBenevolatSubscriptionBean extends GenericDataBean{
 	/** Some predicates .
 	 * Register them in the contructor with appropriate ontologyID */
-	public $pred1;
-	public $pred2;
-	public $pred3;
-	public $pred4;
-	public $date;
+	
+	public $publisher;
+	public $pubTitle;
+	public $type;
 	
 	/**
 	 * Some fields, not part of predicates, but wrapped in "_data"
 	 * to be fetched by a "search" query (no need to "details").
 	 * Register them in the contructor (3rd array)
 	 */
-	public $wrapped1;
-	public $wrapped2;
+	public $competence;
+	public $mobility;
+	public $mission;
 	
 	/** Some data (got after a "details" query).
 	 *  Register them in the contructor with appropriate ontologyID */
@@ -31,10 +31,9 @@ class myBenevolatSubscriptionBean extends GenericDataBean{
 	
 			// Predicate attributes
 	array(
-			"pred1" => KEYWORD,
-			"pred2" => KEYWORD,
-			"pred3" => KEYWORD,
-			"pred4" => KEYWORD),
+			"pubTitle" => KEYWORD,
+			"publisher"=> KEYWORD,
+			"type"=> KEYWORD),
 	
 			// Data attributes
 			array(
@@ -43,7 +42,7 @@ class myBenevolatSubscriptionBean extends GenericDataBean{
 					"data3" => ENUM),
 	
 					// Wrapped attributes
-					array("wrapped1", "wrapped2"),
+					array("competence","mobility","mission"),
 	
 					$predicateStr);
 	

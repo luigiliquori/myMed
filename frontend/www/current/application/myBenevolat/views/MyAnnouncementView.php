@@ -9,7 +9,7 @@
 
 	<!-- Page header bar -->
 	<? $title = _("My announcements");
-	   print_header_bar("?action=main", false, $title); ?>
+	   print_header_bar("?action=main", "viewHelpPopup", $title); ?>
 	
 		
 	<!-- Page content -->
@@ -21,8 +21,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
-			<p><?= _("<<<<>>>>")?></p>
+			<h3><?= _("my announcements capsule title") ?></h3>
+			<p><?= _("my announcements capsule text")?></p>
 		</div>
 		<br />
 	
@@ -47,11 +47,11 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _('Date of publication') ?></b>: <?= $item->begin ?><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
+							<b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
 							<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$item->typeMission] ?><br/>
-							<b><?= _("Quartier") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
-							<b><?= _("Competences") ?></b>: 
+							<b><?= _("District") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
+							<b><?= _("Skills") ?></b>: 
 						 <? if(gettype($item->competences)=="string"){ ?> <!-- only 1 skill -> string and not array -->
 								<?= Categories::$competences[$item->competences]?><br/><br/>
 						 <? }else{ ?>
@@ -63,13 +63,13 @@
 							<p style="display:inline; " >
 								<?php
 									// Disable reputation stars if there are no votes yet 
-									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
+									if($this->noOfRatesMap[$item->id.$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
 											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
+										<?php if($i*20-20 < $this->reputationMap[$item->id.$item->publisherID] ) { ?>
 											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;" />
 										<?php } else { ?>
 											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;"/>
@@ -77,7 +77,7 @@
 									<? } ?>
 								<?php endif; ?>
 							</p>
-							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->id.$item->publisherID] ?> rates </p>
 						</p>			
 					</a>
 				</li>
@@ -87,6 +87,10 @@
 			
 	</div>
 	<!-- END Page content -->
-	
+	<!-- Help popup -->
+	<div data-role="popup" id="viewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<p> <?= _("my announcement aide text") ?></p>
+	</div>
 </div>
 <!-- END Page MyPublicationView-->

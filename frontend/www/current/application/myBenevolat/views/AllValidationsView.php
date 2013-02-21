@@ -9,8 +9,8 @@
 
 
 	<!-- Page header bar -->
-	<? $title = _("All validations");
-	   print_header_bar("?action=main", false, $title); ?>
+	<? $title = _("Manage validations");
+	   print_header_bar("?action=main", "defaultViewHelpPopup", $title); ?>
 	
 		
 	<!-- Page content -->
@@ -20,8 +20,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
-			<p><?= _("Here is the space summarizing all of your candidatures.")?></p>
+			<h3><?= _("Manage validations capsule title") ?></h3>
+			<p><?= _("Manage validations capsule text")?></p>
 		</div>
 		<br />
 		
@@ -40,17 +40,17 @@
 							<h3><?= _("Title")?> : <?= $item->title ?></h3>
 							<!-- Publication fields-->
 							<p style="position: relative; margin-left: 30px;">
-								<b><?= _('Date of publication') ?></b>: <?= $item->begin ?><br/>
-								<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
+								<b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/>
+								<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
 								<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$item->typeMission] ?><br/>
-								<b><?= _("Quartier") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
-								<b><?= _("Competences") ?></b>: 
+								<b><?= _("District") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
+								<b><?= _("Skills") ?></b>: 
 							 <? if(gettype($item->competences)=="string"){ ?> <!-- only 1 skill -> string and not array -->
 									<?= Categories::$competences[$item->competences]?><br/><br/>
 							 <? }else{ ?>
 									<? foreach($item->competences as $competences): echo Categories::$competences[$competences]." , "; endforeach;?><br/><br/>
 							 <? } ?>
-								<b>Association ID:</b><?= $item->publisherID ?><br/> 
+								<b><?= _("Association ID")?>:</b><?= $item->publisherID ?><br/> 
 							</p>
 						</div>
 						<div class="ui-block-b">
@@ -58,8 +58,8 @@
 							<?  $competences = "";
 								if(gettype($item->competences)=="array") $competences = implode(ENUM_SEPARATOR, $item->competences);
 								else $competences = $item->competences; ?>
-								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->id ?>","<?= $item->begin ?>","<?= $item->promue ?>","<?= $item->end ?>","<?= $item->text ?>","<?= $item->title ?>", "<?= $competences ?>", "<?= $item->typeMission ?>", "<?= $item->quartier ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Valider') ?></a>		
-								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->getPredicateStr() ?>","<?= $item->publisher ?>","<?= $item->title ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Supprimer') ?></a>
+								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->id ?>","<?= $item->begin ?>","<?= $item->promue ?>","<?= $item->end ?>","<?= $item->text ?>","<?= $item->title ?>", "<?= $competences ?>", "<?= $item->typeMission ?>", "<?= $item->quartier ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Validate') ?></a>		
+								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->id ?>","<?= $item->publisher ?>","<?= $item->title ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Delete') ?></a>
 							</div>
 						</div>
 						<script type="text/javascript">
@@ -83,11 +83,11 @@
 					 			$("#popupAccept").popup("open");
 							}
 
-							function generate_refuse_popup(predicate,publisherID,title){
+							function generate_refuse_popup(id,publisherID,title){
 								$("#popupRefuse").html('<?= _("You can attach a message for the applier:") ?>\
 									<form action="?action=validation&method=refuse" method="POST" data-ajax="false">\
 			 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
-						 				<input type="hidden" name="predicate" value="'+predicate+'" />\
+						 				<input type="hidden" name="id" value="'+id+'" />\
 						 				<input type="hidden" name="author" value="'+publisherID+'" />\
 						 				<input type="hidden" name="title" value="'+title+'" />\
 						 				<input data-role="button" type="submit" data-theme="g" data-inline="true" data-icon="ok" value="<?= _('OK') ?>" />\
@@ -105,6 +105,10 @@
 			
 	</div>
 	<!-- END Page content -->
-	
+	<!-- Help popup -->
+	<div data-role="popup" id="defaultViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<p> <?= _("Manage validations help text") ?></p>
+	</div>
 </div>
 <!-- END Page MyPublicationView-->

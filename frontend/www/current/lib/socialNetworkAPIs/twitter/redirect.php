@@ -2,8 +2,11 @@
 
 /* Start session and load library. */
 session_start();
+
 require_once('twitteroauth/twitteroauth.php');
 require_once('config.php');
+
+//define('CONSUMER_KEY', 'DRRf2tOoQvsktXBO66kuTw'); define('CONSUMER_SECRET', 'Vd7hu2rvFiKb6NFwHVtmm0Ie4hOTvClf19RsfUNnQ8'); // machine 231
 
 /* Build TwitterOAuth object with client credentials. */
 $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET); // defined in twitter/config.php

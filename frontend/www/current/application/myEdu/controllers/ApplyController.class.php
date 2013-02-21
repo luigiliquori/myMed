@@ -80,7 +80,9 @@ class ApplyController extends AuthenticatedController {
 			$obj->author = $_POST['author'];
 			$obj->accepted = 'accepted';
 			$obj->title = $_POST['title'];
-			$obj->publish();
+			
+			$level = 3;
+			$obj->publish($level);
 			
 			$msgMail = "";
 			if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the author: "').$_POST['msgMail'].'"';
@@ -137,7 +139,9 @@ class ApplyController extends AuthenticatedController {
 		$obj->text 	= $_POST['text'];
 		$obj->maxappliers 	= $_POST['maxappliers'];
 		$obj->currentappliers = $newCurrentAppliers;
-		$obj->publish();
+		
+		$level = 3;
+		$obj->publish($level);
 	}
 }
 ?>

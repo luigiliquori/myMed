@@ -21,12 +21,12 @@
 			<input type="hidden" id="find_mission" name="mission" value="" />
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-				<h3><?= _("How to find") ?>?</h3>
-				<?= _("Specify properties to retrieve releated announcements.")?>
+				<h3><?= _("Search capsule title") ?></h3>
+				<?= _("Search capsule text")?>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Find an announcement') ?> :</h3>
+				<h3><?= _('Find an announcement by criteria') ?> :</h3>
 		
 				<fieldset data-role="controlgroup">
 					<!-- Categoria -->
@@ -61,7 +61,7 @@
 		</form>
 		
 		<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-			<h3><?= _('All the announcements') ?> :</h3>
+			<h3><?= _('Last announcements') ?> :</h3>
 			<ul data-role="listview" data-filter="true" >
 			<? if (count($this->result) == 0) :?>
 				<li>
@@ -75,11 +75,11 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _('Date of publication') ?></b>: <?= $item->begin ?><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
+							<b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
 							<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$item->typeMission] ?><br/>
-							<b><?= _("Quartier") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
-							<b><?= _("Competences") ?></b>: 
+							<b><?= _("District") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
+							<b><?= _("Skills") ?></b>: 
 						 <? if(gettype($item->competences)=="string"){ ?> <!-- only 1 skill -> string and not array -->
 								<?= Categories::$competences[$item->competences]?><br/><br/>
 						 <? }else{ ?>
@@ -91,13 +91,13 @@
 							<p style="display:inline; " >
 								<?php
 									// Disable reputation stars if there are no votes yet 
-									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
+									if($this->noOfRatesMap[$item->id.$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
 											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
+										<?php if($i*20-20 < $this->reputationMap[$item->id.$item->publisherID] ) { ?>
 											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;" />
 										<?php } else { ?>
 											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:120px; margin-top:3px;"/>
@@ -105,7 +105,7 @@
 									<? } ?>
 								<?php endif; ?>
 							</p>
-							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->id.$item->publisherID] ?> rates </p>
 						</p>			
 					</a>
 				</li>
@@ -117,8 +117,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="findViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3><?= _("FindView help") ?></h3>
-		<p> <?= _(" Use search parameters to find publications that are interesting for you.") ?></p>
+		<p> <?= _("Search help text") ?></p>
 	</div>
 	
 </div>

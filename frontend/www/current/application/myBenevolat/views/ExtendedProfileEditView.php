@@ -242,7 +242,7 @@
 	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		<h3><?= _("Edit your Profile") ?></h3>
-		<p> <?= _("Here you can update your organization profile.") ?></p>
+		<p> <?= _("Here you can update your profile.") ?></p>
 	</div>
 	
 	

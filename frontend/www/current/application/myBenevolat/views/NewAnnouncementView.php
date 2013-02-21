@@ -28,18 +28,18 @@
 			<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-				<h3><?= _("How to publish") ?> ?</h3>
-				<?= _("<<<<< Some explanation goes here >>>>>")?>
+				<h3><?= _("New announcement capsule title") ?> ?</h3>
+				<?= _("New announcement capsule text")?>
 				</p>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Publish your project') ?> :</h3>
+				<h3><?= _('Publish') ?> :</h3>
 				
 				<h3><?= _('Title') ?><b>*</b> :</h3>
 				<input id="textinputp3" class="postTitle" data-inline="true" name="title" value='' type="text" />
 				
-				<h3><?= _('Date de fin') ?><b>*</b> :</h3>
+				<h3><?= _('Deadline') ?><b>*</b> :</h3>
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
 					<select id="expire_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
@@ -69,22 +69,22 @@
      		 		});
     			</script>
 					
-				<h3><?= _("Compétences requises (de 1 à 4)")?><b>*</b> :</h3>
+				<h3><?= _("Skills required (from 1 to 4)")?><b>*</b> :</h3>
 				<? foreach (Categories::$competences as $k=>$v) :?>
 					<input type="checkbox" name="competences[]" id="<?= $k?>" value="<?= $k ?>"><label for="<?= $k?>"><?= $v ?></label>
 				<? endforeach ?>
 				
 				
-				<h3><?= _("Informations pratiques") ?> :</h3>
+				<h3><?= _("Practical information") ?> :</h3>
 				
 				<select name="quartier" id="quartier" data-native-menu="false">
-					<option value=""> <?= _("Quartier")?><b>*</b></option>
+					<option value=""> <?= _("District")?><b>*</b></option>
 					<? foreach (Categories::$mobilite as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 				</select>
 				<select name="mission" id="mission" data-native-menu="false">
-					<option value=""> <?= _("Type de mission")?><b>*</b></option>
+					<option value=""> <?= _("Mission type")?><b>*</b></option>
 					<? foreach (Categories::$missions as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
@@ -105,7 +105,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<?= _("<<<<< Help text >>>>>")?> 
+		<?= _("New announcement help text")?> 
 	</div>
 	
 </div>

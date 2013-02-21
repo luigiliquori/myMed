@@ -9,7 +9,7 @@
 
 
 	<!-- Page header bar -->
-	<? $title = _("All volunteers");
+	<? $title = _("Volunteers list");
 	   print_header_bar("?action=main", false, $title); ?>
 	
 		
@@ -20,8 +20,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
-			<p><?= _("<<>>")?></p>
+			<h3><?= _("Volunteers list capsule title") ?></h3>
+			<p><?= _("Volunteers list capsule text")?></p>
 		</div>
 		<br />
 		

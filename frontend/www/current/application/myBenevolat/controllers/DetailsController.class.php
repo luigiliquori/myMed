@@ -24,12 +24,12 @@ class DetailsController extends AuthenticatedController {
 		
 		// Should have only one result
 		if (sizeof($res) != 1) {
-			throw new InternalError("Expected one result for Annonce(id=$id). Got " . sizeof($res));
+			throw new InternalError("Expected one result. Got " . sizeof($res));
 		}
 		
 		$annonce = $res[0];
 		$annonce->getDetails();
-		$predicate = $annonce->getPredicateStr();
+		$id = $_GET['id'];
 		 
 		// Give this to the view
 		$this->result = $annonce;
@@ -54,7 +54,7 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["author_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		// get publication reputation
-		$request->addArgument("producer",  $predicate.$annonce->publisherID);	
+		$request->addArgument("producer",  $id.$annonce->publisherID);	
 		
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
@@ -91,7 +91,7 @@ class DetailsController extends AuthenticatedController {
 	}
 	
 	private function fillObjApply($obj) {
-		$obj->pred1 = 'apply&'.$this->result->getPredicateStr().'&'.$this->result->publisherID;
+		$obj->pred1 = 'apply&'.$this->result->id.'&'.$this->result->publisherID;
 	}
 }
 ?>

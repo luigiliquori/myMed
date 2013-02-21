@@ -20,9 +20,9 @@ class AdminController extends ExtendedProfileRequired {
 			$results = $admins->results;
 		
 		
-		/*$find = new RequestJson( $this, 
-					array("application"=>APPLICATION_NAME.":profiles",
-						  "predicates"=>array()));
+		/*	$find = new RequestJson( $this, 
+							array("application"=>APPLICATION_NAME.":profiles",
+							"predicates"=>array()));
 		try{
 			$res = $find->send();
 		}
@@ -50,11 +50,12 @@ class AdminController extends ExtendedProfileRequired {
 					  "predicates"=>array()));
 		try{
 			$res = $find->send();
+			return $res;
 		}
 		catch(Exception $e){
 			// TODO handle errors here
 		}
-		return $res;
+		return null;
 	}
 	
 	
@@ -242,7 +243,7 @@ class AdminController extends ExtendedProfileRequired {
 	
 		foreach($result as $annonce) :
 			$search_applies_annonce = new Apply();
-			$search_applies_annonce->pred1 = 'apply&'.$annonce->getPredicateStr().'&'.$id;
+			$search_applies_annonce->pred1 = 'apply&'.$annonce->id.'&'.$id;
 			$applies = $search_applies_annonce->find();
 			foreach($applies as $apply){
 				$apply->delete();

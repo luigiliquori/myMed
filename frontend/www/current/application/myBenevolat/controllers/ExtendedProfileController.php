@@ -399,11 +399,18 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 					DELETE);
 		$publish->send();
 		
+		// Delete profiles:type applications
+		$publish =  new RequestJson($this,
+				array("application"=>APPLICATION_NAME.":profiles:".$_SESSION['myBenevolat']->profiletype,
+						"id"=>$id),
+				DELETE);
+		$publish->send();
+		
 		// Session myBenevolat is not still valid
 		unset($_SESSION['myBenevolat']);
 		
 		$this->success = "done";
-	
+		
 	}
 	
 	
@@ -432,7 +439,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	
 		foreach($result as $annonce) :
 			$search_applies_annonce = new Apply();
-			$search_applies_annonce->pred1 = 'apply&'.$annonce->getPredicateStr().'&'.$id;
+			$search_applies_annonce->pred1 = 'apply&'.$annonce->id.'&'.$id;
 			$applies = $search_applies_annonce->find();
 			foreach($applies as $apply){
 				$apply->delete();

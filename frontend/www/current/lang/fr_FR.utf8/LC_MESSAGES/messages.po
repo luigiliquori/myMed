@@ -34,6 +34,12 @@ msgstr "Mot de passe"
 msgid "Connection"
 msgstr "Connexion"
 
+msgid "Sign in"
+msgstr "Connexion"
+
+msgid "Sign in with"
+msgstr "Se connecter par"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:49
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:45
 msgid "Connect with"
@@ -987,15 +993,15 @@ msgstr "Date d'expiration"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:45
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ResultsView.php:35
 msgid "Mission type"
-msgstr ""
+msgstr "Type de missions"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:54
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:82
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:47
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ResultsView.php:37
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:88
-msgid "Competences"
-msgstr ""
+msgid "Skills"
+msgstr "Compétences"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:62
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:91
@@ -1007,10 +1013,6 @@ msgstr "Réputation"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:66
 msgid "Credits"
 msgstr "Crédits"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AboutView.php:24
-msgid "<b>myBenevolat</b> description"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AboutView.php:30
 msgid "If you find an error you can report it at this address: "
@@ -1030,63 +1032,36 @@ msgid "Specify properties to retrieve releated announcements."
 msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:29
-msgid "Find an announcement"
-msgstr ""
+msgid "Find an announcement by criteria"
+msgstr "Chercher une annonce par critères"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:34
-#, fuzzy
 msgid "Select skill"
-msgstr "Sélectionner localité"
+msgstr "Sélectionner compétence"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:41
-#, fuzzy
 msgid "Select district"
-msgstr "Sélectionner zone"
+msgstr "Sélectionner quartier"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:47
 msgid "Select mission type"
-msgstr ""
+msgstr "Sélectionner type de mission"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:64
-msgid "All the announcements"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:121
-msgid "FindView help"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:122
-msgid " Use search parameters to find publications that are interesting for you."
-msgstr ""
+msgid "Last announcements"
+msgstr "Dernières annonces"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/RegisterView.php:10
 msgid "Register a new account"
 msgstr "Créer un compte"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/CreateProfileVolunteerView.php:66
-msgid "Please choose form 1 to 4 competences."
-msgstr ""
+msgid "Please choose form 1 to 4 skills"
+msgstr "Veuillez choisir de 1 à 4 compétences"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/CreateProfileVolunteerView.php:97
 msgid "Please choose the type of mission."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/CreateProfileVolunteerView.php:113
-#, fuzzy
-msgid "Please choose your mobilite."
-msgstr "Veuillez spécifier votre catégorie"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:12
-#, fuzzy
-msgid "All validations"
-msgstr "Profil dans vos applications"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:24
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyCandidatureView.php:24
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllCandidaturesView.php:24
-#, fuzzy
-msgid "Here is the space summarizing all of your candidatures."
-msgstr "Voici l'espace récapitulant l'ensemble de vos publications, ainsi que le moyen d'en créer de nouvelles."
+msgstr "Veuillez choisir le type de mission."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:59
 msgid "Delete"
@@ -1131,10 +1106,6 @@ msgstr ""
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:24
-msgid "<b>myBenevolat</b> description."
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:30
 msgid "You have to login to access all the menu options"
 msgstr "Vous devez vous connecter pour accéder à toutes les options du menu"
@@ -1147,54 +1118,36 @@ msgid "My subscriptions"
 msgstr "Mes souscriptions"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:44
-#, fuzzy
 msgid "Search announcement"
-msgstr "Rechercher un projet"
+msgstr "Rechercher une annonce"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:54
 msgid "My profile"
 msgstr "Mon profil"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:60
-#, fuzzy
-msgid "All the candidatures"
-msgstr "Mes candidatures"
+msgid "Manage candidatures"
+msgstr "Gérer candidatures"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:61
-msgid "All the validations"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:76
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:81
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:86
-#, fuzzy
-msgid "<<<<< Help topic >>>>>>"
-msgstr "Par thème"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:77
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:87
-msgid "<<<<< Help description >>>>>>"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:82
-msgid "<<<<< Help description >>>>>>>"
-msgstr ""
+msgid "Manage validations"
+msgstr "Gérer validations"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MainView.php:91
-msgid "Ok"
-msgstr ""
+msgid "OK"
+msgstr "OK"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ModifyAnnouncementView.php:10
 msgid "Modify announcement"
-msgstr ""
+msgstr "Modifier annonce"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ModifyAnnouncementView.php:19
 msgid "Edit announcement"
-msgstr ""
+msgstr "Modifier annonce"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ModifyAnnouncementView.php:116
 msgid "Modify"
-msgstr ""
+msgstr "Modifier"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileEditView.php:17
 msgid "Edit Profile"
@@ -1227,28 +1180,11 @@ msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileEditView.php:151
 msgid "Web site"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileEditView.php:161
-#, fuzzy
-msgid "Your competences."
-msgstr "Partenariat "
+msgstr "Site web"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileEditView.php:163
-msgid "The competences you need."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileEditView.php:182
-msgid "Missions."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileEditView.php:184
-msgid "The missions you propose."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileEditView.php:205
-msgid "Your mobilite."
-msgstr ""
+msgid "The skills you need."
+msgstr "Les compétences requises."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileEditView.php:249
 msgid "Edit your Profile"
@@ -1258,82 +1194,45 @@ msgstr "Modifier votre profil"
 msgid "Here you can update your organization profile."
 msgstr "Vous pouvez modifier ici le profil de votre organisation"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionView.php:23
-msgid "Litle help"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionView.php:24
-msgid "Here you can manage your subsciptions. You will recive all the message releated to the keywords you specify. "
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MySubscriptionView.php:33
 msgid "New subscription"
 msgstr "Nouvelle souscription"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:11
-#, fuzzy
 msgid "Step 1 - Choose your profile"
-msgstr "complete your profile"
+msgstr "Etape 1 - choisissez votre profil"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:16
-#, fuzzy
 msgid "Hello, This is your first time in myBenevolat! Please create your extended profile."
-msgstr "Bonjour, c'est votre première venue sur myEdu! Veuillez Créer votre profil étendu."
+msgstr "Bonjour, c'est votre première venue sur myBenevolat! Veuillez Créer votre profil étendu."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:23
 msgid "Choose the type of profile you want to create."
-msgstr ""
+msgstr "Choisissez le type de profil que vous voulez créer."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:27
 msgid "A Volunteer"
-msgstr ""
+msgstr "Un bénévol"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:31
-#, fuzzy
 msgid "An association"
-msgstr "Association"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:39
-#, fuzzy
-msgid "Extended Profile Help"
-msgstr "Détails du profil étendu MyEdu"
+msgstr "Une association"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:40
-#, fuzzy
 msgid "Choose your role."
-msgstr "complete your profile"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllCandidaturesView.php:12
-#, fuzzy
-msgid "All candidatures"
-msgstr "Mes candidatures"
+msgstr "Choisissez votre rôle"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllCandidaturesView.php:40
-#, fuzzy
 msgid "Applier"
-msgstr "Postuler"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllCandidaturesView.php:43
-msgid "Annonce"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllCandidaturesView.php:46
-msgid "De "
-msgstr ""
+msgstr "Candidat"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:20
-#, fuzzy
 msgid "Profile "
 msgstr "Profil"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:49
 msgid "User details"
 msgstr "Détails utilisateur"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:65
-#, fuzzy
-msgid " profile details"
-msgstr "Détails du profil étendu MyEdu"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:75
 msgid "phone"
@@ -1345,7 +1244,7 @@ msgstr "adresse"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:85
 msgid "Sex"
-msgstr ""
+msgstr "Sexe"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:86
 msgid "Working status"
@@ -1353,21 +1252,16 @@ msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:95
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:124
-#, fuzzy
 msgid "Missions"
-msgstr "Associations"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:102
-msgid "Mobilite"
-msgstr ""
+msgstr "Missions"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:115
 msgid "Website"
-msgstr ""
+msgstr "Site web"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:117
-msgid "Competences needed"
-msgstr ""
+msgid "Skills needed"
+msgstr "Compétences nécessaires"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:139
 msgid "reputation"
@@ -1599,24 +1493,19 @@ msgstr "Le champs texte doit être rempli"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:71
 msgid "You have to choose at least 1 skill"
-msgstr ""
+msgstr "Vous devez choisir au moins 1 compétence"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:75
 msgid "You can choose 4 skills maximum"
-msgstr ""
+msgstr "Vous pouvez choisir que 4 compétences maximum"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:79
 msgid "You have to choose one mission type"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:106
-#, fuzzy
-msgid "Your announcement offer has been successfully published"
-msgstr "Votre offre de partenariat a été publiée avec succès"
+msgstr "Vous devez choisir un type de mission"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:133
 msgid "Announcement modified !"
-msgstr ""
+msgstr "Annonce modifiée !"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/ExtendedProfileRequired.class.php:38
 msgid "Your extended profile could not be found"
@@ -1632,15 +1521,8 @@ msgid "Complement profile registered successfully!"
 msgstr "Complément de profil enregistré avec succès!"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/MySubscriptionManagementController.class.php:38
-#, fuzzy
 msgid "Subscribe success"
-msgstr "S'abonner"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:2
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/description.php:1
-#, fuzzy
-msgid "myEuropeabout"
-msgstr "Le projet <b>myMed</b> est né d'une double constatation: l'existence d'un énorme potentiel de développement des activités économiques de la zone transfrontalière, objet de l'action Alcotra, et le manque criant d'infrastructures techniquement avancées en permettant un développement harmonieux. La proposition myMed est née d'une collaboration existante depuis plus de 15 ans entre l'Institut National de Recherche en Informatique et en Automatique (INRIA) de Sophia Antipolis et l'Ecole Polytechnique de Turin, auxquels viennent s'ajouter deux autres partenaires, l'Université de Turin et l'Université du Piémont Oriental."
+msgstr "Souscription réussie"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/doc/trads.php:3
 msgid "myMedabout"
@@ -1744,26 +1626,6 @@ msgstr "L'enregistrement à myEdu vous permettra de gêrer vos souscriptions et 
 msgid "By phase"
 msgstr "Par phase"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:44
-msgid "Thèmes de projet"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:54
-msgid "Phases du projet"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:71
-msgid "Bugs et problèmes rencontrés"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:74
-msgid "Améliorations proposées"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:77
-msgid "Discussion libre"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/MainView.php:107
 msgid "keywords"
 msgstr "Mots-clés "
@@ -1860,12 +1722,6 @@ msgstr "Nom de l'organisation"
 msgid "Your category"
 msgstr "Choisir une catégorie"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileEditView.php:33
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileCreateView.php:33
-#, fuzzy
-msgid "Territoire d'action"
-msgstr "Type de territoire"
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileCreateView.php:71
 msgid "Create this profile"
 msgstr "Créer ce profil"
@@ -1907,11 +1763,6 @@ msgid "You are a full-powered Admin, have fun!"
 msgstr "Vous êtes un administrateur avec tous les droits, amusez-vous!"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:11
-#, fuzzy
-msgid "users list"
-msgstr "liste des membres"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:11
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -1926,11 +1777,6 @@ msgstr "Retour à la liste de profils"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:34
 msgid "Delete user"
 msgstr "Supprimer l'utilisateur"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ExtendedProfileDisplayView.php:36
-#, fuzzy
-msgid "Delete profile"
-msgstr "Supprimer mon profil"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/PublishSuccessView.php:10
 msgid "Your partnership offer has been successfully published"

@@ -21,14 +21,14 @@
 		<!-- App description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Welcome") ?></h3>
-			<p><?= _("<b>myBenevolat</b> description.") ?></p>	
+			<p><?= _("Main capsule text") ?></p>	
 		</div>
 		
 		<!-- App Main menu -->
 	 <? if ($_SESSION['user']->is_guest) { ?>
 			<!-- User not authenticated - Sign in -->
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
-			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" data-ajax="false"><?=_("Sign in")?></a><br />
+			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connect")?></a><br />
 	 <? } ?>
 		
 	<? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->details['type'] == 'volunteer')):?>
@@ -73,28 +73,61 @@
 		
 		<!-- MainView HELP POPUP -->
 		<div data-role="popup" id="mainViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<h3><?= _("How it works") ?> ?</h3>
 			<ul data-role="listview" data-theme="e">	
 				<li>
 					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("<<<<< Help topic >>>>>>") ?></strong></p>
-						<p><?= _("<<<<< Help description >>>>>>") ?></p>
+						<p><strong><?= _("Connect") ?></strong></p>
+						<p><?= _("description") ?></p>
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("<<<<< Help topic >>>>>>") ?></strong></p>
-						<p><?= _("<<<<< Help description >>>>>>>") ?></p>
+						<p><strong><?= _("My subscriptions (volunteer)") ?></strong></p>
+						<p><?= _("description") ?></p>
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("<<<<< Help topic >>>>>>") ?></strong></p>
-						<p><?= _("<<<<< Help description >>>>>>") ?></p>
+						<p><strong><?= _("My candidatures (volunteer)") ?></strong></p>
+						<p><?= _("description") ?></p>
+				</li>
+				<li>
+					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("My announcements (association)") ?></strong></p>
+						<p><?= _("description") ?></p>
+				</li>
+				<li>
+					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("Search announcement") ?></strong></p>
+						<p><?= _("description") ?></p>
+				</li>
+				<li>
+					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("Volunteers list (admin)") ?></strong></p>
+						<p><?= _("description") ?></p>
+				</li>
+				<li>
+					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("My profile") ?></strong></p>
+						<p><?= _("description") ?></p>
+				</li>
+				<li>
+					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("Manage candidatures (admin)") ?></strong></p>
+						<p><?= _("description") ?></p>
+				</li>
+				<li>
+					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("Manage validations (admin)") ?></strong></p>
+						<p><?= _("description") ?></p>
+				</li>
+				<li>
+					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("Manage associations (admin)") ?></strong></p>
+						<p><?= _("description") ?></p>
 				</li>
 			</ul>
-			<br />	
-			<center><a href="#" data-role="button" data-icon="ok" data-inline="true" data-theme="e" data-rel="back" data-direction="reverse"><?= _("Ok")?></a></center>
 		</div>
-		
 	</div>	
 	<!-- End page content -->
 	
