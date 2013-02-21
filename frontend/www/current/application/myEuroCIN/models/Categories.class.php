@@ -7,35 +7,40 @@
  */
 class Categories {
 	
+	static $localities;
+	static $languages;
 	static $categories;
- 	static $areas;
- 	static $organizations;
- 	static $roles;
  	
 }
 
+Categories::$localities = array(
+		"alessandria" => _("Alessandria"),
+		"asti"	=> _("Asti"),
+		"cuneo" => _("Cuneo"),
+		"francia" => _("Francia"),
+		"genova" => _("Genova"),
+		"imperia" => _("Imperia"),
+		"savona" => _("Savona")
+);
+
+
+Categories::$languages = array(
+		"italian"	=> _("Italiano"),
+		"english"	=> _("Inglese"),
+		"france" => _("Francese")
+);
+
 Categories::$categories = array(
-		"Course" => _("Course"),
-		"Other"  => _("Other"),
+		"art" => _("Arte / Cultura"),
+		"nature" => _("Natura"),
+		"tradition" => _("Enogastronomia"),
+		"enogastronomy" => _("Benessere"),
+		"wellness" => _("Storia"),
+		"story" => _("Arte / Cultura"),
+		"religion" => _("Arte / Cultura"),
+		"sport" => _("Arte / Cultura"),
 );
 
-Categories::$areas = array(
-	"Area1"	=> _("Area1"),
-	"Area2"	=> _("Area2"),
-	"Area3" => _("Area3")
-);
 
-Categories::$roles = array(
-	"Role_1" => _("Role_1"),
-	"Role_2" => _("Role_2")
-	
-);
 
-Categories::$organizations = array(
-	"Organization1" => _("Organization1"),
-	"Organization2"	=> _("Organization2"),
-	"Organization3" => _("Organization3")
-	
-);
 
-?>

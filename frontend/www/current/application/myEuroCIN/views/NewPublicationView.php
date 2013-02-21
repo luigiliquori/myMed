@@ -79,34 +79,21 @@
 				<br />
 				
 				<h3><?= _('Other information') ?> :</h3>
-					<select name="area" id="area" data-native-menu="false">
-					<option value=""> <?= _("Area")?> </option>
-					<? foreach (Categories::$areas as $k=>$v) :?>
+					<select name="locality" id="locality" data-native-menu="false">
+					<option value=""> <?= _("Locality")?> </option>
+					<? foreach (Categories::$localities as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
-					<select name="category" id="category" data-native-menu="false" 
-							onChange=" 
-								if($('select#category').val() == 'Course') {
-									$('#maxappliersdiv').show();
-								} else {
-									$('#maxappliersdiv').hide();
-								}
-								
-					" >
+					<select name="language" id="language" data-native-menu="false">
+						<option value=""> <?= _("Language")?> </option>
+					<? foreach (Categories::$languages as $k=>$v) :?>
+						<option value="<?= $k ?>"><?= $v ?></option>
+					<? endforeach ?>
+					</select>
+					<select name="category" id="category" data-native-menu="false">
 						<option value=""> <?= _("Category")?> </option>
 					<? foreach (Categories::$categories as $k=>$v) :?>
-						<option value="<?= $k ?>"><?= $v ?></option>
-					<? endforeach ?>
-					</select>
-					<div data-role="fieldcontain" id="maxappliersdiv" name="maxappliersdiv" style="text-align:right; display: none; margin-right:30px;">
-						<label for="maxappliers" ><?=_(" Max course appliers number: "); ?></label>
-	    				<input type="text" name="maxappliers" id="maxappliers" value="30" style="width:80px; text-align:right;"/>
-					</div>
-					<input type="hidden" id="currentappliers" name="currentappliers" value="-1" />
-					<select name="organization" id="organization" data-native-menu="false">
-						<option value=""> <?= _("Organization")?> </option>
-					<? foreach (Categories::$organizations as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>

@@ -67,14 +67,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	public function create() {
 			
-		// Check mandatory fiels
-		if (!$_POST['role']) {
-			$this->error = _("Please specify your category");
+		// No mandatory fields in myEuroCIN extended profile
+		/* if (!$_POST['phone']) {
+			$this->error = _("Please specify your phone");
 			$this->renderView("ExtendedProfileCreate");
-		} else if(!$_POST['checkCondition']) {
-			$this->error = _("You must accept the terms of use.");
-			$this->renderView("ExtendedProfileCreate");
-		}  
+		} */
 		
 	
 		// Unset post vale that we don't need
@@ -89,8 +86,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$publish =  new RequestJson($this,
 						array("application"=>APPLICATION_NAME.":profiles",
 						"id"=>$_POST['id'], "data"=>$_POST,
-						"metadata"=>array("role"=>$_POST['role'],
-						"name"=>$_POST['name'])),
+						"metadata"=>array("name"=>$_POST['name'])),
 						CREATE);
 		$publish->send();
 	
@@ -234,13 +230,10 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	function createUser($profile){
 	
-		// Permission is 2 if the user is an admin, otherwise 1
-		$permission = (
-				strcontain($_SESSION['user']->email, "@inria.fr")
-				|| $_SESSION['user']->email=="luigi.liquori@gmail.com"
-				|| $_SESSION['user']->email=="bredasarah@gmail.com"
-				|| $_SESSION['user']->email=="myalpmed@gmail.com"
-		)? 2 : 1;
+		// 2 if the user is admin otherwise 1
+		$permission
+				= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 1;
+
 			
 		$user = array(
 				'permission'=> $permission,

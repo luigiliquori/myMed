@@ -27,6 +27,17 @@
   	   		print_header_bar("?action=main", "defaultHelpPopup", $title);
   	   ?>
 	
+	<!-- Print profile type -->
+	<div data-role="header" data-theme="e">
+		<h1 style="white-space: normal;">
+		<?  if($_SESSION['myEuroCIN']->permission == 2) {
+					echo _("Administrator");
+			}
+		?>
+		</h1>
+	</div>
+	
+	
 	
 	<!-- Page content -->
 	<div data-role="content">
@@ -64,10 +75,6 @@
 			<!-- myEuroCINExtended profile details -->
 			<li data-role="list-divider"><?= _("myEuroCIN extended profile details") ?></li>	
 			<li>
-				<p>
-					<!-- Role -->
-					<?= _("Role") ?>: <strong style="color:#444;"><?= _($this->profile->details['role']) ?></strong><br/>
-				</p>
 				<p>
 					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
 					<?=

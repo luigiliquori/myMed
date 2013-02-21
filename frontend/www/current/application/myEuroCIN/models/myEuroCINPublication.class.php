@@ -9,16 +9,14 @@ class myEuroCINPublication extends GenericDataBean {
 	/** Some predicates .
 	 * Register them in the contructor with appropriate ontologyID */
 	public $type = 'myEuroCINPublication';
-	public $area;
+	public $locality;
+	public $language;
 	public $category;
-	public $organization;
 	
 	/** Some data (got after a "details" query).
 	 *  Register them in the contructor with appropriate ontologyID */
 	public $title;
 	public $text;
-	public $maxappliers;			// Max appliers to a course
-	public $currentappliers;		// Current appliers to a course
 	
 	public $pred1;
 	public $pred2;
@@ -33,17 +31,15 @@ class myEuroCINPublication extends GenericDataBean {
 				array(
 						"publisher"	=> KEYWORD,
 						"type"	=> KEYWORD,
+						"locality" => KEYWORD,
+						"language" => KEYWORD,
 						"category" => KEYWORD,
-						"organization" => KEYWORD,
-						"area" => KEYWORD,
 						"title" => KEYWORD,
 						"pred1" => KEYWORD,
 						"pred2" => GPS),
 				
 				// Data attributes 
-				array("text" => TEXT, 
-					  "maxappliers" => TEXT,
-					  "currentappliers" => TEXT),
+				array("text" => TEXT),
 				
 				// Wrapped attributes
 				array("title", "end"),
