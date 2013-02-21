@@ -1,7 +1,7 @@
 <data>
     <text>Here you can check the list of the universities interested by myMed Alcotra project.</text>
         <page title="Université de Nice Sophia-Antipolis" url="http://unice.fr/">
-                <item title="Agronomie, agroalimentaire, nutrition" />
+                <item title="Agronomie, agroalimentaire, nutrition" subtitle="test" />
                 <item title="Arts et design" />
                 <item title="Communication, information, journalisme" />
                 <item title="Documentation, archives" />

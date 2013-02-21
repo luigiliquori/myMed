@@ -66,13 +66,13 @@ static MyMedClient *instance=nil;
 -(NSString *)getHtml_pleaseWait
 {
     return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><p>%@</p></body></html>",
-            NSLocalizedString(@"myEdu", nil),
+            NSLocalizedString(@"myFSA", nil),
             NSLocalizedString(@"Please wait...", nil)];
 }
 -(NSString *)getHtml_noConnection;
 {
     return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><p style=\"text-align:center\">%@</p></body></html>",
-            NSLocalizedString(@"myEdu", nil),
+            NSLocalizedString(@"myFSA", nil),
             NSLocalizedString(@"Server down, or no connection available.", nil)];
 }
 
@@ -80,7 +80,7 @@ static MyMedClient *instance=nil;
 -(NSString *)getHtml_empty;
 {
     return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1></body></html>",
-            NSLocalizedString(@"myEdu", nil)];
+            NSLocalizedString(@"myFSA", nil)];
 }
 
 -(void) loadUrl

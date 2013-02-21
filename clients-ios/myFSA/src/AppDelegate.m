@@ -61,10 +61,10 @@
     
     FirstScreenViewController *firstVC = [[[FirstScreenViewController alloc] initWithNibName:xibName bundle:nil] autorelease];
     firstVC.tabBarItem.image = [UIImage imageNamed:@"gradhat"];
-    firstVC.title = NSLocalizedString(@"myEdu", nil);
+    firstVC.title = NSLocalizedString(@"myFSA", nil);
     UINavigationController *firstNav = [[[UINavigationController alloc] initWithRootViewController:firstVC] autorelease];
     firstNav.navigationBar.tintColor = color;
-    firstNav.title = NSLocalizedString(@"myEdu", nil);
+    firstNav.title = NSLocalizedString(@"myFSA", nil);
     
     
     RemoteHtmlViewController *mainVC = [[[RemoteHtmlViewController alloc] initWithNibName:@"RemoteHtmlViewController" bundle:nil] autorelease];

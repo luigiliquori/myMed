@@ -78,7 +78,7 @@
         MFMailComposeViewController *controller = [[MFMailComposeViewController
                                                     alloc] init];
         controller.mailComposeDelegate = self;
-        [controller setSubject:NSLocalizedString(@"myEdu", nil)];
+        [controller setSubject:NSLocalizedString(@"myFSA", nil)];
         NSString *emailBody = @"<a href='https://itunes.apple.com/app/id599496750?ls=1&mt=8'>https://itunes.apple.com/us/app/myedu-mymed/id599496750</a>";
         [controller setMessageBody:emailBody isHTML:YES];
         //[controller setToRecipients:recipients];

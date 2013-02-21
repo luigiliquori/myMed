@@ -7,6 +7,7 @@
 //
 
 #import "NavigationModel.h"
+#import "Item.h"
 
 static NavigationModel *instance = nil;
 
@@ -93,18 +94,16 @@ static NavigationModel *instance = nil;
         [parentPage.subPages addObject:pag];
         [pagesStack addObject:pag];
         
-        NSMutableString *s = [[NSMutableString alloc] init];
-        for (int i=0; i<[pagesStack count]; i++) {
-            [s appendString:@"."];
-        }
-        //NSLog(@"%@%@ [%@]", s, pag.title, pag.subtitle);
-        [s release];
+        //NSLog(@"%@ [%@]", pag.title, pag.subtitle);
         [pag release];
         return;
     } else if ( [elementName isEqualToString:@"item"] ) {
-        [parentPage.items addObject:[attributeDict objectForKey:@"title"]];
-        return;
-    } else if ( [elementName isEqualToString:@"person"] ) {
+        Item *itm = [[Item alloc] init];
+        itm.title = [attributeDict objectForKey:@"title"];
+        itm.subtitle = [attributeDict objectForKey:@"subtitle"];
+        itm.url = [attributeDict objectForKey:@"url"];
+        [parentPage.items addObject:itm];
+        [itm release];
         return;
     }
     
