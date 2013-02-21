@@ -88,6 +88,11 @@
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("My candidatures (volunteer)") ?></strong></p>
+						<p><?= _("description") ?></p>
+				</li>
+				<li>
+					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
 						<p><strong><?= _("My announcements (association)") ?></strong></p>
 						<p><?= _("description") ?></p>
 				</li>
