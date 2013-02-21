@@ -9,7 +9,7 @@ define('ROOT', dirname(__FILE__).'/../../../');
 
 require_once ROOT.'system/common/PhpConsole.php';
 PhpConsole::start();
-debug('config twitter');
+
 require_once(ROOT.'system/config.php');
 
 function getTrustRoot() {
@@ -23,6 +23,15 @@ function getScheme() {
 		$scheme .= 's';
 	}
 	return $scheme;
+}
+
+debug($_SERVER['SERVER_NAME']);
+if(strpos($_SERVER['SERVER_NAME'], 'www')==false){ // http://mymed.fr
+	define('CONSUMER_KEY', 'bNiImVmOCf4wdNPjEIsgw');
+	define('CONSUMER_SECRET', 't3WP9o1jQUg6eIfNR9asU8YG0pCzPTa6ccak5sDsVc');
+}else{
+	define('CONSUMER_KEY', 'rxnjz46zCzvrrYZmyxx0A');
+	define('CONSUMER_SECRET', 'oVRSV3p2BVzld2Ay95DG1MXM6Va1KGvUQq2kySAHWBc');
 }
 
 define('OAUTH_CALLBACK', sprintf("%s://%s%s/callback.php",

@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 if(strpos($_SERVER['SERVER_NAME'], 'www')==false){ // http://mymed.fr
 	define('Google_APP_SECRET', 'AIzaSyDUjDokDbzFpxNKXAj8EXqyWeUrGW06TIk');
 	define('Google_APP_CLIENT_ID', '376803621438.apps.googleusercontent.com');
