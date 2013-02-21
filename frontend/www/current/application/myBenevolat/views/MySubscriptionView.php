@@ -17,7 +17,7 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("My subscriptions capsule title") ?> ?</h3>
+			<h3><?= _("My subscriptions capsule title") ?></h3>
 			<p><?= _("My subscriptions capsule text")?></p>
 		</div>
 		<br />

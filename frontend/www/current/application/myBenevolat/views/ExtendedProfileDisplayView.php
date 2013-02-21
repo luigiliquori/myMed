@@ -184,7 +184,7 @@
 			<!-- List of user subscriptions -->
 			<br />
 		 <? if (isset($_SESSION['myBenevolat'])): ?>
-				<a type="button" href="?action=mySubscription&subscriptions=true" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My subscriptions") ?></a>
+				<a type="button" href="?action=mySubscriptionManagement" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("Manage subscriptions") ?></a>
 		 <? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 	<? endif; ?>

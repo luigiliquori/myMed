@@ -13,8 +13,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("Manage your subscriptions") ?></h3>
-			<p><?= _("Set up parameters of your subscriptions.")?></p>
+			<h3><?= _("Manage subscriptions capsule title") ?></h3>
+			<p><?= _("Manage subscriptions capsule text")?></p>
 		</div>
 		<br />
 	</div>
@@ -162,14 +162,12 @@
 				}
 			</script>
 			
-			<div data-role="popup" class="ui-content" id="deletePopup" style="text-align:center">
-			ça ne marche pas ne soit pas dégouté
-			</div>
+			<div data-role="popup" class="ui-content" id="deletePopup" style="text-align:center"></div>
 			
 			
 			<!-- Help popup -->
 			<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 				<a href="#" data-rel="back" data-role="button" data-theme="a"  data-iconpos="notext" class="ui-btn-right">Close</a>
-				<p> <?= _("Set up parameters of your subscriptions.") ?></p>
+				<p> <?= _("Manage subscriptions help text") ?></p>
 			</div>
 </div>
