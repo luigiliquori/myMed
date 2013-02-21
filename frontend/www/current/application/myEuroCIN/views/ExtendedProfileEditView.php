@@ -34,32 +34,7 @@
 			<input type="hidden" name="id" value="<?= $_SESSION['myEuroCIN']->profile ?>" />
 			<input type="hidden" name="form" value="edit" />
 
-			<!-- Role -->
-			<div style="text-align: center">
-				<label for="typeProfile"> <?= _("Profile type") ?>: </label>
-				<strong style="text-transform:uppercase;"><?= _($_SESSION['myEuroCIN']->details['role'])?></strong>
-			</div>
-			<script type="text/javascript">
-				$("#extendedprofileeditview").on("pageshow", function() {  
-					switch ('<?= $_SESSION['myEuroCIN']->details['role'] ?>') {			
-						case 'Role_1':
-							$('#role1field1div').show();	
-		   					$('#role1field2div').show();
-		   					$('#role2field1div').hide();
-		   					$('#role2field2div').hide();
-  							break; 
-  						
-  						case 'Role_2':
-  							$('#role1field1div').hide();	
-		   					$('#role1field2div').hide();
-		   					$('#role2field1div').show();
-		   					$('#role2field2div').show();  							
-		   					break;
 
-  					}
-				});
-			</script>
-			
 			<!-- User profile details -->
 			
 			<!-- First Name -->
@@ -104,24 +79,6 @@
 			<div data-role="fieldcontain">
 				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
 				<textarea id="desc" style="height: 120px;" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEuroCIN']->details['desc'] ?></textarea>
-			</div>
-			<!-- Fields for role_1 -->
-			<div id="role1field1div" data-role="fieldcontain" class="ui-screen-hidden">
-				<label for="role1field1"  style="text-align:right"><?= _('Role 1 field 1') ?>: </label>
-				<input id="role1field1" name="role1field1" placeholder="Role 1 field 1" value="<?= $_SESSION['myEuroCIN']->details['role1field1'] ?>"></input>
-			</div>
-			<div id="role1field2div" data-role="fieldcontain">
-				<label for="role1field2"  style="text-align:right"><?= _('Role 1 field 2') ?>: </label>
-				<textarea id="role1field2" name="role1field2" style="height: 120px;" placeholder="Role 1 field 2"><?= $_SESSION['myEuroCIN']->details['role1field2'] ?></textarea>
-			</div>
-			<!-- Fields for role_2 -->
-			<div id="role2field1div" data-role="fieldcontain">
-				<label for="role2field1"  style="text-align:right"><?= _('Role 2 field 1') ?>: </label>
-				<input id="role2field1" name="role2field1" placeholder="Role 2 field 1" value="<?= $_SESSION['myEuroCIN']->details['role2field1'] ?>"></input>
-			</div>
-			<div id="role2field2div" data-role="fieldcontain">
-				<label for="role2field2"  style="text-align:right"><?= _('Role 2 field 2') ?>: </label>
-				<textarea id="role2field2" name="role2field2" style="height: 120px;" placeholder="Role 2 field 2"><?= $_SESSION['myEuroCIN']->details['role2field2'] ?></textarea>
 			</div>
 			<br/>
 			<div data-role="fieldcontain">

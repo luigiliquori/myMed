@@ -16,9 +16,9 @@
 	<div data-role="content">
 		
 		<form action="index.php?action=find" method="POST" data-ajax="false">
-			<input type="hidden" id="find_area" name="area" value="" />
+			<input type="hidden" id="find_locality" name="locality" value="" />
+			<input type="hidden" id="find_language" name="language" value="" />
 			<input type="hidden" id="find_category" name="category" value="" />
-			<input type="hidden" id="find_organization" name="organization" value="" />
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to find") ?>?</h3>
@@ -30,9 +30,9 @@
 			
 	   			<fieldset data-role="controlgroup">
 					<!-- Categoria -->
-					<select name="Category" id="find_category_content" id="call" data-native-menu="false">
-						<option value=""><?= _("Category") ?></option>
-						<? foreach (Categories::$categories as $k=>$v) :?>
+					<select name="locality" id="find_locality_content" id="call" data-native-menu="false">
+						<option value=""><?= _("Locality") ?></option>
+						<? foreach (Categories::$localities as $k=>$v) :?>
 							<option value="<?= $k ?>"><?= $v ?></option>
 						<? endforeach ?>
 					</select>
@@ -44,12 +44,12 @@
 					
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="organizationBox" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
+							<input type="checkbox" name="languageBox" id="check-view-a"/> <label for="check-view-a"><?= _("Language")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="organization" id="find_organization_content" id="call" data-native-menu="false">
+							<select name="language" id="find_language_content" id="call" data-native-menu="false">
 								<option value=""></option>
-								<? foreach (Categories::$organizations as $k=>$v) :?>
+								<? foreach (Categories::$languages as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
 							</select>
@@ -57,12 +57,12 @@
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="areaBox" id="check-view-c"/> <label for="check-view-c"><?= _("Area")?></label>
+							<input type="checkbox" name="categoryBox" id="check-view-c"/> <label for="check-view-c"><?= _("Category")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="Area" id="find_area_content" id="call" data-native-menu="false">
+							<select name="category" id="find_category_content" id="call" data-native-menu="false">
 								<option value=""></option>
-									<? foreach (Categories::$areas as $k=>$v) :?>
+									<? foreach (Categories::$categories as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
 									<? endforeach ?>
 							</select>
@@ -72,9 +72,9 @@
 			
 				<div style="text-align: center;">
 					<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>"  data-iconpos="right" data-inline="true" onclick="
-						$('#find_area').val($('#find_area_content').val());
+						$('#find_locality').val($('#find_locality_content').val());
+						$('#find_language').val($('#find_language_content').val());
 						$('#find_category').val($('#find_category_content').val());
-						$('#find_organization').val($('#find_organization_content').val());
 					"/>
 				</div>
 			</div>

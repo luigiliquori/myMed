@@ -58,8 +58,7 @@ class PublishController extends ExtendedProfileRequired {
 				$this->renderView("NewPublication");
 			} else if (((empty($_POST['expire_day']) || 
 					     empty($_POST['expire_month']) || 
-					     empty($_POST['expire_year'])) && 
-					     ($_POST['category'] == 'Course')) &&
+					     empty($_POST['expire_year']))) &&
 					     empty($_POST['end'])) {		
 				$this->error = _("Please provide a valide expiration date for the course");
 				$this->renderView("NewPublication");
@@ -67,36 +66,26 @@ class PublishController extends ExtendedProfileRequired {
 				$this->error = _("Text field can't be empty");
 				$this->renderView("NewPublication");
 					
-			} else if (empty($_POST['area'])) {
-				$this->error = _("Area field can't be empty");
+			} else if (empty($_POST['locality'])) {
+				$this->error = _("Locality field can't be empty");
+				$this->renderView("NewPublication");
+					
+			} else if (empty($_POST['language'])) {
+				$this->error = _("Language field can't be empty");
 				$this->renderView("NewPublication");
 					
 			} else if (empty($_POST['category'])) {
 				$this->error = _("Category field can't be empty");
 				$this->renderView("NewPublication");
-					
-			} else if (empty($_POST['organization'])) {
-				$this->error = _("Organization field can't be empty");
-				$this->renderView("NewPublication");
-			} else if ($_POST['category'] == 'Course' && 
-					   !is_numeric($_POST['maxappliers'])) {
-				$this->error = _("Specify a valid value for the maximum number 
-								  of course appliers");
-				$this->renderView("NewPublication");
-		    } else {
+			} else {
 				
 				// All required fields are filled, publish it
 				$obj = new myEuroCINPublication();
 				$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
-				//$obj->type = 'myEuroCINPublication';				// Publication type
-				$obj->area = $_POST['area'];					// Area
+				//$obj->type = 'myEuroCINPublication';			// Publication type
+				$obj->locality = $_POST['locality'];			// locality
+				$obj->language = $_POST['language'];			// Language
 				$obj->category = $_POST['category'];			// Category
-				if($_POST['category'] == 'Course' && 
-				   isset($_POST['maxappliers'])) {			
-					$obj->maxappliers = $_POST['maxappliers'];			// Max appliers to the course and ...
-					$obj->currentappliers = $_POST['currentappliers'];  // ... current appliers
-				}
-				$obj->organization = $_POST['organization'];	// Organization
 				$obj->end 	= $_POST['date'];					// Expiration date
 				$obj->title = $_POST['title'];					// Title
 				$obj->text 	= $_POST['text'];					// Publication text
@@ -130,19 +119,19 @@ class PublishController extends ExtendedProfileRequired {
 	 *  Delete user's publication and all the students applies if category=course and the comments
 	 */
 	public function delete() {
-		$this->delete_Applies();
+		
 		$this->delete_Comments();
 		
 		$obj = new myEuroCINPublication();
-		$obj->publisherID = $_SESSION['user']->id;  // Publisher ID
-		$obj->publisher = $_SESSION['user']->id;    // Publisher ID
+		$obj->publisherID = $_SESSION['user']->id;  	// Publisher ID
+		$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
 		//$obj->type = 'myEuroCINPublication';			// Publication type no used anymore
-		$obj->area = $_POST['area'];				// Area
-		$obj->category = $_POST['category'];		// Category
-		$obj->organization = $_POST['organization'];// Organization
-		$obj->end 	= $_POST['date'];				// Expiration date
-		$obj->title = $_POST['title'];				// Title
-		$obj->text 	= $_POST['text'];				// Publication text
+		$obj->locality = $_POST['locality'];			// Locality
+		$obj->language = $_POST['language'];			// Organization
+		$obj->category = $_POST['category'];			// Category
+		$obj->end 	= $_POST['date'];					// Expiration date
+		$obj->title = $_POST['title'];					// Title
+		$obj->text 	= $_POST['text'];					// Publication text
 		
 		// Delete publication
 		$obj->delete();
