@@ -59,7 +59,7 @@ class PublishController extends ExtendedProfileRequired {
 			} else if (((empty($_POST['expire_day']) || 
 					     empty($_POST['expire_month']) || 
 					     empty($_POST['expire_year']))) &&
-					     empty($_POST['end'])) {		
+					     empty($_POST['date'])) {		
 				$this->error = _("Please provide a valide expiration date for the course");
 				$this->renderView("NewPublication");
 			} else if (empty($_POST['text'])) {
@@ -82,13 +82,26 @@ class PublishController extends ExtendedProfileRequired {
 				// All required fields are filled, publish it
 				$obj = new myEuroCINPublication();
 				$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
-				//$obj->type = 'myEuroCINPublication';			// Publication type
 				$obj->locality = $_POST['locality'];			// locality
 				$obj->language = $_POST['language'];			// Language
 				$obj->category = $_POST['category'];			// Category
 				$obj->end 	= $_POST['date'];					// Expiration date
 				$obj->title = $_POST['title'];					// Title
 				$obj->text 	= $_POST['text'];					// Publication text
+				
+				// Save publication date
+				if(isset($_POST['begin'])) 
+					$obj->begin = $_POST['begin'];
+				else 
+					$obj->begin = date(DATE_FORMAT);
+				
+				// If the author is an admin the post is automatically
+				// validated
+				if($_SESSION['myEuroCIN']->permission == '2' || 
+				   $_POST['validated'] == "validated")
+					$obj->validated = "validated";		
+				else			
+					$obj->validated = "waiting";
 				
 				// sets the level of broadcasting in the Index Table
 				$level = 3;  
@@ -132,6 +145,7 @@ class PublishController extends ExtendedProfileRequired {
 		$obj->end 	= $_POST['date'];					// Expiration date
 		$obj->title = $_POST['title'];					// Title
 		$obj->text 	= $_POST['text'];					// Publication text
+		$obj->validated = $_POST['validated'];			// Publication text
 		
 		// Delete publication
 		$obj->delete();

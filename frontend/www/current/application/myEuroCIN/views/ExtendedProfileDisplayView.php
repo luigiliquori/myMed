@@ -131,12 +131,7 @@
 				<?= _("Are you sure you want to delete your profile ?") ?><br /><br />
 				<a type="button" href="?action=ExtendedProfile&method=delete"  data-theme="g" data-icon="ok" data-inline="true"><?= _('Yes') ?></a>
 				<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
-			</div>
-			<!-- List of user subscriptions -->
-			<br />
-				<? if (isset($_SESSION['myEuroCIN'])): ?>
-				<a type="button" href="?action=mySubscription&subscriptions=true" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My subscriptions") ?></a>
-				<? endif; ?>
+			</div>	
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 		<? endif; ?>
 	

@@ -17,6 +17,7 @@ class myEuroCINPublication extends GenericDataBean {
 	 *  Register them in the contructor with appropriate ontologyID */
 	public $title;
 	public $text;
+	public $validated;
 	
 	public $pred1;
 	public $pred2;
@@ -39,7 +40,8 @@ class myEuroCINPublication extends GenericDataBean {
 						"pred2" => GPS),
 				
 				// Data attributes 
-				array("text" => TEXT),
+				array("text" => TEXT,
+					  "validated" => TEXT),
 				
 				// Wrapped attributes
 				array("title", "end"),

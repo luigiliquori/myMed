@@ -66,18 +66,8 @@
 										break;
 									}
 								endforeach;
-								if($applied==false){?>
-						 			<form action="?action=apply&method=apply" method="POST" data-ajax="false">
-						 				<input type="hidden" name="method" value="Apply" />
-						 				<input type="hidden" name="title" value="<?= $this->result->title ?>" />
-						 				<input type="hidden" name="maxappliers" value="<?= $this->result->maxappliers ?>" />
-						 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
-						 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
-						 				<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
-										<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
-						 			</form>
-			 				 <? }
 							 }
+							 
 							 if($_GET['author']==$_SESSION['user']->id){ ?> <!-- the user is the author of this publication: can update -->
 								<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
 						  <? }
