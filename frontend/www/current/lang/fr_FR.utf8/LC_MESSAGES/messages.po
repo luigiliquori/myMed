@@ -1111,10 +1111,19 @@ msgstr "Veuillez choisir le type de mission."
 msgid "Delete"
 msgstr "Supprimer"
 
+msgid "Your account has been validated. You can connect now"
+msgstr "Votre compte à bien été validé. Vous pouvez vous loguer à présent"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:64
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:90
 msgid "You can attach a message for the applier:"
 msgstr "Vous pouvez joindre un message pour le candidat:"
+
+msgid "You can attach a message for the applier (or just click on Refuse):"
+msgstr "Vous pouvez joindre un message pour le candidat (ou juste cliquer sur Refuser):"
+
+msgid "You can attach a message for the applier (or just click on Accept):"
+msgstr "Vous pouvez joindre un message pour le candidat (ou juste cliquer sur Accepter):"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:68
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllCandidaturesView.php:52
@@ -1248,9 +1257,6 @@ msgstr "Etape 1 - choisissez votre profil"
 
 msgid "Previous"
 msgstr "Précédent"
-
-msgid "Next"
-msgstr "Suivant"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:16
 msgid "Hello, This is your first time in myBenevolat! Please create your extended profile."
@@ -1447,9 +1453,29 @@ msgstr "Evaluer la publication"
 msgid "Assign a value from 1 (Poor idea) to 5 (Great idea!!)"
 msgstr "Assigner une valeur de 1 (mauvaise) à 5 (bonne idée!!)"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/DetailsView.php:177
+msgid "Assign a value from 1 to 5"
+msgstr "Assigner une valeur de 1 à 5"
+
 msgid "Rate author"
 msgstr "Evaluer l'auteur"
+
+msgid "Rate offer"
+msgstr "Evaluer l'offre"
+
+msgid "Offer reputation"
+msgstr "Réputation de l'offre"
+
+msgid "Author reputation"
+msgstr "Réputation de l'auteur"
+
+msgid "rates"
+msgstr "votes"
+
+msgid "Waiting validation: "
+msgstr "En attente de validation: "
+
+msgid "You have to choose at least one parameter"
+msgstr "Vous devez choisir au moins un paramètre"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/DetailsView.php:183
 msgid "Do you like the author?"
@@ -2677,13 +2703,22 @@ msgstr "Vérifiez and créez vos offres."
 msgid "Student"
 msgstr "Etudiant"
 
+msgid "student"
+msgstr "étudiant"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:54
 msgid "Professor"
 msgstr "Professeur"
 
+msgid "professor"
+msgstr "professeur"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:55
 msgid "Company"
 msgstr "Compagnie"
+
+msgid "company"
+msgstr "compagnie"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:68
 msgid "Area field can't be empty"
@@ -3444,11 +3479,17 @@ msgstr ""
 msgid "Association validée"
 msgstr ""
 
-#~ msgid "An email has been sent to you!"
-#~ msgstr "Un mail vient de vous être envoyé!"
+msgid "An email has been sent to you!"
+msgstr "Un mail vient de vous être envoyé!"
 
-#~ msgid "Internal error of registration"
-#~ msgstr "Erreur interne d'enregistrement"
+msgid "Internal error of registration"
+msgstr "Erreur interne d'enregistrement"
+
+msgid "<b>Waiting application validation</b>"
+msgstr "<b>En attente de validation d'adhésion</b>"
+
+msgid "<b>Member to this offer</b>"
+msgstr "<b>Adhérent de cette offre</b>"
 
 #~ msgid "Unsubscribed!"
 #~ msgstr "Unsubscribed!"

@@ -52,6 +52,10 @@
 								foreach ($this->result_apply as $item) :
 									if($item->publisherID==$_SESSION['user']->id){ // already applied
 										$applied=true;
+										if($item->accepted=='waiting')
+											echo _("<b>Waiting application validation</b>");
+										else
+											echo _("<b>Member to this offer</b>");
 										break;
 									}
 								endforeach;
@@ -128,7 +132,7 @@
 				if(!$_SESSION['user']->is_guest) : ?>
 	    		<div>
 	    			<!-- Publication reputation -->
-	    			<p style="display:inline; font-size:80%;">Offer rate:</p>
+	    			<p style="display:inline;"><?= _("Offer reputation")?>:</p>
 						<?php
 							// Disable reputation stars if there are no votes yet 
 							if($this->reputation["value_noOfRatings"] == '0') : ?> 
@@ -145,7 +149,7 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
+					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> <?= _("rates")?> </p>
 					
 				 <? if ($this->result->publisherID != $_SESSION['user']->id) {
 		    			$date=strtotime(date('d-m-Y'));
@@ -158,7 +162,7 @@
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
 						<?= _("Do you like the project idea ?") ?><br /><br />
-						<form id="form1" action="?action=updateReputation&reputa=10" method="get" data-ajax="false">
+						<form id="form1" action="?action=updateReputation" method="get" data-ajax="false">
 							<input type="hidden" name="action" value="updateReputation" />
 							<input type="hidden" name="reputation" id="reputation" />
 							<input type="hidden" name="isData" value="1" />
@@ -172,7 +176,7 @@
 					
 					<!-- Author reputation (only for students and companies) -->
 					<?php if($this->publisher_profile->details['role']!='professor'): ?>
-						<p style="display:inline; font-size:80%;">Author reputation:</p>
+						<p style="display:inline;"><?= _("Author reputation")?>:</p>
 						<?php
 							// Disable reputation stars if there are no votes yet 
 							if($this->reputation["author_noOfRatings"] == '0') : ?> 
@@ -188,7 +192,7 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>							
+						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> <?= _("rates")?></p>							
 						<?php 
 							// A user cannot rate himself
 							if ($this->result->publisherID != $_SESSION['user']->id) {
@@ -197,10 +201,17 @@
 						?>
 
 						<!-- Author REPUTATION pop up -->
-						<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center;">
+						<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center; width: 18em;">
 							<?= _("Do you like the author?") ?><br /><br />
-							<a href="?action=updateReputation&reputation=10&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="g" data-icon="plus"><?= _("Of course yes!")?></a><br />
-							<a href="?action=updateReputation&reputation=0&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>" data-mini="true" data-role="button" data-inline="true" rel="external" data-theme="r" data-icon="minus"><?= _("No, not really...")?></a>
+							<form id="form2" action="?action=updateReputation" method="get" data-ajax="false">
+								<input type="hidden" name="action" value="updateReputation" />
+								<input type="hidden" name="reputation" id="reputation2"/>
+								<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
+								<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
+								<label for="reputationslider2"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 to 5") ?></p><br/></label>
+								<input type="range" name="reputationslider2" id="reputationslider2" value="3" min="1" max="5" data-mini="true" step="1"/>
+								<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation2').val($('#reputationslider2').val()*2);">
+							</form>
 						</div>	
 						<!-- END Author REPUTATION -->
 					<?php endif; ?>			
@@ -263,33 +274,31 @@
 	 			
 	 			<? if($_GET['author']==$_SESSION['user']->id){ ?>
 		 			<!-- STUDENTS APPLICATIONS -->
-					<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+					<div data-role="collapsible" data-collapsed="true" data-theme="d">
 						<? if($this->result->category=='Course'){ ?>
-		 					<h3><?= _('Applicants') ?>: <?= ($this->result->currentappliers==-1)?0:$this->result->currentappliers ?>/<?= $this->result->maxappliers ?></h3>
+		 					<h3><?= _('Applicants') ?>: <?= ($this->result->currentappliers==-1)?0:$this->result->currentappliers ?>/<?= $this->result->maxappliers ?><b style="margin-left: 20px"><?= _("Waiting validation: ").$this->nbApplies_Waiting?></b></h3>
 			 			<? }else{ ?>
-			 				<h3><?= _('Applicants') ?> </h3>
+			 				<h3><?= _('Applicants') ?>: <?= $this->nbApplies ?> <b style="margin-left: 20px"><?= _("Waiting validation: ").$this->nbApplies_Waiting?></b></h3>
 			 			<? } ?>
 			 			<ul data-role="listview" data-filter="false" >
 			 			<?foreach ($this->result_apply as $item) :?>
 			 				<li>
 				 				<div class="ui-grid-a">
 									<div class="ui-block-a">
-										<?= _("Name") ?>: <b><?= $item->publisherName ?></b>
+										<?= _("Name") ?>: <b><a href="?action=extendedProfile&method=show_user_profile&user=<?= $item->publisher?>"><?= $item->publisherName ?></a></b>
 									</div>
 									<div class="ui-block-b">
 										<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
 										<div data-role="controlgroup" data-type="horizontal" style="float: right;">
 											<? if($item->accepted!='accepted'): ?>
-												<!-- <a style="float:left" type="button" href="#popupAccept" data-rel="popup" data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a>-->
 												<a style="float:left;" type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->pred3 ?>","<?= $item->author ?>","<?= $this->result->maxappliers ?>","<?= $this->result->currentappliers ?>","<?= $this->result->area ?>","<?= $this->result->category ?>","<?= $this->result->locality ?>","<?= $this->result->organization ?>","<?= $this->result->end ?>","<?= $this->result->text ?>","<?= $item->title ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a>
 											<? endif; ?>
-											<!-- <a style="float:right" type="button" href="#popupRefuse" data-rel="popup" data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a>-->
 											<a style="float:left;" type="button" href="#" onclick='generate_refuse_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->pred3 ?>","<?= $item->author ?>","<?= $this->result->maxappliers ?>","<?= $this->result->currentappliers ?>","<?= $this->result->area ?>","<?= $this->result->category ?>","<?= $this->result->locality ?>","<?= $this->result->organization ?>","<?= $this->result->end ?>","<?= $this->result->text ?>","<?= $item->title ?>","<?= $item->accepted ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a>
 										</div>
 										
 										<script type="text/javascript">
 											function generate_accept_popup(publisher, pred1,pred2,pred3,author,maxappliers,currentappliers,area,category,locality,organization,end,text,title){
-												$("#popupAccept").html('<?= _("You can attach a message for the applier:") ?>\
+												$("#popupAccept").html('<?= _("You can attach a message for the applier (or just click on Accept):") ?>\
 													<form action="?action=apply&method=accept" method="POST" data-ajax="false">\
 							 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
 										 				<input type="hidden" name="publisher" value="'+publisher+'" />\
@@ -306,7 +315,7 @@
 										 				<input type="hidden" name="date" value="'+end+'" />\
 										 				<input type="hidden" name="text" value="'+text+'" />\
 										 				<input type="hidden" name="title" value="'+title+'" />\
-										 				<input data-role="button" type="submit" data-icon="ok" data-theme="g" data-inline="true" value="<?= _('Send') ?>" />\
+										 				<input data-role="button" type="submit" data-icon="ok" data-theme="g" data-inline="true" value="<?= _('Accept') ?>" />\
 										 			</form>');
 												$("#popupAccept").trigger("create");
 									 			$("#popupAccept").popup("open");
@@ -314,7 +323,7 @@
 
 
 											function generate_refuse_popup(publisher, pred1,pred2,pred3,author,maxappliers,currentappliers,area,category,locality,organization,end,text,title,accepted){
-												$("#popupRefuse").html('<?= _("You can attach a message for the applier:") ?>\
+												$("#popupRefuse").html('<?= _("You can attach a message for the applier (or just click on Refuse):") ?>\
 													<form action="?action=apply&method=refuse" method="POST" data-ajax="false">\
 							 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
 										 				<input type="hidden" name="publisher" value="'+publisher+'" />\
@@ -332,7 +341,7 @@
 										 				<input type="hidden" name="text" value="'+text+'" />\
 										 				<input type="hidden" name="title" value="'+title+'" />\
 										 				<input type="hidden" name="accepted" value="'+accepted+'" />\
-										 				<input data-role="button" type="submit" data-icon="ok" data-theme="g" data-inline="true" value="<?= _('Send') ?>" />\
+										 				<input data-role="button" type="submit" data-icon="ok" data-theme="r" data-inline="true" value="<?= _('Refuse') ?>" />\
 										 			</form>');
 												$("#popupRefuse").trigger("create");
 									 			$("#popupRefuse").popup("open");

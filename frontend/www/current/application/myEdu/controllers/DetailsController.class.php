@@ -107,6 +107,14 @@ class DetailsController extends AuthenticatedController {
 		$search_applies = new Apply();
 		$this->fillObjApply($search_applies);
 		$this->result_apply = $search_applies->find();
+		$this->nbApplies_Waiting=0; 
+		$this->nbApplies=0;
+		foreach($this->result_apply as $apply){
+			if(($apply->accepted)=='waiting')
+				$this->nbApplies_Waiting ++;
+			else 
+				$this->nbApplies ++;
+		}
 	}
 
 	private function fillObjComment($obj) {

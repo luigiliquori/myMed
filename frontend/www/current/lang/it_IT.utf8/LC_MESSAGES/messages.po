@@ -2098,15 +2098,53 @@ msgstr "Studente"
 msgid "Professor"
 msgstr "Professore"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:51
+msgid "student"
+msgstr "studente"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:52
+msgid "professor"
+msgstr "professore"
+
 msgid "Of course yes!"
 msgstr "Certamente!"
 
 msgid "No, not really..."
 msgstr "Non proprio..."
 
+msgid "rates"
+msgstr "voti"
+
+msgid "Assign a value from 1 to 5"
+msgstr "Dai un voto che vada da 1 a 5"
+
+msgid "Rate author"
+msgstr "Valutare l'autore"
+
+msgid "Rate offer"
+msgstr "Valutare l'offerta"
+
+msgid "Offer reputation"
+msgstr "Offerta reputazione"
+
+msgid "Author reputation"
+msgstr "Autore reputazione"
+
+msgid "Waiting validation: "
+msgstr "In attesa di convalida: "
+
+msgid "<b>Waiting application validation</b>"
+msgstr "<b>In attesa di convalida applicazione</b>"
+
+msgid "<b>Member to this offer</b>"
+msgstr "<b>Membri a questa offerta</b>"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:53
 msgid "Company"
 msgstr "Società"
+
+msgid "company"
+msgstr "società"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:67
 msgid "Title field can't be empty"
