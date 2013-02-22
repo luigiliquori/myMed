@@ -107,7 +107,7 @@
 							echo empty($this->profile->details['sex']) ? " " : "<p><b>". _("Sex").": </b>"."<span>".$this->profile->details['sex']."</span></p>";
 							echo empty($this->profile->details['work']) ? " " : "<p><b>". _("Working status").": </b>"."<span>".$this->profile->details['work']."</span></p>";
 							echo "<br/>";
-							echo "<p><b>". _("Competences").":</b><br/><p style='margin-left:20px'>";
+							echo "<p><b>". _("Skills").":</b><br/><p style='margin-left:20px'>";
 							$tokens = explode(" ", $this->profile->details['competences']);
 							array_pop($tokens);
 							foreach($tokens as $token) {
@@ -121,7 +121,7 @@
 								echo Categories::$missions[$token]."<br/>";
 							}
 							echo "</p></p><br/>";
-							echo "<p><b>". _("Mobilite").":</b><br/><p style='margin-left:20px'>";
+							echo "<p><b>". _("Districts").":</b><br/><p style='margin-left:20px'>";
 							$tokens = explode(" ", $this->profile->details['mobilite']);
 							array_pop($tokens);
 							foreach($tokens as $token) {
@@ -136,7 +136,7 @@
 							echo empty($this->profile->details['siret']) ? " " : "<p><b>". _("SIRET").": </b>"."<span>".$this->profile->details['siret']."</span></p>";
 							echo empty($this->profile->details['website']) ? " " : "<p><b>". _("Website").": </b>"."<span>".$this->profile->details['website']."</span></p>";
 							echo "<br/>";
-							echo "<p><b>". _("Competences needed").":</b><br/><p style='margin-left:20px'>";
+							echo "<p><b>". _("Skills needed").":</b><br/><p style='margin-left:20px'>";
 							$tokens = explode(" ", $this->profile->details['competences']);
 							array_pop($tokens);
 							foreach($tokens as $token) {
@@ -184,7 +184,7 @@
 			<!-- List of user subscriptions -->
 			<br />
 		 <? if (isset($_SESSION['myBenevolat'])): ?>
-				<a type="button" href="?action=mySubscription&subscriptions=true" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("My subscriptions") ?></a>
+				<a type="button" href="?action=mySubscriptionManagement" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("Manage subscriptions") ?></a>
 		 <? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 	<? endif; ?>

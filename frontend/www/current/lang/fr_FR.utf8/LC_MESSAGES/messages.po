@@ -21,6 +21,15 @@ msgstr ""
 msgid "Tour"
 msgstr "Tour"
 
+msgid "Waiting the administrator validation"
+msgstr "En attente de validation"
+
+msgid "Has been validated by an administrator"
+msgstr "A été validé par un administrateur"
+
+msgid "Administrator"
+msgstr "Administrateur"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:46
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:116
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:42
@@ -921,9 +930,14 @@ msgid "Here you can change associations category. <br /> Categories are: 'Admin'
 msgstr "Vous pouvez changer ici la catégorie d'utilisateur. <br /> Les catégories sont: 'Admin', 'Utilisateur normal' et 'Nouvel utilisateur'."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:15
-#, fuzzy
 msgid "Create announcement"
-msgstr "Créer un compte"
+msgstr "Créer une annonce"
+
+msgid "Skills required (from 1 to 4)"
+msgstr "Compétences requises (de 1 à 4)"
+
+msgid "Practical information"
+msgstr "Informations pratiques"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/NewAnnouncementView.php:30
 msgid "How to publish"
@@ -951,7 +965,7 @@ msgstr "Publier"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:30
 msgid "New announcement"
-msgstr ""
+msgstr "Nouvelle annonce"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:36
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:29
@@ -993,7 +1007,16 @@ msgstr "Date d'expiration"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:45
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ResultsView.php:35
 msgid "Mission type"
-msgstr "Type de missions"
+msgstr "Type de mission"
+
+msgid "Announcement name"
+msgstr "Nom de l'annonce"
+
+msgid "Your association has not been validated yet"
+msgstr "Votre association n'a pas encore été validée"
+
+msgid "Validated association"
+msgstr "Association validée"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:54
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:82
@@ -1002,6 +1025,9 @@ msgstr "Type de missions"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:88
 msgid "Skills"
 msgstr "Compétences"
+
+msgid "Skill"
+msgstr "Compétence"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:62
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:91
@@ -1042,6 +1068,24 @@ msgstr "Sélectionner compétence"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:41
 msgid "Select district"
 msgstr "Sélectionner quartier"
+
+msgid "District"
+msgstr "Quartier"
+
+msgid "Association address"
+msgstr "Addresse de l'association"
+
+msgid "Male"
+msgstr "Homme"
+
+msgid "Female"
+msgstr "Femme"
+
+msgid "Association phone"
+msgstr "Tel de l'association"
+
+msgid "Districts"
+msgstr "Quartiers"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:47
 msgid "Select mission type"
@@ -1202,6 +1246,12 @@ msgstr "Nouvelle souscription"
 msgid "Step 1 - Choose your profile"
 msgstr "Etape 1 - choisissez votre profil"
 
+msgid "Previous"
+msgstr "Précédent"
+
+msgid "Next"
+msgstr "Suivant"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:16
 msgid "Hello, This is your first time in myBenevolat! Please create your extended profile."
 msgstr "Bonjour, c'est votre première venue sur myBenevolat! Veuillez Créer votre profil étendu."
@@ -1210,9 +1260,27 @@ msgstr "Bonjour, c'est votre première venue sur myBenevolat! Veuillez Créer vo
 msgid "Choose the type of profile you want to create."
 msgstr "Choisissez le type de profil que vous voulez créer."
 
+msgid "Please fill in your association information:"
+msgstr "Veuillez remplir les informations de votre association:"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:27
-msgid "A Volunteer"
-msgstr "Un bénévol"
+msgid "A volunteer"
+msgstr "Un bénévole"
+
+msgid "Volunteer"
+msgstr "Bénévole"
+
+msgid "volunteer"
+msgstr "bénévole"
+
+msgid "volunteer profile details"
+msgstr "Détails du profil bénévole"
+
+msgid "association profile details"
+msgstr "Détails du profil association"
+
+msgid "Association name"
+msgstr "Nom de l'association"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:31
 msgid "An association"
@@ -1248,7 +1316,43 @@ msgstr "Sexe"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:86
 msgid "Working status"
-msgstr ""
+msgstr "Status de travail"
+
+msgid "Active"
+msgstr "Actif"
+
+msgid "Unemployed"
+msgstr "Sans emploi"
+
+msgid "Retired"
+msgstr "Retraité"
+
+msgid "My announcements"
+msgstr "Mes annonces" 
+
+msgid "Volunteers list"
+msgstr "Liste des bénévoles"
+
+msgid "Create a profile"
+msgstr "Créer un profil"
+
+msgid "Manage associations"
+msgstr "Gérer associations"
+
+msgid "Association web site"
+msgstr "Site web association"
+
+msgid "Your skills (de 1 à 4)"
+msgstr "Vos compétences (de 1 à 4)"
+
+msgid "The skills you need"
+msgstr "Les compétences demandées"
+
+msgid "The missions you propose"
+msgstr "Les missions que vous proposez"
+
+msgid "Your district"
+msgstr "Votre quartier"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:95
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:124
@@ -3146,344 +3250,10 @@ msgstr ""
 msgid "Bénévoles"
 msgstr ""
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListBenevolesView.php:16
-msgid "Ajouter un bénévole"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListBenevolesView.php:22
-msgid "Liste des bénévoles"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListBenevolesView.php:28
-msgid "Aucun bénévole à afficher avec ces critères"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/MainNiceBenevolatView.php:11
-msgid "Bonjour <strong>Nice Bénévolat</strong>, que voulez vous faire ?"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/MainNiceBenevolatView.php:16
-msgid "Gérer les annonces / candidatures"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/MainNiceBenevolatView.php:22
-msgid "Gérer les associations"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/MainNiceBenevolatView.php:28
-msgid "Gérer les bénévoles"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:13
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileAssociationView.php:13
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileBenevoleView.php:14
-msgid "Mon Profil"
-msgstr "Mon Profil"
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:19
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileAssociationView.php:15
 msgid "Associations"
 msgstr "Associations"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:36
-msgid "Le profil de Nice Bénévolat ne peut être changé."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:42
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:14
-msgid "Éditer"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:51
-msgid "Valider cette association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ShowProfileView.php:58
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:19
-msgid "Supprimer"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileAssociationView.php:19
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileBenevoleView.php:20
-msgid "Édition"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileAssociationView.php:32
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileBenevoleView.php:32
-msgid "Mettre à jour le profil"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:27
-msgid "Annonce passée"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:31
-msgid "Postuler"
-msgstr "Postuler"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:37
-msgid "Annonce déjà promue"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:42
-msgid "Marquer comme promue"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:55
-msgid "Candidatures"
-msgstr "Candidatures"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:58
-msgid "Aucune candidature"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:70
-#, php-format
-msgid "Il y a actuellement %d candidatures pour cette annonce."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsAnnonceView.php:71
-msgid "Contactez Nice Bénévolat pour en savoir davantage."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditAnnonceView.php:13
-msgid "Annonces"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditAnnonceView.php:15
-msgid "Edition"
-msgstr "Edition"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditAnnonceView.php:26
-msgid "Enregistrer les modifications"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/EditProfileBenevoleView.php:16
-msgid "Benevoles"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:16
-msgid "Ajouter une association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:23
-msgid "Liste des associations"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:29
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:11
-msgid "toutes"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:30
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:52
-msgid "à valider"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:37
-msgid "Aucune association à afficher avec ces critères"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAssociationsView.php:42
-msgid "Afficher toutes les associations"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:11
-msgid "Nouveau bénévole"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:14
-msgid "Création de profil bénévole"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:22
-msgid "Vous avez déjà un compte bénévole ?"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:24
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:24
-msgid "connectez vous"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:27
-msgid "Merci de remplir votre profil."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileBenevoleView.php:31
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:32
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateMyMedProfileView.php:39
-msgid "Créer le profil"
-msgstr "Créer le profil"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsCandidatureView.php:16
-msgid "Candidature de "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsCandidatureView.php:25
-msgid "Candidat"
-msgstr "Candidat"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsCandidatureView.php:36
-msgid "Voir le profil complet"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/DetailsCandidatureView.php:40
-msgid "Candidature"
-msgstr "Candidature"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:16
-msgid "Mauvais type the compt"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:20
-msgid "Vous êtes loggué avec un compte"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:21
-msgid "mais cette action nécéssite un compte"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:23
-msgid "Merci de vous logguer avec un autre compte ou de créer un nouveau profil"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/WrongProfileTypeView.php:28
-msgid "Se délogguer"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ErrorView.php:10
-msgid "Retour"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateCandidatureView.php:14
-msgid "Candidater"
-msgstr "Candidater"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateCandidatureView.php:19
-#, php-format
-msgid "Réponse à l'annonce '%s'"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateCandidatureView.php:26
-msgid "Message"
-msgstr "Message"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateCandidatureView.php:28
-msgid "Poster la candidature"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:6
-msgid "mes critères"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:9
-msgid "valides"
-msgstr "valides"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:10
-msgid "passées / promues"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:37
-msgid "Connexion"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:43
-msgid "Veuillez indiquer dans votre profil si vous êtes un bénévole ou une association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:48
-msgid "Poster une annonce"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:54
-msgid "Liste des annonces"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:56
-msgid "de"
-msgstr "de"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:67
-msgid "Aucune annonce à afficher avec ces critères"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:77
-msgid "déjà promue"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:80
-msgid "passée"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:91
-msgid "Compétences"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:96
-msgid "Parution"
-msgstr "Parution"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/ListAnnoncesView.php:100
-msgid "Fin"
-msgstr "Fin"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:11
-msgid "Nouvelle association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:14
-msgid "Création de profil association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:22
-msgid "Vous avez déjà un compte association ?"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/CreateProfileAssociationView.php:27
-msgid "Merci de remplir la fiche de l'association."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileMyMedForm.php:17
-msgid "Nom de l'association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:15
-msgid "Information administratives"
-msgstr "Information administratives"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:20
-msgid "Vous devez renseigner le téléphone de l'association."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:23
-msgid "N° SIRET"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:25
-msgid "Site web"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:27
-msgid "Adresse postale"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:36
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:40
-msgid "Vous devez sélectionner de 1 à 4 compétences."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:42
-msgid "Types de missions proposées"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:45
-msgid "\tVous devez sélectionner au moins 1 type de missions."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:3
-msgid "Description de l'annonce"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:7
 msgid "Association"

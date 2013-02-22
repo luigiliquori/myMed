@@ -13,8 +13,8 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("Manage your subscriptions") ?></h3>
-			<p><?= _("Set up parameters of your subscriptions.")?></p>
+			<h3><?= _("Manage subscriptions capsule title") ?></h3>
+			<p><?= _("Manage subscriptions capsule text")?></p>
 		</div>
 		<br />
 	</div>
@@ -38,11 +38,11 @@
 		   			<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 						<div class="ui-block-a">
 							<input type="checkbox" name="competenceBox" id="check-view-e" onclick="toggle(this, '#find_category_content')"/> 
-							<label for="check-view-e"><?= _("Competence")?></label>
+							<label for="check-view-e"><?= _("Skill")?></label>
 						</div>
 						<div class="ui-block-b">
 							<select disabled name="competence" id="find_category_content" data-native-menu="false">
-								<option value=""><?= _("Select competence") ?></option>
+								<option value=""><?= _("Select skill") ?></option>
 								<? foreach (Categories::$competences as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
@@ -52,11 +52,11 @@
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 							<div class="ui-block-a">
 								<input type="checkbox" name="mobilityBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
-								<label for="check-view-a"><?= _("Mobility")?></label>
+								<label for="check-view-a"><?= _("District")?></label>
 							</div>
 							<div class="ui-block-b">
 								<select disabled name="mobility" id="find_organization_content" data-native-menu="false">
-									<option value=""><?= _('Select mobility') ?></option>
+									<option value=""><?= _('Select district') ?></option>
 									<? foreach (Categories::$mobilite as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
 									<? endforeach ?>
@@ -66,11 +66,11 @@
 						<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 							<div class="ui-block-a">
 								<input type="checkbox" onclick="toggle(this, '#find_locality_content')" name="missionBox" id="check-view-b"/> 
-								<label for="check-view-b"><?= _("Mission")?></label>
+								<label for="check-view-b"><?= _("Mission type")?></label>
 							</div>
 							<div class="ui-block-b">
 								<select disabled name="mission" id="find_locality_content" data-native-menu="false">
-									<option value=""><?= _('Select mission') ?></option>
+									<option value=""><?= _('Select mission type') ?></option>
 									<? foreach (Categories::$missions as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
 									<? endforeach ?>
@@ -162,14 +162,12 @@
 				}
 			</script>
 			
-			<div data-role="popup" class="ui-content" id="deletePopup" style="text-align:center">
-			ça ne marche pas ne soit pas dégouté
-			</div>
+			<div data-role="popup" class="ui-content" id="deletePopup" style="text-align:center"></div>
 			
 			
 			<!-- Help popup -->
 			<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 				<a href="#" data-rel="back" data-role="button" data-theme="a"  data-iconpos="notext" class="ui-btn-right">Close</a>
-				<p> <?= _("Set up parameters of your subscriptions.") ?></p>
+				<p> <?= _("Manage subscriptions help text") ?></p>
 			</div>
 </div>

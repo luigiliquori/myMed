@@ -41,6 +41,13 @@
 		<!--  <a href="?action=MyCandidature&method=show_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEuroCIN'])) ? " class='ui-disabled'" : "" ?>><?= _("My candidatures") ?></a><br /> -->
 		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
 
+		<? if(isset($_SESSION['myEuroCIN']) && ($_SESSION['myEuroCIN']->permission == '2')): ?>
+			<!-- Admin links -->
+			<h3>ADMINISTRATION:</h3>
+			<a href="?action=Validation&method=show_all_validations" data-role="button" data-theme="e" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("Manage validations") ?></a><br />
+			<a href="?action=admin" data-role="button" data-icon="pencil" data-theme="e"><?= _("Manage accounts") ?></a><br />
+		<? endif;?>
+		
 		<a href="index.php#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
 		
 		<!-- MainView HELP POPUP -->

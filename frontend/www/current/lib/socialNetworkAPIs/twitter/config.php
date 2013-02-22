@@ -32,7 +32,6 @@ if(strpos($_SERVER['SERVER_NAME'], 'www')===false){ // http://mymed.fr
 	define('CONSUMER_KEY', 'rxnjz46zCzvrrYZmyxx0A');
 	define('CONSUMER_SECRET', 'oVRSV3p2BVzld2Ay95DG1MXM6Va1KGvUQq2kySAHWBc');
 }
-debug($_SERVER['SERVER_NAME']." ".Facebook_APP_ID." ".Facebook_APP_SECRET);
 
 define('OAUTH_CALLBACK', sprintf("%s://%s%s/callback.php",
 			getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF'])));

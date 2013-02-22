@@ -17,7 +17,6 @@ if(strpos($_SERVER['SERVER_NAME'], 'www')===false){ // http://mymed.fr
 	define('Google_APP_CLIENT_ID', '493954073161.apps.googleusercontent.com');
 	define('Google_APP_CLIENT_SECRET', '2eqeVS49dcgQuTQDdl42MtJ_');
 }
-debug($_SERVER['SERVER_NAME']." ".Facebook_APP_ID." ".Facebook_APP_SECRET);
 
 $path_extra = ROOT.'lib/socialNetworkAPIs/google/src';
 $path = ini_get('include_path');
