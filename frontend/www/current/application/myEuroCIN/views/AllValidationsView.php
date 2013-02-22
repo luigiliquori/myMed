@@ -39,8 +39,8 @@
 						<div class="ui-block-a">
 							<h3><?= _("Title")?> : <?= $item->title ?></h3>
 							<!-- Publication fields-->
-							<p style="position: relative; margin-left: 30px;">
-								<b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/>
+							<p style="position: relative; margin-left: 30px;"> 
+								<!-- <b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/> -->
 								<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
 								<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
 								<b><?= _("Language") ?></b>: <?= Categories::$languages[$item->language] ?><br/>

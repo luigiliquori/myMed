@@ -92,6 +92,7 @@
 							<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
 							<input type="hidden" name="language" value="<?= $this->result->language ?>" />
 							<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+							<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />
 							<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 							<input type="hidden" name="text" id="text"/>
 							<input type="submit" data-icon="check" data-theme="g" data-inline="true" data-mini="true" value="<?= _('Modify publication') ?>" onclick="$('#text').val($('#projecttext').val());"/>

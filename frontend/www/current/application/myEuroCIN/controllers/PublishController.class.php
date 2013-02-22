@@ -98,7 +98,7 @@ class PublishController extends ExtendedProfileRequired {
 				// If the author is an admin the post is automatically
 				// validated
 				if($_SESSION['myEuroCIN']->permission == '2' || 
-				   $obj->validated == "validated")
+				   $_POST['validated'] == "validated")
 					$obj->validated = "validated";		
 				else			
 					$obj->validated = "waiting";

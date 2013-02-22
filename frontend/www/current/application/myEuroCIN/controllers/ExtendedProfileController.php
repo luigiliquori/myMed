@@ -67,13 +67,12 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	public function create() {
 			
-		// No mandatory fields in myEuroCIN extended profile
-		/* if (!$_POST['phone']) {
-			$this->error = _("Please specify your phone");
+		// Check mandatory fields
+		if (!$_POST['checkCondition']) {
+			$this->error = _("Please accept Terms & Conditions");
 			$this->renderView("ExtendedProfileCreate");
-		} */
+		}
 		
-	
 		// Unset post vale that we don't need
 		unset($_POST['form']);
 		unset($_POST['checkCondition']);
