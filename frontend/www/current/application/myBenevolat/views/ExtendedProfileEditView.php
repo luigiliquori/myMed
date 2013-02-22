@@ -119,26 +119,26 @@
 			<!-- Sex -->
 			<div id="sexdiv" data-role="fieldcontain" style="text-align:right">	
 				<fieldset data-role="controlgroup">
-					<legend> Sex: </legend>
+					<legend> <?=_("Sex")?>: </legend>
 			     	<input type="radio" name="sex-radio" id="male" value="male"/>
-			     	<label for="male">Male</label>
+			     	<label for="male"><?= _("Male")?></label>
 					<input type="radio" name="sex-radio" id="female" value="female"/>
-			     	<label for="female">Female</label>
+			     	<label for="female"><?= _("Female")?></label>
 				</fieldset>
 			</div>
 			
 			<!-- Work -->
 			<div id="workdiv" data-role="fieldcontain" style="text-align:right">	
 				<fieldset data-role="controlgroup">
-				<legend> Your work: </legend>
+				<legend> <?= _("Working status")?>: </legend>
 		     	<input type="radio" name="work-radio" id="active" value="active" />
-		     	<label for="active">Active</label>
+		     	<label for="active"><?= _("Active")?></label>
 		     	<input type="radio" name="work-radio" id="unemployed" value="unemployed" />
-		     	<label for="unemployed">Unemployed</label>
+		     	<label for="unemployed"><?= _("Unemployed")?></label>
 		     	<input type="radio" name="work-radio" id="retired" value="retired" />
-		     	<label for="retired">Retired</label>
+		     	<label for="retired"><?= _("Retired")?></label>
 		     	<input type="radio" name="work-radio" id="student" value="student" />
-		     	<label for="student">Student</label>
+		     	<label for="student"><?= _("Student")?></label>
 				</fieldset>
 			</div>
 			<!-- END Only Volunteer fields-->
@@ -162,9 +162,9 @@
 			<div class="ui-bar ui-bar-e" data-theme="e">
 				<h1 style="white-space: normal;">
 	  <?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'):?>
-					<?= _("Your skills (de 1 à 4) <b>*</b> :") ?>
+					<?= _("Your skills (de 1 à 4)")?> <b>*</b> : ?>
 				<?else:?>
-					<?= _("The skills you need <b>*</b> :") ?>
+					<?= _("The skills you need")?> <b>*</b> : ?>
 				<?endif;?>
 				</h1>
 			</div>	
@@ -182,7 +182,7 @@
 				<?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'):?>
 					<?= _("Missions <b>*</b> :") ?>
 				<?else:?>
-					<?= _("The missions you propose <b>*</b> :") ?>
+					<?= _("The missions you propose")?> <b>*</b> :
 				<?endif;?>
 				</h1>
 			</div>
@@ -200,7 +200,7 @@
 			<div id="mobilitediv">
 				<div class="ui-bar ui-bar-e" data-theme="e">
 					<h1 style="white-space: normal;">
-						<?= _("Your mobilite <b>*</b> :") ?>
+						<?= _("Your district")?> <b>*</b> :
 					</h1>
 				</div>
 				<br />

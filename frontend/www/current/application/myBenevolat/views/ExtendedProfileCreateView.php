@@ -24,7 +24,7 @@
 		<br/><br/>
 		<a data-role="button" data-theme="e" class="mm-left" data-ajax="false"
 			href="?action=ExtendedProfile&method=start_wizard&type=Volunteer">
-			<?= _("A Volunteer") ?>
+			<?= _("A volunteer") ?>
 		</a>
 		<a data-role="button" data-theme="e" class="mm-left" data-ajax="false"
 			href="?action=ExtendedProfile&method=start_wizard&type=Association">
