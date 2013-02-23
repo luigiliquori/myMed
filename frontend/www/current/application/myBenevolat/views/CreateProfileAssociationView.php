@@ -19,7 +19,7 @@
 		<br/>
 		<!-- Association name -->
 		<div data-role="fieldcontain" >
-			<label for="associationname" style="text-align:right"> <?= _('Association Name')?><b>*</b> :</label>
+			<label for="associationname" style="text-align:right"> <?= _('Association name')?><b>*</b> :</label>
 			<input type="text" name="associationname" id="associationname" />
 		</div>
 		
@@ -37,21 +37,21 @@
 		
 		<!-- Web Site -->
 		<div data-role="fieldcontain" >
-			<label for="website" style="text-align:right"> Web Site: </label>
+			<label for="website" style="text-align:right"> <?= _("Web site")?>: </label>
 			<input type="text" name="website" id="website" placeholder="http://...(optional)" />
 		</div>
 		
 		<!-- Address -->
 		<div data-role="fieldcontain" >
-			<label for="address" style="text-align:right"> Address: </label>
+			<label for="address" style="text-align:right"> <?= _("Address")?>: </label>
 			<input type="text" name="address" id="address" />
 		</div>
 		<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 					
 		<!-- Next and previous buttons -->
 		<div style="text-align:center;">
-			<a href="?action=ExtendedProfile" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
-			<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext()">Next</a>
+			<a href="?action=ExtendedProfile" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true"><?= _("Previous")?></a>
+			<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext()"><?= _("Next")?></a>
 		</div>
 		
 	</div>
