@@ -103,6 +103,7 @@ static NavigationModel *instance = nil;
         itm.subtitle = [attributeDict objectForKey:@"subtitle"];
         itm.url = [attributeDict objectForKey:@"url"];
         [parentPage.items addObject:itm];
+        NSLog(@"%@ [%@]", itm.title, itm.url);
         [itm release];
         return;
     }

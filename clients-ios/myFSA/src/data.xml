@@ -1,106 +1,1398 @@
 <data>
-    <text>Here you can check the list of the universities interested by myMed Alcotra project.</text>
-        <page title="Université de Nice Sophia-Antipolis" url="http://unice.fr/">
-                <item title="Agronomie, agroalimentaire, nutrition" subtitle="test" />
-                <item title="Arts et design" />
-                <item title="Communication, information, journalisme" />
-                <item title="Documentation, archives" />
-                <item title="Droit, administration publique, propriété intellectuelle et industrielle" />
-                <item title="Economie, gestion, management, marketing" />
-                <item title="Education, formation des enseignants" />
-                <item title="Géographie, aménagement" />
-                <item title="Histoire" />
-                <item title="Ingénierie et technologies" />
-                <item title="Lettres, langues, sciences du langage" />
-                <item title="Mathématiques et informatique" />
-                <item title="Philosophie, éthique" />
-                <item title="Physique, chimie, matériaux" />
-                <item title="Psychologie, sociologie, démographie, ethnographie" />
-                <item title="Relations internationales, études européennes, études régionales" />
-                <item title="Sciences de la terre et de l'univers, environnement" />
-                <item title="Sciences de la vie et de la santé, psychologie" />
-                <item title="Sciences du sport" />
-                <item title="Sciences politiques" />
-                <item title="Théologie" />
-                <item title="Urbanisme, architecture" />
-        </page>
-        <page title="Université du Sud-Toulon-Var" url="http://www.univ-tln.fr/">
-                <item title="Commerce, Gestion, Droit, Fonction publique" />
-                <item title="Lettres, Langues, Sciences Humaines" />
-                <item title="Sciences, Techniques, Industries" />
-                <item title="Sport, Social, Santé" />
-        </page>
-        <page title="Université Aix-Marseille" url="http://www.univ-amu.fr/">
-                <item title="Arts" subtitle="Aix, Marseille, Lambesc" />
-                <item title="Administration des Entreprises" subtitle="Aix" />
-                <item title="Biologie" subtitle="Aix, Marseille" />
-                <item title="Chimie" subtitle="Aix, Marseille" />
-                <item title="Droit et Sciences Politiques" subtitle="Aix, Marseille, Arles" />
-                <item title="Economie et Gestion" subtitle="Aix" />
-                <item title="Education, formation des enseignants" />
-                <item title="Informatique et Intéraction" subtitle="Aix, Marseille" />
-                <item title="Ingénierie" subtitle="Marseille" />
-                <item title="Journalisme et Communication" subtitle="Aix" />
-                <item title="Lettres" subtitle="Aix, Marseille, Lambesc" />
-                <item title="Langues" subtitle="Aix, Marseille, Lambesc" />
-                <item title="Management Publique" subtitle="Aix" />
-                <item title="Mathématique" subtitle="Aix, Marseille" />
-                <item title="Mécanique" subtitle="Aix, Marseille" />
-                <item title="Medecine" subtitle="Marseille" />
-                <item title="Musique" subtitle="Aix" />
-                <item title="Odontologie" subtitle="Marseille" />
-                <item title="Pharmacie" subtitle="Marseille" />
-                <item title="Physique" subtitle="Aix, Marseille" />
-                <item title="SATIS : Sciences, Arts et Technique de l'Image et du Son" subtitle="Aix, Marseille" />
-                <item title="Sciences Maieutique" subtitle="Marseille" />
-                <item title="Sciences Humaines" subtitle="Aix, Marseille, Lambesc" />
-                <item title="Sciences du Sport" subtitle="Marseille" />
-        </page>
-
-            <page title="Politecnico di Torino" url="http://www.polito.it/">
-                <!--
-                <page title="Ingegneria" subtitle="Anagrafe/Cittadinanza/Stato civile">
-                    <text>Test text 1</text>
-                </page>
-                     -->
-                <item title="Architettura" />
-                <item title="Ingegneria" />
-            </page>
-        <page title="Università di Torino" url="http://www.unito.it/">
-                <item title="Agraria" />
-                <item title="Economia" />
-                <item title="Farmacia" />
-                <item title="Lettere e Filosofia" />
-                <item title="Lingue e Letterature Straniere" />
-                <item title="Medicina e Chirurgia" />
-                <item title="Medicina e Chirurgia - 'S. Luigi Gonzaga'" />
-                <item title="Medicina Veterinaria" />
-                <item title="Psicologia" />
-                <item title="Scienze della Formazione" />
-                <item title="Scienze Matematiche Fisiche e Naturali" />
-                <item title="Scienze Politiche" />
-        </page>
-        <page title="Università di Genova" url="www.unige.it/">
-                <item title="Architettura" />
-                <item title="Economia" />
-                <item title="Farmacia" />
-                <item title="Giurisprudenza" />
-                <item title="Ingegneria" />
-                <item title="Lettere e Filosofia" />
-                <item title="Lingue e Letterature Straniere" />
-                <item title="Medicina e Chirurgia" />
-                <item title="Scienze della Formazione" />
-                <item title="Scienze Matematiche Fisiche e Naturali" />
-                <item title="Scienze Politiche" />
-        </page>
-        <page title="Università del Piemonte Orientale" url="http://www.unipmn.it">
-                <item title="Economia" subtitle="Novara" />
-                <item title="Farmacia" subtitle="Novara" />
-                <item title="Giurisprudenza" subtitle="Alessandria" />
-                <item title="Lettere e Filosofia" subtitle="Vercelli" />
-                <item title="Medicina e Chirurgia" subtitle="Novara" />
-                <item title="Scienze della Salute" subtitle="Novara" />
-                <item title="Scienze Matematiche Fisiche e Naturali" subtitle="Alessandria" />
-                <item title="Scienze Politiche" subtitle="Alessandria" />
-        </page>
- </data>
+	Raison sociale 		Site Web
+    <item title="2 G TECHNOLOGIES" url="www.2gtec.com" />
+    <item title="2SI - Square System International" url="" />
+    <item title="3 ROAM" url="www.3raom.com" />
+    <item title="3G - GEOLOGIE GEOPHYSIQUE GEOTECHINQUE" url="" />
+    <item title="3S CONSEIL" url="" />
+    <item title="8x8 EUROPE" url="www.8x8.com" />
+    <item title="A NOVO ON SITE" url="www.a-novo.com" />
+    <item title="A...Z RECEPTIONS" url="http://www.az-receptions.fr" />
+    <item title="A.AD.E.I Florence LEON" url="www.compagnie-des-secretaires.com" />
+    <item title="A.D Services Gaz" url="www.ads-gaz.com" />
+    <item title="A.H.P.S.A. - Association des Habitants du Parc de Sophia Antipolis" url="www.ahpsa.com" />
+    <item title="A.L.L. Association des Locataires des Logis du Haut Sartoux" url="" />
+    <item title="A.P ELEC" url="http://www.ap-elec.com" />
+    <item title="A2 NETTOYAGE SERVICES" url="http://www.a2net.net" />
+    <item title="AAA CORPORATE FINANCE. AUTHENTIC HOTELS" url="http://www.aaacf.com" />
+    <item title="AAA RIVIERA" url="www.aaariviera.com" />
+    <item title="AAD PHENIX" url="www.aad-phenix.com" />
+    <item title="AB CONSULTING" url="" />
+    <item title="ABERCROMBIE and KENT France" url="www.akdmc.com" />
+    <item title="ABJ Promotion" url="" />
+    <item title="ABSYS CYBORG" url="www.absyscyborg.fr" />
+    <item title="ABYLSEN SUD SAS" url="www.abylsen.com" />
+    <item title="ACCELLENCE-WEBFORCE TECHNOLOGIES" url="www.accellence.fr" />
+    <item title="ACCENTURE SAS" url="http://careers3.accenture.com" />
+    <item title="ACCES TELECOM MULTIMEDIA" url="" />
+    <item title="ACE FRANCE PORTAIL" url="www.aceportails.com" />
+    <item title="ACG" url="" />
+    <item title="ACHATS SERVICE" url="www.achats-service.fr" />
+    <item title="ACOSS-CNIR SUD" url="www.acoss.fr" />
+    <item title="ACRI" url="http://www.acri.fr" />
+    <item title="ACRI IN" url="http://www.acri-in.fr" />
+    <item title="ACRI ST" url="http://www.acri.fr" />
+    <item title="ACS SYSTEMS" url="www.acs-systems.fr" />
+    <item title="ACT WELL" url="www.actwell.fr" />
+    <item title="ACTIF AZUR" url="www.Actif-Azur.com" />
+    <item title="ACTIF H" url="www.actifh.fr" />
+    <item title="ActiveEon" url="www.activeeon.com" />
+    <item title="ACTOM ARCHITECTURE" url="" />
+    <item title="ACTUALIS CENTER" url="www.actualis.com" />
+    <item title="ACTYS" url="" />
+    <item title="AD SECRETARIAT CENTER" url="http://www.adsecretariat.com" />
+    <item title="ADAPEI AM - FOYER LE ROC" url="" />
+    <item title="ADAPT IN France" url="http://ww.adaptinfrance.org" />
+    <item title="ADDAX INFORMATIQUE" url="http://www.addax.eu" />
+    <item title="ADECCO EXPERT" url="http://www.adecco.fr" />
+    <item title="ADECCO SOPHIA ANTIPOLIS" url="http://www.adecco.fr" />
+    <item title="ADEME" url="http://www.ademe.fr" />
+    <item title="ADIA" url="www.adia.fr" />
+    <item title="ADIPSYS" url="www.adipsys.com" />
+    <item title="ADN.CONSEILS" url="" />
+    <item title="ADOMYS's SERVICE" url="www.adomys.com" />
+    <item title="ADREXO" url="" />
+    <item title="ADVANTAGES" url="" />
+    <item title="AEF - ASSOCIATION  D'EMPLOIS FAMILIAUX - ANTIPOLIS" url="" />
+    <item title="AEMS - ATOS EURONEXT MARKET SOLUTIONS" url="" />
+    <item title="AEQUALIS" url="www.aequalis.fr" />
+    <item title="AFEL International" url="www.afelinternational.com" />
+    <item title="AFFINITAS" url="www.affinitas.fr" />
+    <item title="AFSSA LERPRA - AGENCE FRANCAISE DE SECURITE SANITAIRE DES  ALIMENTS - Laboratoire d'Etudes et de Recherches sur les Petits Ruminants et les Abeilles" url="http://www.afssa.fr  et http//www.apiservices.com/afssa-sophia-antipolis" />
+    <item title="AG CONSULTING" url="http://www.agconsulting.fr" />
+    <item title="AGC - APPLICATIONS GENIE CLIMATIQUE France" url="" />
+    <item title="AGC MARINE TELECOM" url="www.agcmarine.com" />
+    <item title="AGC PROVENCE" url="www.cer83.cernet.fr" />
+    <item title="AGENCE O.C PLUS" url="" />
+    <item title="Agence WACAN" url="http://www.wacan.net" />
+    <item title="AGIDESS" url="www.agidess.com" />
+    <item title="AGREDIL" url="" />
+    <item title="AGROMED" url="" />
+    <item title="AIR FRANCE - ETABLISSEMENT INFORMATIQUE" url="http://www.airfrance.fr" />
+    <item title="AIR LIQUIDE Région Sud Est" url="" />
+    <item title="AIRIS France" url="www.airis.es" />
+    <item title="AJL Architecture" url="" />
+    <item title="AKERYS" url="www.akerys.fr" />
+    <item title="ALBA EXPERTISE" url="" />
+    <item title="ALCADE" url="www.alcade.com" />
+    <item title="ALCATEL" url="" />
+    <item title="ALCATEL LUCENT" url="" />
+    <item title="ALCOM" url="www.alcom-site.com" />
+    <item title="ALCYONIS" url="http://www.alcyonis.fr" />
+    <item title="ALDES" url="www.aldes.com" />
+    <item title="ALJI Communication" url="" />
+    <item title="ALL TRANET" url="ww.all tranet.com" />
+    <item title="ALLEN SYSTEM GROUP" url="www.france-asg.com" />
+    <item title="ALLERGAN France SAS" url="www.allergan.fr" />
+    <item title="ALLIANCE HIGHTECH" url="" />
+    <item title="ALLIBE C" url="" />
+    <item title="ALLISNET" url="www.allisnet.fr" />
+    <item title="ALLOT COMMUNICATIONS EUROPE" url="www.allot.com" />
+    <item title="ALLYANS" url="www.allyans.fr" />
+    <item title="ALMA FOOD" url="" />
+    <item title="ALPHA Blanchisserie" url="" />
+    <item title="ALPHA LEGAL" url="www.alphalegal.fr" />
+    <item title="ALPHEEIS" url="www.alpheeis.com" />
+    <item title="ALTAIR DEVELOPMENT FRANCE" url="www.altair.com" />
+    <item title="ALTEA Groupe Expert " url="www.altea-experts.com" />
+    <item title="ALTEDIA" url="http://www.altedia.fr" />
+    <item title="ALTENSOPHIA ANTIPOLIS" url="http://www.alten.fr" />
+    <item title="ALTRAN TECHNOLOGIES" url="www.altran.com" />
+    <item title="AM²" url="http://www.am-2.com" />
+    <item title="AMADEUS" url="http://www.amadeus.com" />
+    <item title="AMAZONITE" url="www.amazonite.fr" />
+    <item title="AMBIANCE DECOR" url="http://www.sablart.com" />
+    <item title="AMBRE International" url="www.anmbre-international.com" />
+    <item title="AMC Active Media Concept" url="www.amc-tec.com" />
+    <item title="AMD PERFORMANCE" url="" />
+    <item title="AMERICAN EXPRESS VOYAGES D'AFFAIRES" url="www.hvae.com" />
+    <item title="AMESYS" url="www.amesys.fr" />
+    <item title="AMETRA 06 - MEDECINE DU TRAVAIL DES ALPES-MARITIMES" url="" />
+    <item title="AMETRA 06 - MEDECINE DU TRAVAIL DES ALPES-MARITIMES" url="" />
+    <item title="AMITIS" url="http://www.amitis.com" />
+    <item title="AMO France SAS" url="http://www.amo-inc.com" />
+    <item title="AMP - CELLULAR TELECOM" url="" />
+    <item title="AMPCO INTERNATIONAL" url="" />
+    <item title="ANDEOL" url="www.andeol.com" />
+    <item title="ANDYANA" url="" />
+    <item title="ANGLO INFO" url="www.angloinfo.com" />
+    <item title="ANIM'ACTION / EVENTS RIVIERA" url="www.eventsriviera.com" />
+    <item title="ANIMAL RESPECT" url="" />
+    <item title="ANNUAIRE CE" url="www.annuaire-ce.com" />
+    <item title="ANOCOM" url="http://www.anocom.com" />
+    <item title="ANPE - Agence Nationale pour l'Emploi" url="www.anpe.fr" />
+    <item title="ANT Advanced New Technologies" url="www.ant.net" />
+    <item title="ANTEA Agence Rhone Alpes Méditerranée" url="www.antea-ingenierie.fr" />
+    <item title="ANTHEA Languages" url="http://www.anthealanguages.com" />
+    <item title="ANTHONY ET CIE" url="http://www.antco.com" />
+    <item title="ANTIBES AUTOMOBILES" url="www.antibes-automobiles.com" />
+    <item title="AOC" url="" />
+    <item title="APACHE" url="www.apache-da.com" />
+    <item title="APP - LINE" url="http://www.app-line.com" />
+    <item title="APRIM CONSULTANT" url="www.aprimconsultant.com" />
+    <item title="APSIDE" url="www.apside.fr" />
+    <item title="APST BTP 06 - Association Paritaire de Santé au Travail" url="" />
+    <item title="AQUA6" url="www.irrijardin.fr" />
+    <item title="ARC EN CIEL PRESSING" url="" />
+    <item title="ARCHI ET PARTNERS INTERNATIONAL - ATELIER DAN COSTA-FORU - Architecte DPLG" url="" />
+    <item title="ARDENT SA" url="http://www.ardent-sa.com" />
+    <item title="AREA Agence Régionale Equipement et Aménagement" url="" />
+    <item title="ARM France" url="http://www.arm.com" />
+    <item title="AROMAX" url="http://www.aromax.fr" />
+    <item title="ART AZUR JARDINS" url="" />
+    <item title="ARTDENT" url="" />
+    <item title="Arthur AMILTON" url="www.arthur.amilton.com" />
+    <item title="ARTOTHEQUE L'ART TISSE" url="http://www.art-tisse.com" />
+    <item title="ASD France" url="www.asd-int.com" />
+    <item title="ASEICA" url="www.aseica.org" />
+    <item title="ASK" url="www.ask-rfid.com" />
+    <item title="ASM - AUTOMATISATION SYSTEMES MECANIQUES" url="" />
+    <item title="ASPALIS" url="www.aspalis.com" />
+    <item title="Association Aumonerie des étudiants" url="http://sophiadeo.net" />
+    <item title="ASSOCIATION DES AMIS DE LA FONDATION SOPHIA ANTIPOLIS" url="" />
+    <item title="ASSOCIATION DESSI - JUNIOR ENTREPRISE" url="http://dessi.essi.fr" />
+    <item title="ASSOCIATION TELECOM VALLEY" url="www.telecom-valley.fr" />
+    <item title="Association World Trade Center" url="http://www.wtc-sophia.com" />
+    <item title="ASSYSTEM" url="" />
+    <item title="ASTEK Sud Est" url="http://www.astek.fr" />
+    <item title="ATB LIGHTING" url="www.atblighting.com" />
+    <item title="ATELIER ANTIBOIS" url="" />
+    <item title="ATELIER JEAN RICHEZ" url="" />
+    <item title="ATELIER JEAN-PIERRE CLARAC" url="" />
+    <item title="ATHENA STRATEGY" url="http://www.athena-strategy.com" />
+    <item title="ATHOME SERVICES" url="" />
+    <item title="ATM Group" url="" />
+    <item title="ATOS ORIGIN INTEGRATION" url="www.atosorigin.com" />
+    <item title="ATYPIK" url="" />
+    <item title="AUBERGE DE LA SOURCE" url="www.lasource06.com" />
+    <item title="AUDITEX" url="" />
+    <item title="AULANIER QUISEFIT Cécile" url="" />
+    <item title="Aumonerie de l'enseignement public" url="" />
+    <item title="AURINCO" url="www.aurinco.com" />
+    <item title="AUTHENTICA" url="" />
+    <item title="AUTO ECOLE SOCIALE ARSIDE" url="" />
+    <item title="AUTO-ECOLE SOPHIA" url="" />
+    <item title="AUTOMATIC ALARM COTE D'AZUR" url="www.automatic-alarm.fr" />
+    <item title="AUTOUR DE BEBE" url="www.autourdebebe.com" />
+    <item title="AVA PARTNERS" url="www.ava-partners.com" />
+    <item title="AVANTEC" url="www.avantec.fr" />
+    <item title="AVEM Avenir du véhicule électrique méditerranéen" url="www.avem.fr" />
+    <item title="AVF - ACCUEIL DES VILLES FRANCAISES - SOPHIA ANTIPOLIS" url="http://www.avf-sophia.com" />
+    <item title="AVIE - ASSOCIATION VALBONNAISE POUR L'INSERTION PAR L'ECONOMIE" url="" />
+    <item title="AVIS - LOCATION DE VOITURES" url="avis.fr" />
+    <item title="AVISTO Telecom" url="www.avisto.com" />
+    <item title="AVOLYS- PCS Formation" url="http://www.avolys.com" />
+    <item title="AXA France" url="" />
+    <item title="AXIA" url="" />
+    <item title="AXIANS - Systelcom SAS" url="www.axians.com" />
+    <item title="AXIMA" url="www.axima-France.fr" />
+    <item title="AXYLOG" url="www.axilog.com" />
+    <item title="AZUR COMMUNICATION" url="www.azurcommunication.com" />
+    <item title="AZUR DISTRIBUTION" url="" />
+    <item title="AZUR JUNIOR CONSEIL" url="http://www.azurjuniorconseil.com" />
+    <item title="AZURA NETWORKS" url="www.nuxit.com" />
+    <item title="AZURIEL" url="" />
+    <item title="AZURPLUS" url="www.azur-plus.com" />
+    <item title="BABYLISS S.A. Division BABYLISS PRO" url="http://www.babylisspro.com" />
+    <item title="BANDALUX" url="http://www.bandalux.es" />
+    <item title="BATIPOLIS" url="" />
+    <item title="BAYER CROPSCIENCE" url="" />
+    <item title="BBGR" url="www.bbgr.net" />
+    <item title="BCS France - BUREAU CENTRAL SECURITE France" url="http://www.bcsfrance.fr" />
+    <item title="BDI PROGRAMMATION - BANQUE DE DONNEES ET INFOGRAPHIE POUR LA PROGRAMMATION DES EQUIPEMENTS" url="http://www.menighetti.fr/bdi.htm" />
+    <item title="BEECOM SUD" url="www.actimail.com" />
+    <item title="BEJELEC SUD" url="www.bejelec.fr" />
+    <item title="BERENGIER DIFFUSION" url="http://www.berengier.com" />
+    <item title="BERGONZO SUD" url="www.bergonzo.com" />
+    <item title="BET ALAIN ANGELIER" url="" />
+    <item title="BETEREM INGENIERIE" url="www.beterem-ingenierie.fr" />
+    <item title="BETON CONTROLE COTE D'AZUR" url="" />
+    <item title="BETON DE FRANCE" url="" />
+    <item title="BFI - BUSINESS FACILITY INTERNATIONAL" url="www.business-facility.eu" />
+    <item title="BGV France" url="www.bgv.eu" />
+    <item title="BIENVENUE.FR" url="www.bienvenue.fr" />
+    <item title="BJC Europe" url="www.bjc-europe.com" />
+    <item title="BLEVINS FRANKS INTERNATIONAL" url="http://www.blevinsfranks.com" />
+    <item title="BNP PARIBAS" url="" />
+    <item title="BO CONCEPT" url="www.boconcept.fr" />
+    <item title="BODYXPERT" url="www.bodyxpert.com" />
+    <item title="BOUCHONNERIE GANDOLPHE" url="" />
+    <item title="BOUTIQUE BUILDER sas" url="www.boutiquebuilder.com" />
+    <item title="BOUYGUES TELECOM" url="www.bouyguestelecom.fr" />
+    <item title="BPCA - BANQUE POPULAIRE COTE D'AZUR" url="http://www.cotedazur.banquepopulaire.fr" />
+    <item title="BPI GROUP- LEROY CONSULTANTS + HUMBLOT GRANT ALEXANDER (Recrutement)" url="http://www.leroy-consultants.com" />
+    <item title="BRASSERIE LE SAINT BERNARD" url="" />
+    <item title="BROADCOM" url="http://www.broadcom.com" />
+    <item title="BRUNET RUDIO GRAVELLE" url="" />
+    <item title="BUG SHOP" url="" />
+    <item title="BULL" url="www.bull.com" />
+    <item title="BURO + - La BAUDINIERE -" url="www.buroplus.net" />
+    <item title="BURO AMENAGEMENT" url="www.buro-amenagement.com" />
+    <item title="BUROSTOCK" url="" />
+    <item title="C.A.P. SUD TAPIS ROUGE" url="" />
+    <item title="C.E.I.F. Développement - Coaching d'entreprises et ingenierie fiscale" url="www.ceifdeveloppement.com" />
+    <item title="C.I.A Sophia Antipolis" url="www.cia.ca" />
+    <item title="C.R.S Constructions et Rénovations du SUD" url="" />
+    <item title="C.W. France" url="" />
+    <item title="C2P ACTION" url="" />
+    <item title="CABINET ARNAL ET CERUTTI" url="www.arnalcerutti.com" />
+    <item title="Cabinet BONNEAU - MURGITROYD" url="www.murgitroyd.com" />
+    <item title="Cabinet CASSIA" url="" />
+    <item title="Cabinet d'avocat Maitre CANAC" url="" />
+    <item title="Cabinet d'avocats Didier LINOTTE" url="" />
+    <item title="CABINET DE DIÉTETIQUE" url="" />
+    <item title="CABINET DE GYNÉCOLOGIE - PATHOLOGIE DU SEIN" url="" />
+    <item title="CABINET DE PSYCHOLOGIE" url="" />
+    <item title="CABINET DENTAIRE BECK-PORRINI-WICKBERG" url="" />
+    <item title="CABINET DENTAIRE DI LORENZO" url="" />
+    <item title="CABINET DENTAIRE GABINSKI - BIRS - KERNEUR" url="" />
+    <item title="CABINET DENTAIRE PACAUD ERIC" url="" />
+    <item title="CABINET DENTAIRE ROUX Christine - GRIVA Jérémy" url="" />
+    <item title="CABINET D'INFIRMIÈRES" url="" />
+    <item title="CABINET D'ORL" url="" />
+    <item title="CABINET D'ORTHODONTIE ALIBERT and NERISSON" url="" />
+    <item title="Cabinet d'Orthophonie Dt BERTHIER" url="" />
+    <item title="Cabinet d'Orthophonie Dt BROUSSE" url="" />
+    <item title="Cabinet d'Orthophonie Dt MANTICA" url="" />
+    <item title="Cabinet d'Orthophonie Dt MULOT" url="" />
+    <item title="CABINET D'OSTÉOPATHIE" url="" />
+    <item title="CABINET D'UROLOGIE" url="" />
+    <item title="Cabinet E.A.I." url="www.experts-eai.com" />
+    <item title="Cabinet G.F.E." url="" />
+    <item title="Cabinet GEOFFRAY" url="" />
+    <item title="Cabinet Joel ONFRAY" url="" />
+    <item title="Cabinet Michel SIMOND" url="" />
+    <item title="Cabinet PETRUS Pierre- Avocat" url="" />
+    <item title="CABINET RUANT ET PARTNERS" url="" />
+    <item title="CABINET SCHMITT ET CANOBAS" url="" />
+    <item title="Cabinet STIQUEL et DEMARS Conseils" url="www.stiqueldemars.fr" />
+    <item title="Cabinet Thierry SCHEFFER" url="" />
+    <item title="CADEAUX PUBLICITAIRES ON LINE" url="www.cadeaux-publicitaires-online.fr" />
+    <item title="CADENCE DESIGN SYSTEMS" url="http://www.cadence.com" />
+    <item title="CAMBRIDGE SILICON RADIO SARL" url="www.csr.com" />
+    <item title="CAME ATE 06" url="came-automatisme.fr" />
+    <item title="CAMPENON BERNARD MEDITERRANEE" url="" />
+    <item title="CANNES COLOR PEINTURE SARL" url="" />
+    <item title="CANON Méditerranée" url="www.canon-mediterranee.com" />
+    <item title="CAP GENERATEUR" url="" />
+    <item title="CAP ONE" url="" />
+    <item title="CAPSTAN Avocats" url="" />
+    <item title="CAPTURE PREPRESSE" url="www.capture.fr" />
+    <item title="CARI" url="http://www.agora-einstein.fr" />
+    <item title="CARLSON WAGONLIT TRAVEL" url="http://www.cwt.fr" />
+    <item title="CARMA - CENTRE D'ANIMATION REGIONAL EN MATERIAUX AVANCES" url="http://www.materiatech-carma.net" />
+    <item title="CARMA Installation" url="" />
+    <item title="CARREFOUR HYPERMARCHE France" url="" />
+    <item title="CARROSSERIE SEBASTIEN" url="" />
+    <item title="CASA. Communauté d'Agglomération Sophia Antipolis" url="www.agglo-sophia-antipolis.fr" />
+    <item title="Casino-technic" url="" />
+    <item title="CASTIFY NETWORKS S.A." url="http://www.castify.net" />
+    <item title="CAULLET JEROME" url="" />
+    <item title="CBC SUD RENOV" url="" />
+    <item title="CBL - CARRELAGES-BATIMENT DU LITTORAL" url="" />
+    <item title="CBS Management" url="" />
+    <item title="CBSA" url="" />
+    <item title="CCF CLIMATISATION" url="www.ccfclim.fr" />
+    <item title="CCS - CLIM CONCEPT SERVICES" url="" />
+    <item title="CDIS Centre de distribution" url="laposte.fr" />
+    <item title="CEDIAS" url="http://www.cedias.fr" />
+    <item title="CEDRIUM INFORMATIQUE" url="" />
+    <item title="CEGID" url="www.cegid.fr" />
+    <item title="CELENCIA" url="www.celencia.com" />
+    <item title="CELSIUS INTERNATIONAL" url="http://www.celsiusinternational.com" />
+    <item title="CELTIUM" url="www.celtium.fr" />
+    <item title="CENETAP" url="" />
+    <item title="CENTILE" url="www.centile.com" />
+    <item title="CENTILLIUM COMMUNICATIONS" url="http://www.centillium.com" />
+    <item title="CENTRE D'AFFAIRES NCI SOPHIA-ANTIPOLIS / EUROPEAN BUSINESS CENTER" url="http://www.groupenci.com" />
+    <item title="CENTRE DE BEAUTE LAURENCE BELLOTTI" url="" />
+    <item title="CENTRE DE FORMATION DU BATIMENT - FORMATION BTP 06" url="www.formation-btp-paca.com" />
+    <item title="CENTRE DE SECOURS DE SOPHIA ANTIPOLIS" url="" />
+    <item title="CENTRE D'OSTEOPATHIE ATMAN" url="http://www.atman.fr" />
+    <item title="CENTRE LANGUES SOPHIA ANTIPOLIS" url="" />
+    <item title="CENTRE SAVEO" url="" />
+    <item title="CERADEL SOCOR" url="www.ceradel.com" />
+    <item title="CERAM BACHELORS" url="www.cerambachelors.fr" />
+    <item title="CERAM Business School" url="http://www.ceram.fr" />
+    <item title="CERAMIQUE THULE" url="www.ceramiquethule.fr" />
+    <item title="CERDIC - CENTRE EUROPEEN DE RECHERCHE ET DE DEVELOPPEMENT EN INFORMATION ET DOCUMENTATION SCIENTIFIQUES" url="http://www.eins.org/cerdic" />
+    <item title="CERMOFIX" url="" />
+    <item title="CERTIAM - CENTRE ELECTRONIQUE REGIONAL DE TRAITEMENT DE L'INFORMATION" url="04 93 95 59 26" />
+    <item title="CETE APAVE SUD EUROPE" url="" />
+    <item title="CHAMELEON" url="" />
+    <item title="CHANEL PARFUMS BEAUTE" url="" />
+    <item title="CHIREZ et ASSOCIES" url="" />
+    <item title="CHRYS EUROTYRES VULCO" url="" />
+    <item title="CHUBB Sécurité Electronique" url="http://www.chubb.fr" />
+    <item title="CIAT PACA - Compagnie Industrielle d'Applications Thermiques" url="www.ciat.fr" />
+    <item title="CIBLEX" url="http://www.ciblex.fr" />
+    <item title="CICOM ORGANISATION" url="" />
+    <item title="CIP / Pharmgest" url="" />
+    <item title="CIRANO" url="www.cirano.com" />
+    <item title="CIRTA Boucherie chez LOUFTI" url="" />
+    <item title="CISCO SYSTEMS France" url="http://www.cisco.com et www.cisco.fr" />
+    <item title="CITEA Résidence Pythagore" url="http://www.citea-hotels.com" />
+    <item title="CIV - CENTRE INTERNATIONAL DE VALBONNE" url="http://www.civFrance.com" />
+    <item title="CK2 SECURITY" url="" />
+    <item title="CKC NET" url="www.ckcnet.com" />
+    <item title="CLAIR AZUR" url="www.clairazur.com" />
+    <item title="CLIMA FROID" url="www.clima-froid.fr" />
+    <item title="CLIN D'OEIL FM - ALMA RADIO" url="http://www.ac-nice.fr/radio" />
+    <item title="CLINIQUE PLEIN CIEL Groupe Arnault Tzanck Mougins" url="" />
+    <item title="CLINIQUE VETERINAIRE DES CLAUSONNES" url="" />
+    <item title="CLUB DES DIRIGEANTS" url="www.cdsophia.com et www.jeuxdesophia.com" />
+    <item title="CLUB OMNISPORTS DE VALBONNE" url="www.cov-valbonne.org" />
+    <item title="CM3" url="" />
+    <item title="CNEDI-Centre NationalL d'Etudes et de Développement Informatique" url="http://www.caf.fr  et 3615 CAF" />
+    <item title="CNRS - DELEGATION DE LA COTE D'AZUR - 20ème CIRCONSCRIPTION" url="www.cote-azur.cnrs.fr" />
+    <item title="CNRS -UNSA  Laboratoire d'Electronique, Antennes et Télécommunications" url="http://www.elec.unice.fr" />
+    <item title="CNRS-CRHEA - CENTRE DE RECHERCHE SUR L'HETERO-EPITAXIE ET SES APPLICATIONS" url="www.crhea.cnrs.fr" />
+    <item title="CNRS-UNSA  - INSTITUT DE PHARMACOLOGIE MOLECULAIRE ET CELLULAIRE" url="http://www.ipmc.cnrs.fr" />
+    <item title="CNRS-UNSA CEPAM - CENTRE D'ETUDES PREHISTOIRE, ANTIQUITE, MOYEN-AGE" url="www.cepam.cnrs.fr" />
+    <item title="CNRS-UNSA GEOSCIENCES AZUR" url="www.geoazur.unice.fr" />
+    <item title="CNRS-UNSA GREDEG groupe de recherche en droit, économie et gestion: DEMOS, I2C, CREDECO, RODIGE" url="www.gredeg.cnrs.fr" />
+    <item title="CNRS-UNSA I3S  - LABORATOIRE D'INFORMATIQUE, SIGNAUX ET SYSTEMES DE SOPHIA ANTIPOLIS" url="www.i3s.unice.fr et www.dr20.cnrs.fr" />
+    <item title="CNRS-UNSA INLN  - INSTITUT NON-LINEAIRE DE NICE" url="www.inln.cnrs.fr" />
+    <item title="COCOONING MEUBLE" url="" />
+    <item title="CODAN FRANCE" url="" />
+    <item title="CODIPACK" url="www.codipack-France.com" />
+    <item title="CODIX - COMPAGNIE DE DISTRIBUTION INFORMATIQUE EXPERT" url="http://www.codix-France.com" />
+    <item title="COFATHEC SERVICES" url="www.cofatech.fr" />
+    <item title="COFRAMI" url="http://www.coframi.fr" />
+    <item title="COIFFURE TETE D'AFFICHE" url="" />
+    <item title="COLLECTIF DES SOLIDARITES 2000" url="http://www.collectif.sol2000.free.fr" />
+    <item title="COLLEGE DE L'EGANAUDE" url="" />
+    <item title="COLOR MEDIA" url="www.motoetmotards.com" />
+    <item title="COMBET YACHT Consultant" url="www.conmbet-yacht.com" />
+    <item title="COMEP SUD" url="" />
+    <item title="COMITE EUROPEEN DES INSTRUCTEURS DE PLONGEE" url="www.cedip.org" />
+    <item title="COMPACTAGE ANTIBOIS" url="http://www.compactageantibois.fr" />
+    <item title="COMPLETEL" url="http://www.completel.fr" />
+    <item title="COMPUTACENTER" url="www.computacenter.com" />
+    <item title="COMPUWARE France" url="www.compuware.com" />
+    <item title="COMSOFT - SOS DEVELOPERS" url="" />
+    <item title="CONCEPT ELECTRIC GIRARDIN" url="" />
+    <item title="CONPHIA" url="" />
+    <item title="CONSEIL GENERAL DES A.M. - LVD -LABORATOIRE VETERINAIRE DEPARTEMENTAL" url="" />
+    <item title="Conseil général des Alpes Maritimes - Service des Parcs Départementaux" url="" />
+    <item title="Conseil général des Alpes Maritimes - SERVICE FORCE 06" url="" />
+    <item title="CONSEILS and SERVICES" url="" />
+    <item title="CONSTANTIN Virginie" url="" />
+    <item title="CONTINENTAL Siemens VDO Automotive" url="www.continental-corporation.com" />
+    <item title="COOPERVISION" url="www.coopervision.com" />
+    <item title="CORNERSTONE CHRISTIAN FELLOWSHIP" url="http://www.c-stone.org" />
+    <item title="COSMOSPACE" url="www.horscope.fr" />
+    <item title="COTE SUD" url="" />
+    <item title="COTE SUD EXPERTISES" url="http://www.cote-sud.com" />
+    <item title="COTE WEB" url="http://www.coteweb.fr" />
+    <item title="COTTE MARTINON" url="" />
+    <item title="COUASNE Christine" url="" />
+    <item title="COUPE D'AZUR" url="" />
+    <item title="CPA - CENTRE DE PERFECTIONNEMENT AUX AFFAIRES - MEDITERRANEE" url="" />
+    <item title="CPECF Côte d'Azur" url="www.cpecf.com" />
+    <item title="CRAWN Relocations" url="www.crownrelo.com" />
+    <item title="CRC - Conception Réalisation Commercialisation" url="" />
+    <item title="CRE Technology" url="www.cretechnology.com" />
+    <item title="CREAFIL " url="" />
+    <item title="CREALYSA" url="" />
+    <item title="CREATION AFFICHES PLASTIFICATIONS SERVICES" url="http://www.c-a-p-s.com" />
+    <item title="CREAZUR - SOPHIA FORUM" url="http://www.sophiaforum.org" />
+    <item title="CRECHE DE GARBEJAIRE" url="" />
+    <item title="CREDIT DU NORD" url="creditdunord.fr" />
+    <item title="CREDIT ET SERVICE FINANCIER" url="www.csf.fr" />
+    <item title="CREDIT LYONNAIS" url="" />
+    <item title="CRÉER + Ressources Humaines" url="www.creerplus.com" />
+    <item title="CRISTON SOFTWARE" url="www.criston.fr" />
+    <item title="CROC'SAVEUR" url="www.crocsaveur.com" />
+    <item title="CROIX ROUGE FRANCAISE" url="" />
+    <item title="CROSSBEAM SYSTEMS" url="www.crossbeamsystems.com" />
+    <item title="CRUDELI" url="www.crudeli.com" />
+    <item title="CSILL" url="www.csill.fr" />
+    <item title="CSM ASSURANCES" url="" />
+    <item title="CSTB - CENTRE SCIENTIFIQUE ET TECHNIQUE DU BATIMENT" url="www.cstb.fr" />
+    <item title="CTI PACAC" url="" />
+    <item title="CUIR CENTER" url="" />
+    <item title="CUIS'IN DIFFUSION" url="http://www.cuisine-diffusion.fr" />
+    <item title="CUISINES PAPHAEL - SUD DECORATION" url="www.cuisines-raphael.com" />
+    <item title="CUMAS" url="www.cumas.fr" />
+    <item title="CURTI Enrico - Architecte-" url="" />
+    <item title="CVPE - Cartouche Vide pour la Protection de l'Environnement" url="www.lescartouchesvides.com" />
+    <item title="CYLANDE GRANDE DISTRIBUTION" url="www.cylande.com" />
+    <item title="D.R.T." url="" />
+    <item title="DACLEM Solutions" url="www.daclem.com" />
+    <item title="DAHER LHOTELLIER SERVICES" url="www.daher.com" />
+    <item title="DANDOY COMPOGRAVURE" url="" />
+    <item title="DANRENOV" url="" />
+    <item title="DARTFISH" url="www.dartfish.com" />
+    <item title="DAVID and ASSOCIES" url="" />
+    <item title="DAVIDSON PACA" url="www.davidson.fr" />
+    <item title="DBCO Sarl" url="www.dbco-fr.com" />
+    <item title="DDSV - DIRECTION DEPARTEMENTALE DES SERVICES VETERINAIRES" url="" />
+    <item title="DE TONGE" url="http://www.detonge.fr" />
+    <item title="DEFCOM" url="www.defcom.fr" />
+    <item title="DEGRIFF'LITERIE" url="" />
+    <item title="DEJEUNER DE SOLEIL" url="" />
+    <item title="DELIBRICK" url="" />
+    <item title="DELTA AZUR" url="" />
+    <item title="DELTA THERMIQUE" url="" />
+    <item title="DELTAZUR" url="" />
+    <item title="DEM - DIFFUSION ELECTRO MUSICALE" url="" />
+    <item title="DEMICHELIS -  SBMCD" url="www.demichelis.fr" />
+    <item title="DEPANN VITRES" url="" />
+    <item title="DESSALATOR" url="http://www.dessalator.com" />
+    <item title="DHL EXPRESS" url="" />
+    <item title="DIAGONAL" url="http://www.prolexis.com" />
+    <item title="DIRECTOIRE BUSINESS" url="www.directoire-business.fr" />
+    <item title="DIRECTOIRE FINANCE CORPORATE ARTHUR LOYD" url="www.arthurloyd-cotedazur.com" />
+    <item title="DIRECTOIRE FINANCE HOLDING" url="http://www.directoire-finance.fr" />
+    <item title="DISTRIBUTED INTELLIGENCE SYSTEMS- INGEN" url="www.ingen.com" />
+    <item title="DISTRIM" url="" />
+    <item title="DIVAZUR" url="www.divazur.com" />
+    <item title="DKZ France Créations" url="www.dkzfrance.com" />
+    <item title="DMSI - DIFFUSION MAINTENANCE SERVICE INFORMATIQUE" url="" />
+    <item title="DNA Distribution Nationale Airsoft" url="www.dna-airsoft.com" />
+    <item title="DOCTEUR BARBONI-GROSS DENISE" url="" />
+    <item title="DOCTEUR BRIDOUX - PRADAL  Odile" url="" />
+    <item title="DOCTEUR CENDRAS VERONIQUE" url="" />
+    <item title="DOCTEUR David MENEGAZZO" url="" />
+    <item title="DOCTEUR HOANG L" url="" />
+    <item title="DOCTEUR LAFOREST LEDERER MARTINE" url="" />
+    <item title="DOCTEUR LANGLOIS MARTINE" url="" />
+    <item title="DOCTEUR LAVERNHE Emmanuel" url="" />
+    <item title="DOCTEUR LERMITERIE A.M." url="" />
+    <item title="DOCTEUR MILHET Philippe" url="" />
+    <item title="DOCTEUR NEDELEC SERGE" url="" />
+    <item title="DOCTEUR PETCHOT-BACQUE ANNE-MARIE" url="" />
+    <item title="DOCTEUR PLAZA PATRICK" url="" />
+    <item title="Docteur Véronique GAÏD" url="" />
+    <item title="DOC'XEL - Droupe Documentis" url="http://www.docxel.fr" />
+    <item title="DOITRAND" url="" />
+    <item title="DOJO ANTIPOLIS VALBONNE" url="http://www.ifrance.com/dav" />
+    <item title="DOUCE NUIT GRAND LITIER - RAYNIC" url="" />
+    <item title="DOW AGROSCIENCES" url="http://www.dowagro.fr" />
+    <item title="DOW AGROSCIENCES DISTRIBUTION" url="http://www.dowagro.fr" />
+    <item title="DOW AGROSCIENCES EXPORT" url="" />
+    <item title="DSF Technologies" url="http://www.dsf-tech.com" />
+    <item title="DUOTEC PACA" url="www.duotec.fr" />
+    <item title="E.B.I.C.A. Ecole bilingue Internationale Cote d'Azur" url="www.ebicaschool.com" />
+    <item title="e.boss" url="www.e-boss.fr" />
+    <item title="E3 SYSTEMS France" url="www.e3s.com" />
+    <item title="EA-PHARMA" url="www.ea-pharma.com" />
+    <item title="EASII IC" url="www.easii-ic.com" />
+    <item title="EASY LUNCH" url="" />
+    <item title="EATSCAPE" url="www.saveur-vivre.com" />
+    <item title="EC PROMOTION" url="" />
+    <item title="ECI  Euro Concept Ingenierie" url="" />
+    <item title="ECIB - ETUDES CUISINES INTERIEURS et BAINS" url="www.ecib-06.com" />
+    <item title="E-CLYPSE International" url="www.e-clypse.com" />
+    <item title="ECOLE ELEMENTAIRE DE GARBEJAIRE" url="" />
+    <item title="ECOLE ELEMENTAIRE SARTOUX" url="" />
+    <item title="ECOLE MATERNELLE DE GARBEJAIRE" url="" />
+    <item title="ECOLE MATERNELLE DES SARTOUX" url="" />
+    <item title="ECS - Europe Computer Systems-" url="www.ecs-group.com" />
+    <item title="EDEN" url="http://www.eden.fr" />
+    <item title="EDITIONS ROULAND" url="http://www.editions-rouland.com" />
+    <item title="EDSM Azur - CHÂTEAU D'AX" url="www.chateaudax.fr" />
+    <item title="EFFI PLUS" url="" />
+    <item title="EGLISE CATHOLIQUE DE SOPHIA ANTIPOLIS - CENTRE PAROISSIAL PAUL VI" url="www.ndsagesse.com" />
+    <item title="EIFFAGE CONSTRUCTION" url="" />
+    <item title="EIFFAGE IMMOBILIER AZUR" url="" />
+    <item title="EITIS" url="www.eitis.fr" />
+    <item title="ELAN IT Resource" url="http://www.elanit.com" />
+    <item title="ELCIMAï INFORMATIQUE" url="http://www.elcimai.com" />
+    <item title="ELEZIA" url="www.elezia.com" />
+    <item title="ELISION" url="" />
+    <item title="ELITHEA" url="www.elithea.fr" />
+    <item title="ELLIPSE" url="" />
+    <item title="ELSYS DESIGN" url="http://www.elsys-design.com" />
+    <item title="ELYO / SUEZ" url="www.elyo.fr" />
+    <item title="EMBLEM SOFT" url="www.emblemsoft.com" />
+    <item title="E-NEOLAB" url="www.e-neolab.com" />
+    <item title="ENGLISH AMERICAN LANGUAGE CENTER" url="http://ealc.tripod.com" />
+    <item title="ENSMP - ECOLE NATIONALE SUPERIEURE DES MINES DE PARIS" url="http://www.ensmp.fr" />
+    <item title="E-PAYE SAS" url="http://www.e-paye.com" />
+    <item title="EPCOS" url="www.epcos.com" />
+    <item title="EPISTEMA" url="www.epistema.com" />
+    <item title="EQUANT France SA - Orange Business Services" url="http://www.equant.com" />
+    <item title="EQUICHEVAL" url="" />
+    <item title="ERAMM - ETUDE RECHERCHE AMENAGEMENT EN MILIEU MARIN" url="geocities.com/eramm_farnole/." />
+    <item title="ERCIM GEIE" url="http://www.ercim.org" />
+    <item title="ERI Etudes et Réalisations Industrielles" url="" />
+    <item title="ERILIA" url="" />
+    <item title="ERNST and YOUNG ENTREPRENEURS CONSEIL" url="http://www.ey.com/fr" />
+    <item title="ERNST and YOUNG et ASSOCIES" url="http://www.ey.com/fr" />
+    <item title="ERT TECHNOLOGIES" url="www.ert-technologies.fr" />
+    <item title="ESPACE DU BAIN ET DU CARRELAGE -CIFFREO BONA" url="http://www.ciffreobona.fr" />
+    <item title="ESPACE EMPLOI - PARTENARIAT ANPE/MAIRIE DE VALBONNE SOPHIA ANTIPOLIS" url="http://www.anpe.fr" />
+    <item title="ESPACE M" url="http://www.espacem.com" />
+    <item title="ESPACES ANTIPOLIS" url="www.antipolis.fr" />
+    <item title="ESSE SUD" url="www.esse-international.fr" />
+    <item title="ESSO SOPHIA" url="" />
+    <item title="ETAP HOTEL" url="" />
+    <item title="ETCOGEBA" url="" />
+    <item title="ETS CECCI" url="" />
+    <item title="ETS JEAN GRANIOU" url="www.jeangraniou.fr" />
+    <item title="ETS MARI FREDERIC" url="" />
+    <item title="ETSI - European Telecommunications Standards Institute" url="http://www.etsi.org" />
+    <item title="Etude SORESI. Olivier Lescane" url="" />
+    <item title="EUCLYDE" url="" />
+    <item title="EURO APTITUDES" url="http://www.pcie.tm.fr" />
+    <item title="EURODEV" url="www.eurodev.com" />
+    <item title="EURODIS" url="www.eurodis-securite.com" />
+    <item title="EURODOCUMENT" url="www.eurodocument.com" />
+    <item title="EUROGICIEL INGENIERIE" url="www.eurogiciel.fr" />
+    <item title="EUROKKOM" url="www.eurokkom.com" />
+    <item title="EUROPCAR - ANTIBES AUTO LOCATION" url="" />
+    <item title="EUROPE AVENUE" url="http://www.europe-avenue.com" />
+    <item title="EUROPE SOLAIRE" url="www.europe-solaire.com" />
+    <item title="EUROPEENNE DE CONSEIL - EDEC" url="" />
+    <item title="EUROTECHNIC" url="" />
+    <item title="EUROTORP" url="http://www.eurotorp.com" />
+    <item title="EUROVETRO CAP/ PARIS PACK" url="www.eurovetrocap.com" />
+    <item title="EVENT SOLUTIONS" url="www.event-solutions.fr" />
+    <item title="EXCO COTE D'AZUR" url="www.excosophia.exco.fr" />
+    <item title="EXPATRIMOINE" url="www.expatrimoine.com" />
+    <item title="EXPECTRA" url="http://www.expectra.fr" />
+    <item title="EXPERIAN" url="http://www.experian.fr" />
+    <item title="EXPERTS ASSOCIES SUD" url="experts-associes.net" />
+    <item title="EXPO MEDITERRANEE" url="http://www.lewebgolf.com et http://www.solutions-coproprietes.com" />
+    <item title="EY LAW Société d'avocats" url="" />
+    <item title="EZGLOBE" url="www.ezglobe.com" />
+    <item title="F.M.E.D. Force Méditerranée Environement Développement" url="" />
+    <item title="FABRIZIO CAPRIATA" url="www.capriata.fr" />
+    <item title="FACEO France" url="www.faceo.com" />
+    <item title="FACEO FRANCE" url="www.faceo.com" />
+    <item title="FACT" url="www.fact.fr" />
+    <item title="FACTUM FINANCE" url="www.factumfinance.com" />
+    <item title="FAFA" url="" />
+    <item title="FANTASTIC SOURCING - FICS -" url="www.fantast-ic.com" />
+    <item title="FAVA" url="http://www.fava.fr" />
+    <item title="FEDERAL EXPRESS" url="www.fedex.com" />
+    <item title="FER EXPRESS" url="http://www.fer-express.com" />
+    <item title="FERRUA RIBES EXPERT COMPTABLE" url="" />
+    <item title="FICI CBRE" url="www.fici-cbre.com" />
+    <item title="FIDAL - SOCIETE D'AVOCATS" url="http://www.fidal.fr" />
+    <item title="FIGURES LIBRES" url="www.figureslibres.net" />
+    <item title="FIMÉCO SA" url="" />
+    <item title="FIRST COIFFURE" url="" />
+    <item title="FISCALI CONSEIL" url="www.fiscaliconseil.fr" />
+    <item title="FITLANE" url="www.fitlane.com" />
+    <item title="FLASH AZUR VOYAGES" url="" />
+    <item title="FONDATION SOPHIA ANTIPOLIS" url="www.sophia-antipolis.org" />
+    <item title="FORMAT GAPHIQUE" url="www.format-graphique.com" />
+    <item title="FORRESTER RESEARCH" url="www.forrester.com" />
+    <item title="FORTINET" url="www.fortinet.com" />
+    <item title="France CE" url="www.salons-France-ce.com" />
+    <item title="France TELECOM ORANGE RandD " url="www.francetelecom.com" />
+    <item title="FRANCE TELECOM SCR" url="" />
+    <item title="Franck SIRI" url="www.francksiri.com" />
+    <item title="Françoise PIERONI - Avocate-" url="" />
+    <item title="FROGG HISTORIC RACING" url="www.frogg-racing.com" />
+    <item title="FROID INTERNATIONAL CLIMATISATION - FIC" url="" />
+    <item title="FROST et SULLIVAN" url="www.frost.com" />
+    <item title="FSCOM" url="www.fscom.fr" />
+    <item title="FUTUR ENERGIE" url="www.futurenergie.fr" />
+    <item title="FUTUR IMMEDIAT" url="http://www.futur-immediat.fr" />
+    <item title="FUTURING" url="www.futuring.fr" />
+    <item title="G.E.B.F.Groupe Economique Belgo-Français" url="www.belgian-shop.com" />
+    <item title="GALDERMA RandD" url="" />
+    <item title="GARAGE DE LA BASTIDE" url="" />
+    <item title="GARAGE DES TROIS MOULINS" url="" />
+    <item title="GARAGE M.A.G." url="" />
+    <item title="GARAGE RICCI DANIEL" url="" />
+    <item title="GARE ROUTIERE DES MESSUGUES" url="" />
+    <item title="GAUTHIER - SOHN" url="www.gauthier-sohn.net" />
+    <item title="GENACTIS" url="http://www.genactis.com" />
+    <item title="GENDARMERIE NATIONALE" url="" />
+    <item title="GENERAL PHYSIQUE FRANCE" url="www.gpworldwide.com" />
+    <item title="GENERALE DE SERVICES COMPTABLES" url="" />
+    <item title="GENERALI" url="" />
+    <item title="GENERIMED" url="" />
+    <item title="GENIE CLIMATIQUE SERVICE" url="www.gcs-antibes.com" />
+    <item title="GEOIMAGE" url="www.geoimage.fr" />
+    <item title="GEOMETRY FACTORY" url="www.geometryfactory.com" />
+    <item title="GESCEM" url="" />
+    <item title="GESTAR TRANSFERT" url="http://www.gestar.fr" />
+    <item title="GFI INFORMATIQUE" url="http://www.gfi.fr" />
+    <item title="GIE CENTRE HA" url="" />
+    <item title="GIEPS Asaf,Afps, Acbs, Aprs" url="" />
+    <item title="GIL' HOLDING FINANCES" url="" />
+    <item title="GIORDANO Eric" url="" />
+    <item title="GIORDANO TOITURE" url="" />
+    <item title="GIORDASOLS" url="www.giorda-parquet.com" />
+    <item title="GIRARD SNAF" url="http://www.smac-acieroid.fr" />
+    <item title="GIS CURARE - Groupement d'Interet Scientifique. Centre Universitaire de Réflexion pour une Agence des Risques Environnementaux" url="http://curare.unice.fr" />
+    <item title="GITEN France" url="" />
+    <item title="GLOBAL and Co / GLOBAL SANTE" url="www.globalandco.net" />
+    <item title="GLOBAL EXPERT" url="www.globalexpert.fr" />
+    <item title="GLOBAWARE INTERNATIONAL" url="http://www.globaware.com" />
+    <item title="GM Restauration- filiale de SCORE GROUP" url="www.score-groupe.com" />
+    <item title="GOLE Laurence" url="" />
+    <item title="GOLF COUNTRY CLUB CANNES-MOUGINS" url="http://golf-cannes-mougins.com" />
+    <item title="GOOD MORNING RIVIERA" url="http://www.good-morning-riviera.com" />
+    <item title="GRAND HOTEL MERCURE - SOPHIA COUNTRY CLUB" url="http://www.mercure.com" />
+    <item title="GRAPHIE 4" url="http://www.graphie4.com" />
+    <item title="GRAPHITY" url="" />
+    <item title="GREMCO" url="http://www.gremco-sarl.com" />
+    <item title="GRETA ANTIPOLIS" url="www.greta-antipolis.com" />
+    <item title="GRILL COURTE-PAILLE" url="" />
+    <item title="GRIMALDI" url="" />
+    <item title="GROOVIZ" url="www.grooviz.com" />
+    <item title="GROUP NBT France" url="http://www.netbenefit.fr" />
+    <item title="GROUPE ALLIANCE" url="http://www.group-alliance.com" />
+    <item title="GROUPE INNOCENTINI-INNOCASH-INNO HYGIENE" url="www.innocentini.com" />
+    <item title="GROUPE MALAKOFF" url="http://www.groupemalakoff.com" />
+    <item title="Groupe OMNIUM FINANCE - Pole Promotion Immobilière-" url="" />
+    <item title="GROUPE PROSERVIA" url="http://www.proservia.fr" />
+    <item title="GROUPE SCOLAIRE OLIVARI" url="" />
+    <item title="Groupe Scouts Paul VI" url="http://gp6.free.fr/" />
+    <item title="GROUPE SET - EQUIVALENCE LANGUES ET COMMUNICATION, TRADOMNIS" url="www.groupeset.com" />
+    <item title="GROUPE SILICOMP" url="www.silicomp.com et wwww.orange-business.com" />
+    <item title="Groupe SOFIA" url="" />
+    <item title="GROUPE TSF CANNES" url="http://www.tsf.fr" />
+    <item title="GROUPE UNICIL" url="www.unicil.fr" />
+    <item title="GROUPE USM" url="www.groupeusm.com" />
+    <item title="GS PROMOTION" url="www.gs-promotion.com" />
+    <item title="GSF - GROUPE SERVICES FRANCE" url="http://www.gsf.fr" />
+    <item title="GSF JUPITER" url="" />
+    <item title="GUGLIOTTA GAETAN" url="" />
+    <item title="HAGER" url="http://www.hager.fr" />
+    <item title="HALTE GARDERIE DE GARBEJAIRE" url="" />
+    <item title="HANNOUZ ET JANNEAU ARCHITECTES" url="" />
+    <item title="HECOBIOT" url="" />
+    <item title="HELIO 06" url="" />
+    <item title="HEM - HYDRO ELECTRIQUE MARINE" url="" />
+    <item title="HERMES Conseil" url="" />
+    <item title="HIGHLANDS TECHNOLOGIES - DOREMI" url="www.doremitechno.com" />
+    <item title="HILL'S PET NUTRITION" url="http://www.hillspet.com" />
+    <item title="HITACHI EUROPE Laboratoire de recherche" url="http://www.hitachi-eu.com" />
+    <item title="HLP France" url="" />
+    <item title="HMT SERVICE - CANAL FLYGT" url="" />
+    <item title="HOME BUSINESS" url="www.homebusiness.fr" />
+    <item title="HOMEPERF" url="" />
+    <item title="HONEYMOON" url="www.honeymoon-world.com" />
+    <item title="HONEYWELL EUROPE SERVICES" url="" />
+    <item title="HOREMIS MEDITERRANEE" url="" />
+    <item title="HORSE WOOD" url="www.horsewood.com" />
+    <item title="HOTEL DES IMPOTS - CENTRE DES IMPOTS DE VALBONNE" url="" />
+    <item title="HOTEL DES IMPOTS - RECETTE PRINCIPALE DES IMPOTS DE VALBONNE" url="" />
+    <item title="HOTEL ETAP HOTEL - GROUPE ACCOR" url="www.etaphotel.com code 1024" />
+    <item title="HOTEL FORMULE 1" url="" />
+    <item title="HOTEL IBIS - RESTAURANT LA TABLE ROUGE" url="http://www.ho711@accor-hotels.com" />
+    <item title="HOTEL MEDIATHEL" url="www.mediathel.com" />
+    <item title="HOTEL MERCURE SOPHIA ANTIPOLIS- SNC VALBOTEL" url="http://www.mercure.com" />
+    <item title="HOTEL OMEGA et Restaurant Le Relais" url="www.hotelomega.com" />
+    <item title="HP France" url="http://www.welcome.hp.com" />
+    <item title="HSBC" url="www.hsbc.fr" />
+    <item title="HUMBLOT GRANT Alexander" url="www.humblot.com" />
+    <item title="HYDRAULIQUE MEDITERRANEE" url="" />
+    <item title="HYGIENAROME SERVICES" url="" />
+    <item title="HYGIENE ET SANTE" url="" />
+    <item title="HYMECO - HYDRO METROLOGIE CONSEIL" url="www.hymeco.com" />
+    <item title="I.M.E Pierre MERLI - SESSAD" url="" />
+    <item title="I.S.E. , Inc." url=" " />
+    <item title="IBERYS TELECOM" url="www.iberys-telecom.com" />
+    <item title="IBUS FRANCE" url="www.industrial-computers.com" />
+    <item title="ICERA" url="www.icera.com" />
+    <item title="ICONIX" url="www.iconix.fr" />
+    <item title="ID CUISINES" url="www.idcuisines.fr" />
+    <item title="IDEAL-COM" url="" />
+    <item title="IDEOGRAM DESIGN" url="www.ideogram-design.fr" />
+    <item title="IGC - INFORMATIQUE GESTION CONSEIL" url="" />
+    <item title="IGR MOUGINS" url="" />
+    <item title="ILEX" url="" />
+    <item title="ILLEL Production" url="www.alainillel.com" />
+    <item title="ILOG" url="www.ilog.fr" />
+    <item title="IMAGE DE MARQUES" url="" />
+    <item title="IMAGING SOLUTIONS" url="http://www.img-solutions.com" />
+    <item title="IMAGO 3D" url="" />
+    <item title="i-Maker" url="www.i-maker.fr" />
+    <item title="IMMINENCE- Immobilier Intelligence" url="www.imminence.fr" />
+    <item title="IMPRIMERIE ANTIPOLIS GRAPHIQUE" url="www.antipolis-graphique.com" />
+    <item title="IMPRIMERIE GRAPHIC AUREA" url="" />
+    <item title="IMRA EUROPE" url="http://www.imra-europe.com" />
+    <item title="INCUBATEUR TECHNOLOGIQUE PACA EST" url="www.pcaest.com" />
+    <item title="INCUBATEUR TELECOM Paristech Eurécom Entrepreneurs" url="www.telecom-paristech.fr" />
+    <item title="INDIGEN SOLUTIONS" url="www.indigen.com" />
+    <item title="INEO DEFENSE" url="http://www.elg.fr" />
+    <item title="INEO INFRACOM" url="www.ineo.com" />
+    <item title="INFINEON TECHNOLOGIES France" url="http://www.infineon.com" />
+    <item title="INFOTEC" url="" />
+    <item title="INFOTERRA" url="http://www.infoterra.com" />
+    <item title="INNO - TSD" url="http://www.inno-group.com" />
+    <item title="INNOVATYS" url="www.innovatys.fr" />
+    <item title="iNovandi" url="" />
+    <item title="INPI - INSTITUT NATIONAL DE LA PROPRIETE INDUSTRIELLE" url="http://www.inpi.fr" />
+    <item title="INPI-CERDA - Institut Ntional de la Propriété Industrielle - Centre d'Etudes et de Recherche Documentaires Avancées" url="http://www.inpi.fr" />
+    <item title="INRA Centre de Recherche Sophia Antipolis" url="www.antibes.inra.fr" />
+    <item title="INRIA - Institut National de Recherche en Informatique et Automatique" url="http://www-sop.inria.fr" />
+    <item title="INS - INTEGRATED NETWORK SOLUTIONS" url="http://www.inseurop.com" />
+    <item title="INSIGHT SIP" url="www.insightsip.com" />
+    <item title="INSPECTION DEPARTEMENTALE DE L'EDUCATION NATIONALE" url="" />
+    <item title="INSTITUT ACCES" url="www.institutacces.com" />
+    <item title="INSTITUT EURECOM" url="http://www.eurecom.fr" />
+    <item title="INSTITUT MARCEL FOURNIER -CENTRE DE MANAGEMENT CARREFOUR" url="" />
+    <item title="INSTITUT MEDICO-EDUCATIF LES HIRONDELLES - CROIX ROUGE FRANCAISE" url="" />
+    <item title="Institut Supérieur de Théologie" url="" />
+    <item title="INTEGRA NEUROSCIENCES IMPLANTS" url="www.integra-ls.com" />
+    <item title="INTEL CORPORATION" url="http://www.intel.com" />
+    <item title="INTERACTIS" url="www.interactis.fr" />
+    <item title="INTERNATIONAL ABC ART" url="www.abc-oriental.com" />
+    <item title="INTERSYSTEMS BV FRANCE" url="http://www.intersystems.fr" />
+    <item title="INTERTAPE POLYMER GROUP" url="www.intertapepolymer.com" />
+    <item title="IPCOM" url="" />
+    <item title="IRATEN Solutions" url="http://www.iratensolutions.com" />
+    <item title="IRON MOUNTAIN France" url="www.ironmountain.fr" />
+    <item title="IRRIDISCOUNT" url="www.irrishop.fr.st" />
+    <item title="IS TELECOM" url="www.istelecom.fr" />
+    <item title="IS2 - ISSOS" url="www.issos.fr" />
+    <item title="ISIS Resid'hotel Vacances" url="www.residhotel.com" />
+    <item title="ISL Aromathérapie" url="www.islaromatherapie.com" />
+    <item title="ISS - INVENTAIRE SERVICES and SYSTEMES" url="www.inventaire.com" />
+    <item title="ITAL PRESTIGE" url="" />
+    <item title="IXWAVES" url="www.ixwaves.com" />
+    <item title="J.F EGLENNE" url="" />
+    <item title="JAHAN DESIGN" url="www.jahandesign.com" />
+    <item title="JECY TRADUCTIONS" url="http://www.jecy-traduction.com" />
+    <item title="JEDRASIAK CHANTAL" url="" />
+    <item title="JIGAM CONSEIL" url="http//:www.jigam.com" />
+    <item title="JNETX" url="www.jnetx.com" />
+    <item title="JOURDE Cécile - Kinésithérapie-" url="" />
+    <item title="JUPITERIMAGES" url="www.jupiterimages.fr" />
+    <item title="K EPSILON" url="" />
+    <item title="KAPPA ENGINEERING" url="http://www.kappaeng.com" />
+    <item title="KAPSYS" url="" />
+    <item title="KAROBAS" url="www.karobas.fr" />
+    <item title="KAST ON LINE" url="" />
+    <item title="KAST TELECOM SA" url="www.kast-telecom.net" />
+    <item title="KEENEO" url="www.keeneo.com" />
+    <item title="KEEPCOOL - BAMA" url="" />
+    <item title="KENT MARINE EQUIPMENT" url="" />
+    <item title="KEOPS L'IMMOBILIER D'ENTREPRISE" url="http://www.keops.fr" />
+    <item title="KEYNUX" url="http://www.keynux.com" />
+    <item title="KIDOOLAND" url="www.kidooland.com" />
+    <item title="Kinésithérapeute Stéphanie JOSSERAND" url="" />
+    <item title="KOCH ETIENNE" url="" />
+    <item title="KOLPI" url="www.kolpi.fr" />
+    <item title="KPMG AUDIT" url="www.kpmg.fr" />
+    <item title="KPMG ENTREPRISES" url="http://www.kpmg.fr" />
+    <item title="KUANTIC" url="www.kuantic.com" />
+    <item title="La Boite à Image" url="" />
+    <item title="LA CARDABELLE" url="" />
+    <item title="LA HALLE AUX CHAUSSURES" url="" />
+    <item title="LA HALLE DU SOMMEIL" url="" />
+    <item title="LA MAISON COLONIALE" url="" />
+    <item title="LA POSTE" url="" />
+    <item title="LA POSTE - ESPACE ENTREPRISES" url="laposte.fr" />
+    <item title="LA ROSERAIE" url="" />
+    <item title="LA SECURITE" url="www.la-securite.com" />
+    <item title="LABM -LABORATOIRE DE SOPHIA ANTIPOLIS- MEDILAB " url="" />
+    <item title="LABORATOIRE ELAIAPHARM" url="http://www.elaiapharm.com" />
+    <item title="Laboratoire PHYTALLIANCE YD COSMETICS" url="" />
+    <item title="LABORATOIRES ARION" url="http://www.laboratoires-arion.fr" />
+    <item title="LABORATOIRES BOIRON " url="www.boiron.fr" />
+    <item title="LABORATOIRES GENEVRIER" url="www.laboratoires-genevrier.com" />
+    <item title="LABORATOIRES SOPHILENE" url="" />
+    <item title="LAFARGE BETON CHANTIER DE NICE" url="" />
+    <item title="L'AMPHORE Restaurant" url="" />
+    <item title="LANCE INFORMATIQUE" url="http://www.lanceinfo.com" />
+    <item title="L'ANNEXE" url="" />
+    <item title="LAS DISTRIBUTION - US ARCHERY" url="" />
+    <item title="LASER SYMAG" url="http://www.symag.com" />
+    <item title="L'AUSTRALIAN" url="" />
+    <item title="LAVAZZA France" url="" />
+    <item title="LE CAFE DE SOPHIA" url="" />
+    <item title="LE CHEQUE DEJEUNER" url="http://www.chequedejeuner.fr" />
+    <item title="LE CLUB" url="" />
+    <item title="LE COIN GOURMAND" url="" />
+    <item title="LE COSY " url="" />
+    <item title="LE COYOTE CLUB CAFE" url="www.coyote-club-cafe.fr" />
+    <item title="LE DIVINO" url="" />
+    <item title="LE FITNESS" url="" />
+    <item title="LE FOURNIL MEJANE" url="" />
+    <item title="LE LORENZO" url="http://lelorenzo.free.fr" />
+    <item title="LE MANDARIN" url="" />
+    <item title="LE MEJANE" url="" />
+    <item title="LE MONTPARNASSE - LES CYCLADES" url="" />
+    <item title="LE MOULIN DE PAïOU" url="www.moulindepaiou.com" />
+    <item title="LE PARADIS DU VIN" url="" />
+    <item title="LE PETIT CAFE" url="" />
+    <item title="LE PLIAGE INDUSTRIEL (LPI)" url="" />
+    <item title="LE PRINCIPE DE STAPPLER" url="http://www.stappler.fr" />
+    <item title="LE REVE DE GRASSE" url="http://www.mercure.com" />
+    <item title="LE SOPHOCLE sarl FUFU" url="" />
+    <item title="LE SOUBEIRANNE Restaurant" url="" />
+    <item title="LE TEMPS D'UN FILM" url="www.letempsdunfilm.com" />
+    <item title="LEADER Vallauris" url="" />
+    <item title="LEGRAND" url="" />
+    <item title="LENOBLE Laurence" url="" />
+    <item title="LEROY MERLIN" url="" />
+    <item title="LES ETIQUETTES DE PROVENCE- GRAFICO" url="" />
+    <item title="LES GOURMETTES" url="http://www.lesgourmettes.com" />
+    <item title="LES NOUVEAUX CONSTRUCTEURS" url="" />
+    <item title="LES PETITS CANAILLOUX" url="" />
+    <item title="LES PLAQUISTES ASSOCIES" url="" />
+    <item title="Les Terrasses d'Antipolis - CBA SAS" url="www.antipolis.fr" />
+    <item title="LEXPER" url="" />
+    <item title="LG Audit" url="" />
+    <item title="L'HEDONISTE - Tartes, tartines et Cie" url="" />
+    <item title="L'HUITRIERE DE BERMOND" url="" />
+    <item title="LIBRAIRIE DE FRANCE - LA POMME VERTE" url="" />
+    <item title="LIFE SPORT" url="" />
+    <item title="LIGNE METAL - SARL BARON ASHTON" url="www.lignemetal.com" />
+    <item title="LIMA France" url="www.lima.it" />
+    <item title="L'IMPRIMEUR" url="www.limprimeur.fr" />
+    <item title="LIONBRIDGE TECHNOLOGIES" url="http://www.lionbridge.com" />
+    <item title="LOCAREST" url="www.locarestl.fr" />
+    <item title="LOCASSISTANCE COTE D'AZUR" url="http://www.locassistance.com" />
+    <item title="LOCSON" url="" />
+    <item title="LOGIREM" url="" />
+    <item title="L'ORIENTALE AZUR sarl DEKY" url="" />
+    <item title="LP ART SA" url="www.lpart.fr" />
+    <item title="LPG SYSTEMS" url="http://www.lpgsystems.com" />
+    <item title="LSI SUD INFORMATIQUE" url="lsi-sud.com" />
+    <item title="LSO INTERNATIONAL" url="http://www.lso-intl.com" />
+    <item title="LUCAS ET DEGAND" url="recrouvement.com" />
+    <item title="LUCKE IMMOBILIER" url="http://www.luckeimmobilier.com" />
+    <item title="LUDOTHEQUE L'ILE AU TRESORS" url="www.ludotheque06.fr" />
+    <item title="LUMILOG" url="www.lumilog.com" />
+    <item title="LUMTEAM" url="www.lumteam.com" />
+    <item title="LUNCH GOURMET" url="http://www.lunch-gourmet.com" />
+    <item title="LUXCLEAR PHARMA SAS" url="http://www.tubilux.it" />
+    <item title="LUXOTTICA FRANCE" url="" />
+    <item title="LYCEE POLYVALENT LEONARD DE VINCI" url="http://www.2ac.nice.fr  et  abs/geniecivil/index.html" />
+    <item title="LYVIANA DISTRIBUTION" url="" />
+    <item title="m2msolution" url="www.m2msolution.com" />
+    <item title="MACIF - Mutuelle Assurance des Commerçants et Industriels de France  - Provence Méditerranée" url="http://www.macif.fr" />
+    <item title="MACQUET and ASSOCIES" url="www.macquet-associes.com" />
+    <item title="MADWAVES" url="http://www.madwaves.com" />
+    <item title="MAILING PLUS" url="" />
+    <item title="MAILING PLUS" url="" />
+    <item title="MAINTRONIC " url="www.maintronic.fr" />
+    <item title="MAIRIE ANNEXE - CENTRE DE VIE" url="www.ville-valbonne.fr" />
+    <item title="MAIRIE DE VALBONNE - FERME BERMOND" url="" />
+    <item title="MAISON DES ENTREPRISES DE SOPHIA ANTIPOLIS - CHAMBRE DE COMMERCE ET D'INDUSTRIE NICE COTE D'AZUR" url="http://www.cci-services-entreprises.com" />
+    <item title="MAISONS France CONFORT" url="www.mfc-alpesmaritimes.com" />
+    <item title="Maitre Brigitte BOIN" url="" />
+    <item title="Maitre VALDY Christophe" url="" />
+    <item title="MANDALAX" url="www.mandalax.com" />
+    <item title="MANPOWER" url="http://www.manpower.fr" />
+    <item title="MANPOWER Techniciens et cadres" url="" />
+    <item title="MARBRERIE DES CLAUSONNES" url="www.marbreriedesclausonnes.com" />
+    <item title="MARIACCI Jacques" url="" />
+    <item title="MARINA 4X4 ACCESSOIRES" url="www.marina4x4.com" />
+    <item title="MARINA BEAUTE" url="www.marina-beaute.com" />
+    <item title="MARTIN ALUMINIUM" url="" />
+    <item title="MARTIN ISOLATION ETANCHEITE" url="" />
+    <item title="MARTINI 1840" url="" />
+    <item title="MATRIXONE SARL" url="www.3ds.com" />
+    <item title="MBDS" url="www.mbds-fr.org" />
+    <item title="MBV" url="" />
+    <item title="MC² FORCES Evènements and Voyages- HAVAS" url="" />
+    <item title="MCP" url="" />
+    <item title="MDA Electroménager" url="www.mde.electromeneger.com" />
+    <item title="MDE Méditerranéenne d'Electricité du Sud Est" url="www.mde-se.com" />
+    <item title="MECABOAT" url="" />
+    <item title="Médecine du Sport - Osthéopathie - Dalloz-Gabinski" url="" />
+    <item title="MEDI.CALL" url="http://www.medicall.fr" />
+    <item title="MEDIAMETRIE - ESTAT" url="http://www.estat.com  et  http://www.mediametrie-estat.com" />
+    <item title="MEDIAN TECHNOLOGIES" url="www.mediantechnologies.com" />
+    <item title="MEDIASYSTEM" url="http://www.mediasystem.fr" />
+    <item title="MEDIATHEL WORLD TRADE CENTER 2" url="http://www.mediathel.com" />
+    <item title="MEDIATHEQUE COMMUNAUTAIRE VALBONNE SOPHIA6ANTIPOLIS" url="www.mediatheque-casa.fr" />
+    <item title="MEDICAPTEURS France" url="www.medicapteurs.fr" />
+    <item title="MEDICIS" url="www.mutuelle-medicis.com" />
+    <item title="MEDITERRANEAN DESIGN" url="" />
+    <item title="MEDITERRANEE CLOISONS" url="www.mediterranee-cloisons.com" />
+    <item title="MEDITERRANEE TECHNOLOGIES" url="http:/www.mediterranee-technologies.com" />
+    <item title="MEDITERRUM" url="www.mediterrum.com" />
+    <item title="MEMSOFT" url="www.memsoft.fr" />
+    <item title="MENIGHETTI  PROGRAMMATION" url="http://www.menighetti.fr" />
+    <item title="MENTOR GRAPHICS Division Emulation" url="" />
+    <item title="Menuiserie ESPANOL" url="" />
+    <item title="MER ET DESIGN - BUREAU D'ETUDES SUBRERO" url="http://www.meretdesign.fr" />
+    <item title="METALIS" url="" />
+    <item title="METTLE SARL" url="http://www.mettle.org  et  www.mettle.fr" />
+    <item title="MG2 AUTOMATION" url="" />
+    <item title="MICRO SERI" url="http://www.microseri.com" />
+    <item title="MICROPOS Industrie" url="" />
+    <item title="MICRO-TECH" url="http://www.micro-tech.fr" />
+    <item title="MINDSPEED TECHNOLOGIES" url="http://www.mindspeed.com" />
+    <item title="MINISTERE DE LA DEFENSE - DGA - DQP" url="" />
+    <item title="MISS B'" url="" />
+    <item title="MISSION LOCALE ANTIPOLIS" url="www.mission-locale-antipolis.fr.st" />
+    <item title="MISTER PIZZA and SANDWICHS" url="www.misterpizzasophia.com" />
+    <item title="MJC - FJT - ESPACE CULTURE ET CITOYENNETE" url="" />
+    <item title="MMA Mutuelles du Mans Assurances" url="http://www.mma.fr" />
+    <item title="MMD - MANAGEMENT MODERNE DIFFUSION" url="http://www.mmd-i.com" />
+    <item title="MOBALPA - MGCD" url="http://vallauris.mobalpa.fr" />
+    <item title="MOBILEGOV France SA" url="www.mobilegov.com" />
+    <item title="MONE CONCEPT" url="www.capmonetique.com" />
+    <item title="MONEPARC" url="" />
+    <item title="MONTE CARLO PRESSING" url="" />
+    <item title="MONTELEC" url="http://www.montelec.fr" />
+    <item title="MOUGINS SCHOOL" url="http://www.mougins-school.com" />
+    <item title="MOVIE LAND Vidéo Club" url="" />
+    <item title="M-PLANET" url="www.m-planet.fr" />
+    <item title="MRL TECHNOLOGY" url="www.mer-group.com" />
+    <item title="MS INNOVATIONS" url="www.msinnovations.com" />
+    <item title="MS.COM" url="http://www.fer-express.com" />
+    <item title="MSS - MARINE SATELLITE SYSTEMS" url="http://www.mssfrance.com" />
+    <item title="MULTITEC" url="" />
+    <item title="MUZZARELLI Laeticia" url="" />
+    <item title="MVH PSS" url="" />
+    <item title="MXM" url="http://www.mxm.eu" />
+    <item title="NAIS Informatique and Télécom" url="www.ajais.com" />
+    <item title="NAOSOFT" url="http://www.naosoft.fr" />
+    <item title="NASSIF ANIS" url="" />
+    <item title="NATIONAL / CITER" url="www.citer.fr" />
+    <item title="NAVLINK GMBH ( France )" url="http://www.navlink.com" />
+    <item title="NEODITEL SAS" url="http://www.neoditel.fr" />
+    <item title="NEPHTYS" url="www.nephtys.net" />
+    <item title="NET SOLUTION PARTNER / NSP" url="www.nsp-fr.com" />
+    <item title="NETEXPOSE" url="www.netexpose.com" />
+    <item title="NEURELEC" url="" />
+    <item title="New Life in France" url="www.newlifeinfrance.com" />
+    <item title="NEW LOGIC , a WIPRO Company" url="http://www.newlogic.com" />
+    <item title="NEW POLE" url="www.newpole.eu" />
+    <item title="NEWTECH INTERNATIONAL" url="" />
+    <item title="NEXES" url="www.nexes.fr" />
+    <item title="NEXO France" url="http://www.nexotelematics.com" />
+    <item title="NEXT2U" url="www.next2u-fr.com" />
+    <item title="NEXTIRAONE France" url="http://www.nextiraone.com" />
+    <item title="NICE ROULEMENTS-COTE D'AZUR TRANSMISSIONS" url="" />
+    <item title="NICK DANESE APPLIED RESEARCH SARL" url="http://www.dst-t.com" />
+    <item title="NicOx" url="www.nicox.com" />
+    <item title="NIXE" url="" />
+    <item title="NODBOX" url="www.nodbox.biz" />
+    <item title="NOEVA" url="www.noeva.com" />
+    <item title="NONSOLOCUCNE" url="" />
+    <item title="NORAUTO" url="http://www.norauto.fr" />
+    <item title="NORISKO CONSTRUCTION" url="www.norisko.com" />
+    <item title="NORISKO COORDINATION" url="www.norisko.com" />
+    <item title="NORISKO EQUIPEMENT" url="www.norisko.com" />
+    <item title="NORISKO IMMOBILIER" url="www.norisko.com" />
+    <item title="NORMA COLOR" url="http://www.normacolor.fr" />
+    <item title="NORTEL NETWORKS S.A." url="http://www.nortelnetworks.com" />
+    <item title="NOUVEAUX ETABLISSEMENTS L'HOSPIED" url="" />
+    <item title="NOVOTEL SOPHIA ANTIPOLIS" url="http://www.accorhotels.com et  http://www.novotel.com" />
+    <item title="NP4 / NET PERFORMANCE" url="http://www.np4.net" />
+    <item title="NQI Network Quality Intelligence" url="http://www.nqicorp.com" />
+    <item title="NUMESYS" url="www.numesys.fr" />
+    <item title="NUSIL TECHNOLOGY EUROPE -TECHNICAL SERVICES CENTER" url="http://www.nusil.com" />
+    <item title="NUTREVA" url="" />
+    <item title="NXP 2° implantation" url="" />
+    <item title="NXP Semiconductors France" url="http://www.nxp.com" />
+    <item title="O.E.R. OFFICE D'EQUIPEMENT REGIONAL" url="" />
+    <item title="O2C MEDIAS REGIE Interactive" url="www.o2c.fr" />
+    <item title="OCDI - ORGANISATION, CONSEIL, DEVELOPPEMENT INFORMATIQUE" url="" />
+    <item title="OCTALIA Technologies" url="" />
+    <item title="OD.Bee" url="www.odbee.com" />
+    <item title="OFFICE DELIVERY" url="" />
+    <item title="OFFICE INTERNATIONAL DE L'EAU -DIRECTION DE LA COOPERATION INTERNATIONALE" url="http://www.oieau.fr" />
+    <item title="OFFICE XTRA" url="http://www.officextra.com" />
+    <item title="OGER INTERNATIONAL" url="www.ogerinternational.fr" />
+    <item title="OLINDA SA" url="" />
+    <item title="OME - OBSERVATOIRE MEDITERRANEEN DE L'ENERGIE" url="http://www.ome.org" />
+    <item title="ONE RF TECHNOLOGY" url="www.one-rf.com" />
+    <item title="ONEIDA RECHERCHE SERVICES" url="http://www.orsfr.com" />
+    <item title="OPEN PLUG" url="http://www.open-plug.com" />
+    <item title="OPTIC 2000 - ALBANO" url="" />
+    <item title="OPTIMA MONETIQUE SYSTEMES" url="http://www.omspos.com" />
+    <item title="ORACLE France" url="http://www.oracle.com/fr/" />
+    <item title="ORKEO" url="" />
+    <item title="ORTON International" url="" />
+    <item title="OSIATIS" url="" />
+    <item title="OTIS" url="" />
+    <item title="OUTILLAGE DE HAUTE PRECISION DERBUEL" url="http://www.ifrance.com/derbuel-sarl" />
+    <item title="OVER-LINK" url="www.over-link.net" />
+    <item title="OVERLOG.COM" url="http://www.overlog.com" />
+    <item title="OYTECH - Groupe EASYDENTIC" url="www.oytech.fr" />
+    <item title="P.A.C. Parc d'Affaires Central" url="" />
+    <item title="P.A.D. PEINTURE ANTICO DIFFUSION" url="" />
+    <item title="P.ENT.A" url="" />
+    <item title="P.F.C.A. Pates Fraiches Cote d'Azur" url="" />
+    <item title="P.S.I.Corporate" url="http://www.psi-corporate.com" />
+    <item title="PACA'RCHIVES" url="www.spga.fr" />
+    <item title="PAPONE INDUSTRY" url="www.papone.com" />
+    <item title="PARALLEL DESIGN" url="" />
+    <item title="PARCOURS Méditerranée" url="www.parcours.fr" />
+    <item title="PARZATECH Consulting" url="" />
+    <item title="PASSAJ- MONTJOYE" url="www.montjoye.asso.fr" />
+    <item title="PCIM" url="http://www.pcim.fr" />
+    <item title="PEME GOURDIN" url="www.peme-gourdin.com" />
+    <item title="PERSAN - POLE ENSEIGNEMENT RECHERCHE SOPHIA ANTIPOLIS NICE" url="http://www.persan.asso.fr" />
+    <item title="Petit CASINO E 8637 ST ETIENNE" url="" />
+    <item title="PHARMACIE DE SOPHIA ANTIPOLIS" url="" />
+    <item title="PHARMACIE DU HAUT SARTOUX" url="" />
+    <item title="PHAROSS" url="" />
+    <item title="PHINELEC / OK SERVICE" url="" />
+    <item title="PHOTOPLONGEE" url="www.photoplongee.fr" />
+    <item title="PI.RO FRANCE" url="" />
+    <item title="PICARD SURGELES" url="picard.fr" />
+    <item title="PISCINE CLIC" url="" />
+    <item title="PLAFO'SOL - INTER DECOR" url="www.interdecor06.fr" />
+    <item title="PLAN BLEU POUR L'ENVIRONNEMENT ET LE DEVELOPPEMENT EN MEDITERRANEE" url="http://www.planbleu.org" />
+    <item title="Podologue - Posturologue Laurent JACQUIOT" url="" />
+    <item title="Point Ecoute Santé - Relais assistance maternelle - " url="" />
+    <item title="POLE SCS - Solutions communicantes Sécurisées" url="www.pole-scs.org" />
+    <item title="POLYMERES ET COMPOSITES" url="" />
+    <item title="POLYTECH'NICE-SOPHIA" url="www.polytech.unice.fr" />
+    <item title="POTENTIAL MOTOR" url="" />
+    <item title="PRECEPTEL" url="www.preceptel.com" />
+    <item title="PREMIER INTERNATIONAL" url="" />
+    <item title="PRESTIGE BUREAUTIQUE" url="" />
+    <item title="PRESTIGIMMO AZUR" url="www.prestigimmo.fr" />
+    <item title="PREVISITE" url="www.previsite.com" />
+    <item title="PREXENS" url="www.prexens.com" />
+    <item title="PRICECONCEPT.EU" url="www.priceconcept.eu" />
+    <item title="PRIDAMI" url="www.pridami.fr" />
+    <item title="PRIVATE CATERING" url="www.private-catering.fr" />
+    <item title="PRO DEPANNAGE CHAUFFAGE" url="" />
+    <item title="PROCOPI" url="http://www.procopi.com" />
+    <item title="PROD EVENTS" url="" />
+    <item title="PRODATA" url="" />
+    <item title="PROELAN" url="http://www.proelan.com" />
+    <item title="PRO-G" url="" />
+    <item title="PROMACEF SUD" url="www.promacef.fr" />
+    <item title="PROMEP-Cabines" url="www.cabines.fr" />
+    <item title="PROPISTA" url="" />
+    <item title="PRO-TECH-SECURITE" url="http://www.protechsecurite.fr" />
+    <item title="PROTEK" url="" />
+    <item title="PROVENCAL BALL TRAP CLUB D'ANTIBES" url="" />
+    <item title="PROVENCE REAL ESTATE" url="www.provencerealestate.fr" />
+    <item title="PS' SOFT" url="pssoft.com" />
+    <item title="PSMD" url="www.psmd.net" />
+    <item title="Psychothérapeute LE DRAOULLEC Michèle " url="" />
+    <item title="Psychothérapeute TOURET Florence" url="" />
+    <item title="PURPLE Traiteur" url="www.purple-traiteur.com" />
+    <item title="QUALICONSULT" url="" />
+    <item title="QUANTIFICARE" url="www.quantificare.com" />
+    <item title="QUESCOM" url="www.quescom.com" />
+    <item title="QUESTEL" url="http://www.questel.orbit.fr" />
+    <item title="QXL France" url="http://www.aucland.fr" />
+    <item title="R.F.P. Riviera Financial Planning" url="www.rfp.fr" />
+    <item title="R.S.I. Régime Social des Indépendants" url="http://www.le-rsi.fr" />
+    <item title="R.T.F. Ranieri Tonissi France" url="" />
+    <item title="RANDSTAD TERTIAIRE and HIGH TECH" url="http://www.randstad.fr" />
+    <item title="RAS SPORT" url="www.ras-sport.com" />
+    <item title="RAVIOLI PERRIN" url="www.ravioli-perrin.com" />
+    <item title="R-CAST" url="www.r-cast.com" />
+    <item title="REALVIZ" url="http://www.realviz.com" />
+    <item title="REBOUL DELAYE ET ASSOCIES" url="www.rda.fr" />
+    <item title="RECORD FRANCE" url="http://www.record.france.fr" />
+    <item title="REDAC-RECOURS" url="www.edac-recours.com" />
+    <item title="REED MIDEM" url="" />
+    <item title="REGIS GROUPE France" url="" />
+    <item title="REGUS SOPHIA" url="www.regus.fr" />
+    <item title="REGUS SOPHIA" url="http://www.regus.fr" />
+    <item title="REPUBLIC OF BANANA CAFE" url="" />
+    <item title="RESIDENCE SERVICES ST EXUPERY - GRAND SUD ACCUEIL" url="http://www.grand-sud-accueil.com" />
+    <item title="RESIDENCE SUN VALLEY" url="www.sunvalley.fr" />
+    <item title="RESIDENCE THESA" url="http://www.etud-accueil.fr/sophia" />
+    <item title="RESIDENCE UNIVERSITAIRE LES DOLINES" url="" />
+    <item title="RESOSERV" url="" />
+    <item title="Restaurant FLEUR D'ORANGER" url="" />
+    <item title="Restaurant Interentreprises NEWPORT" url="www.rie-saib.com" />
+    <item title="Restaurant le 175" url="www.cardaillac.com" />
+    <item title="RESTAURANT L'EGANAUDE" url="" />
+    <item title="Restaurant LES AMOURIERS" url="" />
+    <item title="Restaurant L'OASIS de SOPHIA" url="www.mediathel.com" />
+    <item title="RESTAURANT UNIVERSITAIRE HELIOS" url="" />
+    <item title="REX ROTARY" url="" />
+    <item title="REXEL France anc. REMY" url="" />
+    <item title="RF MAGIC SAS" url="www.entropic.com" />
+    <item title="RG 512 " url="" />
+    <item title="RH SERVICES" url="http://www.rh-services.com" />
+    <item title="RICHIERO ARCHITECTES" url="" />
+    <item title="RIDEL FRANK CENTRE D'OSTEOPATHIE ET DE REEDUCATION" url="" />
+    <item title="RIGHT MANAGEMENT" url="http://www.right.fr" />
+    <item title="RIVIERA LINK" url="www.rivieralink.com" />
+    <item title="Riviera Reflection Yachts Painters" url="" />
+    <item title="RIVOYRE INGENIERIE" url="http://www.rivoyre.com" />
+    <item title="ROCHE BOBOIS - FROM" url="antibes@roche-bobois.com" />
+    <item title="ROHM AND HAAS FRANCE" url="http://www.rohmhaas.com" />
+    <item title="ROUAH Catherine" url="www.créerplus.com" />
+    <item title="RPC EMBALLAGES" url="" />
+    <item title="RPCE - REALISATIONS PROFESSIONNELLES EN CABLAGE ELECTRONIQUE" url="www.rpce.fr" />
+    <item title="RS France" url="" />
+    <item title="RTE BROADCAST" url="www.rte-broadcast.com" />
+    <item title="RTE NETWORK" url="www.rtenetwork.com" />
+    <item title="RTE TECHNOLOGIES" url="www.rte-technologies.com" />
+    <item title="S.L.E. Sarl" url="www.sle-fr.com" />
+    <item title="SA 3S" url="" />
+    <item title="SAAS - SOPHIA ANTIPOLIS ASSISTANCE ET SERVICES" url="http://www.saas-securite.com" />
+    <item title="SACLA Italia" url="" />
+    <item title="SAEM SOPHIA ANTIPOLIS COTE D'AZUR" url="http://www.sophia-antipolis.net" />
+    <item title="SAGE France" url="" />
+    <item title="SAGIT Mireille" url="" />
+    <item title="SALICE FRANCE" url="http://www.salicefrance.com" />
+    <item title="SALLE OMNISPORT DU FONT DE L'ORME" url="" />
+    <item title="SAMAS France" url="www.samasoffice.fr" />
+    <item title="SAMOP" url="www.samop.fr" />
+    <item title="SAMSUD" url="" />
+    <item title="Santé et Travail 06" url="www.cmti06.com" />
+    <item title="SANTE PLUS" url="" />
+    <item title="SAP LABS France S.A.S" url="www.sap.com" />
+    <item title="SAPHELEC" url="http://www.saphelec.fr" />
+    <item title="SARETEC" url="" />
+    <item title="Sarl FERLITO and Associés" url="" />
+    <item title="SARL FRD - PRIMOD" url="" />
+    <item title="SARL LABEL MUSIQUE" url="http://www.maxi-music.fr" />
+    <item title="Sarl LEDA" url="" />
+    <item title="SARL MD DIFFUSION" url="www.md-boutique.com" />
+    <item title="SARL MOSAïC - Restaurant L'OLIVIER" url="" />
+    <item title="SARL Nicolas NARDEC" url="" />
+    <item title="SARL RIBA" url="http://www.centres-riba.com" />
+    <item title="SAS Institute" url="www.sas.com" />
+    <item title="SATORIZ" url="www.satoriz.com" />
+    <item title="SAVEURS DU NORD" url="" />
+    <item title="SAVEUR-VIVRE" url="http://www.saveur-vivre.com" />
+    <item title="SCALEO SHIP" url="www.scaleoship.com" />
+    <item title="SCC Specialist Computer Company" url="www.scc.com" />
+    <item title="SCHMIDT" url="" />
+    <item title="SCHNEIDER AUTOMATION" url="" />
+    <item title="SCHNEIDER ELECTRIC INDUSTRIES SAS" url="http://www.schneider-electric.fr" />
+    <item title="SCI EMMANUELLE" url="" />
+    <item title="SCI JEAN LOUIS PHILIPPE" url="" />
+    <item title="SCIC ANTIPOLIS INNOVATION CAMPUS" url="www.antipolis.fr" />
+    <item title="SCM BROUTARD CORNIC FOUQUE" url="" />
+    <item title="SCM CORDIER, VIALLE, DELEUZE, OSTROWSKI ET NICOLET" url="" />
+    <item title="SCM DR HANSS / HASHEMZADEH" url="" />
+    <item title="SCM Dr VIOLET/COHEN" url="" />
+    <item title="SCM ESOPH" url="" />
+    <item title="SDAC Service d'Assistance aux Accidentés" url="www.sdac.fr" />
+    <item title="SDIS 06 Groupement fonctionnel patrimoine immobilier" url="www.sdis06.fr" />
+    <item title="SEA DESIGN" url="www.sea-design.com" />
+    <item title="SEACHANGE INTERNATIONAL" url="http://www.schangeinternational.com" />
+    <item title="SEASATCOM" url="www.seatsatcom.com" />
+    <item title="SEASCOOTER France" url="www.seascooter.com" />
+    <item title="SEATIZENPRO" url="www.seatizenpro.com" />
+    <item title="SEATTLE STYLE" url="http://www.seattle-style.fr" />
+    <item title="SECAP Groupe PITNEY BOWES" url="http://www.secap.fr" />
+    <item title="SECOM - SECURITE COMMUNICATIONS" url="" />
+    <item title="SECOM - SECURITE COMMUNICATIONS" url="www.honeywell.com/security" />
+    <item title="SEEI CONSULTANTS" url="http://www.seei-consultants.fr" />
+    <item title="SEEMAGE" url="http://www.seemage.com" />
+    <item title="SEGM - SOCIETE D'EXPLOITATION GENERALE DU MEUBLE" url="" />
+    <item title="SEH-EUROPE LTD" url="" />
+    <item title="SELARL BLAIMONT / HADJALI / ISSA SAYEGH" url="" />
+    <item title="SELARL FREDERIC BARTH" url="" />
+    <item title="SELARL JEAN PAUL AZOULAY" url="" />
+    <item title="SELARL MEDIPATH" url="" />
+    <item title="SELECTA" url="www.selacta.com" />
+    <item title="SEMIDE Unité Technique / EMWIS" url="http://www.semide.net" />
+    <item title="SENSITIVE AUDIO VIDEO" url="" />
+    <item title="SEPIA SARL" url="http://www.sepia-antibes.com" />
+    <item title="SEPTUOR Consulting" url="" />
+    <item title="SER FLY" url="www.fly.fr" />
+    <item title="SERANTONI Dallages" url="http://www.serantoni.com" />
+    <item title="SERMA Ingenerie" url="www.serma.com" />
+    <item title="SERVICE DEPARTEMENTAL D'INCENDIE ET DE SECOURS: Centre Technique et Logistique" url="" />
+    <item title="SERVICE MAINTENANCE" url="www.sm-hp.fr" />
+    <item title="Service Privé de Sécurité SAFEGUARD" url="" />
+    <item title="SETEC ORGANISATION" url="www.pacaorga.setec.fr" />
+    <item title="SETRA CONSEIL" url="www.setra-conseil.com" />
+    <item title="SFDS" url="" />
+    <item title="SFIC" url="www.e-sfic.fr" />
+    <item title="SFM AUTOS" url="" />
+    <item title="SFMI MICROMANIA" url="http://www.micromania.fr" />
+    <item title="SGC" url="" />
+    <item title="SGME" url="" />
+    <item title="SHOGUN Ambiances d'ailleurs" url="" />
+    <item title="SICTIAM Syndicat Intercommunal des Collectivités Territoriales Méditerranée" url="http://www.sictiam.fr" />
+    <item title="SIGMA CONSULTANTS/ ORIONIS Division + HOMEGA Research Division" url="www.sigma-consultants.fr / www.orionis.com / www.homega-research.com" />
+    <item title="SII - SOCIETE POURL'INFORMATIQUE INDUSTRIELLE" url="http://www.sii.fr" />
+    <item title="SILVERPLATE DEVELOPPEMENT" url="www.silverplate.com" />
+    <item title="SIRIP" url="" />
+    <item title="SKINPHARMA" url="" />
+    <item title="SMART CONCEPTS" url="www.smartconcepts.com" />
+    <item title="SMARTCOM" url="www.smartcom.com" />
+    <item title="SMP SOCIETE DE MECANIQUE DE PRECISION" url="www.smp-lpf.fr" />
+    <item title="SNACK TIME" url="" />
+    <item title="SNACK-PEOPLE" url="www.snack-people.fr" />
+    <item title="SOCIETE ANTIBOISE DE CHARCUTERIE - TESTA" url="" />
+    <item title="SOCIETE EUROPEENNE DE CARDIOLOGIE" url="http://www.escardio.org" />
+    <item title="SOCIETE GENERALE" url="" />
+    <item title="SOCIETE HYDRAULIQUE DU SUD" url="www.hydronet.fr" />
+    <item title="SOCOTEC - AGENCES DES A.M. ET EQUIPEMENTS COTE D'AZUR-CORSE" url="" />
+    <item title="SOFT AUDIOVISUEL" url="www.soft.fr" />
+    <item title="SOFT METHOD ENGINEERING" url="www.soft-method.com" />
+    <item title="SOFTBOOKING" url="www.resalys.com" />
+    <item title="SOFTEAM SA" url="http://www.softeam.fr" />
+    <item title="SOGERES" url="" />
+    <item title="SOGETI - REGIONS" url="http://www.sogeti.com" />
+    <item title="SOGETI High Tech" url="www.sogeti.com" />
+    <item title="SOL AIR EAU ENERGIES" url="www.guide-energies-renouvelables.com" />
+    <item title="SOL ESSAIS" url="" />
+    <item title="SOL SYSTEMES" url="" />
+    <item title="SOLARGIL" url="" />
+    <item title="SOMA- Etablissement de CFTI" url="" />
+    <item title="SONABI IMMOBILIER" url="" />
+    <item title="SONICS" url="www.sonicsinc.com" />
+    <item title="SOPHIA AUTOMOBILES" url="www.renaultsophia.com" />
+    <item title="SOPHIA BUSINESS ANGELS" url="http://www.sophiabusinessangels.com" />
+    <item title="SOPHIA BUSINESS COMPUTERS" url="www.sbcfrance.com" />
+    <item title="SOPHIA CONSEIL" url="www.sophiaconseil.fr" />
+    <item title="SOPHIA LEGAL - SOCIÉTÉ D'AVOCATS" url="http://www.sophialegal.com" />
+    <item title="SOPHIA PRESSE" url="" />
+    <item title="SOPHIA STYLE" url="www.sophiastyle.fr" />
+    <item title="SOPHIMMO Côte d'Azur" url="www.sophimmo.fr" />
+    <item title="SOPRA GROUP" url="http://www.sopragroup.com" />
+    <item title="SOPRAL 06" url="www.sopral-06.com" />
+    <item title="SORMA SARL" url="" />
+    <item title="SOVALAC Société Valbonnaise d'Aménagement et de Construction" url="" />
+    <item title="SOVICOVAL" url="www.sovicoval.com" />
+    <item title="SPACE DESIGN" url="" />
+    <item title="SPACEYES" url="www.spaceyes.fr" />
+    <item title="SPIE COMMUNICATIONS" url="www.spie.com" />
+    <item title="SPIE Département A.R.I. Automation et Réseaux d'Information" url="www.spie.com" />
+    <item title="SPIE Sud Est" url="www.spie.com" />
+    <item title="SPORTS CARS Unlimited" url="www.sports-cars-unlimited.com" />
+    <item title="SRE XEROX" url="" />
+    <item title="SRII - SOCIETE REGIONALE D'INFORMATIQUE INDUSTRIELLE" url="" />
+    <item title="SRP REXEL AGEI Sud Est" url="" />
+    <item title="ST MICROELECTRONICS" url="http://www.st.com" />
+    <item title="STAC - Société de Transformation d'Amortisseurs pour la Compétition" url="" />
+    <item title="STANDARD ABRASIVES" url="www.standardabrasives.com" />
+    <item title="STARFLOW SOFTWARE" url="http://www.starflow.com" />
+    <item title="START MOTORS INTERNATIONAL" url="www.luxe-auto-import.com" />
+    <item title="STAV Entreprise Sirvent" url="" />
+    <item title="STCAR- Transports Cote d'Azur Riviera" url="" />
+    <item title="STELLA TELECOM" url="www.stella-telecom.fr" />
+    <item title="STENA BUREAUX" url="www.wtc-sophia-antipolis.com" />
+    <item title="STERENN Immobilier et Finance" url="www.sterenn-finance.com" />
+    <item title="STEREO SAT ANTIPOLIS" url="www.stereosat.fr" />
+    <item title="STERIA" url="http://www.steria.com" />
+    <item title="STERLAB" url="" />
+    <item title="STERN" url="" />
+    <item title="STONESOFT FRANCE" url="http://www.stonesoft.com" />
+    <item title="STRYKER Europe, Middle East and Africa" url="http://www.stryker.com" />
+    <item title="STU Sophipolitaine des Transports Urbains ENVIBUS" url="" />
+    <item title="STUDIOS ACTUELS DE LA DANSE -CENTRE DANSE EVEIL CORPOREL" url="" />
+    <item title="STYLFORM" url="" />
+    <item title="SUBWAY Sophia Antipolis" url="" />
+    <item title="SUD CONSTRUCTION" url="" />
+    <item title="SUD CONVERGENCES PORTAGE" url="www.sud-convergences.com" />
+    <item title="SUD ENERGIE" url="" />
+    <item title="SUD EST DECOR" url="" />
+    <item title="SUD EST PEINTURES" url="" />
+    <item title="SUD SERVICES" url="www.nicollin.com" />
+    <item title="SUDECO INGENIERIE" url="www.sudeco-ingenie.com" />
+    <item title="SUMAIA Concept" url="www.sumaia.net" />
+    <item title="SUN CITY CAFE" url="www.sun-city-cafe.com" />
+    <item title="SUN SECURITE" url="www.sun-securite.com" />
+    <item title="SUNTERRA VOYAGES" url="" />
+    <item title="SYMISA - SYNDICAT MIXTE SOPHIA ANTIPOLIS" url="" />
+    <item title="SYMMETRICWORLD" url="www.symmetricworld.com" />
+    <item title="SYNAPSE" url="" />
+    <item title="SYNCHRONE Technologies" url="www.synchrone-technologies.fr" />
+    <item title="SYNERGIE COMMUNICATION" url="" />
+    <item title="SYNOPSYS" url="http://www.synopsys.com" />
+    <item title="SYNOPTIC" url="" />
+    <item title="SYSNETIC LABS" url="www.sysnetic-labs.com" />
+    <item title="T.D.A." url="" />
+    <item title="TARA COMMUNICATION" url="" />
+    <item title="TAS France" url="www.tasfrance.com" />
+    <item title="TAXICOLIS" url="nice@taxicolis.com" />
+    <item title="TBS - TILLIER BERNARD SERVICE" url="" />
+    <item title="TEA ACCUEILS" url="http://www.telecomassistance.com" />
+    <item title="TECHNIQUE ELECTRO DIESEL" url="" />
+    <item title="TECHNOFI" url="http://www.symple.tm.fr" />
+    <item title="TECHSELECTION" url="http://www.techselection.com" />
+    <item title="TECTONA" url="http://www.tectona.fr" />
+    <item title="TELECOM and TECHNOLOGY FRANCE" url="" />
+    <item title="TELEMAQUE " url="www.telemaque.fr" />
+    <item title="TEMEX" url="http://www.temex.com" />
+    <item title="TEMPLIER FABRICE" url="" />
+    <item title="TERRE D'EVENEMENTS" url="www.terredevenements.com" />
+    <item title="TES SA" url="www.tesbv.com" />
+    <item title="TETRA ENGINEERING EUROPE" url="http://www.tetra-eng.com" />
+    <item title="THALES SAFARE" url="" />
+    <item title="THALES Services SAS" url="www.thalesgroup.com" />
+    <item title="THALES UNDERWATER SYSTEMS SAS" url="www.thalesgroup.com" />
+    <item title="TIMETOBUY" url="www.timetobuy.net" />
+    <item title="TIR CLUB ANTIBES" url="" />
+    <item title="TMA" url="" />
+    <item title="TOP IMEX" url="" />
+    <item title="TOSHIBA" url="http://www.toshiba.fr" />
+    <item title="TOUT TERRAIN SUD" url="tout-terrain.com" />
+    <item title="TOYOTA EUROPE DESIGN DEVELOPMENT" url="" />
+    <item title="TRADUTEC MEDITERRANEE" url="www.traduire.net" />
+    <item title="TRANE" url="www.trane.fr" />
+    <item title="TRANSFO METAL" url="http://www.transfometal.com" />
+    <item title="TRANSIT" url="" />
+    <item title="TRANSVALOR" url="http://www.transvalor.com" />
+    <item title="TRLC OBJECTIF LANGUES" url="http://www.objectif-langues.com" />
+    <item title="TRUSTED LOGIC" url="http://www.trusted-logic.fr" />
+    <item title="TURN TO WINE" url="" />
+    <item title="TURNAROUND" url="www.turnaround-France.com" />
+    <item title="TURNER C.R.E.S." url="http://www.turner-cres.fr" />
+    <item title="TXCELL" url="www.txcell.com" />
+    <item title="U4EA TECHNOLOGIES Limited" url="www.u4eatech.com" />
+    <item title="UDcast" url="http://www.udcast.com" />
+    <item title="UDS INTERNATIONAL - Underwater Defense Systems International" url="www.udsinternational.com" />
+    <item title="ULTICOM EUROPE" url="http://www.ulticom.com" />
+    <item title="UNILOG - IT SERVICES_ Groupe LOGICA CMG" url="www.unilog.logicacmg.com" />
+    <item title="UNION SPORTIVE SOPHIA BASKET" url="www.sophiabasket.com" />
+    <item title="UNIVERS CHR - Sarl BOCAMAR-" url="www.univers-chr.com" />
+    <item title="UNIVERSITE NICE SOPHIA ANTIPOLIS - ANTENNE ADMINISTRATIVE" url="http://www.unice.fr" />
+    <item title="UNIWAYS" url="www.uniways.fr" />
+    <item title="UNSA - IUT QLIO" url="" />
+    <item title="UNSA -Ecole doctorale Sciences et Technologies de l'Information et de la Communication (STIC)" url="http://www.unice.fr/edstic" />
+    <item title="UNSA -IAE/IUP MGE - Management du sport" url="www.unice.fr/iup-mansp" />
+    <item title="UNSA IUP - MANAGEMENT ET GESTION DES ENTREPRISES - Juriste et Economiste d'entreprise" url="http://www.unice.fr/iup" />
+    <item title="UNSA IUT INFO / COM - Département Information / Communication" url="" />
+    <item title="UNSA IUT RandT - Département Réseaux et Télécommunications" url="http://www-gtr.unice.fr" />
+    <item title="UTILAIR" url="www.utilair.com" />
+    <item title="VALLAURIS AUTO" url="" />
+    <item title="VAN-TECH" url="" />
+    <item title="VBA International" url="www.vba-international.com" />
+    <item title="VEDIORBIS" url="www.vediorbis.fr" />
+    <item title="VELLA IMMOBILIER" url="" />
+    <item title="VENTURIS" url="" />
+    <item title="VEOLIA EAU _ COMPAGNIE GENERALE DES EAUX" url="" />
+    <item title="VEPRO France" url="" />
+    <item title="VERIMATRIX" url="www.verimatrix.com" />
+    <item title="VERISIGN France S.A.S" url="http://www.verisign.fr" />
+    <item title="VERRE METAL ENSEIGNE" url="" />
+    <item title="VERT TENDRE - LE MARCHE ST BERNARD" url="" />
+    <item title="VETOPATH - Vétérinaires PITOU ET SALES" url="http://www.vetopath.net" />
+    <item title="VIANDES P GAUTHIER" url="" />
+    <item title="VIBRANT MED-EL HEARING TECHNOLOGY" url="www.vibrant-medel.com" />
+    <item title="VICTORIA COMMUNICATION" url="" />
+    <item title="VICTORIA GOLF CLUB" url="www.victoria-golf.com" />
+    <item title="VIDEO PROFILE" url="" />
+    <item title="VIGILINT France" url="www.vigilint..com" />
+    <item title="VINCIENCE- ISP" url="" />
+    <item title="VISION CARRIERES" url="www.vision-carrieres.com" />
+    <item title="VISIPLUS" url="www.visiplus.com" />
+    <item title="VISTEON ST" url="http://www.visteon.com" />
+    <item title="VITALAIRE SUD EST - Groupe Air Liquide" url="www.vitalaire.fr" />
+    <item title="VITRAIL ET DECORATION - VALENTI" url="" />
+    <item title="VOIP TELECOM" url="http://www.voip-telecom.com" />
+    <item title="VOLT EUROPE France" url="www.volteurope.com" />
+    <item title="W THE WHITE" url="www.wblanchisserie.com" />
+    <item title="W.W.France" url="" />
+    <item title="W3C - World Wide Web Consortium" url="www.w3c.org" />
+    <item title="WALL STREET SYSTEMS LABORATORIES" url="http://www.wallstreetsystems.com" />
+    <item title="WASH and GO" url="" />
+    <item title="WEB PROD" url="www.webprod.fr" />
+    <item title="WEBINTERPRET" url="www.webinterpret.com" />
+    <item title="WEBTIME MEDIAS" url="" />
+    <item title="WHP International" url="http://www.whp.fr et www.whp.net" />
+    <item title="WIFI France " url="www.wififrance.fr" />
+    <item title="WIJERS Isabelle" url="www.actwell.fr" />
+    <item title="WILMOTTE et Associés" url="" />
+    <item title="WIMBA" url="http://www.wimba.com" />
+    <item title="WORLD TRADE CENTER - BUSINESS SERVICES" url="http://www.wtc-sophia.com" />
+    <item title="WTC IP Services" url="" />
+    <item title="X net Conseils" url="www.xnetconseils.fr" />
+    <item title="XILINX" url="www.xilinx.com" />
+    <item title="XL MARKETING Agence Sud Est" url="www.xlmarketing.fr" />
+    <item title="Yann UPSON Ostéopathe" url="" />
+    <item title="YES - YACHT ELECTRONIQUE SERVICE" url="" />
+    <item title="YOUR SLIDE PRODUCTION" url="www.ysp.fm" />
+    <item title="YVES ASTIER DIFFUSION" url="http://astierdiffusion.free.fr/" />
+    <item title="YXIME MEDITERRANEE" url="www.yxime.fr" />
+    <item title="ZEBULON.FR" url="www.zebulon.fr" /> </data>
