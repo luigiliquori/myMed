@@ -91,7 +91,6 @@
 		63A778C7168B34DE005082B9 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A778C6168B34DE005082B9 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63A778C9168B34F6005082B9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A778C8168B34F6005082B9 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63B6292516D389C90065EDFD /* myRiviera-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63B6292316D389C90065EDFD /* myRiviera-Info.plist */; };
-		63B6292816D38A6C0065EDFD /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 63B6292716D38A6C0065EDFD /* TODO */; };
 		63C9D75816C91EC300C4C6EB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C9D75716C91EC300C4C6EB /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -201,7 +200,6 @@
 		63A778C8168B34F6005082B9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		63B6292316D389C90065EDFD /* myRiviera-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "myRiviera-Info.plist"; sourceTree = "<group>"; };
 		63B6292416D389C90065EDFD /* myRiviera-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "myRiviera-Prefix.pch"; sourceTree = "<group>"; };
-		63B6292716D38A6C0065EDFD /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		63C9D75716C91EC300C4C6EB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -365,7 +363,6 @@
 		636AA06B1683388D00258839 = {
 			isa = PBXGroup;
 			children = (
-				63B6292716D38A6C0065EDFD /* TODO */,
 				634E71B716B0BA0C00493E55 /* Test */,
 				636AA0791683388E00258839 /* Frameworks */,
 				636AA0801683388E00258839 /* myMed */,
@@ -597,7 +594,6 @@
 				639F663216C44F3600C753AF /* toprow.png in Resources */,
 				639F663316C44F3600C753AF /* toprow@2x.png in Resources */,
 				63B6292516D389C90065EDFD /* myRiviera-Info.plist in Resources */,
-				63B6292816D38A6C0065EDFD /* TODO in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
