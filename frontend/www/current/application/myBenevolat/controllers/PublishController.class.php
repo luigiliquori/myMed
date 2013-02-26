@@ -124,7 +124,6 @@ class PublishController extends ExtendedProfileRequired {
 		$oldAnn->getDetails();
 		
 		$this->create(true); //create the new one
-		debug("no error");
 		$oldAnn->delete(); //delete the old announcement
 		$this->success = _("Announcement modified !");
 		$this->showUserAnnouncement();

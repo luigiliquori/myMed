@@ -1076,10 +1076,10 @@ msgid "Association address"
 msgstr "Addresse de l'association"
 
 msgid "Male"
-msgstr "Homme"
+msgstr "Masculin"
 
 msgid "Female"
-msgstr "Femme"
+msgstr "Féminin"
 
 msgid "Association phone"
 msgstr "Tel de l'association"
@@ -1104,8 +1104,8 @@ msgid "Please choose form 1 to 4 skills"
 msgstr "Veuillez choisir de 1 à 4 compétences"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/CreateProfileVolunteerView.php:97
-msgid "Please choose the type of mission."
-msgstr "Veuillez choisir le type de mission."
+msgid "Please choose the type of mission"
+msgstr "Veuillez choisir le type de mission"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:59
 msgid "Delete"
@@ -1252,19 +1252,52 @@ msgid "New subscription"
 msgstr "Nouvelle souscription"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:11
-msgid "Step 1 - Choose your profile"
-msgstr "Etape 1 - choisissez votre profil"
+msgid "Choose your profile"
+msgstr "Choisissez votre profil"
 
 msgid "Previous"
 msgstr "Précédent"
+
+msgid "Step 1 - association info"
+msgstr "Etape 1 - info association"
+
+msgid "Step 2 - Skills and missions"
+msgstr "Etape 2 - Compétences et missions"
+
+msgid "Please choose the skills you need (1 to 4)"
+msgstr "Veuillez choisir les compétences nécessaires (1 à 4)"
+
+msgid "Please choose the type of mission you propose"
+msgstr "Veuillez choisir le/les types de mission que vous proposez"
+
+msgid "Create the profile"
+msgstr "Créer le profil"
+
+msgid "Step 1 - personal info"
+msgstr "Etape 1 - info personnelles"
+
+msgid "Step 2 - Skills"
+msgstr "Etape 2 - Compétences"
+
+msgid "Please choose your skills (1 to 4)"
+msgstr "Veuillez choisir vos compétences (1 à 4)"
+
+msgid "Step 3 - Missions and mobility"
+msgstr "Etape 3 - Missions et mobilité"
+
+msgid "Please choose your mobility"
+msgstr "Veuillez choisir votre mobilité"
+
+msgid "Please fill in your personal information:"
+msgstr "Veuillez remplir vos informations personnelles:"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:16
 msgid "Hello, This is your first time in myBenevolat! Please create your extended profile."
 msgstr "Bonjour, c'est votre première venue sur myBenevolat! Veuillez Créer votre profil étendu."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:23
-msgid "Choose the type of profile you want to create."
-msgstr "Choisissez le type de profil que vous voulez créer."
+msgid "Choose the type of profile you want to create:"
+msgstr "Choisissez le type de profil que vous voulez créer:"
 
 msgid "Please fill in your association information:"
 msgstr "Veuillez remplir les informations de votre association:"
@@ -1429,10 +1462,6 @@ msgstr ""
 msgid "Please choose form competences you need."
 msgstr ""
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/CreateProfileAssociationView.php:81
-msgid "Please choose the type of mission you propose."
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/DetailsView.php:16
 msgid "Details"
 msgstr "Détails"
@@ -1467,6 +1496,18 @@ msgstr "Réputation de l'offre"
 
 msgid "Author reputation"
 msgstr "Réputation de l'auteur"
+
+msgid "Announcement reputation"
+msgstr "Réputation de l'annonce"
+
+msgid "Rate announcement"
+msgstr "Evaluer annonce"
+
+msgid "Association reputation"
+msgstr "Réputation de l'association"
+
+msgid "Rate association"
+msgstr "Evaluer association"
 
 msgid "rates"
 msgstr "votes"
@@ -1512,38 +1553,6 @@ msgstr ""
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:25
 msgid "Animation"
 msgstr "Animation"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:26
-msgid "Communication"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:27
-msgid "Comptabilité gestion"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:28
-msgid "Distribution Collecte"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:29
-msgid "Ecoute"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:30
-msgid "Informatique, Internet"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:31
-msgid "Juridique"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:32
-msgid "Logistique - Conseil - Secrétariat - Administration courante"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:33
-msgid "Travaux (manuels et techniques)"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:34
 msgid "Visite domicile"
@@ -1616,6 +1625,12 @@ msgstr "Le champs titre doit être rempli"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:64
 msgid "Please provide a valide expiration date for the course"
 msgstr ""
+
+msgid "Association name field can't be empty"
+msgstr "Le champs nom de l'association doit être rempli"
+
+msgid "Phone field can't be empty"
+msgstr "Le champs téléphone doit être rempli"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:67
 msgid "Text field can't be empty"
@@ -2393,6 +2408,9 @@ msgstr "myEdu est un réseau social permettant la mise en relation entre les Uni
 msgid "You have to create your extended profile to access all the menu options"
 msgstr "Vous devez créer votre profil étendu pour accéder à toutes les options du menu"
 
+msgid "You have to create your extended profile to access other options"
+msgstr "Vous devez créer votre profil étendu pour accéder à d'autres options"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:28
 msgid "My opportunities"
 msgstr "Mes opportunités"
@@ -2755,10 +2773,6 @@ msgstr "Le champs SIRET doit être rempli"
 msgid "Your publication offer has been successfully published"
 msgstr "Votre offre de partenariat a été publiée avec succès"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/MyOpportunityManagementController.class.php:38
-msgid "You have to choose at least one parameter"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/ExtendedProfileController.php:71
 msgid "Please specify your category"
 msgstr "Veuillez spécifier votre catégorie"
@@ -2895,6 +2909,9 @@ msgstr "L'idée est de fournir un outil pour simplifier et aider la création de
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:26
 msgid "You have to wait the administrator validation to access all the menu options"
 msgstr "Vous devez attendre la validation par un administrateur pour accéder à toutes les options du menu"
+
+msgid "You have to wait the validation of your association to access all the menu options"
+msgstr "Vous devez attendre la validation de votre assocation pour accéder à toutes les options du menu"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:48
 msgid "Search directly here partnership offers"

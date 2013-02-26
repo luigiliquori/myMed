@@ -49,7 +49,7 @@
 				<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 				<!-- SubMit button -->
 				<div style="text-align: center;">
-					<input type="submit" data-role="button" data-theme="g" data-inline="true" data-mini="true" data-icon="ok-sign" value="<?= _('Send') ?>" />
+					<input type="submit" data-role="button" data-theme="g" data-inline="true" data-icon="ok-sign" value="<?= _('Send') ?>" />
 				</div>
 		
 		</form>

@@ -34,6 +34,7 @@ class UpdateReputationController extends DetailsController {
 			} else {
 				$this->success = _("Thank you for your contribution!");
 			}
+			$this->redirectTo("?action=details&id=".$_POST['id']);
 		}	
 
 		parent::handleRequest();

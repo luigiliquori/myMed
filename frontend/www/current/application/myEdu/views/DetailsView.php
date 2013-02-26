@@ -208,7 +208,7 @@
 								<input type="hidden" name="reputation" id="reputation2"/>
 								<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 								<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
-								<label for="reputationslider2"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 to 5") ?></p><br/></label>
+								<label for="reputationslider2"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 to 5") ?>:</p><br/></label>
 								<input type="range" name="reputationslider2" id="reputationslider2" value="3" min="1" max="5" data-mini="true" step="1"/>
 								<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation2').val($('#reputationslider2').val()*2);">
 							</form>

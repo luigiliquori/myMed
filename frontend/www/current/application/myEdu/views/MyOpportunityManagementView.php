@@ -1,8 +1,12 @@
 <div data-role="page" id =myopportunitymanagement>
 
 	<!-- Page header bar -->
-	<? $title = _("Manage subscriptions");
-	   print_header_bar("?action=myOpportunity&opportunities=true", "helpPopup", $title); ?>
+ <? $title = _("Manage subscriptions");
+	
+	if(strpos($_SERVER['HTTP_REFERER'],"?action=extendedProfile&method=show_user_profile"))
+		print_header_bar('back', "helpPopup", $title);
+	else 
+		print_header_bar("?action=myOpportunity&opportunities=true", "helpPopup", $title); ?>
 	
 		
 	<!-- Page content -->
