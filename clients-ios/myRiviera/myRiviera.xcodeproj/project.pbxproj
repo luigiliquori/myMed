@@ -90,7 +90,6 @@
 		63A778C5168B34D7005082B9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A778C4168B34D7005082B9 /* libz.dylib */; };
 		63A778C7168B34DE005082B9 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A778C6168B34DE005082B9 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63A778C9168B34F6005082B9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A778C8168B34F6005082B9 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		63B6292516D389C90065EDFD /* myRiviera-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63B6292316D389C90065EDFD /* myRiviera-Info.plist */; };
 		63C9D75816C91EC300C4C6EB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C9D75716C91EC300C4C6EB /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -593,7 +592,6 @@
 				639F663116C44F3600C753AF /* row@2x.png in Resources */,
 				639F663216C44F3600C753AF /* toprow.png in Resources */,
 				639F663316C44F3600C753AF /* toprow@2x.png in Resources */,
-				63B6292516D389C90065EDFD /* myRiviera-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

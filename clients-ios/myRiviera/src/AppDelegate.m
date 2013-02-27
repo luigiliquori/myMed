@@ -74,21 +74,14 @@
     creditsVc.tabBarItem.image = [UIImage imageNamed:@"icoinfo"];
     
     /*
-    RemoteHtmlViewController *helpVc=[[[RemoteHtmlViewController alloc] initWithNibName:@"RemoteHtmlViewController" bundle:nil]  autorelease];
-    helpVc.fname = @"help.htm";
-    helpVc.pagetitle = NSLocalizedString(@"Help", nil);
-    helpVc.title = NSLocalizedString(@"Help", nil);
-    helpVc.tabBarItem.image = [UIImage imageNamed:@"icohelp.png"];
-    */
-    
-    
     ChecklistViewController *checkVc=[[[ChecklistViewController alloc] initWithNibName:@"ChecklistViewController" bundle:nil] autorelease];
     checkVc.title = NSLocalizedString(@"To do", nil);
     checkVc.tabBarItem.image = [UIImage imageNamed:@"checkmark.png"];
     UINavigationController *checkNav = [[[UINavigationController alloc] initWithRootViewController:checkVc] autorelease];
     checkNav.navigationBar.tintColor = color;
+    */
     
-    
+    /*
     NavigationModel *navPages = [NavigationModel getInstance];
     PagesViewController *pagesVc=[[[PagesViewController alloc] initWithNibName:@"PagesViewController" bundle:nil] autorelease];
     navPages.mainPage.title = NSLocalizedString(@"Universities", nil);
@@ -97,9 +90,10 @@
     pagesNav.navigationBar.tintColor = color;
     pagesNav.title = NSLocalizedString(@"Universities", nil);
     pagesNav.tabBarItem.image = [UIImage imageNamed:@"univlist"];
+    */
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, checkNav, pagesNav, creditsVc,  nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, creditsVc,  nil];
     self.tabBarController.tabBar.tintColor = color;
     self.window.rootViewController = self.tabBarController;
 
