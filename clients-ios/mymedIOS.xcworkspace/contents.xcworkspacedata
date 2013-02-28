@@ -19,4 +19,16 @@
    <FileRef
       location = "group:myFSA/myFSA.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:myRiviera/myRiviera.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:myEurocin/myEurocin.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:myBenevolat/myBenevolat.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:myMemory/myMemory.xcodeproj">
+   </FileRef>
 </Workspace>
