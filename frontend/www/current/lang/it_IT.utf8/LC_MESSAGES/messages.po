@@ -826,6 +826,9 @@ msgstr "Ultima persona da chiamare"
 msgid "RoadSheet"
 msgstr "Il calcolatore Céparou06 vi ha indicato un itinerario di marcia per arrivare a destinazione utilizzando i trasporti pubblici: seguitelo attentamente! Potete anche cliccare sull'icona Céparou06 in basso a sinistra per accedere al loro sito web."
 
+msgid "Web site"
+msgstr "Sito web"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/SocialView.php:15
 msgid "Homescreen"
 msgstr "Home"
@@ -1432,6 +1435,12 @@ msgstr "Ruolo"
 msgid "phone"
 msgstr "tel"
 
+msgid "Association name field can't be empty"
+msgstr "Campo del nome associazione non può essere vuoto"
+
+msgid "Phone field can't be empty"
+msgstr "Campo telefono non può essere vuoto"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Profile.php:56
 msgid "address"
 msgstr "Indirizzo "
@@ -1497,6 +1506,9 @@ msgstr "indietro"
 
 msgid "You have to wait the administrator validation to access all the menu options"
 msgstr "Devi aspettare la convalida amministratore per accedere a tutte le opzioni di menu"
+
+msgid "You have to wait the validation of your association to access all the menu options"
+msgstr "Devi aspettare la convalida della vostra associazione per accedere a tutte le opzioni di menu"
 
 msgid "You have to wait the administrator validation to update/delete your profile."
 msgstr "Devi aspettare la convalida all'amministratore di aggiornare / cancellare il tuo profilo."
@@ -1650,13 +1662,108 @@ msgstr "Risultati"
 msgid "Welcome"
 msgstr "Benvenuto"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:19
-msgid "MyEdu description goes here."
-msgstr ""
+msgid "Choose the type of profile you want to create:"
+msgstr "Scegliere il tipo di profilo che si desidera creare:"
+
+msgid "Choose your profile"
+msgstr "Scegli il tuo profilo"
+
+msgid "Previous"
+msgstr "Precedente"
+
+msgid "Step 1 - association info"
+msgstr "Fase 1 - associazione info"
+
+msgid "Step 2 - Skills and missions"
+msgstr "Fase 2 - Competenze e missioni"
+
+msgid "Step 2 - Skills"
+msgstr "Fase 2 - Competenze"
+
+msgid "Skills"
+msgstr "Competenze"
+
+msgid "Missions"
+msgstr "Missioni"
+
+msgid "Districts"
+msgstr "Distretti"
+
+msgid "Step 3 - Missions and mobility"
+msgstr "Fase 3 - Missioni e mobilità"
+
+msgid "Please choose your skills (1 to 4)"
+msgstr "Scegli le tue competenze (da 1 a 4)"
+
+msgid "Please choose the skills you need (1 to 4)"
+msgstr "Si prega di scegliere le competenze necessarie (da 1 a 4)"
+
+msgid "Please choose the type of mission you propose"
+msgstr "Si prega di scegliere il tipo di missione si propone"
+
+msgid "Please choose the type of mission"
+msgstr "Si prega di scegliere il tipo di missione"
+
+msgid "Please choose your mobility"
+msgstr "Si prega di scegliere la mobilità"
+
+msgid "Create the profile"
+msgstr "Creare il profilo"
+
+msgid "Please fill in your personal information:"
+msgstr "Si prega di compilare i tuoi dati personali:"
+
+msgid "Sex"
+msgstr "Sesso"
+
+msgid "Male"
+msgstr "Maschio"
+
+msgid "Female"
+msgstr "Femmina"
+
+msgid "male"
+msgstr "maschio"
+
+msgid "female"
+msgstr "femmina"
+
+msgid "Your association has not been validated yet"
+msgstr "La vostra associazione non è stato convalidato ancora"
+
+msgid "Validated association"
+msgstr "Associazione convalidato"
+
+msgid "Administrator"
+msgstr "Amministratore"
+
+msgid "Working status"
+msgstr "Lavoro di stato"
+
+msgid "Active"
+msgstr "Attivo"
+
+msgid "Unemployed"
+msgstr "Disoccupato"
+
+msgid "Retired"
+msgstr "Ritirato"
+
+msgid "Step 1 - personal info"
+msgstr "Fase 1 - info personali"
+
+msgid "Association name"
+msgstr "Associazione nome"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:25
 msgid "You have to login to access all the menu options"
 msgstr "Devi effettuare il login per accedere a tutte le opzioni del menu"
+
+msgid "You have to create your extended profile to access all the menu options"
+msgstr "Devi creare il tuo profilo esteso per accedere a tutte le opzioni di menu"
+
+msgid "You have to create your extended profile to access other options"
+msgstr "Devi creare il tuo profilo esteso per accedere ad altre opzioni"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:28
 msgid "My opportunities"
@@ -1898,6 +2005,39 @@ msgstr "Dati utente"
 msgid "MyEdu extended profile details"
 msgstr "Dettagli profilo esteso myEdu"
 
+msgid "volunteer profile details"
+msgstr "dettagli profilo volontario"
+
+msgid "association profile details"
+msgstr "dettagli profilo associazione"
+
+msgid "Search announcement"
+msgstr "Cerca annuncio"
+
+msgid "My candidatures"
+msgstr "Le mie candidature"
+
+msgid "Find an announcement by criteria"
+msgstr "Cercare un annuncio in base a criteri"
+
+msgid "Select skill"
+msgstr "Selezionare abilità"
+
+msgid "Select district"
+msgstr "Selezionare distretto"
+
+msgid "Select mission type"
+msgstr "Selezionare tipo di missione"
+
+msgid "Mission type"
+msgstr "Tipo di missione"
+
+msgid "District"
+msgstr "Distretto"
+
+msgid "Last announcements"
+msgstr "Ultimi annunci"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:82
 msgid "Student Number"
 msgstr "Numero studente"
@@ -1931,6 +2071,15 @@ msgstr "Sì"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:129
 msgid "No"
 msgstr "No"
+
+msgid "A volunteer"
+msgstr "Un volontario"
+
+msgid "Volunteer"
+msgstr "Volontario"
+
+msgid "volunteer"
+msgstr "volontario"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:148
 #, fuzzy
@@ -2098,15 +2247,53 @@ msgstr "Studente"
 msgid "Professor"
 msgstr "Professore"
 
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:51
+msgid "student"
+msgstr "studente"
+
+#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:52
+msgid "professor"
+msgstr "professore"
+
 msgid "Of course yes!"
 msgstr "Certamente!"
 
 msgid "No, not really..."
 msgstr "Non proprio..."
 
+msgid "rates"
+msgstr "voti"
+
+msgid "Assign a value from 1 to 5"
+msgstr "Dai un voto che vada da 1 a 5"
+
+msgid "Rate author"
+msgstr "Valutare l'autore"
+
+msgid "Rate offer"
+msgstr "Valutare l'offerta"
+
+msgid "Offer reputation"
+msgstr "Offerta reputazione"
+
+msgid "Author reputation"
+msgstr "Autore reputazione"
+
+msgid "Waiting validation: "
+msgstr "In attesa di convalida: "
+
+msgid "<b>Waiting application validation</b>"
+msgstr "<b>In attesa di convalida applicazione</b>"
+
+msgid "<b>Member to this offer</b>"
+msgstr "<b>Membri a questa offerta</b>"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:53
 msgid "Company"
 msgstr "Società"
+
+msgid "company"
+msgstr "società"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/controllers/PublishController.class.php:67
 msgid "Title field can't be empty"
@@ -2911,10 +3098,6 @@ msgstr ""
 msgid "N° SIRET"
 msgstr "PARTITA IVA"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:25
-msgid "Site web"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileAssociationForm.php:27
 msgid "Adresse postale"
 msgstr ""
@@ -2941,266 +3124,10 @@ msgstr "Descrizione"
 msgid "description, comments"
 msgstr "inserisci una descrizione, un commento"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:7
-#, fuzzy
-msgid "Association"
-msgstr "applicazione"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:9
-msgid "Vous devez choisir une association."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:18
-msgid "<h3>Compétences requises</h3>"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:27
 #, fuzzy
 msgid "Informations pratiques"
 msgstr "Informazioni"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:30
-msgid "Quartier"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:31
-msgid "Type de mission"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:33
-#, fuzzy
-msgid "Date de parution"
-msgstr "Data limite"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:34
-msgid "Date de fin"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:15
-#, fuzzy
-msgid "Informations personnelles"
-msgstr "Informazioni"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:18
-#, fuzzy
-msgid "Téléphone"
-msgstr "tel"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:22
-msgid "Vous devez renseigner votre sexe."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:25
-msgid "Situation professionelle"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:27
-msgid "Vous devez renseigner votre situation professionelle."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:48
-msgid "Types de missions souhaitées"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:57
-msgid "Mobilité (quartiers de nice)"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:60
-msgid "Vous devez sélectionner au moins un secteur de mobilité."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:70
-msgid "Disponibilités"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:73
-msgid "Vous devez sélectionner au moins un créneau de disponibilités."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/ProfileBenevoleForm.php:79
-msgid "Prévenez moi par email en cas de futures offres correspondantes."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSexe.php:6
-#, fuzzy
-msgid "Homme"
-msgstr "commenti"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSexe.php:7
-msgid "Femme"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesDisponibilites.php:5
-msgid "Semaine, en journée"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesDisponibilites.php:6
-msgid "Semaine, le soir"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesDisponibilites.php:7
-msgid "WE, en journée"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesDisponibilites.php:8
-msgid "WE, le soir"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSituation.php:5
-#, fuzzy
-msgid "Actif"
-msgstr "Attività"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSituation.php:6
-msgid "Sans emploi"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSituation.php:7
-msgid "Retraité"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesSituation.php:8
-msgid "Etudiant"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMissions.php:5
-msgid "Ponctuel"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMissions.php:6
-msgid "Régulier"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMissions.php:7
-msgid "Urgence"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:6
-msgid "-- Non défini --"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:7
-msgid "Plaine et coteaux "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:8
-msgid "Collines niçoises "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:9
-msgid "Trois collines "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:10
-msgid "Rives du Paillon "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:11
-msgid "Est littoral "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:12
-msgid "Nord centre ville "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:13
-msgid "Coeur de ville "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesMobilite.php:14
-msgid "Ouest littoral"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:5
-msgid "Accompagnement (social professionnel)"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:6
-msgid "Accueil / Orientation"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:7
-msgid "Administration - Direction - Management"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:8
-msgid "Alphabétisation - Formation - Enseignement - Soutien scolaire"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:9
-#, fuzzy
-msgid "Animation"
-msgstr "applicazione"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:11
-msgid "Comptabilité gestion"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:12
-msgid "Distribution Collecte"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:13
-msgid "Ecoute"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:14
-msgid "Informatique, Internet"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:15
-msgid "Juridique"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:16
-msgid "Logistique - Conseil - Secrétariat - Administration courante"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:17
-msgid "Travaux (manuels et techniques)"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:18
-msgid "Visite domicile"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:19
-msgid "Visite hôpital"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/models/CategoriesCompetences.php:20
-msgid "Visite prison"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:43
-msgid "Vous n'avez pas les droits d'écriture sur cette annonce"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:91
-msgid "Nice Bénévolat"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:98
-msgid "-- Choisir --"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:139
-msgid "Votre annonce a bien été publiée"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:162
-msgid "Annonce supprimée"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:231
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/AnnonceController.php:259
-msgid "Annonce mise à jour"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/CandidatureController.php:64
-msgid "Votre candidature a été enregistrée"
-msgstr ""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/LoginController.class.php:66
 #, fuzzy

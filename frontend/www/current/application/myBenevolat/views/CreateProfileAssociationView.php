@@ -8,7 +8,7 @@
 <div data-role="page" id="step1_association">	
 
 	<!-- Header bar -->
-	<? print_header_bar("?action=ExtendedProfile", false, "Step 1 - association info"); ?>
+	<? print_header_bar("?action=ExtendedProfile", false, _("Step 1 - association info")); ?>
 		
 	<!-- Container div to give objects a margin -->
 	<div data-role="content" style="margin:30px; ">	
@@ -16,7 +16,7 @@
 		<div class="ui-bar ui-bar-e">
 			<h1><?= _("Please fill in your association information:") ?></h1>
 		</div>
-		<br/>
+		<br>
 		<!-- Association name -->
 		<div data-role="fieldcontain" >
 			<label for="associationname" style="text-align:right"> <?= _('Association name')?><b>*</b> :</label>
@@ -38,7 +38,7 @@
 		<!-- Web Site -->
 		<div data-role="fieldcontain" >
 			<label for="website" style="text-align:right"> <?= _("Web site")?>: </label>
-			<input type="text" name="website" id="website" placeholder="http://...(optional)" />
+			<input type="text" name="website" id="website" />
 		</div>
 		
 		<!-- Address -->
@@ -63,7 +63,7 @@
 <div data-role="page" id="step2_association" >	
 
 	<!-- Header bar -->
-	<? print_header_bar("#step1_association", false, "Step 2 - Skills and Missions "); ?>
+	<? print_header_bar("#step1_association", false, _("Step 2 - Skills and missions")); ?>
 		
 	<div data-role="content" style="margin:30px; ">
 		<!-- Competences list -->
@@ -100,7 +100,7 @@
 			<form action="?action=ExtendedProfile&method=create" id="profileForm" method="POST">
 				
 				<!-- Back link-->
-				<a href="#step1_association" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
+				<a href="#step1_association" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true"><?= _("Previous")?></a>
 				
 				<!-- MyMed basic profile fields -->
 				<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
@@ -120,7 +120,7 @@
 				<input type="hidden" id="missions" name="missions" value="" />
 				
 				<!-- Submit button-->
-				<input type="submit" id="submit" value="Create the profile" data-inline="true" data-theme="g" />
+				<input type="submit" id="submit" value=<?= _("Create the profile")?> data-inline="true" data-theme="g" />
 			</form>
 		</div>	
 	</div>	
@@ -196,15 +196,15 @@
 
 				// Validate fields
 				if(!$('#associationname').val()) {
-					warningPopUp('Please provide an association name');
+					warningPopUp("Association name field can't be empty");
 					break;
 				}
 				if(!$('#phone').val()) {
-					warningPopUp('Please provide a valid telephone number');
+					warningPopUp("Phone field can't be empty");
 					break;
 				}
 				if(!$("#siret").val()) {
-					warningPopUp('Please provide a siret');
+					warningPopUp("SIRET field can't be empty");
 					break;
 				}
 				

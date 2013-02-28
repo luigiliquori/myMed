@@ -1,7 +1,10 @@
 <div data-role="page" id =myopportunitymanagement>
 
 	<!-- Page header bar -->
-	<? $title = _("Manage subscriptions");
+ <? $title = _("Manage subscriptions");
+	if(strpos($_SERVER['HTTP_REFERER'],"?action=extendedProfile&method=show_user_profile"))
+		print_header_bar('back', "helpPopup", $title);
+	else
 	   print_header_bar("?action=mySubscription&subscriptions=true", "helpPopup", $title); ?>
 	
 		

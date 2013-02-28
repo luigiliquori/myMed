@@ -114,7 +114,7 @@ class RegisterController extends AbstractController {
 		if($responseObject->status != 200) {
 			$this->error = $responseObject->description;
 		} else {
-			$this->success = "Votre compte à bien été validé. Vous pouvez vous loguer à présent";
+			$this->success = "Your account has been validated. You can connect now";
 		}
 		$this->renderView("login");
 		
