@@ -60,11 +60,11 @@
     }
     
     FirstScreenViewController *firstVC = [[[FirstScreenViewController alloc] initWithNibName:xibName bundle:nil] autorelease];
-    firstVC.tabBarItem.image = [UIImage imageNamed:@"gradhat"];
-    firstVC.title = NSLocalizedString(@"myEdu", nil);
+    firstVC.tabBarItem.image = [UIImage imageNamed:@"star"];
+    firstVC.title = NSLocalizedString(@"myFSA", nil);
     UINavigationController *firstNav = [[[UINavigationController alloc] initWithRootViewController:firstVC] autorelease];
     firstNav.navigationBar.tintColor = color;
-    firstNav.title = NSLocalizedString(@"myEdu", nil);
+    firstNav.title = NSLocalizedString(@"myFSA", nil);
     
     
     RemoteHtmlViewController *mainVC = [[[RemoteHtmlViewController alloc] initWithNibName:@"RemoteHtmlViewController" bundle:nil] autorelease];
@@ -96,12 +96,12 @@
     
     NavigationModel *navPages = [NavigationModel getInstance];
     PagesViewController *pagesVc=[[[PagesViewController alloc] initWithNibName:@"PagesViewController" bundle:nil] autorelease];
-    navPages.mainPage.title = NSLocalizedString(@"Universities", nil);
+    navPages.mainPage.title = NSLocalizedString(@"Companies", nil);
     pagesVc.page = [navPages mainPage];
     UINavigationController *pagesNav = [[[UINavigationController alloc] initWithRootViewController:pagesVc] autorelease];
     pagesNav.navigationBar.tintColor = color;
-    pagesNav.title = NSLocalizedString(@"Universities", nil);
-    pagesNav.tabBarItem.image = [UIImage imageNamed:@"univlist"];
+    pagesNav.title = NSLocalizedString(@"Companies", nil);
+    pagesNav.tabBarItem.image = [UIImage imageNamed:@"case"];
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, checkNav, pagesNav, creditsVc,  nil];

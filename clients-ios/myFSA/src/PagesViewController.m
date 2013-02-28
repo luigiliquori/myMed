@@ -139,8 +139,13 @@
     ((UIImageView *)cell.selectedBackgroundView).image = selectionBackground;
     
     // Configure the cell...
-    NSString *i = [self.page.items objectAtIndex:row];
-    cell.textLabel.text = i;
+    
+    Item *i = [self.page.items objectAtIndex:row];
+    cell.textLabel.text = i.title;
+    cell.detailTextLabel.text = i.url;
+    if (i.url!=nil && [i.url length]>0) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
 
     return cell;
 }
@@ -254,21 +259,35 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     if (indexPath.section>=[self.page.subPages count]) {
         return;
     }
+    
     
     Page *p = [self.page.subPages objectAtIndex:indexPath.section];
     PagesViewController *vc = [[PagesViewController alloc] initWithNibName:@"PagesViewController" bundle:nil];
     vc.page = p;
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
+     */
+    Item *itm = [self.page.items objectAtIndex:indexPath.row];
+    if (itm.url!=nil) {
+        UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:itm.title delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Open web site", nil), nil];
+        [as showFromTabBar:self.tabBarController.tabBar];
+        as.tag = indexPath.row;
+        [as release];
+    }
 }
 
 
 -(IBAction)action_options:(id)sender
 {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:self.page.title delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Open web site", nil), nil];
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:self.page.title
+                                                    delegate:self
+                                           cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                      destructiveButtonTitle:nil
+                                           otherButtonTitles:NSLocalizedString(@"Open web site", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
 }
@@ -278,8 +297,13 @@
     if (buttonIndex==actionSheet.cancelButtonIndex) {
         return;
     }
-    if (buttonIndex==actionSheet.firstOtherButtonIndex && self.page.url!=nil) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.page.url]];
+    if (buttonIndex==actionSheet.firstOtherButtonIndex) {
+        Item *itm = [self.page.items objectAtIndex:actionSheet.tag];
+        if (itm.url!=nil) {
+            NSString *surl = [NSString stringWithFormat:@"http://%@", itm.url];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:surl]];
+        }
+
     }
 }
 @end

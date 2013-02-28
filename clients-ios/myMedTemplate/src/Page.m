@@ -17,9 +17,8 @@
 
 @implementation Page
 
-@synthesize subPages=_subPages, title=_title, text=_text, url=_url, items=_items;
+@synthesize subPages=_subPages,  text=_text, items=_items;
 @synthesize parent=_parent;
-@synthesize subtitle=_subtitle;
 
 -(id) init
 {
@@ -34,11 +33,8 @@
 
 -(void) dealloc
 {
-    self.title    = nil;
     self.text     = nil;
     self.parent   = nil;
-    self.subtitle = nil;
-    self.url      = nil;
     [_items release];
     _items = nil;
     [_subPages release];
