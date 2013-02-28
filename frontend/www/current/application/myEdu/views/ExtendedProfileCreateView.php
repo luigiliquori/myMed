@@ -43,13 +43,13 @@
 		<!-- Create extended profile form -->
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
 			
-			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile -->
+			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile
 			<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
 			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
 			<input type="hidden" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
-			
+			 -->
 			
 			<!-- Role -->
 			<div data-role="fieldcontain">

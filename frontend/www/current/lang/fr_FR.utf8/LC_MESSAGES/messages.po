@@ -1624,7 +1624,13 @@ msgstr "Le champs titre doit être rempli"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:64
 msgid "Please provide a valide expiration date for the course"
-msgstr ""
+msgstr "Veuillez choisir une date valide pour votre cours"
+
+msgid "(Yours)"
+msgstr "(La vôtre)"
+
+msgid "<p><b>Number of volunteers: </b>"
+msgstr "<p><b>Nombre de bénévoles: </b>"
 
 msgid "Association name field can't be empty"
 msgstr "Le champs nom de l'association doit être rempli"

@@ -68,7 +68,7 @@
 							<input type="checkbox" onclick="toggle(this, '#find_area_content')" name="areaBox" id="check-view-c"/> 
 							<label for="check-view-c"><?= _("Topic")?></label>
 						</div>
-						<div class="ui-block-b">
+						<div class="ui-block-b" data-theme="d">
 							<select disabled name="Area" id="find_area_content" data-native-menu="false">
 								<option value=""><?= _('Select topic') ?></option>
 									<? foreach (Categories::$areas as $k=>$v) :?>

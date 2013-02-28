@@ -21,14 +21,15 @@
 					<form action="?action=publish&method=update" method="POST" data-ajax="false">
 						<input type="hidden" name="publisher" value="<?= $this->result->publisherID ?>" />
 						<input type="hidden" name="id" value="<?= $this->result->id ?>" />
+						<input type="hidden" name="title" value="<?= $this->result->title ?>" />
 						<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
 						<input type="hidden" name="promue" value="<?= $this->result->promue ?>" />
 						<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />
 						<input type="hidden" id="date" name="date" value="" />
 									
 						<!-- TITLE -->
-						<h3><?= _("Title")?>* :</h3>
-						<input id="postTitle" class="postTitle" data-inline="true" name="title" value='<?= $this->result->title ?>' type="text" />
+						<h3><?= _("Title")?> : <?= $this->result->title ?></h3>
+						<!--<input id="postTitle" class="postTitle" data-inline="true" name="title" value='<?= $this->result->title ?>' type="text" />-->
 	
 		    			<h3><?= _('Date de fin') ?>* :</h3>
 		    			<?

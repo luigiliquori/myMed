@@ -9,29 +9,21 @@
 <div data-role="page" id="extendedprofiledisplayview">
 
 	<!-- Header bar -->
-  	<? 	$title = _("My profile");
-  	  	// Check the previous usr for the back button, if it is a publication details
-  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
-  	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
-  	   		print_header_bar('back', "helpPopup", $title); 
-
-  	  	else
-  	   		print_header_bar("?action=main", "helpPopup", $title);
+<?  if($_GET['user'] != $_SESSION['user']->id) 
+  		$title = _("Profile");
+  	else
+  		$title = _("My profile");
+	// Check the previous usr for the back button, if it is a publication details
+  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
+  	   	print_header_bar('back', "helpPopup", $title); 
+	else
+		print_header_bar("?action=main", "helpPopup", $title);
   	   ?>
 	
 	<!-- Page content -->
 	<div data-role="content">
 		
 		<br><br>
-		<?php	
-	   		// Select language
-			$lang="Not defined";
-	   		if($_SESSION['user']->lang){
-				if($_SESSION['user']->lang=="en") $lang=_("English");
-				else if($_SESSION['user']->lang=="it") $lang=_("Italian");
-				else $lang=_("French");
-			}
-		?>
 		
 		<!-- Show user profile -->
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d" style="margin-top: 2px;">
@@ -40,17 +32,42 @@
 			<li data-role="list-divider"><?= _("User details") ?></li>	
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-					<div class="ui-block-a" style="width: 110px;">
-						<img src="<?= $this->profile->details['picture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
-					</div>
-					<div class="ui-block-b">
-						<p><strong><?= $this->profile->details['firstName']." ".$this->profile->details['lastName'] ?></strong></p>
-						<p><?= $this->profile->details['birthday'] ?> </p>
-						<? if (isset($_SESSION['myEdu']) && $_GET['user'] == $_SESSION['user']->id ): ?>
-							<p><?= $lang?></p>
-						<? endif; ?>
-						<p><a href="mailto:<?= prettyprintId($this->profile->details['email']) ?>"><?= prettyprintId($this->profile->details['email']) ?></a></p>
-					</div>
+				 <? if($_GET['user'] != $_SESSION['user']->id){ ?>
+						<div class="ui-block-a" style="width: 110px;">
+							<img src="<?= $this->basicProfile['profilePicture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
+						</div>
+						<div class="ui-block-b">
+							<p><strong><?= $this->basicProfile['firstName']." ".$this->basicProfile['lastName'] ?></strong></p>
+							<p><?= $this->basicProfile['birthday'] ?> </p>
+							<p>
+							<?  $lang="";
+								if($this->basicProfile['lang']){
+							   		if($_SESSION['user']->lang=="en") $lang=_("English");
+									else if($_SESSION['user']->lang=="it") $lang=_("Italian");
+									else $lang=_("French");
+								}echo $lang;
+							?>
+							</p>
+							<p><a href="mailto:<?= prettyprintId($this->basicProfile['email']) ?>"><?= prettyprintId($this->basicProfile['email']) ?></a></p>
+						</div>
+				 <? }else{ ?>
+				 		<div class="ui-block-a" style="width: 110px;">
+							<img src="<?= $_SESSION['user']->profilePicture ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
+						</div>
+						<div class="ui-block-b">
+							<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
+							<p><?= $_SESSION['user']->birthday ?> </p>
+							<p><?
+								$lang= _("Langage not defined");
+								if($_SESSION['user']->lang){
+									if($_SESSION['user']->lang=="en") $lang=_("English");
+									else if($_SESSION['user']->lang=="it") $lang=_("Italian");
+									else $lang=_("French");
+								}echo $lang;
+							?></p>
+							<p><a href="mailto:<?= prettyprintId($_SESSION['user']->id) ?>"><?= prettyprintId($_SESSION['user']->id) ?></a></p>
+						</div>
+				 <? } ?>
 				</div>
 			</li>
 			
@@ -62,11 +79,10 @@
 					<?= _("Role") ?>: <strong style="color:#444;"><?= _($this->profile->details['role']) ?></strong><br/>
 				</p>
 				<p>
-					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
 					<?=
-					(empty($this->profile->details['email'])?" ": _("email").": <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
-					(empty($this->profile->details['phone'])?" ":_("phone").": <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
-					(empty($this->profile->details['address'])?" ":_("address").": "."<span>".$this->profile->details['address']."</span><br/>")
+					//(empty($this->profile->details['email'])?" ": _("email").": <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
+					(empty($this->profile->details['phone'])?" ":_("phone").": <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>")
+					//(empty($this->profile->details['address'])?" ":_("address").": "."<span>".$this->profile->details['address']."</span><br/>")
 					?>
 				</p>
 				<!-- Role's fields -->

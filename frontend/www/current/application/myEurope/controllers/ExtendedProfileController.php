@@ -76,6 +76,40 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 	}
 	
+	function storeProfile(){
+	
+		// we clear these ones
+		unset($_POST['form']);
+	
+		if(!$_POST['name']){
+			$this->error = _("Organization name field can't be empty");
+			$this->renderView("ExtendedProfileCreate");
+		}
+		if(!$_POST['email']){
+			$this->error = _("Organization email field can't be empty");
+			$this->renderView("ExtendedProfileCreate");
+		}
+		if(!$_POST['checkCondition']){
+			$this->error = _("You must accept the terms of use.");
+			$this->renderView("ExtendedProfileCreate");
+		}
+		$_POST['id'] = hash("md5", time().$_POST['name']);
+		$_POST['desc'] = nl2br($_POST['desc']);
+		unset($_POST['checkCondition']);
+	
+		$publish =  new RequestJson($this,
+				array("application"=>APPLICATION_NAME.":profiles", 
+						"id"=>$_POST['id'], 
+						"data"=>$_POST, 
+						"metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
+				CREATE);
+		$publish->send();
+	
+		if (!empty($this->error))
+			$this->renderView("ExtendedProfileCreate");
+	
+		return (object) $_POST;
+	}
 
 	function createUser($profile){
 	
@@ -95,12 +129,18 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		//debug_r($user);
 		
 		$publish = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "data"=>$user, "metadata"=>$user),
+				array("application"=>APPLICATION_NAME.":users", 
+						"id"=>$_SESSION['user']->id, 
+						"data"=>$user, 
+						"metadata"=>$user),
 				CREATE);
 		$publish->send();
 		
 		$publish = new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id, "email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
+				array("application"=>APPLICATION_NAME.":profiles", 
+						"id"=>$profile, 
+						"data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id, 
+								"email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
 				UPDATE);
 		$publish->send();
 		
@@ -109,12 +149,18 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		//subscribe to our profile changes (permission change - partnership req accepted)
 		$subscribe = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":users", "id"=>$_SESSION['user']->id, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":userUpdate"),
+				array("application"=>APPLICATION_NAME.":users", 
+						"id"=>$_SESSION['user']->id, 
+						"user"=> $_SESSION['user']->id, 
+						"mailTemplate"=>APPLICATION_NAME.":userUpdate"),
 				CREATE, "v2/SubscribeRequestHandler");
 		$subscribe->send();
 		//subscribe to our organization profile
 		$subscribe = new RequestJson( $this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$profile, "user"=> $_SESSION['user']->id, "mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
+				array("application"=>APPLICATION_NAME.":profiles", 
+						"id"=>$profile, 
+						"user"=> $_SESSION['user']->id, 
+						"mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
 				CREATE, "v2/SubscribeRequestHandler");
 		$subscribe->send();
 	
@@ -228,38 +274,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->redirectTo("Main", array(), "#profile");
 		}
 		
-	}
-	
-	function storeProfile(){
-		
-		// we clear these ones
-		unset($_POST['form']);
-		
-		if(!$_POST['name']){
-			$this->error = _("Organization name field can't be empty");
-			$this->renderView("ExtendedProfileCreate");
-		}
-		if(!$_POST['email']){
-			$this->error = _("Organization email field can't be empty");
-			$this->renderView("ExtendedProfileCreate");
-		}
-		if(!$_POST['checkCondition']){
-			$this->error = _("You must accept the terms of use.");
-			$this->renderView("ExtendedProfileCreate");
-		}
-		$_POST['id'] = hash("md5", time().$_POST['name']);
-		$_POST['desc'] = nl2br($_POST['desc']);
-		unset($_POST['checkCondition']);
-
-		$publish =  new RequestJson($this,
-				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "data"=>$_POST, "metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
-				CREATE);
-		$publish->send();
-
-		if (!empty($this->error))
-			$this->renderView("ExtendedProfileCreate");
-		
-		return (object) $_POST;
 	}
 	
 	

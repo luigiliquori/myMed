@@ -112,7 +112,6 @@ class PublishController extends ExtendedProfileRequired {
 				}
 			}
 		}
-	
 	}
 	
 	public function update() {
@@ -131,7 +130,7 @@ class PublishController extends ExtendedProfileRequired {
 	
 	
 	/**
-	 *  Delete user's publication and all the students applies if category=course and the comments
+	 *  Delete user's publication and all the applies
 	 */
 	public function delete() {
 		$this->delete_Applies();

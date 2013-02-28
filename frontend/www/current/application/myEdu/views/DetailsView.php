@@ -252,7 +252,7 @@
 		 			<?foreach ($this->result_comment as $item) :?>
 		 				<div data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true" data-collapsed="false">
 		 					
-		 					<h3><?= $item->publisherName ?></h3>
+		 					<h3><?= $item->publisher." ".$item->publisherID ?></h3>
 		 					<div class="ui-grid-a">
 		 						<!-- displaying photo of the user who added comment -->
 		 						<div class="ui-block-a"><img src="<?= $item->wrapped2 ?>" align=left alt="Your photo here" width="100px" height="100px"/></div>

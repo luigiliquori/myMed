@@ -19,12 +19,12 @@
 	
 		<!-- Submit a new publication form -->
 		<form id="newpublicationform" action="index.php?action=publish&method=create" method="POST" data-ajax="false">
-		
+			<input type="hidden" name="author" value="<?= $_SESSION['user']->id ?>" />
 			<input type="hidden" id="area" name="area" value="" />
 			<input type="hidden" id="category" name="category" value="" />
 			<input type="hidden" id="locality" name="locality" value="" />
 			<input type="hidden" id="organization" name="organization" value="" />
-			<input type="hidden" id="date" name="date" value="" />
+			<input type="hidden" id="end" name="end" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("Offer's creation") ?></h3>
@@ -119,7 +119,7 @@
 			
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-icon="check" data-theme="g" value="<?=_('Publish') ?>" onclick="
-					$('#date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
+					$('#end').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
 				"/>
 			</div>
 	

@@ -162,9 +162,9 @@
 			<div class="ui-bar ui-bar-e" data-theme="e">
 				<h1 style="white-space: normal;">
 	  <?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'):?>
-					<?= _("Your skills (de 1 à 4)")?> <b>*</b> : ?>
+					<?= _("Your skills (de 1 à 4)")?> <b>*</b> : 
 				<?else:?>
-					<?= _("The skills you need")?> <b>*</b> : ?>
+					<?= _("The skills you need")?> <b>*</b> : 
 				<?endif;?>
 				</h1>
 			</div>	

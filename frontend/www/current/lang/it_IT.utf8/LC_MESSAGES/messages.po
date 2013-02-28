@@ -2017,6 +2017,12 @@ msgstr "Cerca annuncio"
 msgid "My candidatures"
 msgstr "Le mie candidature"
 
+msgid "(Yours)"
+msgstr "(La vostra)"
+
+msgid "<p><b>Number of volunteers: </b>"
+msgstr "<p><b>Numero di volontari: </b>"
+
 msgid "Find an announcement by criteria"
 msgstr "Cercare un annuncio in base a criteri"
 

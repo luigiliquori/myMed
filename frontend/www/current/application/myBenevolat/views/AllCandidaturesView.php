@@ -37,13 +37,13 @@
  				<li>
 	 				<fieldset class="ui-grid-c">
 						<div class="ui-block-a">
-							<?= _("Applier") ?>: <b><?= $item->publisher ?></b>
+							<?= _("Applier") ?>: <b><a href="?action=extendedProfile&method=show_user_profile&user=<?= $item->publisher?>"><?= $item->publisherName ?></a></b>
 						</div>
 						<div class="ui-block-b">
-							<?= _("Annonce") ?>: <b><?= $item->title ?></b>
+							<?= _("Annonce") ?>: <b><a href="?action=details&id=<?= $item->idAnnonce ?>"><?= $item->title ?></a></b>
 						</div>
 						<div class="ui-block-c">
-							<?= _("Author ") ?>: <b><?= $item->author ?></b>
+							<?= _("Author ") ?>: <b><a href="?action=extendedProfile&method=show_user_profile&user=<?= $item->author?>"><?= substr($item->author,6) ?></a></b>
 						</div>
 						<div class="ui-block-d">
 							<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
