@@ -8,7 +8,7 @@
 <div data-role="page" id="step1_volunteer">	
 
 	<!-- Header bar -->
-	<? print_header_bar("?action=ExtendedProfile", false, "Step 1 - personal info"); ?>
+	<? print_header_bar("?action=ExtendedProfile", false, _("Step 1 - personal info")); ?>
 		
 		<!-- Container div to give objects a margin -->
 		<div data-role="content" style="margin:30px; ">
@@ -26,33 +26,33 @@
 			<!-- Sex -->
 			<div data-role="fieldcontain" style="text-align:right">	
 				<fieldset data-role="controlgroup" name="sex" id="sex">
-					<legend> Sex<b>*</b>: </legend>
+					<legend><?= _("Sex")?><b>*</b>: </legend>
 			     	<input type="radio" name="sex" id="male" value="male"/>
-			     	<label for="male">Male</label>
+			     	<label for="male"><?= _("Male")?></label>
 					<input type="radio" name="sex" id="female" value="female"/>
-			     	<label for="female">Female</label>
+			     	<label for="female"><?= _("Female")?></label>
 				</fieldset>
 			</div>
 			
 			<!-- Work -->
 			<div data-role="fieldcontain" id="work" style="text-align:right">	
 				<fieldset data-role="controlgroup">
-					<legend> Your work<b>*</b>: </legend>
+					<legend><?= _("Working status")?><b>*</b>: </legend>
 			     	<input type="radio" name="work" id="active" value="active" />
-			     	<label for="active">Active</label>
+			     	<label for="active"><?= _("Active")?></label>
 			     	<input type="radio" name="work" id="unemployed" value="unemployed" />
-			     	<label for="unemployed">Unemployed</label>
+			     	<label for="unemployed"><?= _("Unemployed")?></label>
 			     	<input type="radio" name="work" id="retired" value="retired" />
-			     	<label for="retired">Retired</label>
+			     	<label for="retired"><?= _("Retired")?></label>
 			     	<input type="radio" name="work" id="student" value="student" />
-			     	<label for="student">Student</label>
+			     	<label for="student"><?= _("Student")?></label>
 				</fieldset>
 			</div>
 			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			<!-- Next and previous buttons -->
 			<div style="text-align:center;">
-				<a href="?action=ExtendedProfile" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
-				<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext()">Next</a>
+				<a href="?action=ExtendedProfile" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true"><?= _("Previous")?></a>
+				<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext()"><?= _("Next")?></a>
 			</div>
 		</div>
 	
@@ -63,7 +63,7 @@
 <div data-role="page" id="step2_volunteer" >	
 
 	<!-- Header bar -->
-	<? print_header_bar("#step1_volunteer", false, "Step 2 - skills"); ?>
+	<? print_header_bar("#step1_volunteer", false, _("Step 2 - Skills")); ?>
 		
 	<div data-role="content" style="margin:30px; ">
 		<!-- Competences list -->
@@ -82,8 +82,8 @@
 		<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 		<!-- Next and previous buttons -->
 		<div style="text-align:center;">
-			<a href="#step1_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true"> Previous </a>
-			<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext();"> Next </a>
+			<a href="#step1_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true"> <?= _("Previous")?> </a>
+			<a data-role="button" data-icon="arrow-r" data-theme="b" data-inline="true" onClick="handleNext();"> <?= _("Next")?> </a>
 		</div>
 	</div>
 		
@@ -94,7 +94,7 @@
 <div data-role="page" id="step3_volunteer" >	
 
 	<!-- Header bar -->
-	<? print_header_bar("#step2_volunteer", false, "Step 3 - missions and mobility"); ?>
+	<? print_header_bar("#step2_volunteer", false, _("Step 3 - Missions and mobility")); ?>
 	<div data-role="content" style="margin:30px; ">
 		<!-- Missions list -->
 		<div class="ui-bar ui-bar-e" data-theme="e">
@@ -114,7 +114,7 @@
     	<!-- mobilite list -->
 		<div class="ui-bar ui-bar-e" data-theme="e">
 			<h1 style="white-space: normal;">
-				<?= _("Please choose your mobilite") ?><b>*</b>:
+				<?= _("Please choose your mobility") ?><b>*</b>:
 			</h1>
 		</div>
 		<br />
@@ -131,7 +131,7 @@
 			<!-- Final wizard form -->
 			<form action="?action=ExtendedProfile&method=create" id="profileForm" method="POST">
 				<!-- Back link-->
-				<a href="#step2_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true">Previous</a>
+				<a href="#step2_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true"><?= _("Previous")?></a>
 				
 				<!-- MyMed basic profile fields -->
 				<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
@@ -150,7 +150,7 @@
 				<input type="hidden" id="mobilite" name="mobilite" value="" />
 				
 				<!-- Submit button-->
-				<input type="submit" id="submit" value="Create the profile" data-inline="true" data-theme="g" />
+				<input type="submit" id="submit" value="<?= _("Create the profile")?>" data-inline="true" data-theme="g" />
 			</form>
 		</div>
 	</div>

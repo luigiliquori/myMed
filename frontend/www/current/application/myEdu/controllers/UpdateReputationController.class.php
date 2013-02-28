@@ -12,7 +12,7 @@ class UpdateReputationController extends DetailsController {
 		
 		// update the reputation of the application
 		if(isset($_GET['reputation'])) {
-
+		
 			// Get the reputation of the user in each the application
 			$request = new Request("InteractionRequestHandler", UPDATE);
 			$request->addArgument("application",  APPLICATION_NAME);
@@ -26,24 +26,18 @@ class UpdateReputationController extends DetailsController {
 			$request->addArgument("end",  time());
 			$request->addArgument("predicate",  $_GET['predicate']);
 			$request->addArgument("feedback",  $_GET['reputation']/10);
-
-// 			try {
-				$responsejSon = $request->send();
-				$responseObject = json_decode($responsejSon);
-				
-				if($responseObject->status != 200) {
-					$this->error = $responseObject->description;
-				} else {
-					$this->success = _("Thank you for your contribution!");
-				}
-// 			} catch (Exception $e) {
-// 				$this->error = "Une erreur interne est survenue, veuillez réessayer plus tard...";
-// 			}
+			
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+			
+			if($responseObject->status != 200) {
+				$this->error = $responseObject->description;
+			} else {
+				$this->success = _("Thank you for your contribution!");
+			}
+			$this->redirectTo("?action=details&predicate=".$_GET['predicate']."&author=".$_GET['author']);
 		}	
-		
 		parent::handleRequest();
-		
 	}
-
 }
 ?>

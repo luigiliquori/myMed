@@ -99,7 +99,7 @@
 				<br />
 				<? if(($this->profile->details['role']!='professor')): ?>
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> rates)
+					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> <?= _("rates")?>
 				</p>
 				<br />
 				<?php endif; ?>

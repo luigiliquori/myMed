@@ -30,15 +30,21 @@
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
 			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connect")?></a><br />
 	 <? } ?>
-		
-	<? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->details['type'] == 'volunteer')):?>
+  <?php if (!$_SESSION['user']->is_guest && !isset($_SESSION['myBenevolat'])) { ?>
+			<p Style="text-align: center; font-style:italic;"><?= _("You have to create your extended profile to access other options") ?></p>
+  <?php } ?>
+  	 <? if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association') && $_SESSION['myBenevolat']->permission == '0')): ?>
+			<p Style="text-align: center; font-style:italic;"><?= _("You have to wait the validation of your association to access all the menu options") ?></p>
+  <?php endif; ?>
+  	
+	 <? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->details['type'] == 'volunteer')):?>
 		<a href="?action=mySubscription&subscriptions=true" data-icon="star" data-role="button" data-ajax="false" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My subscriptions") ?></a><br />
-	<? endif;?>
+	 <? endif;?>
 	
-	<? if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association') || ($_SESSION['myBenevolat']->details['type'] == 'admin'))): ?>
+	 <? if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association') || ($_SESSION['myBenevolat']->details['type'] == 'admin'))): ?>
 			<!-- Associations and Admins links -->
 			<a href="index.php?action=publish&method=show_user_announcements" data-icon="pencil" data-role="button" data-ajax="false"  <?= ($_SESSION['myBenevolat']->permission == '0') ? " class='ui-disabled'" : "" ?>><?= _("My announcements") ?></a><br />
-	<? endif; ?>
+	 <? endif; ?>
 		
 		
 		<!-- Find view -->

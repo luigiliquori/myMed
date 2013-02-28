@@ -133,13 +133,9 @@
 				<input id="siret" name="siret" placeholder="Write your SIRET number "></input>
 			</div>
 			<br/>
-			<!-- Accept terms and conditions -->
-			<input id="service-term" type="checkbox" name="checkCondition" style="display:inline-block;float:right;top:5px;width:17px;height:17px"/>
-			<span style="display:inline-block;margin-left: 40px;">
-				<?= _("I accept the ")?>
-				<a href="../myMed/doc/CGU_fr.pdf" rel="external"><?= _("general terms and conditions")?></a>
-			</span>
-			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
+			<div data-role="fieldcontain">
+				<label for="siret"  style="text-align:right"><b>*</b>: <i><?= _('Mandatory fields') ?></i></label>
+			</div>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-theme="e" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
 			</div>

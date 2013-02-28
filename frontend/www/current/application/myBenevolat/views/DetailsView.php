@@ -168,7 +168,7 @@
 				<!-- REPUTATION -->	
     			<div>
     			<!-- Publication reputation -->
-    				<p style="display:inline; font-size:80%;">Publication rate:</p>
+    				<p style="display:inline"><?= _("Announcement reputation")?>:</p>
 					<? // Disable reputation stars if there are no votes yet 
 					if($this->reputation["value_noOfRatings"] == '0') :  
 				    	for($i=1 ; $i <= 5 ; $i++) {?>
@@ -183,7 +183,7 @@
 					   <?php } 
 					 	} 
 					endif; ?>
-					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
+					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> <?= _("rates")?> </p>
 					 
 					 <? /* can rate if logged in and validated if association */
 					 if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association' && $_SESSION['myBenevolat']->permission == '1') || $_SESSION['myBenevolat']->permission == '2' || $_SESSION['myBenevolat']->details['type'] == 'volunteer')){
@@ -197,7 +197,7 @@
 						 } 
 					 	/* can rate the announcement if the user is not the author and if the date has expired  */
 						if ($this->result->publisherID != $_SESSION['user']->id && ($expired==true || empty($this->result->end) || $this->result->end=="--")) { ?>
-							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	
+							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate announcement") ?></a>	
 					 <? } 
 					 } ?>
 					<br/>
@@ -218,7 +218,7 @@
 					</div>	
 				
 					<!-- Author reputation -->	
-					<p style="display:inline; font-size:80%;">Author reputation:</p>
+					<p style="display:inline;"><?= _("Association reputation")?>:</p>
 					<?php
 						// Disable reputation stars if there are no votes yet 
 						if($this->reputation["author_noOfRatings"] == '0') : ?> 
@@ -234,32 +234,27 @@
 							<?php } ?>
 						<? } ?>
 					<?php endif; ?>
-					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>							
+					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> <?= _("rates")?></p>							
 					<?php 
 						/* can rate if logged in and validated if association */
 					 	if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association' && $_SESSION['myBenevolat']->permission == '1') || $_SESSION['myBenevolat']->permission == '2' || $_SESSION['myBenevolat']->details['type'] == 'volunteer')){
 							if (!($this->result->publisherID == $_SESSION['user']->id)) {
-								echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate author") .'</a>';
+								echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate association") .'</a>';
 							}
 						}
 					?>
 
 					<!-- Author REPUTATION pop up -->
-					<div data-role="popup" id="popupReputationAuthor" class="ui-content" style="text-align: center">
+					<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center; width: 18em;">
 						<?= _("Do you like the author?") ?><br /><br />
-						<form action="?action=updateReputation" method="POST" data-ajax="false">
+						<form id="form2" action="?action=updateReputation" method="POST" data-ajax="false">
 							<input type="hidden" name="action" value="updateReputation" />
-							<input type="hidden" name="reputation" value=10 />
-						 	<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
-						 	<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
-						 	<input type="submit" value="<?= _("Of course yes!")?>" data-mini="true" data-theme="g" data-icon="plus">
-						</form>
-						<form action="?action=updateReputation" method="POST" data-ajax="false">
-							<input type="hidden" name="action" value="updateReputation" />
-							<input type="hidden" name="reputation" value=0 />
-						 	<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
-						 	<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
-						 	<input type="submit" value="<?= _("No, not really...")?>" data-mini="true" data-inline="true" data-theme="r" data-icon="minus">
+							<input type="hidden" name="reputation" id="reputation2"/>
+							<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
+					 		<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
+							<label for="reputationslider2"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 to 5") ?>:</p><br/></label>
+							<input type="range" name="reputationslider2" id="reputationslider2" value="3" min="1" max="5" data-mini="true" step="1"/>
+							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation2').val($('#reputationslider2').val()*2);">
 						</form>
 					</div>	
 					<!-- END Author REPUTATION -->
