@@ -43,6 +43,9 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.bgImageView.image = [UIImage imageNamed:@"background2"];
     }
+    NSURL *u = [NSURL URLWithString:WEBAPP_URL];
+    NSURLRequest *r = [[[NSURLRequest alloc] initWithURL:u] autorelease];
+    [self.webview loadRequest:r];
 }
 
 - (void)viewWillAppear:(BOOL)animated

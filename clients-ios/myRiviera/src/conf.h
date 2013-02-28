@@ -9,7 +9,7 @@
 #ifndef myEurope_conf_h
 #define myEurope_conf_h
 
-#define TESTING 1
+//#define TESTING 1
 
 #if defined(TESTING)
 
