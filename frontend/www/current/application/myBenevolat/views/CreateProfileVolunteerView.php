@@ -124,6 +124,18 @@
 				<label for="<?=$k?>"><?=$v?></label>
 		 <? endforeach ?>
     	</div>
+    	<br>
+    	<div class="ui-bar ui-bar-e" data-theme="e">
+			<h1 style="white-space: normal;">
+			<?= _("Your disponibility") ?><b>*</b>:
+		</div>
+		<div id="disponibilite">
+		<? foreach (Categories::$disponibilites as $k=>$v) :?>
+				<input type="checkbox" name="disponibilite-checkbox" id="<?=$k?>" value="<?=$k?>" />
+				<label for="<?=$k?>"><?=$v?></label>
+		 <? endforeach ?>
+    	</div>
+    	
 		<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 		
 		<!-- Container for final wizard form -->
@@ -148,6 +160,7 @@
 				<input type="hidden" id="competences" name="competences" value="" />
 				<input type="hidden" id="missions" name="missions" value="" />
 				<input type="hidden" id="mobilite" name="mobilite" value="" />
+				<input type="hidden" id="disponibilite" name="disponibilite" value="" />
 				
 				<!-- Submit button-->
 				<input type="submit" id="submit" value="<?= _("Create the profile")?>" data-inline="true" data-theme="g" />
@@ -194,6 +207,11 @@
 				mobilite = mobilite + profile.mobilite[i].value + " ";
 			$("input[id=mobilite]").val(mobilite);
 
+			var disponibilite = "";
+			for(var i=0; i<profile.disponibilite.size(); i++)
+				disponibilite = disponibilite + profile.disponibilite[i].value + " ";
+			$("input[id=disponibilite]").val(disponibilite);
+
 			// Submit the form
 			return true;
 		} else {
@@ -212,6 +230,7 @@
 		this.competences;
 		this.missions;
 		this.mobilite;
+		this.disponibilite;
 	}
 
 	/* Store the profile data */
@@ -268,8 +287,13 @@
 					warningPopUp('You must choose at least 1 mobility');
 					return false;
 				}
+				if($("input[name*=disponibilite]:checked").size()<1) {
+					warningPopUp('You must choose at least 1 disponibility');
+					return false;
+				}
 				profile.missions = $("input[name*=missions]:checked");
 				profile.mobilite = $("input[name*=mobilite]:checked");
+				profile.disponibilite = $("input[name*=disponibilite]:checked");
 				break;
 
 		}

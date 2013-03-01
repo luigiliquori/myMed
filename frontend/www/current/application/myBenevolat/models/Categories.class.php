@@ -12,6 +12,7 @@ class Categories {
  	static $competences;
  	static $mobilite;
  	static $missions;
+ 	static $disponibilites;
 
 }
 
@@ -54,6 +55,13 @@ Categories::$missions = array(
 	"ponctuel"	=> _("Ponctuel"),
 	"regulier" 	=> _("Régulier"),
 	"urgence" 	=> _("Urgence")
+);
+
+Categories::$disponibilites = array(
+	"semaine_journee" 	=> _("Semaine, en journée"),
+	"semaine_soir"		=> _("Semaine, le soir"),
+	"we_journee" 		=> _("WE, en journée"),
+	"we_soir" 			=> _("WE, le soir")
 );
 
 ?>

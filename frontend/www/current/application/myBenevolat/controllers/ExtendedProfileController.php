@@ -248,7 +248,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			
 		$user = array(
 				'permission'=> $permission,
-				'name'=> $_SESSION['user']->name,
+				//'name'=> $_SESSION['user']->name,
 				'email'=> $_SESSION['user']->email,
 				'profile'=> $profile,
 				"profiletype"=> $type,

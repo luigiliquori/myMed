@@ -72,9 +72,13 @@
 									$applied=false;
 									foreach ($this->result_apply as $item) :
 										if($item->publisherID==$_SESSION['user']->id){ // already applied
-											$applied=true;
-											break;
-										}
+										$applied=true;
+										if($item->accepted=='waiting')
+											echo _("<b>Waiting application validation</b>");
+										else
+											echo _("<b>Member to this offer</b>");
+										break;
+									}
 									endforeach;
 									if($applied==false){?>
 							 			<form action="?action=apply&method=apply" method="POST" data-ajax="false">

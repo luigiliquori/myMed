@@ -52,7 +52,7 @@ class ApplyController extends AuthenticatedController {
 		}
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
 		$this->success = _("Your request has been sent. You must wait for its validation.");
-		$this->redirectTo("?action=Candidature&method=show_candidatures");
+		$this->redirectTo("?action=details&id=".$_POST['id']);
 	}
 	
 	function getProfiles($type) {

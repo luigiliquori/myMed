@@ -32,8 +32,8 @@
 		<? foreach( $this->blocked as $i => $item ) : ?>
 			<li>
 				<a href="?action=ExtendedProfile&method=show_user_profile&user=<?= urlencode($item->id) ?>"><span class="<?= $item->id==$_SESSION['user']->id?"ui-link":"" ?>"><?= $item->email ?></span></a>
-	        	<a data-role="button" rel="external" data-icon="delete" data-theme="r" href="?action=Admin&method=delete&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>&email=<?= $item->email ?>&profiletype=<?= $item->profiletype ?>&name=<?= $item->name?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _("Delete association profile") ?></a>
-	        	<a rel="external" data-icon="check" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>&email=<?= $item->email ?>&promoted=true&profiletype=<?= $item->profiletype ?>&name=<?= $item->name?>" data-theme="g"><?= _("Validate association") ?></a>
+	        	<a data-role="button" rel="external" data-icon="delete" data-theme="r" href="?action=Admin&method=delete&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>&email=<?= $item->email ?>&profiletype=<?= $item->profiletype ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _("Delete association profile") ?></a>
+	        	<a rel="external" data-icon="check" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>&email=<?= $item->email ?>&promoted=true&profiletype=<?= $item->profiletype ?>" data-theme="g"><?= _("Validate association") ?></a>
 			</li>
 		<? endforeach ?>
 			<li data-role="list-divider"><?= _("Validated associations") ?><span class="ui-li-count"><?= count($this->normals) ?></span></li>
@@ -41,15 +41,15 @@
 			
 			<li>
 				<a href="?action=ExtendedProfile&method=show_user_profile&user=<?= urlencode($item->id) ?>"><span class="<?= $item->id==$_SESSION['user']->id?"ui-link":"" ?>"><?= $item->email ?></span></a>
-				<a rel="external" data-icon="delete" data-theme="r" href="?action=Admin&method=delete&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>&email=<?= $item->email ?>&profiletype=<?= $item->profiletype ?>&name=<?= $item->name?>"" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _("Delete association profile") ?></a>
-	        	<a rel="external" data-icon="sort-down" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>&email=<?= $item->email ?>&profiletype=<?= $item->profiletype ?>&name=<?= $item->name?>" data-theme="g"><?= _("Make this association admin") ?></a>
+				<a rel="external" data-icon="delete" data-theme="r" href="?action=Admin&method=delete&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>&email=<?= $item->email ?>&profiletype=<?= $item->profiletype ?>" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _("Delete association profile") ?></a>
+	        	<a rel="external" data-icon="sort-down" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>&email=<?= $item->email ?>&profiletype=<?= $item->profiletype ?>" data-theme="g"><?= _("Make this association admin") ?></a>
 			</li>
 		<? endforeach ?>
 			<li data-role="list-divider"><?= _("Admins") ?><span class="ui-li-count"><?= count($this->admins) ?></span></li>
 			<? foreach( $this->admins as $i => $item ) : ?>
 			<li>
 				<a href="?action=ExtendedProfile&method=show_user_profile&user=<?= urlencode($item->id) ?>"><span class="<?= $item->id==$_SESSION['user']->id?"ui-link":"" ?>"><?= $item->email ?></span></a>
-				<a rel="external" data-icon="sort-up" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>&email=<?= $item->email ?>&promoted=false&profiletype=<?= $item->profiletype ?>&name=<?= $item->name?>" data-theme="e"><?= _("Remove admin rights") ?></a>
+				<a rel="external" data-icon="sort-up" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>&email=<?= $item->email ?>&promoted=false&profiletype=<?= $item->profiletype ?>" data-theme="e"><?= _("Remove admin rights") ?></a>
 			</li>
 		<? endforeach ?>
 		</ul>

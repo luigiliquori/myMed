@@ -122,6 +122,14 @@
 							echo empty($this->profile->details['sex']) ? " " : "<p><b>". _("Sex").": </b>"."<span>".$this->profile->details['sex']."</span></p>";
 							echo empty($this->profile->details['work']) ? " " : "<p><b>". _("Working status").": </b>"."<span>".$this->profile->details['work']."</span></p>";
 							echo "<br/>";
+							
+							echo "<p><b>". _("Disponibility").":</b><br/><p style='margin-left:20px'>";
+							$tokens = explode(" ", $this->profile->details['disponibilite']);
+							array_pop($tokens);
+							foreach($tokens as $token) {
+								echo Categories::$disponibilites[$token]."<br/>";
+							}
+							echo "</p></p><br/>";
 							echo "<p><b>". _("Skills").":</b><br/><p style='margin-left:20px'>";
 							$tokens = explode(" ", $this->profile->details['competences']);
 							array_pop($tokens);
@@ -199,7 +207,7 @@
 			<!-- List of user subscriptions -->
 			<br />
 		 <? if (isset($_SESSION['myBenevolat'])): ?>
-				<a type="button" href="?action=mySubscriptionManagement" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false"><?= _("Manage subscriptions") ?></a>
+				<a type="button" href="?action=mySubscriptionManagement" data-theme="d" data-icon="grid" data-inline="true" data-ajax="false" <?= (($_SESSION['myBenevolat']->details['type']=='association' && $_SESSION['myBenevolat']->permission == '0')) ? " class='ui-disabled'" : "" ?>><?= _("Manage subscriptions") ?></a>
 		 <? endif; ?>
 		</div> <!-- END Edit profile, Delete and Show publications buttons -->
 	<? endif; ?>

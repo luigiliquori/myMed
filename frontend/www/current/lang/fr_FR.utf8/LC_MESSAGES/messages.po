@@ -1021,6 +1021,9 @@ msgstr "Votre association n'a pas encore été validée"
 msgid "Validated association"
 msgstr "Association validée"
 
+msgid "Validated announcement"
+msgstr "Annonce validée"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyAnnouncementView.php:54
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/FindView.php:82
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllValidationsView.php:47

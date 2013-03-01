@@ -98,7 +98,7 @@ class AdminController extends ExtendedProfileRequired {
 			// Add to associations
 			$user = array(
 					'permission'=> $_GET['perm'],
-					'name'=> $_GET['name'],
+					//'name'=> $_GET['name'],
 					'email'=> $_GET['email'],
 					"profiletype"=> "association",
 			);
@@ -123,7 +123,7 @@ class AdminController extends ExtendedProfileRequired {
 			// Add to admins
 			$user = array(
 					'permission'=> $_GET['perm'],
-					'name'=> $_GET['name'],
+					//'name'=> $_GET['name'],
 					'email'=> $_GET['email'],
 					"profiletype"=> "admin",
 			);

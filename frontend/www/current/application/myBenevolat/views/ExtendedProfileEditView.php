@@ -51,7 +51,8 @@
 	  						$('#birthdaydiv').hide();
 	  						$('#sexdiv').hide();
 	  						$('#workdiv').hide();
-	  						$('#mobilitediv').hide();	  						
+	  						$('#mobilitediv').hide();	
+	  						$('#dispodiv').hide();  						
 		   					break;
   					}
 				});
@@ -162,7 +163,7 @@
 			<div class="ui-bar ui-bar-e" data-theme="e">
 				<h1 style="white-space: normal;">
 	  <?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'):?>
-					<?= _("Your skills (de 1 à 4)")?> <b>*</b> : 
+					<?= _("Your skills (1 to 4)")?> <b>*</b> : 
 				<?else:?>
 					<?= _("The skills you need")?> <b>*</b> : 
 				<?endif;?>
@@ -210,6 +211,21 @@
 					<label for="<?=$k?>"> <?=$v?> </label>
 			 <? endforeach ?>
 	    	</div>
+	    	<br/><br/>
+	    	<!-- Disponibility list -->
+	    	<div id="dispodiv">
+				<div class="ui-bar ui-bar-e" data-theme="e">
+					<h1 style="white-space: normal;">
+						<?= _("Your disponibility")?> <b>*</b> :
+					</h1>
+				</div>
+				<br />
+				
+		     <? foreach (Categories::$disponibilites as $k=>$v) :?>
+					<input type="checkbox" name="disponibilite-checkbox" id="<?=$k?>" value="<?=$k?>" />
+					<label for="<?=$k?>"> <?=$v?> </label>
+			 <? endforeach ?>
+	    	</div>
 			<!-- END Only Volunteer fields-->	
 			
 			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
@@ -231,6 +247,7 @@
 			<input type="hidden" id="competences" name="competences" value="" />
 			<input type="hidden" id="missions" name="missions" value="" />
 			<input type="hidden" id="mobilite" name="mobilite" value="" />
+			<input type="hidden" id="disponibilite" name="disponibilite" value="" />
 			
 			<div style="text-align: center;">
 				<input id="submit" type="submit" data-inline="true" data-role="button" data-icon="ok" data-theme="g" value="<?= _('Update') ?>"/>
@@ -291,6 +308,14 @@
 				$("input[name=mobilite-checkbox]").filter('[value=<?= $t?>]').prop('checked',true).checkboxradio('refresh');
 				<? endforeach ?>
 		<? endif; ?>
+
+		<?php if(isset($_SESSION['myBenevolat']->details['disponibilite'])): ?>
+		<? $tokens = explode(" ", $_SESSION['myBenevolat']->details['disponibilite']);
+		   array_pop($tokens);
+			foreach ($tokens as $t) : ?>
+			$("input[name=disponibilite-checkbox]").filter('[value=<?= $t?>]').prop('checked',true).checkboxradio('refresh');
+			<? endforeach ?>
+	<? endif; ?>
 		
 	});
 
@@ -329,6 +354,10 @@
 						warningPopUp('You must choose at least 1 mobility');
 						return false;
 					}	
+					if($("input[name*=disponibilite]:checked").size()<1) {
+						warningPopUp('You must choose at least 1 disponibility');
+						return false;
+					}
 
 					// Fill volunteer profile fields
 					$("input[id=sex]").val($("input[name='sex-radio']:radio:checked").val());
@@ -348,6 +377,11 @@
 					for(var i=0; i<checked.size(); i++)
 						mobilite = mobilite + checked[i].value + " ";
 					$("input[id=mobilite]").val(mobilite);
+					var disponibilite = "";
+					var checked = $("input[name*=disponibilite]:checked");
+					for(var i=0; i<checked.size(); i++)
+						disponibilite = disponibilite + checked[i].value + " ";
+					$("input[id=disponibilite]").val(disponibilite);
 												
 					break;
 
