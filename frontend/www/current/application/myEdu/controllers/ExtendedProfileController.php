@@ -31,14 +31,20 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 						$this->renderView("ExtendedProfileEdit");
 					break;
 				
-				// Show a user pforile
+				// Show a user profile
 				case 'show_user_profile':
 					// If the user is not a guest but has not got an Extended 
 					// profile forward him to ExtendedProfileCreate View
 					if (!isset($_SESSION['myEdu']))
 						$this->renderView("ExtendedProfileCreate");
-					else
-						$this->showUserProfile($_GET['user']);
+					else{
+						if($_GET['user'] != $_SESSION['user']->id){
+							debug("OTHER PROFILE");
+							$this->showOtherProfile($_GET['user']);
+						}else{
+							$this->showUserProfile($_SESSION['user']->id);
+						}
+					}
 					break;
 			}		
 		}
@@ -102,17 +108,18 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['form']);
 		
 		// Set id and description
-		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
-		$_POST['id'] = hash("md5", time().$_POST['name']);
+		//$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+		$_POST['id'] = hash("md5", time()/*.$_POST['name']*/);
 		$_POST['desc'] = nl2br($_POST['desc']);
 	
 		// Create the new profile
 		$publish =  new RequestJson($this,
-						array("application"=>APPLICATION_NAME.":profiles",
-						"id"=>$_POST['id'], "data"=>$_POST,
-						"metadata"=>array("role"=>$_POST['role'],
-						"name"=>$_POST['name'])),
-						CREATE);
+				array("application"=>APPLICATION_NAME.":profiles",
+						"id"=>$_POST['id'], 
+						"data"=>$_POST,
+						//"metadata"=>array("role"=>$_POST['role'], "name"=>$_POST['name'])),
+						"metadata"=>array("role"=>$_POST['role'])),
+				CREATE);
 		$publish->send();
 	
 		// Check for errors
@@ -124,6 +131,71 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Display the new created Extended Profile
 		$this->redirectTo("?action=ExtendedProfile&method=show_user_profile&user=".$_SESSION['user']->id);		
 	}
+	
+	/**
+	 * Create a new user
+	 */
+	function createUser($profile){
+	
+		// Permission is 2 if the user is an admin, otherwise 1
+		$permission = (
+				strcontain($_SESSION['user']->email, "@inria.fr")
+				|| $_SESSION['user']->email=="luigi.liquori@gmail.com"
+				|| $_SESSION['user']->email=="bredasarah@gmail.com"
+				|| $_SESSION['user']->email=="myalpmed@gmail.com"
+		)? 2 : 1;
+			
+		$user = array(
+				'permission'=> $permission,
+				'email'=> $_SESSION['user']->email,
+				'profile'=> $profile
+		);
+	
+	
+		$publish = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":users",
+						"id"=>$_SESSION['user']->id,
+						"data"=>$user,
+						"metadata"=>$user),
+				CREATE);
+		$publish->send();
+	
+		$publish = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":profiles",
+						"id"=>$profile,
+						"data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id,
+								"email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
+				UPDATE);
+		$publish->send();
+	
+		$this->success = _("Complement profile registered successfully!");
+	
+		// Subscribe to our profile changes
+		// (permission change - partnership req accepted)
+		$subscribe = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":users",
+						"id"=>$_SESSION['user']->id,
+						"user"=> $_SESSION['user']->id,
+						"mailTemplate"=>APPLICATION_NAME.":userUpdate"),
+				CREATE,
+				"v2/SubscribeRequestHandler");
+		$subscribe->send();
+	
+		// Subscribe to our organization profile
+		$subscribe = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":profiles",
+						"id"=>$profile, "user"=> $_SESSION['user']->id,
+						"mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
+				CREATE,
+				"v2/SubscribeRequestHandler");
+		$subscribe->send();
+	
+	}
+	
 	
 	/** 
 	 * Update an Extended profile 
@@ -186,10 +258,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileEdit");
 		}
 		
-		// Update of the profile informations
+		// Update of the basic profile informations
 		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['login'] = $_SESSION['user']->email;
-		$_POST['picture'] = $_POST['profilePicture'];
 		
 		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($_POST)));
 		try {
@@ -216,6 +287,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileEdit");
 		}
 		$_POST['id'] = $id;
+		unset($_POST['firstName']);
+		unset($_POST['lastName']);
+		unset($_POST['name']);
+		unset($_POST['birthday']);
+		unset($_POST['profilePicture']);
+		unset($_POST['lang']);
+		unset($_POST['email']);
+		unset($_POST['login']);
 		
 		// Update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
@@ -232,21 +311,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$publish->send();
 		}catch (Exception $e) {
 			debug("ERROR4: ".$e->getMessage());
-		}
-		
-		if ($_POST['name']!= $_SESSION['myEdu']->details['name'] || 
-			$_POST['role']!=$_SESSION['myEdu']->details['role']) { 
-			
-			//also update profiles indexes
-			$publish =  new RequestJson(
-							$this,
-							array("application"=>APPLICATION_NAME.":profiles", 
-							"id"=>$_POST['id'], 
-							"user"=>"noNotification", 
-							"metadata"=>array("role"=>$_POST['role'], 
-							"name"=>$_POST['name'])),
-							CREATE);
-			$publish->send();
 		}
 		
 		if (!empty($this->error)) {
@@ -266,82 +330,17 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 
 	
 	/** 
-	 * Delete an Extended profile and all its releated publication 
+	 * Delete an Extended profile and all its releated publication (+Applies + Comments)
 	 */
 	public function delete() {
-		
+		$this->delete_Applies($_SESSION['user']->id);
+		$this->delete_Comments($_SESSION['user']->id);
 		$this->deletePublications($_SESSION['user']->id); 
 		$this->deleteUser($_SESSION['user']->id);
 		
 		// Redirect to main view
 		$this->redirectTo("?action=main");
 	}
-	
-
-	/** 
-	 * Create a new user 
-	 */
-	function createUser($profile){
-	
-		// Permission is 2 if the user is an admin, otherwise 1
-		$permission = (
-				strcontain($_SESSION['user']->email, "@inria.fr")
-				|| $_SESSION['user']->email=="luigi.liquori@gmail.com"
-				|| $_SESSION['user']->email=="bredasarah@gmail.com"
-				|| $_SESSION['user']->email=="myalpmed@gmail.com"
-		)? 2 : 1;
-			
-		$user = array(
-				'permission'=> $permission,
-				'email'=> $_SESSION['user']->email,
-				'profile'=> $profile
-		);
-		
-		
-		$publish = new RequestJson(
-					$this,
-					array("application"=>APPLICATION_NAME.":users", 
-					"id"=>$_SESSION['user']->id, 
-					"data"=>$user, 
-					"metadata"=>$user),
-					CREATE);
-		$publish->send();
-		
-		$publish = new RequestJson(
-					$this,
-					array("application"=>APPLICATION_NAME.":profiles", 
-					"id"=>$profile, 
-					"data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id, 
-					"email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
-					UPDATE);
-		$publish->send();
-		
-		$this->success = _("Complement profile registered successfully!");
-		
-		// Subscribe to our profile changes 
-		// (permission change - partnership req accepted)
-		$subscribe = new RequestJson( 
-						$this,
-						array("application"=>APPLICATION_NAME.":users", 
-						"id"=>$_SESSION['user']->id, 
-						"user"=> $_SESSION['user']->id, 
-						"mailTemplate"=>APPLICATION_NAME.":userUpdate"),
-						CREATE, 
-						"v2/SubscribeRequestHandler");
-		$subscribe->send();
-		
-		// Subscribe to our organization profile
-		$subscribe = new RequestJson(
-						$this,
-						array("application"=>APPLICATION_NAME.":profiles", 
-						"id"=>$profile, "user"=> $_SESSION['user']->id, 
-						"mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
-						CREATE, 
-						"v2/SubscribeRequestHandler");
-		$subscribe->send();
-	
-	}
-
 	
 	/** 
 	 * Show the user Extended profile 
@@ -378,9 +377,21 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Show another user Extended profile
 	 */
 	function showOtherProfile($id) {
+		/* basic profile */
+		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$id));
+		$responsejSon = $request->send();
+		$responseObject3 = json_decode($responsejSon);
 		
-		$this->profile = new MyEduProfile($id);
+		$this->basicProfile = (array) $responseObject3->dataObject->user;
 		
+		/*Extended profile */
+		$user = new User($id);
+		try {
+			$details = $this->mapper->findById($user);
+		} catch (Exception $e) {
+			$this->redirectTo("main");
+		}
+		$this->profile = new MyEduProfile($details['profile']);
 		try {
 			$this->profile->details = $this->mapper->findById($this->profile);
 		} catch (Exception $e) {
@@ -389,10 +400,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Get reputation
 		$this->profile->parseProfile();
-		$this->getReputation($id);
-		$this->profile->reputation = $this->reputationMap[$id];
-		$this->nbrates = $this->noOfRatesMap[$id];
-	
+		if (!empty($details['profile'])){
+			$this->getReputation($id);
+			$this->profile->reputation = $this->reputationMap[$id];
+			$this->nbrates = $this->noOfRatesMap[$id];
+		}
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
@@ -449,7 +461,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	
 	
 	/** 
-	 * Delete user's publications 
+	 * Delete user's publications and applies/comments on each publication
 	 */
 	function deletePublications($id){
 		
@@ -457,11 +469,50 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$search_by_userid->publisher = $id;
 		$result = $search_by_userid->find();
 		
+		foreach($result as $publication) :
+			$search_applies_publi = new Apply();
+			$search_applies_publi->pred1 = 'apply&'.$publication->getPredicateStr().'&'.$id;
+			$applies = $search_applies_publi->find();
+			foreach($applies as $apply){
+				$apply->delete();
+			}
+			$search_comments_publi = new Comment();
+			$search_comments_publi->pred1 = 'comment&'.$publication->getPredicateStr().'&'.$id;
+			$comments = $search_comments_publi->find();
+			foreach($comments as $comment){
+				$comment->delete();
+			}
+			$publication->delete();
+		endforeach;
+	}
+	
+	/**
+	 * Delete all the applies the user did on publications
+	 */
+	function delete_Applies($id){
+		$search_by_userid = new Apply();
+		$search_by_userid->publisher = $id;
+		$search_by_userid->publisherID = $id;
+		$result = $search_by_userid->find();
+	
 		foreach($result as $item) :
 			$item->delete();
 		endforeach;
-		
-		//$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
+	}
+	
+	/**
+	 * Delete all the comments the user posted on publications
+	 * @param unknown $id
+	 */
+	function delete_Comments($id){
+		$search_by_userid = new Comment();
+		$search_by_userid->publisher = $id;
+		$search_by_userid->publisherID = $id;
+		$result = $search_by_userid->find();
+	
+		foreach($result as $item) :
+			$item->delete();
+		endforeach;
 	}
 	
 	/**

@@ -37,7 +37,7 @@
  				<li>
 	 				<div class="ui-grid-a">
 						<div class="ui-block-a">
-							<h3><?= _("Title")?> : <?= $item->title ?></h3>
+							<h3><?= _("Title")?> : <a data-ajax="false" href="?action=details&id=<?= $item->id ?>"><?= $item->title?></a></h3>
 							<!-- Publication fields-->
 							<p style="position: relative; margin-left: 30px;">
 								<b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/>

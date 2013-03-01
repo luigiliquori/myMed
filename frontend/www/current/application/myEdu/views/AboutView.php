@@ -23,7 +23,10 @@
 				<?= _("If you find an error you can report it at this address: ")?><a href="http://mymed22.sophia.inria.fr/bugreport/index.php" target="_blank"> http://mymed22.sophia.inria.fr/bugreport/index.php </a>
 			</p>
 			<br/>
-			<br/>
+			<p>
+			<?= _("The myMed consortium is composed by INRIA, Nice Sophia-Antipolis University, Politecnico di Torino, Turin University, and Piémont Oriental University, and it is founded by:")?>
+			</p>
+			
 		<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>
 	</div>
 

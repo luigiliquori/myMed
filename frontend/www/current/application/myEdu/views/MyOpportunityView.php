@@ -63,7 +63,15 @@
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
-							<b><?= _("Topic") ?></b>: <?= Categories::$areas[$item->area] ?><br/>
+							<? $domain="Not defined";
+							foreach(Categories::$areas as $k=>$v) :
+								if(in_array($item->area, $v)){
+									$domain=$k;
+									break;
+								}
+							endforeach; ?>
+							<b><?= _("Topic") ?></b>: <?= _($item->area) ?><br/>
+							<b><?= _("Domain")?></b>: <?= _($domain) ?><br/>
 							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
 							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
 							<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$item->organization] ?><br/><br/>
@@ -87,7 +95,7 @@
 										<? } ?>
 									<?php endif; ?>
 								</p>
-								<p style="display:inline; margin-left:80px;  color: #2489CE; font-size:80%; "> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+								<p style="display:inline; margin-left:80px;  color: #2489CE; font-size:80%; "> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> <?= _("rates")?> </p>
 						</p>			
 					</a>
 				</li>

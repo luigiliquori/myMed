@@ -10,22 +10,16 @@ class Categories {
 }
 
 Categories::$areas = array(
-	"Aerospace"			=> _("Aerospace"),
-	"Biomechanics"		=> _("Biomechanics"),
-	"Cinema" 			=> _("Cinema"),
-	"Civil" 			=> _("Civil"),
-	"Data processing" 	=> _("Data processing"),
-	"Electricity" 		=> _("Electricity"),
-	"Electronics" 		=> _("Electronics"),
-	"Energy" 			=> _("Energy"),
-	"Environment"		=> _("Environment"),
-	"Management" 		=> _("Management"),
-	"Material" 			=> _("Material"),
-	"Mathematics" 		=> _("Mathematics"),
-	"Mechanics" 		=> _("Mechanics"),
-	"Motor vehicle"		=> _("Motor vehicle"),
-	"Physics" 			=> _("Physics"),
-	"Telecommunications" => _("Telecommunications")
+	"Engineering, Mathematics & Computer Science" 	=> ["Telecommunication Engineering", "Electronic Engineering", "Mathematics", "Computer Engineering", "Mechanical Engineering", "Automatic Engineering", "Material Sciences", "Civil Engineering", "Architecture"],
+	"Law, Economics and political science"			=> ["Economy", "Managerial Economics", "Law", "Management", "International Relations", "Political Sciences", "Public Service Sciences"],
+	"Literature and philosophy" 					=> ["Letters and Literature", "Philosophy", "Theology"],
+	"Foreign languages and literature" 				=> ["Foreign languages and literature"],
+	"Education and Teacher training" 				=> ["Education and Teacher training"],
+	"Social and Human Sciences" 					=> ["Psycology", "Sociology", "History", "Demography", "Ethnography"],
+	"Information and Communication Sciences" 		=> ["Information & Communication", "Documentary resources and Data Bases", "Journalism"],
+	"Art & Design" 									=> ["Technic of Image and Sound", "Music", "Plastic Arts"],
+	"Health Sciences"								=> ["Pharmacy", "Veternary medicine", "Medicine and surgery", "Sport Sciences", "Health and Safety", "Odontology"],
+	"Life Sciences and Earth" 						=> ["Geography", "Physics", "Chemistry", "Agricultural and food sciences", "Biology", "Ecosciences", "Geology"]
 );
 
 Categories::$categories = array(
@@ -37,15 +31,12 @@ Categories::$categories = array(
 );
 
 Categories::$localities = array(
-	"Aix"   		=> _("Aix"),
-	"Alessandria"   => _("Alessandria"),
-	"Marseille"   	=> _("Marseille"),
-	"Nice"   		=> _("Nice"),
-	"Novara"   		=> _("Novara"),
-	"Toulon"   		=> _("Toulon"),
-	"Turin"   		=> _("Turin"),
-	"Vercelli"   	=> _("Vercelli"),
-	"Other"			=> _("Other")
+	"Riviera"   	=> _("French Riviera"),
+	"Rhône_Alpes"   => _("Rhône-Alpes"),
+	"Ligury"   		=> _("Ligury"),
+	"Piedmont"   	=> _("Piedmont"),
+	"Aosta_Valley" 	=> _("Aosta Valley"),
+	"Monaco"   		=> _("Monaco")
 );
 
 
@@ -56,13 +47,18 @@ Categories::$roles = array(
 );
 
 Categories::$organizations = array(
-	"Amu"     	=> _("Amu"),
-	"Companies" => _("Companies"),
-	"Polito"	=> _("Polito"),
-	"Unice"     => _("Unice"),
-	"Unipo"     => _("Unipo"),
-	"Unitln"    => _("Unitln"),
-	"Unito"     => _("Unito")
+	"Aix-Marseille"	=> _("Aix-Marseille Univ."),
+	"UNS" 			=> _("Nice Sophia-Antipolis Univ."),
+	"Toulon"		=> _("South Toulon-Var Univ."),
+	"Sup. Lyon"    	=> _("Ecole Normale Sup. Lyon"),
+	"Lyon I II III" => _("Lyon I, II & III Univ."),
+	"Grenoble"    	=> _("Grenoble Univ."),
+	"Torino"     	=> _("Politecnico di Torino"),
+	"Turin"     	=> _("Turin Univ."),
+	"Genoa"     	=> _("Genoa Univ."),
+	"Piedmont"     	=> _("Oriental Piedmont Univ."),
+	"Aosta Valley"  => _("Aosta Valley Univ."),
+	"Enterprise"   	=> _("Enterprise")
 );
 
 ?>

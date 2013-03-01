@@ -42,22 +42,25 @@ msgid "Connection"
 msgstr "Connessione"
 
 msgid "Enter your username and password to access the myEdu network.<br>You can access myEdu through other social networks, such as Facebook, Twitter, Google+....<br>If you do not have a login, you can create one."
-msgstr "Per accedere a myEdu inserisci nome utente e password oppure accedi attraverso le altre reti sociali alle quali sei già iscritto come: Facebook, Twitter, Google+...<br>Se ancora non possedete un login potete crearne uno."
+msgstr "Per accedere a myEdu inserisci nome utente e password oppure accedi attraverso le altre reti sociali alle quali sei già iscritto come Facebook, Twitter, Google+...<br>Se ancora non possiedi un login potrai crearne uno."
 
 msgid "The list of subscriptions myEdu has found according to your criteria."
-msgstr "Lista delle sottoscrizioni che myEdu ha selezionato secondo i vostri criteri di ricerca. "
+msgstr "Lista delle sottoscrizioni che myEdu ha selezionato secondo i tuoi criteri di ricerca."
+
+msgid "See all your offer adhesions."
+msgstr "Accedi a tutte le tue adesioni."
 
 msgid "See all your offers."
-msgstr "Accedete a tutte le vostre offerte."
+msgstr "Accedi a tutte le tue offerte."
 
 msgid "Search an offer according to your criteria."
-msgstr "Ricercate una offerta secondo i vostri criteri."
+msgstr "Ricerca una offerta secondo i tuoi criteri."
 
 msgid "View the last offers and search offers according to your criteria."
 msgstr "Visualizza le ultime offerte e la ricerca offre secondo i vostri criteri."
 
-msgid "Check all your offer's applications."
-msgstr "Accedete a tutte le votre adesioni."
+msgid "Check all your offer adhesions."
+msgstr "Accedi a tutte le tue adesioni."
 
 msgid "Set up parameters of your subscriptions."
 msgstr "Imposta i parametri delle tue sottoscrizioni."
@@ -80,7 +83,7 @@ msgstr "Gestisci sottoscrizioni"
 msgid "Organization to address"
 msgstr "Organismo a cui è indirizzata"
 
-msgid "Locality where have a look"
+msgid "Locality to browse"
 msgstr "Località in cui cercare"
 
 msgid "Browse your applications and see if you have been accepted.<br>You can click on each result to see the detail publication."
@@ -102,7 +105,7 @@ msgid "Display and create your offers by clicking on the button \"New offer\"."
 msgstr "Visualizza e crea le tue offerte cliccando sul bottone \"Nuova offerta\"."
 
 msgid "Access your myMed and MyEdu profile."
-msgstr "Accedi al mio profilo myMed e myEdu."
+msgstr "Accedi al tuo profilo myMed e myEdu."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:49
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:45
@@ -161,9 +164,12 @@ msgstr "Cognome"
 msgid "Birthday"
 msgstr "Compleanno"
 
+msgid "Date of birth"
+msgstr "Data di nascita"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:29
 msgid "Profile picture"
-msgstr "Foto profilo"
+msgstr "Foto del profilo"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:33
 msgid "Language"
@@ -175,7 +181,10 @@ msgstr "Conferma password"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/UpdateProfileView.php:55
 msgid "Update"
-msgstr "Aggiorna"
+msgstr "Aggiornare"
+
+msgid "The myMed consortium is composed by INRIA, Nice Sophia-Antipolis University, Politecnico di Torino, Turin University, and Piémont Oriental University, and it is founded by:"
+msgstr "Il consorzio myMed è composto da INRIA, università di Nizza Sophia-Antipolis, Politecnico di Torino, università di Torino, università del Piemonte Orientale ed è finanziato da:"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:18
 msgid "Edit"
@@ -215,95 +224,63 @@ msgstr "Password non corrispondente"
 msgid "Wrong password"
 msgstr "Password errata"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/ProfileController.class.php:108
-#, fuzzy
-msgid "Your profile has been successfully updated!"
-msgstr "L'offerta di partenariato è stata pubblicata con successo"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/ShowInstitutionCategoryView.php:34
-#, fuzzy
-msgid "Sous catégories"
-msgstr "Scegli una categoria "
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/ShowInstitutionCategoryView.php:52
-msgid "Articles"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/ShowInstitutionCategoryView.php:69
-msgid "Ajouter une sous catégorie"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/ShowInstitutionCategoryView.php:73
-msgid "Ajouter un article"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/CreateInstitutionArticleView.php:8
-msgid "Nouvel article"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/CreateInstitutionArticleView.php:14
-msgid "Publier l'article"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/CreateInstitutionCategoryView.php:8
-msgid "Nouvelle catégorie"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/CreateInstitutionCategoryView.php:14
-msgid "Ajouter"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/EditInstitutionCategoryView.php:8
-msgid "Edition de la catégorie "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/EditInstitutionCategoryView.php:14
-msgid "Confirmer"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionArticleForm.php:4
-msgid "Article"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionArticleForm.php:4
-msgid "Article complet"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:13
-#, fuzzy
-msgid "Profil MyMed"
-msgstr "Profilo"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:16
-msgid "Prénom"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:17
-#, fuzzy
-msgid "Nom"
-msgstr "No"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:18
-msgid "Date de naissance"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:19
 msgid "email"
 msgstr "email"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:22
-msgid "Mot de passe"
-msgstr ""
+msgid "Aix-Marseille Univ."
+msgstr "Univ. di Aix-Marsiglia"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:23
-#, fuzzy
-msgid "Mot de passe (confirmation)"
-msgstr "Conferma password"
+msgid "Nice Sophia-Antipolis Univ."
+msgstr "Univ. Nizza Sophia-Antipolis"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:30
-#, fuzzy
-msgid "Langue"
-msgstr "Lingua"
+msgid "South Toulon-Var Univ."
+msgstr "Univ. del Sud Tolone-Var"
+
+msgid "Ecole Normale Sup. Lyon"
+msgstr "Scuola Normale di Lyon"
+
+msgid "Lyon I, II & III Univ."
+msgstr "Univ. di Lyon I, II & III"
+
+msgid "Grenoble Univ."
+msgstr "Univ. di Grenoble"
+
+msgid "Politecnico di Torino"
+msgstr "Politecnico di Torino"
+
+msgid "Turin Univ."
+msgstr "Univ. di Torino"
+
+msgid "Genoa Univ."
+msgstr "Univ. di Genova"
+
+msgid "Oriental Piedmont Univ."
+msgstr "Univ. del Piemonte Orientale"
+
+msgid "Aosta Valley Univ."
+msgstr "Univ. della Valle d'Aosta"
+
+msgid "Enterprise"
+msgstr "Impresa"
+
+msgid "French Riviera"
+msgstr "Costa Azzurra"
+
+msgid "Rhône-Alpes"
+msgstr "Rhône-Alpes"
+
+msgid "Ligury"
+msgstr "Liguria"
+
+msgid "Piedmont"
+msgstr "Piemonte"
+
+msgid "Aosta Valley"
+msgstr "Val d'Aosta"
+
+msgid "Monaco"
+msgstr "Monaco"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:33
 msgid "Vous devez choisir une langue."
@@ -350,8 +327,8 @@ msgstr "Perchè registrarsi?"
 msgid "MyMemoryWhyRegister"
 msgstr ""
 
-msgid "By registering to myEdu you will be able to manage your subscriptions and your applications."
-msgstr "La registrazione a myEdu ti permettera di gestire le tue sottoscrizioni e le tue adesioni."
+msgid "By registering to myEdu you will be able to manage your subscriptions and your adhesions."
+msgstr "La registrazione a myEdu ti permetterà di gestire le tue sottoscrizioni e le tue adesioni."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/LoginView.php:22
 msgid "Login"
@@ -1391,9 +1368,164 @@ msgstr "Torino"
 msgid "Vercelli"
 msgstr "Vercelli"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:83
-msgid "Monaco"
-msgstr "Monaco"
+msgid "Domain"
+msgstr "Dominio"
+
+msgid "Engineering, Mathematics & Computer Science"
+msgstr "Ingegneria, Matematica & Informatica"
+
+msgid "Telecommunication Engineering"
+msgstr "Ingegneria delle Telecomunicazioni"
+
+msgid "Electronic Engineering"
+msgstr "Ingegneria Elettronica"
+
+msgid "Mathematics"
+msgstr "Matematica"
+
+msgid "Computer Engineering"
+msgstr "Ingegneria Informatica"
+
+msgid "Mechanical Engineering"
+msgstr "Ingegneria Meccanica"
+
+msgid "Automatic Engineering"
+msgstr "Ingegneria Automatica"
+
+msgid "Material Sciences"
+msgstr "Scienza dei Materiali"
+
+msgid "Civil Engineering"
+msgstr "Ingegneria civile"
+
+msgid "Architecture"
+msgstr "Architettura"
+
+msgid "Law, Economics and political science"
+msgstr "Dizitto, Economia e scienze politiche"
+
+msgid "Economy"
+msgstr "Economia"
+
+msgid "Managerial Economics"
+msgstr "Gestione"
+
+msgid "Law"
+msgstr "Giurisprudenza"
+
+msgid "Management"
+msgstr "Management"
+
+msgid "International Relations"
+msgstr "Relazioni internazionali"
+
+msgid "Political Sciences"
+msgstr "Scienze Politiche"
+
+msgid "Public Service Sciences"
+msgstr "Funzione pubblica"
+
+msgid "Literature and philosophy" 					
+msgstr "Lettere e Filosofia"
+
+msgid "Letters and Literature"
+msgstr "Lettere e letteratura"
+
+msgid "Philosophy"
+msgstr "Filosofia"
+
+msgid "Theology"
+msgstr "Teologia"
+
+msgid "Foreign languages and literature"
+msgstr "Lingue e Letterature Straniere"
+
+msgid "Education and Teacher training"
+msgstr "Scienze della Formazione"
+
+msgid "Social and Human Sciences" 					
+msgstr "Scienze Umane e Sociali"
+
+msgid "Psycology"
+msgstr "Psicologia"
+
+msgid "Sociology"
+msgstr "Sociologia"
+
+msgid "History"
+msgstr "Storia"
+
+msgid "Demography"
+msgstr "Demografia"
+
+msgid "Ethnography"
+msgstr "Etnografia"
+
+msgid "Information and Communication Sciences" 		
+msgstr "Scienze dell'Informazione e della Comunicazione"
+
+msgid "Information & Communication"
+msgstr "Informazione e Comunicazione"
+
+msgid "Documentary resources and Data Bases"
+msgstr "Risorse Documentaristiche e basi di dati"
+
+msgid "Journalism"
+msgstr "Giornalismo"
+
+msgid "Art & Design" 									
+msgstr "Arte e Design"
+
+msgid "Technic of Image and Sound"
+msgstr "Tecnica dell'Immagine e del Suono"
+
+msgid "Music"
+msgstr "Musica"
+
+msgid "Plastic Arts"
+msgstr "Arti Plastiche"
+
+msgid "Health Sciences"								
+msgstr "Scienze della Salute"
+
+msgid "Pharmacy"
+msgstr "Farmacia"
+
+msgid "Veternary medicine"
+msgstr "Medicina Veterinaria"
+
+msgid "Medicine and surgery"
+msgstr "Medicina e Chirurgia"
+
+msgid "Sport Sciences"
+msgstr "Scienze dello Sport"
+
+msgid "Health and Safety"
+msgstr "Igiene e Sicuretta"
+
+msgid "Odontology"
+msgstr "Odontoiatria"
+
+msgid "Life Sciences and Earth" 						
+msgstr "Scienze della Vita e della Terra"
+
+msgid "Geography"
+msgstr "Geografia"
+
+msgid "Chemistry"
+msgstr "Chemica"
+
+msgid "Agricultural and food sciences"
+msgstr "Agraria e scienze della nutrizione"
+
+msgid "Biology"
+msgstr "Biologia"
+
+msgid "Ecosciences"
+msgstr "Ecologia"
+
+msgid "Geology"
+msgstr "Geologia"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:84
 msgid "Switzerland"
@@ -1607,12 +1739,12 @@ msgid "Advanced research"
 msgstr "Ricerca avanzata"
 
 msgid "Do you like that offer?"
-msgstr "Vi piace questa offerta?"
+msgstr "Ti piace questa offerta?"
 
 msgid "Find an offer by criteria"
 msgstr "Cercare un'offerta in base a criteri"
 
-msgid "Offering's organism"
+msgid "Offering organization"
 msgstr "Organismo offerente"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/FindView.php:90
@@ -1638,8 +1770,11 @@ msgstr ""
 msgid "Few words "
 msgstr "Parole chiave"
 
-msgid "Create your offer by filling all the mandadtory fields."
-msgstr "Crea la tua offerta riempendo tutti i campi."
+msgid "Offer locality"
+msgstr "Luogo dell'offerta"
+
+msgid "Create your offer by filling all the mandatory fields."
+msgstr "Crea la tua offerta riempiendo tutti i campi obbligatori."
 
 msgid "Publish your offer"
 msgstr "Creazione di una offerta"
@@ -1934,7 +2069,7 @@ msgstr "Corsi"
 msgid "Profile type"
 msgstr "Tipo di profilo"
 
-msgid "My offer's applications"
+msgid "My offers adhesions"
 msgstr "Le mie adesioni ad offerte"
 
 msgid "Students list"
@@ -2017,6 +2152,12 @@ msgstr "Cerca annuncio"
 msgid "My candidatures"
 msgstr "Le mie candidature"
 
+msgid "(Yours)"
+msgstr "(La vostra)"
+
+msgid "<p><b>Number of volunteers: </b>"
+msgstr "<p><b>Numero di volontari: </b>"
+
 msgid "Find an announcement by criteria"
 msgstr "Cercare un annuncio in base a criteri"
 
@@ -2052,9 +2193,12 @@ msgstr "Partita IVA"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:123
 msgid "Delete my profile"
-msgstr "Cancella il mio profilo"
+msgstr "Cancellare il mio profilo"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:127
+msgid "Do you really want to cancel your profile?"
+msgstr "Sei sicuro di voler eliminare il tuo profilo ?"
+
 msgid "Are you sure you want to delete your profile ?"
 msgstr "Sei sicuro di voler eliminare il tuo profilo ?"
 
@@ -2109,11 +2253,14 @@ msgstr "Fasi del progetto"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:47
 msgid "Assign a value from 1 (Poor idea) to 5 (Great idea!!)"
-msgstr "Dai un voto che vada da 1 (Pessima idea) a 5 (Fantastica idea !!)"
+msgstr "Assegnagli un voto da 1 (Pessima idea) a 5 (Fantastica idea !!)"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:62
 msgid "Author"
 msgstr "autore"
+
+msgid "Rate"
+msgstr "Votate"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:66
 msgid "Comments"
@@ -2186,17 +2333,9 @@ msgstr "Energetica"
 msgid "Environment"
 msgstr "Ambientale"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:22
-msgid "Management"
-msgstr "Gestionale"
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:23
 msgid "Material"
 msgstr "Materiali"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:24
-msgid "Mathematics"
-msgstr "Matematica"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/models/Categories.class.php:25
 msgid "Mechanics"
@@ -2471,8 +2610,8 @@ msgstr "Listare miei progetti"
 msgid "Project title"
 msgstr "Temi del progetto"
 
-msgid "myEdu is a social network, linking universities, students and companies of the MedAlp region.<br>On this network, you can find offers for academic formation, internships, Ph.D. positions, job opporunities, as well as for the exchange of professors and pedagogical tools."
-msgstr "myEdu é una rete sociale che permette l'interazione tra le università, gli studenti e le aziende dell'interregione MedAlp.<br>In myEdu potrete trovare le varie offerte di formazione accademica, di tirocinio, di tesi, d'impiego, di scambio professori et materiale pedagogico. "
+msgid "myEdu is a social network, linking universities, students and companies of the MedAlp region.<br>On this network, you can find offers for academic formation, internships, Ph.D. positions, job opportunities, as well as for cultural exchanges and teaching tools."
+msgstr "myEdu é una rete sociale che permette l'interazione tra le università, gli studenti e le aziende dell'interregione MedAlp.<br>In myEdu potrete trovare le varie offerte di formazione accademica, di tirocinio, di tesi, d'impiego, di scambi culturali e di materiale didattico. "
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:17
 msgid "MyEurope is an application of the Alcotra <b><em>myMed</em></b> project, which aims to link mayors and municipal transborders."
@@ -2494,8 +2633,11 @@ msgstr "Inserite qui  le vostre offerte di partenariato"
 msgid "Give your opinion, share your experience and enrich the network myEurope"
 msgstr "Lasciateci un vostro parere, condividete con noi la vostra esperienza e contribuirete così ad arricchire la rete myMed"
 
-msgid "You can customize your profile with e.g. language, photo, web page, work, telephone, affiliation by click on the \"Edit my profile\" button.<br>You can erase definitively your myEdu profile by click on the \"Delete my profile\" button."
-msgstr "Potete customizzare il vostro profilo myEdu con scelta lingua, foto, pagina web, professione, telefono, affiliazione, cliccando sul bottone \"Modifica il mio profilo\".<br>Potete sopprimere il vostro profilo myEdu cliccando sul bottone \"Cancella il mio profilo\"."
+msgid "You can customize your profile with e.g. language, photo, web page, work, telephone, affiliation by click on the \"Edit my profile\" button.<br>You can cancel your myEdu profile by clicking on the \"Cancel my profile\" button."
+msgstr "Potete customizzare il vostro profilo myEdu con scelta lingua, foto, pagina web, professione, telefono, affiliazione, cliccando sul bottone \"Modifica il mio profilo\".<br>Potete cancellare il vostro profilo myEdu cliccando sul bottone \"Cancellare il mio profilo\"."
+
+msgid "Cancel my profile"
+msgstr "Cancellare il mio profilo"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/MainView.php:59
 msgid "Complete and manage your profile for a better visibility in myEurope"
@@ -2507,7 +2649,7 @@ msgstr "Qui è possibile cercare uno tirocinio, impiego, corso... con altri crit
 msgid "Search easily and accurately, according to the criteria you have defined."
 msgstr "Ricerca delle offerte che rispecchino precisamente e soltanto i criteri selezionati."
 
-msgid "Check your applications and see whether you have been accepted."
+msgid "Check your adhesions and see whether you have been accepted."
 msgstr "Consulta le tue adesioni per vedere se sei stato accettato."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileEditView.php:56

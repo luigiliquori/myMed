@@ -19,16 +19,16 @@
 	
 		<!-- Submit a new publication form -->
 		<form id="newpublicationform" action="index.php?action=publish&method=create" method="POST" data-ajax="false">
-		
+			<input type="hidden" name="author" value="<?= $_SESSION['user']->id ?>" />
 			<input type="hidden" id="area" name="area" value="" />
 			<input type="hidden" id="category" name="category" value="" />
 			<input type="hidden" id="locality" name="locality" value="" />
 			<input type="hidden" id="organization" name="organization" value="" />
-			<input type="hidden" id="date" name="date" value="" />
+			<input type="hidden" id="end" name="end" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("Offer's creation") ?></h3>
-				<?= _("Create your offer by filling all the mandadtory fields.")?>
+				<?= _("Create your offer by filling all the mandatory fields.")?>
 				</p>
 			</div>
 			
@@ -72,13 +72,7 @@
 				<br />
 				
 				<h3><?= _('Other criteria') ?> :</h3>
-					<select name="area" id="area" data-native-menu="false">
-					<option value=""> <?= _("Topic")?><b>*</b></option>
-					<? foreach (Categories::$areas as $k=>$v) :?>
-						<option value="<?= $k ?>"><?= $v ?></option>
-					<? endforeach ?>
-					</select>
-					<select name="category" id="category" data-native-menu="false" 
+					<select name="category" id="category" data-native-menu="false" data-overlay-theme="d" 
 							onChange=" 
 								if($('select#category').val() == 'Course') {
 									$('#maxappliersdiv').show();
@@ -99,18 +93,30 @@
 	    				<input type="text" name="maxappliers" id="maxappliers" value="30" style="width:80px; text-align:right;"/>
 					</div>
 					<input type="hidden" id="currentappliers" name="currentappliers" value="-1" />
-					<select name="locality" id="locality" data-native-menu="false">
+					<select name="organization" id="organization" data-native-menu="false" data-overlay-theme="d">
+						<option value=""> <?= _("Institution")?><b>*</b></option>
+						<? foreach (Categories::$organizations as $k=>$v) :?>
+							<option value="<?= $k ?>"><?= $v ?></option>
+						<? endforeach ?>
+					</select>
+					<select name="locality" id="locality" data-native-menu="false" data-overlay-theme="d">
 						<option value=""> <?= _("Locality")?><b>*</b></option>
 					<? foreach (Categories::$localities as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
-					<select name="organization" id="organization" data-native-menu="false">
-						<option value=""> <?= _("Institution")?><b>*</b></option>
-					<? foreach (Categories::$organizations as $k=>$v) :?>
-						<option value="<?= $k ?>"><?= $v ?></option>
-					<? endforeach ?>
+					
+					<select name="area" id="area" data-native-menu="false" data-overlay-theme="d">
+						<option value=""> <?= _("Topic")?><b>*</b></option>
+					<?  foreach(Categories::$areas as $k=>$v) :?>
+							<optgroup label="<?= _($k) ?>">
+							<?  foreach($v as $item) :?>
+									<option value="<?= $item ?>"><?= _($item) ?></option>
+							<?  endforeach;?>
+							</optgroup>
+					<?  endforeach ?>
 					</select>
+					
 					<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 					<?if($_SESSION['myEdu']->details['role']=='professor'):?>
 						<p><b>**</b>: <i><?= _("Mandatory if you publish a course")?></i></p>
@@ -119,7 +125,7 @@
 			
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-icon="check" data-theme="g" value="<?=_('Publish') ?>" onclick="
-					$('#date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
+					$('#end').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
 				"/>
 			</div>
 	
@@ -130,7 +136,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;" class="ui-content">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<?= _("Create your offer by filling all the mandadtory fields.")?> 
+		<?= _("Create your offer by filling all the mandatory fields.")?> 
 	</div>
 	
 </div>

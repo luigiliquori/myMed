@@ -76,7 +76,7 @@
 			</div>
 			<!-- Birthday -->
 			<div data-role="fieldcontain">
-				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
+				<label for="birthday" style="text-align:right"><?= _("Date of birth") ?> : </label>
 				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			</div>
 			<!-- Profile picture -->
@@ -144,7 +144,7 @@
 				<input type="password" id="password" name="password" />
 			</div>
 			<div style="text-align: center;">
-				<input type="submit" data-inline="true" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
+				<input type="submit" data-inline="true" data-role="button" data-icon="ok" data-theme="g" value="<?= _('Update') ?>"/>
 			</div>
 		</form>
 		

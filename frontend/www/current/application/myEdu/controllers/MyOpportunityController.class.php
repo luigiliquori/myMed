@@ -19,8 +19,9 @@ class MyOpportunityController extends AuthenticatedController {
 		$this->subscribetype= "subscriptionInfos";
 		if (isset($_GET['opportunities'])){
 			//render last subscription publications
-			error_log("LOGROM: sub list ".$_POST["Subscription_list"]);
+			
 			if(isset($_POST["Subscription_list"])){
+				error_log("LOGROM: sub list ".$_POST["Subscription_list"]);
 				$this->find_define_publication($_POST["Subscription_list"]);
 			}
 			else{
@@ -47,16 +48,16 @@ class MyOpportunityController extends AuthenticatedController {
 	}
 	
 	function find_default_publication(){
-		$sub_array=$this->getSubscription();
+		$sub_array=$this->getSubscription(null);
 		if(count($sub_array) != 0){
 			$this->actual_subscription_name = $sub_array[0]->pubTitle;
-			$this->find_publication($sub_array[0]->category, $sub_array[0]->locality,$sub_array[0]->organization,$sub_array->area);
+			$this->find_publication($sub_array[0]->category, $sub_array[0]->locality,$sub_array[0]->organization,$sub_array[0]->area);
 		}
 	}
 	
 	function find_define_publication($pubTitle){
 		//get subscription name
-		$sub=$this->getSubscription();
+		$sub=$this->getSubscription(null);
 		$this->actual_subscription_name=$pubTitle;
 		foreach($sub as $val){
 			if($val->pubTitle == $pubTitle){

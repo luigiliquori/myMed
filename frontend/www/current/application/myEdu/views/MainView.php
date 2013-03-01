@@ -18,9 +18,9 @@
 		<!-- App description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Welcome") ?></h3>
-			<p><?= _("myEdu is a social network, linking universities, students and companies of the MedAlp region.<br>On this network, you can find offers for academic formation, internships, Ph.D. positions, job opporunities, as well as for the exchange of professors and pedagogical tools.") ?></p>	
+			<p><?= _("myEdu is a social network, linking universities, students and companies of the MedAlp region.<br>On this network, you can find offers for academic formation, internships, Ph.D. positions, job opportunities, as well as for cultural exchanges and teaching tools.") ?></p>	
 		</div>
-		
+		<br>
 		<!-- App Main menu -->
 	<?php if ($_SESSION['user']->is_guest) { ?>
 			<!-- User not authenticated -->
@@ -33,7 +33,7 @@
 		<a href="?action=myOpportunity&opportunities=true" data-icon="star" data-role="button" data-ajax="false" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My subscriptions") ?></a><br />	
 		<a href="index.php?action=publish&method=show_user_publications" data-icon="pencil" data-role="button" data-ajax="false"  <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEdu'])) ? " class='ui-disabled'" : "" ?>><?= _("My offers") ?></a><br />
 		<a href="?action=Find&search=true" data-role="button" data-icon="search"><?= _("Search offer") ?></a><br />
-		<a href="?action=MyCandidature&method=show_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEdu'])) ? " class='ui-disabled'" : "" ?>><?= _("My offer's applications") ?></a><br />
+		<a href="?action=MyCandidature&method=show_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest || !isset($_SESSION['myEdu'])) ? " class='ui-disabled'" : "" ?>><?= _("My offers adhesions") ?></a><br />
 		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
 
 		<a href="index.php#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
@@ -67,8 +67,8 @@
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/publish.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("My offer's applications")?></strong></p>
-						<p><?= _("Check all your offer's applications.") ?></p>
+						<p><strong><?= _("My offers adhesions")?></strong></p>
+						<p><?= _("Check all your offer adhesions.") ?></p>
 				</li>
 				<li>
 					<img alt="publish" src="img/icons/profile.png" Style="position:absolute; left:0px; width: 64px">
