@@ -20,11 +20,12 @@
   		   !strpos($_SERVER['HTTP_REFERER'],"&search=true")) {
   			$_SESSION['detailsview_valid_referer'] = '?action=find&search=true';
   		} 
-  		// Do not save back link if come from DetailsView, updateReputation popup
+  		// Do not save back link if come from DetailsView, updateReputation popup, apply
   		// or ModifyPublicationView
   		else if(!strpos($_SERVER['HTTP_REFERER'],"?action=details") &&
   		   !strpos($_SERVER['HTTP_REFERER'],"?action=updateReputation") &&
-  		   !strpos($_SERVER['HTTP_REFERER'],"&method=modify_publication") 	) {
+  		   !strpos($_SERVER['HTTP_REFERER'],"?action=apply") &&
+  		   !strpos($_SERVER['HTTP_REFERER'],"&method=modify_announcement") 	) {
   			$_SESSION['detailsview_valid_referer'] = $_SERVER['HTTP_REFERER'];
   		}
   		print_header_bar($_SESSION['detailsview_valid_referer'], false, $title);
@@ -104,7 +105,7 @@
 									<!-- Pop up delete -->	
 									<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
 									 <? if($_SESSION['myBenevolat']->permission == '2' && $this->result->publisherID!=$_SESSION['user']->id){ // deleted by the admin: send a mail to the author to inform him
-									 		echo _("You can attach a message for the author:"); ?> 
+									 		echo _("You can attach a message for the association:"); ?> 
 									 		<br />
 									 		<form action="?action=publish&method=delete" method="POST" data-ajax="false">
 									 			<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>

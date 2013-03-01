@@ -33,7 +33,7 @@
 							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
 							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
 							<b><?= _("Organization") ?></b>: <?= _($item->organization) ?><br/><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
 						<br/>

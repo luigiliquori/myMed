@@ -22,7 +22,7 @@
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to find") ?>?</h3>
-				<?= _("Specify properties to retrieve releated publications.")?>
+				<?= _("Specify properties to retrieve related publications.")?>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
@@ -93,7 +93,7 @@
 							<b><?= _("Locality") ?></b>: <?= _($item->locality) ?><br/>
 							<b><?= _("Language") ?></b>: <?= _($item->language) ?><br/>
 							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
 						<br/>
@@ -118,7 +118,7 @@
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
-								<p style="display:inline; margin-left:70px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+								<p style="display:inline; margin-left:70px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> <?= _("rates")?> </p>
 							</p>
 						</p>
 					</a>
@@ -132,8 +132,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="findViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<h3><?= _("FindView help") ?></h3>
-		<p> <?= _(" Use search parameters to find publications that are interesting for you.") ?></p>
+		<p> <?= _("Use search parameters to find publications that are interesting for you.") ?></p>
 	</div>
 	
 </div>

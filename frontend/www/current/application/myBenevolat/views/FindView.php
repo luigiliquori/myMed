@@ -27,36 +27,73 @@
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Find an announcement by criteria') ?> :</h3>
-		
-				<fieldset data-role="controlgroup">
-					<!-- Categoria -->
-					<select name="competence" id="find_competence_content" data-native-menu="false">
-						<option value=""><?= _("Select skill") ?></option>
-						<option value=""></option>
-						<? foreach (Categories::$competences as $k=>$v) :?>
-							<option value="<?= $k ?>"><?= $v ?></option>
-						<? endforeach ?>
-					</select>
-					<select name="quartier" id="find_quartier_content" data-native-menu="false">
-						<option value=""><?= _("Select district") ?></option>
-						<? foreach (Categories::$mobilite as $k=>$v) :?>
-							<option value="<?= $k ?>"><?= $v ?></option>
-						<? endforeach ?>
-					</select>
-					<select name="mission" id="find_mission_content" data-native-menu="false">
-						<option value=""><?= _("Select mission type") ?></option>
-						<? foreach (Categories::$missions as $k=>$v) :?>
-							<option value="<?= $k ?>"><?= $v ?></option>
-						<? endforeach ?>
-					</select>
-				</fieldset>
-			</div>
-			<div style="text-align: center;">
-				<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>"  data-iconpos="right" data-inline="true" onclick="
-					$('#find_competence').val($('#find_competence_content').val());
-					$('#find_quartier').val($('#find_quartier_content').val());
-					$('#find_mission').val($('#find_mission_content').val());
-				"/>
+				
+	   			<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
+					<div class="ui-block-a">
+						<input type="checkbox" name="competenceBox" id="check-view-e" onclick="toggle(this, '#find_skill_content')"/> 
+						<label for="check-view-e"><?= _("Skill")?></label>
+					</div>
+					<div class="ui-block-b">
+						<select disabled name="competence" id="find_skill_content" data-native-menu="false">
+							<option value=""><?= _("Select skill") ?></option>
+							<? foreach (Categories::$competences as $k=>$v) :?>
+								<option value="<?= $k ?>"><?= $v ?></option>
+							<? endforeach ?>
+						</select>
+					</div>
+				</div>
+				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
+					<div class="ui-block-a">
+						<input type="checkbox" name="mobilityBox" id="check-view-a" onclick="toggle(this, '#find_quartier_content')"/> 
+						<label for="check-view-a"><?= _("District")?></label>
+					</div>
+					<div class="ui-block-b">
+						<select disabled name="mobility" id="find_quartier_content" data-native-menu="false">
+							<option value=""><?= _('Select district') ?></option>
+							<? foreach (Categories::$mobilite as $k=>$v) :?>
+								<option value="<?= $k ?>"><?= $v ?></option>
+							<? endforeach ?>
+						</select>
+					</div>
+				</div>
+				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
+					<div class="ui-block-a">
+						<input type="checkbox" onclick="toggle(this, '#find_mission_content')" name="missionBox" id="check-view-b"/> 
+						<label for="check-view-b"><?= _("Mission type")?></label>
+					</div>
+					<div class="ui-block-b">
+						<select disabled name="mission" id="find_mission_content" data-native-menu="false">
+							<option value=""><?= _('Select mission type') ?></option>
+							<? foreach (Categories::$missions as $k=>$v) :?>
+								<option value="<?= $k ?>"><?= $v ?></option>
+							<? endforeach ?>
+						</select>
+					</div>
+				</div>
+				<script type="text/javascript"> 	
+					function toggle(chkbox, id) {
+					    if(chkbox.checked){
+						    $(id).selectmenu('enable');
+						}else {
+							$(id).selectmenu("disable");
+						}
+					}
+
+					function toggleText(chkbox, id) {
+					    if(chkbox.checked){
+						    $(id).textinput('enable');
+						}else {
+							$(id).textinput('disable'); 
+						}
+					}
+				</script>
+				<div style="text-align: center;">
+					<input type="submit" data-icon="search" data-theme="g" value="<?=_('Search') ?>"  data-iconpos="right" data-inline="true" onclick="
+						$('#find_competence').val($('#find_competence_content').val());
+						$('#find_quartier').val($('#find_quartier_content').val());
+						$('#find_mission').val($('#find_mission_content').val());
+					"/>
+				</div>
 			</div>
 		</form>
 		

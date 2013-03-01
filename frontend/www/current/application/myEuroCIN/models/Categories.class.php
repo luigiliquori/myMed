@@ -25,9 +25,9 @@ Categories::$localities = array(
 
 
 Categories::$languages = array(
-		"italian"	=> _("Italiano"),
-		"english"	=> _("Inglese"),
-		"france" => _("Francese")
+		"italian"	=> _("Italian"),
+		"english"	=> _("English"),
+		"france" => _("French")
 );
 
 Categories::$categories = array(

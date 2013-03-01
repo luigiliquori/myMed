@@ -9,7 +9,7 @@
 	
 	<!-- Header bar -->
 	<? $title=_("Results");
-	print_header_bar(true, false, $title); ?>
+	print_header_bar('?action=Find&search=true', false, $title); ?>
 	
 	
 	<!-- Page content -->
@@ -33,7 +33,7 @@
 							<b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/>
 							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
 							<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$item->typeMission] ?><br/>
-							<b><?= _("Disctrict") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
+							<b><?= _("District") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
 							<b><?= _("Skills") ?></b>: 
 						 <? if(gettype($item->competences)=="string"){ ?> <!-- only 1 skill -> string and not array -->
 								<?= Categories::$competences[$item->competences]?><br/><br/>

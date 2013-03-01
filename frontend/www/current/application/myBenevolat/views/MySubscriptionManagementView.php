@@ -26,9 +26,9 @@
 				<h3><?= _('Add a new subscription') ?> :</h3>
 				
 				<form action="index.php?action=mySubscriptionManagement" method="POST" data-ajax="false">
-						<input type="hidden" id="addSubscription" name="addSubscription" value="" />
+					<input type="hidden" id="addSubscription" name="addSubscription" value="" />
 
-										<!-- subscription name -->
+					<!-- subscription name -->
 	   				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 	   					<div class="ui-block-a">
 	   						<input type="checkbox" onclick="toggleText(this, '#nameSub')" name="nameSubCheck" id="check-view-d"/> 

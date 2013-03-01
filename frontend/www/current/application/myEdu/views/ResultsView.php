@@ -1,7 +1,7 @@
 
 <div data-role="page">
 	<? $title=_("Results");
-	print_header_bar(true, false, $title); ?>
+	print_header_bar("?action=Find&search=true", false, $title); ?>
 	
 	<div data-role="content" >
 		<? include_once 'notifications.php'; ?>

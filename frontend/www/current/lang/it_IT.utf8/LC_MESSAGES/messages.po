@@ -1527,6 +1527,12 @@ msgstr "Ecologia"
 msgid "Geology"
 msgstr "Geologia"
 
+msgid "Validated announcement"
+msgstr "Convalidato annuncio"
+
+msgid "Waiting the administrator validation"
+msgstr "In attesa della convalida amministratore"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/models/Categories.php:84
 msgid "Switzerland"
 msgstr "Svizzera"
@@ -2152,6 +2158,15 @@ msgstr "Cerca annuncio"
 msgid "My candidatures"
 msgstr "Le mie candidature"
 
+msgid "Last publications"
+msgstr "Ultime pubblicazioni"
+
+msgid "Use search parameters to find publications that are interesting for you."
+msgstr "Utilizzare i parametri di ricerca per trovare le pubblicazioni che sono interessanti per te."
+
+msgid "Specify properties to retrieve related publications."
+msgstr "Specificare le proprietà per il recupero delle relative pubblicazioni."
+
 msgid "(Yours)"
 msgstr "(La vostra)"
 
@@ -2293,6 +2308,18 @@ msgstr "Rifiutare"
 msgid "You can attach a message for the applier:"
 msgstr "Puoi allegare un messaggio:"
 
+msgid "You can attach a message for the association:"
+msgstr "Puoi allegare un messaggio:"
+
+msgid "My publications"
+msgstr "Le mie pubblicazioni"
+
+msgid "Search publication"
+msgstr "Ricerca pubblicazione"
+
+msgid "<b>EURO C.I.N. EEIG</b> (European Economic Interest Grouping), founded in 1994 by the chambers of transborder commerce Cuneo, Imperia and Nice, is now composed of institutions and companies representing the territories of Piedmont, Liguria and Provence-Alpes-Côte d'Azur.<br>In addition to the three founders (Cuneo, Imperia and Nice), the other members are the Chambers of Commerce of Asti, Alessandria, Genoa, Unioncamere Piedmont, Savona Port Authority, Municipality of Cuneo, Cuneo BRE Bank and Spa GEAC.<br>The Group's objectives is the desire to create a comprehensive and common inside and outside of the Euroregion (called Alpes-Maritimes), to promote economic integration, cultural and scientific development and promotion of cross-border flows territorial part of their particularities and traditions.<br>With myEurocin, the Group aims to introduce and encourage visitors most evocative, contemplating nature and well-being, curiosity, historic and artistic and many local products that characterize the Euroregion.<br>MyEurocin content is available to visitors who request their collaboration to improve implementation, providing information and suggestions.<br>Inclusion of new content to the site is possible after authentication."
+msgstr "<b>EURO C.I.N. GEIE</b> (Gruppo Europeo di Interesse Economico) fondato nel 1994, dalle Camere di commercio transfrontaliere di Cuneo, Imperia e Nizza, si compone oggi di istituzioni e aziende che rappresentano i territori di Piemonte, Liguria e Provence Alpes Côte d’Azur.<br>Oltre ai tre fondatori (Cuneo, Imperia e Nizza) gli altri membri sono le Camere di commercio di Asti, Alessandria, Genova, Unioncamere Piemonte, Autorità Portuale di Savona, Comune di Cuneo, BRE Banca Cuneo e GEAC Spa.<br>Tra gli obiettivi del Gruppo la volontà di creare un’immagine globale e comune all’interno e all’esterno dell’Euroregione (chiamata delle Alpi del Mare) favorendo l’integrazione economica, culturale e scientifica, lo sviluppo dei flussi transfrontalieri e la promozione dei territori che ne fanno parte con le loro peculiarità e tradizioni.<br>Attraverso myEurocin, il Gruppo si propone di presentare e suggerire ai visitatori le mete più suggestive, contemplando natura e benessere, curiosità storiche e artistiche e i numerosi prodotti tipici che caratterizzano l’Euroregione.<br>I contenuti di myEurocin sono liberamente consultabili dai visitatori, ai quali chiediamo la loro collaborazione per migliorare l’applicazione, fornendo informazioni e suggerimenti.<br>Ricordiamo agli utenti che l’inserimento di nuovi contenuti è possibile previa autenticazione al sito."
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/DetailsView.php:87
 msgid "Comment"
 msgstr "Commento"
@@ -2423,6 +2450,9 @@ msgstr "In attesa di convalida: "
 
 msgid "<b>Waiting application validation</b>"
 msgstr "<b>In attesa di convalida applicazione</b>"
+
+msgid "Are you sure you want to delete this announcement?"
+msgstr "Sei sicuro di voler cancellare questo annuncio?"
 
 msgid "<b>Member to this offer</b>"
 msgstr "<b>Membri a questa offerta</b>"
@@ -2734,6 +2764,9 @@ msgstr "Grazie di specificare la categoria"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:11
 msgid "Hello, This is your first time on myEurope! Please register by creating your own profile."
 msgstr "Buongiorno, E' la sua prima connessione a  myEurope! Si prega di registrarsi creando il proprio profilo."
+
+msgid "Hello, This is your first time in myEuroCIN! Please create your extended profile."
+msgstr "Buongiorno, E' la sua prima connessione a  myEuroCIN! Si prega di registrarsi creando il proprio profilo."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope/views/ExtendedProfileCreateView.php:85
 msgid "Create a new profile of your organization."
