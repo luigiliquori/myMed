@@ -41,8 +41,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 					// profile forward him to ExtendedProfileCreate View
 					if (!isset($_SESSION['myBenevolat']))
 						$this->renderView("ExtendedProfileCreate");
-					else
-						$this->showUserProfile($_GET['user']);
+					else{
+						if($_GET['user'] != $_SESSION['user']->id){
+								debug("OTHER PROFILE");
+								$this->showOtherProfile($_GET['user']);
+							}else{
+								$this->showUserProfile($_SESSION['user']->id);
+							}
+					}
 					break;
 					
 				// Start a wizard for the creation of a new profile
@@ -80,16 +86,15 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['form']);
 		
 		// Set user id 
-		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
-		$_POST['id'] = hash("md5", time().$_POST['name']);
+		//$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+		$_POST['id'] = hash("md5", time()/*.$_POST['name']*/);
 		
 		// Create the new profile
 		$publish =  new RequestJson($this,
 						array("application"=>APPLICATION_NAME.":profiles",
 						"id"=>$_POST['id'], 
 						"data"=>$_POST,
-						"metadata"=>array("type"=>$_POST['type'],
-						"name"=>$_POST['name'])),
+						"metadata"=>array("type"=>$_POST['type']/*, "name"=>$_POST['name']*/)),
 						CREATE);
 		$publish->send();
 	
@@ -99,9 +104,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->createUser($_POST['id'], $_POST['type']);
 	
 		// Display the new profile
-		$this->redirectTo(
-				"?action=ExtendedProfile&method=show_user_profile&user="
-				.$_SESSION['user']->id);		
+		$this->redirectTo("?action=ExtendedProfile&method=show_user_profile&user=".$_SESSION['user']->id);		
 	}
 	
 	/** 
@@ -168,7 +171,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		
 		$_POST['id'] = $id;
-		$_POST['picture'] = $_POST['profilePicture'];
+		unset($_POST['firstName']);
+		unset($_POST['lastName']);
+		unset($_POST['name']);
+		unset($_POST['birthday']);
+		unset($_POST['profilePicture']);
+		unset($_POST['lang']);
+		unset($_POST['email']);
+		unset($_POST['login']);
 		
 		// Update of the organization profile informations
 		$myrep = $_SESSION['myBenevolat']->reputation; 
@@ -186,21 +196,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			debug("ERROR4: ".$e->getMessage());
 		}
 		
-		if ($_POST['name']!= $_SESSION['myBenevolat']->details['name'] || 
-			$_POST['type']!=$_SESSION['myBenevolat']->details['type']) { 
-			
-			//also update profiles indexes
-			$publish =  new RequestJson(
-							$this,
-							array("application"=>APPLICATION_NAME.":profiles", 
-							"id"=>$_POST['id'], 
-							"user"=>"noNotification", 
-							"metadata"=>array("type"=>$_POST['type'], 
-							"name"=>$_POST['name'])),
-							CREATE);
-			$publish->send();
-		}
-		
 		if (!empty($this->error)) {
 			$this->renderView("ExtendedProfileEdit");
 		} else {
@@ -213,9 +208,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			// Redirect to main view
 			$this->redirectTo("?action=ExtendedProfile&method=show_user_profile&user=".$_SESSION['user']->id);
 		}
-		
 	}
-
 	
 	/** 
 	 * Delete an Extended profile and all releated publications 
@@ -223,6 +216,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	public function delete() {
 		
 		$this->deleteAnnouncements($_SESSION['user']->id); 
+		$this->delete_Applies($_SESSION['user']->id);
 		$this->deleteUser($_SESSION['user']->id);
 		
 		// Redirect to main view
@@ -353,9 +347,21 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Show another user Extended profile
 	 */
 	function showOtherProfile($id) {
+		/* basic profile */
+		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$id));
+		$responsejSon = $request->send();
+		$responseObject3 = json_decode($responsejSon);
 		
-		$this->profile = new myBenevolatProfile($id);
+		$this->basicProfile = (array) $responseObject3->dataObject->user;
 		
+		/*Extended profile */
+		$user = new User($id);
+		try {
+			$details = $this->mapper->findById($user);
+		} catch (Exception $e) {
+			$this->redirectTo("main");
+		}
+		$this->profile = new myBenevolatProfile($details['profile']);
 		try {
 			$this->profile->details = $this->mapper->findById($this->profile);
 		} catch (Exception $e) {
@@ -364,10 +370,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Get reputation
 		$this->profile->parseProfile();
-		$this->getReputation($id);
-		$this->profile->reputation = $this->reputationMap[$id];
-		$this->nbrates = $this->noOfRatesMap[$id];
-	
+		if (!empty($details['profile'])){
+			$this->getReputation($id);
+			$this->profile->reputation = $this->reputationMap[$id];
+			$this->nbrates = $this->noOfRatesMap[$id];
+		}
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
@@ -445,6 +452,20 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				$apply->delete();
 			}
 			$annonce->delete();
+		endforeach;
+	}
+	
+	/**
+	 * Delete all the applies the user did on announcements
+	 */
+	function delete_Applies($id){
+		$search_by_userid = new Apply();
+		$search_by_userid->publisher = $id;
+		$search_by_userid->publisherID = $id;
+		$result = $search_by_userid->find();
+	
+		foreach($result as $item) :
+			$item->delete();
 		endforeach;
 	}
 	
