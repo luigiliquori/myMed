@@ -131,7 +131,7 @@
 			<!-- Edit profile-->
 			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="pencil" data-inline="true"><?= _('Edit my profile') ?></a>
 			<!-- Delete profile-->
-			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
+			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Cancel my profile') ?></a>
 			<!-- Pop up delete profile -->	
 			<div data-role="popup" id="popupDeleteProfile" class="ui-content" Style="text-align: center; width: 18em;">
 				<?= _("Are you sure you want to delete your profile ?") ?><br /><br />
@@ -150,7 +150,7 @@
 	<!-- Help popup -->
 	<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-		<p> <?= _("You can customize your profile with e.g. language, photo, web page, work, telephone, affiliation by click on the \"Edit my profile\" button.<br>You can erase definitively your myEdu profile by click on the \"Delete my profile\" button.") ?></p>
+		<p> <?= _("You can customize your profile with e.g. language, photo, web page, work, telephone, affiliation by click on the \"Edit my profile\" button.<br>You can cancel your myEdu profile by clicking on the \"Cancel my profile\" button.") ?></p>
 	</div>
 	
 	

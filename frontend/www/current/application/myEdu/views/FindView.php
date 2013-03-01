@@ -24,7 +24,7 @@
 			
 	   			<fieldset data-role="controlgroup">
 					<!-- Categoria -->
-					<select name="Category" id="find_category_content" data-native-menu="false">
+					<select name="Category" id="find_category_content" data-native-menu="false" data-overlay-theme="d">
 						<option value=""><?= _("Select category") ?></option>
 						<? foreach (Categories::$categories as $k=>$v) :?>
 							<option value="<?= $k ?>"><?= $v ?></option>
@@ -39,10 +39,10 @@
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
 							<input type="checkbox" name="organizationBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
-							<label for="check-view-a"><?= _("Offering's organism")?></label>
+							<label for="check-view-a"><?= _("Offering organization")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select disabled name="organization" id="find_organization_content" data-native-menu="false">
+							<select disabled name="organization" id="find_organization_content" data-native-menu="false" data-overlay-theme="d">
 								<option value=""><?= _('Select organization') ?></option>
 								<? foreach (Categories::$organizations as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
@@ -52,10 +52,11 @@
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" onclick="toggle(this, '#find_locality_content')" name="localityBox" id="check-view-b"/> <label for="check-view-b"><?= _("Locality")?></label>
+							<input type="checkbox" onclick="toggle(this, '#find_locality_content')" name="localityBox" id="check-view-b"/> 
+							<label for="check-view-b"><?= _("Offer locality")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select disabled name="locality" id="find_locality_content" data-native-menu="false">
+							<select disabled name="locality" id="find_locality_content" data-native-menu="false" data-overlay-theme="d">
 								<option value=""><?= _('Select locality') ?></option>
 								<? foreach (Categories::$localities as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
@@ -69,11 +70,15 @@
 							<label for="check-view-c"><?= _("Topic")?></label>
 						</div>
 						<div class="ui-block-b" data-theme="d">
-							<select disabled name="Area" id="find_area_content" data-native-menu="false">
-								<option value=""><?= _('Select topic') ?></option>
-									<? foreach (Categories::$areas as $k=>$v) :?>
-										<option value="<?= $k ?>"><?= $v ?></option>
-									<? endforeach ?>
+							<select disabled name="Area" id="find_area_content" data-native-menu="false" data-overlay-theme="d">
+								<option value=""> <?= _("Select topic")?></option>
+								<?  foreach(Categories::$areas as $k=>$v) :?>
+										<optgroup label="<?= _($k) ?>">
+										<?  foreach($v as $item) :?>
+												<option value="<?= $item ?>"><?= _($item) ?></option>
+										<?  endforeach;?>
+										</optgroup>
+								<?  endforeach ?>
 							</select>
 						</div>
 					</div>
@@ -109,7 +114,15 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Topic") ?></b>: <?= Categories::$areas[$item->area] ?><br/>
+							<? $domain="Not defined";
+							foreach(Categories::$areas as $k=>$v) :
+								if(in_array($item->area, $v)){
+									$domain=$k;
+									break;
+								}
+							endforeach; ?>
+							<b><?= _("Topic") ?></b>: <?= _($item->area) ?><br/>
+							<b><?= _("Domain")?></b>: <?= _($domain) ?><br/>
 							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
 							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
 							<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$item->organization] ?><br/><br/>
@@ -138,7 +151,7 @@
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
-								<p style="display:inline; margin-left:35px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+								<p style="display:inline; margin-left:35px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> <?= _("rates")?> </p>
 							</p>
 						</p>
 					</a>

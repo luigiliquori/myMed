@@ -17,7 +17,7 @@
 	
  		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Why Register ?") ?></h3>
-			<p><?= _("By registering to myEdu you will be able to manage your subscriptions and your applications.") ?></p>
+			<p><?= _("By registering to myEdu you will be able to manage your subscriptions and your adhesions.") ?></p>
 			<p><?= _("Don't forget that you have the possibility to use your social network accounts to create your profile: see button")?> "<?= _("Connect with") ?>"</p>
 		</div>
 		

@@ -45,7 +45,7 @@
 							<label for="check-view-e"><?= _("Category")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select disabled name="Category" id="find_category_content" data-native-menu="false">
+							<select disabled name="Category" id="find_category_content" data-native-menu="false" data-overlay-theme="d">
 								<option value=""><?= _("Select category") ?></option>
 								<? foreach (Categories::$categories as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
@@ -59,7 +59,7 @@
 								<label for="check-view-a"><?= _("Organization to address")?></label>
 							</div>
 							<div class="ui-block-b">
-								<select disabled name="organization" id="find_organization_content" data-native-menu="false">
+								<select disabled name="organization" id="find_organization_content" data-native-menu="false" data-overlay-theme="d">
 									<option value=""><?= _('Select organization') ?></option>
 									<? foreach (Categories::$organizations as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
@@ -70,10 +70,10 @@
 						<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 							<div class="ui-block-a">
 								<input type="checkbox" onclick="toggle(this, '#find_locality_content')" name="localityBox" id="check-view-b"/> 
-								<label for="check-view-b"><?= _("Locality where have a look")?></label>
+								<label for="check-view-b"><?= _("Locality to browse")?></label>
 							</div>
 							<div class="ui-block-b">
-								<select disabled name="locality" id="find_locality_content" data-native-menu="false">
+								<select disabled name="locality" id="find_locality_content" data-native-menu="false" data-overlay-theme="d">
 									<option value=""><?= _('Select locality') ?></option>
 									<? foreach (Categories::$localities as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
@@ -87,11 +87,15 @@
 								<label for="check-view-c"><?= _("Topic")?></label>
 							</div>
 							<div class="ui-block-b">
-								<select disabled name="Area" id="find_area_content" data-native-menu="false">
-									<option value=""><?= _('Select topic') ?></option>
-										<? foreach (Categories::$areas as $k=>$v) :?>
-											<option value="<?= $k ?>"><?= $v ?></option>
-										<? endforeach ?>
+								<select disabled name="Area" id="find_area_content" data-native-menu="false" data-overlay-theme="d">
+									<option value=""> <?= _("Select topic")?></option>
+								<?  foreach(Categories::$areas as $k=>$v) :?>
+										<optgroup label="<?= _($k) ?>">
+										<?  foreach($v as $item) :?>
+												<option value="<?= $item ?>"><?= _($item) ?></option>
+										<?  endforeach;?>
+										</optgroup>
+								<?  endforeach ?>
 								</select>
 							</div>
 						</div>
@@ -150,7 +154,6 @@
 						echo createlist($val);
 						$predicate="category".$val->category."organization".$val->organization."locality".$val->locality."area".$val->area;
 						echo '</div><div class="ui-block-b">';
-						//echo '<a href="#" onclick=\'generate_delete_popup("'.$predicate.'","'.$val->pubTitle.'")\' data-icon="delete" type="button" data-rel="popup" data-theme="r" data-inline="true" style="float: right;">'._("Delete subscription").'</a>';
 						echo '<a href="#" onclick=\'generate_delete_popup("'.$predicate.'","'.$val->pubTitle.'")\' data-icon="delete" type="button" data-theme="r" data-inline="true" style="float: right;">'._("Delete subscription").'</a>';
 						echo '</div></div></li>';
 					}
@@ -160,8 +163,6 @@
 			
 			<script type="text/javascript">
 				function generate_delete_popup(predicate,pubTitle){
-					//$("#deletePopup").html("ça marche");
-					//$("#deletePopup").html(eval('<a href="#" data-type="button" data-theme="g">hello</a>'));
 					$("#deletePopup").html("<?= _("Are you sure ?")?>"+'\
 						<div class="ui-grid-a">\
 							<div class="ui-block-a">\
@@ -184,7 +185,6 @@
 			</script>
 			
 			<div data-role="popup" class="ui-content" id="deletePopup" style="text-align:center">
-			ça ne marche pas ne soit pas dégouté
 			</div>
 			
 			

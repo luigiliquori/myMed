@@ -20,7 +20,15 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Topic") ?></b>: <?= Categories::$areas[$item->area] ?><br/>
+							<? $domain="Not defined";
+							foreach(Categories::$areas as $k=>$v) :
+								if(in_array($item->area, $v)){
+									$domain=$k;
+									break;
+								}
+							endforeach; ?>
+							<b><?= _("Topic") ?></b>: <?= _($item->area) ?><br/>
+							<b><?= _("Domain")?></b>: <?= _($domain) ?><br/>
 							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
 							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
 							<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$item->organization] ?><br/><br/>
@@ -37,18 +45,18 @@
 									// Disable reputation stars if there are no votes yet 
 									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:90px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:85px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
-											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:90px; margin-top:3px;" />
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:85px; margin-top:3px;" />
 										<?php } else { ?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:90px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:85px; margin-top:3px;"/>
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
-								<p style="display:inline; margin-left:55px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+								<p style="display:inline; margin-left:55px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> <?= _("rates")?> </p>
 							</p>
 						</p>
 						
