@@ -1,0 +1,48 @@
+\hypertarget{namespacePseudoTcp}{
+\section{PseudoTcp Namespace Reference}
+\label{namespacePseudoTcp}\index{PseudoTcp@{PseudoTcp}}
+}
+
+
+The \hyperlink{namespacePseudoTcp}{PseudoTcp} namespace encapsulates the primary high-\/level objects involved in implementing the protocol.  
+
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classPseudoTcp_1_1Connection}{Connection}
+\begin{DoxyCompactList}\small\item\em A \hyperlink{classPseudoTcp_1_1Connection}{Connection} is what actually sends (or simulates sending of) a \hyperlink{classPseudoTcp_1_1Message}{Message}. \item\end{DoxyCompactList}\item 
+class \hyperlink{classPseudoTcp_1_1IConnection}{IConnection}
+\item 
+class \hyperlink{classPseudoTcp_1_1IMsgHandler}{IMsgHandler}
+\begin{DoxyCompactList}\small\item\em Interface for callback from \hyperlink{classPseudoTcp_1_1Connection}{Connection} with \hyperlink{classPseudoTcp_1_1Message}{Message}. \item\end{DoxyCompactList}\item 
+class \hyperlink{classPseudoTcp_1_1Message}{Message}
+\begin{DoxyCompactList}\small\item\em Encapsulates the protocol format. \item\end{DoxyCompactList}\item 
+class \hyperlink{classPseudoTcp_1_1MessageDispatcher}{MessageDispatcher}
+\begin{DoxyCompactList}\small\item\em Top level \hyperlink{namespacePseudoTcp}{PseudoTcp} object, which contains TX and TX parts. \item\end{DoxyCompactList}\item 
+class \hyperlink{classPseudoTcp_1_1PseudoTcpRx}{PseudoTcpRx}
+\begin{DoxyCompactList}\small\item\em encapsulates RX part of protocol \item\end{DoxyCompactList}\item 
+class \hyperlink{classPseudoTcp_1_1PseudoTcpTx}{PseudoTcpTx}
+\begin{DoxyCompactList}\small\item\em Encapsulates the sending half of the \hyperlink{namespacePseudoTcp}{PseudoTcp} protocol. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespacePseudoTcp_a10b946efa69f13c33185c8f649de35b3}{
+std::ostream \& {\bfseries MsgQueStr} (std::ostream \&o, std::queue$<$ \hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$ $>$ const vec)}
+\label{namespacePseudoTcp_a10b946efa69f13c33185c8f649de35b3}
+
+\item 
+\hypertarget{namespacePseudoTcp_ac9af1ba494def4141d86f496cfac163f}{
+std::ostream \& {\bfseries MsgDeqStr} (std::ostream \&o, std::deque$<$ \hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$ $>$ const vec)}
+\label{namespacePseudoTcp_ac9af1ba494def4141d86f496cfac163f}
+
+\item 
+\hypertarget{namespacePseudoTcp_a722918fd3d524ed82ffcccd03988c29d}{
+std::ostream \& {\bfseries EventDeqStr} (std::ostream \&o, std::deque$<$ \hyperlink{classLogger_1_1Event}{Logger::Event} $>$ const vec)}
+\label{namespacePseudoTcp_a722918fd3d524ed82ffcccd03988c29d}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{namespacePseudoTcp}{PseudoTcp} namespace encapsulates the primary high-\/level objects involved in implementing the protocol. 

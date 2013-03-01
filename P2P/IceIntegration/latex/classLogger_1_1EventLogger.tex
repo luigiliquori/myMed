@@ -1,0 +1,78 @@
+\hypertarget{classLogger_1_1EventLogger}{
+\section{Logger::EventLogger Class Reference}
+\label{classLogger_1_1EventLogger}\index{Logger::EventLogger@{Logger::EventLogger}}
+}
+
+
+{\ttfamily \#include $<$EventLogger.hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classLogger_1_1EventLogger_af7556a247349b831fc2286388651b519}{
+void {\bfseries addEvent} (\hyperlink{classLogger_1_1IEventLogger}{IEventLogger} $\ast$object, std::string event)}
+\label{classLogger_1_1EventLogger_af7556a247349b831fc2286388651b519}
+
+\item 
+\hypertarget{classLogger_1_1EventLogger_a4c3d63cf1b7ee732e440e92af220de7c}{
+void {\bfseries clearEvents} ()}
+\label{classLogger_1_1EventLogger_a4c3d63cf1b7ee732e440e92af220de7c}
+
+\item 
+\hypertarget{classLogger_1_1EventLogger_ad34b4fde8d58e32a0804a92f70b34413}{
+void {\bfseries outputEvents} (std::ostream \&stream)}
+\label{classLogger_1_1EventLogger_ad34b4fde8d58e32a0804a92f70b34413}
+
+\item 
+\hypertarget{classLogger_1_1EventLogger_a9d133349096938911223839726e6f29c}{
+void {\bfseries outputEvents} (std::ostream \&stream, std::string obName)}
+\label{classLogger_1_1EventLogger_a9d133349096938911223839726e6f29c}
+
+\item 
+\hypertarget{classLogger_1_1EventLogger_a18fc6a9cf8737c29942bca04449e89f3}{
+void {\bfseries persistEvents} (std::string path)}
+\label{classLogger_1_1EventLogger_a18fc6a9cf8737c29942bca04449e89f3}
+
+\item 
+\hypertarget{classLogger_1_1EventLogger_a2b255bd3a782d86c529e7b4891388a60}{
+void {\bfseries setIndentLevel} (std::string obName, int indent)}
+\label{classLogger_1_1EventLogger_a2b255bd3a782d86c529e7b4891388a60}
+
+\item 
+\hypertarget{classLogger_1_1EventLogger_ac30dc3b608680a6c60f183c49c541353}{
+void {\bfseries setEventLevel} (int eventLevel)}
+\label{classLogger_1_1EventLogger_ac30dc3b608680a6c60f183c49c541353}
+
+\item 
+\hypertarget{classLogger_1_1EventLogger_a80a0f5bacbb74f5bff8c3cc4b77ed568}{
+int {\bfseries getEventLevel} () const }
+\label{classLogger_1_1EventLogger_a80a0f5bacbb74f5bff8c3cc4b77ed568}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classLogger_1_1EventLogger_a9a4a948fbe302ad0cc7376725d4a1c5b}{
+static \hyperlink{classLogger_1_1EventLogger}{EventLogger} $\ast$ {\bfseries glob} ()}
+\label{classLogger_1_1EventLogger_a9a4a948fbe302ad0cc7376725d4a1c5b}
+
+\item 
+\hypertarget{classLogger_1_1EventLogger_a62f3ab4b10a9d804606cd62193e09716}{
+static void {\bfseries setGlob} (\hyperlink{classLogger_1_1EventLogger}{EventLogger} $\ast$logger)}
+\label{classLogger_1_1EventLogger_a62f3ab4b10a9d804606cd62193e09716}
+
+\item 
+\hypertarget{classLogger_1_1EventLogger_a0033da67870e179d920672a43da8b0f2}{
+static void {\bfseries addEventG} (int level, \hyperlink{classLogger_1_1IEventLogger}{IEventLogger} $\ast$object, std::string event)}
+\label{classLogger_1_1EventLogger_a0033da67870e179d920672a43da8b0f2}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classLogger_1_1EventLogger}{EventLogger} is for debugging. Keeps track of events logged by \hyperlink{classLogger_1_1IEventLogger}{IEventLogger} objects. 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+EventLogger.hpp\item 
+EventLogger.cpp\end{DoxyCompactItemize}

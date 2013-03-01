@@ -1,0 +1,148 @@
+\hypertarget{classPseudoTcp_1_1Message}{
+\section{PseudoTcp::Message Class Reference}
+\label{classPseudoTcp_1_1Message}\index{PseudoTcp::Message@{PseudoTcp::Message}}
+}
+
+
+Encapsulates the protocol format.  
+
+
+
+
+{\ttfamily \#include $<$Message.hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1Message_a638940a04839b0562f290f889241d024}{
+{\bfseries Message} (std::vector$<$ unsigned char $>$ payload)}
+\label{classPseudoTcp_1_1Message_a638940a04839b0562f290f889241d024}
+
+\item 
+\hyperlink{classPseudoTcp_1_1Message_a9adbafc6e615e070f8e0ef861a507421}{Message} (int n)
+\item 
+\hypertarget{classPseudoTcp_1_1Message_af505c01b16ce8a4df996328ec57e23de}{
+std::vector$<$ unsigned char $>$ \& \hyperlink{classPseudoTcp_1_1Message_af505c01b16ce8a4df996328ec57e23de}{GetByteArray} ()}
+\label{classPseudoTcp_1_1Message_af505c01b16ce8a4df996328ec57e23de}
+
+\begin{DoxyCompactList}\small\item\em Returns the payload. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_gaefd21c9f3d668b1e918bed1784afab84}{
+void \hyperlink{group__group1_gaefd21c9f3d668b1e918bed1784afab84}{SetAck} (bool ack)}
+\label{group__group1_gaefd21c9f3d668b1e918bed1784afab84}
+
+\begin{DoxyCompactList}\small\item\em Set whether this \hyperlink{classPseudoTcp_1_1Message}{Message} contains an Ack. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga6b3b9a3bccbaa08efa0ebfdbf6222581}{
+bool \hyperlink{group__group1_ga6b3b9a3bccbaa08efa0ebfdbf6222581}{IsAck} () const }
+\label{group__group1_ga6b3b9a3bccbaa08efa0ebfdbf6222581}
+
+\begin{DoxyCompactList}\small\item\em true if the \hyperlink{classPseudoTcp_1_1Message}{Message} is an Ack \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_gafdf542899b221aee3bbce73738d9b809}{
+void \hyperlink{group__group1_gafdf542899b221aee3bbce73738d9b809}{SetNumber} (int number)}
+\label{group__group1_gafdf542899b221aee3bbce73738d9b809}
+
+\begin{DoxyCompactList}\small\item\em Number property is sequential numbering of Messages sent by a \hyperlink{classPseudoTcp_1_1PseudoTcpTx}{PseudoTcpTx}. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_gada70d38e0b9059de0d8f61fbda4adf30}{
+int \hyperlink{group__group1_gada70d38e0b9059de0d8f61fbda4adf30}{GetNumber} () const }
+\label{group__group1_gada70d38e0b9059de0d8f61fbda4adf30}
+
+\begin{DoxyCompactList}\small\item\em Number property is sequential numbering of Messages sent by a \hyperlink{classPseudoTcp_1_1PseudoTcpTx}{PseudoTcpTx}. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga4fee4812147aa855109d0aed46a6030c}{
+void \hyperlink{group__group1_ga4fee4812147aa855109d0aed46a6030c}{SetReqAck} (bool reqAck)}
+\label{group__group1_ga4fee4812147aa855109d0aed46a6030c}
+
+\begin{DoxyCompactList}\small\item\em ReqAck property determines whether this \hyperlink{classPseudoTcp_1_1Message}{Message} requests an ack. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_gae74d45f2834806fda6d72c44f651793c}{
+bool \hyperlink{group__group1_gae74d45f2834806fda6d72c44f651793c}{IsReqAck} () const }
+\label{group__group1_gae74d45f2834806fda6d72c44f651793c}
+
+\begin{DoxyCompactList}\small\item\em ReqAck property determines whether this \hyperlink{classPseudoTcp_1_1Message}{Message} requests an ack. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga2c8aa429145e2bf950d0e1b4f25e5f1c}{
+void \hyperlink{group__group1_ga2c8aa429145e2bf950d0e1b4f25e5f1c}{SetAckNumber} (int ackNumber)}
+\label{group__group1_ga2c8aa429145e2bf950d0e1b4f25e5f1c}
+
+\begin{DoxyCompactList}\small\item\em AckNumber property is the \hyperlink{classPseudoTcp_1_1Message}{Message} number of the message we are acking. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga5cb28e660d6cbed4a7bffbe6c2597cb9}{
+int \hyperlink{group__group1_ga5cb28e660d6cbed4a7bffbe6c2597cb9}{GetAckNumber} () const }
+\label{group__group1_ga5cb28e660d6cbed4a7bffbe6c2597cb9}
+
+\begin{DoxyCompactList}\small\item\em AckNumber property is the \hyperlink{classPseudoTcp_1_1Message}{Message} number of the message we are acking. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga21fdfd49d1112874b860a10094f7dbe4}{
+void \hyperlink{group__group1_ga21fdfd49d1112874b860a10094f7dbe4}{SetAckBase} (int ackBase)}
+\label{group__group1_ga21fdfd49d1112874b860a10094f7dbe4}
+
+\begin{DoxyCompactList}\small\item\em AckBase property represents the lowest missing \hyperlink{classPseudoTcp_1_1Message}{Message} number. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga18f1c004034b89226d9c29a16425e18f}{
+int \hyperlink{group__group1_ga18f1c004034b89226d9c29a16425e18f}{GetAckBase} () const }
+\label{group__group1_ga18f1c004034b89226d9c29a16425e18f}
+
+\begin{DoxyCompactList}\small\item\em AckBase property represents the lowest missing \hyperlink{classPseudoTcp_1_1Message}{Message} number. \item\end{DoxyCompactList}\item 
+void \hyperlink{group__group1_ga8d775b77bb73f7db77e0f8fec82b9a26}{SetLastSent} (double lastSent)
+\begin{DoxyCompactList}\small\item\em LastSent property is the time of the most recent attempted send of the \hyperlink{classPseudoTcp_1_1Message}{Message}. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga342f652745ccf8d643991905c3c4ac0a}{
+double \hyperlink{group__group1_ga342f652745ccf8d643991905c3c4ac0a}{GetLastSent} () const }
+\label{group__group1_ga342f652745ccf8d643991905c3c4ac0a}
+
+\begin{DoxyCompactList}\small\item\em LastSent property is the time of the most recent attempted send of the \hyperlink{classPseudoTcp_1_1Message}{Message}. \item\end{DoxyCompactList}\item 
+std::bitset$<$ MSG\_\-WIN $>$ \hyperlink{group__group1_gaa74cf86697d336a90508f375067e02ef}{GetMsgsReceived} ()
+\begin{DoxyCompactList}\small\item\em for debugging only. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_gaaf86c7594534b605b19a0f7843c02e93}{
+void \hyperlink{group__group1_gaaf86c7594534b605b19a0f7843c02e93}{SetMsgsReceived} (std::bitset$<$ MSG\_\-WIN $>$ msgsReceived)}
+\label{group__group1_gaaf86c7594534b605b19a0f7843c02e93}
+
+\begin{DoxyCompactList}\small\item\em each bit represents a \hyperlink{classPseudoTcp_1_1Message}{Message} in the window, 1 if received, 0 if not \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Message_a594bb615fbd8a2b617ee0123b8b0f731}{
+bool \hyperlink{classPseudoTcp_1_1Message_a594bb615fbd8a2b617ee0123b8b0f731}{hasPayload} ()}
+\label{classPseudoTcp_1_1Message_a594bb615fbd8a2b617ee0123b8b0f731}
+
+\begin{DoxyCompactList}\small\item\em true if message has payload (is not just an ack) \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Message_ac73b3655ae61e6140019d819383c594e}{
+std::string \hyperlink{classPseudoTcp_1_1Message_ac73b3655ae61e6140019d819383c594e}{toString} () const }
+\label{classPseudoTcp_1_1Message_ac73b3655ae61e6140019d819383c594e}
+
+\begin{DoxyCompactList}\small\item\em A more detailed output then $<$$<$. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1Message_af700d12cf3f42af92dd2bf65cf9a20a3}{
+static const int \hyperlink{classPseudoTcp_1_1Message_af700d12cf3f42af92dd2bf65cf9a20a3}{UNNUMBERED} = -\/1}
+\label{classPseudoTcp_1_1Message_af700d12cf3f42af92dd2bf65cf9a20a3}
+
+\begin{DoxyCompactList}\small\item\em Special value of property Number to indicate unitialized. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Message_a28f26b18c79f0081d076b4ff521cea37}{
+static const double \hyperlink{classPseudoTcp_1_1Message_a28f26b18c79f0081d076b4ff521cea37}{NEVER\_\-SENT} = -\/1.0}
+\label{classPseudoTcp_1_1Message_a28f26b18c79f0081d076b4ff521cea37}
+
+\begin{DoxyCompactList}\small\item\em Special value of property LastSent to indicate \hyperlink{classPseudoTcp_1_1Message}{Message} has never been sent. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1Message_ac98d07dd8f7b70e16ccb9a01abf56b9c}{
+class \hyperlink{classPseudoTcp_1_1Message_ac98d07dd8f7b70e16ccb9a01abf56b9c}{boost::serialization::access}}
+\label{classPseudoTcp_1_1Message_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\begin{DoxyCompactList}\small\item\em Boost serialization. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Message_ab393938982c2c1738d4a96618c53e340}{
+std::ostream \& {\bfseries operator$<$$<$} (std::ostream \&o, \hyperlink{classPseudoTcp_1_1Message}{Message} const \&msg)}
+\label{classPseudoTcp_1_1Message_ab393938982c2c1738d4a96618c53e340}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Encapsulates the protocol format. GetByteArray returns the payload, the rest is the header. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classPseudoTcp_1_1Message_a9adbafc6e615e070f8e0ef861a507421}{
+\index{PseudoTcp::Message@{PseudoTcp::Message}!Message@{Message}}
+\index{Message@{Message}!PseudoTcp::Message@{PseudoTcp::Message}}
+\subsubsection[{Message}]{\setlength{\rightskip}{0pt plus 5cm}PseudoTcp::Message::Message (int {\em n})}}
+\label{classPseudoTcp_1_1Message_a9adbafc6e615e070f8e0ef861a507421}
+For testing purposes, create a message of length n whose elements are 'a' 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+Message.hpp\item 
+Message.cpp\end{DoxyCompactItemize}

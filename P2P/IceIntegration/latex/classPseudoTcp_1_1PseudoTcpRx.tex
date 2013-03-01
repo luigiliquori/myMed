@@ -1,0 +1,130 @@
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx}{
+\section{PseudoTcp::PseudoTcpRx Class Reference}
+\label{classPseudoTcp_1_1PseudoTcpRx}\index{PseudoTcp::PseudoTcpRx@{PseudoTcp::PseudoTcpRx}}
+}
+
+
+encapsulates RX part of protocol  
+
+
+
+
+{\ttfamily \#include $<$PseudoTcpRx.hpp$>$}
+
+Inheritance diagram for PseudoTcp::PseudoTcpRx:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{classPseudoTcp_1_1PseudoTcpRx}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_affb9c0ab2a36efac35367d2e3c79a489}{
+{\bfseries PseudoTcpRx} (\hyperlink{classPseudoTcp_1_1PseudoTcpTx}{PseudoTcpTx} $\ast$tx, int msgBufferSize)}
+\label{classPseudoTcp_1_1PseudoTcpRx_affb9c0ab2a36efac35367d2e3c79a489}
+
+\item 
+int \hyperlink{classPseudoTcp_1_1PseudoTcpRx_aa55a67cd15ae280201e8d0f0e669c7d1}{incomingMessage} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)
+\item 
+void \hyperlink{classPseudoTcp_1_1PseudoTcpRx_a1aa8f7e24cb9f2874f1a64a09ee05a50}{sendAck} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_a78415c5ad421240b7c703457895b6fdc}{
+\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$ \hyperlink{classPseudoTcp_1_1PseudoTcpRx_a78415c5ad421240b7c703457895b6fdc}{getNextMessage} ()}
+\label{classPseudoTcp_1_1PseudoTcpRx_a78415c5ad421240b7c703457895b6fdc}
+
+\begin{DoxyCompactList}\small\item\em Returns next message in order. If none available, returns NULL;. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_ab9917709e5c28986442be9723845ff41}{
+\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$ {\bfseries getMessagesReceivedLog} ()}
+\label{classPseudoTcp_1_1PseudoTcpRx_ab9917709e5c28986442be9723845ff41}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_a02a4c0427ffadb328662e04fdde80518}{
+void {\bfseries setNextMsgIndex} (int nextMsgIndex)}
+\label{classPseudoTcp_1_1PseudoTcpRx_a02a4c0427ffadb328662e04fdde80518}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_af42d85cc23fe516691cb38935b99945e}{
+int {\bfseries getNextMsgIndex} () const }
+\label{classPseudoTcp_1_1PseudoTcpRx_af42d85cc23fe516691cb38935b99945e}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_a9e1169de580b94339ad3bbcb7bd3559b}{
+void {\bfseries setTestMode} (int testMode)}
+\label{classPseudoTcp_1_1PseudoTcpRx_a9e1169de580b94339ad3bbcb7bd3559b}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_ae4ff932fdc6e913a59c7bb2f3cd14bd6}{
+int {\bfseries getTestMode} () const }
+\label{classPseudoTcp_1_1PseudoTcpRx_ae4ff932fdc6e913a59c7bb2f3cd14bd6}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_ada5eb147bc771df7dd4e32c11cc77c4c}{
+void {\bfseries printState} (std::ostream \&o)}
+\label{classPseudoTcp_1_1PseudoTcpRx_ada5eb147bc771df7dd4e32c11cc77c4c}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_abad5470549d03a14436775ac52acd7d0}{
+std::string \hyperlink{classPseudoTcp_1_1PseudoTcpRx_abad5470549d03a14436775ac52acd7d0}{logString} ()}
+\label{classPseudoTcp_1_1PseudoTcpRx_abad5470549d03a14436775ac52acd7d0}
+
+\begin{DoxyCompactList}\small\item\em IEventLogger function. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_aa85e034bcce1875d4295d96c54ab74a5}{
+std::string \hyperlink{classPseudoTcp_1_1PseudoTcpRx_aa85e034bcce1875d4295d96c54ab74a5}{GetLogName} ()}
+\label{classPseudoTcp_1_1PseudoTcpRx_aa85e034bcce1875d4295d96c54ab74a5}
+
+\begin{DoxyCompactList}\small\item\em IEventLogger function. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_a46d679252d77f1c7145fa03aae6597a2}{
+void {\bfseries setId} (int id)}
+\label{classPseudoTcp_1_1PseudoTcpRx_a46d679252d77f1c7145fa03aae6597a2}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_a0f1fc51ed563586383efd74afcd90bcf}{
+int {\bfseries getId} () const }
+\label{classPseudoTcp_1_1PseudoTcpRx_a0f1fc51ed563586383efd74afcd90bcf}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_af906343529e16495228f9852e1ca83c6}{
+std::ostream \& {\bfseries operator$<$$<$} (std::ostream \&o, \hyperlink{classPseudoTcp_1_1PseudoTcpRx}{PseudoTcpRx} const \&rx)}
+\label{classPseudoTcp_1_1PseudoTcpRx_af906343529e16495228f9852e1ca83c6}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+encapsulates RX part of protocol The receiving end is responsable for:
+\begin{DoxyEnumerate}
+\item Ordering incoming messages
+\item Making incoming messages available to higher level
+\item Sending acks when needed 
+\end{DoxyEnumerate}
+
+\subsection{Member Function Documentation}
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_aa55a67cd15ae280201e8d0f0e669c7d1}{
+\index{PseudoTcp::PseudoTcpRx@{PseudoTcp::PseudoTcpRx}!incomingMessage@{incomingMessage}}
+\index{incomingMessage@{incomingMessage}!PseudoTcp::PseudoTcpRx@{PseudoTcp::PseudoTcpRx}}
+\subsubsection[{incomingMessage}]{\setlength{\rightskip}{0pt plus 5cm}int PseudoTcp::PseudoTcpRx::incomingMessage ({\bf Message} $\ast$ {\em msg})}}
+\label{classPseudoTcp_1_1PseudoTcpRx_aa55a67cd15ae280201e8d0f0e669c7d1}
+Callback for incoming message, called by \hyperlink{classPseudoTcp_1_1Connection}{Connection}. 
+\begin{DoxyParams}{Parameters}
+\item[{\em msg}]The message itself. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes received. 
+\end{DoxyReturn}
+\hypertarget{classPseudoTcp_1_1PseudoTcpRx_a1aa8f7e24cb9f2874f1a64a09ee05a50}{
+\index{PseudoTcp::PseudoTcpRx@{PseudoTcp::PseudoTcpRx}!sendAck@{sendAck}}
+\index{sendAck@{sendAck}!PseudoTcp::PseudoTcpRx@{PseudoTcp::PseudoTcpRx}}
+\subsubsection[{sendAck}]{\setlength{\rightskip}{0pt plus 5cm}void PseudoTcp::PseudoTcpRx::sendAck ({\bf Message} $\ast$ {\em msg})}}
+\label{classPseudoTcp_1_1PseudoTcpRx_a1aa8f7e24cb9f2874f1a64a09ee05a50}
+Send ack for \hyperlink{classPseudoTcp_1_1Message}{Message}. 
+\begin{DoxyParams}{Parameters}
+\item[{\em msg}]The \hyperlink{classPseudoTcp_1_1Message}{Message} to acknowledge. \end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{PseudoTcpRx_8hpp}{PseudoTcpRx.hpp}\item 
+PseudoTcpRx.cpp\end{DoxyCompactItemize}

@@ -1,0 +1,87 @@
+\hypertarget{classmymed_1_1JavaIceWrapper}{
+\section{mymed::JavaIceWrapper Class Reference}
+\label{classmymed_1_1JavaIceWrapper}\index{mymed::JavaIceWrapper@{mymed::JavaIceWrapper}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+native void \hyperlink{classmymed_1_1JavaIceWrapper_acbc9014ee604c6dfbec6e1f3c1f4500e}{getConnection} (String name, int service)
+\item 
+native void \hyperlink{classmymed_1_1JavaIceWrapper_ae3d2b5589121f5d5f0184aea567fd4e5}{send} (String name, String msg)
+\item 
+native String \hyperlink{classmymed_1_1JavaIceWrapper_af9bc0222407efaa31cb5237dbc3056c2}{getUsersString} ()
+\item 
+native String \hyperlink{classmymed_1_1JavaIceWrapper_a800d9af066725c394979d86aabb10ba8}{getInput} ()
+\item 
+native String \hyperlink{classmymed_1_1JavaIceWrapper_a8a950610ddf0c69e287f6d1702b97387}{getInput} (StringBuffer from)
+\item 
+native int \hyperlink{classmymed_1_1JavaIceWrapper_af06e8244e449b1b5e65948ea70581d6a}{hasConnection} (String name, int service)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class loads the library which provided peer-\/to-\/peer connections for MyMed, and furnishes a java intervace via JNI to this functionality. \begin{DoxyAuthor}{Author}
+Peter Neuss 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classmymed_1_1JavaIceWrapper_acbc9014ee604c6dfbec6e1f3c1f4500e}{
+\index{mymed::JavaIceWrapper@{mymed::JavaIceWrapper}!getConnection@{getConnection}}
+\index{getConnection@{getConnection}!mymed::JavaIceWrapper@{mymed::JavaIceWrapper}}
+\subsubsection[{getConnection}]{\setlength{\rightskip}{0pt plus 5cm}native void mymed::JavaIceWrapper::getConnection (String {\em name}, \/  int {\em service})}}
+\label{classmymed_1_1JavaIceWrapper_acbc9014ee604c6dfbec6e1f3c1f4500e}
+Establish connection with user for an application 
+\begin{DoxyParams}{Parameters}
+\item[{\em name}]user to connect to \item[{\em service}]MyMed application number to use \end{DoxyParams}
+\hypertarget{classmymed_1_1JavaIceWrapper_a8a950610ddf0c69e287f6d1702b97387}{
+\index{mymed::JavaIceWrapper@{mymed::JavaIceWrapper}!getInput@{getInput}}
+\index{getInput@{getInput}!mymed::JavaIceWrapper@{mymed::JavaIceWrapper}}
+\subsubsection[{getInput}]{\setlength{\rightskip}{0pt plus 5cm}native String mymed::JavaIceWrapper::getInput (StringBuffer {\em from})}}
+\label{classmymed_1_1JavaIceWrapper_a8a950610ddf0c69e287f6d1702b97387}
+Scan all MessageDispatchers, if any have input return the input. 
+\begin{DoxyParams}{Parameters}
+\item[{\em from}]'out' parameter will be set to userName of user who sent the input. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the input 
+\end{DoxyReturn}
+\hypertarget{classmymed_1_1JavaIceWrapper_a800d9af066725c394979d86aabb10ba8}{
+\index{mymed::JavaIceWrapper@{mymed::JavaIceWrapper}!getInput@{getInput}}
+\index{getInput@{getInput}!mymed::JavaIceWrapper@{mymed::JavaIceWrapper}}
+\subsubsection[{getInput}]{\setlength{\rightskip}{0pt plus 5cm}native String mymed::JavaIceWrapper::getInput ()}}
+\label{classmymed_1_1JavaIceWrapper_a800d9af066725c394979d86aabb10ba8}
+obsolete, do not use. \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classmymed_1_1JavaIceWrapper_af9bc0222407efaa31cb5237dbc3056c2}{
+\index{mymed::JavaIceWrapper@{mymed::JavaIceWrapper}!getUsersString@{getUsersString}}
+\index{getUsersString@{getUsersString}!mymed::JavaIceWrapper@{mymed::JavaIceWrapper}}
+\subsubsection[{getUsersString}]{\setlength{\rightskip}{0pt plus 5cm}native String mymed::JavaIceWrapper::getUsersString ()}}
+\label{classmymed_1_1JavaIceWrapper_af9bc0222407efaa31cb5237dbc3056c2}
+Return the userstring received from Rendezvous server \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classmymed_1_1JavaIceWrapper_af06e8244e449b1b5e65948ea70581d6a}{
+\index{mymed::JavaIceWrapper@{mymed::JavaIceWrapper}!hasConnection@{hasConnection}}
+\index{hasConnection@{hasConnection}!mymed::JavaIceWrapper@{mymed::JavaIceWrapper}}
+\subsubsection[{hasConnection}]{\setlength{\rightskip}{0pt plus 5cm}native int mymed::JavaIceWrapper::hasConnection (String {\em name}, \/  int {\em service})}}
+\label{classmymed_1_1JavaIceWrapper_af06e8244e449b1b5e65948ea70581d6a}
+See if there has already been a connection established to user 
+\begin{DoxyParams}{Parameters}
+\item[{\em name}]other user \item[{\em service}]MyMed application number \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if there is a connection, 0 otherwise 
+\end{DoxyReturn}
+\hypertarget{classmymed_1_1JavaIceWrapper_ae3d2b5589121f5d5f0184aea567fd4e5}{
+\index{mymed::JavaIceWrapper@{mymed::JavaIceWrapper}!send@{send}}
+\index{send@{send}!mymed::JavaIceWrapper@{mymed::JavaIceWrapper}}
+\subsubsection[{send}]{\setlength{\rightskip}{0pt plus 5cm}native void mymed::JavaIceWrapper::send (String {\em name}, \/  String {\em msg})}}
+\label{classmymed_1_1JavaIceWrapper_ae3d2b5589121f5d5f0184aea567fd4e5}
+Send a message to a user 
+\begin{DoxyParams}{Parameters}
+\item[{\em name}]destination user \item[{\em msg}]message to send \end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+mymed/JavaIceWrapper.java\end{DoxyCompactItemize}
