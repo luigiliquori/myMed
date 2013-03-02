@@ -102,7 +102,10 @@ static NavigationModel *instance = nil;
         [pag release];
         return;
     } else if ( [elementName isEqualToString:@"item"] ) {
-        [parentPage.items addObject:[attributeDict objectForKey:@"title"]];
+        Item *itm = [[[Item alloc] init] autorelease];
+        itm.title = [attributeDict objectForKey:@"title"];
+        itm.subtitle = [attributeDict objectForKey:@"subtitle"];
+        [parentPage.items addObject:itm];
         return;
     } else if ( [elementName isEqualToString:@"person"] ) {
         return;
