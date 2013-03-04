@@ -139,8 +139,9 @@
     ((UIImageView *)cell.selectedBackgroundView).image = selectionBackground;
     
     // Configure the cell...
-    NSString *i = [self.page.items objectAtIndex:row];
-    cell.textLabel.text = i;
+    Item *i = [self.page.items objectAtIndex:row];
+    cell.textLabel.text = i.title;
+    cell.detailTextLabel.text = i.subtitle;
 
     return cell;
 }

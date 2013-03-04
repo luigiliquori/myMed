@@ -66,7 +66,7 @@
                                                   delegate:self
                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                     destructiveButtonTitle:nil
-                                         otherButtonTitles:NSLocalizedString(@"Email about this app", nil), nil];
+                                         otherButtonTitles:NSLocalizedString(@"Email about this app", nil), @"myMed web site", nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
 }
@@ -104,7 +104,11 @@
     if (buttonIndex==actionSheet.firstOtherButtonIndex) {
         [self sendEmail];
         return;
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+1)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr"]];
+        return;
     }
+
 }
 
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {

@@ -84,7 +84,6 @@
 		63A778C7168B34DE005082B9 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A778C6168B34DE005082B9 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63A778C9168B34F6005082B9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A778C8168B34F6005082B9 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63C9D75816C91EC300C4C6EB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C9D75716C91EC300C4C6EB /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		63D0FBAF16CD512C00518327 /* myFSA-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63D0FBAD16CD512C00518327 /* myFSA-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -563,7 +562,6 @@
 				639F663116C44F3600C753AF /* row@2x.png in Resources */,
 				639F663216C44F3600C753AF /* toprow.png in Resources */,
 				639F663316C44F3600C753AF /* toprow@2x.png in Resources */,
-				63D0FBAF16CD512C00518327 /* myFSA-Info.plist in Resources */,
 				6393D6DB16D67DC300F991FA /* case.png in Resources */,
 				6393D6DC16D67DC300F991FA /* case@2x.png in Resources */,
 				6393D6DF16D67EEF00F991FA /* star.png in Resources */,
@@ -731,7 +729,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luigi Liquori";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "src/myFSA-Prefix.pch";
@@ -739,12 +737,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/src/testflight\"",
 					"\"$(SRCROOT)/testflight\"",
 				);
 				PRODUCT_NAME = myFSA;
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8A14E3E1-D926-45A7-949A-8DDB3727B667";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

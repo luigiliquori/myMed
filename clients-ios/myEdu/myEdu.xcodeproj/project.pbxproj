@@ -94,6 +94,7 @@
 		63A778C7168B34DE005082B9 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A778C6168B34DE005082B9 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63A778C9168B34F6005082B9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63A778C8168B34F6005082B9 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63C9D75816C91EC300C4C6EB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C9D75716C91EC300C4C6EB /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		63CB03D616E24304008FB39E /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CB03D516E24304008FB39E /* Item.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,6 +209,8 @@
 		63A778C6168B34DE005082B9 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		63A778C8168B34F6005082B9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		63C9D75716C91EC300C4C6EB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		63CB03D416E24304008FB39E /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		63CB03D516E24304008FB39E /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +246,9 @@
 		63056C8416C1612A0044E167 /* pagesNavigator */ = {
 			isa = PBXGroup;
 			children = (
+				63CB03D416E24304008FB39E /* Item.h */,
+				63CB03D516E24304008FB39E /* Item.m */,
+				63056C9016C165CA0044E167 /* data.xml */,
 				63056C8B16C161ED0044E167 /* PagesViewController.xib */,
 				63056C8516C161ED0044E167 /* NavigationModel.h */,
 				63056C8616C161ED0044E167 /* NavigationModel.m */,
@@ -411,6 +417,7 @@
 				63425C7216BEB2EC00F2E889 /* FirstScreenViewController.m */,
 				63425C7316BEB2EC00F2E889 /* FirstScreenViewController.xib */,
 				63425C7416BEB2EC00F2E889 /* FirstScreenViewControllerIPad.xib */,
+				63425CDE16BEB32B00F2E889 /* first.html */,
 				63425C6316BEB2DC00F2E889 /* AppDelegate.h */,
 				63425C6416BEB2DC00F2E889 /* AppDelegate.m */,
 				630BDA4F16B1D60A006AC8E5 /* checklist */,
@@ -426,7 +433,6 @@
 		636AA0811683388E00258839 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				63056C9016C165CA0044E167 /* data.xml */,
 				6320CA6616BEB557001D193D /* Default-568h@2x.png */,
 				6320CA6716BEB557001D193D /* Default.png */,
 				63425C7D16BEB2F900F2E889 /* main.m */,
@@ -437,7 +443,6 @@
 				63425C5B16BEB2CD00F2E889 /* Icon-144.png */,
 				63425C5C16BEB2CD00F2E889 /* Icon.png */,
 				63425C5D16BEB2CD00F2E889 /* Icon@2x.png */,
-				63425CDE16BEB32B00F2E889 /* first.html */,
 				63425CE216BEB32B00F2E889 /* InfoPlist.strings */,
 				63425CE416BEB32B00F2E889 /* Localizable.strings */,
 				63425C9916BEB31800F2E889 /* imgs */,
@@ -644,6 +649,7 @@
 				63056C8C16C161ED0044E167 /* NavigationModel.m in Sources */,
 				63056C8D16C161ED0044E167 /* Page.m in Sources */,
 				63056C8E16C161ED0044E167 /* PagesViewController.m in Sources */,
+				63CB03D616E24304008FB39E /* Item.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

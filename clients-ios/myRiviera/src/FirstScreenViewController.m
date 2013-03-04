@@ -66,7 +66,7 @@
                                                   delegate:self
                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                     destructiveButtonTitle:nil
-                                         otherButtonTitles:NSLocalizedString(@"Email about this app", nil), nil];
+                                         otherButtonTitles:NSLocalizedString(@"Email about this app", nil), @"MyMed web site", nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
 }
@@ -88,7 +88,7 @@
     else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
-                                                        message:@"Your device is not set up for     email." delegate:self
+                                                        message:@"Your device is not set up for email." delegate:self
                                               cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];   
         [alert release];
@@ -103,6 +103,9 @@
     
     if (buttonIndex==actionSheet.firstOtherButtonIndex) {
         [self sendEmail];
+        return;
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+1)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr"]];
         return;
     }
 }
