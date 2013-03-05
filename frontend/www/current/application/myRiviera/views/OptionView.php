@@ -2,7 +2,12 @@
 
 <div id="option" data-role="page">
 
-<? include("header-bar.php"); ?>
+	<!-- Header -->
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Back")?></a>
+		<h1><?php echo 'APPLICATION_NAME." v1.0 alpha"'?></h1>
+		<a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a>
+	</div>
 
 	<!-- CONTENT -->
 	<div data-role="content"
@@ -26,8 +31,8 @@
 				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
 				eMail: <?= $_SESSION['user']->email ?><br />
 				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
-					<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
+					<!-- <a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a> -->
+					<!-- <a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a> -->
 				</div>
 			</div>
 
@@ -96,26 +101,9 @@
 					recherche d'itinéraire par le bouton + du champs Arrivée.</p>
 			</div>
 
-			<!-- ABOUT -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="d"
-				data-content-theme="c" style="text-align: center;">
-
-				<h3>A propos</h3>
-				<h2>myRiviera v1.0 beta</h2>
-				<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>
-			</div>
 		</div>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="d">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="?action=main#Map" data-transition="none" data-back="true" data-icon="home">Carte</a></li>
-				<li><a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a></li>
-				<li><a href="?action=option" data-transition="none" data-icon="gear" class="ui-btn-active ui-state-persist">Option</a></li>
-			</ul>
-		</div>
-	</div>
 
 </div>
 

@@ -1,15 +1,103 @@
-<div data-role="header" style="position: absolute;top: 0;width: 100%;z-index: 200;" data-theme="b">
+<?php 
+/**
+ * Print the header bar
+ * 
+ * @param boolean $back_button print back button 
+ * 			allowed values for back button:
+ * 				false: no back button
+ * 				"logout" print logout button
+ * 				"a_custom_address" the back button points to a custom address
+ * 
+ * @param string $idHelpPopup the id of the help popup in the rendered view  
+ * @param string $title, $print_logout_button = false
+ */
+function print_header_bar($back_button = false, 
+						  $idHelpPopup = "defaultHelpPopup", 
+						  $title,
+						  $back_button_label = 'back') {
 	
-	<h1><?= APPLICATION_NAME ?></h1>
+	echo '<div data-role="header" data-theme="b" data-position="fixed">';
 	
-  	<? if (isset($_SESSION["launchpad"])) { ?>
-		<a href="/application/myMed" style="position: absolute; margin-top: -3px; left:5px;" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
-	<? } else { ?>
-  		<a href="?action=logout" style="position: absolute; margin-top: -3px; left:5px;" data-inline="true" rel="external" data-role="button" data-theme="r" data-icon="signout" data-iconpos="notext">Deconnexion</a>
-  	<? } ?>
+	switch($back_button) {
+		
+		// No back button
+		case false:
+			break;
+		
+		// Standart back button ('back' or true works here)
+		case 'back':
+			echo '<a href="#" data-rel="back" data-icon="arrow-l" >'
+				. _($back_button_label) . '</a>';
+			break;
+			
+		// Print logout button
+		case 'logout':
+			if(!$_SESSION['user']->is_guest) {
+				
+				// If come from launchpad ...
+				if (isset($_SESSION["launchpad"])) {
+					
+					echo '<a href="/application/myMed" 
+						     style="position: absolute; margin-top: -3px; left:5px;" 
+						     data-role="button" 
+						     rel="external" 
+						     data-icon="fahome" 
+						     data-iconpos="notext" 
+						     data-theme="e">myMed</a>';
+						     
+				} else {
+					
+					// If the user is logged print logout button ...
+					echo '<a href="
+					?action=logout"
+					data-inline="true"
+					rel="external"
+					data-role="button"
+					data-theme="r"
+					data-icon="off"
+					data-iconpos="notext"
+					>' . _('Logout') . '</a>';
+				}
+				
+			} else {				
+				// If the user is logged print logout button ...
+					echo '<a href="
+					?action=logout"
+					data-inline="true"
+					rel="external"
+					data-role="button"
+					data-theme="r"
+					data-icon="off"
+					data-iconpos="notext"
+					>' . _('Logout') . '</a>';
+			}
+			break;
+		
+		// Otherwise it is a custom link
+		default:
+			echo '<a href="' . $back_button . '" data-icon="arrow-l" data-ajax="false">'
+			. _($back_button_label) . '</a>';
+			break;
+			
+	}
 	
-	<? include("notifications.php")?>
+	// Print application title
+	$version_application_name = APPLICATION_NAME." v1.0 alpha";
+	$title = empty($title) ? $version_application_name : $title;
+	echo '<h1>' .$title. '</h1>';
 	
+	// Print help popup button
+	if($idHelpPopup) {
+		echo '<a href="#' . $idHelpPopup 
+			. '" id="openHelp" data-icon="question-sign" 
+			    class="ui-btn-right" data-theme="e" data-rel="popup">' 
+			. _('Help') . '</a>';
+	}
 	
+	// Print social buttons
+	// include 'social.php';
 	
-</div>
+	echo '</div>';
+}
+
+?>
