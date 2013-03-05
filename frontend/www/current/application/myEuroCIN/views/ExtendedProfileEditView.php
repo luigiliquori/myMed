@@ -50,7 +50,7 @@
 			<!-- Birthday -->
 			<div data-role="fieldcontain">
 				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
-				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+				<input type="text" id="birthday" name="birthday" placeholder="jj/mm/aaaa" value="<?= $_SESSION['user']->birthday ?>" />
 			</div>
 			<!-- Profile picture -->
 			<div data-role="fieldcontain">
@@ -72,13 +72,13 @@
 			
 			<!-- Phone -->		
 			<div data-role="fieldcontain">
-				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?>: </label>
-				<input id="textinputu6" name="phone" placeholder="" value="<?= $_SESSION['myEuroCIN']->details['phone'] ?>"  type="tel" />
+				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?><b>*</b> : </label>
+				<input id="textinputu6" name="phone" placeholder="00 00 00 00 00" value="<?= $_SESSION['myEuroCIN']->details['phone'] ?>"  type="tel" />
 			</div>
 			<!-- Description -->
 			<div data-role="fieldcontain">
-				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" style="height: 120px;" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEuroCIN']->details['desc'] ?></textarea>
+				<label for="desc"  style="text-align:right"><?= _('Description') ?><b>*</b> : </label>
+				<textarea id="desc" style="height: 120px;" name="desc"><?= $_SESSION['myEuroCIN']->details['desc'] ?></textarea>
 			</div>
 			<br/>
 			<div data-role="fieldcontain">
@@ -86,7 +86,7 @@
 				<input type="password" id="password" name="password" />
 			</div>
 			<div style="text-align: center;">
-				<input type="submit" data-inline="true" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
+				<input type="submit" data-inline="true" data-role="button" data-theme="g" data-icon="ok" value="<?= _('Update') ?>"/>
 			</div>
 		</form>
 		

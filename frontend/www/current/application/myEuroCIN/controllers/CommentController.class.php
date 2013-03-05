@@ -21,6 +21,7 @@ class CommentController extends AuthenticatedController {
 	
 	private function fillObj_comments($obj) {
 		$time = time();
+		$obj->publisher = $_SESSION['user']->id;
 		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 		$obj->pred2 = $time;
 		$obj->wrapped1 =$_POST['wrapped1'];
