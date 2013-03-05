@@ -56,17 +56,14 @@
 			<a href="?action=Candidature&method=show_candidatures" data-role="button" data-icon="pencil"><?= _("My candidatures") ?></a><br />
 	<?  endif; ?>
 		
-	 <? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->permission == '2')): ?>
-	 		<a href="?action=Volunteer&method=show_all_volunteers" data-role="button" data-icon="pencil"><?= _("Volunteers list") ?></a><br />
-	 <? endif; ?>
-		
 		<!-- Profile view -->
-		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= isset($_SESSION['myBenevolat']) ? _("My profile") : _("Create a profile") ?></a><br />
+		<a href="?action=extendedProfile&method=show_user_profile&user=<?= $_SESSION['user']->id ?>" data-icon="user" rel="external" data-role="button" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?>><?= _("My profile") ?></a><br />
 
 		
 	<? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->permission == '2')): ?>
 			<!-- Admin links -->
 			<h3><?= _("ADMINISTRATION")?>:</h3>
+	 		<a href="?action=Volunteer&method=show_all_volunteers" data-role="button" data-icon="pencil"><?= _("Volunteers list") ?></a><br />
 			<a href="?action=Candidature&method=show_all_candidatures" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("Manage candidatures") ?></a><br />
 			<a href="?action=Validation&method=show_all_validations" data-role="button" data-icon="pencil" <?= ($_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?>><?= _("Manage validations") ?></a><br />
 			<a href="?action=admin" data-role="button" data-icon="pencil" ><?= _("Manage associations") ?></a><br />
@@ -82,56 +79,66 @@
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<h3><?= _("How it works") ?> ?</h3>
 			<ul data-role="listview" data-theme="e">	
-				<li>
-					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("Connect") ?></strong></p>
-						<p><?= _("description") ?></p>
-				</li>
-				<li>
-					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("My subscriptions (volunteer)") ?></strong></p>
-						<p><?= _("description") ?></p>
-				</li>
-				<li>
-					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("My candidatures (volunteer)") ?></strong></p>
-						<p><?= _("description") ?></p>
-				</li>
-				<li>
-					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("My announcements (association)") ?></strong></p>
-						<p><?= _("description") ?></p>
-				</li>
+				<? if ($_SESSION['user']->is_guest): ?>
+					<li>
+						<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+							<p><strong><?= _("Connect") ?></strong></p>
+							<p><?= _("Connect text help") ?></p>
+					</li>
+				<? endif; ?>
+				<? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->details['type'] == 'volunteer')):?>
+					<li>
+						<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+							<p><strong><?= _("My subscriptions") ?></strong></p>
+							<p><?= _("My subscriptions text help") ?></p>
+					</li>
+				<? endif; ?>
+				<? if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association') || ($_SESSION['myBenevolat']->details['type'] == 'admin'))): ?>
+					<li>
+						<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+							<p><strong><?= _("My announcements") ?></strong></p>
+							<p><?= _("My announcements text help") ?></p>
+					</li>
+				<? endif; ?>
 				<li>
 					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
 						<p><strong><?= _("Search announcement") ?></strong></p>
-						<p><?= _("description") ?></p>
+						<p><?= _("Search announcement text help") ?></p>
 				</li>
-				<li>
-					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("Volunteers list (admin)") ?></strong></p>
-						<p><?= _("description") ?></p>
-				</li>
+				<? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->details['type'] == 'volunteer')):?>
+					<li>
+						<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+							<p><strong><?= _("My candidatures") ?></strong></p>
+							<p><?= _("My candidatures text help") ?></p>
+					</li>
+				<? endif; ?>
 				<li>
 					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
 						<p><strong><?= _("My profile") ?></strong></p>
-						<p><?= _("description") ?></p>
+						<p><?= _("My profile text help") ?></p>
 				</li>
-				<li>
-					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("Manage candidatures (admin)") ?></strong></p>
-						<p><?= _("description") ?></p>
-				</li>
-				<li>
-					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("Manage validations (admin)") ?></strong></p>
-						<p><?= _("description") ?></p>
-				</li>
-				<li>
-					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("Manage associations (admin)") ?></strong></p>
-						<p><?= _("description") ?></p>
-				</li>
+				<? if(isset($_SESSION['myBenevolat']) && ($_SESSION['myBenevolat']->permission == '2')): ?>
+					<li>
+						<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+							<p><strong><?= _("Volunteers list") ?></strong></p>
+							<p><?= _("Volunteers list text help") ?></p>
+					</li>
+					<li>
+						<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+							<p><strong><?= _("Manage candidatures") ?></strong></p>
+							<p><?= _("Manage candidatures text help") ?></p>
+					</li>
+					<li>
+						<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+							<p><strong><?= _("Manage validations") ?></strong></p>
+							<p><?= _("Manage validations text help") ?></p>
+					</li>
+					<li>
+						<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+							<p><strong><?= _("Manage associations") ?></strong></p>
+							<p><?= _("Manage associations text help") ?></p>
+					</li>
+				<? endif; ?>
 			</ul>
 		</div>
 	</div>	

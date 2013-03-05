@@ -34,7 +34,7 @@
 						<label for="check-view-e"><?= _("Skill")?></label>
 					</div>
 					<div class="ui-block-b">
-						<select disabled name="competence" id="find_skill_content" data-native-menu="false">
+						<select disabled name="competence" id="find_skill_content" data-native-menu="false" data-overlay-theme="d">
 							<option value=""><?= _("Select skill") ?></option>
 							<? foreach (Categories::$competences as $k=>$v) :?>
 								<option value="<?= $k ?>"><?= $v ?></option>
@@ -48,7 +48,7 @@
 						<label for="check-view-a"><?= _("District")?></label>
 					</div>
 					<div class="ui-block-b">
-						<select disabled name="mobility" id="find_quartier_content" data-native-menu="false">
+						<select disabled name="mobility" id="find_quartier_content" data-native-menu="false" data-overlay-theme="d">
 							<option value=""><?= _('Select district') ?></option>
 							<? foreach (Categories::$mobilite as $k=>$v) :?>
 								<option value="<?= $k ?>"><?= $v ?></option>
@@ -62,7 +62,7 @@
 						<label for="check-view-b"><?= _("Mission type")?></label>
 					</div>
 					<div class="ui-block-b">
-						<select disabled name="mission" id="find_mission_content" data-native-menu="false">
+						<select disabled name="mission" id="find_mission_content" data-native-menu="false" data-overlay-theme="d">
 							<option value=""><?= _('Select mission type') ?></option>
 							<? foreach (Categories::$missions as $k=>$v) :?>
 								<option value="<?= $k ?>"><?= $v ?></option>
@@ -130,19 +130,19 @@
 									// Disable reputation stars if there are no votes yet 
 									if($this->noOfRatesMap[$item->id.$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:135px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:130px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 										<?php if($i*20-20 < $this->reputationMap[$item->id.$item->publisherID] ) { ?>
-											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:135px; margin-top:3px;" />
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:130px; margin-top:3px;" />
 										<?php } else { ?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:135px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:130px; margin-top:3px;"/>
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
 							</p>
-							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->id.$item->publisherID] ?> <?= _("rates")?> </p>
+							<p style="display:inline; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->id.$item->publisherID] ?> <?= _("rates")?> </p>
 						</p>			
 					</a>
 				</li>

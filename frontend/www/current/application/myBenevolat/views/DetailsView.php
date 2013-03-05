@@ -104,16 +104,17 @@
 										
 									<!-- Pop up delete -->	
 									<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
-									 <? if($_SESSION['myBenevolat']->permission == '2' && $this->result->publisherID!=$_SESSION['user']->id){ // deleted by the admin: send a mail to the author to inform him
-									 		echo _("You can attach a message for the association:"); ?> 
-									 		<br />
+									 <? if($_SESSION['myBenevolat']->permission == '2' && $this->result->publisherID!=$_SESSION['user']->id){ ?>
+									 		<p style="font-size:85%;"> <?= _("You can attach a message to inform the association (or just click on Delete):"); ?> </p>
 									 		<form action="?action=publish&method=delete" method="POST" data-ajax="false">
-									 			<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>
+									 			<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea>
 												<input type="hidden" name="id" value="<?= $_GET['id'] ?>" />
 												<input type="hidden" name="author" value="<?=  $this->result->publisherID?>" />
 												<input type="hidden" name="title" value="<?=  $this->result->title?>" />
-												<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('OK') ?>" />
+												<input data-role="button" type="submit" data-theme="r" data-icon="ok" data-inline="true" value="<?= _('Delete') ?>" />
 											</form>
+											<a href="#" data-role="button" data-inline="true" data-mini="true" data-rel="back" data-direction="reverse"><?= _('Cancel') ?></a>
+						
 									 <? }else{
 											echo _("Are you sure you want to delete this announcement?") ?>
 											<br />
@@ -188,7 +189,7 @@
 					   <?php } 
 					 	} 
 					endif; ?>
-					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> <?= _("rates")?> </p>
+					<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> <?= _("rates")?> </p>
 					 
 					 <? /* can rate if logged in and validated if association */
 					 if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association' && $_SESSION['myBenevolat']->permission == '1') || $_SESSION['myBenevolat']->permission == '2' || $_SESSION['myBenevolat']->details['type'] == 'volunteer')){
@@ -201,7 +202,7 @@
 						 	}
 						 } 
 					 	/* can rate the announcement if the user is not the author and if the date has expired  */
-						if ($this->result->publisherID != $_SESSION['user']->id && ($expired==true || empty($this->result->end) || $this->result->end=="--")) { ?>
+						if ($this->result->publisherID != $_SESSION['user']->id && ($expired==true || empty($this->result->end) || $this->result->end=="--") && $this->result->validated!="waiting") { ?>
 							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate announcement") ?></a>	
 					 <? } 
 					 } ?>
@@ -239,10 +240,10 @@
 							<?php } ?>
 						<? } ?>
 					<?php endif; ?>
-					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> <?= _("rates")?></p>							
+					<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> <?= _("rates")?></p>							
 					<?php 
 						/* can rate if logged in and validated if association */
-					 	if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association' && $_SESSION['myBenevolat']->permission == '1') || $_SESSION['myBenevolat']->permission == '2' || $_SESSION['myBenevolat']->details['type'] == 'volunteer')){
+					 	if(isset($_SESSION['myBenevolat']) && $this->result->validated!="waiting" && (($_SESSION['myBenevolat']->details['type'] == 'association' && $_SESSION['myBenevolat']->permission == '1') || $_SESSION['myBenevolat']->permission == '2' || $_SESSION['myBenevolat']->details['type'] == 'volunteer')){
 							if (!($this->result->publisherID == $_SESSION['user']->id)) {
 								echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate association") .'</a>';
 							}
@@ -267,24 +268,25 @@
 
 				
 				<br/><br/>
-				
-				<!-- SHARE THIS -->
-				<div style="position: absolute; right: 24px;">
-					<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
-	    			<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-				</div>
-						
-				<div style="position: absolute; right: 95px;">
-					<g:plusone size="tall"></g:plusone>
-					<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
-				</div>
-				
-				<div style="position: absolute; right: 150px;">
-					<a name="fb_share" type="box_count" share_url="<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" ></a>
-   					<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
-				</div>
-				<div style="height: 80px;"></div>
-	    		<!-- END SHARE THIS -->
+				<? if($this->result->validated!="waiting"): ?>
+					<!-- SHARE THIS -->
+					<div style="position: absolute; right: 24px;">
+						<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
+		    			<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+					</div>
+							
+					<div style="position: absolute; right: 95px;">
+						<g:plusone size="tall"></g:plusone>
+						<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
+					</div>
+					
+					<div style="position: absolute; right: 150px;">
+						<a name="fb_share" type="box_count" share_url="<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" ></a>
+	   					<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+					</div>
+					<div style="height: 80px;"></div>
+		    		<!-- END SHARE THIS -->
+		    	<? endif; ?>
 			</div>
 		</div>
 	</div>
