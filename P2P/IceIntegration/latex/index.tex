@@ -1,0 +1,54 @@
+\begin{DoxyAuthor}{Author}
+Peter Neuss
+\end{DoxyAuthor}
+\hypertarget{index_intro}{}\section{Introduction}\label{index_intro}
+The primary purpose of this library is to provide peer-\/to-\/peer connections for MyMed applications.
+
+There are two main software packages, and two levels of wrapper.
+
+The low-\/level software packages is written in C, and consists of two files :
+\begin{DoxyItemize}
+\item p2pConnApi.c -\/ this uses the open-\/source pjnath library to create UDP-\/style peer-\/to-\/peer connections
+\item rsComm.c -\/ this communicates with a MyMed Rendezvous Server (RS) to bootstrap the peer-\/to-\/peer connections.
+\end{DoxyItemize}
+
+The \hyperlink{namespacePseudoTcp}{PseudoTcp} software package is written in C++. It assumes a UDP-\/style connection adhering to the IConnection interface. Using this it implements a reliable message-\/based connection. In particular, it provides :
+\begin{DoxyEnumerate}
+\item Retransmission of lost messages.
+\item Elimination of duplicates.
+\item Ordering of messages.
+\end{DoxyEnumerate}
+
+The first wrapper integrates the \hyperlink{namespacePseudoTcp}{PseudoTcp} package with the low-\/level package. It consists of four files :
+\begin{DoxyItemize}
+\item IceConnection.cpp/.hpp -\/ This is an object which implements IConnection using the low-\/level p2p connection
+\item IceWrapper.cpp/hpp -\/ This providec a C++ facade for the low-\/level functionality and the \hyperlink{namespacePseudoTcp}{PseudoTcp}. A MyMed application written in C++ would use this as an API for the library.
+\end{DoxyItemize}
+
+The second wrapper provides a Java interface for the functionality and is implemented using JNI. It consists of the following files :
+\begin{DoxyItemize}
+\item JavaIceWrapper.java -\/ This loads the dynamic library and declares the API
+\item \hyperlink{mymed__JavaIceWrapper_8h_source}{mymed\_\-JavaIceWrapper.h} -\/ This is created automatically and declares the native function headers
+\item JavaIceWrapper.cpp -\/ This file contains the definitions of the native functions.
+\end{DoxyItemize}\hypertarget{index_javaint}{}\section{Java Interface}\label{index_javaint}
+\hypertarget{index_create}{}\subsection{How to create the dynamic library}\label{index_create}
+The shell file 'makeDynLib.sh' will create the library file. It consists of five steps:
+\begin{DoxyEnumerate}
+\item Compile the JavaIceWrapper.java file creating a JavaIceWrapper.class file
+\item Create the \hyperlink{mymed__JavaIceWrapper_8h_source}{mymed\_\-JavaIceWrapper.h} file automatically from the class file
+\item Compile the low-\/level .c files into object files appropriate for a dynamic library
+\item Compile the .cpp files into object files appropriate for a dynamic library
+\item Combine the object files into a dynamic library named libmymed.so.1.0.1
+\end{DoxyEnumerate}\hypertarget{index_connect}{}\subsection{How to connect to the library from Java}\label{index_connect}
+
+\begin{DoxyEnumerate}
+\item Include the JavaIceWrapper.java file in your Java application (it is in the mymed package)
+\item Create a symbolic link to the libmymed.so.1.0.1 library called libmymed.so
+\item make sure the Java compiler can find the libmed.so file (either by placing it in a standard location or through the command-\/line parameter -\/Djava.library.path)
+\end{DoxyEnumerate}\hypertarget{index_api}{}\subsection{The Java API}\label{index_api}
+The JavaIceWrapper class reference details the API. See also the Chat application written in Java/Swing for an example of how to use the library.\hypertarget{index_Documentation}{}\section{Documentation}\label{index_Documentation}
+This documentation has been created by doxygen. To generate it, in the IceIntegration directory execute the command: doxygen DoxyFile
+
+
+
+ 

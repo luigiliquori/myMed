@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>backend</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>Request handler for the user profile.</description>
+    <display-name>ProfileRequestHandler</display-name>
+    <servlet-name>ProfileRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.ProfileRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfileRequestHandler</servlet-name>
+    <url-pattern>/ProfileRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Request handler for the Point Of Interests.</description>
+    <display-name>POIRequestHandler</display-name>
+    <servlet-name>POIRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.POIRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>POIRequestHandler</servlet-name>
+    <url-pattern>/POIRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Request handler for the user authentication.</description>
+    <display-name>AuthenticationRequestHandler</display-name>
+    <servlet-name>AuthenticationRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.AuthenticationRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthenticationRequestHandler</servlet-name>
+    <url-pattern>/AuthenticationRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Request handler for the user session.</description>
+    <display-name>SessionRequestHandler</display-name>
+    <servlet-name>SessionRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.SessionRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SessionRequestHandler</servlet-name>
+    <url-pattern>/SessionRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Request handler for the publish mechanism.</description>
+    <display-name>PublishRequestHandler</display-name>
+    <servlet-name>PublishRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.PublishRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PublishRequestHandler</servlet-name>
+    <url-pattern>/PublishRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Request handler for the subscribe mechanism.</description>
+    <display-name>SubscribeRequestHandler</display-name>
+    <servlet-name>SubscribeRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.SubscribeRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubscribeRequestHandler</servlet-name>
+    <url-pattern>/SubscribeRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Request handler for the find mechanism.</description>
+    <display-name>FindRequestHandler</display-name>
+    <servlet-name>FindRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.FindRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindRequestHandler</servlet-name>
+    <url-pattern>/FindRequestHandler</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Request handler for the user reputation.</description>
+    <display-name>ReputationRequestHandler</display-name>
+    <servlet-name>ReputationRequestHandler</servlet-name>
+    <servlet-class>com.mymed.controller.core.requesthandler.ReputationRequestHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReputationRequestHandler</servlet-name>
+    <url-pattern>/ReputationRequestHandler</url-pattern>
+  </servlet-mapping>
+<<<<<<< HEAD
+  <resource-ref>
+    <res-ref-name>mail/mymed.subscribe</res-ref-name>
+    <res-type>javax.mail.Session</res-type>
+    <res-auth>Application</res-auth>
+  </resource-ref>
+</web-app>
+=======
+</web-app>
+
+>>>>>>> 66f34bf782d960de3c9336516e1c4e5a0249d3a9

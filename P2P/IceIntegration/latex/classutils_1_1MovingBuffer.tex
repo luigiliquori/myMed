@@ -1,0 +1,96 @@
+\hypertarget{classutils_1_1MovingBuffer}{
+\section{utils::MovingBuffer$<$ T $>$ Class Template Reference}
+\label{classutils_1_1MovingBuffer}\index{utils::MovingBuffer@{utils::MovingBuffer}}
+}
+
+
+\hyperlink{classutils_1_1MovingBuffer}{MovingBuffer} is a data structure useful for PseudoTcpRx.  
+
+
+
+
+{\ttfamily \#include $<$MovingBuffer.hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classutils_1_1MovingBuffer_aca199bfe148e820a848890ff0a519106}{
+\hyperlink{classutils_1_1MovingBuffer_aca199bfe148e820a848890ff0a519106}{MovingBuffer} (int bufferSize)}
+\label{classutils_1_1MovingBuffer_aca199bfe148e820a848890ff0a519106}
+
+\begin{DoxyCompactList}\small\item\em Initialze with specified buffer size. \item\end{DoxyCompactList}\item 
+T $\ast$ \hyperlink{classutils_1_1MovingBuffer_a7e65ffd8a9f4a5c428906e1da1931677}{get} (int index)
+\item 
+\hypertarget{classutils_1_1MovingBuffer_abe649be205205a783620c2d140b15114}{
+void \hyperlink{classutils_1_1MovingBuffer_abe649be205205a783620c2d140b15114}{put} (T $\ast$newElement, int index)}
+\label{classutils_1_1MovingBuffer_abe649be205205a783620c2d140b15114}
+
+\begin{DoxyCompactList}\small\item\em Add a new element into the structure at the given absolute index. \item\end{DoxyCompactList}\item 
+T $\ast$ \hyperlink{classutils_1_1MovingBuffer_afe0ca8bb2226b0039a265efe9952ac64}{pop} ()
+\item 
+\hypertarget{classutils_1_1MovingBuffer_a2388032df8ddb8b3a88692a81aaf7786}{
+T $\ast$ \hyperlink{classutils_1_1MovingBuffer_a2388032df8ddb8b3a88692a81aaf7786}{popIfNotEmpty} ()}
+\label{classutils_1_1MovingBuffer_a2388032df8ddb8b3a88692a81aaf7786}
+
+\begin{DoxyCompactList}\small\item\em pop iff the first element is not NULL. \item\end{DoxyCompactList}\item 
+\hypertarget{classutils_1_1MovingBuffer_a2fed5ea3406b8d3cbfc127a8df3aae7f}{
+int \hyperlink{classutils_1_1MovingBuffer_a2fed5ea3406b8d3cbfc127a8df3aae7f}{getFirstIndex} () const }
+\label{classutils_1_1MovingBuffer_a2fed5ea3406b8d3cbfc127a8df3aae7f}
+
+\begin{DoxyCompactList}\small\item\em accessor for FirstIndex property \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classutils_1_1MovingBuffer_a9c9b030de547b19116873e00245d8759}{
+static const int {\bfseries MovingBuffer\_\-IndexUnderflow} = -\/1}
+\label{classutils_1_1MovingBuffer_a9c9b030de547b19116873e00245d8759}
+
+\item 
+\hypertarget{classutils_1_1MovingBuffer_aba4edd7c6f3e2ed445a6303f0869473d}{
+static const int {\bfseries MovingBuffer\_\-IndexOverflow} = -\/2}
+\label{classutils_1_1MovingBuffer_aba4edd7c6f3e2ed445a6303f0869473d}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classutils_1_1MovingBuffer_a044b6dc71a4e89dd3f1d721ff77c6d62}{
+std::ostream \& {\bfseries operator$<$$<$} (std::ostream \&o, \hyperlink{classutils_1_1MovingBuffer}{MovingBuffer} const \&mb)}
+\label{classutils_1_1MovingBuffer_a044b6dc71a4e89dd3f1d721ff77c6d62}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$ class utils::MovingBuffer$<$ T $>$}
+
+\hyperlink{classutils_1_1MovingBuffer}{MovingBuffer} is a data structure useful for PseudoTcpRx. A \hyperlink{classutils_1_1MovingBuffer}{MovingBuffer} is useful for keeping track of sequentially numbered items which may not arrive in order. The items are partitioned into three groups:
+\begin{DoxyEnumerate}
+\item 0-\/(n-\/1): First n contiguous items.
+\item n ... n + bufferSize: Window in which out-\/of-\/sequence items may be added.
+\item the rest (numbers above this can't be handled if they arrive, they exceed the buffer size.
+\end{DoxyEnumerate}
+
+Use by PseudoTcpRx: PseudoTcpRx utilizes a moving buffer to maintain the Message objects received. Given uncertainties in the underlying Connection, there may be gaps. This data structure is useful for keeping track of which Messages have arrived.
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000002}{Todo}]: perhaps convert vector to deque. explain the implementation a bit. There are two parts to the structure. A buffer holds numbered items. An integer represents the first index of the buffer. This also implicitly tells us that the first (firstIndex -\/ 1) items have all arrived. The user will probably want to remove items as soon as the first gap is filled, that is why there is a popIfNotEmpty function. \end{Desc}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classutils_1_1MovingBuffer_a7e65ffd8a9f4a5c428906e1da1931677}{
+\index{utils::MovingBuffer@{utils::MovingBuffer}!get@{get}}
+\index{get@{get}!utils::MovingBuffer@{utils::MovingBuffer}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ T $\ast$ {\bf utils::MovingBuffer}$<$ T $>$::get (int {\em index})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classutils_1_1MovingBuffer_a7e65ffd8a9f4a5c428906e1da1931677}
+Retreive an element. The index should be 'absolute'. Can only have a return value for objects which are in the current buffer. \hypertarget{classutils_1_1MovingBuffer_afe0ca8bb2226b0039a265efe9952ac64}{
+\index{utils::MovingBuffer@{utils::MovingBuffer}!pop@{pop}}
+\index{pop@{pop}!utils::MovingBuffer@{utils::MovingBuffer}}
+\subsubsection[{pop}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ T $\ast$ {\bf utils::MovingBuffer}$<$ T $>$::pop ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classutils_1_1MovingBuffer_afe0ca8bb2226b0039a265efe9952ac64}
+Removes (and returns) the first element of the buffer, and 'shifts' the buffer window. 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+MovingBuffer.hpp\item 
+MovingBuffer.cpp\end{DoxyCompactItemize}

@@ -1,0 +1,179 @@
+\hypertarget{classIceWrapper}{
+\section{IceWrapper Class Reference}
+\label{classIceWrapper}\index{IceWrapper@{IceWrapper}}
+}
+
+
+{\ttfamily \#include $<$IceWrapper.hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classIceWrapper_a2957d299badf1008d3153cd5fd317918}{
+{\bfseries IceWrapper} (const \hyperlink{classIceWrapper}{IceWrapper} \&orig)}
+\label{classIceWrapper_a2957d299badf1008d3153cd5fd317918}
+
+\item 
+\hypertarget{classIceWrapper_a9d42e24532ed731e52ee59988200ad52}{
+void \hyperlink{classIceWrapper_a9d42e24532ed731e52ee59988200ad52}{SetName} (std::string name)}
+\label{classIceWrapper_a9d42e24532ed731e52ee59988200ad52}
+
+\begin{DoxyCompactList}\small\item\em accessor for Name property, used for debugging \item\end{DoxyCompactList}\item 
+\hypertarget{classIceWrapper_a7d2ada37e29bf229edc0fb3e05151b1d}{
+std::string \hyperlink{classIceWrapper_a7d2ada37e29bf229edc0fb3e05151b1d}{GetName} () const }
+\label{classIceWrapper_a7d2ada37e29bf229edc0fb3e05151b1d}
+
+\begin{DoxyCompactList}\small\item\em accessor for Name property, used for debugging \item\end{DoxyCompactList}\item 
+void \hyperlink{classIceWrapper_a9e34cb1f8e4a8b0361cb926c57971cab}{init} (const char $\ast$userName, int service, const char $\ast$rsIp, const char $\ast$rsPort)
+\item 
+void \hyperlink{classIceWrapper_a9577eeda39e60b4abc835c3ce81604f8}{getConn} (std::string toUser, int service)
+\item 
+void \hyperlink{classIceWrapper_a35ad9141a6f4a9f57f842c9f807f99bc}{send} (struct \hyperlink{structP2pConnection}{P2pConnection} $\ast$conn, std::string msg)
+\item 
+char $\ast$ \hyperlink{classIceWrapper_a7c19df1031dcd86d2133c5a179bb7ece}{getUsers} ()
+\item 
+bool \hyperlink{classIceWrapper_a648c6cda7c64d23fa210e6e62609644d}{usersChanged} ()
+\item 
+void \hyperlink{classIceWrapper_a1e68094e92efc427f584c682c8a470fb}{requestUsers} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classIceWrapper_abd014f6ec26849dac26d38ba147d7240}{
+static void \hyperlink{classIceWrapper_abd014f6ec26849dac26d38ba147d7240}{OnNewConnection} (struct \hyperlink{structP2pConnection}{P2pConnection} $\ast$conn)}
+\label{classIceWrapper_abd014f6ec26849dac26d38ba147d7240}
+
+\begin{DoxyCompactList}\small\item\em callback handler \item\end{DoxyCompactList}\item 
+\hypertarget{classIceWrapper_abee757e1e75c9899efab4de089fbdd3a}{
+static void \hyperlink{classIceWrapper_abee757e1e75c9899efab4de089fbdd3a}{OnIncomingMessage} (struct \hyperlink{structP2pConnection}{P2pConnection} $\ast$conn, char $\ast$msg, unsigned size)}
+\label{classIceWrapper_abee757e1e75c9899efab4de089fbdd3a}
+
+\begin{DoxyCompactList}\small\item\em callback handler \item\end{DoxyCompactList}\item 
+\hypertarget{classIceWrapper_a5278b80ee2ca85106989f6f4c5326d2a}{
+static int \hyperlink{classIceWrapper_a5278b80ee2ca85106989f6f4c5326d2a}{OnNewConnectionRequest} (struct \hyperlink{structP2pConnection}{P2pConnection} $\ast$conn)}
+\label{classIceWrapper_a5278b80ee2ca85106989f6f4c5326d2a}
+
+\begin{DoxyCompactList}\small\item\em callback handler \item\end{DoxyCompactList}\item 
+\hypertarget{classIceWrapper_ad5e9159fda434266b08d5e060ce8072e}{
+static void \hyperlink{classIceWrapper_ad5e9159fda434266b08d5e060ce8072e}{OnNewUsers} (char $\ast$rsUsersString)}
+\label{classIceWrapper_ad5e9159fda434266b08d5e060ce8072e}
+
+\begin{DoxyCompactList}\small\item\em callback handler \item\end{DoxyCompactList}\item 
+static \hyperlink{classIceConnection}{IceConnection} $\ast$ \hyperlink{classIceWrapper_aa0cecd8091a65ccbfbe48c2397532e42}{getConnectionOfUser} (std::string userName)
+\item 
+static \hyperlink{classPseudoTcp_1_1MessageDispatcher}{PseudoTcp::MessageDispatcher} $\ast$ \hyperlink{classIceWrapper_a625864eb115efac6d31ea041f8093a77}{getMdOfUser} (std::string userName)
+\item 
+static const char $\ast$ \hyperlink{classIceWrapper_a34441a1215d0eb306b2227a9881609bd}{getInput} ()
+\item 
+static const char $\ast$ \hyperlink{classIceWrapper_a6e73ef401f985702be9d97abdbb1eb06}{getInput} (char $\ast$from)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classIceWrapper_a71005c441f47e761cb4d0e2bb68758ca}{
+static bool {\bfseries Verbose} = false}
+\label{classIceWrapper_a71005c441f47e761cb4d0e2bb68758ca}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classIceWrapper}{IceWrapper} class furnishes a C++ interface to the low-\/level C functionality provided by the p2pConnApi.c and rsComm.c files. \hyperlink{classIceWrapper}{IceWrapper} provides a facade to C++ for invoking the low-\/level ice functions. It uses static functions for the callbacks.
+
+For each low-\/level connection (\hyperlink{structP2pConnection}{P2pConnection}) created, \hyperlink{classIceWrapper}{IceWrapper} creates an \hyperlink{classIceConnection}{IceConnection} and a MessageDispatcher. It keeps two maps which relate the userName to the relative \hyperlink{classIceConnection}{IceConnection} and MessageDispatcher.
+
+\hyperlink{classIceWrapper}{IceWrapper} also supplies a function which scans all existing MessageDispatchers to see if any have input waiting. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classIceWrapper_a9577eeda39e60b4abc835c3ce81604f8}{
+\index{IceWrapper@{IceWrapper}!getConn@{getConn}}
+\index{getConn@{getConn}!IceWrapper@{IceWrapper}}
+\subsubsection[{getConn}]{\setlength{\rightskip}{0pt plus 5cm}void IceWrapper::getConn (std::string {\em toUser}, \/  int {\em service})}}
+\label{classIceWrapper_a9577eeda39e60b4abc835c3ce81604f8}
+Request a connection to a user for an application 
+\begin{DoxyParams}{Parameters}
+\item[{\em toUser}]user to connect to \item[{\em service}]MyMed application number \end{DoxyParams}
+\hypertarget{classIceWrapper_aa0cecd8091a65ccbfbe48c2397532e42}{
+\index{IceWrapper@{IceWrapper}!getConnectionOfUser@{getConnectionOfUser}}
+\index{getConnectionOfUser@{getConnectionOfUser}!IceWrapper@{IceWrapper}}
+\subsubsection[{getConnectionOfUser}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IceConnection} $\ast$ IceWrapper::getConnectionOfUser (std::string {\em userName})\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classIceWrapper_aa0cecd8091a65ccbfbe48c2397532e42}
+Return \hyperlink{classIceConnection}{IceConnection} corresponding to user 
+\begin{DoxyParams}{Parameters}
+\item[{\em userName}]name of user to get connection of \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classIceWrapper_a6e73ef401f985702be9d97abdbb1eb06}{
+\index{IceWrapper@{IceWrapper}!getInput@{getInput}}
+\index{getInput@{getInput}!IceWrapper@{IceWrapper}}
+\subsubsection[{getInput}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ IceWrapper::getInput (char $\ast$ {\em from})\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classIceWrapper_a6e73ef401f985702be9d97abdbb1eb06}
+Scan all MessageDispatchers, if any have input return the input. 
+\begin{DoxyParams}{Parameters}
+\item[{\em from}]'out' parameter will be set to userName of user who sent the input. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classIceWrapper_a34441a1215d0eb306b2227a9881609bd}{
+\index{IceWrapper@{IceWrapper}!getInput@{getInput}}
+\index{getInput@{getInput}!IceWrapper@{IceWrapper}}
+\subsubsection[{getInput}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ IceWrapper::getInput ()\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classIceWrapper_a34441a1215d0eb306b2227a9881609bd}
+Obsolete, remove \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classIceWrapper_a625864eb115efac6d31ea041f8093a77}{
+\index{IceWrapper@{IceWrapper}!getMdOfUser@{getMdOfUser}}
+\index{getMdOfUser@{getMdOfUser}!IceWrapper@{IceWrapper}}
+\subsubsection[{getMdOfUser}]{\setlength{\rightskip}{0pt plus 5cm}{\bf PseudoTcp::MessageDispatcher} $\ast$ IceWrapper::getMdOfUser (std::string {\em userName})\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classIceWrapper_a625864eb115efac6d31ea041f8093a77}
+Return MessageDispatcher corresponding to user 
+\begin{DoxyParams}{Parameters}
+\item[{\em userName}]name of user to get MessageDispatcher of \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classIceWrapper_a7c19df1031dcd86d2133c5a179bb7ece}{
+\index{IceWrapper@{IceWrapper}!getUsers@{getUsers}}
+\index{getUsers@{getUsers}!IceWrapper@{IceWrapper}}
+\subsubsection[{getUsers}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ IceWrapper::getUsers ()}}
+\label{classIceWrapper_a7c19df1031dcd86d2133c5a179bb7ece}
+Return the userstring received from the RS \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classIceWrapper_a9e34cb1f8e4a8b0361cb926c57971cab}{
+\index{IceWrapper@{IceWrapper}!init@{init}}
+\index{init@{init}!IceWrapper@{IceWrapper}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void IceWrapper::init (const char $\ast$ {\em userName}, \/  int {\em service}, \/  const char $\ast$ {\em rsIp}, \/  const char $\ast$ {\em rsPort})}}
+\label{classIceWrapper_a9e34cb1f8e4a8b0361cb926c57971cab}
+Initialization parameters for low level 
+\begin{DoxyParams}{Parameters}
+\item[{\em userName}]Name of user who is registering \item[{\em service}]MyMed Application number \item[{\em rsIp}]IP address of Rendezvous server \item[{\em rsPort}]Port of Rendezvous server \end{DoxyParams}
+\hypertarget{classIceWrapper_a1e68094e92efc427f584c682c8a470fb}{
+\index{IceWrapper@{IceWrapper}!requestUsers@{requestUsers}}
+\index{requestUsers@{requestUsers}!IceWrapper@{IceWrapper}}
+\subsubsection[{requestUsers}]{\setlength{\rightskip}{0pt plus 5cm}void IceWrapper::requestUsers ()}}
+\label{classIceWrapper_a1e68094e92efc427f584c682c8a470fb}
+Send a request to the RS for currently registered users. \hypertarget{classIceWrapper_a35ad9141a6f4a9f57f842c9f807f99bc}{
+\index{IceWrapper@{IceWrapper}!send@{send}}
+\index{send@{send}!IceWrapper@{IceWrapper}}
+\subsubsection[{send}]{\setlength{\rightskip}{0pt plus 5cm}void IceWrapper::send (struct {\bf P2pConnection} $\ast$ {\em conn}, \/  std::string {\em msg})}}
+\label{classIceWrapper_a35ad9141a6f4a9f57f842c9f807f99bc}
+Send a string using a connection 
+\begin{DoxyParams}{Parameters}
+\item[{\em conn}]Lower level connection to use \item[{\em msg}]Message to send \end{DoxyParams}
+\hypertarget{classIceWrapper_a648c6cda7c64d23fa210e6e62609644d}{
+\index{IceWrapper@{IceWrapper}!usersChanged@{usersChanged}}
+\index{usersChanged@{usersChanged}!IceWrapper@{IceWrapper}}
+\subsubsection[{usersChanged}]{\setlength{\rightskip}{0pt plus 5cm}bool IceWrapper::usersChanged ()}}
+\label{classIceWrapper_a648c6cda7c64d23fa210e6e62609644d}
+Return true if userstring has been updated \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+IceWrapper.hpp\item 
+IceWrapper.cpp\end{DoxyCompactItemize}

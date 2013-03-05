@@ -1,0 +1,121 @@
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx}{
+\section{PseudoTcp::PseudoTcpTx Class Reference}
+\label{classPseudoTcp_1_1PseudoTcpTx}\index{PseudoTcp::PseudoTcpTx@{PseudoTcp::PseudoTcpTx}}
+}
+
+
+Encapsulates the sending half of the \hyperlink{namespacePseudoTcp}{PseudoTcp} protocol.  
+
+
+
+
+{\ttfamily \#include $<$PseudoTcpTx.hpp$>$}
+
+Inheritance diagram for PseudoTcp::PseudoTcpTx:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{classPseudoTcp_1_1PseudoTcpTx}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_ac4a27695a1df46604d3b0b7b5e7a8626}{
+{\bfseries PseudoTcpTx} (\hyperlink{classPseudoTcp_1_1IConnection}{IConnection} $\ast$conn, int msgBufferSize)}
+\label{classPseudoTcp_1_1PseudoTcpTx_ac4a27695a1df46604d3b0b7b5e7a8626}
+
+\item 
+int \hyperlink{classPseudoTcp_1_1PseudoTcpTx_a647b783fb072921aa4451ee887644e34}{send} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)
+\item 
+void \hyperlink{classPseudoTcp_1_1PseudoTcpTx_ab947a8457582a5647828bddaebca86a9}{incomingAck} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_a9b3a72a495ab645207459d4cc6ebbdc2}{
+int \hyperlink{classPseudoTcp_1_1PseudoTcpTx_a9b3a72a495ab645207459d4cc6ebbdc2}{getAcksReceived} () const }
+\label{classPseudoTcp_1_1PseudoTcpTx_a9b3a72a495ab645207459d4cc6ebbdc2}
+
+\begin{DoxyCompactList}\small\item\em this is just for debugging \item\end{DoxyCompactList}\item 
+bool \hyperlink{classPseudoTcp_1_1PseudoTcpTx_a0285cf3faab1f34b97360bc9f4e68a77}{allMessagesAcked} ()
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_a988c36108dc7eb80f8eeef220b78e5b8}{
+void {\bfseries printState} (std::ostream \&o)}
+\label{classPseudoTcp_1_1PseudoTcpTx_a988c36108dc7eb80f8eeef220b78e5b8}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_a3b36d6b9941b313755a9b099a6d0f077}{
+void \hyperlink{classPseudoTcp_1_1PseudoTcpTx_a3b36d6b9941b313755a9b099a6d0f077}{startCheckAckThread} ()}
+\label{classPseudoTcp_1_1PseudoTcpTx_a3b36d6b9941b313755a9b099a6d0f077}
+
+\begin{DoxyCompactList}\small\item\em A thread which checks every ACK\_\-CHECKING\_\-INTERVAL msec for overdue acks. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_a16e082eff985c8f985aa860dc2bc51e6}{
+std::string {\bfseries logString} ()}
+\label{classPseudoTcp_1_1PseudoTcpTx_a16e082eff985c8f985aa860dc2bc51e6}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_a6d3843b42bff2f5c2bf8e782bd6d2843}{
+std::string {\bfseries GetLogName} ()}
+\label{classPseudoTcp_1_1PseudoTcpTx_a6d3843b42bff2f5c2bf8e782bd6d2843}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_ae54c15a3b89ee9ef12370b3568863b8b}{
+void {\bfseries setId} (int id)}
+\label{classPseudoTcp_1_1PseudoTcpTx_ae54c15a3b89ee9ef12370b3568863b8b}
+
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_a51eee9608065cbf4af43b764ea56bbcf}{
+int {\bfseries getId} () const }
+\label{classPseudoTcp_1_1PseudoTcpTx_a51eee9608065cbf4af43b764ea56bbcf}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_a70867e57670837e8e75b49c454fb2d60}{
+std::ostream \& {\bfseries operator$<$$<$} (std::ostream \&o, \hyperlink{classPseudoTcp_1_1PseudoTcpTx}{PseudoTcpTx} const \&tx)}
+\label{classPseudoTcp_1_1PseudoTcpTx_a70867e57670837e8e75b49c454fb2d60}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Encapsulates the sending half of the \hyperlink{namespacePseudoTcp}{PseudoTcp} protocol. The TX part is responsable for:
+\begin{DoxyEnumerate}
+\item Sending Messages, assigning \hyperlink{classPseudoTcp_1_1Message}{Message} number
+\item Keeping track of which Messages have been acked
+\item Keeping track of overdue acks
+\item Resending Messages when necessary 
+\end{DoxyEnumerate}
+
+\subsection{Member Function Documentation}
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_a0285cf3faab1f34b97360bc9f4e68a77}{
+\index{PseudoTcp::PseudoTcpTx@{PseudoTcp::PseudoTcpTx}!allMessagesAcked@{allMessagesAcked}}
+\index{allMessagesAcked@{allMessagesAcked}!PseudoTcp::PseudoTcpTx@{PseudoTcp::PseudoTcpTx}}
+\subsubsection[{allMessagesAcked}]{\setlength{\rightskip}{0pt plus 5cm}bool PseudoTcp::PseudoTcpTx::allMessagesAcked ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classPseudoTcp_1_1PseudoTcpTx_a0285cf3faab1f34b97360bc9f4e68a77}
+See if all messages have been send and acknowledged. \begin{DoxyReturn}{Returns}
+true if they have. 
+\end{DoxyReturn}
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_ab947a8457582a5647828bddaebca86a9}{
+\index{PseudoTcp::PseudoTcpTx@{PseudoTcp::PseudoTcpTx}!incomingAck@{incomingAck}}
+\index{incomingAck@{incomingAck}!PseudoTcp::PseudoTcpTx@{PseudoTcp::PseudoTcpTx}}
+\subsubsection[{incomingAck}]{\setlength{\rightskip}{0pt plus 5cm}void PseudoTcp::PseudoTcpTx::incomingAck ({\bf Message} $\ast$ {\em msg})}}
+\label{classPseudoTcp_1_1PseudoTcpTx_ab947a8457582a5647828bddaebca86a9}
+Update internal state based on information in ack, resending Messages and ack requests when necessary. 
+\begin{DoxyParams}{Parameters}
+\item[{\em msg}]\end{DoxyParams}
+\hypertarget{classPseudoTcp_1_1PseudoTcpTx_a647b783fb072921aa4451ee887644e34}{
+\index{PseudoTcp::PseudoTcpTx@{PseudoTcp::PseudoTcpTx}!send@{send}}
+\index{send@{send}!PseudoTcp::PseudoTcpTx@{PseudoTcp::PseudoTcpTx}}
+\subsubsection[{send}]{\setlength{\rightskip}{0pt plus 5cm}int PseudoTcp::PseudoTcpTx::send ({\bf Message} $\ast$ {\em msg})}}
+\label{classPseudoTcp_1_1PseudoTcpTx_a647b783fb072921aa4451ee887644e34}
+Send a message over the \hyperlink{classPseudoTcp_1_1Connection}{Connection}. 
+\begin{DoxyParams}{Parameters}
+\item[{\em msg}]The message to send. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if can be sent immediately, 2 if queued, -\/1 if buffer full, -\/2 if too big. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+PseudoTcpTx.hpp\item 
+PseudoTcpTx.cpp\end{DoxyCompactItemize}

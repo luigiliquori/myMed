@@ -1,0 +1,186 @@
+\hypertarget{classPseudoTcp_1_1Connection}{
+\section{PseudoTcp::Connection Class Reference}
+\label{classPseudoTcp_1_1Connection}\index{PseudoTcp::Connection@{PseudoTcp::Connection}}
+}
+
+
+A \hyperlink{classPseudoTcp_1_1Connection}{Connection} is what actually sends (or simulates sending of) a \hyperlink{classPseudoTcp_1_1Message}{Message}.  
+
+
+
+
+{\ttfamily \#include $<$Connection.hpp$>$}
+
+Inheritance diagram for PseudoTcp::Connection:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{classPseudoTcp_1_1Connection}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1Connection_a73ba287568e0a03ae4957fcdce18582a}{
+{\bfseries Connection} (int \hyperlink{classPseudoTcp_1_1Connection_a9baee02141ab1e3239f42c381816d70f}{id})}
+\label{classPseudoTcp_1_1Connection_a73ba287568e0a03ae4957fcdce18582a}
+
+\item 
+\hypertarget{classPseudoTcp_1_1Connection_a5e97daf2c75fd93e8903403f7b187332}{
+{\bfseries Connection} (int \hyperlink{classPseudoTcp_1_1Connection_a9baee02141ab1e3239f42c381816d70f}{id}, \hyperlink{classPseudoTcp_1_1IMsgHandler}{IMsgHandler} $\ast$\hyperlink{classPseudoTcp_1_1Connection_a48abbd96a00e8b85c2c6d57174956520}{msgHandler})}
+\label{classPseudoTcp_1_1Connection_a5e97daf2c75fd93e8903403f7b187332}
+
+\item 
+\hypertarget{classPseudoTcp_1_1Connection_a01510ce35200ac597f6aace7a1e88efc}{
+void \hyperlink{classPseudoTcp_1_1Connection_a01510ce35200ac597f6aace7a1e88efc}{SetId} (int \hyperlink{classPseudoTcp_1_1Connection_a9baee02141ab1e3239f42c381816d70f}{id})}
+\label{classPseudoTcp_1_1Connection_a01510ce35200ac597f6aace7a1e88efc}
+
+\begin{DoxyCompactList}\small\item\em Property Id is just for debugging purposes. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_a309b5f8133ac8122f99ff23ff71004e1}{
+virtual int \hyperlink{classPseudoTcp_1_1Connection_a309b5f8133ac8122f99ff23ff71004e1}{GetId} () const }
+\label{classPseudoTcp_1_1Connection_a309b5f8133ac8122f99ff23ff71004e1}
+
+\begin{DoxyCompactList}\small\item\em Property Id is just for debugging purposes. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_aabf6e8aa15f35ba66039f23569f64626}{
+void \hyperlink{classPseudoTcp_1_1Connection_aabf6e8aa15f35ba66039f23569f64626}{SetOtherHalf} (\hyperlink{classPseudoTcp_1_1Connection}{Connection} $\ast$\hyperlink{classPseudoTcp_1_1Connection_ac8324269b61373b2084ce2bd13cde979}{otherHalf})}
+\label{classPseudoTcp_1_1Connection_aabf6e8aa15f35ba66039f23569f64626}
+
+\begin{DoxyCompactList}\small\item\em Property OtherHalf points to the other \hyperlink{classPseudoTcp_1_1Connection}{Connection} object. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_af0205c16aaed4f8cf890c04cb1afff79}{
+\hyperlink{classPseudoTcp_1_1Connection}{Connection} $\ast$ \hyperlink{classPseudoTcp_1_1Connection_af0205c16aaed4f8cf890c04cb1afff79}{GetOtherHalf} () const }
+\label{classPseudoTcp_1_1Connection_af0205c16aaed4f8cf890c04cb1afff79}
+
+\begin{DoxyCompactList}\small\item\em Property OtherHalf points to the other \hyperlink{classPseudoTcp_1_1Connection}{Connection} object. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_a8a30ac2a4127fb80437b68ead090fb07}{
+void \hyperlink{classPseudoTcp_1_1Connection_a8a30ac2a4127fb80437b68ead090fb07}{SetMsgHandler} (\hyperlink{classPseudoTcp_1_1IMsgHandler}{IMsgHandler} $\ast$\hyperlink{classPseudoTcp_1_1Connection_a48abbd96a00e8b85c2c6d57174956520}{msgHandler})}
+\label{classPseudoTcp_1_1Connection_a8a30ac2a4127fb80437b68ead090fb07}
+
+\begin{DoxyCompactList}\small\item\em Property MsgHandler tells who to forward incoming messages to. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_ac3557ef20de80b18c0730f9fa0ad6752}{
+\hyperlink{classPseudoTcp_1_1IMsgHandler}{IMsgHandler} $\ast$ \hyperlink{classPseudoTcp_1_1Connection_ac3557ef20de80b18c0730f9fa0ad6752}{GetMsgHandler} () const }
+\label{classPseudoTcp_1_1Connection_ac3557ef20de80b18c0730f9fa0ad6752}
+
+\begin{DoxyCompactList}\small\item\em Property MsgHandler tells who to forward incoming messages to. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_adfed6f5dc37e5eaf919b465886b0f11d}{
+int \hyperlink{classPseudoTcp_1_1Connection_adfed6f5dc37e5eaf919b465886b0f11d}{sendMessage} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)}
+\label{classPseudoTcp_1_1Connection_adfed6f5dc37e5eaf919b465886b0f11d}
+
+\begin{DoxyCompactList}\small\item\em Send message to other half of connection. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_a56fd24c36d1715f1a19134457a0397d2}{
+int \hyperlink{classPseudoTcp_1_1Connection_a56fd24c36d1715f1a19134457a0397d2}{incomingMessage} (\hyperlink{classPseudoTcp_1_1Message}{Message} msg)}
+\label{classPseudoTcp_1_1Connection_a56fd24c36d1715f1a19134457a0397d2}
+
+\begin{DoxyCompactList}\small\item\em a message arrives from other half of connection, notify MsgHandler \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_ace88510ecc921611cde9e56c07c65a35}{
+std::string \hyperlink{classPseudoTcp_1_1Connection_ace88510ecc921611cde9e56c07c65a35}{logString} ()}
+\label{classPseudoTcp_1_1Connection_ace88510ecc921611cde9e56c07c65a35}
+
+\begin{DoxyCompactList}\small\item\em IEventLogger function. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_ab1ceffdba79e19f1fc25eff2b79d05b3}{
+std::string \hyperlink{classPseudoTcp_1_1Connection_ab1ceffdba79e19f1fc25eff2b79d05b3}{GetLogName} ()}
+\label{classPseudoTcp_1_1Connection_ab1ceffdba79e19f1fc25eff2b79d05b3}
+
+\begin{DoxyCompactList}\small\item\em IEventLogger function. \item\end{DoxyCompactList}\item 
+virtual bool \hyperlink{classPseudoTcp_1_1Connection_aaa3f50be412caa3c5970fd5ca3d930c0}{losePacket} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em For simulating lost packets. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1Connection_a5cd5c700ba9aaca941b6f6ef198a620b}{
+static void \hyperlink{classPseudoTcp_1_1Connection_a5cd5c700ba9aaca941b6f6ef198a620b}{connectConnectionPair} (\hyperlink{classPseudoTcp_1_1Connection}{Connection} $\ast$c1, \hyperlink{classPseudoTcp_1_1Connection}{Connection} $\ast$c2)}
+\label{classPseudoTcp_1_1Connection_a5cd5c700ba9aaca941b6f6ef198a620b}
+
+\begin{DoxyCompactList}\small\item\em A static function for connection two \hyperlink{classPseudoTcp_1_1Connection}{Connection} objects to each other. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1Connection_a61cdf90cae14c6108dc9b8382705cb79}{
+void {\bfseries startSendingThread} ()}
+\label{classPseudoTcp_1_1Connection_a61cdf90cae14c6108dc9b8382705cb79}
+
+\item 
+\hypertarget{classPseudoTcp_1_1Connection_af2b81f6a75b4c0dbd0306721ccf1d599}{
+void {\bfseries sendMessages} ()}
+\label{classPseudoTcp_1_1Connection_af2b81f6a75b4c0dbd0306721ccf1d599}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1Connection_a9baee02141ab1e3239f42c381816d70f}{
+int \hyperlink{classPseudoTcp_1_1Connection_a9baee02141ab1e3239f42c381816d70f}{id}}
+\label{classPseudoTcp_1_1Connection_a9baee02141ab1e3239f42c381816d70f}
+
+\begin{DoxyCompactList}\small\item\em Property Id. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_ac8324269b61373b2084ce2bd13cde979}{
+\hyperlink{classPseudoTcp_1_1Connection}{Connection} $\ast$ \hyperlink{classPseudoTcp_1_1Connection_ac8324269b61373b2084ce2bd13cde979}{otherHalf}}
+\label{classPseudoTcp_1_1Connection_ac8324269b61373b2084ce2bd13cde979}
+
+\begin{DoxyCompactList}\small\item\em Property OtherHalf. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_a48abbd96a00e8b85c2c6d57174956520}{
+\hyperlink{classPseudoTcp_1_1IMsgHandler}{IMsgHandler} $\ast$ \hyperlink{classPseudoTcp_1_1Connection_a48abbd96a00e8b85c2c6d57174956520}{msgHandler}}
+\label{classPseudoTcp_1_1Connection_a48abbd96a00e8b85c2c6d57174956520}
+
+\begin{DoxyCompactList}\small\item\em Property MsgHandler. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_a17349e4876f32fce12e2875cb2c6781a}{
+int \hyperlink{classPseudoTcp_1_1Connection_a17349e4876f32fce12e2875cb2c6781a}{packetNumber}}
+\label{classPseudoTcp_1_1Connection_a17349e4876f32fce12e2875cb2c6781a}
+
+\begin{DoxyCompactList}\small\item\em Which packet number is about to be sent. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_a53276de3f2fdbbf89de4cf10c85a0b4c}{
+std::deque$<$ \hyperlink{classPseudoTcp_1_1Message}{Message} $>$ \hyperlink{classPseudoTcp_1_1Connection_a53276de3f2fdbbf89de4cf10c85a0b4c}{messagesToSend}}
+\label{classPseudoTcp_1_1Connection_a53276de3f2fdbbf89de4cf10c85a0b4c}
+
+\begin{DoxyCompactList}\small\item\em Shared buffer for sending thread. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1Connection_aeb4d5aa737c4e972355aaa23870289e6}{
+boost::shared\_\-ptr$<$ boost::thread $>$ {\bfseries sendingThread}}
+\label{classPseudoTcp_1_1Connection_aeb4d5aa737c4e972355aaa23870289e6}
+
+\item 
+\hypertarget{classPseudoTcp_1_1Connection_ae4a518d298dab48493c1a37895c01342}{
+boost::mutex {\bfseries messagesMutex}}
+\label{classPseudoTcp_1_1Connection_ae4a518d298dab48493c1a37895c01342}
+
+\item 
+\hypertarget{classPseudoTcp_1_1Connection_aa1720cbec441514dbfe72699975d3f4b}{
+volatile bool {\bfseries stopThread}}
+\label{classPseudoTcp_1_1Connection_aa1720cbec441514dbfe72699975d3f4b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A \hyperlink{classPseudoTcp_1_1Connection}{Connection} is what actually sends (or simulates sending of) a \hyperlink{classPseudoTcp_1_1Message}{Message}. A \hyperlink{classPseudoTcp_1_1Connection}{Connection} is really a half-\/connection; it has a pointer to it's other half
+
+When 'send' is called, it forwards the message to other half. When receives incomingMessage from other half, forwards to \hyperlink{classPseudoTcp_1_1Message}{Message} handler.
+
+Generally a \hyperlink{classPseudoTcp_1_1PseudoTcpTx}{PseudoTcpTx} object will call 'send', while a \hyperlink{classPseudoTcp_1_1PseudoTcpRx}{PseudoTcpRx} object will handle incoming messages.
+
+The 'send' part can simulate network problems by losing, delaying, or duplicating messages.
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em id}]An id for the connection, can be useful in debugging. \end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classPseudoTcp_1_1Connection_aaa3f50be412caa3c5970fd5ca3d930c0}{
+\index{PseudoTcp::Connection@{PseudoTcp::Connection}!losePacket@{losePacket}}
+\index{losePacket@{losePacket}!PseudoTcp::Connection@{PseudoTcp::Connection}}
+\subsubsection[{losePacket}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool PseudoTcp::Connection::losePacket ({\bf Message} $\ast$ {\em msg})\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}
+\label{classPseudoTcp_1_1Connection_aaa3f50be412caa3c5970fd5ca3d930c0}
+
+
+For simulating lost packets. 
+
+If returns true, the message is not sent. Base class default always return false, i.e. no simulated losses. 
+\begin{DoxyParams}{Parameters}
+\item[{\em msg}]The \hyperlink{classPseudoTcp_1_1Message}{Message} which would be sent, for the possibility that the loss could depend on the \hyperlink{classPseudoTcp_1_1Message}{Message} number or content. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+Connection.hpp\item 
+Connection.cpp\end{DoxyCompactItemize}
