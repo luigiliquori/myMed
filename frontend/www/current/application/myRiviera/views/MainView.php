@@ -28,11 +28,11 @@
 		<br/>
 		
 		<!-- App Main menu -->
-	 	<a href="?action=main#Map" data-role="button" data-transition="none" data-back="true" data-icon="home">Carte</a>
+	 	<a href="?action=main#Map" data-role="button" data-transition="none" data-back="true" data-icon="home"><?=_("Map")?></a>
 	 	<br/>
-		<a href="?action=main#search" data-role="button" data-transition="none" data-icon="search">Rechercher</a>
+		<a href="?action=main#search" data-role="button" data-transition="none" data-icon="search"><?=_("Search")?></a>
 		<br/>
-		<a href="?action=option" data-role="button" data-transition="none" data-icon="gear">Option</a>
+		<a href="?action=option" data-role="button" data-transition="none" data-icon="gear"><?=_("Profile")?></a>
 		<br/>
 		<!-- About dialog -->
 		<a href="?action=main#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
