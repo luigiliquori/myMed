@@ -109,6 +109,7 @@
         
         cell.backgroundView = [[[UIImageView alloc] init] autorelease];
         cell.selectedBackgroundView = [[[UIImageView alloc] init] autorelease];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     // Configure the cell...
