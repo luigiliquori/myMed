@@ -21,8 +21,6 @@ function tab_bar_login($activeTab) {
 }
 ?>
 
-<!-- INCLUDE THE MAIN PAGE OF THE PROJECT -->
-<?php include('mymed.php'); ?>
 
 <!-- Login page for betaUsers -->
 <div data-role="page" id="login">
@@ -162,5 +160,8 @@ function tab_bar_login($activeTab) {
 	</div>
 
 </div>
+
+<!-- INCLUDE THE MAIN PAGE OF THE PROJECT -->
+<?php include('mymed.php'); ?>
 
 <? include_once("footer.php"); ?>

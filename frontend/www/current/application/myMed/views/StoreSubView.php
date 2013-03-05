@@ -21,8 +21,7 @@ require_once("header.php");
 					Mise à jour: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i></p>
 				</div>
 				<div Style="position: absolute; right: 20px;">
-					
-					
+						
 					<a data-role="button" onClick="
 						<?php if($_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "off"): ?> 
 							toggleStatus('<?= $_GET['applicationStore'] ?>', 'on')" data-theme="g"> Install </a>
