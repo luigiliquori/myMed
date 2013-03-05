@@ -16,7 +16,7 @@ function tab_bar_login($activeTab) {
 	include 'social.php';
 	if (!isset($_SESSION['user'])):
 	?>
-		<a href="?action=guest&method=read" rel="external" class="ui-btn-right" style="top:-36px;left: 5px;" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
+	<!-- <a href="?action=guest&method=read" rel="external" class="ui-btn-right" style="top:-36px;left: 5px;" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a> -->
 	<? endif;
 }
 ?>
@@ -47,7 +47,11 @@ function tab_bar_login($activeTab) {
  		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Sign in") ?>" />
 			
 			<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true"><?= _("Sign in with") ?></a>
+			<a href="?action=guest&method=read" rel="external" class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
+					
 		</form>
+		
+		
 
 		<div data-role="popup" id="signinPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<ul data-role="listview">

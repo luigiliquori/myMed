@@ -44,10 +44,10 @@
 					
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="languageBox" id="check-view-a"/> <label for="check-view-a"><?= _("Language")?></label>
+							<input type="checkbox" name="languageBox" onclick="toggle(this, '#find_language_content')" id="check-view-a" /> <label for="check-view-a"><?= _("Language")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="language" id="find_language_content" id="call" data-native-menu="false">
+							<select disabled name="language" id="find_language_content" id="call" data-native-menu="false">
 								<option value=""></option>
 								<? foreach (Categories::$languages as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
@@ -57,10 +57,10 @@
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="categoryBox" id="check-view-c"/> <label for="check-view-c"><?= _("Category")?></label>
+							<input type="checkbox" name="categoryBox" onclick="toggle(this, '#find_category_content')" id="check-view-c"/> <label for="check-view-c"><?= _("Category")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="category" id="find_category_content" id="call" data-native-menu="false">
+							<select disabled name="category" id="find_category_content" id="call" data-native-menu="false">
 								<option value=""></option>
 									<? foreach (Categories::$categories as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
@@ -68,6 +68,17 @@
 							</select>
 						</div>
 					</div>
+					
+					<script type="text/javascript"> 
+						function toggle(chkbox, id) {
+						    if(chkbox.checked){
+							    $(id).selectmenu('enable');
+							}else {
+								$(id).selectmenu("disable");
+							}
+						}
+					</script>
+					
 				</div>
 			
 				<div style="text-align: center;">

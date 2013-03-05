@@ -1,8 +1,13 @@
 
 <div id="search" data-role="page">
 
-<? include("header-bar.php"); ?>
-
+	<!-- Header -->
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Back")?></a>
+		<h1><?php echo APPLICATION_NAME." v1.0 alpha"?></h1>
+		<a href="?action=option" data-transition="none" data-icon="search">Option</a>
+	</div>
+	
 	<div id="Itin" style="margin-top: 50px;">
 		<form name="<?= APPLICATION_NAME ?>FindForm"
 			id="<?= APPLICATION_NAME ?>FindForm">
@@ -105,14 +110,4 @@
 		</form>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="d">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="?action=main#Map" data-transition="none" data-back="true" data-icon="home">Carte</a></li>
-				<li><a href="?action=main#search" data-transition="none" data-icon="search" class="ui-btn-active ui-state-persist">Rechercher</a></li>
-				<li><a href="?action=option" data-transition="none" data-icon="gear">Option</a></li>
-			</ul>
-		</div>
-	</div>
-
 </div>

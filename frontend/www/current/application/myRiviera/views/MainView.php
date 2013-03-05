@@ -1,38 +1,63 @@
+<!-- ------------------ -->
+<!-- App Main View      -->
+<!-- ------------------ -->
+
 <? include("header.php"); ?>
 
-<div id="Map" data-role="page" class="page-map">
+<!-- Page view -->
+<div data-role="page" id="mainView" >
 
-	<? include("header-bar.php"); ?>
 
-	<!-- CONTENT -->
-	<div data-role="content" style="padding: 0px; margin-top: -20px;">
-		
-		<!-- MAP -->
-		<div id="myRivieraMap"></div>
-		
-		<div id="steps" data-role="controlgroup" data-type="horizontal" >
-			<a id="prev-step" data-role="button" data-icon="arrow-l" title="précédent"></a>
-			<a href="#roadMap" data-role="button">Détails</a>
-			<a id="next-step" data-role="button" data-icon="arrow-r" data-iconpos="right" title="suivant"></a>
-		</div>
+	<!-- Header bar -->
+	<? include "header-bar.php" ?>
+	<? print_header_bar("logout", "mainViewHelpPopup", false); ?>
 
-	</div>
+	<!-- Page content --> 
+	<div data-role="content" >
 	
-	<div data-role="footer" style="position:absolute;bottom:0;width:100%" data-theme="d">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="?action=main#Map" data-transition="none" data-back="true" data-icon="home" class="ui-btn-active ui-state-persist">Carte</a></li>
-				<li><a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a></li>
-				<li><a href="?action=option" data-transition="none" data-icon="gear">Option</a></li>
+		<!-- Notification pop up -->
+		<? include_once 'notifications.php'; ?>
+		<? print_notification($this->success.$this->error); ?>
+			
+		<!-- App description -->
+		<br/>
+		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
+			<h3><?= _("Welcome") ?></h3>
+			<p><?= _("Main capsule text") ?></p>	
+		</div>
+		<br/>
+		
+		<!-- App Main menu -->
+	 	<a href="?action=main#Map" data-role="button" data-transition="none" data-back="true" data-icon="home">Carte</a>
+	 	<br/>
+		<a href="?action=main#search" data-role="button" data-transition="none" data-icon="search">Rechercher</a>
+		<br/>
+		<a href="?action=option" data-role="button" data-transition="none" data-icon="gear">Option</a>
+		<br/>
+		<!-- About dialog -->
+		<a href="?action=main#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
+		
+		
+		<!-- MainView HELP POPUP -->
+		<div data-role="popup" id="mainViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<h3><?= _("How it works") ?> ?</h3>
+			<ul data-role="listview" data-theme="e">	
+				<li>
+					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
+						<p><strong><?= _("topic") ?></strong></p>
+						<p><?= _("description") ?></p>
+				</li>
 			</ul>
 		</div>
-	</div>
-
+	</div>	
+	<!-- End page content -->
+	
 </div>
 
+<?  include("MapView.php"); ?>
 <?  include("SearchView.php"); ?>
 <? 
 /* roadMap  */ include("DetailsView.php"); 
 ?>
-
-<? include("footer.php"); ?>
+<? include("AboutView.php"); ?>
