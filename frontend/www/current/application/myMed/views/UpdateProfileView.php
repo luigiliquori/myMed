@@ -13,7 +13,6 @@ require_once("header.php");
 		<form action="?action=profile" id="updateProfileForm" method="post" data-ajax="false">
 		
 			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
-			<input type="hidden" name="email" value="<?= $_SESSION['user']->email ?>" />
 			
 			<label for="firstName"><?= _("First name") ?> : </label>
 			<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
@@ -21,9 +20,12 @@ require_once("header.php");
 			<label for="lastName"><?= _("Last name") ?> : </label>
 			<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			
-			<!--<label for="email" ><?= _("E-mail")?> : </label>
-			<input type="text" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />-->
-			
+		 <? if (!isset($_SESSION['user']->email)){ ?>
+				<label for="email" ><?= _("E-mail")?> : </label>
+				<input type="text" id="email" name="email"/>
+		 <? }else{ ?>
+		 		<input type="hidden" name="email" value="<?= $_SESSION['user']->email ?>" />
+		 <? } ?>
 			<label for="birthday" ><?= _("Date of birth") ?> : </label>
 			<input type="text" id="birthday" name="birthday" placeholder="jj/mm/aaaa" value="<?= $_SESSION['user']->birthday ?>" />
 			
