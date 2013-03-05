@@ -36,10 +36,10 @@
 						<!-- TITLE -->
 						<h3><?= _("Title")?>: <?= $this->result->title ?> </h3>
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _('Date of expiration') ?></b>: <?= $this->result->end ?><br/><br/>
-							<b><?= _("Locality") ?></b>: <?= $this->result->locality ?><br/>
-							<b><?= _("Language") ?></b>: <?= $this->result->language ?><br/>
-							<b><?= _("Category") ?></b>: <?= $this->result->category ?><br/>
+							<b><?= _('Deadline') ?></b>: <?= $this->result->end ?><br/><br/>
+							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$this->result->locality] ?><br/>
+							<b><?= _("Language") ?></b>: <?= Categories::$languages[$this->result->language] ?><br/>
+							<b><?= _("Category") ?></b>: <?= Categories::$categories[$this->result->category] ?><br/><br/>
 						</p>
 						 
 						<!-- TEXT -->

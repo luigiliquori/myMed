@@ -90,10 +90,10 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Locality") ?></b>: <?= _($item->locality) ?><br/>
-							<b><?= _("Language") ?></b>: <?= _($item->language) ?><br/>
-							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/><br/>
-							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br>
+							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
+							<b><?= _("Language") ?></b>: <?= Categories::$languages[$item->language] ?><br/>
+							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/><br/>
 						</p>
 						
 						<br/>

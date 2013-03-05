@@ -28,13 +28,16 @@
   	   ?>
 	
 	<!-- Print profile type -->
-<?  if($_SESSION['myEuroCIN']->permission == 2) { ?>
-		<div data-role="header" data-theme="e">
-			<h1 style="white-space: normal;">
-				<? echo _("Administrator"); ?>
-			</h1>
-		</div>
-<? } ?>
+	<? if (isset($_SESSION['myEuroCIN']) && $_GET['user'] == $_SESSION['user']->id ){ 
+			if($_SESSION['myEuroCIN']->permission == 2){ ?>
+		
+			<div data-role="header" data-theme="e">
+				<h1 style="white-space: normal;">
+					<? echo _("Administrator"); ?>
+				</h1>
+			</div>
+		<? } ?>
+	<? } ?>
 	
 	<!-- Page content -->
 	<div data-role="content">

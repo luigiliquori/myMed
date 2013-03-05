@@ -20,7 +20,7 @@
 		
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
-			<h3><?= _("<<<<< Little help >>>>>") ?> ?</h3>
+			<h3><?= _("My publications") ?></h3>
 			<p><?= _("Here is the space summarizing all of your publications, as well as a way to create new ones.")?></p>
 		</div>
 		<br />
@@ -46,10 +46,10 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/><br/>
-							<b><?= _("Locality") ?></b>: <?= $item->locality ?><br/>
-							<b><?= _("Language") ?></b>: <?= $item->language ?><br/>
-							<b><?= _("Category") ?></b>: <?= $item->category ?><br/><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
+							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
+							<b><?= _("Language") ?></b>: <?= Categories::$languages[$item->language] ?><br/>
+							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/><br/>
 							<b>Publisher ID:</b><?= $item->publisherID ?><br/> 
 							<!-- Project reputation-->	
 							<p style="display:inline; margin-left: 30px;" > <b><?= _("Project reputation")?>:</b> </p>  
@@ -58,19 +58,19 @@
 									// Disable reputation stars if there are no votes yet 
 									if($this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] == '0') : ?> 
 									<?php for($i=1 ; $i <= 5 ; $i++) {?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="margin-left: <?= $i ?>0px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px;margin-left:185px; margin-top:3px;"/>
 									<?php } ?>
 								<?php else: ?>
 									<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 										<?php if($i*20-20 < $this->reputationMap[$item->getPredicateStr().$item->publisherID] ) { ?>
-											<img alt="rep" src="img/yellowStar.png" width="12" Style="margin-left: <?= $i ?>0px;  margin-top:3px;" />
+											<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-left:185px; margin-top:3px;" />
 										<?php } else { ?>
-											<img alt="rep" src="img/grayStar.png" width="12" Style="margin-left: <?= $i ?>0px; margin-top:3px;"/>
+											<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px;margin-left:185px; margin-top:3px;"/>
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
 							</p>
-							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+							<p style="display:inline; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
 						</p>			
 					</a>
 				</li>

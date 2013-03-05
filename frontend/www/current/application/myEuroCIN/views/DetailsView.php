@@ -67,7 +67,7 @@
   										
   								<!-- Pop up delete -->	
   								<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
-  								 <? if($_SESSION['myBenevolat']->permission == '2' && $this->result->publisherID!=$_SESSION['user']->id){ ?>
+  								 <? if($_SESSION['myEuroCIN']->permission == '2' && $this->result->publisherID!=$_SESSION['user']->id){ ?>
   								 		<p style="font-size:85%;"> <?= _("You can attach a message to inform the author (or just click on Delete):"); ?> </p>
   								 		<form action="?action=publish&method=delete" method="POST" data-ajax="false">
   								 			<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea>
@@ -136,6 +136,7 @@
 					 	else:
 					 		echo $author."";
 					 	endif;
+					 	if($_GET['author']==$_SESSION['user']->id) echo " "._("(You)");
 					?> 
 					<br/></p>					
 				</div>

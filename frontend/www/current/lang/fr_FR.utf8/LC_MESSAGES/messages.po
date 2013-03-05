@@ -2314,6 +2314,15 @@ msgstr "retour"
 msgid "Creating an account in myEdu will allow you to submit new publications and to apply."
 msgstr "La création d'un compte dans myEurope vous permettra de soumettre de nouveaux projets et de participer aux fils de discussions dans la rubrique \"Bonnes Pratiques\"."
 
+msgid "New publication"
+msgstr "Nouvelle publication"
+
+msgid "Modify publication"
+msgstr "Modifier publication"
+
+msgid "Edit publication"
+msgstr "Editer publication"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/LoginView.php:21
 msgid "Don't forget that you have the possibility to use your social network accounts to create your profile: see button"
 msgstr "N'oubliez pas que vous avez la possiblilité d'utiliser vos comptes de réseaux sociaux pour créer votre profil: voir bouton"
