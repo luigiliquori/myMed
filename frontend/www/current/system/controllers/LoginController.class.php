@@ -31,7 +31,7 @@ class LoginController extends AbstractController {
 			$pass	= hash("sha512", $_POST['password']);
 		
 			// Login and password should not be empty
-			if( empty($login) ){
+			if( empty($login) ) {
 				// TODO i18n
 				$this->error = _("Login field can't be empty");;
 				$this->renderView("login");
