@@ -21,6 +21,17 @@ require_once("header.php");
 					Mise à jour: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i></p>
 				</div>
 				<div Style="position: absolute; right: 20px;">
+					
+					
+					<a data-role="button" onClick="
+						<?php if($_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "off"): ?> 
+							toggleStatus('<?= $_GET['applicationStore'] ?>', 'on')" data-theme="g"> Install </a>
+						<?php else: ?>	
+							toggleStatus('<?= $_GET['applicationStore'] ?>', 'off')" data-theme="r" > Uninstall </a>
+						<?php endif; ?>
+					
+					
+					<?php /* ?>
 					<select data-role="slider" data-mini="true"
 						onChange="toggleStatus('<?= $_GET['applicationStore'] ?>', $(this).val());">
 						<option value="off"
@@ -28,6 +39,7 @@ require_once("header.php");
 						<option value="on"
 						<?= $_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "on"  ? "selected='selected'" : "" ?>>On</option>
 					</select>
+					*/ ?>
 				</div>
 				<div style="position: relative; height:60px;"></div>
 			</div>
