@@ -77,7 +77,7 @@
 			<!-- Birthday -->
 			<div data-role="fieldcontain">
 				<label for="birthday" style="text-align:right"><?= _("Date of birth") ?> : </label>
-				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+				<input type="text" id="birthday" name="birthday" placeholder="jj/mm/aaaa" value="<?= $_SESSION['user']->birthday ?>" />
 			</div>
 			<!-- Profile picture -->
 			<div data-role="fieldcontain">

@@ -28,7 +28,6 @@
 	   </div>
 	   
 		<!-- Extended profile edit form -->
-		<!-- Final wizard form -->
 		<form action="?action=ExtendedProfile&method=update" id="updateProfileForm" method="POST" data-ajax="false" >
 						
 			<input type="hidden" name="id" value="<?= $_SESSION['myBenevolat']->profile ?>" />
@@ -48,7 +47,7 @@
 	  						$('#associationname').show();
 	  						$('#siretdiv').show();
 	  						$('#websitediv').show();
-	  						$('#birthdaydiv').hide();
+	  						//$('#birthdaydiv').hide();
 	  						$('#sexdiv').hide();
 	  						$('#workdiv').hide();
 	  						$('#mobilitediv').hide();	
@@ -74,8 +73,8 @@
 			
 			<!-- Birthday -->
 			<div data-role="fieldcontain" id="birthdaydiv" >
-				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
-				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+				<label for="birthday" style="text-align:right"><?= _("Date of birth") ?> : </label>
+				<input type="text" id="birthday" name="birthday" placeholder="jj/mm/aaaa" value="<?= $_SESSION['user']->birthday ?>" />
 			</div>
 			
 			<!-- Profile picture -->
@@ -165,7 +164,7 @@
 	  <?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'):?>
 					<?= _("Your skills (1 to 4)")?> <b>*</b> : 
 				<?else:?>
-					<?= _("The skills you need")?> <b>*</b> : 
+					<?= _("The skills you need (1 to 4)")?> <b>*</b> : 
 				<?endif;?>
 				</h1>
 			</div>	
@@ -402,8 +401,8 @@
 						return false;
 					}
 					var n_competences = $("input[name*=competences]:checked").size(); 
-					if(!(n_competences>=1)) {
-						warningPopUp('Choose at least one competence you need');
+					if(!(n_competences>=1 && n_competences<=4)) {
+						warningPopUp('You must choose from 1 to 4 skills');
 						return false;
 					}
 					var n_missions = $("input[name*=missions]:checked").size(); 

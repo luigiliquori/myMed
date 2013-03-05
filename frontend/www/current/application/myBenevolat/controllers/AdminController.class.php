@@ -168,7 +168,7 @@ class AdminController extends ExtendedProfileRequired {
 	
 	/** Delete an association extended profile and its announcements */
 	public function delete() {
-	
+		debug("delete");
 		$this->deleteAnnouncements($_GET['id']);
 		$this->deleteUser($_GET['id']);
 	

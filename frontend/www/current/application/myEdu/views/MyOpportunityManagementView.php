@@ -127,16 +127,16 @@
 				function createlist($val){
 					$result="";
 					if(isset($val->category)){
-						$result .= _($val->category);
+						$result .= Categories::$categories[$val->category];
 					}
 					if(isset($val->organization)){
-						$result .= ", "._($val->organization);
+						$result .= ", ".Categories::$organizations[$val->organization];
 					}
 					if(isset($val->locality)){
-						$result .= ", "._($val->locality);
+						$result .= ", ".Categories::$localities[$val->locality];
 					}
 					if(isset($val->area)){
-						$result .= ", "._($val->area);
+						$result .= ", ".Categories::$areas[$val->area];
 					}
 					return $result;
 				}
