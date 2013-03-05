@@ -86,7 +86,7 @@ NSString *URLS[] = {@"http://europa.eu",
     }
     
     // Configure the cell...
-    cell.textLabel.text = [NSString stringWithFormat:@"myEdu 1.0"];
+    cell.textLabel.text = [NSString stringWithFormat:@"myEdu 1.1"];
     cell.textLabel.textColor = [UIColor grayColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
