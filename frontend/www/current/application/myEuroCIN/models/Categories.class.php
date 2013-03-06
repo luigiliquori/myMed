@@ -14,31 +14,31 @@ class Categories {
 }
 
 Categories::$localities = array(
-		"alessandria" => _("Alessandria"),
-		"asti"	=> _("Asti"),
-		"cuneo" => _("Cuneo"),
-		"francia" => _("Francia"),
-		"genova" => _("Genova"),
-		"imperia" => _("Imperia"),
-		"savona" => _("Savona")
+		"Alessandria" => _("Alessandria"),
+		"Asti"	=> _("Asti"),
+		"Cuneo" => _("Cuneo"),
+		"Francia" => _("Francia"),
+		"Genova" => _("Genova"),
+		"Imperia" => _("Imperia"),
+		"Savona" => _("Savona")
 );
 
 
 Categories::$languages = array(
-		"italian"	=> _("Italian"),
-		"english"	=> _("English"),
-		"france" => _("French")
+		"italiano"	=> _("Italian"),
+		"inglese"	=> _("English"),
+		"francese" => _("French")
 );
 
 Categories::$categories = array(
-		"art" => _("Arte / Cultura"),
-		"nature" => _("Natura"),
-		"tradition" => _("Enogastronomia"),
-		"enogastronomy" => _("Benessere"),
-		"wellness" => _("Storia"),
-		"story" => _("Arte / Cultura"),
-		"religion" => _("Arte / Cultura"),
-		"sport" => _("Arte / Cultura"),
+		"Arte_Cultura" => _("Arte / Cultura"),
+		"Natura" => _("Natura"),
+		"Tradizioni" => _("Enogastronomia"),
+		"Enogastronomia" => _("Benessere"),
+		"Benessere" => _("Storia"),
+		"Storia" => _("Arte / Cultura"),
+		"Religione" => _("Arte / Cultura"),
+		"Escursioni_Sport" => _("Arte / Cultura"),
 );
 
 

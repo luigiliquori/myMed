@@ -77,7 +77,7 @@ class StoreController extends AuthenticatedController {
 				$request->addArgument("start",  time());
 				$request->addArgument("end",  time());
 				$request->addArgument("predicate",  REPUTATION_PRED);
-				$request->addArgument("feedback",  $_REQUEST['reputation']);
+				$request->addArgument("feedback",  $_REQUEST['reputation']/10);
 
 				try {
 					$responsejSon = $request->send();

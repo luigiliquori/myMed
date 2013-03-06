@@ -13,6 +13,17 @@
 		<br />
 		<br />
 		<div class="ui-grid-b">
+			<?php // Check for installed applications 
+				  $app_installed=0;
+				  foreach ($_SESSION['applicationList'] as $applicationName => $status) { 
+				  	if ($status == "on")
+				  		$app_installed = $app_installed + 1; 
+				  }
+				  
+				  if($app_installed == 0)
+				  	echo "<br/><strong>"._("You don't have any application installed! Please choose some from the store.")."</strong>";
+			?>
+			
 			<?php $column = "a"; ?>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 				<?php if ($status == "on") { ?>
