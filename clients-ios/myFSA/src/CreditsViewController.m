@@ -12,16 +12,24 @@
 
 @end
 
-NSString *URLS[] = {@"http://europa.eu",
+NSString *URLS_CONSORTION[] = {
+    @"http://www.inria.fr",
+    @"http://unice.fr/",
+    @"http://www.polito.it",
+    @"http://www.unito.it",
+    @"http://http://www.unipmn.it"};
+NSString *URLS_FOUNDERS[] = {
     @"http://www.interreg-alcotra.org/",
+    @"http://europa.eu",
     @"http://www.cg06.fr/",
     @"http://www.regionpaca.fr/",
     @"http://www.inria.fr",
     @"http://www.regione.piemonte.it/",
-    @"http://mymed2.sophia.inria.fr/?action=login&method=read"};
+    @"http://www.mymed.fr"};
+
 @implementation CreditsViewController
 
-@synthesize cells=_cells;
+@synthesize cellsCons=_cellsCons, cellFund=_cellFund;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -46,7 +54,8 @@ NSString *URLS[] = {@"http://europa.eu",
 
 - (void)viewDidUnload
 {
-    self.cells = nil;
+    self.cellsCons = nil;
+    self.cellFund = nil;
     [super viewDidLoad];
 }
  
@@ -61,14 +70,16 @@ NSString *URLS[] = {@"http://europa.eu",
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     if (section==0) {
-        return [self.cells count];
+        return [self.cellsCons count];
+    } else if (section==1) {
+            return [self.cellFund count];
     }
     return 1;
 }
@@ -76,7 +87,9 @@ NSString *URLS[] = {@"http://europa.eu",
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==0) {
-      return [self.cells objectAtIndex:indexPath.row];
+        return [self.cellsCons objectAtIndex:indexPath.row];
+    } else if (indexPath.section==1) {
+        return [self.cellFund objectAtIndex:indexPath.row];
     }
     
     static NSString *CellIdentifier = @"Cell";
@@ -136,15 +149,26 @@ NSString *URLS[] = {@"http://europa.eu",
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section>0) {
+    if (indexPath.section==2) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr"]];
         return;
     }
-    UITableViewCell *c = [self.cells objectAtIndex:indexPath.row];
-    int t = c.tag;
-    if (t>=0 && t<7) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLS[t]]];
+    
+    if (indexPath.section==0) {
+        //UITableViewCell *c = [self.cellsFund objectAtIndex:indexPath.row];
+        int t = indexPath.row; //c.tag;
+        if (t>=0 && t<5) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLS_CONSORTION[t]]];
+        }
+        return;
     }
-}
+    if (indexPath.section==1) {
+        int t = indexPath.row; //c.tag;
+        if (t>=0 && t<7) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLS_FOUNDERS[t]]];
+        }
+        return;
+    }}
 
 -(float) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -152,5 +176,21 @@ NSString *URLS[] = {@"http://europa.eu",
         return 55;
     else
         return 120;
+}
+-(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return NSLocalizedString(@"Consortium myMed:", nil);
+            break;
+            
+        case 1:
+            return NSLocalizedString(@"Funded by:", nil);
+            break;
+
+        default:
+            return @"";
+            break;
+    }
 }
 @end
