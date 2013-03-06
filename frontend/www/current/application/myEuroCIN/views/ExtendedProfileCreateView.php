@@ -54,7 +54,7 @@
 			</div>
 			<!-- Description -->
 			<div data-role="fieldcontain">
-				<label for="desc"  style="text-align:right"><?= _('Description / <br/> Notes') ?><b>*</b> : </label>
+				<label for="desc"  style="text-align:right"><?= _('Description / Notes') ?><b>*</b> : </label>
 				<textarea id="desc" name="desc" style="height:120px;"></textarea>
 			</div>
 			<!-- Accept terms and conditions 
