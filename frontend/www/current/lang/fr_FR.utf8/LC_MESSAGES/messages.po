@@ -1594,85 +1594,12 @@ msgstr "Non, pas vraiment..."
 msgid "Logout"
 msgstr "Se déconnecter"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:21
-msgid "Accompagnement (social professionnel)"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:22
-msgid "Accueil / Orientation"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:23
-msgid "Administration - Direction - Management"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:24
-msgid "Alphabétisation - Formation - Enseignement - Soutien scolaire"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:25
 msgid "Animation"
 msgstr "Animation"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:34
-msgid "Visite domicile"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:35
-msgid "Visite hôpital"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:36
-msgid "Visite prison"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:41
-msgid "-- Non défini --"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:42
-msgid "Plaine et coteaux "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:43
-msgid "Collines niçoises "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:44
-msgid "Trois collines "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:45
-msgid "Rives du Paillon "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:46
-msgid "Est littoral "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:47
-msgid "Nord centre ville "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:48
-msgid "Coeur de ville "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:49
-msgid "Ouest littoral"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:54
-msgid "Ponctuel"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:55
-msgid "Régulier"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:56
-msgid "Urgence"
-msgstr ""
+msgid "Manage accounts"
+msgstr "Gérer comptes"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/UpdateReputationController.class.php:37
 msgid "Thank you for your contribution!"

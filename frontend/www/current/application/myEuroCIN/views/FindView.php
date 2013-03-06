@@ -31,7 +31,7 @@
 	   			<fieldset data-role="controlgroup">
 					<!-- Categoria -->
 					<select name="locality" id="find_locality_content" id="call" data-native-menu="false">
-						<option value=""><?= _("Locality") ?></option>
+						<option value=""><?= _("Select locality") ?></option>
 						<? foreach (Categories::$localities as $k=>$v) :?>
 							<option value="<?= $k ?>"><?= $v ?></option>
 						<? endforeach ?>
@@ -44,11 +44,12 @@
 					
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="languageBox" onclick="toggle(this, '#find_language_content')" id="check-view-a" /> <label for="check-view-a"><?= _("Language")?></label>
+							<input type="checkbox" name="languageBox" onclick="toggle(this, '#find_language_content')" id="check-view-a" /> 
+							<label for="check-view-a"><?= _("Language")?></label>
 						</div>
 						<div class="ui-block-b">
 							<select disabled name="language" id="find_language_content" id="call" data-native-menu="false">
-								<option value=""></option>
+								<option value=""><?= _("Select language")?></option>
 								<? foreach (Categories::$languages as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
@@ -57,11 +58,12 @@
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="categoryBox" onclick="toggle(this, '#find_category_content')" id="check-view-c"/> <label for="check-view-c"><?= _("Category")?></label>
+							<input type="checkbox" name="categoryBox" onclick="toggle(this, '#find_category_content')" id="check-view-c"/> 
+							<label for="check-view-c"><?= _("Category")?></label>
 						</div>
 						<div class="ui-block-b">
 							<select disabled name="category" id="find_category_content" id="call" data-native-menu="false">
-								<option value=""></option>
+								<option value=""><?= _("Select category")?></option>
 									<? foreach (Categories::$categories as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
 									<? endforeach ?>

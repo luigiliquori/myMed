@@ -71,8 +71,7 @@
   								 		<p style="font-size:85%;"> <?= _("You can attach a message to inform the author (or just click on Delete):"); ?> </p>
   								 		<form action="?action=publish&method=delete" method="POST" data-ajax="false">
   								 			<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea>
-  											<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
-											<input type="hidden" name="type" value="<?= $this->result->type ?>" />
+  											<input type="hidden" name="publisher" value="<?= $this->result->publisherID ?>" />
 											<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
 											<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
 											<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
@@ -94,8 +93,7 @@
   										<fieldset class="ui-grid-a">
   											<div class="ui-block-a">
   												<form action="?action=publish&method=delete" method="POST" data-ajax="false">
-  													<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
-													<input type="hidden" name="type" value="<?= $this->result->type ?>" />
+  													<input type="hidden" name="publisher" value="<?= $this->result->publisherID ?>" />
 													<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
 													<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
 													<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />

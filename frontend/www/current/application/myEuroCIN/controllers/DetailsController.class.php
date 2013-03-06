@@ -68,11 +68,6 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		$this->search_comment();
-		$this->search_apply();
-		
-		// Need publisher role (student, professer, or company) so
-		// get publisher details
-		// Get the user details
 		
 		try {
 			$datamapper = new DataMapper;
@@ -101,19 +96,9 @@ class DetailsController extends AuthenticatedController {
 		$this->result_comment = $search_comments->find();
 	
 	}
-	
-	public function search_apply() {
-		$search_applies = new Apply();
-		$this->fillObjApply($search_applies);
-		$this->result_apply = $search_applies->find();
-	}
 
 	private function fillObjComment($obj) {
 		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
-	}
-	
-	private function fillObjApply($obj) {
-		$obj->pred1 = 'apply&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 	}
 }
 ?>

@@ -119,19 +119,19 @@ class PublishController extends ExtendedProfileRequired {
 	
 	
 	/**
-	 *  Delete user's publication and all the students applies if category=course and the comments
+	 *  Delete user's publication and all the comments
 	 */
 	public function delete() {
 		
 		$this->delete_Comments();
 		
 		$obj = new myEuroCINPublication();
-		$obj->publisherID = $_SESSION['user']->id;  	// Publisher ID
-		$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
-		//$obj->type = 'myEuroCINPublication';			// Publication type no used anymore
+		$obj->publisherID = $_POST['publisher'];  	// Publisher ID
+		$obj->publisher = $_POST['publisher'];    	// Publisher ID
 		$obj->locality = $_POST['locality'];			// Locality
 		$obj->language = $_POST['language'];			// Organization
 		$obj->category = $_POST['category'];			// Category
+		$obj->begin = $_POST['begin'];
 		$obj->end 	= $_POST['date'];					// Expiration date
 		$obj->title = $_POST['title'];					// Title
 		$obj->text 	= $_POST['text'];					// Publication text
@@ -140,10 +140,17 @@ class PublishController extends ExtendedProfileRequired {
 		// Delete publication
 		$obj->delete();
 		$this->result = $obj;
-		$this->success = "Deleted !";
+		$this->success = "Publication deleted !";
 		
-		// Render MyPublications View
-		$this->showUserPublications();
+		if(isset($_POST['msgMail'])){ // deleted by the admin -> send a mail to the author to inform him
+			$msgMail = "";
+			if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the admin: "').$_POST['msgMail'].'"';
+				
+			$mailman = new EmailNotification(substr($_POST['publisher'],6),_("Your publication has been removed"),_("Your publication ").$_POST['title']._(" has been removed by an admin.").$msgMail);
+			$mailman->send();
+		}
+		
+		$this->renderView("Main");
 	}
 	
 	function delete_Comments(){

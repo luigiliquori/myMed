@@ -136,7 +136,7 @@ class PublishController extends ExtendedProfileRequired {
 		$obj->category = $_POST['category'];		// Category
 		$obj->locality = $_POST['locality'];		// Locality
 		$obj->organization = $_POST['organization'];// Organization
-		$obj->end 	= $_POST['date'];				// Expiration date
+		$obj->end 	= $_POST['end'];				// Expiration date
 		$obj->title = $_POST['title'];				// Title
 		$obj->text 	= $_POST['text'];				// Publication text
 		
