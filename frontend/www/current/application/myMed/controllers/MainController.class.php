@@ -12,8 +12,9 @@ class MainController extends AuthenticatedController {
 
 	//bootstrap application in AuthenticatedController I know it's dirty I have to find an other solution for statistics
 	//public static $bootstrapApplication = array("myEurope", "myRiviera", "myFSA", "myMemory", "myBen", "myEuroCIN");
-	public static $otherApplication = array("myJob", "myConsolato", "myAutoinsieme", "myREADME", "myAngel", "myStatistics", "myEdu", "myStudent");
-
+	//public static $otherApplication = array("myJob", "myConsolato", "myAutoinsieme", "myREADME", "myAngel", "myStatistics", "myEdu", "myStudent");
+	public static $otherApplication = array("myConsolato", "myStatistics", "myEdu");
+	
 // 	public $applicationUrls = array("myEurope"=>"europe", "myRiviera"=>"riviera");
 	
 	protected $currentSuccessMess = null;
