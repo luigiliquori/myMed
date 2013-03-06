@@ -44,7 +44,7 @@
 							<label for="check-view-e"><?= _("Skill")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select disabled name="competence" id="find_category_content" data-native-menu="false">
+							<select disabled name="competence" id="find_category_content" data-native-menu="false" data-overlay-theme="d">
 								<option value=""><?= _("Select skill") ?></option>
 								<? foreach (Categories::$competences as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
@@ -58,7 +58,7 @@
 								<label for="check-view-a"><?= _("District")?></label>
 							</div>
 							<div class="ui-block-b">
-								<select disabled name="mobility" id="find_organization_content" data-native-menu="false">
+								<select disabled name="mobility" id="find_organization_content" data-native-menu="false" data-overlay-theme="d">
 									<option value=""><?= _('Select district') ?></option>
 									<? foreach (Categories::$mobilite as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
@@ -72,7 +72,7 @@
 								<label for="check-view-b"><?= _("Mission type")?></label>
 							</div>
 							<div class="ui-block-b">
-								<select disabled name="mission" id="find_locality_content" data-native-menu="false">
+								<select disabled name="mission" id="find_locality_content" data-native-menu="false" data-overlay-theme="d">
 									<option value=""><?= _('Select mission type') ?></option>
 									<? foreach (Categories::$missions as $k=>$v) :?>
 										<option value="<?= $k ?>"><?= $v ?></option>
@@ -108,13 +108,13 @@
 				function createlist($val){
 					$result="";
 					if(isset($val->competence)){
-						$result .= _($val->competence);
+						$result .= Categories::$competences[$val->competence];
 					}
 					if(isset($val->mobility)){
-						$result .= ", "._($val->mobility);
+						$result .= ", ".Categories::$mobilite[$val->mobility];
 					}
 					if(isset($val->mission)){
-						$result .= ", "._($val->mission);
+						$result .= ", ".Categories::$missions[$val->mission];
 					}
 					return $result;
 				}

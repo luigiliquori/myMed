@@ -55,9 +55,8 @@ class PublishController extends ExtendedProfileRequired {
 			// Check mandatory fields
 			if (empty($_POST['title'])) {
 				$this->error = _("Title field can't be empty");
-			} else if (((empty($_POST['expire_day']) ||  empty($_POST['expire_month']) ||  empty($_POST['expire_year'])) && ($_POST['category'] == 'Course') && ($fromUpdate==false)) 
-						 || empty($_POST['end'])) {		
-					$this->error = _("Please provide a valide expiration date for the course");				
+			} else if($fromUpdate==false && (empty($_POST['expire_day']) || empty($_POST['expire_month']) || empty($_POST['expire_year']) || empty($_POST['end'])) && ($_POST['category'] == 'Course')){	
+				$this->error = _("Please provide a valide expiration date for the course");				
 			} else if (empty($_POST['text'])) {
 				$this->error = _("Text field can't be empty");
 					
@@ -137,7 +136,7 @@ class PublishController extends ExtendedProfileRequired {
 		$obj->category = $_POST['category'];		// Category
 		$obj->locality = $_POST['locality'];		// Locality
 		$obj->organization = $_POST['organization'];// Organization
-		$obj->end 	= $_POST['date'];				// Expiration date
+		$obj->end 	= $_POST['end'];				// Expiration date
 		$obj->title = $_POST['title'];				// Title
 		$obj->text 	= $_POST['text'];				// Publication text
 		

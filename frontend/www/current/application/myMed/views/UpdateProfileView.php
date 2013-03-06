@@ -14,17 +14,20 @@ require_once("header.php");
 		
 			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
 			
-			<label for="firstName"><?= _("First Name") ?> : </label>
+			<label for="firstName"><?= _("First name") ?> : </label>
 			<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
 			
-			<label for="lastName"><?= _("Last Name") ?> : </label>
+			<label for="lastName"><?= _("Last name") ?> : </label>
 			<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			
-			<label for="email" >eMail : </label>
-			<input type="text" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
-			
-			<label for="birthday" ><?= _("Birthday") ?> : </label>
-			<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+		 <? if (!isset($_SESSION['user']->email)){ ?>
+				<label for="email" ><?= _("E-mail")?> : </label>
+				<input type="text" id="email" name="email"/>
+		 <? }else{ ?>
+		 		<input type="hidden" name="email" value="<?= $_SESSION['user']->email ?>" />
+		 <? } ?>
+			<label for="birthday" ><?= _("Date of birth") ?> : </label>
+			<input type="text" id="birthday" name="birthday" placeholder="jj/mm/aaaa" value="<?= $_SESSION['user']->birthday ?>" />
 			
 			<label for="profilePicture" ><?= _("Profile picture") ?> (url): </label>
 			<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
@@ -32,9 +35,9 @@ require_once("header.php");
 
 			<label for="lang" ><?= _("Language") ?>	: </label>
 			<select id="lang" name="lang">
-				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Français</option>
-				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
-				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
+				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
+				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
+				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 			</select>
 
 			<br>

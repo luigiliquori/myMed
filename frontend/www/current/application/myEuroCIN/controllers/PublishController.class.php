@@ -41,7 +41,7 @@ class PublishController extends ExtendedProfileRequired {
 	/**
 	 *  Submit a new user publication
 	 */
-	public function create() {
+	public function create($fromUpdate=false) {
 	
 		// Check if submit method has been called from the form
 		if (!($_SERVER['REQUEST_METHOD'] == "POST")) {
@@ -51,33 +51,26 @@ class PublishController extends ExtendedProfileRequired {
 			$this->renderView("NewPublication");
 				
 		} else {
-	
 			// Check mandatory fields
 			if (empty($_POST['title'])) {
 				$this->error = _("Title field can't be empty");
-				$this->renderView("NewPublication");
-			} else if (((empty($_POST['expire_day']) || 
-					     empty($_POST['expire_month']) || 
-					     empty($_POST['expire_year']))) &&
-					     empty($_POST['date'])) {		
-				$this->error = _("Please provide a valide expiration date for the course");
-				$this->renderView("NewPublication");
+			} else if($fromUpdate==false && (empty($_POST['expire_day']) || empty($_POST['expire_month']) || empty($_POST['expire_year']) || empty($_POST['date']))) {		
+				$this->error = _("Please provide a valide expiration date");
 			} else if (empty($_POST['text'])) {
-				$this->error = _("Text field can't be empty");
-				$this->renderView("NewPublication");
-					
+				$this->error = _("Text field can't be empty");	
 			} else if (empty($_POST['locality'])) {
 				$this->error = _("Locality field can't be empty");
-				$this->renderView("NewPublication");
-					
 			} else if (empty($_POST['language'])) {
-				$this->error = _("Language field can't be empty");
-				$this->renderView("NewPublication");
-					
+				$this->error = _("Language field can't be empty");	
 			} else if (empty($_POST['category'])) {
 				$this->error = _("Category field can't be empty");
-				$this->renderView("NewPublication");
-			} else {
+			}
+			if(!empty($this->error) && $fromUpdate==false){
+		    	$this->renderView("NewPublication");
+		    }else if(!empty($this->error) && $fromUpdate==true){
+		    	debug($this->error);
+		    	$this->redirectTo("?action=publish&method=modify_publication&predicate=".$_POST['predicate']."&author=".$_POST['author']);
+		    } else {
 				
 				// All required fields are filled, publish it
 				$obj = new myEuroCINPublication();
@@ -95,13 +88,11 @@ class PublishController extends ExtendedProfileRequired {
 				else 
 					$obj->begin = date(DATE_FORMAT);
 				
-				// If the author is an admin the post is automatically
-				// validated
-				if($_SESSION['myEuroCIN']->permission == '2' || 
-				   $_POST['validated'] == "validated")
-					$obj->validated = "validated";		
-				else			
-					$obj->validated = "waiting";
+			    if(isset($_POST['validated'])) $obj->validated = $_POST['validated']; // update
+				else{ // create
+					if($_SESSION['myEuroCIN']->permission=='2') $obj->validated = "validated"; // auto validation if admin
+					else $obj->validated = "waiting"; 				
+				}
 				
 				// sets the level of broadcasting in the Index Table
 				$level = 3;  
@@ -122,26 +113,25 @@ class PublishController extends ExtendedProfileRequired {
 	 *  Update (modify) user's publication
 	 */
 	public function update() {
-	
 		// Update is just re-publish on the same predicate
-		$this->create();
+		$this->create(true);
 	}
 	
 	
 	/**
-	 *  Delete user's publication and all the students applies if category=course and the comments
+	 *  Delete user's publication and all the comments
 	 */
 	public function delete() {
 		
 		$this->delete_Comments();
 		
 		$obj = new myEuroCINPublication();
-		$obj->publisherID = $_SESSION['user']->id;  	// Publisher ID
-		$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
-		//$obj->type = 'myEuroCINPublication';			// Publication type no used anymore
+		$obj->publisherID = $_POST['publisher'];  	// Publisher ID
+		$obj->publisher = $_POST['publisher'];    	// Publisher ID
 		$obj->locality = $_POST['locality'];			// Locality
 		$obj->language = $_POST['language'];			// Organization
 		$obj->category = $_POST['category'];			// Category
+		$obj->begin = $_POST['begin'];
 		$obj->end 	= $_POST['date'];					// Expiration date
 		$obj->title = $_POST['title'];					// Title
 		$obj->text 	= $_POST['text'];					// Publication text
@@ -150,20 +140,17 @@ class PublishController extends ExtendedProfileRequired {
 		// Delete publication
 		$obj->delete();
 		$this->result = $obj;
-		$this->success = "Deleted !";
+		$this->success = "Publication deleted !";
 		
-		// Render MyPublications View
-		$this->showUserPublications();
-	}
-	
-	function delete_Applies(){
-		$search_by_userid = new Apply();
-		$search_by_userid->pred1 = 'apply&'.$_POST['predicate'].'&'.$_POST['author'];
-		$result = $search_by_userid->find();
+		if(isset($_POST['msgMail'])){ // deleted by the admin -> send a mail to the author to inform him
+			$msgMail = "";
+			if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the admin: "').$_POST['msgMail'].'"';
+				
+			$mailman = new EmailNotification(substr($_POST['publisher'],6),_("Your publication has been removed"),_("Your publication ").$_POST['title']._(" has been removed by an admin.").$msgMail);
+			$mailman->send();
+		}
 		
-		foreach($result as $item) :
-			$item->delete();
-		endforeach;
+		$this->renderView("Main");
 	}
 	
 	function delete_Comments(){
@@ -211,41 +198,6 @@ class PublishController extends ExtendedProfileRequired {
 	
 		// Give this to the view
 		$this->result = $obj;
-	
-		// get author reputation
-		$request = new Request("ReputationRequestHandler", READ);
-		$request->addArgument("application",  APPLICATION_NAME);
-		$request->addArgument("producer",  $obj->publisherID);
-		$request->addArgument("consumer",  $obj->publisherID);
-	
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-	
-		if (isset($responseObject->data->reputation)) {
-			$value =  json_decode($responseObject->data->reputation) * 100;
-		} else {
-			$value = 100;
-		}
-	
-		// Save reputation values
-		$this->reputation["author"] = $value;
-		$this->reputation["author_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
-	
-		// get value reputation
-		$request->addArgument("producer",  $predicate.$obj->publisherID);
-	
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
-	
-		if (isset($responseObject->data->reputation)) {
-			$value =  json_decode($responseObject->data->reputation) * 100;
-		} else {
-			$value = 100;
-		}
-	
-		// Save reputation values
-		$this->reputation["value"] = $value;
-		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 	
 		// Render the view
 		$this->renderView("ModifyPublication");

@@ -38,7 +38,7 @@
 		<!-- Web Site -->
 		<div data-role="fieldcontain" >
 			<label for="website" style="text-align:right"> <?= _("Web site")?>: </label>
-			<input type="text" name="website" id="website" />
+			<input type="text" name="website" id="website" placeholder="http://"/>
 		</div>
 		
 		<!-- Address -->
@@ -222,8 +222,8 @@
 			case 'step2_association':
 				// Validate fields
 				var n_competences = $("input[name*=competences]:checked").size(); 
-				if(!(n_competences>=1)) {
-					warningPopUp('Choose at least one competence you need');
+				if(!(n_competences>=1 && n_competences<=4)) {
+					warningPopUp('You must choose from 1 to 4 skills');
 					return false;
 				}
 				profile.competences = $("input[name*=competences]:checked");

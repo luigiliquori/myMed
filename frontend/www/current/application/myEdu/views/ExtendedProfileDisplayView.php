@@ -92,7 +92,8 @@
 						
 						case 'student':
 							echo empty($this->profile->details['studentnumber']) ? " " : "<p>". _("Student number").": "."<span>".$this->profile->details['studentnumber']."</span></p>";
-							echo empty($this->profile->details['faculty']) ? " " : "<p>". _("Faculty").": "."<span>".$this->profile->details['faculty']."</span></p>";							break;
+							echo empty($this->profile->details['faculty']) ? " " : "<p>". _("Faculty").": "."<span>".$this->profile->details['faculty']."</span></p>";							
+							break;
 						
 						case 'professor':
 							echo empty($this->profile->details['university']) ? " " : "<p>". _("University").": "."<span>".$this->profile->details['university']."</span></p>";

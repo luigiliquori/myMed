@@ -69,8 +69,8 @@
 							<p>
 							<?  $lang="";
 								if($this->basicProfile['lang']){
-							   		if($_SESSION['user']->lang=="en") $lang=_("English");
-									else if($_SESSION['user']->lang=="it") $lang=_("Italian");
+							   		if($this->basicProfile['lang']=="en") $lang=_("English");
+									else if($this->basicProfile['lang']=="it") $lang=_("Italian");
 									else $lang=_("French");
 								}echo $lang;
 							?>
@@ -102,9 +102,8 @@
 			<li data-role="list-divider"><?= _($this->profile->details['type']." profile details") ?></li>	
 			<li>
 				<p>
-					<!-- Role -->
-					<b><?= _("Profile type") ?></b>: <strong style="color:#444;"><?= _($this->profile->details['type']) ?></strong><br/>
-					<?= (empty($this->profile->details['associationname']) ? " " : "<b>"._("Association name").": </b>".$this->profile->details['associationname']."<br/>") ?>
+					<!-- Role <b><?= _("Profile type") ?></b>: <strong style="color:#444;"><?= _($this->profile->details['type']) ?></strong><br/> -->
+					<?= (empty($this->profile->details['associationname']) ? " " : "<b>"._("Association name").": </b>".$this->profile->details['associationname']."<br/><br/>") ?>
 				</p>
 				<p>
 					<?=					
@@ -119,8 +118,8 @@
 					switch($this->profile->details['type']) {
 						
 						case 'volunteer':
-							echo empty($this->profile->details['sex']) ? " " : "<p><b>". _("Sex").": </b>"."<span>".$this->profile->details['sex']."</span></p>";
-							echo empty($this->profile->details['work']) ? " " : "<p><b>". _("Working status").": </b>"."<span>".$this->profile->details['work']."</span></p>";
+							echo empty($this->profile->details['sex']) ? " " : "<p><b>". _("Sex").": </b>"."<span>"._($this->profile->details['sex'])."</span></p>";
+							echo empty($this->profile->details['work']) ? " " : "<p><b>". _("Working status").": </b>"."<span>"._($this->profile->details['work'])."</span></p>";
 							echo "<br/>";
 							
 							echo "<p><b>". _("Disponibility").":</b><br/><p style='margin-left:20px'>";
@@ -157,7 +156,7 @@
 						case 'admin':
 						case 'association' :
 							echo empty($this->profile->details['siret']) ? " " : "<p><b>". _("SIRET").": </b>"."<span>".$this->profile->details['siret']."</span></p>";
-							echo empty($this->profile->details['website']) ? " " : "<p><b>". _("Website").": </b>"."<span>".$this->profile->details['website']."</span></p>";
+							echo empty($this->profile->details['website']) ? " " : "<p><b>". _("Website").": </b>"."<span><a href='".$this->profile->details['website']."'>".$this->profile->details['website']."</a></span></p>";
 							echo "<br/>";
 							echo "<p><b>". _("Skills needed").":</b><br/><p style='margin-left:20px'>";
 							$tokens = explode(" ", $this->profile->details['competences']);
@@ -181,7 +180,7 @@
 
 				<!-- Reputation -->
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> rates)
+					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> <?= _("rates")?>)
 				</p>
 				<br />
 				

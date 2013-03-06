@@ -543,7 +543,7 @@ msgstr "Mon aide-soignant"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:258
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:259
 msgid "FirstName"
-msgstr "Prénom "
+msgstr "Prénom"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:126
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:127
@@ -1079,13 +1079,19 @@ msgid "District"
 msgstr "Quartier"
 
 msgid "Association address"
-msgstr "Addresse de l'association"
+msgstr "Adresse de l'association"
 
 msgid "Male"
 msgstr "Masculin"
 
 msgid "Female"
 msgstr "Féminin"
+
+msgid "male"
+msgstr "masculin"
+
+msgid "female"
+msgstr "féminin"
 
 msgid "Association phone"
 msgstr "Tel de l'association"
@@ -1125,8 +1131,17 @@ msgstr "Votre compte à bien été validé. Vous pouvez vous loguer à présent"
 msgid "You can attach a message for the applier:"
 msgstr "Vous pouvez joindre un message pour le candidat:"
 
-msgid "You can attach a message for the association:"
-msgstr "Vous pouvez joindre un message pour l'association:"
+msgid "You can attach a message for the applier (or just click on Delete):"
+msgstr "Vous pouvez joindre un message pour le candidat (ou juste cliquer sur Supprimer):"
+
+msgid "You can attach a message for the applier (or just click on Validate):"
+msgstr "Vous pouvez joindre un message pour le candidat (ou juste cliquer sur Valider):"
+
+msgid "You can attach a message to inform the association (or just click on Validate):"
+msgstr "Vous pouvez joindre un message pour prévenir cette association (ou juste cliquer sur Valider):"
+
+msgid "You can attach a message to inform the association (or just click on Delete):"
+msgstr "Vous pouvez joindre un message pour prévenir cette association (ou juste cliquer sur Supprimer):"
 
 msgid "You can attach a message for the applier (or just click on Refuse):"
 msgstr "Vous pouvez joindre un message pour le candidat (ou juste cliquer sur Refuser):"
@@ -1321,7 +1336,13 @@ msgid "Choose the type of profile you want to create:"
 msgstr "Choisissez le type de profil que vous voulez créer:"
 
 msgid "Please fill in your association information:"
-msgstr "Veuillez remplir les informations de votre association:"
+msgstr "Veuillez remplir les informations sur votre association:"
+
+msgid "New associations waiting for validation"
+msgstr "Nouvelles associations en attente de validation"
+
+msgid "Validated associations"
+msgstr "Associations validées"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:27
 msgid "A volunteer"
@@ -1387,6 +1408,15 @@ msgstr "Sans emploi"
 msgid "Retired"
 msgstr "Retraité"
 
+msgid "active"
+msgstr "actif"
+
+msgid "unemployed"
+msgstr "sans emploi"
+
+msgid "retired"
+msgstr "retraité"
+
 msgid "My announcements"
 msgstr "Mes annonces" 
 
@@ -1402,11 +1432,11 @@ msgstr "Gérer associations"
 msgid "Association web site"
 msgstr "Site web association"
 
-msgid "Your skills (de 1 à 4)"
+msgid "Your skills (1 to 4)"
 msgstr "Vos compétences (de 1 à 4)"
 
-msgid "The skills you need"
-msgstr "Les compétences demandées"
+msgid "The skills you need (1 to 4)"
+msgstr "Les compétences demandées (1 à 4)"
 
 msgid "The missions you propose"
 msgstr "Les missions que vous proposez"
@@ -1426,6 +1456,9 @@ msgstr "Site web"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:117
 msgid "Skills needed"
 msgstr "Compétences nécessaires"
+
+msgid "Disponibility"
+msgstr "Disponibilité"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileDisplayView.php:139
 msgid "reputation"
@@ -1561,85 +1594,12 @@ msgstr "Non, pas vraiment..."
 msgid "Logout"
 msgstr "Se déconnecter"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:21
-msgid "Accompagnement (social professionnel)"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:22
-msgid "Accueil / Orientation"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:23
-msgid "Administration - Direction - Management"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:24
-msgid "Alphabétisation - Formation - Enseignement - Soutien scolaire"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:25
 msgid "Animation"
 msgstr "Animation"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:34
-msgid "Visite domicile"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:35
-msgid "Visite hôpital"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:36
-msgid "Visite prison"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:41
-msgid "-- Non défini --"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:42
-msgid "Plaine et coteaux "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:43
-msgid "Collines niçoises "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:44
-msgid "Trois collines "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:45
-msgid "Rives du Paillon "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:46
-msgid "Est littoral "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:47
-msgid "Nord centre ville "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:48
-msgid "Coeur de ville "
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:49
-msgid "Ouest littoral"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:54
-msgid "Ponctuel"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:55
-msgid "Régulier"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/models/Categories.class.php:56
-msgid "Urgence"
-msgstr ""
+msgid "Manage accounts"
+msgstr "Gérer comptes"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/UpdateReputationController.class.php:37
 msgid "Thank you for your contribution!"
@@ -2281,6 +2241,15 @@ msgstr "retour"
 msgid "Creating an account in myEdu will allow you to submit new publications and to apply."
 msgstr "La création d'un compte dans myEurope vous permettra de soumettre de nouveaux projets et de participer aux fils de discussions dans la rubrique \"Bonnes Pratiques\"."
 
+msgid "New publication"
+msgstr "Nouvelle publication"
+
+msgid "Modify publication"
+msgstr "Modifier publication"
+
+msgid "Edit publication"
+msgstr "Editer publication"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/LoginView.php:21
 msgid "Don't forget that you have the possibility to use your social network accounts to create your profile: see button"
 msgstr "N'oubliez pas que vous avez la possiblilité d'utiliser vos comptes de réseaux sociaux pour créer votre profil: voir bouton"
@@ -2445,7 +2414,7 @@ msgstr "Consulter vos candidatures et voyez si vous avez été accepté.<br>Vous
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:21
 msgid "myEdu is a social network, linking universities, students and companies of the MedAlp region.<br>On this network, you can find offers for academic formation, internships, Ph.D. positions, job opportunities, as well as for cultural exchanges and teaching tools."
-msgstr "myEdu est un réseau social permettant la mise en relation entre les Universités, les étudiants et les Entreprises de l'interrégion MedAlp.<br>Le réseau présente des offres de formation académique, de stages, de thèses, d'emploi, d'échange de professeurs, et de mátériel pédagogique."
+msgstr "myEdu est un réseau social permettant la mise en relation entre les Universités, les étudiants et les Entreprises de l'interrégion MedAlp.<br>Le réseau présente des offres de formation académique, de stages, de thèses, d'emploi, d'échange de professeurs, et de matériel pédagogique."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/MainView.php:31
 msgid "You have to create your extended profile to access all the menu options"
@@ -2614,6 +2583,9 @@ msgstr "Etes-vous sûr de vouloir supprimer cette offre?"
 
 msgid "Are you sure you want to delete this announcement?"
 msgstr "Etes-vous sûr de vouloir supprimer cette annonce?"
+
+msgid "Are you sure you want to delete this association?"
+msgstr "Etes-vous sûr de vouloir supprimer cette association?"
 
 msgid "Manage subscriptions"
 msgstr "Gêrer souscriptions"
@@ -3531,58 +3503,6 @@ msgstr "Le champ email ne peut pas être vide"
 msgid "Incorrect password"
 msgstr "Mot de passe incorrect"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/NiceBenevolatAdminController.class.php:30
-msgid "Compte NiceBenevolat correctement activé"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:106
-msgid "Vous n'avez pas le droit d'accéder à ce profil"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:111
-msgid "Vous n'avez pas le droit de modifier ce profil"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:122
-msgid "L'email ne peut pas être vide."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:162
-msgid "Le mot de passe est vide"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:166
-msgid "Le mot de passe de confirmation est vide"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:170
-msgid "Le mot de passe et le mot de passe de confirmation sont différents"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:190
-msgid "Seul Nice Bénévolat peut créer de nouveaux utilisateurs"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:361
-msgid "Félicitation, votre profil a été créé. Allez voir vos mail pour l'activer."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:365
-msgid "Profil correctement créé"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:475
-msgid "Vous n'avez pas les droits de valider cette association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:480
-msgid "Ceci n'est pas une association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:495
-msgid "Association validée"
-msgstr ""
-
 msgid "An email has been sent to you!"
 msgstr "Un mail vient de vous être envoyé!"
 
@@ -3595,43 +3515,8 @@ msgstr "<b>En attente de validation d'adhésion</b>"
 msgid "<b>Member to this offer</b>"
 msgstr "<b>Adhérent de cette offre</b>"
 
-#~ msgid "Unsubscribed!"
-#~ msgstr "Unsubscribed!"
-
-#~ msgid "Création"
-#~ msgstr "Création"
-
 #~ msgid "Subscribed to: "
 #~ msgstr "Abonné à"
-
-#~ msgid "obligatoire"
-#~ msgstr "obligatoire"
-
-#~ msgid "Le champ %s est obligatoire."
-#~ msgstr "Le champs %s est obligatoire"
-
-#~ msgid "Se connecter"
-#~ msgstr "Se connecter"
-
-#~ msgid "Annuler"
-#~ msgstr "Annuler"
-
-#~ msgid "Précédent"
-#~ msgstr "Précédent"
-
-#~ msgid "Suivant"
-#~ msgstr "Suivant"
-
-#~ msgid "Erreur interne d'enregistrement"
-#~ msgstr "Erreur interne d'enregistrement"
-
-#, fuzzy
-#~ msgid "callingSlot1"
-#~ msgstr "Deuxième personne à appeller"
-
-#, fuzzy
-#~ msgid "callingSlot2"
-#~ msgstr "Troisième personne à appeller"
 
 #~ msgid "all partnerships"
 #~ msgstr "tous les partenariats"
@@ -3650,12 +3535,6 @@ msgstr "<b>Adhérent de cette offre</b>"
 
 #~ msgid "create a new one"
 #~ msgstr "Créer un nouveau profil "
-
-#~ msgid "Log Out"
-#~ msgstr "Déconnexion"
-
-#~ msgid "Journal des bonnes pratiques"
-#~ msgstr "Journal"
 
 #~ msgid "more options"
 #~ msgstr "Plus d'options"

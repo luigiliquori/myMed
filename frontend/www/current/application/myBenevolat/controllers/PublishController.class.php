@@ -61,8 +61,8 @@ class PublishController extends ExtendedProfileRequired {
 		} else {
 			if (empty($_POST['title'])) {
 				$this->error = _("Title field can't be empty");
-			} else if ((empty($_POST['expire_day']) || empty($_POST['expire_month']) || empty($_POST['expire_year'])) && empty($_POST['date'])) {		
-				$this->error = _("Please provide a valide expiration date for the course");
+			} else if ((empty($_POST['expire_day']) || empty($_POST['expire_month']) || empty($_POST['expire_year'])) || empty($_POST['date'])) {		
+				$this->error = _("Please provide a valide expiration date");
 			} else if (empty($_POST['text'])) {
 				$this->error = _("Text field can't be empty");
 					

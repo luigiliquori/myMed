@@ -77,7 +77,7 @@
 			<!-- Birthday -->
 			<div data-role="fieldcontain">
 				<label for="birthday" style="text-align:right"><?= _("Date of birth") ?> : </label>
-				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+				<input type="text" id="birthday" name="birthday" placeholder="jj/mm/aaaa" value="<?= $_SESSION['user']->birthday ?>" />
 			</div>
 			<!-- Profile picture -->
 			<div data-role="fieldcontain">
@@ -104,7 +104,7 @@
 			<!-- Description -->
 			<div data-role="fieldcontain">
 				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" style="height: 120px;" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEdu']->details['desc'] ?></textarea>
+				<textarea id="desc" style="height: 120px;" name="desc"><?= $_SESSION['myEdu']->details['desc'] ?></textarea>
 			</div>
 			<!-- For Students: student number -->
 			<div id="studentnumberfield" data-role="fieldcontain" class="ui-screen-hidden">

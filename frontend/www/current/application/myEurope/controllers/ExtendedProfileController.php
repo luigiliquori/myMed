@@ -37,7 +37,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			debug("rmPublications");
 			$this->deletePublications($_SESSION['user']->id); // delete all posted publications by this user before delete him
 			$this->deleteUser($_SESSION['user']->id);
-			//deleteProfile();
 		}
 		//I don't know why this is not working so I put it on the top
 		else if (isset($_GET['user'])){
@@ -126,8 +125,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				'profile'=> $profile
 		);
 		
-		//debug_r($user);
-		
 		$publish = new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":users", 
 						"id"=>$_SESSION['user']->id, 
@@ -209,13 +206,30 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// update of the profile informations
 		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['login'] = $_SESSION['user']->email;
+		$profile = array (
+				"id"=>$_POST['id'],
+				"email"=>$_POST['email'],
+				"firstName"=>$_POST['firstName'],
+				"lastName"=>$_POST['lastName'],
+				"name"=>$_POST['name'],
+				"login"=>$_POST['login'],
+				"birthday"=>$_POST['birthday'],
+				"profilePicture"=>$_POST['profilePicture'],
+				"lang"=> $_POST['lang']
+		);
+		unset($_POST['id']);
+		unset($_POST['firstName']);
+		unset($_POST['lastName']);
+		unset($_POST['name']);
+		unset($_POST['birthday']);
+		unset($_POST['profilePicture']);
+		unset($_POST['lang']);
+		unset($_POST['email']);
+		unset($_POST['login']);
 		unset($_POST['password']);// /\ don't store people password! or we could deal with justice
 		
-		debug("JSON ENCODE: ".json_encode($_POST));
 		$request = new Requestv2(
-			"v2/ProfileRequestHandler",
-			UPDATE,
-			array("user"=>json_encode($_POST))
+			"v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($profile))
 		);
 
 		try {
@@ -226,7 +240,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				throw new Exception($responseObject->description);
 			} else{
 				debug("DESCRIPTION  ".$responseObject->description);
-				$profile = array ("id"=>$_POST['id'], "name"=>$_POST['name'],"firstName"=>$_POST['firstName'], "lastName"=>$_POST['lastName'], "birthday"=>$_POST['birthday'], "profilePicture"=>$_POST['profilePicture'], "lang"=> $_POST['lang']);
 				$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $profile);
 			}
 			
@@ -237,11 +250,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$_POST['name'] = $name; // organization name and not username
 		$_POST['email'] = $email; // organization email != profile email
 		$_POST['id'] = $id;
-		unset($_POST['firstName']);
-		unset($_POST['lastName']);
-		unset($_POST['birthday']);
-		unset($_POST['profilePicture']);
-		unset($_POST['lang']);
 		
 		// update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);

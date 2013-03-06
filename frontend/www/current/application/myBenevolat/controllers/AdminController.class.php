@@ -18,16 +18,6 @@ class AdminController extends ExtendedProfileRequired {
 			$results = $associations->results;
 		elseif(isset($admins->results))
 			$results = $admins->results;
-		
-		
-		/*	$find = new RequestJson( $this, 
-							array("application"=>APPLICATION_NAME.":profiles",
-							"predicates"=>array()));
-		try{
-			$res = $find->send();
-		}
-		catch(Exception $e){
-		}*/
 			
 		$this->success = "";		
 		$this->users = $results;
@@ -168,8 +158,10 @@ class AdminController extends ExtendedProfileRequired {
 	
 	/** Delete an association extended profile and its announcements */
 	public function delete() {
-	
+		debug("delete");
+		
 		$this->deleteAnnouncements($_GET['id']);
+		$this->delete_Applies($_GET['id']);
 		$this->deleteUser($_GET['id']);
 	
 		$email = $_GET['email'];
@@ -249,6 +241,18 @@ class AdminController extends ExtendedProfileRequired {
 				$apply->delete();
 			}
 			$annonce->delete();
+		endforeach;
+	}
+	
+	/** Delete applies posted by the user */
+	function delete_Applies($id){
+		$search_by_userid = new Apply();
+		$search_by_userid->publisher = $id;
+		$search_by_userid->publisherID = $id;
+		$result = $search_by_userid->find();
+	
+		foreach($result as $item) :
+			$item->delete();
 		endforeach;
 	}
 }

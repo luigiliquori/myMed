@@ -261,32 +261,18 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Update of the basic profile informations
 		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['login'] = $_SESSION['user']->email;
-		
-		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($_POST)));
-		try {
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-	
-			if($responseObject->status != 200) {
-				debug("ERROR2: ".$responseObject->description);
-				throw new Exception($responseObject->description);
-			} else{
-				$profile = array ("id"=>$_POST['id'], 
-								  "name"=>$_POST['name'],
-								  "firstName"=>$_POST['firstName'], 
-								  "lastName"=>$_POST['lastName'], 
-								  "birthday"=>$_POST['birthday'], 
-								  "profilePicture"=>$_POST['profilePicture'], 
-								  "lang"=> $_POST['lang']);
-				$_SESSION['user'] = (object) array_merge((array) $_SESSION['user'], $profile);
-			}
-			
-		} catch (Exception $e) {
-			debug("ERROR3: ".$e->getMessage());
-			$this->error = $e->getMessage();
-			$this->renderView("ExtendedProfileEdit");
-		}
-		$_POST['id'] = $id;
+		$profile = array (
+				"id"=>$_POST['id'],
+				"email"=>$_POST['email'],
+				"firstName"=>$_POST['firstName'],
+				"lastName"=>$_POST['lastName'],
+				"name"=>$_POST['name'],
+				"login"=>$_POST['login'],
+				"birthday"=>$_POST['birthday'],
+				"profilePicture"=>$_POST['profilePicture'],
+				"lang"=> $_POST['lang']
+		);
+		unset($_POST['id']);
 		unset($_POST['firstName']);
 		unset($_POST['lastName']);
 		unset($_POST['name']);
@@ -296,8 +282,28 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['email']);
 		unset($_POST['login']);
 		
-		// Update of the organization profile informations
+		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($profile)));
+		try {
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+	
+			if($responseObject->status != 200) {
+				debug("ERROR2: ".$responseObject->description);
+				throw new Exception($responseObject->description);
+			} else{
+				$_SESSION['user'] = (object) array_merge((array) $_SESSION['user'], $profile);
+			}
+			
+		} catch (Exception $e) {
+			debug("ERROR3: ".$e->getMessage());
+			$this->error = $e->getMessage();
+			$this->renderView("ExtendedProfileEdit");
+		}
+		
+		// Update of the extended profile informations
+		$_POST['id'] = $id;
 		$_POST['desc'] = nl2br($_POST['desc']);
+		
 		$myrep = $_SESSION['myEdu']->reputation; 
 		$users = $_SESSION['myEdu']->users;
 		$publish =  new RequestJson(
