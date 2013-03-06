@@ -34,18 +34,18 @@
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to publish") ?> ?</h3>
-				<?= _("<<<<< Some explanation goes here >>>>>")?>
+				<?= _("Create publication capsule text")?>
 				</p>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Publish your project') ?> :</h3>
 				
-				<h3><?= _('Title') ?> : </h3>
+				<h3><?= _('Title') ?><b>*</b> : </h3>
 				<input id="textinputp3" class="postTitle" data-inline="true" name="title"
 					placeholder="<?= _("Publication title goes here") ?>" value='' type="text" />
 				
-				<h3><?= _('Date of expiration') ?> :</h3>
+				<h3><?= _('Deadline') ?><b>*</b> :</h3>
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
 					<select id="publish_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
@@ -67,7 +67,7 @@
 					</select>
 				</fieldset>
 					
-				<h3><?= _('Enter a text description for your publication') ?> :</h3>
+				<h3><?= _('Description') ?><b>*</b> :</h3>
 				<textarea id="text" name="text"></textarea>
 				<script type="text/javascript">
 					// Init cle editor on pageinit
@@ -80,24 +80,24 @@
 				
 				<h3><?= _('Other information') ?> :</h3>
 					<select name="locality" id="locality" data-native-menu="false">
-					<option value=""> <?= _("Locality")?> </option>
+					<option value=""> <?= _("Locality")?><b>*</b> </option>
 					<? foreach (Categories::$localities as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
 					<select name="language" id="language" data-native-menu="false">
-						<option value=""> <?= _("Language")?> </option>
+						<option value=""> <?= _("Language")?><b>*</b> </option>
 					<? foreach (Categories::$languages as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
 					<select name="category" id="category" data-native-menu="false">
-						<option value=""> <?= _("Category")?> </option>
+						<option value=""> <?= _("Category")?><b>*</b> </option>
 					<? foreach (Categories::$categories as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
-				
+					<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			</div>
 			
 			<div style="text-align: center;">

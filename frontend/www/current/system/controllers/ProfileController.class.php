@@ -95,7 +95,6 @@ class ProfileController extends AuthenticatedController {
 				UPDATE,
 				array("user"=>json_encode($_POST))
 			);
-			
 			try {
 				
 				$responsejSon = $request->send();

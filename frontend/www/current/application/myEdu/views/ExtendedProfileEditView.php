@@ -104,7 +104,7 @@
 			<!-- Description -->
 			<div data-role="fieldcontain">
 				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" style="height: 120px;" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEdu']->details['desc'] ?></textarea>
+				<textarea id="desc" style="height: 120px;" name="desc"><?= $_SESSION['myEdu']->details['desc'] ?></textarea>
 			</div>
 			<!-- For Students: student number -->
 			<div id="studentnumberfield" data-role="fieldcontain" class="ui-screen-hidden">

@@ -40,10 +40,10 @@
 							<h3><?= _("Title")?>: <?= $this->result->title ?> </h3>
 							<p style="position: relative; margin-left: 30px;">
 								<b><?= _('Deadline') ?></b>: <?= $this->result->end ?><br/><br/>
-								<b><?= _("Topic") ?></b>: <?= $this->result->area ?><br/>
-								<b><?= _("Category") ?></b>: <?= $this->result->category ?><br/>
-								<b><?= _("Organization") ?></b>: <?= $this->result->organization ?><br/>
-								<b><?= _("Locality") ?></b>: <?= $this->result->locality ?><br/><br/>
+								<b><?= _("Topic") ?></b>: <?= _($this->result->area) ?><br/>
+								<b><?= _("Category") ?></b>: <?= Categories::$categories[$this->result->category] ?><br/>
+								<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$this->result->organization] ?><br/>
+								<b><?= _("Locality") ?></b>: <?= Categories::$localities[$this->result->locality] ?><br/><br/>
 							</p>
 					 
 							<!-- TEXT -->

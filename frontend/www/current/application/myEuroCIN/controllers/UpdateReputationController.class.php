@@ -36,9 +36,7 @@ class UpdateReputationController extends DetailsController {
 				} else {
 					$this->success = _("Thank you for your contribution!");
 				}
-// 			} catch (Exception $e) {
-// 				$this->error = "Une erreur interne est survenue, veuillez réessayer plus tard...";
-// 			}
+				$this->redirectTo("?action=details&predicate=".$_GET['predicate']."&author=".$_GET['author']);
 		}	
 		
 		parent::handleRequest();

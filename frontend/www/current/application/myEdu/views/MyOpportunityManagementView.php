@@ -136,7 +136,7 @@
 						$result .= ", ".Categories::$localities[$val->locality];
 					}
 					if(isset($val->area)){
-						$result .= ", ".Categories::$areas[$val->area];
+						$result .= ", ".$val->area;
 					}
 					return $result;
 				}

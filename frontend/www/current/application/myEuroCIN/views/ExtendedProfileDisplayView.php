@@ -28,30 +28,20 @@
   	   ?>
 	
 	<!-- Print profile type -->
-	<div data-role="header" data-theme="e">
-		<h1 style="white-space: normal;">
-		<?  if($_SESSION['myEuroCIN']->permission == 2) {
-					echo _("Administrator");
-			}
-		?>
-		</h1>
-	</div>
-	
-	
+	<? if (isset($_SESSION['myEuroCIN']) && $_GET['user'] == $_SESSION['user']->id ){ 
+			if($_SESSION['myEuroCIN']->permission == 2){ ?>
+		
+			<div data-role="header" data-theme="e">
+				<h1 style="white-space: normal;">
+					<? echo _("Administrator"); ?>
+				</h1>
+			</div>
+		<? } ?>
+	<? } ?>
 	
 	<!-- Page content -->
 	<div data-role="content">
-		
-		<br><br>
-		<?php	
-	   		// Select language
-			$lang="No defined";
-	   		if($_SESSION['user']->lang){
-				if($_SESSION['user']->lang=="en") $lang=_("English");
-				else if($_SESSION['user']->lang=="it") $lang=_("Italian");
-				else $lang=_("French");
-			}
-		?>
+		<br>
 		
 		<!-- Show user profile -->
 		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d" style="margin-top: 2px;">
@@ -60,15 +50,42 @@
 			<li data-role="list-divider"><?= _("User details") ?></li>	
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-					<div class="ui-block-a" style="width: 110px;">
-						<img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
-					</div>
-					<div class="ui-block-b">
-						<p><strong><?= $this->profile->details['firstName']." ".$this->profile->details['lastName'] ?></strong></p>
-						<p><?= $this->profile->details['birthday'] ?> </p>
-						<p><?= $lang?></p>
-						<p><a href="mailto:<?= prettyprintId($this->profile->details['email']) ?>"><?= prettyprintId($this->profile->details['email']) ?></a></p>
-					</div>
+					<? if($_GET['user'] != $_SESSION['user']->id){ ?>
+						<div class="ui-block-a" style="width: 110px;">
+							<img src="<?= $this->basicProfile['profilePicture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
+						</div>
+						<div class="ui-block-b">
+							<p><strong><?= $this->basicProfile['firstName']." ".$this->basicProfile['lastName'] ?></strong></p>
+							<p><?= $this->basicProfile['birthday'] ?> </p>
+							<p>
+							<?  $lang="";
+								if($this->basicProfile['lang']){
+							   		if($this->basicProfile['lang']=="en") $lang=_("English");
+									else if($this->basicProfile['lang']=="it") $lang=_("Italian");
+									else $lang=_("French");
+								}echo $lang;
+							?>
+							</p>
+							<p><a href="mailto:<?= prettyprintId($this->basicProfile['email']) ?>"><?= prettyprintId($this->basicProfile['email']) ?></a></p>
+						</div>
+				 <? }else{ ?>
+				 		<div class="ui-block-a" style="width: 110px;">
+							<img src="<?= $_SESSION['user']->profilePicture ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
+						</div>
+						<div class="ui-block-b">
+							<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
+							<p><?= $_SESSION['user']->birthday ?> </p>
+							<p><?
+								$lang= _("Langage not defined");
+								if($_SESSION['user']->lang){
+									if($_SESSION['user']->lang=="en") $lang=_("English");
+									else if($_SESSION['user']->lang=="it") $lang=_("Italian");
+									else $lang=_("French");
+								}echo $lang;
+							?></p>
+							<p><a href="mailto:<?= prettyprintId($_SESSION['user']->id) ?>"><?= prettyprintId($_SESSION['user']->id) ?></a></p>
+						</div>
+				 <? } ?>
 				</div>
 			</li>
 			
@@ -76,16 +93,15 @@
 			<li data-role="list-divider"><?= _("myEuroCIN extended profile details") ?></li>	
 			<li>
 				<p>
-					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
 					<?=
-					(empty($this->profile->details['email'])?" ": _("email").": <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
+					//(empty($this->profile->details['email'])?" ": _("email").": <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
 					(empty($this->profile->details['phone'])?" ":_("phone").": <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
 					(empty($this->profile->details['address'])?" ":_("address").": "."<span>".$this->profile->details['address']."</span><br/>")
 					?>
 				</p>
 				<!-- Role's fields -->
 				<?php 
-					// Render role's fields
+					/* Render role's fields
 					switch($this->profile->details['role']) {
 						
 						case 'Role_1':
@@ -98,21 +114,18 @@
 							break;
 
 								
-					}
+					}*/
 				?>
 				<br/>
 				<p>
 					<?= _("Description")?>: <p style="margin-left:30px"><?= empty($this->profile->details['desc'])?" ":$this->profile->details['desc'] ?></p>
 				</p>
-				
-				
-				<br />
-				<? if(($this->profile->details['role']!='professor')): ?>
+
+				<br />	
 				<p class="ui-li-aside">
 					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> rates)
 				</p>
 				<br />
-				<?php endif; ?>
 					
 			</li>	
 		</ul> <!-- END show user profile -->	
@@ -142,7 +155,7 @@
 	<div data-role="popup" id="defaultHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 		<h3><?= _("Edit Profile and Subscripions") ?></h3>
-		<p> <?= _("Here you can modify your profile and list your active subscriptions.") ?></p>
+		<p> <?= _("Here you can modify your profile.") ?></p>
 	</div>
 	
 	
