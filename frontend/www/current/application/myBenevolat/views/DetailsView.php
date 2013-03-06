@@ -171,6 +171,7 @@
 				</div>
 				
 				<!-- REPUTATION -->	
+    			<br/>
     			<div>
     			<!-- Publication reputation -->
     				<p style="display:inline"><?= _("Announcement reputation")?>:</p>
