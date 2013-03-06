@@ -8,10 +8,14 @@ class RegisterController extends AbstractController {
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*String*/ function handleRequest() { 
+		if(isset($_GET['method'])){
+			if($_GET['method']=='showRegisterView'){
+				$this->renderView("register");
+			}
+		}
 		
 		// First stage of registration : we receive a POST with all the informations of the user
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			
+		else if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			// Preconditions TODO : i18n of error messages
 			if( empty($_POST['email']) ){
 				$this->error = _("Email field can't be empty");
@@ -84,11 +88,9 @@ class RegisterController extends AbstractController {
 			$this->confirmRegistration($_GET['accessToken']);
 		 
 		} else {
-			
 			$this->error = _("Internal error of registration");
 			$this->renderView("register");
 		}
-		
 		// Render the register view 
 		$this->renderView("register");
 		

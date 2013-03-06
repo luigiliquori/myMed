@@ -73,7 +73,7 @@ function insertUser($user, $accessToken, $is_guest=false) {
 // ---------------------------------------------------------------------
 
 function translate($word){
-	return $word;
+	return _($word);
 }
 
 
