@@ -136,7 +136,8 @@ function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) 
 		<div data-role="navbar">
 			<ul>
 			<? foreach ($tabs as $i): ?>
-				<li><a href="<?= $i[0] ?>" data-icon="<?= $i[2] ?>"
+				<? // With $leftopts == 5 is added data-ajax="false" to links ?>
+				<li><a href="<?= $i[0] ?>" <?= ($leftopts == 6)? 'data-ajax="false"' : '' ?> data-icon="<?= $i[2] ?>"
 				<?= $activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '' ?>> <?= _($i[1]) ?>
 				</a></li>
 			<? endforeach; ?>

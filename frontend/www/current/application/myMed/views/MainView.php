@@ -3,7 +3,7 @@
 <div id="home" data-role="page" data-dom-cache="true">
 	
 	<? if ($_SESSION['user']->is_guest): ?>
-		<? tab_bar_main("?action=main", 4); ?>
+		<? tab_bar_main("?action=main", 6); ?>
 	<? else: ?>
 		<? tab_bar_main("?action=main"); ?>
 	<? endif; ?>

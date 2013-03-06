@@ -3,7 +3,7 @@
 
 	<!-- Header -->
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Back")?></a>
+		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Main menu")?></a>
 		<h1><?php echo APPLICATION_NAME." v1.0 alpha"?></h1>
 		<a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a>
 	</div>

@@ -7,7 +7,7 @@ define('STORE_PREFIX' , 'store_');
 
 <div data-role="page" id="store" data-dom-cache="true">
 	<? if ($_SESSION['user']->is_guest): ?>
-		<? tab_bar_main("?action=store", 4); ?>
+		<? tab_bar_main("?action=store", 6); ?>
 	<? else: ?>
 		<? tab_bar_main("?action=store"); ?>
 	<? endif; ?>

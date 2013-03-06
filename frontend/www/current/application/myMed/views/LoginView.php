@@ -21,8 +21,6 @@ function tab_bar_login($activeTab) {
 }
 ?>
 
-<!-- INCLUDE THE MAIN PAGE OF THE PROJECT -->
-<?php include('mymed.php'); ?>
 
 <!-- Login page for betaUsers -->
 <div data-role="page" id="login">
@@ -39,6 +37,7 @@ function tab_bar_login($activeTab) {
 	 	<img alt="<?= APPLICATION_NAME ?>" src="img/icon.png" style="height: 50px; margin-top: -15px;" />
 		<h1 style="display: inline-block;vertical-align: 20%;"><?= APPLICATION_NAME ?></h1>
 	<? endif; ?>
+	
 		<br>
 		<form action="?action=login" method="post" data-ajax="false">
 			<input type="hidden" name="signin" value="1" />
@@ -48,11 +47,9 @@ function tab_bar_login($activeTab) {
 			
 			<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true"><?= _("Sign in with") ?></a>
 			<a href="?action=guest&method=read" rel="external" class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
-					
 		</form>
 		
 		
-
 		<div data-role="popup" id="signinPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<ul data-role="listview">
 			<li>
@@ -77,11 +74,9 @@ function tab_bar_login($activeTab) {
 					<input id="openIdProvider" type="text"  name="openid_identifier" value="https://www.google.com/accounts/o8/id" placeholder="" />
 				</form>
 				</a>
-				
 			</li>
 			</ul>
 		</div>
-
 
 		<br><br>
 		<a href="http://www.interreg-alcotra.org/2007-2013/index.php?pg=progetto&id=139"><img alt="Alcotra" src="/system/img/logos/alcotra.png" /></a>
@@ -165,5 +160,8 @@ function tab_bar_login($activeTab) {
 	</div>
 
 </div>
+
+<!-- INCLUDE THE MAIN PAGE OF THE PROJECT -->
+<?php include('mymed.php'); ?>
 
 <? include_once("footer.php"); ?>

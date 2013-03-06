@@ -28,11 +28,17 @@
 		<br/>
 		
 		<!-- App Main menu -->
-	 	<a href="?action=main#Map" data-role="button" data-transition="none" data-back="true" data-icon="home">Carte</a>
+		 <? if ($_SESSION['user']->is_guest) { ?>
+			<!-- User not authenticated - Sign in -->
+			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
+			<a href="index.php?action=login" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connect")?></a><br />
+	 	<? } ?>
+  
+	 	<a href="?action=main#Map" data-role="button" data-transition="none" data-back="true" data-icon="home" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?> ><?=_("Map")?></a>
 	 	<br/>
-		<a href="?action=main#search" data-role="button" data-transition="none" data-icon="search">Rechercher</a>
+		<a href="?action=main#search" data-role="button" data-transition="none" data-icon="search" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?> ><?=_("Search")?></a>
 		<br/>
-		<a href="?action=option" data-role="button" data-transition="none" data-icon="gear">Option</a>
+		<a href="?action=option" data-role="button" data-transition="none" data-icon="gear" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?> ><?=_("Profile")?></a>
 		<br/>
 		<!-- About dialog -->
 		<a href="?action=main#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
