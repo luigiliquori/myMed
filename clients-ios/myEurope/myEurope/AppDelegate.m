@@ -48,7 +48,7 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 
     // Main
-    
+    /*
     UIViewController *vcMain;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         vcMain = [[[ViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil] autorelease];
@@ -60,7 +60,7 @@
     navMain.navigationBar.tintColor = [UIColor colorWithRed:0.3 green:0.6 blue:0.85 alpha:1.0];
     navMain.title = NSLocalizedString(@"Social Network", nil);
     navMain.tabBarItem.image = [UIImage imageNamed:@"group"];
-    
+    */
     
     NSString *xibName;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -73,12 +73,12 @@
     firstVC.title = NSLocalizedString(@"myEurope", nil);
     firstVC.tabBarItem.image = [UIImage imageNamed:@"icoeu"];
     
-    /*
+    
     RemoteHtmlViewController *mainVC = [[[RemoteHtmlViewController alloc] initWithNibName:@"RemoteHtmlViewController" bundle:nil] autorelease];
     mainVC.title = NSLocalizedString(@"Social Network", nil);
     mainVC.tabBarItem.image = [UIImage imageNamed:@"group"];
     mainVC.url = WEBAPP_URL;
-    */
+    
     
     // Credits
     CreditsViewController *creditsVc = [[[CreditsViewController alloc] initWithNibName:@"CreditsViewController" bundle:nil] autorelease];
@@ -101,7 +101,7 @@
 
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navMain, firstVC, checkNav, creditsVc,  nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstVC, mainVC, checkNav, creditsVc,  nil];
     self.tabBarController.tabBar.tintColor = [UIColor colorWithRed:0.1 green:0.4 blue:0.65 alpha:1.0];
     if ([self.tabBarController respondsToSelector:@selector(restorationIdentifier)]) {
         self.tabBarController.restorationIdentifier = @"tabbar";
