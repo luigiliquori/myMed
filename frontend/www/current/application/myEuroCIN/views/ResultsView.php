@@ -9,7 +9,7 @@
 	
 	<!-- Header bar -->
 	<? $title=_("Results");
-	print_header_bar(true, false, $title); ?>
+	print_header_bar('?action=Find&search=true', false, $title); ?>
 	
 	
 	<!-- Page content -->

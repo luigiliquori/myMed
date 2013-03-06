@@ -52,7 +52,6 @@ class ValidationController extends AuthenticatedController {
 		
 		$obj->publisher = $_POST['publisher'];
 		$obj->publisherID = $_POST['publisher'];
-		$obj->id = $_POST['id'];
 		$obj->locality = $_POST['locality'];
 		$obj->language = $_POST['language'];
 		$obj->category = $_POST['category'];
@@ -77,6 +76,7 @@ class ValidationController extends AuthenticatedController {
 	
 	/* Refuse a publication */
 	private function refuse(){
+		$this->delete_Comments();
 		
 		$predicate = $_POST['predicate'];
 		$author = $_POST['author'];
@@ -97,9 +97,9 @@ class ValidationController extends AuthenticatedController {
 		$this->redirectTo("?action=Validation&method=show_all_validations");
 	}
 	
-	function delete_Applies(){
-		$search_by_userid = new Apply();
-		$search_by_userid->pred1 = 'apply&'.$_POST['predicate'].'&'.$_POST['author'];
+	function delete_Comments(){
+		$search_by_userid = new Comment();
+		$search_by_userid->pred1 = 'comment&'.$_POST['predicate'].'&'.$_POST['author'];
 		$result = $search_by_userid->find();
 	
 		foreach($result as $item) :

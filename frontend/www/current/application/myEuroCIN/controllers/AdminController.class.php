@@ -60,8 +60,8 @@ class AdminController extends ExtendedProfileRequired {
 	
 	/** Delete an association extended profile and its announcements */
 	public function delete() {
-	
-		$this->deleteAnnouncements($_GET['id']);
+		$this->delete_Comments($_GET['id']);
+		$this->delete_Publications($_GET['id']);
 		$this->deleteUser($_GET['id']);
 	
 		$email = $_GET['email'];
@@ -121,15 +121,31 @@ class AdminController extends ExtendedProfileRequired {
 	}
 	
 	
-	/** Delete user's announcements and applies on them */
-	function deleteAnnouncements($id){
-		
+	/** Delete user's announcements and comments on them */
+	function delete_Publications($id){
 		$search_by_userid = new myEuroCINPublication();
 		$search_by_userid->publisher = $id;
 		$result = $search_by_userid->find();
 	
-		foreach($result as $annonce) :
-			$annonce->delete();
+		foreach($result as $publication) :
+			$search_comments_publi = new Comment();
+			$search_comments_publi->pred1 = 'comment&'.$publication->getPredicateStr().'&'.$id;
+			$comments = $search_comments_publi->find();
+			foreach($comments as $comment){
+				$comment->delete();
+			}
+			$publication->delete();
+		endforeach;
+	}
+	
+	function delete_Comments($id){
+		$search_by_userid = new Comment();
+		$search_by_userid->publisher = $id;
+		$search_by_userid->publisherID = $id;
+		$result = $search_by_userid->find();
+	
+		foreach($result as $item) :
+			$item->delete();
 		endforeach;
 	}
 }

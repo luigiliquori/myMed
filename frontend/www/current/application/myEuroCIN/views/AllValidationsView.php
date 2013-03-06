@@ -51,20 +51,16 @@
 						</div>
 						<div class="ui-block-b">
 							<div data-role="controlgroup" data-type="horizontal" style="float: right;">
-							<?  $competences = "";
-								if(gettype($item->competences)=="array") $competences = implode(ENUM_SEPARATOR, $item->competences);
-								else $competences = $item->competences; ?>
-								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->id ?>","<?= $item->begin ?>","<?= $item->end ?>","<?= $item->text ?>","<?= $item->title ?>", "<?= $item->locality ?>", "<?= $item->language?>", "<?= $item->category ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Validate') ?></a>		
+								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->begin ?>","<?= $item->end ?>","<?= $item->text ?>","<?= $item->title ?>", "<?= $item->locality ?>", "<?= $item->language?>", "<?= $item->category ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Validate') ?></a>		
 								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->getPredicateStr() ?>","<?= $item->publisher ?>","<?= $item->title ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Delete') ?></a>
 							</div>
 						</div>
 						<script type="text/javascript">
-							function generate_accept_popup(publisher,id,begin,end,text,title,locality,language,category){
+							function generate_accept_popup(publisher,begin,end,text,title,locality,language,category){
 								$("#popupAccept").html('<p style="font-size:85%;"><?= _("You can attach a message for the applier (or just click on Validate):") ?></p>\
 									<form action="?action=validation&method=accept" method="POST" data-ajax="false">\
 			 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea>\
 										<input type="hidden" name="publisher" value="'+publisher+'" />\
-						 				<input type="hidden" name="id" value="'+id+'" />\
 										<input type="hidden" name="begin" value="'+begin+'" />\
 						 				<input type="hidden" name="date" value="'+end+'" />\
 						 				<input type="hidden" name="text" value="'+text+'" />\
