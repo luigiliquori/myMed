@@ -33,12 +33,12 @@ Categories::$languages = array(
 Categories::$categories = array(
 		"Arte_Cultura" => _("Arte / Cultura"),
 		"Natura" => _("Natura"),
-		"Tradizioni" => _("Enogastronomia"),
-		"Enogastronomia" => _("Benessere"),
-		"Benessere" => _("Storia"),
-		"Storia" => _("Arte / Cultura"),
-		"Religione" => _("Arte / Cultura"),
-		"Escursioni_Sport" => _("Arte / Cultura"),
+		"Tradizioni" => _("Tradizioni"),
+		"Enogastronomia" => _("Enogastronomia"),
+		"Benessere" => _("Benessere"),
+		"Storia" => _("Storia"),
+		"Religione" => _("Religione"),
+		"Escursioni_Sport" => _("Escursioni / Sport"),
 );
 
 
