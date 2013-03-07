@@ -64,18 +64,19 @@ require_once("header.php");
 				</center>
 				
 
-				<!-- APP REPUTATION -->	
+				<!-- APP REPUTATION -->
+				<br/>	
     			<div Style="position: relative; left: 0px;">
     			<p style="display:inline; color: #2489CE;" >Application reputation: </p>
 		    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
 		    		<?php if($i*20-20 < $_SESSION['reputation'][STORE_PREFIX . $_REQUEST["applicationStore"]] ) { ?>
-		    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="10" Style="left: <?= $i ?>0px;" />
+		    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="15" Style="left: <?= $i ?>0px;" />
 		    		<?php } else { ?>
-		    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="10" Style="left: <?= $i ?>0px;"/>
+		    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="15" Style="left: <?= $i ?>0px;"/>
 		    		<?php } ?>
 		    	<? } ?>
 		    	</div>		
-				<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupScoreApp" data-rel="popup" style="text-decoration:none; float:right;" ><?= _("Rate this app") ?></a>	
+				<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupScoreApp" data-rel="popup" style="text-decoration:none;" ><?= _("Rate this app") ?></a>	
 				<br/>
 					
 				<!-- Appolication reputation pop up -->
@@ -90,12 +91,6 @@ require_once("header.php");
 					</form>
 				</div>	
 				
-				
-				
-		    	<div data-role="controlgroup" data-type="horizontal">
-					<a href="?action=store&applicationStore=<?= $_REQUEST["applicationStore"] ?>&reputation=1#storeSub" data-role="button" data-inline="true" rel="external">+1</a>
-					<a href="?action=store&applicationStore=<?= $_REQUEST["applicationStore"] ?>&reputation=0#storeSub" data-role="button" data-inline="true" rel="external">-1</a>
-				</div>
 			</div>
 			<a id="desc"></a>
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
