@@ -12,5 +12,6 @@
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subtitle;
 @property (nonatomic, retain) NSString *url;
-
+@property (nonatomic, retain) NSString *desc;
+@property (nonatomic, retain) NSString *address;
 @end
