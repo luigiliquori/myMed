@@ -51,6 +51,12 @@
     self.navigationItem.title = self.pagetitle;
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+}
+
 -(void) loadUrl
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
