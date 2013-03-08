@@ -1,5 +1,3 @@
-<? require_once('notifications.php'); ?>
-
 <div data-role="page">
   
 	<!-- Header bar -->
@@ -27,7 +25,7 @@
 	?>
 	
 	<div data-role="content" >
-	
+		<? require_once('notifications.php'); ?>
 		<?print_notification($this->success.$this->error);?>
 	
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
@@ -223,21 +221,61 @@
 				
 				<br/><br/>
 				
-				<!-- SHARE THIS -->
+				<!-- SHARE ON Twitter -->
 				<div style="position: absolute; right: 24px;">
-				<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
+					<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
     				<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-					</div>
-					
-					<div style="position: absolute; right: 95px;">
-				<g:plusone size="tall"></g:plusone>
-				<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
 				</div>
 				
-				<div style="position: absolute; right: 150px;">
-				<a name="fb_share" type="box_count" share_url="<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" ></a>
-   				<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+				<!-- SHARE ON Google+ -->
+				<div style="position: absolute; right: 95px;">
+					<g:plusone size="tall"></g:plusone>
+					<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
 				</div>
+				
+				<!-- LIKE ON Facebook WITH META DESC TITLE IMG 
+				<div style="position: absolute; right: 150px;">
+					<div class="fb-like" data-href="<?//= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" data-layout="box_count" data-width="450" data-show-faces="true"></div>
+				</div>
+				-->
+				<!-- SHARE ON Facebook WITH DESC TITLE IMG -->
+				<div style="position: absolute; right: 150px; padding-top:40px;">
+					<script src='http://connect.facebook.net/en_US/all.js'></script>
+					<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= $this->result->text ?>', '<?= str_replace("MYMED_", "", $this->result->publisherID) ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
+				</div>
+				
+				<!-- SHARE ACTIVITY ON Facebook
+				<div style="position: absolute; right: 280px;">
+					<div class="fb-shared-activity" data-href="<?//= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" data-layout="box_count"  data-show-faces="true"></div>
+				</div>
+				-->
+				
+				<!-- Facebook_APP_ID defined in system/config.php -->
+			    <script>  
+					window.fbAsyncInit = function() {
+					    FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
+					  };
+				    function postToFeed(url, title, desc, author, appname) {
+				    	FB.login(function(response) {
+				            if (response.authResponse) {
+				            	fbShare(url, title, desc, author, appname);
+				            }
+				        }, {scope: 'publish_stream'});
+				    }
+				      
+				    var fbShare = function(url, title, desc, author, appname) {
+				    	FB.ui({
+					    	method: 'feed',
+					        display: "iframe",
+					        link: url,
+					        picture: 'http://www.mymed.fr/application/myMed/img/logo-mymed-250c.png',
+					        name: (title+" Author: "+author),
+					        caption: appname,
+					        description: desc
+				    	});
+					};
+			    </script>
+ 
 				<div style="height: 80px;"></div>
 	    		<!-- END SHARE THIS -->
 				

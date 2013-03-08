@@ -49,12 +49,12 @@
 			</div>
 			<!-- Birthday -->
 			<div data-role="fieldcontain">
-				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
-				<input type="text" id="birthday" name="birthday" placeholder="jj/mm/aaaa" value="<?= $_SESSION['user']->birthday ?>" />
+				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> (jj/mm/aaaa) : </label>
+				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			</div>
 			<!-- Profile picture -->
 			<div data-role="fieldcontain">
-				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url): </label>
+				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url) : </label>
 				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
 			</div>
 			<!-- User language -->

@@ -19,8 +19,7 @@
 	<div data-role="content">
 		<br><br>
 		
-		<? if ($_SESSION['myEurope']->permission >=2 && 
-			   $_GET['user'] == $_SESSION['user']->id) : ?>
+		<? if ($_SESSION['myEurope']->permission >=2 && $_GET['user'] == $_SESSION['user']->id) : ?>
 			<div style="text-align: center;">
 				<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" data-theme="e"> <?= _("Users list") ?> </a>
 			</div>
