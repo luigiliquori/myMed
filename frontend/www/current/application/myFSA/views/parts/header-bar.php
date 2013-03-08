@@ -13,6 +13,6 @@
 		<a class="social" style="background-position: -66px 0px;" href="http://www.facebook.com/pages/MyFSA/122386814581009" title="myFSA on Facebook"></a>
 		<a class="social" style="background-position: 0px 0px;" href="https://twitter.com/myFSA1" title="myFSA on Twitter"></a>
 	</span>
-	<? include("notifications.php")?>
+	<? include_once "notifications.php"; ?>
 	
 </div>
