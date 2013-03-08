@@ -62,7 +62,7 @@ require_once("header.php");
 					alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" width="50" Style="margin-left: 5px; top: 5px;" /> <?= $applicationName ?>
 					<div Style="position: relative; left: 0px;">
 						<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-						<?php if($i*20-20 < $_SESSION['reputation'][EXTENDED_PROFILE_PREFIX . $applicationName] ) { ?>
+						<?php if($i*20-20 < $_SESSION['reputation'][STORE_PREFIX . $applicationName] ) { ?>
 						<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="10" Style="left: <?= $i ?>0px;" />
 						<?php } else { ?>
 						<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="10" Style="left: <?= $i ?>0px;"/>

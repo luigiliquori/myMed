@@ -56,20 +56,14 @@
 							</select>
 						</div>
 					</div>
-					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-						<div class="ui-block-a">
-							<input type="checkbox" name="categoryBox" onclick="toggle(this, '#find_category_content')" id="check-view-c"/> 
-							<label for="check-view-c"><?= _("Category")?></label>
-						</div>
-						<div class="ui-block-b">
-							<select disabled name="category" id="find_category_content" id="call" data-native-menu="false">
-								<option value=""><?= _("Select category")?></option>
-									<? foreach (Categories::$categories as $k=>$v) :?>
-										<option value="<?= $k ?>"><?= $v ?></option>
-									<? endforeach ?>
-							</select>
-						</div>
-					</div>
+			
+					<!-- Categories -->
+					<fieldset data-role="controlgroup">
+					<? foreach (Categories::$categories as $k=>$v) :?>
+					   	<input type="checkbox" name="<?= $k ?>" id="<?= $k ?>" class="custom" value="on">
+					   	<label for="<?= $k ?>"><?= $v ?></label>
+	   				<? endforeach ?>			   
+				    </fieldset>
 					
 					<script type="text/javascript"> 
 						function toggle(chkbox, id) {

@@ -90,13 +90,15 @@
 					<? foreach (Categories::$languages as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
-					</select>
-					<select name="category" id="category" data-native-menu="false">
-						<option value=""> <?= _("Category")?><b>*</b> </option>
+					</select><br />
+					<!-- Categories -->
+					<label for="categories"><strong><?= _("Categories") ?></strong></label>
+					<fieldset data-role="controlgroup" id="categories">
 					<? foreach (Categories::$categories as $k=>$v) :?>
-						<option value="<?= $k ?>"><?= $v ?></option>
-					<? endforeach ?>
-					</select>
+					   	<input type="checkbox" name="<?= $k ?>" id="<?= $k ?>" class="custom" value="<?= $v ?>">
+					   	<label for="<?= $k ?>"><?= $v ?></label>
+	   				<? endforeach ?>			   
+				    </fieldset>
 					<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			</div>
 			

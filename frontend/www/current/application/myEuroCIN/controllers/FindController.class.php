@@ -10,9 +10,17 @@ class FindController extends AuthenticatedController{
 							
 			$search = new myEuroCINPublication();
 
-			if($_POST['locality']) $search->competences = $_POST['locality'];
-			if($_POST['language']) $search->language = $_POST['language'];
-			if($_POST['category']) $search->quartier = $_POST['category'];
+			if($_POST['locality']) $search->Nazione = $_POST['locality'];
+			if($_POST['language']) $search->Lingua = $_POST['language'];
+			if($_POST['Arte_Cultura']) $search->Arte_Cultura = "on";
+			if($_POST['Natura']) $search->Natura = "on";
+			if($_POST['Tradizioni']) $search->Tradizioni = "on";
+			if($_POST['Enogastronomia']) $search->Enogastronomia = "on";
+			if($_POST['Benessere']) $search->Benessere = "on";
+			if($_POST['Storia']) $search->Storia = "on";
+			if($_POST['Religione']) $search->Religione = "on";
+			if($_POST['Escursioni_Sport']) $search->Escursioni_Sport = "on";
+			
 				
 			$res = $search->find();
 			$this->filter_array($res);

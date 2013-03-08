@@ -68,6 +68,7 @@ class StoreController extends AuthenticatedController {
 
 			// update the reputation of the application
 			if(isset($_REQUEST['reputation'])) {
+				
 				// Get the reputation of the user in each the application
 				$request = new Request("InteractionRequestHandler", UPDATE);
 				$request->addArgument("application",  APPLICATION_NAME);
@@ -76,7 +77,7 @@ class StoreController extends AuthenticatedController {
 				$request->addArgument("start",  time());
 				$request->addArgument("end",  time());
 				$request->addArgument("predicate",  REPUTATION_PRED);
-				$request->addArgument("feedback",  $_REQUEST['reputation']);
+				$request->addArgument("feedback",  $_REQUEST['reputation']/10);
 
 				try {
 					$responsejSon = $request->send();

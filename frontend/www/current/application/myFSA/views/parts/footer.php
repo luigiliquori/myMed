@@ -1,5 +1,5 @@
 	<div data-role="footer" data-position="fixed" data-theme="d">
-		<div data-role="navbar">
+		<div data-role="navbar" data-iconpos="bottom">
 			<ul>
 				<li><a href="?action=main" data-transition="none" data-icon="home" <?= !isset($_GET['action']) || $_GET['action'] == "main" ? 'data-theme="b"' : '' ?>><?= translate("Home") ?></a></li>
 				<li><a data-role="button" data-transition="none" href="?action=Search" data-icon="search" <?= isset($_GET['action']) && ($_GET['action'] == "details"|| $_GET['action'] == "Search") ? 'data-theme="b"' : '' ?>> <?= translate("Search") ?></a></li>

@@ -14,14 +14,19 @@ require_once("header.php");
 		<?php if(isset($_REQUEST["applicationStore"])) { ?>
 		
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
+				
 				<h3><?= $_REQUEST["applicationStore"] ?></h3>
-				<img alt="<?= $_REQUEST["applicationStore"] ?>" src="../../application/<?= $_REQUEST["applicationStore"] ?>/img/icon.png" Style="position: absolute; width: 50px;">
-				<div style="position: absolute; left: 200px;">
-					<p>Version: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/version") ?></i><br />
-					Mise à jour: <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i></p>
+				
+				<div >
+					<img style="float:left; margin:10px;" alt="<?= $_REQUEST["applicationStore"] ?>" src="../../application/<?= $_REQUEST["applicationStore"] ?>/img/icon.png" Style="position: absolute; width: 50px;"/>
+					<p style="margin:20px"> <br/>
+						<strong>Version:</strong> <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/version") ?></i><br/>
+						<strong>Mise à jour:</strong> <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i><br/><br/><br/>
+						<i> <? include(MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description.php") ?></i>
+					</p>
 				</div>
-				<div Style="position: absolute; right: 20px;">
-						
+				
+				<div style="position:absolute; right:30px; top: 140px;">
 					<a data-role="button" onClick="
 						<?php if($_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "off"): ?> 
 							toggleStatus('<?= $_GET['applicationStore'] ?>', 'on')" data-theme="g"> Install </a>
@@ -40,6 +45,7 @@ require_once("header.php");
 					</select>
 					*/ ?>
 				</div>
+				
 				<div style="position: relative; height:60px;"></div>
 			</div>
 			
@@ -57,19 +63,34 @@ require_once("header.php");
 					</div>
 				</center>
 				
-				<div Style="position: relative; left: 0px;">
-			    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-			    		<?php if($i*20-20 < $_SESSION['reputation'][STORE_PREFIX . $_REQUEST["applicationStore"]] ) { ?>
-			    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="10" Style="left: <?= $i ?>0px;" />
-			    		<?php } else { ?>
-			    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="10" Style="left: <?= $i ?>0px;"/>
-			    		<?php } ?>
-			    	<? } ?>
-		    	</div>
-		    	<div data-role="controlgroup" data-type="horizontal">
-					<a href="?action=store&applicationStore=<?= $_REQUEST["applicationStore"] ?>&reputation=1#storeSub" data-role="button" data-inline="true" rel="external">+1</a>
-					<a href="?action=store&applicationStore=<?= $_REQUEST["applicationStore"] ?>&reputation=0#storeSub" data-role="button" data-inline="true" rel="external">-1</a>
-				</div>
+
+				<!-- APP REPUTATION -->
+				<br/>	
+    			<div Style="position: relative; left: 0px;">
+    			<p style="display:inline; color: #2489CE;" >Application reputation: </p>
+		    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+		    		<?php if($i*20-20 < $_SESSION['reputation'][STORE_PREFIX . $_REQUEST["applicationStore"]] ) { ?>
+		    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="15" Style="left: <?= $i ?>0px;" />
+		    		<?php } else { ?>
+		    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="15" Style="left: <?= $i ?>0px;"/>
+		    		<?php } ?>
+		    	<? } ?>
+		    	</div>		
+				<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupScoreApp" data-rel="popup" style="text-decoration:none;" ><?= _("Rate this app") ?></a>	
+				<br/>
+					
+				<!-- Appolication reputation pop up -->
+				<div data-role="popup" id="popupScoreApp" class="ui-content" Style="text-align: center; width: 18em;">
+					<?= _("Do you like this application ?") ?><br /><br />
+					<form id="form1" action="?action=store&applicationStore=<?= $_REQUEST["applicationStore"] ?>&reputation=1#storeSub" method="POST" data-ajax="false">
+						
+						<input type="hidden" name="reputation" id="reputation" />				
+						<label for="reputationslider"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
+						<input type="range" name="reputationslider" id="reputationslider" value="3" min="1" max="5" data-mini="true" step="1"/>
+						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
+					</form>
+				</div>	
+				
 			</div>
 			<a id="desc"></a>
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
