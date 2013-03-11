@@ -71,6 +71,8 @@
 		6320CAAE16BEE3E2001D193D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6320CAAC16BEE3E2001D193D /* libTestFlight.a */; };
 		6320CAB116BEEDE4001D193D /* gradhat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6320CAAF16BEEDE4001D193D /* gradhat.png */; };
 		6320CAB216BEEDE4001D193D /* gradhat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6320CAB016BEEDE4001D193D /* gradhat@2x.png */; };
+		633FEE8316EE7C79009DB57B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 633FEE8116EE7C79009DB57B /* logo.png */; };
+		633FEE8416EE7C79009DB57B /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 633FEE8216EE7C79009DB57B /* logo@2x.png */; };
 		63425C5816BEB2AD00F2E889 /* mymedTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C5616BEB2AD00F2E889 /* mymedTest.m */; };
 		634E71B416B0BA0C00493E55 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA0A11683388E00258839 /* SenTestingKit.framework */; };
 		634E71B516B0BA0C00493E55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA07A1683388E00258839 /* UIKit.framework */; };
@@ -109,6 +111,8 @@
 		6320CAAD16BEE3E2001D193D /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		6320CAAF16BEEDE4001D193D /* gradhat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradhat.png; sourceTree = "<group>"; };
 		6320CAB016BEEDE4001D193D /* gradhat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradhat@2x.png"; sourceTree = "<group>"; };
+		633FEE8116EE7C79009DB57B /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		633FEE8216EE7C79009DB57B /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		63425C5316BEB2AD00F2E889 /* myMedTemplateTest-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = "myMedTemplateTest-Info.plist"; path = "Users/epmancini/mymed/lognet-mymed/clients-ios/myMedTemplate/srcTest/myMedTemplateTest-Info.plist"; sourceTree = SDKROOT; };
 		63425C5416BEB2AD00F2E889 /* myMedTemplateTest-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "myMedTemplateTest-Prefix.pch"; path = "Users/epmancini/mymed/lognet-mymed/clients-ios/myMedTemplate/srcTest/myMedTemplateTest-Prefix.pch"; sourceTree = SDKROOT; };
 		63425C5516BEB2AD00F2E889 /* mymedTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mymedTest.h; path = srcTest/mymedTest.h; sourceTree = SOURCE_ROOT; };
@@ -281,6 +285,8 @@
 		63425C9916BEB31800F2E889 /* imgs */ = {
 			isa = PBXGroup;
 			children = (
+				633FEE8116EE7C79009DB57B /* logo.png */,
+				633FEE8216EE7C79009DB57B /* logo@2x.png */,
 				639F662816C44F3600C753AF /* bottomrow.png */,
 				639F662916C44F3600C753AF /* bottomrow@2x.png */,
 				639F662A16C44F3600C753AF /* row.png */,
@@ -592,6 +598,8 @@
 				639F663116C44F3600C753AF /* row@2x.png in Resources */,
 				639F663216C44F3600C753AF /* toprow.png in Resources */,
 				639F663316C44F3600C753AF /* toprow@2x.png in Resources */,
+				633FEE8316EE7C79009DB57B /* logo.png in Resources */,
+				633FEE8416EE7C79009DB57B /* logo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
