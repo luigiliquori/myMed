@@ -36,6 +36,8 @@ class myEuroCINPublication extends GenericDataBean {
 				// Predicate attributes
 				array(
 						"publisher"	=> KEYWORD,
+						"begin"	=> KEYWORD,
+						"end"	=> KEYWORD,
 						"data" => KEYWORD,
 						"Nazione" => KEYWORD,
 						"Lingua" => KEYWORD,
@@ -54,7 +56,7 @@ class myEuroCINPublication extends GenericDataBean {
 					  "validated" => TEXT),
 				
 				// Wrapped attributes
-				array("title", "end"),
+				array("end"),
 				
 				$predicateStr);
 		

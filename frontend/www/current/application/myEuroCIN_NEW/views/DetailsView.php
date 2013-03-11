@@ -96,8 +96,10 @@
   													<input type="hidden" name="publisher" value="<?= $this->result->publisherID ?>" />
 													<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
 													<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
-													<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
-													<input type="hidden" name="language" value="<?= $this->result->language ?>" />
+													<input type="hidden" name="locality" value="<?= $this->result->Nazione ?>" />
+													<input type="hidden" name="language" value="<?= $this->result->Lingua ?>" />
+													
+													
 													<input type="hidden" name="category" value="<?= $this->result->category ?>" />
 													<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />
 													<input type="hidden" name="title" value="<?= $this->result->title ?>" />
@@ -119,7 +121,22 @@
 					</div>
 						
 					<!-- TITLE -->
-					<h3><?= $this->result->title ?> :</h3>
+					<h3><?= $this->result->data ?> :</h3>
+					<p style="position: relative; margin-left: 30px;">
+						<b><?= _("Locality") ?></b>: <?= Categories::$localities[$this->result->Nazione] ?><br/>
+						<b><?= _("Language") ?></b>: <?= Categories::$languages[$this->result->Lingua] ?><br/>
+						<b><?= _("Categories") ?></b>: 
+						<? if( isset($this->result->Arte_Cultura) ) echo _("Art/Cultur "); ?> 
+						<? if( isset($this->result->Natura) ) echo _("Nature "); ?>
+						<? if( isset($this->result->Tradizioni) ) echo _("Traditions "); ?>
+						<? if( isset($this->result->Enogastronomia) ) echo _("Enogastronimy "); ?>
+						<? if( isset($this->result->Benessere) ) echo _("Wellness "); ?>
+						<? if( isset($this->result->Storia) ) echo _("History "); ?>
+						<? if( isset($this->result->Religione) ) echo _("Religion "); ?>
+						<? if( isset($this->result->Escursioni_Sport) ) echo _("Sport "); ?>
+					</p>
+						
+					<br/>
 					
 					<!-- TEXT -->
 					<?= $this->result->text ?>
@@ -129,7 +146,7 @@
 					<?php
 						// Other users' profiles are only accessible from myMed user with ExtendedProfile
 						$author = str_replace("MYMED_", "", $this->result->publisherID); 
-						if(isset($_SESSION['myEuroCIN'])):
+						if(isset($_SESSION['myEuroCIN']) && !isset($this->result->old_publication)):
 							echo "<a href=?action=extendedProfile&method=show_user_profile&user=".$this->result->publisherID.">".$author."</a>";
 					 	else:
 					 		echo $author."";
@@ -142,7 +159,7 @@
 				<!-- Reputation -->
 	    		<div>
 	    			<!-- Publication reputation -->
-	    			<p style="display:inline;">Publication rate:</p>
+	    			<p style="display:inline;">Publication rating:</p>
 						<?php
 						// Disable reputation stars if there are no votes yet 
 						if($this->reputation["value_noOfRatings"] == '0') : ?> 
@@ -162,7 +179,7 @@
 					<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
 					
 					<? /* can rate if logged in  */
-					 if(isset($_SESSION['myEuroCIN']) && $this->result->publisherID != $_SESSION['user']->id){
+					 if(isset($_SESSION['myEuroCIN']) && $this->result->publisherID != $_SESSION['user']->id && !isset($this->result->old_publication)){
 						 $date=strtotime(date('d-m-Y'));
 						 $expired=false;
 						 if(!empty($this->result->end)  && $this->result->end!="--"){

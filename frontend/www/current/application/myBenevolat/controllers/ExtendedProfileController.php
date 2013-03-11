@@ -165,7 +165,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		unset($_POST['email']);
 		unset($_POST['login']);
 		
-		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($profile)));
+		$request = new Requestv2("v2/ProfileRequestHandler", 
+							UPDATE, 
+						array("user"=>json_encode($profile)));
 		
 		try {
 			$responsejSon = $request->send();

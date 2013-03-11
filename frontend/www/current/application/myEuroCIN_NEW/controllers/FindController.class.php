@@ -22,8 +22,8 @@ class FindController extends AuthenticatedController{
 			if($_POST['Escursioni_Sport']) $search->Escursioni_Sport = "on";
 			
 				
-			$res = $search->find();
-			$this->filter_array($res);
+			$this->result = $search->find();
+			//$this->filter_array($res);
 				
 			$this->getReputation($this->result);
 			$this->renderView("results");

@@ -11,7 +11,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	/**
 	 * HandleRequest
 	 */
-	public function handleRequest(){
+	public function handleRequest() {
 		
 		parent::handleRequest();
 		$this->mapper = new DataMapper;

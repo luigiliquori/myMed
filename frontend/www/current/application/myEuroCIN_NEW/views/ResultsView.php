@@ -27,13 +27,20 @@
 				<li>
 					<!-- Print Publisher reputation -->
 					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
-						<h3><?= _("Title")?> : <?= $item->title ?></h3>
+						<h3><?= _("Title")?> : <?= $item->data ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br>
-							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
-							<b><?= _("Language") ?></b>: <?= Categories::$languages[$item->language] ?><br/>
-							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/><br/>
+							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->Nazione] ?><br/>
+							<b><?= _("Language") ?></b>: <?= Categories::$languages[$item->Lingua] ?><br/>
+							<b><?= _("Categories") ?></b>: 
+							<? if( isset($item->Arte_Cultura) ) echo _("Art/Cultur "); ?> 
+							<? if( isset($item->Natura) ) echo _("Nature "); ?>
+							<? if( isset($item->Tradizioni) ) echo _("Traditions "); ?>
+							<? if( isset($item->Enogastronomia) ) echo _("Enogastronimy "); ?>
+							<? if( isset($item->Benessere) ) echo _("Wellness "); ?>
+							<? if( isset($item->Storia) ) echo _("History "); ?>
+							<? if( isset($item->Religione) ) echo _("Religion "); ?>
+							<? if( isset($item->Escursioni_Sport) ) echo _("Sport "); ?>
 						</p>
 						
 						<br/>

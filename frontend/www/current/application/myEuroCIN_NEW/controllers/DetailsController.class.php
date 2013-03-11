@@ -32,6 +32,11 @@ class DetailsController extends AuthenticatedController {
 		 
 		// Give this to the view
 		$this->result = $obj;
+		
+		// BACKWARD COMPATIBILITY: If validated is not setted, It is a 
+		// Publication from the old version of myEuroCIN, set validated to true
+		if(!isset($this->result->validated)) $this->result->validated="validated"; 
+			
 		// get author reputation
 		$request = new Request("ReputationRequestHandler", READ);
 		$request->addArgument("application",  APPLICATION_NAME);
@@ -75,7 +80,11 @@ class DetailsController extends AuthenticatedController {
 			$this->publisher_profile = new myEuroCINProfile($details['profile']);
 			$this->publisher_profile->details = $datamapper->findById($this->publisher_profile);
 		} catch (Exception $e) {
-			$this->redirectTo("main");
+			
+			// BACKWARD COMPATIBILITY: It is an old publication, user that 
+			// published it has not got an ExtendedProfile
+			$this->result->old_publication = "true";	
+			//$this->redirectTo("main");
 		}
 				
 		// Render the view
