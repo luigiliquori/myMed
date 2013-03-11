@@ -26,8 +26,8 @@ require_once("header.php");
 		 <? }else{ ?>
 		 		<input type="hidden" name="email" value="<?= $_SESSION['user']->email ?>" />
 		 <? } ?>
-			<label for="birthday" ><?= _("Date of birth") ?> : </label>
-			<input type="text" id="birthday" name="birthday" placeholder="jj/mm/aaaa" value="<?= $_SESSION['user']->birthday ?>" />
+			<label for="birthday" ><?= _("Date of birth") ?> (jj/mm/aaaa) : </label>
+			<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			
 			<label for="profilePicture" ><?= _("Profile picture") ?> (url): </label>
 			<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />

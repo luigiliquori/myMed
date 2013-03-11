@@ -264,17 +264,49 @@
 					<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
 					</div>
 					
-					<div style="position: absolute; right: 150px;">
-					<a name="fb_share" type="box_count" share_url="<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" ></a>
-	   				<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+					<!-- SHARE ON Facebook WITH DESC TITLE IMG -->
+					<div style="position: absolute; right: 150px; padding-top:40px;">
+						<script src='http://connect.facebook.net/en_US/all.js'></script>
+						<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= $this->result->text ?>', '<?= str_replace("MYMED_", "", $this->result->publisherID) ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
 					</div>
+					
+					<!-- Facebook_APP_ID defined in system/config.php -->
+				    <script>  
+						window.fbAsyncInit = function() {
+						    FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
+						  };
+					    function postToFeed(url, title, desc, author, appname) {
+					    	FB.login(function(response) {
+					            if (response.authResponse) {
+					            	fbShare(url, title, desc, author, appname);
+					            }
+					        }, {scope: 'publish_stream'});
+					    }
+					      
+					    var fbShare = function(url, title, desc, author, appname) {
+					    	FB.ui({
+						    	method: 'feed',
+						        display: "iframe",
+						        link: url,
+						        picture: 'http://www.mymed.fr/application/myMed/img/logo-mymed-250c.png',
+						        name: (title+" Author: "+author),
+						        caption: appname,
+						        description: desc
+					    	});
+						};
+				    </script>
+					
 					<div style="height: 80px;"></div>
 		    		<!-- END SHARE THIS -->
 				<? endif ?>
 
 				<!-- Comments -->
 				<div data-role="collapsible" data-content-theme="d">
-	 				<h3><?= _('Comments') ?></h3>
+	 				<? if($_SESSION['user']->is_guest){ ?>
+						<h3><?= _('Comments: <i>You have to be logged in to comment!</i>') ?></h3>
+					<? }else{ ?>
+	 					<h3><?= _('Comments') ?> </h3>
+	 				<? } ?>
 		 			<!-- displaying comments -->
 					<br/>
 		 			<?foreach ($this->result_comment as $item) :?>

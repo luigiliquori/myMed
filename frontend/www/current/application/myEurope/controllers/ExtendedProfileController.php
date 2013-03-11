@@ -24,7 +24,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		else if (!isset($_SESSION['myEurope']) || isset($_GET['list'])){
 			// Create a new profile
-			$this->cats = Categories::$roles;
 			$this->renderView("ExtendedProfileCreate");
 		}
 		else if (isset($_GET['edit']))
@@ -40,7 +39,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		}
 		//I don't know why this is not working so I put it on the top
 		else if (isset($_GET['user'])){
-			error_log("LOGROM OK CALL");
 			$this->showUserProfile($_GET['user']);
 		}
 		else if (isset($_SESSION['user'])){
@@ -57,9 +55,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	
 	function create(){
 		$profile = $this->storeProfile();
-		//debug_r($profile)
+		
 		$this->createUser($profile->id);
-		$this->redirectTo("ExtendedProfile", array("id"=>$profile->id, "link"=>""));
+		$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 	}
 	
 	function delete(){
@@ -88,13 +86,15 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->error = _("Organization email field can't be empty");
 			$this->renderView("ExtendedProfileCreate");
 		}
-		if(!$_POST['checkCondition']){
+		/*if(!$_POST['checkCondition']){
 			$this->error = _("You must accept the terms of use.");
 			$this->renderView("ExtendedProfileCreate");
-		}
+		}*/
 		$_POST['id'] = hash("md5", time().$_POST['name']);
 		$_POST['desc'] = nl2br($_POST['desc']);
-		unset($_POST['checkCondition']);
+		$_POST['territoryType'] = implode("|", $_POST['territoryType']);
+		debug($_POST['territoryType']);
+		//unset($_POST['checkCondition']);
 	
 		$publish =  new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":profiles", 
@@ -250,6 +250,8 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$_POST['name'] = $name; // organization name and not username
 		$_POST['email'] = $email; // organization email != profile email
 		$_POST['id'] = $id;
+		$_POST['territoryType'] = implode("|", $_POST['territoryType']);
+		debug($_POST['territoryType']);
 		
 		// update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
@@ -279,7 +281,8 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$_SESSION['myEurope']->reputation = $myrep;
 			$_SESSION['myEurope']->users = $users;
 	
-			$this->redirectTo("Main", array(), "#profile");
+			//$this->redirectTo("Main", array(), "#profile");
+			$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 		}
 		
 	}
@@ -368,6 +371,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				DELETE);
 	
 		$publish->send();
+		unset($_SESSION['myEurope']);
 		$this->success = "done";
 		$this->renderView("main");
 	

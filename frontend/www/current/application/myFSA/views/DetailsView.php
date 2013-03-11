@@ -80,7 +80,7 @@
 		<br>
  		<b><?= translate('Author') ?>:</b> <?= $truncated ?>
  		<br>
- 		<b><?= translate('Cathegory') ?>:</b> <?= $_SESSION['pred2'] ?>
+ 		<b><?= translate('Category') ?>:</b> <?= $_SESSION['pred2'] ?>
 	 	
 	 	<div data-role="collapsible" data-content-theme="d">
 	 		<h3><?= translate('Comments') ?></h3>

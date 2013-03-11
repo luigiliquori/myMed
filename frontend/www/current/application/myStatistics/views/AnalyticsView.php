@@ -18,15 +18,24 @@ require_once("footer-bar.php");
 	<!-- Main part of the page -->
 	<div data-role="content" style="text-align: center;">
 		<!-- Add Google Analytics authorization button -->
-  <button id="authorize-button" style="visibility: hidden">
-        Authorize Analytics</button>
+  	<button id="authorize-button" style="visibility:hidden;" data-inline="true" style="floating:right;"> Authorize Analytics</button>
+  	
+  	<!-- <form action="?action=analytics" name="form_day" onsubmit='return create_graph(document.forms["form_day"]["select_days"].value);' method="post">-->
+  		<select name="select_days" id="select_days" data-inline="true" onchange='return create_visit_graph(document.getElementById("select_days").value);'>
+  			<option value="30">days</option>
+  			<option value="30">30</option>
+  			<option value="60">60</option>
+  			<option value="180">180</option>
+  			<option value="365">365</option>
+  		</select>
 
   <!-- Div element where the Line Chart will be placed -->
-  <div id='line-chart-example'></div>
+  <div id='visits_chart'></div>
+  <div id='newold_chart'></div>
 
   <!-- Load all Google JS libraries -->
   <script src="https://www.google.com/jsapi"></script>
-  <!-- <script src="gadash-1.0.js"></script>-->
+  <script src="javascript/gadash-1.0.js"></script>
   <script src="https://apis.google.com/js/client.js?onload=gadashInit"></script>
   
   
@@ -45,23 +54,40 @@ require_once("footer-bar.php");
 
     // Create a new Chart that queries visitors for the last 30 days and plots
     // visualizes in a line chart.
-    var chart1 = new gadash.Chart({
-      'type': 'LineChart',
-      'divContainer': 'line-chart-example',
-      'last-n-days':30,
-      'query': {
-        'ids': TABLE_ID,
-        'metrics': 'ga:visitors',
-        'dimensions': 'ga:date'
-      },
-      'chartOptions': {
-        height:600,
-        title: 'Visits in January 2011',
-        hAxis: {title:'Date'},
-        vAxis: {title:'Visits'},
-        curveType: 'function'
-      }
-    }).render();
+    function create_visit_graph(days){
+    	days = typeof days !== 'undefined' ? days : 30;
+    	var chart1 = new gadash.Chart({
+      		'type': 'LineChart',
+      		'divContainer': 'visits_chart',
+      		'last-n-days':days,
+      		'query': {
+        		'ids': TABLE_ID,
+        		'metrics': 'ga:visitors',
+        		'dimensions': 'ga:date'
+      		},
+      		'chartOptions': {
+        		height:600,
+        		title: 'Visits during the last '+days+' days',
+        		hAxis: {title:'Date'},
+        		vAxis: {title:'Visits'},
+        		curveType: 'function'
+      		}
+    		}).render();
+    }
+
+    function create_new_vs_old_graph(){
+        var chart2 =new gadash.Chart({
+            'type':'PieChart',
+            'divContainer': 'newold_chart',
+            'query':{
+                'ids': TABLE_ID,
+            	'metrics': 'ga:visitors',
+            	'dimensions':'ga:visitorType'
+            }
+        }).render();
+    }
+    	create_visit_graph();
+		create_new_vs_old_graph();
   </script>
 		
 	</div>
