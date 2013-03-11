@@ -55,7 +55,7 @@
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSURL *u = [NSURL URLWithString:self.url];
-    NSURLRequest *req=[NSURLRequest requestWithURL:u];
+    NSURLRequest *req=[NSURLRequest requestWithURL:u cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
     /*
     self.theConnection=[[[NSURLConnection alloc] initWithRequest:req delegate:self] autorelease];
     if (self.theConnection) {
@@ -71,7 +71,7 @@
     }
     */
     [self.webview loadRequest:req];
-    NSLog(@"Loading %@", [u absoluteString]);
+    //NSLog(@"Loading %@", [u absoluteString]);
 }
 
 - (void)viewDidUnload
@@ -103,14 +103,14 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    NSLog(@"Load done: %@", self.url);
+    //NSLog(@"Load done: %@", self.url);
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    NSLog(@"*** Load failed: %@ (Is loading:%d)", self.url, webView.isLoading);
-    NSLog(@"***              %@", error.localizedDescription);
+    //NSLog(@"*** Load failed: %@ (Is loading:%d)", self.url, webView.isLoading);
+    //NSLog(@"***              %@", error.localizedDescription);
     NSString *s = [MyMedClient GetInstance].html_noConnection;
     [self.webview loadHTMLString:s baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     

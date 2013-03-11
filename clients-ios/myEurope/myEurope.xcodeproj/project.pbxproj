@@ -22,12 +22,10 @@
 		633F796E16984B2E00895750 /* regione.png in Resources */ = {isa = PBXBuildFile; fileRef = 633F796716984B2E00895750 /* regione.png */; };
 		634C645216B1A03F00AA66A3 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 634C645016B1A03F00AA66A3 /* checkmark.png */; };
 		634C645316B1A03F00AA66A3 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 634C645116B1A03F00AA66A3 /* checkmark@2x.png */; };
-		634E71A916B0A40400493E55 /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E71A816B0A40400493E55 /* RestClient.m */; };
 		634E71B416B0BA0C00493E55 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA0A11683388E00258839 /* SenTestingKit.framework */; };
 		634E71B516B0BA0C00493E55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA07A1683388E00258839 /* UIKit.framework */; };
 		634E71B616B0BA0C00493E55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA07C1683388E00258839 /* Foundation.framework */; };
 		634E71BF16B0BA0C00493E55 /* myEuropeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E71BE16B0BA0C00493E55 /* myEuropeTest.m */; };
-		634E71C516B0BA1E00493E55 /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 634E71A816B0A40400493E55 /* RestClient.m */; };
 		6357A14816947ED900FC66D8 /* MyMedClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6357A14716947ED900FC66D8 /* MyMedClient.m */; };
 		6357A14D16948C4700FC66D8 /* icoeu.png in Resources */ = {isa = PBXBuildFile; fileRef = 6357A14916948C4700FC66D8 /* icoeu.png */; };
 		6357A14E16948C4700FC66D8 /* icoeu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6357A14A16948C4700FC66D8 /* icoeu@2x.png */; };
@@ -113,8 +111,6 @@
 		633F796716984B2E00895750 /* regione.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = regione.png; sourceTree = "<group>"; };
 		634C645016B1A03F00AA66A3 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		634C645116B1A03F00AA66A3 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
-		634E71A716B0A40300493E55 /* RestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestClient.h; sourceTree = "<group>"; };
-		634E71A816B0A40400493E55 /* RestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestClient.m; sourceTree = "<group>"; };
 		634E71B316B0BA0C00493E55 /* myEuropeTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myEuropeTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		634E71B916B0BA0C00493E55 /* myEuropeTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "myEuropeTest-Info.plist"; sourceTree = "<group>"; };
 		634E71BD16B0BA0C00493E55 /* myEuropeTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = myEuropeTest.h; sourceTree = "<group>"; };
@@ -446,6 +442,7 @@
 				63DF541416B3FC460005BEB6 /* FirstScreenViewController.m */,
 				63DF541516B3FC460005BEB6 /* FirstScreenViewController.xib */,
 				6333F9C716B5886C00E7495A /* FirstScreenViewControllerIPad.xib */,
+				6333F9C216B458C200E7495A /* first.html */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -454,7 +451,6 @@
 			isa = PBXGroup;
 			children = (
 				6333F9BE16B458BE00E7495A /* help.htm */,
-				6333F9C216B458C200E7495A /* first.html */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -465,8 +461,6 @@
 				63A778CA168B42A0005082B9 /* conf.h */,
 				6357A14616947ED900FC66D8 /* MyMedClient.h */,
 				6357A14716947ED900FC66D8 /* MyMedClient.m */,
-				634E71A716B0A40300493E55 /* RestClient.h */,
-				634E71A816B0A40400493E55 /* RestClient.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -644,7 +638,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				634E71BF16B0BA0C00493E55 /* myEuropeTest.m in Sources */,
-				634E71C516B0BA1E00493E55 /* RestClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,7 +654,6 @@
 				6357A15C169491DF00FC66D8 /* RemoteHtmlViewController.m in Sources */,
 				63FEDBC116A61AEE00D7EF75 /* ProfileViewController.m in Sources */,
 				638889E416AB687900AE6BCD /* ChecklistViewController.m in Sources */,
-				634E71A916B0A40400493E55 /* RestClient.m in Sources */,
 				63DF541616B3FC470005BEB6 /* FirstScreenViewController.m in Sources */,
 				63CBA72A16B74DA900523F71 /* BlogCategoriesViewController.m in Sources */,
 				63CBA72F16B74DC800523F71 /* BlogPostsViewController.m in Sources */,

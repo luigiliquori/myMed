@@ -3,15 +3,16 @@
 *.class
 *~
 
-.project
-.settings
-.classpath
+#.project
+#.settings
+#.classpath
 .fbprefs
 .pmd
 .checkstyle
 .buildpath
 
 .DS_Store
+xcuserdata
 
 *.lastmodified
 revision.location

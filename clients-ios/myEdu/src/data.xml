@@ -93,14 +93,16 @@
                 <item title="Scienze Matematiche Fisiche e Naturali" />
                 <item title="Scienze Politiche" />
         </page>
-        <page title="Università del Piemonte Orientale" url="http://www.unipmn.it">
-                <item title="Economia" subtitle="Novara" />
-                <item title="Farmacia" subtitle="Novara" />
-                <item title="Giurisprudenza" subtitle="Alessandria" />
-                <item title="Lettere e Filosofia" subtitle="Vercelli" />
-                <item title="Medicina e Chirurgia" subtitle="Novara" />
-                <item title="Scienze della Salute" subtitle="Novara" />
-                <item title="Scienze Matematiche Fisiche e Naturali" subtitle="Alessandria" />
-                <item title="Scienze Politiche" subtitle="Alessandria" />
-        </page>
+    <page title="Università del Piemonte Orientale" url="http://www.unipmn.it">
+        <item title="Economia" subtitle="Novara" />
+        <item title="Farmacia" subtitle="Novara" />
+        <item title="Giurisprudenza" subtitle="Alessandria" />
+        <item title="Lettere e Filosofia" subtitle="Vercelli" />
+        <item title="Medicina e Chirurgia" subtitle="Novara" />
+        <item title="Scienze della Salute" subtitle="Novara" />
+        <item title="Scienze Matematiche Fisiche e Naturali" subtitle="Alessandria" />
+        <item title="Scienze Politiche" subtitle="Alessandria" />
+    </page>
+    <page title="Università della Val d'Aosta" url="http://www.univda.it/">
+    </page>
  </data>
