@@ -66,7 +66,7 @@
                                                   delegate:self
                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                     destructiveButtonTitle:nil
-                                         otherButtonTitles:NSLocalizedString(@"Email about this app", nil),
+                                         otherButtonTitles:NSLocalizedString(@"Suggest this app", nil),
                        NSLocalizedString(@"MyMed web site...", nil), NSLocalizedString(@"myMed Launchpad...", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
