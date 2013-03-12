@@ -18,7 +18,11 @@ class PublishController extends AuthenticatedController {
 			$obj = new PublishObject();
 				
 			// Fill the object
-			$this->fillObj($obj);
+			if(!empty($_POST['pred2']) && !empty($_POST['pred3']) && !empty($_POST['data1'])){
+				$this->fillObj($obj);
+			}else{
+				$this->renderView("publish");
+			}
 			$obj->publish();
 			
 			$this->result = $obj;
@@ -75,11 +79,7 @@ class PublishController extends AuthenticatedController {
 	// Fill object with POST values
 	private function fillObj($obj) {
 		
-		if(
-		   isset($_POST['pred2']) &&
-		   isset($_POST['pred3']) &&
-		   isset($_POST['data1'])
-			){
+		if(isset($_POST['pred2']) && isset($_POST['pred3']) && isset($_POST['data1'])){
 		
 			$obj->begin = "";
 			$obj->end = "";

@@ -22,7 +22,7 @@
 				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			</div>
 			<div data-role="fieldcontain">
-				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
+				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> (jj/mm/aaaa) : </label>
 				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			</div>
 			<div data-role="fieldcontain">
@@ -47,8 +47,8 @@
 			<div data-role="fieldcontain">
 				<label for="role" class="select" style="text-align:right"><?= _("Your category") ?>:</label>
 				<select name="role" id="role">
-				<? foreach (Categories::$roles as $v) :?>
-					<option value="<?= $v ?>" <?= $_SESSION['myEurope']->details['role']==$v?'selected="selected"':'' ?>><?= $v ?></option>
+				<? foreach (Categories::$roles as $k=>$v) :?>
+					<option value="<?= $k ?>" <?= $_SESSION['myEurope']->details['role']==$k?'selected="selected"':'' ?>><?= $v ?></option>
 				<? endforeach ?>
 				</select>
 			</div>
@@ -74,10 +74,14 @@
 			<div data-role="fieldcontain">
 				<fieldset name="type" id="type" data-role="controlgroup">
 					<legend ><p style="text-align:right"><?= _("Territory type")?> : </p></legend>
-					<input type="checkbox" name="type-urbain" id="check-view-a" value="urbain" checked="checked"/> <label for="check-view-a"><?= _("urban")?></label>
-					<input type="checkbox" name="type-rural" id="check-view-b" value="rural" /> <label for="check-view-b"><?= _("rural")?></label>
-					<input type="checkbox" name="type-montagnard" id="check-view-c" value="montagnard" /> <label for="check-view-c"><?= _("mountain")?></label>
-					<input type="checkbox" name="type-maritime" id="check-view-d" value="maritime" /> <label for="check-view-d"><?= _("maritime")?></label>
+				<?  $tokens = explode("|", $_SESSION['myEurope']->details['territoryType']);  
+					foreach (Categories::$territorytype as $k=>$v) :
+						if(in_array($k, $tokens)){ ?>
+							<input type="checkbox" checked name="territoryType[]" id="<?= $k?>" value="<?= $k ?>"><label for="<?= $k?>"><?= $v ?></label>
+					 <? }else{?>
+							<input type="checkbox" name="territoryType[]" id="<?= $k?>" value="<?= $k ?>"><label for="<?= $k?>"><?= $v ?></label>
+					  <?}
+				    endforeach ?>
 				</fieldset>
 			</div>	
 			<div data-role="fieldcontain">

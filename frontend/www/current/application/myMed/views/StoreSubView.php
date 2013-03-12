@@ -9,9 +9,34 @@ require_once("header.php");
 	<?php tab_bar_main("?action=store", 2); ?>
 	<?php include 'notifications.php'; ?>
 	
+	
 	<div data-role="content">
 		
 		<?php if(isset($_REQUEST["applicationStore"])) { ?>
+		
+			<?php 
+			$googleLink="No";
+			$appleLink ="No";
+		switch($_REQUEST["applicationStore"]){
+			case "myEdu":
+				$googleLink = "com.app.myEdu";
+				$appleLink = "myedu/id599496750?mt=8&uo=4";
+				break;
+			case "myEurope":
+				$googleLink = "com.app.myeurope";
+				$appleLink = "myeurope/id594509288?mt=8&uo=4";
+				break;
+			case "myFSA":
+				$googleLink = "com.app.myfsa";
+				break;
+			case "myMemory":
+				$googleLink = "com.mymed.mymemory";
+				break;
+			default:
+				$googleLink = "No";
+				$appleLink = "No";
+		}		
+	?>
 		
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				
@@ -44,8 +69,15 @@ require_once("header.php");
 						<?= $_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "on"  ? "selected='selected'" : "" ?>>On</option>
 					</select>
 					*/ ?>
+					<?php if($googleLink != "No"){?>
+					<a href="https://play.google.com/store/apps/details?id=<?= $googleLink ?>">
+  							<img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" /></a>
+  					<?php }
+  						if($appleLink !="No"){
+  					?>
+  					<a href="https://itunes.apple.com/fr/app/<?= $appleLink ?>" target="itunes_store"><img src="http://r.mzstatic.com/images/web/linkmaker/badge_appstore-lrg.gif" alt="myEurope - Luigi Liquori" style="border: 0;"/></a>
+					<?php }?>
 				</div>
-				
 				<div style="position: relative; height:60px;"></div>
 			</div>
 			

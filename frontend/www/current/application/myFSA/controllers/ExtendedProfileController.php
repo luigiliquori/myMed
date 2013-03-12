@@ -39,6 +39,7 @@ class ExtendedProfileController extends AbstractController
 			$debugtxt  .= var_export($_POST['lang'], TRUE);
 			$debugtxt .= "</pre>";
 			debug($debugtxt);
+			$this->redirectTo("?action=ExtendedProfile");
 		}
 		if (isset($_POST["profileFilled"]))
 			$this->storeProfile();
@@ -51,31 +52,58 @@ class ExtendedProfileController extends AbstractController
 	}	
 	
 	public /*void*/ function storeProfile(){
-
-		//TODO : security checks
-		$_SESSION["profileFilled"] = $_POST["profileFilled"];
 		
-		if ($_SESSION["profileFilled"] == "company") {
-			$object = array(
-					"type" => $_POST["ctype"],
-					"name" => $_POST["cname"],
-					"address" => $_POST["caddress"],
-					"number" => $_POST["cnumber"]
-			);
+		if ($_POST["profileFilled"] == "company") {
+			if(empty($_POST["ctype"])){
+				//$this->error = _("Company type field can't be empty");
+				$this->renderView("ExtendedProfileForm");
+			}else if(empty($_POST["cname"])){
+				//$this->error = _("Company name field can't be empty");
+				$this->renderView("ExtendedProfileForm");
+			}else if(empty($_POST["caddress"])){
+				//$this->error = _("Company Address field can't be empty");
+				$this->renderView("ExtendedProfileForm");
+			}else if(empty($_POST["cnumber"])){
+				//$this->error = _("SIRET field can't be empty");
+				$this->renderView("ExtendedProfileForm");
+			//}
+			//if(!empty($this->error) && $fromUpdate==false){
+		    //	$this->renderView("ExtendedProfileForm");
+		    }else{
+				$object = array(
+						"type" => $_POST["ctype"],
+						"name" => $_POST["cname"],
+						"address" => $_POST["caddress"],
+						"number" => $_POST["cnumber"]
+				);
+		    }
 
 		}	
-		else if ($_SESSION["profileFilled"] == "employer") {
-			$object = array(
-					"type" => $_POST["occupation"],
-					"name" => $_POST["cname"],
-					"address" => $_POST["caddress"],
-					"number" => $_POST["tnumber"]
-			);
+		else if ($_POST["profileFilled"]== "employer") {
+			if(empty($_POST["cname"])){
+				//$this->error = _("University field can't be empty");
+				$this->renderView("ExtendedProfileForm");
+			}else if(empty($_POST["tnumber"])){
+				//$this->error = _("Student number field can't be empty");
+				$this->renderView("ExtendedProfileForm");
+			//}
+			//if(!empty($this->error) && $fromUpdate==false){
+			//	$this->renderView("ExtendedProfileForm", "#employer");
+			}else{
+				$object = array(
+						"type" => $_POST["occupation"],
+						"name" => $_POST["cname"],
+						"address" => $_POST["caddress"],
+						"number" => $_POST["tnumber"]
+				);
+			}
 		
 		}
-		else if ($_SESSION["profileFilled"] == "guest") {
+		else if ($_POST["profileFilled"] == "guest") {
 			$object = "guest";
 		}
+
+		$_SESSION["profileFilled"] = $_POST["profileFilled"];
 		$extendedProfile = new ExtendedProfile($_SESSION['user'], $object);
 		
 		$extendedProfile->storeProfile($this);

@@ -6,8 +6,8 @@
  /** Definition of the Login / Register tabs */
  function tab_bar($activeTab) {
  	tabs(array(
- 			"company" => translate('Company'),
- 			"employer" => translate('Employer/Student')),
+ 			"company" => _('Company'),
+ 			"employer" => _('Employer/Student')),
  		$activeTab);
  }
  
@@ -18,30 +18,31 @@
 	<? include("header-bar.php") ?>
 
 	<div data-role="content" style="padding: 0px;">
-	
+		
 		<!-- Tabs -->
 		<? tab_bar("company") ?>
 
 		<form  data-role="content" action="index.php?action=ExtendedProfile" method="post" data-ajax="false">
 				<input type="hidden" name="profileFilled" id="profileFilled" value="company" />
 				
-				<label for="ctype" ><?= translate("Company type") ?></label>
+				<label for="ctype" ><?= _("Company type") ?><b>*</b> :</label>
 				<input type="text" name="ctype" id="ctype" />
 				<br/>
 		
-				<label for="cname"><?= translate("Company name") ?></label>
+				<label for="cname"><?= _("Company name") ?><b>*</b>  :</label>
 				<input id="cname" type="text" name="cname" value="" />
 				<br/>
 				
-				<label for="caddress"><?= translate("Company Address") ?></label>
+				<label for="caddress"><?= _("Company Address") ?><b>*</b>  :</label>
 				<input id="caddress" type="text" name="caddress" value="" />
 				<br/>
 				
-				<label for="cnumber" ><?= translate("SIRET") ?></label>
+				<label for="cnumber" ><?= _("SIRET") ?><b>*</b>  :</label>
 				<input type="text" name="cnumber" />
-				<br/>
+				<br>
+				<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 				
-				<center><input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" data-inline="true" /></center>
+				<center><input type="submit" value="<?= _("Submit") ?>" data-theme="b" data-inline="true" /></center>
 		
 		</form>
 	</div>
@@ -60,23 +61,24 @@
 		<form  data-role="content" action="index.php?action=ExtendedProfile" method="post" data-ajax="false">
 				<input type="hidden" name="profileFilled" id="profileFilled" value="employer" />
 				
-				<label for="occupation" ><?= translate("Campus") ?></label>
+				<label for="occupation" ><?= _("Campus") ?> :</label>
 				<input type="text" name="occupation" id="occupation" />
 				<br/>
 		
-				<label for="cname"><?= translate("University") ?></label>
+				<label for="cname"><?= _("University") ?><b>*</b>  :</label>
 				<input id="cname" type="text" name="cname" value="" />
 				<br/>
 				
-				<label for="caddress"><?= translate("Field of Studies") ?></label>
+				<label for="caddress"><?= _("Field of Studies") ?> :</label>
 				<input id="caddress" type="text" name="caddress" value="" />
 				<br/>
 				
-				<label for="tnumber" ><?= translate("Student number") ?></label>
+				<label for="tnumber" ><?= _("Student number") ?><b>*</b>  :</label>
 				<input type="text" name="tnumber" />
-				<br/>
+				<br>
+				<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 				
-				<center><input type="submit" value="<?= _("Soumettre") ?>" data-theme="b" data-inline="true" /></center>
+				<center><input type="submit" value="<?= _("Submit") ?>" data-theme="b" data-inline="true" /></center>
 		
 		</form>
 	</div>

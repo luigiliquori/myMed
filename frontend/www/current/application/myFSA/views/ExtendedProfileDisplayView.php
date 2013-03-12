@@ -76,9 +76,9 @@
 	<form action="?action=extendedProfile" method="post" data-ajax="false">
 		<label for="lang" ><?= translate("Language") ?>	: </label>
 		<select id="lang" name="lang">
-			<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>>Francais</option>
-			<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>>Italien</option>
-			<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>>Anglais</option>
+			<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
+			<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
+			<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 		</select>
 		<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" />
 	</form>
