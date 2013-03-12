@@ -99,7 +99,7 @@ NSString *URLS_FOUNDERS[] = {
     }
     
     // Configure the cell...
-    cell.textLabel.text = [NSString stringWithFormat:@"myFSA 1.0"];
+    cell.textLabel.text = [NSString stringWithFormat:@"myFSA 1.1"];
     cell.textLabel.textColor = [UIColor grayColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -175,7 +175,7 @@ NSString *URLS_FOUNDERS[] = {
     if (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone)
         return 55;
     else
-        return 120;
+        return 60;
 }
 -(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
