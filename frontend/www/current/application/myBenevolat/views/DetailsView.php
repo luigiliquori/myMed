@@ -288,6 +288,7 @@
 					</div>
 					
 					<!-- Facebook_APP_ID defined in system/config.php -->
+					<div id="fb-root"></div>
 				    <script>  
 						window.fbAsyncInit = function() {
 						    FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});

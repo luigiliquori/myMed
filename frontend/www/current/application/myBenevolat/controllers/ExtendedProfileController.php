@@ -71,6 +71,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileCreate");
 		}else{
 			debug("Default method");
+			$_GET['user'] = $_SESSION['user']->id;
 			$this->showUserProfile($_SESSION['user']->id);
 		}
 		
@@ -85,8 +86,13 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Unset post vale that we don't need
 		unset($_POST['form']);
 		
-		// Set user id 
-		//$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+		$name = "";
+		if(isset($_POST["firstName"]) && isset($_POST["lastName"])){ // volunteer
+			$name = $_POST["firstName"] . " " . $_POST["lastName"];
+			unset($_POST['firstName']); 
+			unset($_POST['lastName']);
+		}
+		
 		$_POST['id'] = hash("md5", time()/*.$_POST['name']*/);
 		
 		// Create the new profile
@@ -101,10 +107,100 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (!empty($this->error))
 			$this->renderView("ExtendedProfileCreate");
 	
-		$this->createUser($_POST['id'], $_POST['type']);
+		$this->createUser($_POST['id'], $_POST['type'], $name);
 	
 		// Display the new profile
 		$this->redirectTo("?action=ExtendedProfile&method=show_user_profile&user=".$_SESSION['user']->id);		
+	}
+	
+	/**
+	 * Create a new user
+	 */
+	function createUser($id_profile, $type, $name){
+	
+		switch ($type) {
+				
+			case 'volunteer':
+				$permission = 1;
+				break;
+					
+			case 'association':
+				// 2 if the assosiation is admin
+				// otherwise 0 (not validated association
+				$permission
+				= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 0;
+				$type
+				= (in_array($_SESSION['user']->email, admins::$mails)) ? 'admin' : $type;
+				break;
+		}
+	
+			
+		$user = array(
+				'permission'=> $permission,
+				//'name'=> $_SESSION['user']->name,
+				'email'=> $_SESSION['user']->email,
+				'profile'=> $id_profile,
+				"profiletype"=> $type,
+		);
+	
+	
+		$publish = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":users",
+						"id"=>$_SESSION['user']->id,
+						"data"=>$user,
+						"metadata"=>$user),
+				CREATE);
+		$publish->send();
+	
+		// Create another application that identify the type of profile,
+		// to do quick searches
+		if($type=='volunteer'){
+			$user['name'] = $name; // needed for the view AllVolunteers (admin part)
+		}
+		$publish = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":profiles:".$type,
+						"id"=>$_SESSION['user']->id,
+						"data"=>$user,
+						"metadata"=>$user),
+				CREATE);
+		$publish->send();
+	
+		$publish = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":profiles",
+						"id"=>$id_profile,
+						"data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id,
+								"email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
+				UPDATE);
+		$publish->send();
+	
+		$this->success = _("Complement profile registered successfully!");
+	
+		// Subscribe to our profile changes
+		// (permission change - partnership req accepted)
+		$subscribe = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":users",
+						"id"=>$_SESSION['user']->id,
+						"user"=> $_SESSION['user']->id,
+						"mailTemplate"=>APPLICATION_NAME.":userUpdate"),
+				CREATE,
+				"v2/SubscribeRequestHandler");
+		$subscribe->send();
+	
+		// Subscribe to our organization profile
+		$subscribe = new RequestJson(
+				$this,
+				array("application"=>APPLICATION_NAME.":profiles",
+						"id"=>$id_profile, 
+						"user"=> $_SESSION['user']->id,
+						"mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
+				CREATE,
+				"v2/SubscribeRequestHandler");
+		$subscribe->send();
+	
 	}
 	
 	/** 
@@ -226,93 +322,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Redirect to main view
 		$this->redirectTo("?action=main");
-	}
-	
-
-	/** 
-	 * Create a new user 
-	 */
-	function createUser($profile, $type){
-	
-		switch ($type) {
-			
-			case 'volunteer':
-				$permission = 1;
-				break;
-			
-			case 'association':
-				// 2 if the assosiation is admin
-				// otherwise 0 (not validated association
-				$permission 
-					= (in_array($_SESSION['user']->email, admins::$mails)) ? 2 : 0;
-				$type
-					= (in_array($_SESSION['user']->email, admins::$mails)) ? 'admin' : $type;
-				break;
-		}
-		
-			
-		$user = array(
-				'permission'=> $permission,
-				//'name'=> $_SESSION['user']->name,
-				'email'=> $_SESSION['user']->email,
-				'profile'=> $profile,
-				"profiletype"=> $type,
-		);
-		
-		
-		$publish = new RequestJson(
-					$this,
-					array("application"=>APPLICATION_NAME.":users",
-					"id"=>$_SESSION['user']->id, 
-					"data"=>$user,  
-					"metadata"=>$user),
-					CREATE);
-		$publish->send();
-		
-		// Create another application that identify the type of profile,
-		// to do quick searches
-		$publish = new RequestJson(
-				$this,
-				array("application"=>APPLICATION_NAME.":profiles:".$type,
-					  "id"=>$_SESSION['user']->id,
-					  "data"=>$user,
-					  "metadata"=>$user),
-					  CREATE);
-		$publish->send();
-		
-		$publish = new RequestJson(
-					$this,
-					array("application"=>APPLICATION_NAME.":profiles", 
-					"id"=>$profile, 
-					"data"=>array("user_".$_SESSION['user']->id=>$_SESSION['user']->id, 
-					"email_".$_SESSION['user']->id=> $_SESSION['user']->email)),
-					UPDATE);
-		$publish->send();
-		
-		$this->success = _("Complement profile registered successfully!");
-		
-		// Subscribe to our profile changes 
-		// (permission change - partnership req accepted)
-		$subscribe = new RequestJson( 
-						$this,
-						array("application"=>APPLICATION_NAME.":users", 
-						"id"=>$_SESSION['user']->id, 
-						"user"=> $_SESSION['user']->id, 
-						"mailTemplate"=>APPLICATION_NAME.":userUpdate"),
-						CREATE, 
-						"v2/SubscribeRequestHandler");
-		$subscribe->send();
-		
-		// Subscribe to our organization profile
-		$subscribe = new RequestJson(
-						$this,
-						array("application"=>APPLICATION_NAME.":profiles", 
-						"id"=>$profile, "user"=> $_SESSION['user']->id, 
-						"mailTemplate"=>APPLICATION_NAME.":profileUpdate"),
-						CREATE, 
-						"v2/SubscribeRequestHandler");
-		$subscribe->send();
-	
 	}
 
 	

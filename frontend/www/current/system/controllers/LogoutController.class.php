@@ -13,6 +13,7 @@ class LogoutController extends AbstractController {
 		
 			// DELETE BACKEND SESSION
 			$request = new Requestv2("v2/SessionRequestHandler", DELETE);
+			debug($_SESSION['user']->session." ".$_SESSION['user']->socialNetworkName);
 			$request->addArgument("accessToken", $_SESSION['user']->session);
 			$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
 

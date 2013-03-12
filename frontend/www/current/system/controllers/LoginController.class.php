@@ -53,6 +53,10 @@ class LoginController extends AbstractController {
 			
 			$responseObject = json_decode($responsejSon);
 			
+			debug("AUTHENTIFICATION REQUEST");
+			debug($responsejSon);
+			debug_r($responseObject->dataObject);
+			
 			// the login doesn't exist
 			if($responseObject->status == 404) {
 				// try in lowercase
@@ -86,7 +90,7 @@ class LoginController extends AbstractController {
 				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
 				
 				// FIX THE LOGIN TO LOWER CASE IF IT'S NEEDED
-				if (strtolower($login) != $login) {
+				/*if (strtolower($login) != $login) {
 					// create the authentication
 					$mAuthenticationBean = new MAuthenticationBean();
 					$mAuthenticationBean->login =  strtolower($login); // LOWER CASE LOGIN
@@ -101,7 +105,7 @@ class LoginController extends AbstractController {
 					// Sending request => Force to create a new account
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
-				}
+				}*/
 				
 				// Set user into $_SESSION
 				$this->getUserFromSession();
@@ -134,7 +138,11 @@ class LoginController extends AbstractController {
 		// Sending request
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
-	
+		
+		debug("SESSION REQUEST");
+		debug($responsejSon);
+		debug_r($responseObject->dataObject);
+		
 		// In case of errors
 		if($responseObject->status != 200) {
 			$_SESSION['error'] = $responseObject->description;

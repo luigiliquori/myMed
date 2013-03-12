@@ -63,7 +63,27 @@ class MainController extends ExtendedProfileRequired {
 				
 			$this->success = "Subscribe !";
 		}
-
+		//////////////////////////////////////////////////////////////////////////////////////
+		/*$find = new RequestJson( $this, array("application"=>APPLICATION_NAME.":users", "predicates"=>array()));
+		$res = $find->send();
+		debug_r($res->results);
+		$this->mapper = new DataMapper;
+		foreach($res->results as $result):
+			$this->profile = new myBenevolatProfile($result->profile);
+			$this->profile->details = $this->mapper->findById($this->profile);
+			debug_r($this->profile->details);
+		endforeach;
+		*/
+		debug("PROFILE REQUEST");
+		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$_SESSION['user']->id));
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		debug_r($responseObject->dataObject);
+		
+		
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////
 		$this->renderView("main");
 	}
 	
