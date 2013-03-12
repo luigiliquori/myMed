@@ -20,16 +20,32 @@ class FindController extends AuthenticatedController{
 			if($_POST['Storia']) $search->Storia = "on";
 			if($_POST['Religione']) $search->Religione = "on";
 			if($_POST['Escursioni_Sport']) $search->Escursioni_Sport = "on";
+			$search->validated = "validated";
 			
-				
 			$this->result = $search->find();
 			//$this->filter_array($res);
 				
 			$this->getReputation($this->result);
 			$this->renderView("results");
 			
+		} else if (isset($_GET['search'])) {
+			
+			$search = new myEuroCINPublication();
+			
+			// Show posts in the user language
+			if($_SESSION['user']->lang == 'it' ) $search->Lingua = "italiano";
+			if($_SESSION['user']->lang == 'fr' ) $search->Lingua = "francese";
+			if($_SESSION['user']->lang == 'en' ) $search->Lingua = "inglese";
+			$search->validated = "validated";
+			$this->result = $search->find(); 
+			
+			// get userReputation
+			$this->getReputation($this->result);
+			$this->renderView("Find");
 		}
+			
 	}
+	
 	
 	function defaultMethod() {
 		

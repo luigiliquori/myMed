@@ -8,6 +8,7 @@ class myEuroCINPublication extends GenericDataBean {
 	
 	/** Some predicates .
 	 * Register them in the contructor with appropriate ontologyID */
+	public $type; // MyEuroCinPublication
 	public $data; // Title
 	public $Nazione; // City
 	public $Lingua;
@@ -35,6 +36,7 @@ class myEuroCINPublication extends GenericDataBean {
 				
 				// Predicate attributes
 				array(
+						"type"	=> KEYWORD,
 						"publisher"	=> KEYWORD,
 						"begin"	=> KEYWORD,
 						"end"	=> KEYWORD,
@@ -49,17 +51,24 @@ class myEuroCINPublication extends GenericDataBean {
 						"Storia" => KEYWORD,
 						"Religione" => KEYWORD,
 						"Escursioni_Sport" => KEYWORD,
+						"validated" => KEYWORD,
+						"pred1" => KEYWORD,
+						"pred2" => KEYWORD
 						),
 				
 				// Data attributes 
-				array("text" => TEXT,
-					  "validated" => TEXT),
+				array("text" => TEXT),
 				
 				// Wrapped attributes
 				array("end"),
 				
 				$predicateStr);
 		
+	}
+	
+	/** Return the title of the publication */
+	public function getTitle() {
+		return $this->_data;
 	}
 }
 

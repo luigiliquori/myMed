@@ -32,6 +32,7 @@ class ValidationController extends AuthenticatedController {
 	private function search_all_validations(){
 		
 		$search_publication = new myEuroCINPublication();
+		$search_publication->type = "myEuroCIN";
 		$res = $search_publication->find();
 		$this->result = array();
 		

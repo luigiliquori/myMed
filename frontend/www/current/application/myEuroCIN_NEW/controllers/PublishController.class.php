@@ -52,19 +52,18 @@ class PublishController extends ExtendedProfileRequired {
 				
 		} else {
 			// Check mandatory fields
-			if (empty($_POST['title'])) {
+			if (empty($_POST['data'])) {
 				$this->error = _("Title field can't be empty");
 			} else if($fromUpdate==false && (empty($_POST['expire_day']) || empty($_POST['expire_month']) || empty($_POST['expire_year']) || empty($_POST['date']))) {		
 				$this->error = _("Please provide a valide expiration date");
 			} else if (empty($_POST['text'])) {
 				$this->error = _("Text field can't be empty");	
-			} else if (empty($_POST['locality'])) {
+			} else if (empty($_POST['Nazione'])) {
 				$this->error = _("Locality field can't be empty");
-			} else if (empty($_POST['language'])) {
+			} else if (empty($_POST['Lingua'])) {
 				$this->error = _("Language field can't be empty");	
-			} else if (empty($_POST['category'])) {
-				$this->error = _("Category field can't be empty");
 			}
+			
 			if(!empty($this->error) && $fromUpdate==false){
 		    	$this->renderView("NewPublication");
 		    }else if(!empty($this->error) && $fromUpdate==true){
@@ -74,13 +73,21 @@ class PublishController extends ExtendedProfileRequired {
 				
 				// All required fields are filled, publish it
 				$obj = new myEuroCINPublication();
+				$obj->type = "myEuroCIN";    					// Type
 				$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
-				$obj->locality = $_POST['locality'];			// locality
-				$obj->language = $_POST['language'];			// Language
-				$obj->category = $_POST['category'];			// Category
+				$obj->Lingua = $_POST['Lingua'];				// locality
+				$obj->Nazione = $_POST['Nazione'];				// Language
 				$obj->end 	= $_POST['date'];					// Expiration date
-				$obj->title = $_POST['title'];					// Title
+				$obj->data = $_POST['data'];					// Title
 				$obj->text 	= $_POST['text'];					// Publication text
+				if( isset($_POST['Arte_Cultura']) ) $obj->Arte_Cultura = "on";
+				if( isset($_POST['Natura']) ) $obj->Natura = "on";
+				if( isset($_POST['Tradizioni']) ) $obj->Tradizioni = "on";
+				if( isset($_POST['Enogastronomia']) ) $obj->Enogastronomia = "on";
+				if( isset($_POST['Benessere']) ) $obj->Benessere = "on";
+				if( isset($_POST['Storia']) ) $obj->Storia = "on";
+				if( isset($_POST['Religione']) ) $obj->Religione = "on";
+				if( isset($_POST['Escursioni_Sport']) ) $obj->Escursioni_Sport = "on";
 				
 				// Save publication date
 				if(isset($_POST['begin'])) 
@@ -127,14 +134,24 @@ class PublishController extends ExtendedProfileRequired {
 		
 		$obj = new myEuroCINPublication();
 		$obj->publisherID = $_POST['publisher'];  	// Publisher ID
-		$obj->publisher = $_POST['publisher'];    	// Publisher ID
-		$obj->locality = $_POST['locality'];			// Locality
-		$obj->language = $_POST['language'];			// Organization
-		$obj->category = $_POST['category'];			// Category
+		$obj->type = "myEuroCIN";    					// Type
+		$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
+		$obj->Lingua = $_POST['Lingua'];				// locality
+		$obj->Nazione = $_POST['Nazione'];				// Language
 		$obj->begin = $_POST['begin'];
 		$obj->end 	= $_POST['date'];					// Expiration date
-		$obj->title = $_POST['title'];					// Title
+		$obj->data = $_POST['data'];					// Title
+		$obj->validated = $_POST['validated'];			// Publication text
 		$obj->text 	= $_POST['text'];					// Publication text
+		if( isset($_POST['Arte_Cultura']) ) $obj->Arte_Cultura = "on";
+		if( isset($_POST['Natura']) ) $obj->Natura = "on";
+		if( isset($_POST['Tradizioni']) ) $obj->Tradizioni = "on";
+		if( isset($_POST['Enogastronomia']) ) $obj->Enogastronomia = "on";
+		if( isset($_POST['Benessere']) ) $obj->Benessere = "on";
+		if( isset($_POST['Storia']) ) $obj->Storia = "on";
+		if( isset($_POST['Religione']) ) $obj->Religione = "on";
+		if( isset($_POST['Escursioni_Sport']) ) $obj->Escursioni_Sport = "on";
+		
 		$obj->validated = $_POST['validated'];			// Publication text
 		
 		// Delete publication
@@ -168,8 +185,10 @@ class PublishController extends ExtendedProfileRequired {
 	 *  Search user's publication and render MyPublicationView
 	 */
 	private function showUserPublications() {
+		
 		// Search User publications
 		$search = new myEuroCINPublication();
+		$search->type = "myEuroCIN";
 		$search->publisher = $_SESSION['user']->id;  
 		$this->result = $search->find();
 		

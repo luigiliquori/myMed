@@ -59,10 +59,11 @@
 					<div style="position: absolute; right: 24px;">
 						<?
 						if(isset($_SESSION['myEuroCIN'])):	// UPDATE/DELETE
-							 if($_GET['author']==$_SESSION['user']->id){ ?> <!-- the user is the author of this publication: can update -->
+							 if($_GET['author']==$_SESSION['user']->id && !isset($this->result->old_publication)){ ?> <!-- the user is the author of this publication: can update -->
 								<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
 						  <? }
-						  	if($this->result->publisherID==$_SESSION['user']->id || $_SESSION['myEuroCIN']->permission == '2'){?>
+						  // It is not possible modify publication made with the old myEuroCIN
+						  	if(($this->result->publisherID==$_SESSION['user']->id || $_SESSION['myEuroCIN']->permission == '2') && !isset($this->result->old_publication) ){?>
   								<a type="button" href="#popupDeleteAnnonce" data-theme="r" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
   										
   								<!-- Pop up delete -->	
@@ -71,19 +72,33 @@
   								 		<p style="font-size:85%;"> <?= _("You can attach a message to inform the author (or just click on Delete):"); ?> </p>
   								 		<form action="?action=publish&method=delete" method="POST" data-ajax="false">
   								 			<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea>
-  											<input type="hidden" name="publisher" value="<?= $this->result->publisherID ?>" />
+  											<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
+											<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 											<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
 											<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
-											<input type="hidden" name="locality" value="<?= $this->result->locality ?>" />
-											<input type="hidden" name="language" value="<?= $this->result->language ?>" />
-											<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+											<input type="hidden" name="Nazione" value="<?= $this->result->Nazione ?>" />
+											<input type="hidden" name="Lingua" value="<?= $this->result->Lingua ?>" />
 											<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />
-											<input type="hidden" name="title" value="<?= $this->result->title ?>" />
-											<input type="hidden" name="text" id="text"/>
-											<input type="hidden" name="validated" id="validated" value="<?= $this->result->validated ?>"/>
+											<input type="hidden" name="data" value="<?= $this->result->getTitle() ?>" />
 											<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 											<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
-  											<input data-role="button" type="submit" data-theme="r" data-icon="ok" data-inline="true" value="<?= _('Delete') ?>" />
+											<? if(isset($this->result->Arte_Cultura)) 
+												echo '<input type="hidden" name="Arte_Cultura" value="on" />;' ?> 
+											<? if( isset($this->result->Natura) ) 
+												echo '<input type="hidden" name="Natura" value="on" />;' ?> 
+											<? if( isset($this->result->Tradizioni) ) 
+												echo '<input type="hidden" name="Tradizioni" value="on" />;' ?> 
+											<? if( isset($this->result->Enogastronomia) ) 
+												echo '<input type="hidden" name="Enogastronomia" value="on" />;' ?> 
+											<? if( isset($this->result->Benessere) ) 
+												echo '<input type="hidden" name="Benessere" value="on" />;' ?> 
+											<? if( isset($this->result->Storia) ) 
+												echo '<input type="hidden" name="Storia" value="on" />;' ?> 
+											<? if( isset($this->result->Religione) ) 
+												echo '<input type="hidden" name="Religione" value="on" />;' ?> 
+											<? if( isset($this->result->Escursioni_Sport) ) 
+												echo '<input type="hidden" name="Escursioni_Sport" value="on" />;' ?> 
+					  											<input data-role="button" type="submit" data-theme="r" data-icon="ok" data-inline="true" value="<?= _('Delete') ?>" />
   										</form>
   										<a href="#" data-role="button" data-inline="true" data-mini="true" data-rel="back" data-direction="reverse"><?= _('Cancel') ?></a>
   						
@@ -93,21 +108,33 @@
   										<fieldset class="ui-grid-a">
   											<div class="ui-block-a">
   												<form action="?action=publish&method=delete" method="POST" data-ajax="false">
-  													<input type="hidden" name="publisher" value="<?= $this->result->publisherID ?>" />
+		  											<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
+													<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 													<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
 													<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
-													<input type="hidden" name="locality" value="<?= $this->result->Nazione ?>" />
-													<input type="hidden" name="language" value="<?= $this->result->Lingua ?>" />
-													
-													
-													<input type="hidden" name="category" value="<?= $this->result->category ?>" />
+													<input type="hidden" name="Nazione" value="<?= $this->result->Nazione ?>" />
+													<input type="hidden" name="Lingua" value="<?= $this->result->Lingua ?>" />
 													<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />
-													<input type="hidden" name="title" value="<?= $this->result->title ?>" />
-													<input type="hidden" name="text" id="text"/>
-													<input type="hidden" name="validated" id="validated" value="<?= $this->result->validated ?>"/>
+													<input type="hidden" name="data" value="<?= $this->result->getTitle() ?>" />
 													<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 													<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
-  													<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('Yes') ?>" />
+													<? if(isset($this->result->Arte_Cultura)) 
+														echo '<input type="hidden" name="Arte_Cultura" value="on" />' ?> 
+													<? if( isset($this->result->Natura) ) 
+														echo '<input type="hidden" name="Natura" value="on" />' ?> 
+													<? if( isset($this->result->Tradizioni) ) 
+														echo '<input type="hidden" name="Tradizioni" value="on" />' ?> 
+													<? if( isset($this->result->Enogastronomia) ) 
+														echo '<input type="hidden" name="Enogastronomia" value="on" />' ?> 
+													<? if( isset($this->result->Benessere) ) 
+														echo '<input type="hidden" name="Benessere" value="on" />' ?> 
+													<? if( isset($this->result->Storia) ) 
+														echo '<input type="hidden" name="Storia" value="on" />' ?> 
+													<? if( isset($this->result->Religione) ) 
+														echo '<input type="hidden" name="Religione" value="on" />' ?> 
+													<? if( isset($this->result->Escursioni_Sport) ) 
+														echo '<input type="hidden" name="Escursioni_Sport" value="on" />' ?> 
+		  											<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('Yes') ?>" />
   												</form>
   											</div>
   											<div class="ui-block-b">
@@ -121,7 +148,7 @@
 					</div>
 						
 					<!-- TITLE -->
-					<h3><?= $this->result->data ?> :</h3>
+					<h3><?= $title = $this->result->getTitle(); ?> :</h3>
 					<p style="position: relative; margin-left: 30px;">
 						<b><?= _("Locality") ?></b>: <?= Categories::$localities[$this->result->Nazione] ?><br/>
 						<b><?= _("Language") ?></b>: <?= Categories::$languages[$this->result->Lingua] ?><br/>
@@ -145,6 +172,7 @@
 					<p><b><?= _("Author")?></b> : 
 					<?php
 						// Other users' profiles are only accessible from myMed user with ExtendedProfile
+						// This feature is not accessible for old publications
 						$author = str_replace("MYMED_", "", $this->result->publisherID); 
 						if(isset($_SESSION['myEuroCIN']) && !isset($this->result->old_publication)):
 							echo "<a href=?action=extendedProfile&method=show_user_profile&user=".$this->result->publisherID.">".$author."</a>";
@@ -156,100 +184,105 @@
 					<br/></p>					
 				</div>
 				
-				<!-- Reputation -->
-	    		<div>
-	    			<!-- Publication reputation -->
-	    			<p style="display:inline;">Publication rating:</p>
-						<?php
-						// Disable reputation stars if there are no votes yet 
-						if($this->reputation["value_noOfRatings"] == '0') : ?> 
-							<?php for($i=1 ; $i <= 5 ; $i++) {?>
-									<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
-							<?php } ?>
-							
-					<?php else: ?>
-						<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-							<?php if($i*20-20 < $this->reputation["value"] ) { ?>
-								<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;" />
-							<?php } else { ?>
-								<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
-							<?php } ?>
-						<? } ?>
-				<?php endif; ?>
-					<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
-					
-					<? /* can rate if logged in  */
-					 if(isset($_SESSION['myEuroCIN']) && $this->result->publisherID != $_SESSION['user']->id && !isset($this->result->old_publication)){
-						 $date=strtotime(date('d-m-Y'));
-						 $expired=false;
-						 if(!empty($this->result->end)  && $this->result->end!="--"){
-						 	$expDate=strtotime($this->result->end);
-						 	if($expDate < $date){
-						 		$expired=true;
-						 	}
-						 } 
-		    			if (($expired==true || empty($this->result->end) || $this->result->end=="--") && $this->result->validated!="waiting") { ?>
-							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	
-					 <? } 
-					 } ?>
-					 <br/>
-					<!-- Project reputation pop up -->
-					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
-						<?= _("Do you like the project idea ?") ?><br /><br />
-						<form id="form1" action="?action=updateReputation" method="get" data-ajax="false">
-							<input type="hidden" name="action" value="updateReputation" />
-							<input type="hidden" name="reputation" id="reputation" />
-							<input type="hidden" name="isData" value="1" />
-							<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
-							<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
-							<label for="reputationslider"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
-							<input type="range" name="reputationslider" id="reputationslider" value="3" min="1" max="5" data-mini="true" step="1"/>
-							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
-						</form>
-					</div>	
-					
-					<!-- Author reputation (only for students and companies) -->	
-					<p style="display:inline;">Author reputation:</p>
-					<?php
-						// Disable reputation stars if there are no votes yet 
-						if($this->reputation["author_noOfRatings"] == '0') : ?> 
-						<? for($i=1 ; $i <= 5 ; $i++) { ?>
-								<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
-						<? } 		
-					 	else: 
-						 	for($i=1 ; $i <= 5 ; $i++) { ?>
-							<? if($i*20-20 < $this->reputation["author"] ) { ?>
+				<?php // Reputation is not accessible for old publications 
+					//if(!isset($this->result->old_publication)):?>
+		    			
+					<!-- Reputation -->
+		    		<div>
+		    			<!-- Publication reputation -->
+		    			
+		    			<p style="display:inline;">Publication rating:</p>
+							<?php
+							// Disable reputation stars if there are no votes yet 
+							if($this->reputation["value_noOfRatings"] == '0') : ?> 
+								<?php for($i=1 ; $i <= 5 ; $i++) {?>
+										<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
+								<?php } ?>
+								
+						<?php else: ?>
+							<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+								<?php if($i*20-20 < $this->reputation["value"] ) { ?>
 									<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;" />
-						 <?php } else { ?>
+								<?php } else { ?>
 									<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
-						 <?php } ?>
-						<? } ?>
-					<? endif; ?>
-					<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>							
-					<?php 
-						// A user cannot rate himself
-						if (isset($_SESSION['myEuroCIN']) && !($this->result->publisherID == $_SESSION['user']->id) && $this->result->validated!="waiting") {
-							echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate author") .'</a>';
-						}
-					?>
-
-					<!-- Author REPUTATION pop up -->
-					<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center; width: 18em;">
-						<?= _("Do you like the author?") ?><br /><br />
-						<form id="form2" action="?action=updateReputation" method="get" data-ajax="false">
-							<input type="hidden" name="action" value="updateReputation" />
-							<input type="hidden" name="reputation" id="reputation2"/>
-							<input type="hidden" name="author" value="<?=  $_GET['author'] ?>" />
-					 		<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
-							<label for="reputationslider2"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 to 5") ?>:</p><br/></label>
-							<input type="range" name="reputationslider2" id="reputationslider2" value="3" min="1" max="5" data-mini="true" step="1"/>
-							<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation2').val($('#reputationslider2').val()*2);">
-						</form>
-					</div>	
-					<!-- END Author REPUTATION -->
-							
-				
-				</div> <!-- END Reputation -->
+								<?php } ?>
+							<? } ?>
+					<?php endif; ?>
+						<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
+						
+						<? /* can rate if logged in  */
+						 if(isset($_SESSION['myEuroCIN']) && $this->result->publisherID != $_SESSION['user']->id ){
+							 $date=strtotime(date('d-m-Y'));
+							 $expired=false;
+							 if(!empty($this->result->end)  && $this->result->end!="--"){
+							 	$expDate=strtotime($this->result->end);
+							 	if($expDate < $date){
+							 		$expired=true;
+							 	}
+							 } 
+			    			if (($expired==true || empty($this->result->end) || $this->result->end=="--") && $this->result->validated!="waiting") { ?>
+								<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate publication") ?></a>	
+						 <? } 
+						 } ?>
+						 <br/>
+						<!-- Project reputation pop up -->
+						<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
+							<?= _("Do you like the project idea ?") ?><br /><br />
+							<form id="form1" action="?action=updateReputation" method="get" data-ajax="false">
+								<input type="hidden" name="action" value="updateReputation" />
+								<input type="hidden" name="reputation" id="reputation" />
+								<input type="hidden" name="isData" value="1" />
+								<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
+								<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
+								<label for="reputationslider"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 (Poor idea) to 5 (Great idea!!)") ?></p><br/></label>
+								<input type="range" name="reputationslider" id="reputationslider" value="3" min="1" max="5" data-mini="true" step="1"/>
+								<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
+							</form>
+						</div>	
+						
+						<!-- Author reputation (only for students and companies) -->	
+						<p style="display:inline;">Author reputation:</p>
+						<?php
+							// Disable reputation stars if there are no votes yet 
+							if($this->reputation["author_noOfRatings"] == '0') : ?> 
+							<? for($i=1 ; $i <= 5 ; $i++) { ?>
+									<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
+							<? } 		
+						 	else: 
+							 	for($i=1 ; $i <= 5 ; $i++) { ?>
+								<? if($i*20-20 < $this->reputation["author"] ) { ?>
+										<img alt="rep" src="img/yellowStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;" />
+							 <?php } else { ?>
+										<img alt="rep" src="img/grayStar.png" width="12" Style="left: <?= $i ?>0px; margin-top:3px;"/>
+							 <?php } ?>
+							<? } ?>
+						<? endif; ?>
+						<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>							
+						<?php 
+							// A user cannot rate himself
+							if (isset($_SESSION['myEuroCIN']) && !($this->result->publisherID == $_SESSION['user']->id) && $this->result->validated!="waiting") {
+								echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate author") .'</a>';
+							}
+						?>
+	
+						<!-- Author REPUTATION pop up -->
+						<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center; width: 18em;">
+							<?= _("Do you like the author?") ?><br /><br />
+							<form id="form2" action="?action=updateReputation" method="get" data-ajax="false">
+								<input type="hidden" name="action" value="updateReputation" />
+								<input type="hidden" name="reputation" id="reputation2"/>
+								<input type="hidden" name="author" value="<?=  $_GET['author'] ?>" />
+						 		<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
+								<label for="reputationslider2"><p style="display:inline; color: #2489CE; font-size:80%;"> <?= _("Assign a value from 1 to 5") ?>:</p><br/></label>
+								<input type="range" name="reputationslider2" id="reputationslider2" value="3" min="1" max="5" data-mini="true" step="1"/>
+								<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation2').val($('#reputationslider2').val()*2);">
+							</form>
+						</div>	
+						<!-- END Author REPUTATION -->
+								
+					</div> <!-- END Reputation -->
+					
+				<? //endif; ?>
 				
 				<br/><br/>
 				<? if($this->result->validated!="waiting"): ?>

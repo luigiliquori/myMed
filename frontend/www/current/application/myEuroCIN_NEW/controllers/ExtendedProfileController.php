@@ -39,8 +39,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 					if (!isset($_SESSION['myEuroCIN']))
 						$this->renderView("ExtendedProfileCreate");
 					else{
-						if($_GET['user'] != $_SESSION['user']->id){
-							debug("OTHER PROFILE");
+						if($_GET['user'] != $_SESSION['user']->id) {
 							$this->showOtherProfile($_GET['user']);
 						}else{
 							$this->showUserProfile($_GET['user']);

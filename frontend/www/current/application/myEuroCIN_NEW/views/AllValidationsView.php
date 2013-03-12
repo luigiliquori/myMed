@@ -37,17 +37,22 @@
  				<li>
 	 				<div class="ui-grid-a">
 						<div class="ui-block-a">
-							<h3><?= _("Title")?> : <a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>"><?= $item->title?></a></h3>
+							<h3><?= _("Title")?> : <a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>"><?= $item->getTitle(); ?></a></h3>
 							<!-- Publication fields-->
-							<p style="position: relative; margin-left: 30px;"> 
-								<!-- <b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/> -->
-								<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
-								<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
-								<b><?= _("Language") ?></b>: <?= Categories::$languages[$item->language] ?><br/>
-								<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/><br/>
-								 
-								<b><?= _("Publisher ID")?>:</b><?= $item->publisherID ?><br/> 
+							<p style="position: relative; margin-left: 30px;">
+								<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->Nazione] ?><br/>
+								<b><?= _("Language") ?></b>: <?= Categories::$languages[$item->Lingua] ?><br/>
+								<b><?= _("Categories") ?></b>: 
+								<? if( isset($item->Arte_Cultura) ) echo _("Art/Cultur "); ?> 
+								<? if( isset($item->Natura) ) echo _("Nature "); ?>
+								<? if( isset($item->Tradizioni) ) echo _("Traditions "); ?>
+								<? if( isset($item->Enogastronomia) ) echo _("Enogastronimy "); ?>
+								<? if( isset($item->Benessere) ) echo _("Wellness "); ?>
+								<? if( isset($item->Storia) ) echo _("History "); ?>
+								<? if( isset($item->Religione) ) echo _("Religion "); ?>
+								<? if( isset($item->Escursioni_Sport) ) echo _("Sport "); ?>
 							</p>
+							
 						</div>
 						<div class="ui-block-b">
 							<div data-role="controlgroup" data-type="horizontal" style="float: right;">

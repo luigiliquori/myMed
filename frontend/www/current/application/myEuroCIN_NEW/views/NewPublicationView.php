@@ -27,9 +27,6 @@
 		<!-- Submit a new publication form -->
 		<form id="newpublicationform" action="index.php?action=publish&method=create" method="POST" data-ajax="false">
 		
-			<input type="hidden" id="area" name="area" value="" />
-			<input type="hidden" id="category" name="category" value="" />
-			<input type="hidden" id="organization" name="organization" value="" />
 			<input type="hidden" id="date" name="date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
@@ -42,7 +39,7 @@
 				<h3><?= _('Publish your project') ?> :</h3>
 				
 				<h3><?= _('Title') ?><b>*</b> : </h3>
-				<input id="textinputp3" class="postTitle" data-inline="true" name="title"
+				<input id="textinputp3" class="postTitle" data-inline="true" name="data"
 					placeholder="<?= _("Publication title goes here") ?>" value='' type="text" />
 				
 				<h3><?= _('Deadline') ?><b>*</b> :</h3>
@@ -79,13 +76,13 @@
 				<br />
 				
 				<h3><?= _('Other information') ?> :</h3>
-					<select name="locality" id="locality" data-native-menu="false">
+					<select name="Nazione" id="Nazione" data-native-menu="false">
 					<option value=""> <?= _("Locality")?><b>*</b> </option>
 					<? foreach (Categories::$localities as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
-					<select name="language" id="language" data-native-menu="false">
+					<select name="Lingua" id="Lingua" data-native-menu="false">
 						<option value=""> <?= _("Language")?><b>*</b> </option>
 					<? foreach (Categories::$languages as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
@@ -95,7 +92,7 @@
 					<label for="categories"><strong><?= _("Categories") ?></strong></label>
 					<fieldset data-role="controlgroup" id="categories">
 					<? foreach (Categories::$categories as $k=>$v) :?>
-					   	<input type="checkbox" name="<?= $k ?>" id="<?= $k ?>" class="custom" value="<?= $v ?>">
+					   	<input type="checkbox" name="<?= $k ?>" id="<?= $k ?>" class="custom" value="on">
 					   	<label for="<?= $k ?>"><?= $v ?></label>
 	   				<? endforeach ?>			   
 				    </fieldset>

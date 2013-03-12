@@ -86,6 +86,10 @@ class DetailsController extends AuthenticatedController {
 			$this->result->old_publication = "true";	
 			//$this->redirectTo("main");
 		}
+		
+		// BACKWARD COMPATIBILITY: It is an old publication, user cannot modify it
+		if(!isset($this->result->type))
+			$this->result->old_publication = "true";
 				
 		// Render the view
 		$this->renderView("details");
