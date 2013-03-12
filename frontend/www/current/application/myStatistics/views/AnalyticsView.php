@@ -83,8 +83,10 @@ require_once("footer-bar.php");
                 'ids': TABLE_ID,
             	'metrics': 'ga:visitors',
             	'dimensions':'ga:visitorType'
+            },
+            'chartOPtions': {
             }
-        }).render();
+        	}).render();
     }
     	create_visit_graph();
 		create_new_vs_old_graph();
