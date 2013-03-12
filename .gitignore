@@ -3,9 +3,9 @@
 *.class
 *~
 
-#.project
-#.settings
-#.classpath
+.project
+.settings
+.classpath
 .fbprefs
 .pmd
 .checkstyle
