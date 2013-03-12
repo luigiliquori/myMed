@@ -56,7 +56,7 @@
 	</div>
 	
 	<div data-role="footer" data-position="fixed" data-theme="d">
-		<div data-role="navbar">
+		<div data-role="navbar" data-iconpos="left" >
 			<ul>
 				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>
 				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid"  class="ui-btn-active ui-state-persist">Inscription</a></li>
