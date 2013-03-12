@@ -20,7 +20,7 @@ require_once("header.php");
 			<label for="lastName"><?= _("Last name") ?> : </label>
 			<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			
-		 <? if (!isset($_SESSION['user']->email)){ ?>
+		 <? if (!isset($_SESSION['user']->email) || empty($_SESSION['user']->email)){ ?>
 				<label for="email" ><?= _("E-mail")?> : </label>
 				<input type="text" id="email" name="email"/>
 		 <? }else{ ?>
@@ -47,7 +47,7 @@ require_once("header.php");
 			</div>
 
 
-			<? if (!isset($_SESSION['user']->email)): /*oauthed user have no password for the moment*/ ?>
+			<? if (!isset($_SESSION['user']->email) || empty($_SESSION['user']->email)): /*oauthed user have no password for the moment*/ ?>
 			<div data-role="fieldcontain">
 				<label for="passwordConfirm" ><?= _("Password Confirmation") ?> : </label>
 				<input type="password" id="passwordConfirm" name="passwordConfirm" />

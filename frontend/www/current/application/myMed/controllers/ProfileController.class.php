@@ -33,7 +33,7 @@ class ProfileController extends AuthenticatedController {
 			}
 			
 			//check password here
-			if (isset($_POST['passwordConfirm'])){
+			if (isset($_POST['passwordConfirm'])){ // no email, no login
 				if ($_POST['passwordConfirm'] !== $_POST['password']){
 					$this->error = _("Passwords do not match");
 					$this->renderView("profile");
@@ -43,9 +43,8 @@ class ProfileController extends AuthenticatedController {
 				$mAuthenticationBean->login = $_SESSION['user']->id;
 				$mAuthenticationBean->user = $_SESSION['user']->id;
 				$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
-				$request = new Requestv2(
-					"v2/AuthenticationRequestHandler",
-					UPDATE,
+				
+				$request = new Requestv2("v2/AuthenticationRequestHandler", UPDATE,
 					array("authentication"=>json_encode($mAuthenticationBean)));
 				try {
 					$res = $request->send();
@@ -62,8 +61,7 @@ class ProfileController extends AuthenticatedController {
 				
 			} else {
 				$request = new Requestv2(
-					"v2/AuthenticationRequestHandler",
-					READ,
+					"v2/AuthenticationRequestHandler", READ,
 					array(
 						"login"=>$_POST['email'],
 						"password"=>hash('sha512', $_POST['password']), 
@@ -90,10 +88,8 @@ class ProfileController extends AuthenticatedController {
 			$_POST['login'] = $_POST["email"];
 			unset($_POST['password']);// /\ don't store people password! or we could deal with justice
 			
-			$request = new Requestv2(
-				"v2/ProfileRequestHandler",
-				UPDATE,
-				array("user"=>json_encode($_POST))
+			debug_r($_POST);
+			$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($_POST))
 			);
 			
 			try {

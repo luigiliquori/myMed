@@ -145,13 +145,10 @@
 				<!-- Back link-->
 				<a href="#step2_volunteer" data-role="button" data-icon="arrow-l"  data-theme="e" data-inline="true"><?= _("Previous")?></a>
 				
-				<!-- MyMed basic profile fields 
+				<!-- MyMed basic profile fields -->
 				<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
-				<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
 				<input type="hidden" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
-				<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
-				<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
-				-->
+				
 				<!-- Extended profile fields -->
 				<input type="hidden" id="type" name="type" value="volunteer" />
 				<input type="hidden" id="sex" name="sex" />

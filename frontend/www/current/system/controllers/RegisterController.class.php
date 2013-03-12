@@ -68,6 +68,9 @@ class RegisterController extends AbstractController {
 			// Sending request
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
+			
+			debug("CREATE AUTHENTIFICATION REQUEST");
+			debug_r($responsejSon);
 
 			if($responseObject->status != 200) {
 				$this->error = $responseObject->description;
@@ -111,6 +114,9 @@ class RegisterController extends AbstractController {
 		// Sending request
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
+		
+		debug("CREATE AUTHENTIFICATION REQUEST");
+		debug_r($responsejSon);
 		
 		// In case of errors...
 		if($responseObject->status != 200) {

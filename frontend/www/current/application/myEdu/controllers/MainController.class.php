@@ -63,6 +63,12 @@ class MainController extends ExtendedProfileRequired {
 				
 			$this->success = "Subscribe !";
 		}
+		
+		debug("PROFILE REQUEST");
+		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$_SESSION['user']->id));
+		$responsejSon = $request->send();
+		$responseObject = json_decode($responsejSon);
+		debug_r($responseObject->dataObject);
 
 		$this->renderView("main");
 	}
