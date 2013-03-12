@@ -34,28 +34,28 @@ require_once("header.php");
 			</li>
 
 			<li data-icon="refresh"><a href="?action=profile&method=update"><img class="ui-li-mymed" alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" width="50"
-				Style="margin-left: 5px; top: 5px;" /> Email
+				Style="margin-left: 5px; top: 5px;" /> <?= _("E-mail")?>
 				<p>
 					<?= $_SESSION['user']->email ?>
 				</p>
 				</a>
 			</li>
 			<li data-icon="refresh"><a href="?action=profile&method=update"><img class="ui-li-mymed" alt="Date de naissance: " src="<?= APP_ROOT ?>/img/birthday_icon.png" width="50"
-				Style="margin-left: 5px; top: 5px;" /> Date de naissance
+				Style="margin-left: 5px; top: 5px;" /> <?= _("Date of birth")?>
 				<p>
 					<?= $_SESSION['user']->birthday ?>
 				</p>
 				</a>
 			</li>
 			<li data-icon="refresh"><a href="?action=profile&method=update"><img class="ui-li-mymed" alt="Langue: " src="<?= APP_ROOT ?>/img/<?= $_SESSION['user']->lang ?>_flag.png" width="50"
-				Style="margin-left: 5px; top: 5px;" /> Langue
+				Style="margin-left: 5px; top: 5px;" /> <?= _("Language")?>
 				<p>
 					<?= $_SESSION['user']->lang ?>
 				</p>
 				</a>
 			</li>
 
-			<li data-role="list-divider"><?= _("Your applications") ?></li>
+			<li data-role="list-divider"><?= _("Profile in your applications") ?></li>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 			<?php if ($status == "on") { ?>
 			<li><a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile" rel="external"> <img class="ui-li-mymed"

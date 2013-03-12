@@ -211,7 +211,7 @@ msgid "About you"
 msgstr "A propos de vous"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:58
-msgid "Your applications"
+msgid "Profile in your applications"
 msgstr "Profil dans vos applications"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/MainController.class.php:47

@@ -71,6 +71,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileCreate");
 		}else{
 			debug("Default method");
+			$_GET['user'] = $_SESSION['user']->id;
 			$this->showUserProfile($_SESSION['user']->id);
 		}
 		
