@@ -66,7 +66,8 @@
                                                   delegate:self
                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                     destructiveButtonTitle:nil
-                                         otherButtonTitles:NSLocalizedString(@"Email about this app", nil), @"MyMed web site", nil];
+                                         otherButtonTitles:NSLocalizedString(@"Suggest this app", nil),
+                       NSLocalizedString(@"MyMed web site...", nil), NSLocalizedString(@"myMed Launchpad...", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
 }
@@ -106,6 +107,9 @@
         return;
     } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+1)) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr"]];
+        return;
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+2)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr/?action=main&method=read"]];
         return;
     }
 }
