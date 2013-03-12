@@ -90,7 +90,7 @@ require_once("header.php");
 				<center>
 					<img id="screenshot1" alt="<?= $_REQUEST["applicationStore"] ?>" src="<?= APP_ROOT . "/../" . $_REQUEST["applicationStore"] . "/doc/screenshot1.png" ?>" class="myScreenshot" Style="display: block;" />
 					<img id="screenshot2" alt="<?= $_REQUEST["applicationStore"] ?>" src="<?= APP_ROOT . "/../" . $_REQUEST["applicationStore"] . "/doc/screenshot2.png" ?>" class="myScreenshot" />
-					<img id="screenshot3" alt="<?= $_REQUEST["applicationStore"] ?>" src="<?= APP_ROOT . "/../" . $_REQUEST["applicationStore"] . "/doc/screenshot3.png" ?>" class="myScreenshot" />
+					<!-- <img id="screenshot3" alt="<?= $_REQUEST["applicationStore"] ?>" src="<?= APP_ROOT . "/../" . $_REQUEST["applicationStore"] . "/doc/screenshot3.png" ?>" class="myScreenshot" />-->
 					<br /><br />
 					<div data-role="controlgroup" data-type="horizontal">
 						<a href="#" onclick="prevScreenshot()" data-role="button" data-icon="arrow-l" data-iconpos="notext"></a>
@@ -127,7 +127,7 @@ require_once("header.php");
 				</div>	
 				
 			</div>
-			<a id="desc"></a>
+			<!-- <a id="desc"></a>
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
 				<h3 Style="color: lightblue;">Description</h3>
 				<p><?php @include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description.php") ?></p>
@@ -137,7 +137,7 @@ require_once("header.php");
 					<span class='st_linkedin_large' displayText='LinkedIn'></span>
 					<span class='st_email_large' displayText='Email'></span>
 				</div>
-			</div>
+			</div>-->
 			
 		<?php } ?>
 			

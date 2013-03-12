@@ -39,7 +39,7 @@ function toggleStatus(app, status){
 
 function nextScreenshot() {
 	$("#screenshot" + cpt).hide();
-	if (cpt==3) {
+	if (cpt==2) {
 		cpt=1;
 	} else {
 		cpt++;
@@ -50,7 +50,7 @@ function nextScreenshot() {
 function prevScreenshot() {
 	$("#screenshot" + cpt).hide();
 	if (cpt==1) {
-		cpt=3;
+		cpt=2;
 	} else {
 		cpt--;
 	}
