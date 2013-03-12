@@ -33,13 +33,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.navigationItem.title = self.pagetitle;
-}
-
--(void) viewWillAppear:(BOOL)animated
-{
-    // Do any additional setup after loading the view from its nib.
     if (self.url != nil) {
         NSString *s = [MyMedClient GetInstance].html_pleaseWait;
         [self.webview loadHTMLString:s baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
@@ -54,6 +47,13 @@
     } else {
         [self.webview loadHTMLString:[MyMedClient GetInstance].html_empty baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     }
+    self.navigationItem.title = self.pagetitle;
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    // Do any additional setup after loading the view from its nib.
+
     [super viewWillAppear:animated];
 }
 
