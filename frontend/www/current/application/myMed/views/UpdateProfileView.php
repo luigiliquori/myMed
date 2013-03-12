@@ -12,13 +12,13 @@ require_once("header.php");
 	<div data-role="content">
 		<form action="?action=profile" id="updateProfileForm" method="post" data-ajax="false">
 		
-			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />
+			<input type="hidden" name="id" value="<?= $_SESSION['user']->id ?>" />			
 			
 			<label for="firstName"><?= _("First name") ?> : </label>
-			<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
+			<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			
 			<label for="lastName"><?= _("Last name") ?> : </label>
-			<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
+			<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			
 		 <? if (!isset($_SESSION['user']->email) || empty($_SESSION['user']->email)){ ?>
 				<label for="email" ><?= _("E-mail")?> : </label>
@@ -27,37 +27,32 @@ require_once("header.php");
 		 		<input type="hidden" name="email" value="<?= $_SESSION['user']->email ?>" />
 		 <? } ?>
 			<label for="birthday" ><?= _("Date of birth") ?> (jj/mm/aaaa) : </label>
-			<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+			<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			
 			<label for="profilePicture" ><?= _("Profile picture") ?> (url): </label>
-			<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
+			<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			
 
 			<label for="lang" ><?= _("Language") ?>	: </label>
-			<select id="lang" name="lang">
+			<select id="lang" name="lang" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>>
 				<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
 				<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
 				<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 			</select>
 
 			<br>
-			<div data-role="fieldcontain">
-				<label for="password" ><?= _("Password") ?> : </label>
-				<input type="password" id="password" name="password" />
-			</div>
-
-
 			<? if (!isset($_SESSION['user']->email) || empty($_SESSION['user']->email)): /*oauthed user have no password for the moment*/ ?>
 			<div data-role="fieldcontain">
-				<label for="passwordConfirm" ><?= _("Password Confirmation") ?> : </label>
+				<label for="passwordConfirm" ><?= _("Password") ?> : </label>
 				<input type="password" id="passwordConfirm" name="passwordConfirm" />
 			</div>
 			<? endif; ?>
-
-			<div style="text-align: center;">
-				<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= _("Update") ?>" data-icon="refresh"/>
-			</div>
 			
+		 <? if(!isset($_SESSION['userFromExternalAuth'])): ?>
+				<div style="text-align: center;">
+					<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= _("Update") ?>" data-icon="refresh"/>
+				</div>
+		 <? endif; ?>
 			
 		</form>
 	</div>

@@ -17,7 +17,7 @@
 
 
 		<?php if ($_SESSION["profileFilled"] == "company") {?>
-							<p class="ui-li-desc"><?=$_SESSION['user']->login?></p>
+							<p class="ui-li-desc"><?=$_SESSION['user']->email?></p>
 				</div>
 			<div class="ui-block-b">
 			<h3 class="ui-li-heading"><?= translate("About you") ?> </h3>		
@@ -35,7 +35,7 @@
 			</div>
 		<?php }?>
 		<?php if ($_SESSION["profileFilled"] == "employer") {?>
-							<p class="ui-li-desc"><?=$_SESSION['user']->login?></p>
+							<p class="ui-li-desc"><?=$_SESSION['user']->email?></p>
 				</div>
 			<div class="ui-block-b">
 			<h3 class="ui-li-heading"> <?= translate("About you") ?> </h3>
@@ -75,12 +75,14 @@
 				<!-- langue -->
 	<form action="?action=extendedProfile" method="post" data-ajax="false">
 		<label for="lang" ><?= translate("Language") ?>	: </label>
-		<select id="lang" name="lang">
+		<select id="lang" name="lang" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : ""?> >
 			<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
 			<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
 			<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 		</select>
-		<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" />
+	 <? if(!isset($_SESSION['userFromExternalAuth'])): ?>
+			<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" />
+	 <? endif; ?>
 	</form>
 			
 			</div>

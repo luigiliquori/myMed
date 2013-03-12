@@ -102,13 +102,17 @@ class MUserBean {
 		if (isset($user['email'])){ // unfortunately  twitter doesn't give email
 			$user['id'] = "MYMED_".$user['email'];
 		} else if (isset($user['screen_name'])){
-			$user['id'] = $user['screen_name'];
+			$user['id'] = $user['screen_name']."@mymed.eu";
+			$user['email'] = $user['screen_name']."@mymed.eu";
 		}
 		$user['socialNetworkName'] = 'Twitter-OAuth';
 		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
 	}
 
-	public static function constructFromOpenId($user){
+	/*
+	 * NOT USED ANYMORE
+	 * */
+	/*public static function constructFromOpenId($user){
 		foreach ($user as $k=>$v){
 			if(strpos($k, 'first')!==false){
 				$user['firstName'] = $v[0];
@@ -124,7 +128,7 @@ class MUserBean {
 		$user['id'] = 'MYMED_'.$user['email'];
 		$user['socialNetworkName'] = 'OpenID';
 		return (object) array_intersect_key($user, get_class_vars(__CLASS__));
-	}
+	}*/
 	
 }
 

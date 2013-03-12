@@ -13,7 +13,7 @@ class ExtendedProfileController extends AbstractController
 	 */
 	public /*void*/ function handleRequest(){
 		
-		if(isset($_POST['lang'])){
+		if(isset($_POST['lang'])){ // UPDATE LANG
 			$_POST['id'] = $_SESSION['user']->id;
 			$_POST['firstName'] = $_SESSION['user']->firstName;
 			$_POST['lastName'] = $_SESSION['user']->lastName;

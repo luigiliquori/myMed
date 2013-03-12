@@ -19,31 +19,20 @@ class ProfileController extends AuthenticatedController {
 		
 		parent::handleRequest();
 		
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+		if ($_SERVER['REQUEST_METHOD'] == "POST") { // UPDATE PROFILE
 			
-			// Preconditions @TODO in javascript
 			$_POST["email"] = strtolower(trim($_POST["email"]));
 			if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) === false){
 				$this->error = _("Email not valid");
 				$this->renderView("updateProfile");
 			}
-			if(empty($_POST["password"])){
-				$this->error = _("password empty");
-				$this->renderView("updateProfile");
-			}
 			
-			//check password here
 			if (isset($_POST['passwordConfirm'])){ // no email, no login
-				if ($_POST['passwordConfirm'] !== $_POST['password']){
-					$this->error = _("Passwords do not match");
-					$this->renderView("profile");
-				}
-				unset($_POST['passwordConfirm']);
 				$mAuthenticationBean = new MAuthenticationBean();
 				$mAuthenticationBean->login = $_SESSION['user']->id;
 				$mAuthenticationBean->user = $_SESSION['user']->id;
-				$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
-				
+				$mAuthenticationBean->password = hash('sha512', $_POST["passwordConfirm"]);
+				unset($_POST['passwordConfirm']);
 				$request = new Requestv2("v2/AuthenticationRequestHandler", UPDATE,
 					array("authentication"=>json_encode($mAuthenticationBean)));
 				try {
@@ -59,34 +48,9 @@ class ProfileController extends AuthenticatedController {
 				 * ask for MYMED's acount password, merge MYMED's profile, update old profile with "merged": MYMED profile id
 				 */ 
 				
-			} else {
-				$request = new Requestv2(
-					"v2/AuthenticationRequestHandler", READ,
-					array(
-						"login"=>$_POST['email'],
-						"password"=>hash('sha512', $_POST['password']), 
-						"passwordCheck"=>1 //fast yes/no password check instead of delivering an accesstoken
-						)
-				);
-				
-				try {
-					
-					$responsejSon = $request->send();
-					$responseObject = json_decode($responsejSon);
-					
-					if($responseObject->status != 200) {
-						throw new Exception(_("Wrong password"));
-					}
-					
-				} catch (Exception $e){
-					$this->error = $e->getMessage();
-					$this->renderView("updateProfile");
-				}
 			}
 			
 			$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
-			$_POST['login'] = $_POST["email"];
-			unset($_POST['password']);// /\ don't store people password! or we could deal with justice
 			
 			debug_r($_POST);
 			$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($_POST))

@@ -37,7 +37,7 @@
 							<img src="<?= $this->basicProfile['profilePicture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 						</div>
 						<div class="ui-block-b">
-							<p><strong><?= $this->basicProfile['firstName']." ".$this->basicProfile['lastName'] ?></strong></p>
+							<p><strong><?= $this->basicProfile['name'] ?></strong></p>
 							<p><?= $this->basicProfile['birthday'] ?> </p>
 							<p>
 							<?  $lang="";
@@ -55,7 +55,7 @@
 							<img src="<?= $_SESSION['user']->profilePicture ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 						</div>
 						<div class="ui-block-b">
-							<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
+							<p><strong><?= $_SESSION['user']->name ?></strong></p>
 							<p><?= $_SESSION['user']->birthday ?> </p>
 							<p><?
 								$lang= _("Langage not defined");
