@@ -32,6 +32,9 @@ require_once("header.php");
 			case "myMemory":
 				$googleLink = "com.mymed.mymemory";
 				break;
+			case "myRiviera":
+				$googleLink = "com.app.myriviera";
+				break;
 			default:
 				$googleLink = "No";
 				$appleLink = "No";
