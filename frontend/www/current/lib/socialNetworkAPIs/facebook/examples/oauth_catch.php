@@ -31,7 +31,7 @@ if(!isset($_GET["code"])) { // code is sent by facebook in response
 		$_SESSION['user3'] =(array) $user;
 		$_SESSION['userFromExternalAuth'] = MUserBean::constructFromFacebookOAuth((array) $user);
 		
-		
+		debug("session appliname ".$_SESSION['appliName']);
 		header('Location: '.getTrustRoot().$_SESSION['appliName'].'?action=login');
 		
 		/*echo('<pre>');

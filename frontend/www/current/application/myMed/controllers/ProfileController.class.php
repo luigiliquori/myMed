@@ -20,7 +20,6 @@ class ProfileController extends AuthenticatedController {
 		parent::handleRequest();
 		
 		if ($_SERVER['REQUEST_METHOD'] == "POST") { // UPDATE PROFILE
-			
 			$_POST["email"] = strtolower(trim($_POST["email"]));
 			if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) === false){
 				$this->error = _("Email not valid");

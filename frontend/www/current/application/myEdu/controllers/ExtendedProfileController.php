@@ -337,6 +337,8 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Show the user Extended profile 
 	 */
 	function showUserProfile($user) {
+		debug_r($_SESSION['user']);
+		
 		// Get the user details
 		$user = new User($user);
 		try {

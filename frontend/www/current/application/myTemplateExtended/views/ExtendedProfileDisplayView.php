@@ -49,15 +49,42 @@
 			<li data-role="list-divider"><?= _("User details") ?></li>	
 			<li>
 				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
-					<div class="ui-block-a" style="width: 110px;">
-						<img src="<?= $this->profile->details['picture'] ?>"style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
-					</div>
-					<div class="ui-block-b">
-						<p><strong><?= $this->profile->details['firstName']." ".$this->profile->details['lastName'] ?></strong></p>
-						<p><?= $this->profile->details['birthday'] ?> </p>
-						<p><?= $lang?></p>
-						<p><a href="mailto:<?= prettyprintId($this->profile->details['email']) ?>"><?= prettyprintId($this->profile->details['email']) ?></a></p>
-					</div>
+					<? if($_GET['user'] != $_SESSION['user']->id){ ?>
+						<div class="ui-block-a" style="width: 110px;">
+							<img src="<?= $this->basicProfile['profilePicture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
+						</div>
+						<div class="ui-block-b">
+							<p><strong><?= $this->basicProfile['name'] ?></strong></p>
+							<p><?= $this->basicProfile['birthday'] ?> </p>
+							<p>
+							<?  $lang="";
+								if($this->basicProfile['lang']){
+							   		if($_SESSION['user']->lang=="en") $lang=_("English");
+									else if($_SESSION['user']->lang=="it") $lang=_("Italian");
+									else $lang=_("French");
+								}echo $lang;
+							?>
+							</p>
+							<p><a href="mailto:<?= prettyprintId($this->basicProfile['email']) ?>"><?= prettyprintId($this->basicProfile['email']) ?></a></p>
+						</div>
+				 <? }else{ ?>
+				 		<div class="ui-block-a" style="width: 110px;">
+							<img src="<?= $_SESSION['user']->profilePicture ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
+						</div>
+						<div class="ui-block-b">
+							<p><strong><?= $_SESSION['user']->name ?></strong></p>
+							<p><?= $_SESSION['user']->birthday ?> </p>
+							<p><?
+								$lang= _("Langage not defined");
+								if($_SESSION['user']->lang){
+									if($_SESSION['user']->lang=="en") $lang=_("English");
+									else if($_SESSION['user']->lang=="it") $lang=_("Italian");
+									else $lang=_("French");
+								}echo $lang;
+							?></p>
+							<p><a href="mailto:<?= prettyprintId($_SESSION['user']->id) ?>"><?= prettyprintId($_SESSION['user']->id) ?></a></p>
+						</div>
+				 <? } ?>
 				</div>
 			</li>
 			
@@ -69,11 +96,8 @@
 					<?= _("Role") ?>: <strong style="color:#444;"><?= _($this->profile->details['role']) ?></strong><br/>
 				</p>
 				<p>
-					<img src="./img/mail-send.png" style="height: 22px;vertical-align: bottom;"/>
 					<?=
-					(empty($this->profile->details['email'])?" ": _("email").": <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
-					(empty($this->profile->details['phone'])?" ":_("phone").": <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
-					(empty($this->profile->details['address'])?" ":_("address").": "."<span>".$this->profile->details['address']."</span><br/>")
+					(empty($this->profile->details['phone'])?" ":_("phone").": <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>")
 					?>
 				</p>
 				<!-- Role's fields -->
@@ -83,29 +107,25 @@
 						
 						case 'Role_1':
 							echo empty($this->profile->details['role1field1']) ? " " : "<p>". _("Role 1 field 1").": "."<span>".$this->profile->details['role1field1']."</span></p>";
-							echo empty($this->profile->details['role1field2']) ? " " : "<p>". _("Role 1 field 2").": "."<span>".$this->profile->details['role1field2']."</span></p>";							break;
+							echo empty($this->profile->details['role1field2']) ? " " : "<p>". _("Role 1 field 2").": "."<span>".$this->profile->details['role1field2']."</span></p>";							
+							break;
 						
 						case 'Role_2':
 							echo empty($this->profile->details['role2field1']) ? " " : "<p>". _("Role 2 field 1").": "."<span>".$this->profile->details['role2field1']."</span></p>";
 							echo empty($this->profile->details['role2field2']) ? " " : "<p>". _("Role 2 field 2").": "."<span>".$this->profile->details['role2field2']."</span></p>";
-							break;
-
-								
+							break;			
 					}
 				?>
 				<br/>
 				<p>
 					<?= _("Description")?>: <p style="margin-left:30px"><?= empty($this->profile->details['desc'])?" ":$this->profile->details['desc'] ?></p>
 				</p>
-				
-				
+
 				<br />
-				<? if(($this->profile->details['role']!='professor')): ?>
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> rates)
+					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> <?= _("rates")?>)
 				</p>
 				<br />
-				<?php endif; ?>
 					
 			</li>	
 		</ul> <!-- END show user profile -->	
@@ -117,6 +137,12 @@
 			<br />
 			<!-- Edit profile-->
 			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+			
+			<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
+				<a type="button" href="?action=UpgradeAccount&method=migrate"  data-theme="g" data-icon="pencil" data-inline="true"><?= _('Create a full myMed profile') ?></a>
+		 <? endif; ?>
+		 
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<!-- Pop up delete profile -->	

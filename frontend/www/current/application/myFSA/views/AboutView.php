@@ -12,7 +12,6 @@
 		<a class="social" style="background-position: -66px 0px;" href="http://www.facebook.com/pages/MyFSA/122386814581009" title="myFSA on Facebook"></a>
 		<a class="social" style="background-position: 0px 0px;" href="https://twitter.com/my_europe" title="myFSA on Twitter"></a>
 	</span>
-	<? include("notifications.php")?>
 	</div>
 
 	<div data-role="content" class="content">

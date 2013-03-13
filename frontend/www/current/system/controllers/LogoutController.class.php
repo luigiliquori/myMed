@@ -11,19 +11,20 @@ class LogoutController extends AbstractController {
 	
 			debug("Logout !");
 		
-			// DELETE BACKEND SESSION
-			$request = new Requestv2("v2/SessionRequestHandler", DELETE);
-			debug($_SESSION['user']->session." ".$_SESSION['user']->socialNetworkName);
-			$request->addArgument("accessToken", $_SESSION['user']->session);
-			$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
-
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
+			if (!isset($_SESSION['userFromExternalAuth'])) {	
+				debug("DELETE BACKEND SESSION");
+				$request = new Requestv2("v2/SessionRequestHandler", DELETE);
 				
-			if($responseObject->status != 200) {
-				$this->error = $responseObject->description;
+				$request->addArgument("accessToken", $_SESSION['user']->session);
+				$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
+	
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+					
+				if($responseObject->status != 200) {
+					$this->error = $responseObject->description;
+				}
 			}
-				
 			// DELETE FRONTEND SESSION
 			session_destroy();
 			

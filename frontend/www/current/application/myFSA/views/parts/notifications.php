@@ -1,16 +1,30 @@
-<? if (!empty($this->error)): ?>
-	
-	<div data-role="navbar" data-theme="e" class="ui-bar ui-bar-e error-box" >
-		<p style="position: relative; top: -10px;"><?= $this->error ?></p>
-	</div>
-<? endif ?>
+<?php
 
-<? if (!empty($this->success)): ?>
-	
-	<div data-role="navbar" data-theme="e" class="ui-bar ui-bar-e error-box" >	
-		<p>
-			<span Style="position: relative; top: -10px;"><?= $this->success ?></span>
-			<a href="." data-action="close" data-role="button" data-ajax="false">ok</a>
-		</p>	
-	</div>
-<? endif ?>
+/**
+ * Display a notification pop up for errors or success
+ * 
+ */
+
+function print_notification($message) {
+
+	if($message != "") {
+		echo '<div data-role="popup" id="notificationPopup" data-transition="flip" data-theme="e" class="ui-content"><p>' . $message . ' </p></div>';
+		echo '
+		<script type="text/javascript">
+			var first_pageshow = true;
+			$(document).on("pageshow", function() {
+				if(first_pageshow) {
+				  	// Go back in the history has problem in Chrome. 
+				  	// Do not return back in the history when the pop up disappear.
+				  	$( "#notificationPopup" ).popup({ history: false });
+		    		$( "#notificationPopup" ).popup("open");
+		    		first_pageshow = false;
+	    		}
+	     	});
+		
+		 </script>
+		 ';
+	}  
+}
+
+?>

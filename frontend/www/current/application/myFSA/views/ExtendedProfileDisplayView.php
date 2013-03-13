@@ -21,16 +21,16 @@
 				</div>
 			<div class="ui-block-b">
 			<h3 class="ui-li-heading"><?= translate("About you") ?> </h3>		
-					<br> <?= translate("Company type") ?> : <br/>
+					<br> <?= _("Company type") ?> : <br/>
 					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['type']?></a>
 					
-					<br> <?= translate("Company name") ?> :<br/>
+					<br> <?= _("Company name") ?> :<br/>
 					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['name']?></a>
 					
-					<br> <?= translate("Company address") ?> : <br/>
+					<br> <?= _("Company address") ?> : <br/>
 					<a data-role="label" ><?= $_SESSION['ExtendedProfile']->object['address']?></a>
 					
-					<br> <?= translate("SIRET") ?> :<br/>
+					<br> <?= _("SIRET") ?> :<br/>
 					<a data-role="label"><?= $_SESSION['ExtendedProfile']->object['number']?></a>
 			</div>
 		<?php }?>
@@ -38,7 +38,7 @@
 							<p class="ui-li-desc"><?=$_SESSION['user']->email?></p>
 				</div>
 			<div class="ui-block-b">
-			<h3 class="ui-li-heading"> <?= translate("About you") ?> </h3>
+			<h3 class="ui-li-heading"> <?= _("About you") ?> </h3>
 
 						
 				<!-- 	displaying array:
@@ -74,14 +74,20 @@
 					<div class="ui-block-c">
 				<!-- langue -->
 	<form action="?action=extendedProfile" method="post" data-ajax="false">
-		<label for="lang" ><?= translate("Language") ?>	: </label>
+		<label for="lang" ><?= _("Language") ?>	: </label>
 		<select id="lang" name="lang" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : ""?> >
 			<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
 			<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
 			<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
 		</select>
 	 <? if(!isset($_SESSION['userFromExternalAuth'])): ?>
-			<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= translate("Update") ?>" />
+			<input type="submit" data-role="button" data-inline="true" data-theme="b" value="<?= _("Update") ?>" />
+	 <? endif; ?>
+	 <!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+	 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
+	 		<p style="text-align: center"><br>
+				<a type="button" href="?action=UpgradeAccount&method=migrate"  data-theme="g" data-icon="pencil" data-inline="true"><?= _('Create a myMed profile') ?></a>
+	 		</p>
 	 <? endif; ?>
 	</form>
 			

@@ -290,6 +290,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	function showUserProfile($user){
+		debug_r($_SESSION['user']);
 		$user = new User($user);
 		try {
 			$details = $this->mapper->findById($user);
