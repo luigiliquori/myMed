@@ -31,7 +31,7 @@
 				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
 				eMail: <?= $_SESSION['user']->email ?><br />
 				<div data-role="controlgroup" data-type="horizontal">
-					 <a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a> 
+					<!--  <a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a> -->
 					<!-- <a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a> -->
 				</div>
 			</div>
