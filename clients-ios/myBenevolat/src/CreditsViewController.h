@@ -10,6 +10,7 @@
 
 @interface CreditsViewController : UITableViewController
 
-@property (nonatomic, retain) IBOutletCollection(UITableViewCell) NSArray *cells;
+@property (nonatomic, retain) IBOutletCollection(UITableViewCell) NSArray *cellsCons;
+@property (nonatomic, retain) IBOutletCollection(UITableViewCell) NSArray *cellFund;
 
 @end

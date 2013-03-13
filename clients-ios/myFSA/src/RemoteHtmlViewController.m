@@ -77,7 +77,7 @@
     }
     */
     [self.webview loadRequest:req];
-    NSLog(@"Loading %@", [u absoluteString]);
+    //NSLog(@"Loading %@", [u absoluteString]);
 }
 
 - (void)viewDidUnload
@@ -109,15 +109,15 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    NSLog(@"Load done: %@", self.url);
+    //NSLog(@"Load done: %@", self.url);
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    NSLog(@"*** Load failed: %@ (Is loading:%d)", self.url, webView.isLoading);
-    NSLog(@"***              %@", error.localizedDescription);
-    NSString *s = [MyMedClient GetInstance].html_noConnection;
+    //NSLog(@"*** Load failed: %@ (Is loading:%d)", self.url, webView.isLoading);
+    //NSLog(@"***              %@", error.localizedDescription);
+    //NSString *s = [MyMedClient GetInstance].html_noConnection;
     [self.webview loadHTMLString:s baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     
 }
