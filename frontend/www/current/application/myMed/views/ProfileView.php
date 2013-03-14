@@ -58,7 +58,7 @@ require_once("header.php");
 			<li data-role="list-divider"><?= _("Your applications") ?></li>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 			<?php if ($status == "on") { ?>
-			<li><a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile" rel="external"> <img class="ui-li-mymed"
+			<li><a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile&user=<?= $_SESSION['user']->id?>" rel="external"> <img class="ui-li-mymed"
 					alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" width="50" Style="margin-left: 5px; top: 5px;" /> <?= $applicationName ?>
 					<div Style="position: relative; left: 0px;">
 						<?php for($i=1 ; $i <= 5 ; $i++) { ?>
