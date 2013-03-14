@@ -20,25 +20,34 @@ class FindController extends AuthenticatedController{
 			if($_POST['Storia']) $search->Storia = "on";
 			if($_POST['Religione']) $search->Religione = "on";
 			if($_POST['Escursioni_Sport']) $search->Escursioni_Sport = "on";
-			$search->validated = "validated";
 			
-			$this->result = $search->find();
-			//$this->filter_array($res);
-				
+			// Filter out the publication that has not been validated yet
+			$results = $search->find();
+			$this->filter_array($results);
+			
+			// Get reputations 	
 			$this->getReputation($this->result);
 			$this->renderView("results");
 			
 		} else if (isset($_GET['search'])) {
 			
+			// Find posts in all languages
+			$results = array();
 			$search = new myEuroCINPublication();
+			$search->Lingua = "italiano";
+			$results = array_merge($results, $search->find());
+			$search->Lingua = "francese";
+			$results = array_merge($results, $search->find());
+			$search->Lingua = "inglese";
+			$results = array_merge($results, $search->find());
 			
-			// Show posts in the user language
-			if($_SESSION['user']->lang == 'it' ) $search->Lingua = "italiano";
-			if($_SESSION['user']->lang == 'fr' ) $search->Lingua = "francese";
-			if($_SESSION['user']->lang == 'en' ) $search->Lingua = "inglese";
-			$search->validated = "validated";
-			$this->result = $search->find(); 
+			//if($_SESSION['user']->lang == 'it' ) $search->Lingua = "italiano";
+			//if($_SESSION['user']->lang == 'fr' ) $search->Lingua = "francese";
+			//if($_SESSION['user']->lang == 'en' ) $search->Lingua = "inglese";
 			
+			// Filter out the publication that has not been validated yet
+			$this->filter_array($results);
+
 			// get userReputation
 			$this->getReputation($this->result);
 			$this->renderView("Find");
@@ -98,26 +107,30 @@ class FindController extends AuthenticatedController{
 	
 	/* Filter results basing on validate fields */
 	private function filter_array($res1){
+		
 		// filter by the expiration date
 		$date = strtotime(date(DATE_FORMAT));
-	
 		$res2 = array();
 		foreach($res1 as $item):
-		if(!empty($item->end) && $item->end!="--"){
-			$expiration_date = strtotime($item->end);
-			if($date <= $expiration_date){
+			// Check expiration data if is defined
+			if(!empty($item->expire_date) && $item->expire_date!="--") {
+				$expiration_date = strtotime($item->expire_date);
+				if($date <= $expiration_date){
+					array_push($res2, $item);
+				}
+			} else {
+			// Otherwise add to results
 				array_push($res2, $item);
 			}
-		}
 		endforeach;
 	
 		// filter by the validation status
 		$this->result = array();
 		foreach($res2 as $item):
-		$item->getDetails();
-		if($item->validated=="validated"){
-			array_push($this->result, $item);
-		}
+			$item->getDetails();
+			if(!isset($item->validated) || $item->validated=="validated"){
+				array_push($this->result, $item);
+			}
 		endforeach;
 	}
 	

@@ -23,7 +23,8 @@
 		<br/>
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Welcome") ?></h3>
-			<p><?= _("Main capsule text") ?></p>	
+			<!-- <p><?= _("Main capsule text") ?></p> -->	
+			<p> Vous pouvez visualiser votre territoire, vos trajets et vos points d'interêts</p>
 		</div>
 		<br/>
 		
@@ -48,13 +49,27 @@
 		<div data-role="popup" id="mainViewHelpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<h3><?= _("How it works") ?> ?</h3>
-			<ul data-role="listview" data-theme="e">	
-				<li>
-					<img alt="publish" src="img/icons/help.png" Style="position:absolute; left:0px; width: 64px">
-						<p><strong><?= _("topic") ?></strong></p>
-						<p><?= _("description") ?></p>
-				</li>
-			</ul>
+			<h2>Rechercher</h2>
+				<p>
+					La recherche d'itinéraire utilise <a href="http://www.ceparou06.fr/">Ceparou06</a>
+					, en cas d'échec vous serez redirigé vers un itinéraire Google Maps.
+					<br>
+					<b>Rayon de recherche</b>:
+					Les points d'intérêts sont affichés à l'intérieur de cette zone.
+					<br>
+					<b>Points d'intérêts</b>:
+					Ils désignent les types d'établissements, d'évênements que vous
+					souhaitez afficher sur la carte.
+					<br>
+					<b>Types de Trajet Ceparou 06</b>
+					Ces champs permettent de paramétrer votre recherche d'itinéraire.
+				</p>
+				<h2>Profil</h2>
+				<p>Ce champ donne accès à votre profil myMed.</p>
+				<h2>Réseau social</h2>
+				<p>En vous connectant avec Facebook, vous chargerez les positions de
+					vos amis (acceptant la géolocalisation), disponibles dans la
+					recherche d'itinéraire par le bouton + du champs Arrivée.</p>
 		</div>
 	</div>	
 	<!-- End page content -->

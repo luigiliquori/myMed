@@ -39,7 +39,7 @@ require_once("header.php"); ?>
 		
 	</div>
 	
-	<!--  
+				
 	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
@@ -49,7 +49,6 @@ require_once("header.php"); ?>
 			</ul>
 		</div>
 	</div>
-	-->
 	
 </div>
 	

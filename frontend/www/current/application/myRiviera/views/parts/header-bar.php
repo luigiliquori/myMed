@@ -32,20 +32,18 @@ function print_header_bar($back_button = false,
 			
 		// Print logout button
 		case 'logout':
-			if(!$_SESSION['user']->is_guest) {
-				
-				// If come from launchpad ...
-				if (isset($_SESSION["launchpad"])) {
-					
-					echo '<a href="/application/myMed" 
-						     style="position: absolute; margin-top: -3px; left:5px;" 
-						     data-role="button" 
-						     rel="external" 
-						     data-icon="fahome" 
-						     data-iconpos="notext" 
-						     data-theme="e">myMed</a>';
-						     
-				} else {
+			
+			// If come from launchpad ...
+			if (isset($_SESSION["launchpad"]) || $_SESSION['user']->is_guest) {
+				echo '<a href="/application/myMed"
+				style="position: absolute; margin-top: -3px; left:5px;"
+				data-role="button"
+				rel="external"
+				data-icon="fahome"
+				data-iconpos="notext"
+				data-theme="e">myMed</a>';
+			} else {
+			// ... if user is not a guest and don't came from launchpad
 					
 					// If the user is logged print logout button ...
 					echo '<a href="
@@ -57,20 +55,7 @@ function print_header_bar($back_button = false,
 					data-icon="off"
 					data-iconpos="notext"
 					>' . _('Logout') . '</a>';
-				}
-				
-			} else {				
-				// If the user is logged print logout button ...
-					echo '<a href="
-					?action=logout"
-					data-inline="true"
-					rel="external"
-					data-role="button"
-					data-theme="r"
-					data-icon="off"
-					data-iconpos="notext"
-					>' . _('Logout') . '</a>';
-			}
+			} 
 			break;
 		
 		// Otherwise it is a custom link

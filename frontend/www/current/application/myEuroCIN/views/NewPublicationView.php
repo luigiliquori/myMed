@@ -27,7 +27,7 @@
 		<!-- Submit a new publication form -->
 		<form id="newpublicationform" action="index.php?action=publish&method=create" method="POST" data-ajax="false">
 		
-			<input type="hidden" id="date" name="date" value="" />
+			<input type="hidden" id="expire_date" name="expire_date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to publish") ?> ?</h3>
@@ -42,7 +42,7 @@
 				<input id="textinputp3" class="postTitle" data-inline="true" name="data"
 					placeholder="<?= _("Publication title goes here") ?>" value='' type="text" />
 				
-				<h3><?= _('Deadline') ?><b>*</b> :</h3>
+				<h3><?= _('Deadline') ?><b></b> :</h3>
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
 					<select id="publish_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
@@ -101,7 +101,7 @@
 			
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-icon="check" data-theme="g" value="<?=_('Publish') ?>" onclick="
-					$('#date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
+					$('#expire_date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
 				"/>
 			</div>
 	

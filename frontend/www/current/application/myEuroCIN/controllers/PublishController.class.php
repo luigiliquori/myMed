@@ -54,8 +54,8 @@ class PublishController extends ExtendedProfileRequired {
 			// Check mandatory fields
 			if (empty($_POST['data'])) {
 				$this->error = _("Title field can't be empty");
-			} else if($fromUpdate==false && (empty($_POST['expire_day']) || empty($_POST['expire_month']) || empty($_POST['expire_year']) || empty($_POST['date']))) {		
-				$this->error = _("Please provide a valide expiration date");
+			//} else if($fromUpdate==false && (empty($_POST['expire_day']) || empty($_POST['expire_month']) || empty($_POST['expire_year']) || empty($_POST['date']))) {		
+			//	$this->error = _("Please provide a valide expiration date");
 			} else if (empty($_POST['text'])) {
 				$this->error = _("Text field can't be empty");	
 			} else if (empty($_POST['Nazione'])) {
@@ -77,7 +77,8 @@ class PublishController extends ExtendedProfileRequired {
 				$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
 				$obj->Lingua = $_POST['Lingua'];				// locality
 				$obj->Nazione = $_POST['Nazione'];				// Language
-				$obj->end 	= $_POST['date'];					// Expiration date
+				if($_POST['expire_date'] != "--")
+					$obj->expire_date = $_POST['expire_date'];	// Expiration date
 				$obj->data = $_POST['data'];					// Title
 				$obj->text 	= $_POST['text'];					// Publication text
 				if( isset($_POST['Arte_Cultura']) ) $obj->Arte_Cultura = "on";
@@ -135,11 +136,11 @@ class PublishController extends ExtendedProfileRequired {
 		$obj = new myEuroCINPublication();
 		$obj->publisherID = $_POST['publisher'];  	// Publisher ID
 		$obj->type = "myEuroCIN";    					// Type
-		$obj->publisher = $_SESSION['user']->id;    	// Publisher ID
+		$obj->publisher = $_POST['publisher'];    	// Publisher ID
 		$obj->Lingua = $_POST['Lingua'];				// locality
 		$obj->Nazione = $_POST['Nazione'];				// Language
 		$obj->begin = $_POST['begin'];
-		$obj->end 	= $_POST['date'];					// Expiration date
+		$obj->expire_date 	= $_POST['expire_date'];	// Expiration date
 		$obj->data = $_POST['data'];					// Title
 		$obj->validated = $_POST['validated'];			// Publication text
 		$obj->text 	= $_POST['text'];					// Publication text
