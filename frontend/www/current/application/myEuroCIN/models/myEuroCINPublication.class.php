@@ -11,6 +11,7 @@ class myEuroCINPublication extends GenericDataBean {
 	public $type; // MyEuroCinPublication
 	public $data; // Title
 	public $Nazione; // City
+	public $expire_date;
 	public $Lingua;
 	public $Arte_Cultura;
 	public $Natura;
@@ -20,6 +21,7 @@ class myEuroCINPublication extends GenericDataBean {
 	public $Storia;
 	public $Religione;
 	public $Escursioni_Sport;
+	
 	
 	
 	/** Some data (got after a "details" query).
@@ -39,7 +41,7 @@ class myEuroCINPublication extends GenericDataBean {
 						"type"	=> KEYWORD,
 						"publisher"	=> KEYWORD,
 						"begin"	=> KEYWORD,
-						"end"	=> KEYWORD,
+						"expire_date"	=> KEYWORD,
 						"data" => KEYWORD,
 						"Nazione" => KEYWORD,
 						"Lingua" => KEYWORD,
@@ -51,13 +53,13 @@ class myEuroCINPublication extends GenericDataBean {
 						"Storia" => KEYWORD,
 						"Religione" => KEYWORD,
 						"Escursioni_Sport" => KEYWORD,
-						"validated" => KEYWORD,
 						"pred1" => KEYWORD,
 						"pred2" => KEYWORD
 						),
 				
 				// Data attributes 
-				array("text" => TEXT),
+				array("text" => TEXT, 
+					  "validated" => TEXT),
 				
 				// Wrapped attributes
 				array("end"),

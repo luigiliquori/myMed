@@ -72,10 +72,10 @@
   								 		<p style="font-size:85%;"> <?= _("You can attach a message to inform the author (or just click on Delete):"); ?> </p>
   								 		<form action="?action=publish&method=delete" method="POST" data-ajax="false">
   								 			<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea>
-  											<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
+  											<input type="hidden" name="publisher" value="<?= $this->result->publisherID ?>" />
 											<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 											<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
-											<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
+											<input type="hidden" name="expire_date" value="<?= $this->result->expire_date  ?>" />
 											<input type="hidden" name="Nazione" value="<?= $this->result->Nazione ?>" />
 											<input type="hidden" name="Lingua" value="<?= $this->result->Lingua ?>" />
 											<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />
@@ -83,21 +83,21 @@
 											<input type="hidden" name="predicate" value="<?= $_GET['predicate'] ?>" />
 											<input type="hidden" name="author" value="<?= $_GET['author'] ?>" />
 											<? if(isset($this->result->Arte_Cultura)) 
-												echo '<input type="hidden" name="Arte_Cultura" value="on" />;' ?> 
+												echo '<input type="hidden" name="Arte_Cultura" value="on" />' ?> 
 											<? if( isset($this->result->Natura) ) 
-												echo '<input type="hidden" name="Natura" value="on" />;' ?> 
+												echo '<input type="hidden" name="Natura" value="on" />' ?> 
 											<? if( isset($this->result->Tradizioni) ) 
-												echo '<input type="hidden" name="Tradizioni" value="on" />;' ?> 
+												echo '<input type="hidden" name="Tradizioni" value="on" />' ?> 
 											<? if( isset($this->result->Enogastronomia) ) 
-												echo '<input type="hidden" name="Enogastronomia" value="on" />;' ?> 
+												echo '<input type="hidden" name="Enogastronomia" value="on" />' ?> 
 											<? if( isset($this->result->Benessere) ) 
 												echo '<input type="hidden" name="Benessere" value="on" />;' ?> 
 											<? if( isset($this->result->Storia) ) 
-												echo '<input type="hidden" name="Storia" value="on" />;' ?> 
+												echo '<input type="hidden" name="Storia" value="on" />' ?> 
 											<? if( isset($this->result->Religione) ) 
-												echo '<input type="hidden" name="Religione" value="on" />;' ?> 
+												echo '<input type="hidden" name="Religione" value="on" />' ?> 
 											<? if( isset($this->result->Escursioni_Sport) ) 
-												echo '<input type="hidden" name="Escursioni_Sport" value="on" />;' ?> 
+												echo '<input type="hidden" name="Escursioni_Sport" value="on" />' ?> 
 					  											<input data-role="button" type="submit" data-theme="r" data-icon="ok" data-inline="true" value="<?= _('Delete') ?>" />
   										</form>
   										<a href="#" data-role="button" data-inline="true" data-mini="true" data-rel="back" data-direction="reverse"><?= _('Cancel') ?></a>
@@ -111,7 +111,7 @@
 		  											<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 													<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 													<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
-													<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
+													<input type="hidden" name="expire_date" value="<?= $this->result->expire_date  ?>" />
 													<input type="hidden" name="Nazione" value="<?= $this->result->Nazione ?>" />
 													<input type="hidden" name="Lingua" value="<?= $this->result->Lingua ?>" />
 													<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />
@@ -148,7 +148,8 @@
 					</div>
 						
 					<!-- TITLE -->
-					<h3><?= $title = $this->result->getTitle(); ?> :</h3>
+					<h3><?= _("Title") ?>: <?= $this->result->getTitle(); ?></h3>
+					<p> <? if( isset($this->result->expire_date) ) echo '<strong>'._("Expire date: ").'</strong>'.$this->result->expire_date; ?> </p>
 					<p style="position: relative; margin-left: 30px;">
 						<b><?= _("Locality") ?></b>: <?= Categories::$localities[$this->result->Nazione] ?><br/>
 						<b><?= _("Language") ?></b>: <?= Categories::$languages[$this->result->Lingua] ?><br/>

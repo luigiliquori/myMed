@@ -24,7 +24,7 @@
 						<input type="hidden" name="publisher" value="<?= $_SESSION['user']->id ?>" />
 						<input type="hidden" name="type" value="<?= $this->result->type ?>" />
 						<input type="hidden" name="begin" value="<?= $this->result->begin ?>" />
-						<input type="hidden" name="date" value="<?= $this->result->end  ?>" />
+						<input type="hidden" name="expire_date" value="<?= $this->result->expire_date ?>" />
 						<input type="hidden" name="Nazione" value="<?= $this->result->Nazione ?>" />
 						<input type="hidden" name="Lingua" value="<?= $this->result->Lingua ?>" />
 						<input type="hidden" name="validated" value="<?= $this->result->validated ?>" />
@@ -50,6 +50,7 @@
 						
 						<!-- TITLE -->
 						<h3><?= $this->result->getTitle(); ?></h3>
+						<p> <? if( isset($this->result->expire_date) ) echo _("Expire date: ").$this->result->expire_date; ?> </p>
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$this->result->Nazione] ?><br/>
 							<b><?= _("Language") ?></b>: <?= Categories::$languages[$this->result->Lingua] ?><br/>
