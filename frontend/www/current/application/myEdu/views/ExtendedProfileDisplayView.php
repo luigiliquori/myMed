@@ -9,15 +9,19 @@
 <div data-role="page" id="extendedprofiledisplayview">
 
 	<!-- Header bar -->
-<?  if($_GET['user'] != $_SESSION['user']->id) 
+<?  if($_GET['user'] != $_SESSION['user']->id) {
   		$title = _("Profile");
-  	else
+	} else {
   		$title = _("My profile");
+	}
 	// Check the previous usr for the back button, if it is a publication details
-  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
+  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate")) {
   	   	print_header_bar('back', "helpPopup", $title); 
-	else
+	} elseif(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+  		print_header_bar("back", false, $title);
+  	} else {
 		print_header_bar("?action=main", "helpPopup", $title);
+  	}
   	   ?>
 	
 	<!-- Page content -->
