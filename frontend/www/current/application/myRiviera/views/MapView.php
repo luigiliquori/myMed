@@ -5,7 +5,6 @@
 	<div data-role="header" data-theme="b" data-position="fixed">
 		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Main menu")?></a>
 		<h1><?php echo APPLICATION_NAME." v1.0 alpha"?></h1>
-		<a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a>
 	</div>
 
 	<!-- CONTENT -->
@@ -22,5 +21,11 @@
 
 	</div>
 
-
+	<div data-role="footer" data-position="fixed" data-theme="d">
+		<div data-role="navbar" data-iconpos="left" >
+			<ul>
+				<li><a href="?action=main#search" data-transition="none" data-icon="search">New search</a></li>
+			</ul>
+		</div>
+	</div>
 </div>

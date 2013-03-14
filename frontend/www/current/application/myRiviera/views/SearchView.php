@@ -5,7 +5,6 @@
 	<div data-role="header" data-theme="b" data-position="fixed">
 		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Back")?></a>
 		<h1><?php echo APPLICATION_NAME." v1.0 alpha"?></h1>
-		<a href="?action=option" data-transition="none" data-icon="search">Option</a>
 	</div>
 	
 	<div id="Itin" style="margin-top: 50px;">
