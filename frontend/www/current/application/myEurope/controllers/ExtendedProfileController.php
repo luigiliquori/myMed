@@ -172,91 +172,74 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->error = _("Organization email field can't be empty");
 			$this->renderView("ExtendedProfileEdit");
 		}
-		$name = $_POST['name'];
-		$email = $_POST['email'];
-		$id = $_POST['id'];
-		$_POST['email']=$_SESSION['user']->email;
-		$_POST['id']=$_SESSION['user']->id;
 		
-		$debugtxt  =  "<pre>UPDATE PROFILE ";
-		$debugtxt  .= var_export($_SESSION['myEurope']->users, TRUE);
-		$debugtxt  .= var_export($_SESSION['myEurope']->reputation, TRUE);
-		$debugtxt .= "</pre>";
-		debug($debugtxt);
-		
-		$pass	= hash("sha512", $_POST['password']);
-		unset($_POST['form']);
-		unset($_POST['password']);
-		if( empty($pass) ){
-			// TODO i18n
-			$this->error = _("Password field can't be empty");
-			$this->renderView("ExtendedProfileEdit");
-		}
-		$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
-		$request->addArgument("login", $_SESSION['user']->login);
-		$request->addArgument("password", $pass);
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
+		if(!isset($_SESSION['userFromExternalAuth'])){ // no update basic profile if from a social network
+			debug("UPDATE BASIC PROFILE");
 			
-		if($responseObject->status != 200) {
-			$this->error = $responseObject->description;
-			$this->renderView("ExtendedProfileEdit");
-		}
-		
-		// update of the profile informations
-		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
-		$_POST['login'] = $_SESSION['user']->email;
-		$profile = array (
-				"id"=>$_POST['id'],
-				"email"=>$_POST['email'],
-				"firstName"=>$_POST['firstName'],
-				"lastName"=>$_POST['lastName'],
-				"name"=>$_POST['name'],
-				"login"=>$_POST['login'],
-				"birthday"=>$_POST['birthday'],
-				"profilePicture"=>$_POST['profilePicture'],
-				"lang"=> $_POST['lang']
-		);
-		unset($_POST['id']);
-		unset($_POST['firstName']);
-		unset($_POST['lastName']);
-		unset($_POST['name']);
-		unset($_POST['birthday']);
-		unset($_POST['profilePicture']);
-		unset($_POST['lang']);
-		unset($_POST['email']);
-		unset($_POST['login']);
-		unset($_POST['password']);// /\ don't store people password! or we could deal with justice
-		
-		$request = new Requestv2(
-			"v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($profile))
-		);
-
-		try {
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
+			$name = $_POST['name'];
+			$email = $_POST['email'];
+			$id = $_POST['id'];
+			$_POST['email']=$_SESSION['user']->email;
+			$_POST['id']=$_SESSION['user']->id;
+			
+			unset($_POST['form']);
+			
+			// update of the profile informations
+			$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+			$_POST['login'] = $_SESSION['user']->email;
+			$profile = array (
+					"id"=>$_POST['id'],
+					"email"=>$_POST['email'],
+					"firstName"=>$_POST['firstName'],
+					"lastName"=>$_POST['lastName'],
+					"name"=>$_POST['name'],
+					"login"=>$_POST['login'],
+					"birthday"=>$_POST['birthday'],
+					"profilePicture"=>$_POST['profilePicture'],
+					"lang"=> $_POST['lang']
+			);
+			unset($_POST['id']);
+			unset($_POST['firstName']);
+			unset($_POST['lastName']);
+			unset($_POST['name']);
+			unset($_POST['birthday']);
+			unset($_POST['profilePicture']);
+			unset($_POST['lang']);
+			unset($_POST['email']);
+			unset($_POST['login']);
+			
+			$request = new Requestv2(
+				"v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($profile))
+			);
 	
-			if($responseObject->status != 200) {
-				throw new Exception($responseObject->description);
-			} else{
-				debug("DESCRIPTION  ".$responseObject->description);
-				$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $profile);
+			try {
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
+		
+				if($responseObject->status != 200) {
+					throw new Exception($responseObject->description);
+				} else{
+					debug("DESCRIPTION  ".$responseObject->description);
+					$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $profile);
+				}
+				
+			} catch (Exception $e){
+				$this->error = $e->getMessage();
+				$this->renderView("ExtendedProfileEdit");
 			}
-			
-		} catch (Exception $e){
-			$this->error = $e->getMessage();
-			$this->renderView("ExtendedProfileEdit");
+			$_POST['name'] = $name; // organization name and not username
+			$_POST['email'] = $email; // organization email != profile email
+			$_POST['id'] = $id;
 		}
-		$_POST['name'] = $name; // organization name and not username
-		$_POST['email'] = $email; // organization email != profile email
-		$_POST['id'] = $id;
+		
 		$_POST['territoryType'] = implode("|", $_POST['territoryType']);
-		debug($_POST['territoryType']);
 		
 		// update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
 		$myrep = $_SESSION['myEurope']->reputation; //and reputation
 		$users = $_SESSION['myEurope']->users; //and user
+		
+		debug_r($_POST);
 		$publish =  new RequestJson($this,
 				array("application"=>APPLICATION_NAME.":profiles", "id"=>$_POST['id'], "user"=>"noNotification", "data"=>$_POST),
 				UPDATE);	
@@ -307,6 +290,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	function showUserProfile($user){
+		debug_r($_SESSION['user']);
 		$user = new User($user);
 		try {
 			$details = $this->mapper->findById($user);

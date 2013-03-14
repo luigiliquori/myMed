@@ -79,6 +79,7 @@ function tab_bar_login($activeTab) {
 				<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
 				Twitter</a>
 			</li>
+			<!-- 
 			<li>
 				<a onclick="$('#openIdForm').submit();" title="OpenID">
 				<img class="ui-li-mymed" src="/system/img/social/openID_32.png" />
@@ -87,6 +88,7 @@ function tab_bar_login($activeTab) {
 				</form>
 				</a>
 			</li>
+			 -->
 			</ul>
 		</div>
 

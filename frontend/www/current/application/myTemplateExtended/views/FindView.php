@@ -26,12 +26,12 @@
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
-				<h3><?= _('Find a publication') ?> :</h3>
+				<h3><?= _('Find a publication by criteria') ?> :</h3>
 			
 	   			<fieldset data-role="controlgroup">
 					<!-- Categoria -->
 					<select name="Category" id="find_category_content" id="call" data-native-menu="false">
-						<option value=""><?= _("Category") ?></option>
+						<option value=""><?= _("Select category") ?></option>
 						<? foreach (Categories::$categories as $k=>$v) :?>
 							<option value="<?= $k ?>"><?= $v ?></option>
 						<? endforeach ?>
@@ -44,11 +44,12 @@
 					
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="organizationBox" id="check-view-a"/> <label for="check-view-a"><?= _("Organization")?></label>
+							<input type="checkbox" name="organizationBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
+							<label for="check-view-a"><?= _("Offering organization")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="organization" id="find_organization_content" id="call" data-native-menu="false">
-								<option value=""></option>
+							<select disabled name="organization" id="find_organization_content" data-native-menu="false" data-overlay-theme="d">
+								<option value=""><?= _('Select organization') ?></option>
 								<? foreach (Categories::$organizations as $k=>$v) :?>
 									<option value="<?= $k ?>"><?= $v ?></option>
 								<? endforeach ?>
@@ -57,17 +58,27 @@
 					</div>
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 						<div class="ui-block-a">
-							<input type="checkbox" name="areaBox" id="check-view-c"/> <label for="check-view-c"><?= _("Area")?></label>
+							<input type="checkbox" onclick="toggle(this, '#find_area_content')" name="areaBox" id="check-view-c"/> 
+							<label for="check-view-c"><?= _("Area")?></label>
 						</div>
 						<div class="ui-block-b">
-							<select name="Area" id="find_area_content" id="call" data-native-menu="false">
-								<option value=""></option>
-									<? foreach (Categories::$areas as $k=>$v) :?>
-										<option value="<?= $k ?>"><?= $v ?></option>
-									<? endforeach ?>
+							<select disabled name="Area" id="find_area_content" data-native-menu="false" data-overlay-theme="d">
+								<option value=""><?= _('Select area') ?></option>
+								<? foreach (Categories::$areas as $k=>$v) :?>
+									<option value="<?= $k ?>"><?= $v ?></option>
+								<? endforeach ?>
 							</select>
 						</div>
 					</div>
+					<script type="text/javascript"> 	
+						function toggle(chkbox, id) {
+						    if(chkbox.checked){
+							    $(id).selectmenu('enable');
+							}else {
+								$(id).selectmenu("disable");
+							}
+						}
+					</script>
 				</div>
 			
 				<div style="text-align: center;">
@@ -90,10 +101,10 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
-							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
-							<b><?= _("Organization") ?></b>: <?= _($item->organization) ?><br/><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
+							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
+							<b><?= _("Area") ?></b>: <?= Categories::$areas[$item->area] ?><br/>
+							<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$item->organization] ?><br/><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
 						<br/>
@@ -118,7 +129,7 @@
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
-								<p style="display:inline; margin-left:35px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+								<p style="display:inline; margin-left:35px; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
 							</p>
 						</p>
 					</a>

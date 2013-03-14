@@ -17,19 +17,19 @@
 	?>
 	
 	<div data-role="content">
-		<br><br>
+		<br>
 		
 		<? if ($_SESSION['myEurope']->permission >=2 && $_GET['user'] == $_SESSION['user']->id) : ?>
 			<div style="text-align: center;">
+				<br>
 				<a href="?action=Admin" data-inline="true" data-role="button" data-icon="gear" data-theme="e"> <?= _("Users list") ?> </a>
 			</div>
-			<br>
 		<? elseif ($_SESSION['myEurope']->permission ==0): ?>
 			<div data-role="header" data-theme="e">
 				<h1 style="white-space: normal;"><?= _("You have to wait the administrator validation to update/delete your profile.") ?></h1>
 			</div> 
 		<? endif ?>
-		
+		<br>
 		<? 
 		$fromDetailView;
 		if($_GET['user'] != $_SESSION['user']->id) $fromDetailView = true;
@@ -52,10 +52,15 @@
 			<br />
 			<? endif; ?>
 		-->	
-			<? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope']) && $_SESSION['myEurope']->permission >0): ?>
-			<br />
+		 <? if ($_GET['user'] == $_SESSION['user']->id && isset($_SESSION['myEurope']) && $_SESSION['myEurope']->permission >0): ?>
+				<br />
 				<a type="button" href="?action=ExtendedProfile&edit=false"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
 				
+				<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+			 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
+					<a type="button" href="?action=UpgradeAccount&method=migrate"  data-theme="g" data-icon="pencil" data-inline="true"><?= _('Create a myMed profile') ?></a>
+			 <? endif; ?>
+		 
 				<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 				
 				<div data-role="popup" id="popupDeleteProfile" class="ui-content" Style="text-align: center; width: 18em;">

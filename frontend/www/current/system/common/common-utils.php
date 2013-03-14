@@ -39,14 +39,15 @@ function insertUser($user, $accessToken, $is_guest=false) {
 	$request = new Requestv2("v2/SessionRequestHandler", UPDATE , array("user"=>$user->id, "accessToken"=>$accessToken));
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
-
+	
 	if($responseObject->status != 200) {
 		$this->error = $responseObject->description;
 		return;
 	} else {
 		$_SESSION['accessToken'] = $responseObject->dataObject->accessToken; // in case was not set yet
 	}
-
+	
+	
 	$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($user)));
 	if ($is_guest) $request->addArgument("temporary", "");
 	$responsejSon = $request->send();

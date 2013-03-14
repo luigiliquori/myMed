@@ -17,51 +17,70 @@ require_once("header.php"); ?>
 		<a class="social" style="background-position: -66px 0px;" href="http://www.facebook.com/pages/MyFSA/122386814581009" title="myFSA on Facebook"></a>
 		<a class="social" style="background-position: 0px 0px;" href="https://twitter.com/my_europe" title="myFSA on Twitter"></a>
 	</span>
-	<? include("notifications.php")?>
 	</div>
 	
 	<div data-role="content"  class="content">
+		<br>
+		<img alt="<?= APPLICATION_NAME ?>" src="img/icon.png" style="height: 50px; margin-top: -15px;" />
+		<h1 style="display: inline-block;vertical-align: 20%;"><?= APPLICATION_NAME ?></h1>
+		<br>
 	
-		<div style="position: absolute; left: 50%; top: 90px;">
-			<img alt="title" src="img/icon.png" height="50"  style="position: relative; margin-left: -150px;" />
-		</div>
-		<div style="position: absolute; left: 50%; top: 73px;">
-			<h1 style="position: relative; left: -40px;"><?= APPLICATION_NAME ?></h1>
-		</div>
-	
-		<form action="?action=login" method="post" data-ajax="false" style="position: relative; top: 120px; height: 400px;">
-			<input type="hidden" name="signin" value="1" />
-		    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/><br />
-		    <input type="password" name="password" id="password" placeholder="Mot de passe"  data-theme="c"/><br />
- 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
+		<form action="?action=login" method="post" data-ajax="false">
+			<div data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true">	
+				<div data-role="collapsible" data-collapsed="false">
+					<h3><?= _("Connection") ?></h3>
+		
+					<input type="hidden" name="signin" value="1" />
+				    
+				    <div style="text-align: left;"><?= _("E-mail")?><b>*</b> :</div>
+				    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
+				    
+				    <div style="text-align: left;"><?= _("Password")?><b>*</b> :</div>
+				    <input type="password" name="password" id="password" placeholder="Mot de passe"  data-theme="c"/>
+		 		    
+		 		    <input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Connect") ?>" />
+				</div>
+			</div>
 		</form>
-			
-		<form action="?action=login" method="post" data-ajax="false" style="position: relative; top: -160px; height: 0px;">
-			<input type="hidden" name="signin" value="1" />
-		    <input type="hidden" name="login" id="login" value="guest_user@yopmail.com"/><br />
-		    <input type="hidden" name="password" id="password" value="1"/><br />
- 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value=" Invite  " />
-		</form>
+		<div style="text-align: center">	
+			<form action="?action=login" method="post" data-ajax="false">
+				<input type="hidden" name="signin" value="1" />
+			    <input type="hidden" name="login" id="login" value="guest_user@yopmail.com"/>
+			    <input type="hidden" name="password" id="password" value="1"/>
+	 		    <input type="submit" data-role="button" data-inline="true" data-mini="true" data-theme="g" data-icon="signin" value="<?= _("Guest")?>" />
+			</form><br>
+			<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Connect with") ?></a>			
+		</div>
 		</br>
 
-		<div data-role="collapsible" data-mini="true" data-collapsed-icon="twitter" data-content-theme="d" data-inline="true" style="position: relative; top: -80px; width:70%; margin: auto;">
-			<h3 style="width: 170px; margin: auto;"><?= translate("Sign in with") ?>: </h3>
+		<!-- Sign in with social network pop up -->
+		<div data-role="popup" id="signinPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
 			<ul data-role="listview">
 			<li>
-				<a href="/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php" title="Google OAuth" rel="external">
+				<a href='/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php' title='Google OAuth' rel='external'>
 				<img class="ui-li-mymed" src="/system/img/social/google_32.png" />
 				Google</a>
 			</li>
 			<li>
-				<a href="/lib/socialNetworkAPIs/facebook/examples/oauth_try.php" title="Facebook OAuth" rel="external">
+				<a href='/lib/socialNetworkAPIs/facebook/examples/oauth_try.php' title='Facebook OAuth' rel='external'>
 					<img class="ui-li-mymed" src="/system/img/social/facebook_32.png" />
 				Facebook</a>
 			</li>
 			<li>
-				<a href="/lib/socialNetworkAPIs/twitter/redirect.php" title="Twitter OAuth" rel="external">
+				<a href='/lib/socialNetworkAPIs/twitter/redirect.php' title='Twitter OAuth' rel='external'>
 				<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
 				Twitter</a>
 			</li>
+			<!-- 
+			<li>
+				<a onclick="$('#openIdForm').submit();" title="OpenID">
+				<img class="ui-li-mymed" src="/system/img/social/openID_32.png" />
+				<form onclick='event.stopPropagation();/* for clicking above and below thetext input without submitting*/' style='padding:8px 0; margin: -15px 0;' id='openIdForm' action='/lib/socialNetworkAPIs/php-openid/examples/consumer-simple/oid_try.php' data-ajax='false'>
+					<input id="openIdProvider" type="text"  name="openid_identifier" value="https://www.google.com/accounts/o8/id" placeholder="" />
+				</form>
+				</a>
+			</li>
+			 -->
 			</ul>
 		</div>
 
