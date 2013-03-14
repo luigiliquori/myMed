@@ -209,7 +209,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	function update() {
 		if(!isset($_SESSION['userFromExternalAuth'])){ // no update basic profile if from a social network
 			debug("UPDATE BASIC PROFILE");
-		
+
 			$_POST['email'] =$_SESSION['user']->email;
 			$id = $_SESSION['myBenevolat']->profile;
 			

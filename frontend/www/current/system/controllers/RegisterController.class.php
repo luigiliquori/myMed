@@ -60,7 +60,9 @@ class RegisterController extends AbstractController {
 			$request = new Requestv2("v2/AuthenticationRequestHandler", CREATE);
 			$request->addArgument("authentication", json_encode($mAuthenticationBean));
 			$request->addArgument("user", json_encode($mUserBean));
-			$request->addArgument("application", APPLICATION_NAME);
+			// TODO Sostituito APPLICATION_NAME con "myMed" 
+			// $request->addArgument("application", APPLICATION_NAME);
+			$request->addArgument("application", "myMed"); 
 			
 			// force to delete existing accessToken
 			unset($_SESSION['accessToken']);

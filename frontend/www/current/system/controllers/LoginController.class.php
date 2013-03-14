@@ -66,7 +66,7 @@ class LoginController extends AbstractController {
 				// Sending request
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
-				
+
 			}
 			
 			// wrong password
@@ -90,6 +90,7 @@ class LoginController extends AbstractController {
 				// Everything went fine, we have now an accessToken in the session
 				$_SESSION['accessToken'] = $responseObject->dataObject->accessToken;
 				
+				// TODO Finding the loosing profile bug
 				// FIX THE LOGIN TO LOWER CASE IF IT'S NEEDED
 				/*if (strtolower($login) != $login) {
 					// create the authentication
@@ -107,6 +108,7 @@ class LoginController extends AbstractController {
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
 				}*/
+				
 				
 				// Set user into $_SESSION
 				$this->getUserFromSession();

@@ -110,40 +110,7 @@ require_once("footer-bar.php");
 			
 			
 			<!-- GRAPH AREA -->
-			<?php
-				$vertical_value_array = array();
-				if($max_tab < 100){
-					$start_value = floor($max_tab/10) * 10; //to the bottom decade
-					for($i=$start_value;$i>0;$i-10){
-						array_push($vertical_value_array,$i);
-					}
-				}
-				if($max_tab < 1000 && $max_tab > 100){
-					$start_value = floor($max_tab/100) * 100;
-					for($i=$start_value;$i>0;$i-100){
-						array_push($vertical_value_array,$i);
-					}
-				}
-				if($max_tab <10000 && $max_tab >1000){
-					$start_value = floor($max_tab/1000) * 1000;
-					for($i=$start_value;$i>0;$i-1000){
-						array_push($vertical_value_array,$i);
-					}
-				}
-				if($max_tab <100000 && $max_tab > 10000){
-					$start_value = floor($max_tab/10000) * 10000;
-					for($i=$start_value;$i>0;$i-10000){
-						array_push($vertical_value_array,$i);
-					}
-				}
-			?>
-			<?php
-				for($j=0;j<count($vertical_value_array);$j++){
-			?>
-			<div>
-				
-			</div>
-			<?php }?>
+			
 			<div Style="position: absolute; width: <?= $sizeGraph ?>%; height: <?= $height ?>px; border: thin black solid; margin-left:3.5%; background-color:white">
 				<?php for($i=0;$i<$nbcol;$i++){
 					$red = ceil(255-(255*$tabrep[$i+1])/$max_tab);
@@ -153,7 +120,7 @@ require_once("footer-bar.php");
 				?>
 					
 					<!-- ENTRY -->
-					<div Style="position: absolute; top: <?= $top ?>px; left: <?= str_replace(",", ".",$i*$sizeBar) ?>%; width: <?= $sizeBar ?>%; height: <?= $height_column?>px; background-color:rgb(<?= $red ?>,<?= $green ?>,0); border: thin black solid;"></div>		
+					<div Style="position: absolute; top: <?= $top ?>px; left: <?= str_replace(",", ".",$i*$sizeBar) ?>%; width: <?= $sizeBar ?>%; height: <?= $height_column?>px; background-color:rgb(<?= $red ?>,<?= $green ?>,0); border: thin black solid;"><?php if($tabrep[$i+1] != 0){echo $tabrep[$i+1];}?></div>		
 				
 					<!-- LEGEND -->
 					<div Style="position: absolute; top: <?= $top + $height_column + 20 ?>px; left: <?= str_replace(",", ".",$i*$sizeBar) ?>%; width: <?= $sizeBar ?>%; text-align: center;"><?= $i+1 ?></div>
