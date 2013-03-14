@@ -117,7 +117,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     //NSLog(@"*** Load failed: %@ (Is loading:%d)", self.url, webView.isLoading);
     //NSLog(@"***              %@", error.localizedDescription);
-    //NSString *s = [MyMedClient GetInstance].html_noConnection;
+    NSString *s = [MyMedClient GetInstance].html_noConnection;
     [self.webview loadHTMLString:s baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     
 }

@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreditsViewController : UITableViewController
+@interface CreditsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, retain) IBOutletCollection(UITableViewCell) NSArray *cellsCons;
 @property (nonatomic, retain) IBOutletCollection(UITableViewCell) NSArray *cellFund;
-
+-(IBAction)action_done:(id)sender;
 @end

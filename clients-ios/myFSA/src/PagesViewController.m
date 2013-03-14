@@ -143,9 +143,9 @@
     Item *i = [self.page.items objectAtIndex:row];
     cell.textLabel.text = i.title;
     cell.detailTextLabel.text = i.url;
-    if (i.url!=nil && [i.url length]>0) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+    //if (i.url!=nil && [i.url length]>0) {
+    //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    //}
 
     return cell;
 }
