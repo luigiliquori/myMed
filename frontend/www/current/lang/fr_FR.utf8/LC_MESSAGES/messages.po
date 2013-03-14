@@ -2599,6 +2599,9 @@ msgstr "Création profil"
 msgid "Hello, This is your first time in myEdu! Please create your extended profile."
 msgstr "Bonjour, c'est votre première venue sur myEdu! Veuillez Créer votre profil étendu."
 
+msgid "Please create your extended profile:"
+msgstr "Veuillez créer votre profil étendu:"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:89
 msgid "Select your category"
 msgstr "Sélectionner votre catégorie"

@@ -12,6 +12,8 @@ class ExtendedProfileController extends AbstractController
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*void*/ function handleRequest(){
+		if(!$_SESSION['ExtendedProfile'])
+			$this->fetchExtendedProfile();
 		
 		if(isset($_POST['lang'])){ // UPDATE LANG
 			$_POST['id'] = $_SESSION['user']->id;
@@ -32,9 +34,6 @@ class ExtendedProfileController extends AbstractController
 					
 				$_SESSION['user'] = (object) array_merge( (array) $_SESSION['user'], $_POST);
 			}
-				
-				
-				
 			$debugtxt  =  "<pre>LANGUUUUUUAGE";
 			$debugtxt  .= var_export($_POST['lang'], TRUE);
 			$debugtxt .= "</pre>";
@@ -47,11 +46,13 @@ class ExtendedProfileController extends AbstractController
 			$this->showProfile();
 		else
 			$this->renderView("ExtendedProfileForm");
-			$this->renderView("ExtendedProfileForm");
+		
+		$this->renderView("ExtendedProfileForm");
 		
 	}	
 	
 	public /*void*/ function storeProfile(){
+		$_SESSION["profileFilled"] = $_POST["profileFilled"];
 		
 		if ($_POST["profileFilled"] == "company") {
 			if(empty($_POST["ctype"])){
@@ -65,6 +66,7 @@ class ExtendedProfileController extends AbstractController
 				$this->renderView("ExtendedProfileForm");
 			}else if(empty($_POST["cnumber"])){
 				$this->error = _("SIRET field can't be empty");
+				debug_r($_SESSION['profileFilled']);
 				$this->renderView("ExtendedProfileForm");
 		    }else{
 				$object = array(
@@ -74,52 +76,56 @@ class ExtendedProfileController extends AbstractController
 						"number" => $_POST["cnumber"]
 				);
 		    }
-
-		}	
-		else if ($_POST["profileFilled"]== "employer") {
-			if(empty($_POST["cname"])){
+		}else if ($_POST["profileFilled"]== "employer") {
+			if(empty($_POST["euniv"])){
 				$this->error = _("University field can't be empty");
 				$this->renderView("ExtendedProfileForm");
-			}else if(empty($_POST["tnumber"])){
+			}else if(empty($_POST["enumber"])){
 				$this->error = _("Student number field can't be empty");
 				$this->renderView("ExtendedProfileForm");
 			}else{
 				$object = array(
-						"type" => $_POST["occupation"],
-						"name" => $_POST["cname"],
-						"address" => $_POST["caddress"],
-						"number" => $_POST["tnumber"]
+						"type" => $_POST["ecampus"],
+						"name" => $_POST["euniv"],
+						"address" => $_POST["estudies"],
+						"number" => $_POST["enumber"]
 				);
 			}
 		
-		}
-		else if ($_POST["profileFilled"] == "guest") {
+		}else if ($_POST["profileFilled"] == "guest") {
 			$object = "guest";
 		}
-
-		$_SESSION["profileFilled"] = $_POST["profileFilled"];
+	
 		$extendedProfile = new ExtendedProfile($_SESSION['user'], $object);
-		
 		$extendedProfile->storeProfile($this);
+		
 		if (!empty($this->error))
 			$this->renderView("ExtendedProfileForm");
 		else {
+			$_SESSION['ExtendedProfile'] = $extendedProfile;
 			$this->success = "Registration completed!";
-			$this->renderView("ExtendedProfile");
+			
+			$this->renderView("ExtendedProfileDisplay");
 		}
 			
 	}
 	
+	public /*void*/ function fetchExtendedProfile(){
+		$result = ExtendedProfile::getExtendedProfile($this, $_SESSION['user']->id);
+	
+		if (!empty($result)){
+			$_SESSION['ExtendedProfile'] = $result;
+		}
+	
+	
+	}
+	
 	public /*void*/ function getExtendedProfile(){
-		
 		ExtendedProfile::getExtendedProfile($_SESSION['user']);
 	}
 	
 	public /*void*/ function showProfile(){
-
-		
-			$this->renderView("ExtendedProfileDisplay");
-
+		$this->renderView("ExtendedProfileDisplay");
 	}
 
 }
