@@ -104,7 +104,7 @@
     pagesNav.tabBarItem.image = [UIImage imageNamed:@"univlist"];
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, checkNav, pagesNav, creditsVc,  nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, pagesNav, checkNav, creditsVc,  nil];
     self.tabBarController.tabBar.tintColor = color;
     self.window.rootViewController = self.tabBarController;
 
