@@ -8,7 +8,11 @@ debug('boo');
 
 require_once(ROOT.'system/config.php');
 
-if(strpos($_SERVER['SERVER_NAME'], 'www')===false){ // http://mymed.fr
+if(strpos($_SERVER['SERVER_NAME'], 'mymed231')!==false){ 	// http://mymed231.sophia.inria.fr
+	define('Google_APP_SECRET', 'AIzaSyBGSatVC_xawZYAwZKlxQ8BVSi2veGEt_E');
+	define('Google_APP_CLIENT_ID', '462264049589.apps.googleusercontent.com');
+	define('Google_APP_CLIENT_SECRET', 'QMjjJRhU6_znBSd0DxPq2kJ-');
+}else if(strpos($_SERVER['SERVER_NAME'], 'www')===false){ // http://mymed.fr
 	define('Google_APP_SECRET', 'AIzaSyDUjDokDbzFpxNKXAj8EXqyWeUrGW06TIk');
 	define('Google_APP_CLIENT_ID', '376803621438.apps.googleusercontent.com');
 	define('Google_APP_CLIENT_SECRET', 'v3qux1l94rOJqCyXS1qMrFhy');

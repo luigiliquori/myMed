@@ -69,7 +69,7 @@
 							<img src="<?= $this->basicProfile['profilePicture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 						</div>
 						<div class="ui-block-b">
-							<p><strong><?= $this->basicProfile['firstName']." ".$this->basicProfile['lastName'] ?></strong></p>
+							<p><strong><?= $this->basicProfile['name'] ?></strong></p>
 							<p><?= $this->basicProfile['birthday'] ?> </p>
 							<p>
 							<?  $lang="";
@@ -87,7 +87,7 @@
 							<img src="<?= $_SESSION['user']->profilePicture ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 						</div>
 						<div class="ui-block-b">
-							<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
+							<p><strong><?= $_SESSION['user']->name ?></strong></p>
 							<p><?= $_SESSION['user']->birthday ?> </p>
 							<p><?
 								$lang= _("Langage not defined");
@@ -200,6 +200,12 @@
 			<br />
 			<!-- Edit profile-->
 			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true" data-ajax="false"><?= _('Edit my profile') ?></a>
+			
+			<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
+				<a type="button" href="?action=UpgradeAccount&method=migrate"  data-theme="g" data-icon="pencil" data-inline="true"><?= _('Create a myMed profile') ?></a>
+		 <? endif; ?>
+			
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<!-- Pop up delete profile -->	

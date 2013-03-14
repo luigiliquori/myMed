@@ -8,6 +8,7 @@
 
 #import "FirstScreenViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ChecklistViewController.h"
 
 @interface FirstScreenViewController ()
 -(IBAction)action_options:(id)sender;
@@ -66,8 +67,8 @@
                                                   delegate:self
                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                     destructiveButtonTitle:nil
-                                         otherButtonTitles:NSLocalizedString(@"Email about this app", nil),
-                       NSLocalizedString(@"myMed web site", nil), nil];
+                                         otherButtonTitles:NSLocalizedString(@"Suggest this app", nil),
+                       NSLocalizedString(@"MyMed web site...", nil), NSLocalizedString(@"myMed Launchpad...", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
 }
@@ -108,7 +109,16 @@
     } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+1)) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr"]];
         return;
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+2)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr/?action=main&method=read"]];
+        return;
     }
+    /*else {
+        ChecklistViewController *checkVc=[[[ChecklistViewController alloc] initWithNibName:@"ChecklistViewController" bundle:nil] autorelease];
+        checkVc.title = NSLocalizedString(@"To do", nil);
+        [self presentModalViewController:checkVc animated:YES];
+        [checkVc release];
+    }*/
 
 }
 

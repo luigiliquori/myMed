@@ -38,8 +38,14 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 					// profile forward him to ExtendedProfileCreate View
 					if (!isset($_SESSION['myTemplateExtended']))
 						$this->renderView("ExtendedProfileCreate");
-					else
-						$this->showUserProfile($_GET['user']);
+					else{
+						if($_GET['user'] != $_SESSION['user']->id){
+							debug("OTHER PROFILE");
+							$this->showOtherProfile($_GET['user']);
+						}else{
+							$this->showUserProfile($_SESSION['user']->id);
+						}
+					}
 					break;
 			}		
 		}
@@ -57,6 +63,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileCreate");
 		}else{
 			debug("Default method");
+			$_GET['user']=$_SESSION['user']->id;
 			$this->showUserProfile($_SESSION['user']->id);
 		}
 	}
@@ -71,26 +78,20 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		if (!$_POST['role']) {
 			$this->error = _("Please specify your category");
 			$this->renderView("ExtendedProfileCreate");
-		} else if(!$_POST['checkCondition']) {
-			$this->error = _("You must accept the terms of use.");
-			$this->renderView("ExtendedProfileCreate");
-		}  
-		
-	
+		}
+
 		// Unset post vale that we don't need
 		unset($_POST['form']);
-		unset($_POST['checkCondition']);
 		
 		// Set id and description
-		$_POST['id'] = hash("md5", time().$_POST['name']);
+		$_POST['id'] = hash("md5", time());
 		$_POST['desc'] = nl2br($_POST['desc']);
 	
 		// Create the new profile
 		$publish =  new RequestJson($this,
 						array("application"=>APPLICATION_NAME.":profiles",
 						"id"=>$_POST['id'], "data"=>$_POST,
-						"metadata"=>array("role"=>$_POST['role'],
-						"name"=>$_POST['name'])),
+						"metadata"=>array("role"=>$_POST['role'])),
 						CREATE);
 		$publish->send();
 	
@@ -108,70 +109,69 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Update an Extended profile 
 	 */
 	function update() {
-		$_POST['email'] =$_SESSION['user']->email;
-		$id = $_SESSION['myTemplateExtended']->profile;
-		
-		$_POST['id'] =$_SESSION['user']->id;
-				
-		$pass = hash("sha512", $_POST['password']);
-		
-		// Unset useless $_POST fields 
-		unset($_POST['form']);
-		unset($_POST['password']);
-		
-		// Password is required
-		if( empty($pass) ){
-			// TODO i18n
-			$this->error = _("Password field can't be empty");
-			$this->renderView("ExtendedProfileEdit");
-		}
-		$request = new Requestv2("v2/AuthenticationRequestHandler", READ);
-		$request->addArgument("login", $_SESSION['user']->login);
-		$request->addArgument("password", $pass);
-		$responsejSon = $request->send();
-		$responseObject = json_decode($responsejSon);
+		if(!isset($_SESSION['userFromExternalAuth'])){ // no update basic profile if from a social network
+			debug("UPDATE BASIC PROFILE");
 			
-		if($responseObject->status != 200) {
-			debug("ERROR1: ".$responseObject->description);
-			$this->error = $responseObject->description;
-			$this->renderView("ExtendedProfileEdit");
-		}
+			$_POST['email'] =$_SESSION['user']->email;
+			$id = $_SESSION['myTemplateExtended']->profile;
+			
+			$_POST['id'] =$_SESSION['user']->id;
+			
+			// Unset useless $_POST fields 
+			unset($_POST['form']);		
+			
+			// Update of the profile informations
+			$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
+			$_POST['login'] = $_SESSION['user']->email;
+			
+			$profile = array (
+					"id"=>$_POST['id'],
+					"email"=>$_POST['email'],
+					"firstName"=>$_POST['firstName'],
+					"lastName"=>$_POST['lastName'],
+					"name"=>$_POST['name'],
+					"login"=>$_POST['login'],
+					"birthday"=>$_POST['birthday'],
+					"profilePicture"=>$_POST['profilePicture'],
+					"lang"=> $_POST['lang']
+			);
+			unset($_POST['id']);
+			unset($_POST['firstName']);
+			unset($_POST['lastName']);
+			unset($_POST['name']);
+			unset($_POST['birthday']);
+			unset($_POST['profilePicture']);
+			unset($_POST['lang']);
+			unset($_POST['email']);
+			unset($_POST['login']);
+			
+			$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($profile)));
+			try {
+				$responsejSon = $request->send();
+				$responseObject = json_decode($responsejSon);
 		
-		// Update of the profile informations
-		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
-		$_POST['login'] = $_SESSION['user']->email;
-		
-		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($_POST)));
-		try {
-			$responsejSon = $request->send();
-			$responseObject = json_decode($responsejSon);
-	
-			if($responseObject->status != 200) {
-				debug("ERROR2: ".$responseObject->description);
-				throw new Exception($responseObject->description);
-			} else{
-				$profile = array ("id"=>$_POST['id'], 
-								  "name"=>$_POST['name'],
-								  "firstName"=>$_POST['firstName'], 
-								  "lastName"=>$_POST['lastName'], 
-								  "birthday"=>$_POST['birthday'], 
-								  "profilePicture"=>$_POST['profilePicture'], 
-								  "lang"=> $_POST['lang']);
-				$_SESSION['user'] = (object) array_merge((array) $_SESSION['user'], $profile);
+				if($responseObject->status != 200) {
+					debug("ERROR2: ".$responseObject->description);
+					throw new Exception($responseObject->description);
+				} else{
+					$_SESSION['user'] = (object) array_merge((array) $_SESSION['user'], $profile);
+				}
+				
+			} catch (Exception $e) {
+				debug("ERROR3: ".$e->getMessage());
+				$this->error = $e->getMessage();
+				$this->renderView("ExtendedProfileEdit");
 			}
 			
-		} catch (Exception $e) {
-			debug("ERROR3: ".$e->getMessage());
-			$this->error = $e->getMessage();
-			$this->renderView("ExtendedProfileEdit");
+			$_POST['id'] = $id;
 		}
-		
-		$_POST['id'] = $id;
 		
 		// Update of the organization profile informations
 		$_POST['desc'] = nl2br($_POST['desc']);
 		$myrep = $_SESSION['myTemplateExtended']->reputation; 
 		$users = $_SESSION['myTemplateExtended']->users;
+		
+		debug_r($_POST);
 		$publish =  new RequestJson(
 						$this,
 						array("application"=>APPLICATION_NAME.":profiles", 
@@ -183,21 +183,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$publish->send();
 		}catch (Exception $e) {
 			debug("ERROR4: ".$e->getMessage());
-		}
-		
-		if ($_POST['name']!= $_SESSION['myTemplateExtended']->details['name'] || 
-			$_POST['role']!=$_SESSION['myTemplateExtended']->details['role']) { 
-			
-			//also update profiles indexes
-			$publish =  new RequestJson(
-							$this,
-							array("application"=>APPLICATION_NAME.":profiles", 
-							"id"=>$_POST['id'], 
-							"user"=>"noNotification", 
-							"metadata"=>array("role"=>$_POST['role'], 
-							"name"=>$_POST['name'])),
-							CREATE);
-			$publish->send();
 		}
 		
 		if (!empty($this->error)) {
@@ -321,7 +306,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->profile->reputation = $this->reputationMap[$user->id];
 			$this->nbrates = $this->noOfRatesMap[$user->id];
 		}
-		
+		debug_r($this->profile->details);
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
@@ -329,9 +314,21 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Show another user Extended profile
 	 */
 	function showOtherProfile($id) {
+		/* basic profile */
+		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$id));
+		$responsejSon = $request->send();
+		$responseObject3 = json_decode($responsejSon);
 		
-		$this->profile = new myTemplateExtendedProfile($id);
+		$this->basicProfile = (array) $responseObject3->dataObject->user;
 		
+		/*Extended profile */
+		$user = new User($id);
+		try {
+			$details = $this->mapper->findById($user);
+		} catch (Exception $e) {
+			$this->redirectTo("main");
+		}
+		$this->profile = new myTemplateExtendedProfile($details['profile']);
 		try {
 			$this->profile->details = $this->mapper->findById($this->profile);
 		} catch (Exception $e) {
@@ -340,10 +337,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Get reputation
 		$this->profile->parseProfile();
-		$this->getReputation($id);
-		$this->profile->reputation = $this->reputationMap[$id];
-		$this->nbrates = $this->noOfRatesMap[$id];
-	
+		if (!empty($details['profile'])){
+			$this->getReputation($id);
+			$this->profile->reputation = $this->reputationMap[$id];
+			$this->nbrates = $this->noOfRatesMap[$id];
+		}
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	

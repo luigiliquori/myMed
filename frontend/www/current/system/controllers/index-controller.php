@@ -86,6 +86,7 @@ function callController(
 
 	} catch (UserError $e) {
 		debug_r($e);
+		debug($e->getMessage());
 		$controller->setError($e->getMessage());
 		$controller->renderView("error");
 	}

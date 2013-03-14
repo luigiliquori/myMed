@@ -72,7 +72,7 @@ static MyMedClient *instance=nil;
 -(NSString *)getHtml_noConnection;
 {
     return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><p style=\"text-align:center\">%@<br/><br/><a href=\"%@\">%@</a></p></body></html>",
-            NSLocalizedString(@"myFSA", nil),
+            NSLocalizedString(@"myEdu", nil),
             NSLocalizedString(@"Server down, or no connection available.", nil),
             WEBAPP_URL,
             NSLocalizedString(@"Reload", nil)];

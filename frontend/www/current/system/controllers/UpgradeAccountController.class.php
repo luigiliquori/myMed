@@ -1,7 +1,6 @@
 <?php 
 
-// TODO: Should be a common controller in /system/controllers/
-class RegisterController extends AbstractController {
+class UpgradeAccountController extends AbstractController {
 	
 	/**
 	 * This will create a temporary Profile with the informations submited by POST and send a confirmation-email.
@@ -9,17 +8,15 @@ class RegisterController extends AbstractController {
 	 */
 	public /*String*/ function handleRequest() { 
 		if(isset($_GET['method'])){
-			if($_GET['method']=='showRegisterView'){
-				$this->renderView("register");
+			if($_GET['method']=='migrate'){
+				$this->renderView("UpgradeAccount");
 			}
 		}
 		
 		// First stage of registration : we receive a POST with all the informations of the user
 		else if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			// Preconditions TODO : i18n of error messages
-			if( empty($_POST['email']) ){
-				$this->error = _("Email field can't be empty");
-			} else if($_POST['password'] != $_POST['confirm']){
+			
+			if($_POST['password'] != $_POST['confirm']){
 				$this->error = _("Passwords do not match");
 			} else if( empty($_POST['password']) ){
 				$this->error = _("Password field can't be empty");
@@ -31,21 +28,21 @@ class RegisterController extends AbstractController {
 			
 			// Error to show => show the register view
 			if (!empty($this->error)) {
-				$this->renderView("register");
+				$this->renderView("UpgradeAccount");
 				return;
 			}
 			
 			// Create the new user
 			$mUserBean = new MUserBean();
 			$email = strtolower(trim($_POST["email"]));
-			$mUserBean->id = "MYMED_" . $email;
+			$mUserBean->id = $_POST["id"];
 			$mUserBean->firstName = $_POST["prenom"];
 			$mUserBean->lastName = $_POST["nom"];
 			$mUserBean->name = $_POST["prenom"] . " " . $_POST["nom"];
 			$mUserBean->email = $email;
 			$mUserBean->login = $email;
 			$mUserBean->birthday = $_POST["birthday"];
-			$mUserBean->profilePicture = $_POST["thumbnail"];
+			$mUserBean->profilePicture = $_POST["profilePicture"];
 			
 			// create the authentication
 			$mAuthenticationBean = new MAuthenticationBean();
@@ -53,16 +50,11 @@ class RegisterController extends AbstractController {
 			$mAuthenticationBean->user = $mUserBean->id;
 			$mAuthenticationBean->password = hash('sha512', $_POST["password"]);
 			
-			/*
-			 * Building the Authentication request to register the new account
-			 * This will create a temporary profile, waiting for e-mail confirmation
-			 */
+			
 			$request = new Requestv2("v2/AuthenticationRequestHandler", CREATE);
 			$request->addArgument("authentication", json_encode($mAuthenticationBean));
 			$request->addArgument("user", json_encode($mUserBean));
-			// TODO Sostituito APPLICATION_NAME con "myMed" 
-			// $request->addArgument("application", APPLICATION_NAME);
-			$request->addArgument("application", "myMed"); 
+			$request->addArgument("application", APPLICATION_NAME);
 			
 			// force to delete existing accessToken
 			unset($_SESSION['accessToken']);
@@ -78,9 +70,12 @@ class RegisterController extends AbstractController {
 				$this->error = $responseObject->description;
 				$this->renderView("register");
 			} else {
+				session_destroy();
+				
 				$this->success = _("An email has been sent to you!");
 				$this->renderView("login");
 			}
+			
 		}
 		
 		// Case where the user click the link on the e-mail to confirm registration 
@@ -94,10 +89,10 @@ class RegisterController extends AbstractController {
 		 
 		} else {
 			$this->error = _("Internal error of registration");
-			$this->renderView("register");
+			$this->renderView("UpgradeAccount");
 		}
 		// Render the register view 
-		$this->renderView("register");
+		$this->renderView("UpgradeAccount");
 		
 	}
 	

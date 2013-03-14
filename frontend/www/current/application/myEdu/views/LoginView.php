@@ -59,6 +59,7 @@
 					<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
 					Twitter</a>
 				</li>
+				<!--
 				<li>
 					<a onclick="$('#openIdForm').submit();" title="OpenID">
 					<img class="ui-li-mymed" src="/system/img/social/openID_32.png" />
@@ -67,6 +68,7 @@
 					</form>
 					</a>
 				</li>
+				-->
 				</ul>
 			</div>
 	

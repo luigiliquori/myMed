@@ -65,27 +65,27 @@
 			<!-- First Name -->
 			<div data-role="fieldcontain">
 				<label for="firstName" style="text-align:right"><?= _("First Name") ?> : </label>
-				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
+				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<!-- Last Name -->
 			<div data-role="fieldcontain">
 				<label for="lastName" style="text-align:right"><?= _("Last Name") ?> : </label>
-				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
+				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<!-- Birthday -->
 			<div data-role="fieldcontain">
-				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
-				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> (jj/mm/aaaa) : </label>
+				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<!-- Profile picture -->
 			<div data-role="fieldcontain">
 				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url): </label>
-				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
+				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<!-- User language -->
 			<div data-role="fieldcontain">
 				<label for="lang" style="text-align:right"><?= _("Language") ?>	: </label>
-				<select id="lang" name="lang">
+				<select id="lang" name="lang" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>>
 					<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
 					<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
 					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
@@ -103,33 +103,29 @@
 			<!-- Description -->
 			<div data-role="fieldcontain">
 				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" style="height: 120px;" name="desc" placeholder="description, commentaires"><?= $_SESSION['myTemplateExtended']->details['desc'] ?></textarea>
+				<textarea id="desc" style="height: 120px;" name="desc"><?= $_SESSION['myTemplateExtended']->details['desc'] ?></textarea>
 			</div>
 			<!-- Fields for role_1 -->
 			<div id="role1field1div" data-role="fieldcontain" class="ui-screen-hidden">
 				<label for="role1field1"  style="text-align:right"><?= _('Role 1 field 1') ?>: </label>
-				<input id="role1field1" name="role1field1" placeholder="Role 1 field 1" value="<?= $_SESSION['myTemplateExtended']->details['role1field1'] ?>"></input>
+				<input id="role1field1" name="role1field1" value="<?= $_SESSION['myTemplateExtended']->details['role1field1'] ?>"></input>
 			</div>
 			<div id="role1field2div" data-role="fieldcontain">
 				<label for="role1field2"  style="text-align:right"><?= _('Role 1 field 2') ?>: </label>
-				<textarea id="role1field2" name="role1field2" style="height: 120px;" placeholder="Role 1 field 2"><?= $_SESSION['myTemplateExtended']->details['role1field2'] ?></textarea>
+				<textarea id="role1field2" name="role1field2" style="height: 120px;"><?= $_SESSION['myTemplateExtended']->details['role1field2'] ?></textarea>
 			</div>
 			<!-- Fields for role_2 -->
 			<div id="role2field1div" data-role="fieldcontain">
 				<label for="role2field1"  style="text-align:right"><?= _('Role 2 field 1') ?>: </label>
-				<input id="role2field1" name="role2field1" placeholder="Role 2 field 1" value="<?= $_SESSION['myTemplateExtended']->details['role2field1'] ?>"></input>
+				<input id="role2field1" name="role2field1" value="<?= $_SESSION['myTemplateExtended']->details['role2field1'] ?>"></input>
 			</div>
 			<div id="role2field2div" data-role="fieldcontain">
 				<label for="role2field2"  style="text-align:right"><?= _('Role 2 field 2') ?>: </label>
-				<textarea id="role2field2" name="role2field2" style="height: 120px;" placeholder="Role 2 field 2"><?= $_SESSION['myTemplateExtended']->details['role2field2'] ?></textarea>
+				<textarea id="role2field2" name="role2field2" style="height: 120px;"><?= $_SESSION['myTemplateExtended']->details['role2field2'] ?></textarea>
 			</div>
 			<br/>
-			<div data-role="fieldcontain">
-				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
-				<input type="password" id="password" name="password" />
-			</div>
 			<div style="text-align: center;">
-				<input type="submit" data-inline="true" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
+				<input type="submit" data-inline="true" data-role="button" data-theme="g" data-icon="ok" value="<?= _('Update') ?>"/>
 			</div>
 		</form>
 		

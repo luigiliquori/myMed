@@ -13,7 +13,7 @@ class ExtendedProfileController extends AbstractController
 	 */
 	public /*void*/ function handleRequest(){
 		
-		if(isset($_POST['lang'])){
+		if(isset($_POST['lang'])){ // UPDATE LANG
 			$_POST['id'] = $_SESSION['user']->id;
 			$_POST['firstName'] = $_SESSION['user']->firstName;
 			$_POST['lastName'] = $_SESSION['user']->lastName;
@@ -55,20 +55,17 @@ class ExtendedProfileController extends AbstractController
 		
 		if ($_POST["profileFilled"] == "company") {
 			if(empty($_POST["ctype"])){
-				//$this->error = _("Company type field can't be empty");
+				$this->error = _("Company type field can't be empty");
 				$this->renderView("ExtendedProfileForm");
 			}else if(empty($_POST["cname"])){
-				//$this->error = _("Company name field can't be empty");
+				$this->error = _("Company name field can't be empty");
 				$this->renderView("ExtendedProfileForm");
 			}else if(empty($_POST["caddress"])){
-				//$this->error = _("Company Address field can't be empty");
+				$this->error = _("Company Address field can't be empty");
 				$this->renderView("ExtendedProfileForm");
 			}else if(empty($_POST["cnumber"])){
-				//$this->error = _("SIRET field can't be empty");
+				$this->error = _("SIRET field can't be empty");
 				$this->renderView("ExtendedProfileForm");
-			//}
-			//if(!empty($this->error) && $fromUpdate==false){
-		    //	$this->renderView("ExtendedProfileForm");
 		    }else{
 				$object = array(
 						"type" => $_POST["ctype"],
@@ -81,14 +78,11 @@ class ExtendedProfileController extends AbstractController
 		}	
 		else if ($_POST["profileFilled"]== "employer") {
 			if(empty($_POST["cname"])){
-				//$this->error = _("University field can't be empty");
+				$this->error = _("University field can't be empty");
 				$this->renderView("ExtendedProfileForm");
 			}else if(empty($_POST["tnumber"])){
-				//$this->error = _("Student number field can't be empty");
+				$this->error = _("Student number field can't be empty");
 				$this->renderView("ExtendedProfileForm");
-			//}
-			//if(!empty($this->error) && $fromUpdate==false){
-			//	$this->renderView("ExtendedProfileForm", "#employer");
 			}else{
 				$object = array(
 						"type" => $_POST["occupation"],
@@ -111,7 +105,7 @@ class ExtendedProfileController extends AbstractController
 			$this->renderView("ExtendedProfileForm");
 		else {
 			$this->success = "Registration completed!";
-			$this->redirectTo("main");
+			$this->renderView("ExtendedProfile");
 		}
 			
 	}

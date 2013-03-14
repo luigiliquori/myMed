@@ -12,9 +12,9 @@ class LoginController extends AbstractController {
 
 		/** authed by social networks apis*/
 		if (isset($_SESSION['userFromExternalAuth'])) {
-
+			debug("from ExternalAuth");
 			$token = isset($_SESSION['accessToken'])?$_SESSION['accessToken']:null;
-			debug_r($_SESSION['user']);
+			
 			$_SESSION['user'] = insertUser($_SESSION['userFromExternalAuth'], $token);
 			$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 			$_SESSION['user']->is_guest = 0;
@@ -26,6 +26,7 @@ class LoginController extends AbstractController {
 		
 		/* Typical login : we received a POST with login and password */
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			debug("POST REQUEST: LOGIN");
 			// Get arguments 
 			$login	= trim($_POST['login']);
 			$pass	= hash("sha512", $_POST['password']);
@@ -52,6 +53,10 @@ class LoginController extends AbstractController {
 			$responsejSon = $request->send();
 			
 			$responseObject = json_decode($responsejSon);
+			
+			debug("AUTHENTIFICATION REQUEST");
+			debug($responsejSon);
+			debug_r($responseObject->dataObject);
 			
 			// the login doesn't exist
 			if($responseObject->status == 404) {
@@ -87,7 +92,7 @@ class LoginController extends AbstractController {
 				
 				// TODO Finding the loosing profile bug
 				// FIX THE LOGIN TO LOWER CASE IF IT'S NEEDED
-				if (strtolower($login) != $login) {
+				/*if (strtolower($login) != $login) {
 					// create the authentication
 					$mAuthenticationBean = new MAuthenticationBean();
 					$mAuthenticationBean->login =  strtolower($login); // LOWER CASE LOGIN
@@ -102,7 +107,7 @@ class LoginController extends AbstractController {
 					// Sending request => Force to create a new account
 					$responsejSon = $request->send();
 					$responseObject = json_decode($responsejSon);
-				}
+				}*/
 				
 				
 				// Set user into $_SESSION
@@ -136,7 +141,11 @@ class LoginController extends AbstractController {
 		// Sending request
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
-	
+		
+		debug("SESSION REQUEST");
+		debug($responsejSon);
+		debug_r($responseObject->dataObject);
+		
 		// In case of errors
 		if($responseObject->status != 200) {
 			$_SESSION['error'] = $responseObject->description;

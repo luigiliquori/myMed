@@ -21,6 +21,9 @@
 		
 		<!-- Tabs -->
 		<? tab_bar("company") ?>
+		
+		<? include_once 'notifications.php'; ?>
+		<? print_notification($this->success.$this->error); ?>
 
 		<form  data-role="content" action="index.php?action=ExtendedProfile" method="post" data-ajax="false">
 				<input type="hidden" name="profileFilled" id="profileFilled" value="company" />
@@ -42,7 +45,7 @@
 				<br>
 				<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 				
-				<center><input type="submit" value="<?= _("Submit") ?>" data-theme="b" data-inline="true" /></center>
+				<center><input type="submit" value="<?= _("Submit") ?>" data-theme="g" data-icon="ok" data-inline="true" /></center>
 		
 		</form>
 	</div>
@@ -78,7 +81,7 @@
 				<br>
 				<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 				
-				<center><input type="submit" value="<?= _("Submit") ?>" data-theme="b" data-inline="true" /></center>
+				<center><input type="submit" value="<?= _("Submit") ?>" data-theme="g" data-icon="ok" data-inline="true" /></center>
 		
 		</form>
 	</div>

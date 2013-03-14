@@ -49,7 +49,7 @@ class Profile extends Entry{
 							<a title="<?= $_SESSION['user']->name ?>"><img src="<?= $_SESSION['user']->profilePicture ?>"style="width: 80px;vertical-align: middle;padding-right: 10px;"></a>
 						</div>
 						<div class="ui-block-b">
-							<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
+							<p><strong><?= $_SESSION['user']->name ?></strong></p>
 							<p><?= $_SESSION['user']->birthday ?> </p>
 							<p><?= $lang?></p>
 							<p><a href="mailto:<?= prettyprintId($_SESSION['user']->id) ?>"><?= prettyprintId($_SESSION['user']->id) ?></a></p>
