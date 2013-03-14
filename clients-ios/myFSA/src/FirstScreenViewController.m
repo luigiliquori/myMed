@@ -67,7 +67,8 @@
                                                   delegate:self
                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                     destructiveButtonTitle:nil
-                                         otherButtonTitles:NSLocalizedString(@"Suggest this app", nil),NSLocalizedString(@"Credits", nil), nil];
+                                         otherButtonTitles:NSLocalizedString(@"Suggest this app", nil),NSLocalizedString(@"Credits", nil), 
+                       NSLocalizedString(@"myMed web site", nil), NSLocalizedString(@"myMed Launchpad", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
 }
@@ -110,7 +111,13 @@
         [self presentViewController:vc animated:YES completion:nil];
         [vc release];
         return;
-    }
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+2)) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr"]];
+            return;
+        } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+3)) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr/?action=main&method=read"]];
+            return;
+        }
 }
 
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
