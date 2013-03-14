@@ -22,10 +22,15 @@
   		$title = _("My profile"); 	
 	// Check the previous usr for the back button, if it is a publication details
   	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&id") || strpos($_SERVER['HTTP_REFERER'],"?action=admin") 
-			|| strpos($_SERVER['HTTP_REFERER'],"?action=Candidature&method=show_all_candidatures") || strpos($_SERVER['HTTP_REFERER'],"?action=Volunteer&method=show_all_volunteers"))
-		print_header_bar('back', "defaultHelpPopup", $title); 
-	else
+			|| strpos($_SERVER['HTTP_REFERER'],"?action=Candidature&method=show_all_candidatures") || strpos($_SERVER['HTTP_REFERER'],"?action=Volunteer&method=show_all_volunteers")) {
+		print_header_bar('back', "defaultHelpPopup", $title);
+  	} elseif(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+			print_header_bar("back", false, $title);
+	} else {
 		print_header_bar("?action=main", "defaultHelpPopup", $title);
+	}
+	
+	
 ?>
 	
 	<!-- Page content -->

@@ -8,8 +8,12 @@
 <div data-role="page" id="createnewprofileview" >
 	
 	<!-- Header bar -->
-	<? $title = _("Choose your profile");
-	   print_header_bar("?action=main", "createprofileHelpPopup", $title); ?>
+	<? 	$title = _("Choose your profile");
+		if(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+			print_header_bar("back", false, $title);
+		} else {
+	   		print_header_bar("?action=main", "createprofileHelpPopup", $title); 
+	   	}?>
 		
 	<!-- Page content -->
 	<div data-role="content">
