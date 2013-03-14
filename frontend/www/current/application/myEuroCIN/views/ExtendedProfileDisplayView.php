@@ -19,14 +19,16 @@
 	<!-- Header bar -->
   	<? 	$title = _("Profile");
   	  	// Check the previous usr for the back button, if it is a publication details
-  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
+  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate")) {
   	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
   	   		print_header_bar('back', "defaultHelpPopup", $title); 
+  	  	} elseif(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+			print_header_bar("back", false, $title);
+		} else {
+	   		print_header_bar("?action=main", "defaultHelpPopup", $title); 
+		}?> 
+  	  	
 
-  	  	else
-  	   		print_header_bar("?action=main", "defaultHelpPopup", $title);
-  	   ?>
-	
 	<!-- Print profile type -->
 	<? if (isset($_SESSION['myEuroCIN']) && $_GET['user'] == $_SESSION['user']->id ){ 
 			if($_SESSION['myEuroCIN']->permission == 2){ ?>
