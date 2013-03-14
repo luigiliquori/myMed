@@ -82,8 +82,6 @@ class ExtendedProfile
 	 */
 	public static /* List of ontologies */ function getExtendedProfile(IRequestHandler $handler, $user){
 		
-		
-		
 		$predicate = "roleExtendedProfile";
 		
 		$find = new FindRequest($handler, $predicate, $user);
