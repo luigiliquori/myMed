@@ -120,6 +120,8 @@ function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) 
 			<a href="/" class="ui-btn-left" data-role="button" rel="external" data-icon="fahome" data-iconpos="notext" data-theme="e">myMed</a>
 		<? elseif ($leftopts == 4): ?>
 			<a href="/?action=logout" class="ui-btn-left" data-role="button" rel="external" data-mini="true" data-icon="signin" data-theme="g" style="max-width: 35%;"><?= _("Sign in") ?></a>
+		<? elseif ($leftopts == 5): // return to store back button ?>
+			<a href="?action=store" data-icon="arrow-left" class="ui-btn-left" style="max-width: 15%;"><?= _("Back") ?></a>
 		<? endif; ?>
 
 		<? if ($rightopts): ?>
