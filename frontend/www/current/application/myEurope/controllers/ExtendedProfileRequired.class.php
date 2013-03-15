@@ -34,7 +34,7 @@ class ExtendedProfileRequired extends GuestController {
 					
 					if ($_SESSION['myEurope']->permission <= 0){
 						// set as guest
-						$_SESSION['acl'] = array('defaultMethod', 'read');
+						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 					} else if ($_SESSION['myEurope']->permission == 1){
 						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 					} else {
