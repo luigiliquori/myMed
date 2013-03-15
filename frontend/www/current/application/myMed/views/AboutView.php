@@ -1,9 +1,22 @@
-<? require_once("header.php"); ?>
+<? require_once("header.php");
+
+function tab_bar_login($activeTab) {
+	if(!function_exists('tabs')) {
+		function tabs($activeTab, $tabs, $opts = false){
+			return tabs_default($activeTab, $tabs, $opts);
+		}
+	}
+	tabs($activeTab, array(
+		array("?action=login", "Sign in", "signin"),
+		array("?action=register&method=showRegisterView", "Create an account", "th-list"),
+		array("#aboutView", "About", "info-sign")
+	));
+}
+?>
 
 <div data-role="page" id="aboutView" >	
 	<!-- Page Header -->
-	<? require_once('header-bar.php');
-	   print_header_bar(true, false); ?>
+	<?php tab_bar_login("#aboutView"); ?>
 	   
 	<div data-role="content" class="content">
 	
@@ -29,3 +42,4 @@
 	</div>
 
 </div>
+<? include_once("footer.php"); ?>

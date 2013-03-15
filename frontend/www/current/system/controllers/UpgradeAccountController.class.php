@@ -57,6 +57,7 @@ class UpgradeAccountController extends AbstractController {
 			$request->addArgument("application", APPLICATION_NAME);
 			
 			// force to delete existing accessToken
+			$token=$_SESSION['accessToken'];
 			unset($_SESSION['accessToken']);
 			
 			// Sending request
@@ -67,8 +68,9 @@ class UpgradeAccountController extends AbstractController {
 			debug_r($responsejSon);
 
 			if($responseObject->status != 200) {
+				$_SESSION['accessToken']=$token;
 				$this->error = $responseObject->description;
-				$this->renderView("register");
+				$this->renderView("UpgradeAccount");
 			} else {
 				session_destroy();
 				

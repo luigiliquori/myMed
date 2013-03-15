@@ -30,7 +30,7 @@
 				<input type="text" name="nom" value="" />
 				<br />
 				<!-- Email -->
-				<label for="email" ><?= _("Email")?><b>*</b> :</label>
+				<label for="email" ><?= _("E-mail")?><b>*</b> :</label>
 				<input type="text" name="email" value="" />
 				<br />
 				<!-- Password -->

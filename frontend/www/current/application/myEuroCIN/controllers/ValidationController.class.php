@@ -42,7 +42,7 @@ class ValidationController extends AuthenticatedController {
 				array_push($this->result, $item);
 			}
 		endforeach;
-		
+		debug_r($this->result);
 		$this->renderView("AllValidations");
 	}
 	
@@ -50,6 +50,9 @@ class ValidationController extends AuthenticatedController {
 	private function accept() {
 		
 		$obj = new myEuroCINPublication();
+		
+		//debug_r($_POST);
+		debug("Enogastronomia: '".$_POST['Enogastronomia']."'");
 		
 		// All required fields are filled, publish it
 		$obj = new myEuroCINPublication();
@@ -66,17 +69,22 @@ class ValidationController extends AuthenticatedController {
 		if( $_POST['Arte_Cultura'] == 'on' ) $obj->Arte_Cultura = "on";
 		if( $_POST['Natura'] == 'on' ) $obj->Natura = "on";
 		if( $_POST['Tradizioni']  == 'on'  ) $obj->Tradizioni = "on";
-		if( $_POST['Enogastronomia'] == 'on'  ) $obj->Enogastronomia = "on";
+		if( $_POST['Enogastronomia'] == 'on'  ){
+			debug("Enogastronomia obj if: ".$_POST['Enogastronomia']);
+			$obj->Enogastronomia = "on";
+		}
 		if( $_POST['Benessere'] == 'on'  ) $obj->Benessere = "on";
 		if( $_POST['Storia'] == 'on' ) $obj->Storia = "on";
 		if( $_POST['Religione'] == 'on' ) $obj->Religione = "on";
 		if( $_POST['Escursioni_Sport'] == 'on' ) $obj->Escursioni_Sport = "on";
 		$obj->validated = "validated";
 		
-		
+		debug("Enogastronomia obj: ".$obj->Enogastronomia);
 		// sets the level of broadcasting in the Index Table
 		$level = 3;
 		$obj->publish($level);
+		
+		debug_r($obj);
 		
 		$msgMail = "";
 		if(!empty($_POST['msgMail'])) $msgMail = _('<br> Attached message by the admin: "').$_POST['msgMail'].'"';

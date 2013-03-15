@@ -343,14 +343,6 @@ msgstr "Val d'Aosta"
 msgid "Monaco"
 msgstr "Monaco"
 
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/ProfileMyMedForm.php:33
-msgid "Vous devez choisir une langue."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionCategoryForm.php:5
-msgid "Titre"
-msgstr ""
-
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myConsolato/views/parts/InstitutionCategoryForm.php:7
 msgid "Description"
 msgstr "Descrizione"
@@ -2015,6 +2007,9 @@ msgstr "Nome della sottoscrizione"
 
 msgid "Select category"
 msgstr "Scegli categoria"
+
+msgid "Select language"
+msgstr "Scegli lingua"
 
 msgid "Select your category"
 msgstr "Scegli la categoria"
