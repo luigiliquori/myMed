@@ -52,7 +52,8 @@ public abstract class CallContract {
 	//protected static final String BACKEND_URL = "https://mymed38.polito.it:8080/backend/"; //Italian backbone.
 	//protected static final String BACKEND_URL = "http://mymed38.polito.it:8081/backend/"; //Italian backbone.
 	//protected static final String BACKEND_URL = "https://mymed39.polito.it:8081/backend/"; //Production backbone.
-	protected static final String BACKEND_URL = "http://mymed22.sophia.inria.fr:8080/backend";
+	//protected static final String BACKEND_URL = "http://mymed22.sophia.inria.fr:8080/backend";
+	protected static final String BACKEND_URL = "http://mymed.fr:8080/backend";
 	protected static final String PROFILE_HANDLER_URL = BACKEND_URL+"ProfileRequestHandler";
 	protected static final String AUTHENTICATION_HANDLER_URL = BACKEND_URL+"AuthenticationRequestHandler";
 	protected static final String SESSION_HANDLER_URL = BACKEND_URL+"SessionRequestHandler";
