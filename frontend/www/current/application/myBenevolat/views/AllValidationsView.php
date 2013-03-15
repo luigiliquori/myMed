@@ -58,7 +58,7 @@
 							<?  $competences = "";
 								if(gettype($item->competences)=="array") $competences = implode(ENUM_SEPARATOR, $item->competences);
 								else $competences = $item->competences; ?>
-								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->id ?>","<?= $item->begin ?>","<?= $item->promue ?>","<?= $item->end ?>","<?= $item->text ?>","<?= $item->title ?>", "<?= $competences ?>", "<?= $item->typeMission ?>", "<?= $item->quartier ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Validate') ?></a>		
+								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->id ?>","<?= $item->begin ?>","<?= $item->promue ?>","<?= $item->end ?>","<?= str_replace('"',"&#39;", $item->text) ?>","<?= $item->title ?>", "<?= $competences ?>", "<?= $item->typeMission ?>", "<?= $item->quartier ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Validate') ?></a>		
 								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->id ?>","<?= $item->publisher ?>","<?= $item->title ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Delete') ?></a>
 							</div>
 						</div>

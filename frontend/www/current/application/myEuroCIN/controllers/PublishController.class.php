@@ -103,7 +103,7 @@ class PublishController extends ExtendedProfileRequired {
 				}
 				
 				// sets the level of broadcasting in the Index Table
-				$level = 3;  
+				$level = 2;  
 				$obj->publish($level);
 	
 				$this->success = _("Your publication offer has been successfully published");

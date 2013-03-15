@@ -301,7 +301,7 @@
 					<!-- SHARE ON Facebook WITH DESC TITLE IMG -->
 					<div style="position: absolute; right: 150px; padding-top:40px;">
 						<script src='http://connect.facebook.net/en_US/all.js'></script>
-						<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= $this->result->text ?>', '<?= str_replace("MYMED_", "", $this->result->publisherID) ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
+						<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= str_replace('"',"&#39;", $this->result->text) ?>', '<?= str_replace("MYMED_", "", $this->result->publisherID) ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
 					</div>
 					
 					<!-- Facebook_APP_ID defined in system/config.php -->
