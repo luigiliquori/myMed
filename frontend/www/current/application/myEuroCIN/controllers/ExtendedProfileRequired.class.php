@@ -55,7 +55,7 @@ class ExtendedProfileRequired extends GuestController {
 					// Set user Access Control Lists
 					if ($_SESSION['myEuroCIN']->permission <= 0){
 						// Guest
-						$_SESSION['acl'] = array('defaultMethod', 'read');
+						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 					} else if ($_SESSION['myEuroCIN']->permission == 1){
 						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 					} else {
