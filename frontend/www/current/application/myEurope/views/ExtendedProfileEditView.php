@@ -15,24 +15,24 @@
 			
 			<div data-role="fieldcontain">
 				<label for="firstName" style="text-align:right"><?= _("First Name") ?> : </label>
-				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
+				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<div data-role="fieldcontain">
 				<label for="lastName" style="text-align:right"><?= _("Last Name") ?> : </label>
-				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
+				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<div data-role="fieldcontain">
-				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
-				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> (jj/mm/aaaa) : </label>
+				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<div data-role="fieldcontain">
 				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url): </label>
-				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
+				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 
 			<div data-role="fieldcontain">
 				<label for="lang" style="text-align:right"><?= _("Language") ?>	: </label>
-				<select id="lang" name="lang">
+				<select id="lang" name="lang" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>>
 					<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
 					<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
 					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
@@ -47,8 +47,8 @@
 			<div data-role="fieldcontain">
 				<label for="role" class="select" style="text-align:right"><?= _("Your category") ?>:</label>
 				<select name="role" id="role">
-				<? foreach (Categories::$roles as $v) :?>
-					<option value="<?= $v ?>" <?= $_SESSION['myEurope']->details['role']==$v?'selected="selected"':'' ?>><?= $v ?></option>
+				<? foreach (Categories::$roles as $k=>$v) :?>
+					<option value="<?= $k ?>" <?= $_SESSION['myEurope']->details['role']==$k?'selected="selected"':'' ?>><?= $v ?></option>
 				<? endforeach ?>
 				</select>
 			</div>
@@ -74,10 +74,14 @@
 			<div data-role="fieldcontain">
 				<fieldset name="type" id="type" data-role="controlgroup">
 					<legend ><p style="text-align:right"><?= _("Territory type")?> : </p></legend>
-					<input type="checkbox" name="type-urbain" id="check-view-a" value="urbain" checked="checked"/> <label for="check-view-a"><?= _("urban")?></label>
-					<input type="checkbox" name="type-rural" id="check-view-b" value="rural" /> <label for="check-view-b"><?= _("rural")?></label>
-					<input type="checkbox" name="type-montagnard" id="check-view-c" value="montagnard" /> <label for="check-view-c"><?= _("mountain")?></label>
-					<input type="checkbox" name="type-maritime" id="check-view-d" value="maritime" /> <label for="check-view-d"><?= _("maritime")?></label>
+				<?  $tokens = explode("|", $_SESSION['myEurope']->details['territoryType']);  
+					foreach (Categories::$territorytype as $k=>$v) :
+						if(in_array($k, $tokens)){ ?>
+							<input type="checkbox" checked name="territoryType[]" id="<?= $k?>" value="<?= $k ?>"><label for="<?= $k?>"><?= $v ?></label>
+					 <? }else{?>
+							<input type="checkbox" name="territoryType[]" id="<?= $k?>" value="<?= $k ?>"><label for="<?= $k?>"><?= $v ?></label>
+					  <?}
+				    endforeach ?>
 				</fieldset>
 			</div>	
 			<div data-role="fieldcontain">
@@ -92,14 +96,9 @@
 				<label for="desc" style="text-align:right"><?= _('Description') ?>: </label>
 				<textarea id="desc" name="desc" placeholder="<?= _("description, comments")?>"><?= $_SESSION['myEurope']->details['desc'] ?></textarea>
 			</div>
-			<br />
-			<div data-role="fieldcontain">
-				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
-				<input type="password" id="password" name="password" />
-			</div>
 			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			<div style="text-align: center;">
-				<input type="submit" data-inline="true" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
+				<input type="submit" data-inline="true" data-theme="g" data-role="button" data-icon="ok" value="<?= _('Update') ?>"/>
 			</div>
 		</form>
 	</div>

@@ -24,6 +24,9 @@ require_once("footer-bar.php");
 	<!-- Footer page with tab bar ?action=stat to highlight the tab -->
 	<? print_footer_bar_main("?action=stat"); ?>
 	
+	<!-- <iframe src="https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a31172274w57882691p59069891/%3Foverview-graphOptions.clearCompareConcept%3Dtrue%26overview-graphOptions.primaryConcept%3Danalytics.visits/"></iframe>-->
+	<iframe src="https://www.google.com/analytics/web/?hl=en#report/visitors-overview/a31172274w57882691p59069891/" style="width:100%; height:900px;"></iframe>
+	
 </div>
 
 <? include_once 'footer.php'; ?>

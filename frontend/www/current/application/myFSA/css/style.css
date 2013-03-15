@@ -98,7 +98,7 @@
 
 .ui-link-inherit {
 	position: relative;
-	left: 70px;
+	/*left: 70px;*/
 	height: 40px;
 } 
 
@@ -210,11 +210,11 @@
 	color: #414141;
 }
 
-
+/*
 h1 {
 	color: #3b6ea0;
 }
-
+*/
 /* Red button theme for JQuery Mobile
 * - Use data-theme="r" for red versions of the default JQuery Mobile Buttons.
 ******************************************************************************************/

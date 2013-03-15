@@ -1,5 +1,3 @@
-<? require_once('notifications.php'); ?>
-
 <div data-role="page">
   
 	<!-- Header bar -->
@@ -27,7 +25,7 @@
 	?>
 	
 	<div data-role="content" >
-	
+		<? require_once('notifications.php'); ?>
 		<?print_notification($this->success.$this->error);?>
 	
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
@@ -151,7 +149,7 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-					<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> <?= _("rates")?> </p>
+					<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> <?= _("rates")?> </p>
 					
 				 <? if ($this->result->publisherID != $_SESSION['user']->id) {
 		    			$date=strtotime(date('d-m-Y'));
@@ -194,7 +192,7 @@
 								<?php } ?>
 							<? } ?>
 						<?php endif; ?>
-						<p style="display:inline; color: #2489CE; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> <?= _("rates")?></p>							
+						<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> <?= _("rates")?></p>							
 						<?php 
 							// A user cannot rate himself
 							if ($this->result->publisherID != $_SESSION['user']->id) {
@@ -223,21 +221,62 @@
 				
 				<br/><br/>
 				
-				<!-- SHARE THIS -->
+				<!-- SHARE ON Twitter -->
 				<div style="position: absolute; right: 24px;">
-				<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
+					<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
     				<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-					</div>
-					
-					<div style="position: absolute; right: 95px;">
-				<g:plusone size="tall"></g:plusone>
-				<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
 				</div>
 				
-				<div style="position: absolute; right: 150px;">
-				<a name="fb_share" type="box_count" share_url="<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" ></a>
-   				<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+				<!-- SHARE ON Google+ -->
+				<div style="position: absolute; right: 95px;">
+					<g:plusone size="tall"></g:plusone>
+					<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
 				</div>
+				
+				<!-- LIKE ON Facebook WITH META DESC TITLE IMG 
+				<div style="position: absolute; right: 150px;">
+					<div class="fb-like" data-href="<?//= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" data-layout="box_count" data-width="450" data-show-faces="true"></div>
+				</div>
+				-->
+				<!-- SHARE ON Facebook WITH DESC TITLE IMG -->
+				<div style="position: absolute; right: 150px; padding-top:40px;">
+					<script src='http://connect.facebook.net/en_US/all.js'></script>
+					<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= $this->result->text ?>', '<?= str_replace("MYMED_", "", $this->result->publisherID) ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
+				</div>
+				
+				<!-- SHARE ACTIVITY ON Facebook
+				<div style="position: absolute; right: 280px;">
+					<div class="fb-shared-activity" data-href="<?//= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" data-layout="box_count"  data-show-faces="true"></div>
+				</div>
+				-->
+				
+				<!-- Facebook_APP_ID defined in system/config.php -->
+				<div id="fb-root"></div>
+			    <script>  
+					window.fbAsyncInit = function() {
+					    FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
+					  };
+				    function postToFeed(url, title, desc, author, appname) {
+				    	FB.login(function(response) {
+				            if (response.authResponse) {
+				            	fbShare(url, title, desc, author, appname);
+				            }
+				        }, {scope: 'publish_stream'});
+				    }
+				      
+				    var fbShare = function(url, title, desc, author, appname) {
+				    	FB.ui({
+					    	method: 'feed',
+					        display: "iframe",
+					        link: url,
+					        picture: 'http://www.mymed.fr/application/myMed/img/logo-mymed-250c.png',
+					        name: (title+" Author: "+author),
+					        caption: appname,
+					        description: desc
+				    	});
+					};
+			    </script>
+ 
 				<div style="height: 80px;"></div>
 	    		<!-- END SHARE THIS -->
 				
@@ -300,9 +339,9 @@
 										
 										<script type="text/javascript">
 											function generate_accept_popup(publisher, pred1,pred2,pred3,author,maxappliers,currentappliers,area,category,locality,organization,end,text,title){
-												$("#popupAccept").html('<?= _("You can attach a message for the applier (or just click on Accept):") ?>\
+												$("#popupAccept").html('<p style="font-size:85%;"><?= _("You can attach a message for the applier (or just click on Accept):") ?></p>\
 													<form action="?action=apply&method=accept" method="POST" data-ajax="false">\
-							 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
+							 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea>\
 										 				<input type="hidden" name="publisher" value="'+publisher+'" />\
 										 				<input type="hidden" name="pred1" value="'+pred1+'" />\
 										 				<input type="hidden" name="pred2" value="'+pred2+'" />\
@@ -318,16 +357,18 @@
 										 				<input type="hidden" name="text" value="'+text+'" />\
 										 				<input type="hidden" name="title" value="'+title+'" />\
 										 				<input data-role="button" type="submit" data-icon="ok" data-theme="g" data-inline="true" value="<?= _('Accept') ?>" />\
-										 			</form>');
+										 			</form>\
+										 			<a href="#" data-role="button" data-inline="true" data-mini="true" data-rel="back" data-direction="reverse"><?= _('Cancel') ?></a>\
+											 		');
 												$("#popupAccept").trigger("create");
 									 			$("#popupAccept").popup("open");
 											}
 
 
 											function generate_refuse_popup(publisher, pred1,pred2,pred3,author,maxappliers,currentappliers,area,category,locality,organization,end,text,title,accepted){
-												$("#popupRefuse").html('<?= _("You can attach a message for the applier (or just click on Refuse):") ?>\
+												$("#popupRefuse").html('<p style="font-size:85%;"><?= _("You can attach a message for the applier (or just click on Refuse):") ?></p>\
 													<form action="?action=apply&method=refuse" method="POST" data-ajax="false">\
-							 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea><br>\
+							 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea>\
 										 				<input type="hidden" name="publisher" value="'+publisher+'" />\
 										 				<input type="hidden" name="pred1" value="'+pred1+'" />\
 										 				<input type="hidden" name="pred2" value="'+pred2+'" />\
@@ -344,7 +385,9 @@
 										 				<input type="hidden" name="title" value="'+title+'" />\
 										 				<input type="hidden" name="accepted" value="'+accepted+'" />\
 										 				<input data-role="button" type="submit" data-icon="ok" data-theme="r" data-inline="true" value="<?= _('Refuse') ?>" />\
-										 			</form>');
+										 			</form>\
+										 			<a href="#" data-role="button" data-inline="true" data-mini="true" data-rel="back" data-direction="reverse"><?= _('Cancel') ?></a>\
+												 	');
 												$("#popupRefuse").trigger("create");
 									 			$("#popupRefuse").popup("open");
 											}

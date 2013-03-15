@@ -28,7 +28,6 @@
 		6320CA7816BEE384001D193D /* HtmlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63425C7716BEB2EC00F2E889 /* HtmlViewController.xib */; };
 		6320CA7916BEE384001D193D /* RemoteHtmlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C8616BEB2F900F2E889 /* RemoteHtmlViewController.m */; };
 		6320CA7A16BEE384001D193D /* RemoteHtmlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63425C8716BEB2F900F2E889 /* RemoteHtmlViewController.xib */; };
-		6320CA7B16BEE384001D193D /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C8916BEB2F900F2E889 /* RestClient.m */; };
 		6320CA7C16BEE384001D193D /* MyMedClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C8116BEB2F900F2E889 /* MyMedClient.m */; };
 		6320CA7F16BEE390001D193D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C7D16BEB2F900F2E889 /* main.m */; };
 		6320CA8116BEE3AC001D193D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 63425C5A16BEB2CD00F2E889 /* Icon-72.png */; };
@@ -82,6 +81,8 @@
 		636AA07B1683388E00258839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA07A1683388E00258839 /* UIKit.framework */; };
 		636AA07D1683388E00258839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA07C1683388E00258839 /* Foundation.framework */; };
 		636AA07F1683388E00258839 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA07E1683388E00258839 /* CoreGraphics.framework */; };
+		6388B82416EBB6AE0004A507 /* hat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6388B82216EBB6AE0004A507 /* hat.png */; };
+		6388B82516EBB6AE0004A507 /* hat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6388B82316EBB6AE0004A507 /* hat@2x.png */; };
 		639F662616C3F9AB00C753AF /* univlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F662416C3F9AB00C753AF /* univlist.png */; };
 		639F662716C3F9AB00C753AF /* univlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F662516C3F9AB00C753AF /* univlist@2x.png */; };
 		639F662E16C44F3600C753AF /* bottomrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F662816C44F3600C753AF /* bottomrow.png */; };
@@ -146,8 +147,6 @@
 		63425C8516BEB2F900F2E889 /* RemoteHtmlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemoteHtmlViewController.h; path = src/RemoteHtmlViewController.h; sourceTree = SOURCE_ROOT; };
 		63425C8616BEB2F900F2E889 /* RemoteHtmlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemoteHtmlViewController.m; path = src/RemoteHtmlViewController.m; sourceTree = SOURCE_ROOT; };
 		63425C8716BEB2F900F2E889 /* RemoteHtmlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RemoteHtmlViewController.xib; path = src/RemoteHtmlViewController.xib; sourceTree = SOURCE_ROOT; };
-		63425C8816BEB2F900F2E889 /* RestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestClient.h; path = src/RestClient.h; sourceTree = SOURCE_ROOT; };
-		63425C8916BEB2F900F2E889 /* RestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestClient.m; path = src/RestClient.m; sourceTree = SOURCE_ROOT; };
 		63425C9A16BEB31800F2E889 /* alcotra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alcotra.png; sourceTree = "<group>"; };
 		63425C9B16BEB31800F2E889 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		63425C9C16BEB31800F2E889 /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background2.jpg; sourceTree = "<group>"; };
@@ -197,6 +196,8 @@
 		637F463416C95DD100E2B330 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = fr; path = fr.lproj/first.html; sourceTree = "<group>"; };
 		637F463516C95DD100E2B330 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		637F463616C95DD100E2B330 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6388B82216EBB6AE0004A507 /* hat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hat.png; sourceTree = "<group>"; };
+		6388B82316EBB6AE0004A507 /* hat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hat@2x.png"; sourceTree = "<group>"; };
 		639F662416C3F9AB00C753AF /* univlist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = univlist.png; sourceTree = "<group>"; };
 		639F662516C3F9AB00C753AF /* univlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "univlist@2x.png"; sourceTree = "<group>"; };
 		639F662816C44F3600C753AF /* bottomrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomrow.png; sourceTree = "<group>"; };
@@ -292,6 +293,8 @@
 		63425C9916BEB31800F2E889 /* imgs */ = {
 			isa = PBXGroup;
 			children = (
+				6388B82216EBB6AE0004A507 /* hat.png */,
+				6388B82316EBB6AE0004A507 /* hat@2x.png */,
 				639F662816C44F3600C753AF /* bottomrow.png */,
 				639F662916C44F3600C753AF /* bottomrow@2x.png */,
 				639F662A16C44F3600C753AF /* row.png */,
@@ -453,8 +456,6 @@
 		63FA97AA16A86F29002337CB /* model */ = {
 			isa = PBXGroup;
 			children = (
-				63425C8816BEB2F900F2E889 /* RestClient.h */,
-				63425C8916BEB2F900F2E889 /* RestClient.m */,
 				63425C8016BEB2F900F2E889 /* MyMedClient.h */,
 				63425C8116BEB2F900F2E889 /* MyMedClient.m */,
 				63425C6816BEB2DC00F2E889 /* conf.h */,
@@ -603,6 +604,8 @@
 				639F663116C44F3600C753AF /* row@2x.png in Resources */,
 				639F663216C44F3600C753AF /* toprow.png in Resources */,
 				639F663316C44F3600C753AF /* toprow@2x.png in Resources */,
+				6388B82416EBB6AE0004A507 /* hat.png in Resources */,
+				6388B82516EBB6AE0004A507 /* hat@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +646,6 @@
 				6320CA7616BEE384001D193D /* CreditsViewController.m in Sources */,
 				6320CA7716BEE384001D193D /* HtmlViewController.m in Sources */,
 				6320CA7916BEE384001D193D /* RemoteHtmlViewController.m in Sources */,
-				6320CA7B16BEE384001D193D /* RestClient.m in Sources */,
 				6320CA7C16BEE384001D193D /* MyMedClient.m in Sources */,
 				6320CA7F16BEE390001D193D /* main.m in Sources */,
 				63056C8C16C161ED0044E167 /* NavigationModel.m in Sources */,

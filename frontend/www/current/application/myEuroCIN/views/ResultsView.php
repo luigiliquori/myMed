@@ -9,7 +9,7 @@
 	
 	<!-- Header bar -->
 	<? $title=_("Results");
-	print_header_bar(true, false, $title); ?>
+	print_header_bar('?action=Find&search=true', false, $title); ?>
 	
 	
 	<!-- Page content -->
@@ -27,13 +27,20 @@
 				<li>
 					<!-- Print Publisher reputation -->
 					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
-						<h3><?= _("Title")?> : <?= $item->title ?></h3>
+						<h3><?= _("Title")?> : <?= $item->data ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _("Category") ?></b>: <?= _($item->category) ?><br/>
-							<b><?= _("Area") ?></b>: <?= _($item->area) ?><br/>
-							<b><?= _("Organization") ?></b>: <?= _($item->organization) ?><br/><br/>
-							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/>
+							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->Nazione] ?><br/>
+							<b><?= _("Language") ?></b>: <?= Categories::$languages[$item->Lingua] ?><br/>
+							<b><?= _("Categories") ?></b>: 
+							<? if( isset($item->Arte_Cultura) ) echo _("Art/Cultur "); ?> 
+							<? if( isset($item->Natura) ) echo _("Nature "); ?>
+							<? if( isset($item->Tradizioni) ) echo _("Traditions "); ?>
+							<? if( isset($item->Enogastronomia) ) echo _("Enogastronimy "); ?>
+							<? if( isset($item->Benessere) ) echo _("Wellness "); ?>
+							<? if( isset($item->Storia) ) echo _("History "); ?>
+							<? if( isset($item->Religione) ) echo _("Religion "); ?>
+							<? if( isset($item->Escursioni_Sport) ) echo _("Sport "); ?>
 						</p>
 						
 						<br/>
@@ -57,7 +64,7 @@
 										<?php } ?>
 									<? } ?>
 								<?php endif; ?>
-								<p style="display:inline; margin-left:55px;  color: #2489CE; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
+								<p style="display:inline; margin-left:55px; font-size:80%;"> <?php echo $this->noOfRatesMap[$item->getPredicateStr().$item->publisherID] ?> rates </p>
 							</p>
 						</p>
 						

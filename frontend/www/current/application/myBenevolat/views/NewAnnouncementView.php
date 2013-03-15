@@ -77,13 +77,13 @@
 				
 				<h3><?= _("Practical information") ?> :</h3>
 				
-				<select name="quartier" id="quartier" data-native-menu="false">
+				<select name="quartier" id="quartier" data-native-menu="false" data-overlay-theme="d">
 					<option value=""> <?= _("District")?><b>*</b></option>
 					<? foreach (Categories::$mobilite as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 				</select>
-				<select name="mission" id="mission" data-native-menu="false">
+				<select name="mission" id="mission" data-native-menu="false" data-overlay-theme="d">
 					<option value=""> <?= _("Mission type")?><b>*</b></option>
 					<? foreach (Categories::$missions as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>

@@ -17,8 +17,12 @@
   	
   	 
 	<!-- Page header bar -->
-	<? $title = _("Create profile");
-	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
+	<? 	$title = _("Create profile");
+		if(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+			print_header_bar("back", false, $title);
+		} else {
+	   		print_header_bar("?action=main", "defaultHelpPopup", $title); 
+		}?>
 	
 	   
 	<!-- Notification pop up -->
@@ -39,30 +43,32 @@
 		<!-- Create extended profile form -->
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
 			
-			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile -->
+			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile 
 			<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
 			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
 			<input type="hidden" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
 			<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
 			<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
+			-->
 			
 			<!-- Phone -->		
 			<div data-role="fieldcontain">
-				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?>: </label>
-				<input id="textinputu6" name="phone" placeholder="" value='' type="tel" />
+				<label for="textinputu6" style="text-align:right"><?= _('Phone') ?><b>*</b> : </label>
+				<input id="textinputu6" name="phone" placeholder="00 00 00 00 00" type="tel" />
 			</div>
 			<!-- Description -->
 			<div data-role="fieldcontain">
-				<label for="desc"  style="text-align:right"><?= _('Description / <br/> Notes') ?>: </label>
-				<textarea id="desc" name="desc" placeholder="description, commentaires" style="height:120px;"></textarea>
+				<label for="desc"  style="text-align:right"><?= _('Description / Notes') ?><b>*</b> : </label>
+				<textarea id="desc" name="desc" style="height:120px;"></textarea>
 			</div>
-			<br/>
-			<!-- Accept terms and conditions -->
+			<!-- Accept terms and conditions 
 			<input id="service-term" type="checkbox" name="checkCondition" style="display: inline-block; top: 8px;"/>
 			<span style="display:inline-block;margin-left: 40px;">
 				<?= _("I accept the ")?>
 				<a href="../myMed/doc/CGU_fr.pdf" rel="external"><?= _("general terms and conditions")?></a>
 			</span>
+			-->
+			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-theme="e" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
 			</div>

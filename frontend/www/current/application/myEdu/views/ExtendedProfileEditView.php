@@ -67,27 +67,27 @@
 			<!-- First Name -->
 			<div data-role="fieldcontain">
 				<label for="firstName" style="text-align:right"><?= _("First Name") ?> : </label>
-				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
+				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<!-- Last Name -->
 			<div data-role="fieldcontain">
 				<label for="lastName" style="text-align:right"><?= _("Last Name") ?> : </label>
-				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
+				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<!-- Birthday -->
 			<div data-role="fieldcontain">
-				<label for="birthday" style="text-align:right"><?= _("Date of birth") ?> : </label>
-				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+				<label for="birthday" style="text-align:right"><?= _("Date of birth") ?> (jj/mm/aaaa) : </label>
+				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<!-- Profile picture -->
 			<div data-role="fieldcontain">
-				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url): </label>
-				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
+				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url) : </label>
+				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			<!-- User language -->
 			<div data-role="fieldcontain">
 				<label for="lang" style="text-align:right"><?= _("Language") ?>	: </label>
-				<select id="lang" name="lang">
+				<select id="lang" name="lang" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>>
 					<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
 					<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
 					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
@@ -104,7 +104,7 @@
 			<!-- Description -->
 			<div data-role="fieldcontain">
 				<label for="desc"  style="text-align:right"><?= _('Description') ?>: </label>
-				<textarea id="desc" style="height: 120px;" name="desc" placeholder="description, commentaires"><?= $_SESSION['myEdu']->details['desc'] ?></textarea>
+				<textarea id="desc" style="height: 120px;" name="desc"><?= $_SESSION['myEdu']->details['desc'] ?></textarea>
 			</div>
 			<!-- For Students: student number -->
 			<div id="studentnumberfield" data-role="fieldcontain" class="ui-screen-hidden">
@@ -138,10 +138,6 @@
 			</div>
 			<div data-role="fieldcontain">
 				<label for="siret"  style="text-align:right"><b>*</b>: <i><?= _("Mandatory fields")?></i></label>
-			</div>
-			<div data-role="fieldcontain">
-				<label for="password" style="text-align:right"><?= _("Password") ?> :</label>
-				<input type="password" id="password" name="password" />
 			</div>
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-role="button" data-icon="ok" data-theme="g" value="<?= _('Update') ?>"/>

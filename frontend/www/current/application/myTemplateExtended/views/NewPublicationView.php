@@ -30,7 +30,7 @@
 			<input type="hidden" id="area" name="area" value="" />
 			<input type="hidden" id="category" name="category" value="" />
 			<input type="hidden" id="organization" name="organization" value="" />
-			<input type="hidden" id="date" name="date" value="" />
+			<input type="hidden" id="end" name="end" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to publish") ?> ?</h3>
@@ -41,11 +41,11 @@
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Publish your project') ?> :</h3>
 				
-				<h3><?= _('Title') ?> : </h3>
+				<h3><?= _('Title') ?><b>*</b> : </h3>
 				<input id="textinputp3" class="postTitle" data-inline="true" name="title"
 					placeholder="<?= _("Publication title goes here") ?>" value='' type="text" />
 				
-				<h3><?= _('Date of expiration') ?> :</h3>
+				<h3><?= _('Deadline') ?><b>*</b> :</h3>
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
 					<select id="publish_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
@@ -67,7 +67,7 @@
 					</select>
 				</fieldset>
 					
-				<h3><?= _('Enter a text description for your publication') ?> :</h3>
+				<h3><?= _('Description') ?><b>*</b> :</h3>
 				<textarea id="text" name="text"></textarea>
 				<script type="text/javascript">
 					// Init cle editor on pageinit
@@ -78,9 +78,9 @@
 				
 				<br />
 				
-				<h3><?= _('Other information') ?> :</h3>
+				<h3><?= _('Other criteria') ?>:</h3>
 					<select name="area" id="area" data-native-menu="false">
-					<option value=""> <?= _("Area")?> </option>
+					<option value=""> <?= _("Area")?><b>*</b></option>
 					<? foreach (Categories::$areas as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
@@ -91,21 +91,20 @@
 									$('#maxappliersdiv').show();
 								} else {
 									$('#maxappliersdiv').hide();
-								}
-								
+								}	
 					" >
-						<option value=""> <?= _("Category")?> </option>
+						<option value=""> <?= _("Category")?><b>*</b></option>
 					<? foreach (Categories::$categories as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
 					<div data-role="fieldcontain" id="maxappliersdiv" name="maxappliersdiv" style="text-align:right; display: none; margin-right:30px;">
-						<label for="maxappliers" ><?=_(" Max course appliers number: "); ?></label>
+						<label for="maxappliers" ><?=_("Max course appliers number"); ?>:</label>
 	    				<input type="text" name="maxappliers" id="maxappliers" value="30" style="width:80px; text-align:right;"/>
 					</div>
 					<input type="hidden" id="currentappliers" name="currentappliers" value="-1" />
 					<select name="organization" id="organization" data-native-menu="false">
-						<option value=""> <?= _("Organization")?> </option>
+						<option value=""> <?= _("Organization")?><b>*</b></option>
 					<? foreach (Categories::$organizations as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
@@ -115,7 +114,7 @@
 			
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-icon="check" data-theme="g" value="<?=_('Publish') ?>" onclick="
-					$('#date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
+					$('#end').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
 				"/>
 			</div>
 	

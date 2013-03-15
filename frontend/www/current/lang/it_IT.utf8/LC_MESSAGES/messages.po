@@ -22,6 +22,67 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: /home/m3phistos/git/lognet-mymed/frontend/www/current/application\n"
 
+
+msgid "AboutmyFSA"
+msgstr "Il progetto myMed nasce da una duplice constatazione: l'esistenza di un enorme potenziale di sviluppo di attività economiche nella zona transfrontaliera, oggetto dell’azione Alcotra e la stridente mancanza d'infrastrutture tecnicamente avanzate che ne permettano uno sviluppo armonioso. L'iniziativa myMed é frutto di una  collaborazione preesistente da più di 15 anni tra l’Istituto Nazionale di Ricerca in Informatica e Automatica (INRIA) di Sophia Antipolis e il Politecnico di Torino, ai quali si sono aggiunti altri due partner: l’Università di Torino e l’Università del Piemonte Orientale."
+
+msgid "Localize"
+msgstr "Localizza"
+
+msgid "Company address"
+msgstr "Indirizzo dell'società"
+
+msgid "Trade Reg. No.-SIRET"
+msgstr "Partita IVA"
+
+msgid "Campus"
+msgstr "Campo"
+
+msgid "Field of Studies"
+msgstr "Branca studi"
+
+msgid "Employer/Student"
+msgstr "Impiegato/Studente"
+
+msgid "Guest"
+msgstr "Invitato"
+
+msgid "After sign in as a guest you cannot use all options in myFSA"
+msgstr "Iscrivendosi come invitato potrà utilizzare solamente alcune opzioni di myFSA"
+
+msgid "To use all options of myFSA please fill your profile"
+msgstr "Per utilizzare tutte le funzionalità di myFSA vogliate perfavore completare il vostro profilo"
+
+msgid "Fill your profile"
+msgstr "Completare profilo"
+
+msgid "Submit"
+msgstr "Inoltra"
+
+msgid "Events"
+msgstr "Eventi"
+
+msgid "News"
+msgstr "News"
+
+msgid "Job offers"
+msgstr "Offerte d'impiego"
+
+msgid "Internship offers"
+msgstr "Offerte tirocinio"
+
+msgid "Rent Offices"
+msgstr "Uffici in affitto"
+
+msgid "Company visits"
+msgstr "Visite in società"
+
+msgid "Advanced searching"
+msgstr "Ricerca avanzata"
+
+msgid "Text"
+msgstr "Testo"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/LoginView.php:19
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/_LoginView.php:19
 #, fuzzy
@@ -195,8 +256,8 @@ msgid "About you"
 msgstr "Informazioni generali"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:58
-msgid "Your applications"
-msgstr "Le vostre applicazioni"
+msgid "Profile in your applications"
+msgstr "Profilo nelle vostre applicazioni"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/controllers/MainController.class.php:47
 msgid ""
@@ -1101,6 +1162,24 @@ msgstr "reputazione"
 
 msgid "Reputation"
 msgstr "Reputazione"
+
+msgid "Announcement reputation"
+msgstr "Annuncio reputazione"
+
+msgid "Rate announcement"
+msgstr "Valutare annuncio"
+
+msgid "Association reputation"
+msgstr "Associazione reputazione"
+
+msgid "Rate association"
+msgstr "Valutare associazione"
+
+msgid "New associations waiting for validation"
+msgstr "Nuove associazioni in attesa di convalida"
+
+msgid "Validated associations"
+msgstr "associazioni convalidati"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEurope_v1.0/views/ResultsView.php:22
 msgid "Subscribe to:"
@@ -2090,7 +2169,7 @@ msgstr "Insegnante e-mail"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:140
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:131
 msgid "Company type"
-msgstr "Tipologia di azienda"
+msgstr "Tipologia di società"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileEditView.php:145
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:136
@@ -2200,7 +2279,7 @@ msgstr "Numero studente"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:91
 msgid "Company Type"
-msgstr "Tipo di azienda"
+msgstr "Tipo di società"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileDisplayView.php:92
 msgid "Siret"
@@ -2216,6 +2295,9 @@ msgstr "Sei sicuro di voler eliminare il tuo profilo ?"
 
 msgid "Are you sure you want to delete your profile ?"
 msgstr "Sei sicuro di voler eliminare il tuo profilo ?"
+
+msgid "Are you sure you want to delete this association?"
+msgstr "Sei sicuro di voler eliminare questa associazione?"
 
 msgid "Are you sure ?"
 msgstr "Sei sicuro ?"
@@ -2306,10 +2388,25 @@ msgid "Refuse"
 msgstr "Rifiutare"
 
 msgid "You can attach a message for the applier:"
-msgstr "Puoi allegare un messaggio:"
+msgstr "Puoi allegare un messaggio per il candidato:"
 
-msgid "You can attach a message for the association:"
-msgstr "Puoi allegare un messaggio:"
+msgid "You can attach a message to inform the association (or just click on Delete):"
+msgstr "Puoi allegare un messaggio per informare questa associazione (o semplicemente fare clic su Cancellare):"
+
+msgid "You can attach a message to inform the association (or just click on Validate):"
+msgstr "Puoi allegare un messaggio per questa associazione (o semplicemente fare clic su Validare):"
+
+msgid "You can attach a message for the applier (or just click on Refuse):"
+msgstr "Puoi allegare un messaggio per informare il candidato (o semplicemente fare clic su Rifiutare):"
+
+msgid "You can attach a message for the applier (or just click on Accept):"
+msgstr "Puoi allegare un messaggio per il candidato (o semplicemente fare clic su Accettare):"
+
+msgid "You can attach a message for the applier (or just click on Validate):"
+msgstr "Puoi allegare un messaggio per il candidato (o semplicemente fare clic su Validare):"
+
+msgid "You can attach a message for the applier (or just click on Delete):"
+msgstr "Puoi allegare un messaggio per il candidato (o semplicemente fare clic su Cancellare):"
 
 msgid "My publications"
 msgstr "Le mie pubblicazioni"
@@ -2454,6 +2551,9 @@ msgstr "<b>In attesa di convalida applicazione</b>"
 msgid "Are you sure you want to delete this announcement?"
 msgstr "Sei sicuro di voler cancellare questo annuncio?"
 
+msgid "Announcement name"
+msgstr "Annuncio nome"
+
 msgid "<b>Member to this offer</b>"
 msgstr "<b>Membri a questa offerta</b>"
 
@@ -2505,7 +2605,7 @@ msgid "Courses field can't be empty"
 msgstr "Corsi campo non può essere vuoto"
 
 msgid "Company type field can't be empty"
-msgstr "Tipologia di azienda campo non può essere vuoto"
+msgstr "Tipologia di società campo non può essere vuoto"
 
 msgid "SIRET field can't be empty"
 msgstr "PARTITA IVA campo non può essere vuoto"
@@ -2757,6 +2857,9 @@ msgstr "Profili"
 #, fuzzy
 msgid "Programme"
 msgstr "Programma"
+
+msgid "Disponibility"
+msgstr "Disponibilità"
 
 msgid "Please specify your category"
 msgstr "Grazie di specificare la categoria"
@@ -3399,14 +3502,6 @@ msgstr ""
 
 #~ msgid "Company name"
 #~ msgstr "Nome dell'azienda"
-
-#, fuzzy
-#~ msgid "Company address"
-#~ msgstr "Nome dell'azienda"
-
-#, fuzzy
-#~ msgid "Company visits"
-#~ msgstr "Azienda"
 
 #~ msgid "Admin"
 #~ msgstr "Admin"

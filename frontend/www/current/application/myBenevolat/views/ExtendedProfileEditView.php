@@ -28,7 +28,6 @@
 	   </div>
 	   
 		<!-- Extended profile edit form -->
-		<!-- Final wizard form -->
 		<form action="?action=ExtendedProfile&method=update" id="updateProfileForm" method="POST" data-ajax="false" >
 						
 			<input type="hidden" name="id" value="<?= $_SESSION['myBenevolat']->profile ?>" />
@@ -48,7 +47,7 @@
 	  						$('#associationname').show();
 	  						$('#siretdiv').show();
 	  						$('#websitediv').show();
-	  						$('#birthdaydiv').hide();
+	  						//$('#birthdaydiv').hide();
 	  						$('#sexdiv').hide();
 	  						$('#workdiv').hide();
 	  						$('#mobilitediv').hide();	
@@ -63,31 +62,31 @@
 			<!-- First Name -->
 			<div data-role="fieldcontain">
 				<label for="firstName" style="text-align:right"><?= _("First Name") ?> : </label>
-				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
+				<input type="text" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			
 			<!-- Last Name -->
 			<div data-role="fieldcontain">
 				<label for="lastName" style="text-align:right"><?= _("Last Name") ?> : </label>
-				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
+				<input type="text" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			
 			<!-- Birthday -->
 			<div data-role="fieldcontain" id="birthdaydiv" >
-				<label for="birthday" style="text-align:right"><?= _("Birthday") ?> : </label>
-				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
+				<label for="birthday" style="text-align:right"><?= _("Date of birth") ?> (jj/mm/aaaa) : </label>
+				<input type="text" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			
 			<!-- Profile picture -->
 			<div data-role="fieldcontain">
-				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url): </label>
-				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" />
+				<label for="profilePicture" style="text-align:right"><?= _("Profile picture") ?> (url) : </label>
+				<input type="text" id="profilePicture" name="profilePicture" value="<?= $_SESSION['user']->profilePicture ?>" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>/>
 			</div>
 			
 			<!-- User language -->
 			<div data-role="fieldcontain">
 				<label for="lang" style="text-align:right"><?= _("Language") ?>	: </label>
-				<select id="lang" name="lang">
+				<select id="lang" name="lang" <?= (isset($_SESSION['userFromExternalAuth']))? "disabled" : "" ?>>
 					<option value="fr" <?= $_SESSION['user']->lang == "fr" ? "selected" : "" ?>><?= _("French")?></option>
 					<option value="it" <?= $_SESSION['user']->lang == "it" ? "selected" : "" ?>><?= _("Italian")?></option>
 					<option value="en" <?= $_SESSION['user']->lang == "en" ? "selected" : "" ?>><?= _("English")?></option>
@@ -165,7 +164,7 @@
 	  <?php if($_SESSION['myBenevolat']->details['type'] == 'volunteer'):?>
 					<?= _("Your skills (1 to 4)")?> <b>*</b> : 
 				<?else:?>
-					<?= _("The skills you need")?> <b>*</b> : 
+					<?= _("The skills you need (1 to 4)")?> <b>*</b> : 
 				<?endif;?>
 				</h1>
 			</div>	
@@ -197,8 +196,9 @@
 
 	    	<!-- Only Volunteer fields -->	    	
 	    	<!-- Mobilite list -->
-			<br/><br/>
+			
 			<div id="mobilitediv">
+				<br/><br/>
 				<div class="ui-bar ui-bar-e" data-theme="e">
 					<h1 style="white-space: normal;">
 						<?= _("Your district")?> <b>*</b> :
@@ -211,9 +211,10 @@
 					<label for="<?=$k?>"> <?=$v?> </label>
 			 <? endforeach ?>
 	    	</div>
-	    	<br/><br/>
+	    	
 	    	<!-- Disponibility list -->
 	    	<div id="dispodiv">
+	    		<br/><br/>
 				<div class="ui-bar ui-bar-e" data-theme="e">
 					<h1 style="white-space: normal;">
 						<?= _("Your disponibility")?> <b>*</b> :
@@ -227,14 +228,8 @@
 			 <? endforeach ?>
 	    	</div>
 			<!-- END Only Volunteer fields-->	
-			
+			<br />
 			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
-
-			<div data-role="fieldcontain">
-				<!-- Password -->
-				<label for="password" style="text-align:right"><?= _("Password") ?>:</label>
-				<input type="password" id="password" name="password" />
-			</div>
 			
 			<!-- MyMed basic profile fields -->
 			<input type="hidden" id="email_h" name="email" value="<?= $_SESSION['user']->email ?>" />
@@ -402,8 +397,8 @@
 						return false;
 					}
 					var n_competences = $("input[name*=competences]:checked").size(); 
-					if(!(n_competences>=1)) {
-						warningPopUp('Choose at least one competence you need');
+					if(!(n_competences>=1 && n_competences<=4)) {
+						warningPopUp('You must choose from 1 to 4 skills');
 						return false;
 					}
 					var n_missions = $("input[name*=missions]:checked").size(); 

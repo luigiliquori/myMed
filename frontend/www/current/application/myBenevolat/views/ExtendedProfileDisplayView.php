@@ -22,10 +22,15 @@
   		$title = _("My profile"); 	
 	// Check the previous usr for the back button, if it is a publication details
   	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&id") || strpos($_SERVER['HTTP_REFERER'],"?action=admin") 
-			|| strpos($_SERVER['HTTP_REFERER'],"?action=Candidature&method=show_all_candidatures") || strpos($_SERVER['HTTP_REFERER'],"?action=Volunteer&method=show_all_volunteers"))
-		print_header_bar('back', "defaultHelpPopup", $title); 
-	else
+			|| strpos($_SERVER['HTTP_REFERER'],"?action=Candidature&method=show_all_candidatures") || strpos($_SERVER['HTTP_REFERER'],"?action=Volunteer&method=show_all_volunteers")) {
+		print_header_bar('back', "defaultHelpPopup", $title);
+  	} elseif(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+			print_header_bar("back", false, $title);
+	} else {
 		print_header_bar("?action=main", "defaultHelpPopup", $title);
+	}
+	
+	
 ?>
 	
 	<!-- Page content -->
@@ -64,13 +69,13 @@
 							<img src="<?= $this->basicProfile['profilePicture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 						</div>
 						<div class="ui-block-b">
-							<p><strong><?= $this->basicProfile['firstName']." ".$this->basicProfile['lastName'] ?></strong></p>
+							<p><strong><?= $this->basicProfile['name'] ?></strong></p>
 							<p><?= $this->basicProfile['birthday'] ?> </p>
 							<p>
 							<?  $lang="";
 								if($this->basicProfile['lang']){
-							   		if($_SESSION['user']->lang=="en") $lang=_("English");
-									else if($_SESSION['user']->lang=="it") $lang=_("Italian");
+							   		if($this->basicProfile['lang']=="en") $lang=_("English");
+									else if($this->basicProfile['lang']=="it") $lang=_("Italian");
 									else $lang=_("French");
 								}echo $lang;
 							?>
@@ -82,7 +87,7 @@
 							<img src="<?= $_SESSION['user']->profilePicture ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 						</div>
 						<div class="ui-block-b">
-							<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
+							<p><strong><?= $_SESSION['user']->name ?></strong></p>
 							<p><?= $_SESSION['user']->birthday ?> </p>
 							<p><?
 								$lang= _("Langage not defined");
@@ -102,9 +107,8 @@
 			<li data-role="list-divider"><?= _($this->profile->details['type']." profile details") ?></li>	
 			<li>
 				<p>
-					<!-- Role -->
-					<b><?= _("Profile type") ?></b>: <strong style="color:#444;"><?= _($this->profile->details['type']) ?></strong><br/>
-					<?= (empty($this->profile->details['associationname']) ? " " : "<b>"._("Association name").": </b>".$this->profile->details['associationname']."<br/>") ?>
+					<!-- Role <b><?= _("Profile type") ?></b>: <strong style="color:#444;"><?= _($this->profile->details['type']) ?></strong><br/> -->
+					<?= (empty($this->profile->details['associationname']) ? " " : "<b>"._("Association name").": </b>".$this->profile->details['associationname']."<br/><br/>") ?>
 				</p>
 				<p>
 					<?=					
@@ -119,8 +123,8 @@
 					switch($this->profile->details['type']) {
 						
 						case 'volunteer':
-							echo empty($this->profile->details['sex']) ? " " : "<p><b>". _("Sex").": </b>"."<span>".$this->profile->details['sex']."</span></p>";
-							echo empty($this->profile->details['work']) ? " " : "<p><b>". _("Working status").": </b>"."<span>".$this->profile->details['work']."</span></p>";
+							echo empty($this->profile->details['sex']) ? " " : "<p><b>". _("Sex").": </b>"."<span>"._($this->profile->details['sex'])."</span></p>";
+							echo empty($this->profile->details['work']) ? " " : "<p><b>". _("Working status").": </b>"."<span>"._($this->profile->details['work'])."</span></p>";
 							echo "<br/>";
 							
 							echo "<p><b>". _("Disponibility").":</b><br/><p style='margin-left:20px'>";
@@ -157,7 +161,7 @@
 						case 'admin':
 						case 'association' :
 							echo empty($this->profile->details['siret']) ? " " : "<p><b>". _("SIRET").": </b>"."<span>".$this->profile->details['siret']."</span></p>";
-							echo empty($this->profile->details['website']) ? " " : "<p><b>". _("Website").": </b>"."<span>".$this->profile->details['website']."</span></p>";
+							echo empty($this->profile->details['website']) ? " " : "<p><b>". _("Website").": </b>"."<span><a href='".$this->profile->details['website']."'>".$this->profile->details['website']."</a></span></p>";
 							echo "<br/>";
 							echo "<p><b>". _("Skills needed").":</b><br/><p style='margin-left:20px'>";
 							$tokens = explode(" ", $this->profile->details['competences']);
@@ -181,7 +185,7 @@
 
 				<!-- Reputation -->
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> rates)
+					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> <?= _("rates")?>)
 				</p>
 				<br />
 				
@@ -196,6 +200,12 @@
 			<br />
 			<!-- Edit profile-->
 			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true" data-ajax="false"><?= _('Edit my profile') ?></a>
+			
+			<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
+				<a type="button" href="?action=UpgradeAccount&method=migrate"  data-theme="g" data-icon="pencil" data-inline="true"><?= _('Create a myMed profile') ?></a>
+		 <? endif; ?>
+			
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<!-- Pop up delete profile -->	

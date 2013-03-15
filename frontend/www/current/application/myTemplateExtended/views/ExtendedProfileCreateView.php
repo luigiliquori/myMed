@@ -48,15 +48,7 @@
 		
 		<!-- Create extended profile form -->
 		<form action="?action=ExtendedProfile&method=create" method="post" id="ExtendedProfileForm" data-ajax="false">
-			
-			<!-- These hidden fields are from the myMed profile and are also saved in the extended profile -->
-			<input type="hidden" id="firstName" name="firstName" value="<?= $_SESSION['user']->firstName ?>" />
-			<input type="hidden" id="email" name="email" value="<?= $_SESSION['user']->email ?>" />
-			<input type="hidden" id="lastName" name="lastName" value="<?= $_SESSION['user']->lastName ?>" />
-			<input type="hidden" id="birthday" name="birthday" value="<?= $_SESSION['user']->birthday ?>" />
-			<input type="hidden" id="picture" name="picture" value="<?= $_SESSION['user']->profilePicture ?>" />
-			
-			
+
 			<!-- Role -->
 			<div data-role="fieldcontain">
 				<label for="role" class="select" style="text-align:right"><?= _("Your category") ?>:</label>
@@ -93,33 +85,28 @@
 			<!-- Description / CV-->
 			<div data-role="fieldcontain">
 				<label for="desc"  style="text-align:right"><?= _('Description / <br/> Curriculum Vitae') ?>: </label>
-				<textarea id="desc" name="desc" placeholder="description, commentaires" style="height:120px;"></textarea>
+				<textarea id="desc" name="desc" style="height:120px;"></textarea>
 			</div>
 			<!-- Fields for role_1 -->
 			<div id="role1field1div" data-role="fieldcontain" class="ui-screen-hidden">
 				<label for="role1field1"  style="text-align:right"><?= _('Role 1 field 1') ?>: </label>
-				<input id="role1field1" name="role1field1" placeholder="Role 1 field 1" ></input>
+				<input id="role1field1" name="role1field1"></input>
 			</div>
 			<div id="role1field2div" data-role="fieldcontain">
 				<label for="role1field2"  style="text-align:right"><?= _('Role 1 field 2') ?>: </label>
-				<textarea id="role1field2" name="role1field2" style="height: 120px;" placeholder="Role 1 field 2"></textarea>
+				<textarea id="role1field2" name="role1field2" style="height: 120px;"></textarea>
 			</div>
 			<!-- Fields for role_2 -->
 			<div id="role2field1div" data-role="fieldcontain">
 				<label for="role2field1"  style="text-align:right"><?= _('Role 2 field 1') ?>: </label>
-				<input id="role2field1" name="role2field1" placeholder="Role 2 field 1"></input>
+				<input id="role2field1" name="role2field1"></input>
 			</div>
 			<div id="role2field2div" data-role="fieldcontain">
 				<label for="role2field2"  style="text-align:right"><?= _('Role 2 field 2') ?>: </label>
-				<textarea id="role2field2" name="role2field2" style="height: 120px;" placeholder="Role 2 field 2"></textarea>
+				<textarea id="role2field2" name="role2field2" style="height: 120px;"></textarea>
 			</div>
 			<br/>
-			<!-- Accept terms and conditions -->
-			<input id="service-term" type="checkbox" name="checkCondition" style="display: inline-block; top: 8px;"/>
-			<span style="display:inline-block;margin-left: 40px;">
-				<?= _("I accept the ")?>
-				<a href="../myMed/doc/CGU_fr.pdf" rel="external"><?= _("general terms and conditions")?></a>
-			</span>
+			
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-theme="e" data-role="button" data-icon="gear" value="<?= _('Create this profile') ?>"/>
 			</div>

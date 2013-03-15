@@ -103,7 +103,7 @@ $_SESSION['dictionary'][$word][IT] = "Accettare";
 
 
 // Extended profile form view
-$word = 'To use all options of myFSA please add your profile informations';
+$word = 'To use all options of myFSA please fill your profile';
 $_SESSION['dictionary'][$word][FR] = "Pour utiliser toutes les fonctionnalités de myFSA remplissez s'il vous plait votre profil étendu";
 $_SESSION['dictionary'][$word][IT] = "Per utilizzare tutte le funzionalità di myFSA vogliate perfavore completare il vostro profilo";
 

@@ -33,7 +33,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     if (self.url != nil) {
         NSString *s = [MyMedClient GetInstance].html_pleaseWait;
         [self.webview loadHTMLString:s baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
@@ -51,11 +50,18 @@
     self.navigationItem.title = self.pagetitle;
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    // Do any additional setup after loading the view from its nib.
+
+    [super viewWillAppear:animated];
+}
+
 -(void) loadUrl
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSURL *u = [NSURL URLWithString:self.url];
-    NSURLRequest *req=[NSURLRequest requestWithURL:u];
+    NSURLRequest *req=[NSURLRequest requestWithURL:u cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
     /*
     self.theConnection=[[[NSURLConnection alloc] initWithRequest:req delegate:self] autorelease];
     if (self.theConnection) {
@@ -71,7 +77,9 @@
     }
     */
     [self.webview loadRequest:req];
+#if defined(TESTING)
     NSLog(@"Loading %@", [u absoluteString]);
+#endif
 }
 
 - (void)viewDidUnload
@@ -103,14 +111,18 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+#if defined(TESTING)
     NSLog(@"Load done: %@", self.url);
+#endif
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+#if defined(TESTING)
     NSLog(@"*** Load failed: %@ (Is loading:%d)", self.url, webView.isLoading);
     NSLog(@"***              %@", error.localizedDescription);
+#endif
     NSString *s = [MyMedClient GetInstance].html_noConnection;
     [self.webview loadHTMLString:s baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     

@@ -20,20 +20,20 @@
 	
 	/** define the backend's URL'*/
 	define('MOBILE_PARAMETER_SEPARATOR', '::');
-	define('BACKEND_URL', '@backendurl@');
-	
-	//Social Networks Keys
-	//define('Facebook_APP_ID', '@facebookappid@');
-	//define('Facebook_APP_SECRET', '@facebookappsecret@');
-	
-	//define('Google_APP_SECRET', '@googleappsecret@');
-	//define('Google_APP_CLIENT_ID', '@googleappclientid@');
-	//define('Google_APP_CLIENT_SECRET', '@googleappclientsecret@');
-	
-	//define('Twitter_APP_KEY', '@twitterappkey@');
-	//define('Twitter_APP_SECRET', '@twitterappsecret@');
+	define('BACKEND_URL', 'http://localhost:8080/backend/');
 	
 	//CITYWAY Keys
 	define('Cityway_URL', '@citywayurl@');
 	define('Cityway_APP_ID', '@citywayappid@');
+
+	if(strpos($_SERVER['SERVER_NAME'], 'mymed231')!==false){ 	// http://mymed231.sophia.inria.fr
+		define('Facebook_APP_ID', '173481506133880');
+		define('Facebook_APP_SECRET', 'a9ed4094e0e010422218be67da8168ba');
+	}else if(strpos($_SERVER['SERVER_NAME'], 'www')===false){ 	// http://mymed.fr
+		define('Facebook_APP_ID', '263064853727560');
+		define('Facebook_APP_SECRET', 'dbcad40d88c3c5e4a3532be114117e56');
+	}else{ 														// http://www.mymed.fr
+		define('Facebook_APP_ID', '161275950692324');
+		define('Facebook_APP_SECRET', 'c46c7bbbdf2c83990b7858ecb5c9e53c');
+	}
 ?>

@@ -9,8 +9,16 @@ class Categories {
  	static $places_ot;
  	static $phases;
  	static $keywords;
+ 	static $territorytype;
  	
 }
+
+Categories::$territorytype = array(
+	"urban"       => _("urban"),
+	"rural"         => _("rural"),
+	"mountain"      => _("mountain"),
+	"maritime"   => _("maritime"),
+);
 
 Categories::$themes = array(
 	

@@ -8,10 +8,14 @@ class RegisterController extends AbstractController {
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*String*/ function handleRequest() { 
+		if(isset($_GET['method'])){
+			if($_GET['method']=='showRegisterView'){
+				$this->renderView("register");
+			}
+		}
 		
 		// First stage of registration : we receive a POST with all the informations of the user
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			
+		else if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			// Preconditions TODO : i18n of error messages
 			if( empty($_POST['email']) ){
 				$this->error = _("Email field can't be empty");
@@ -56,7 +60,9 @@ class RegisterController extends AbstractController {
 			$request = new Requestv2("v2/AuthenticationRequestHandler", CREATE);
 			$request->addArgument("authentication", json_encode($mAuthenticationBean));
 			$request->addArgument("user", json_encode($mUserBean));
-			$request->addArgument("application", APPLICATION_NAME);
+			// TODO Sostituito APPLICATION_NAME con "myMed" 
+			// $request->addArgument("application", APPLICATION_NAME);
+			$request->addArgument("application", "myMed"); 
 			
 			// force to delete existing accessToken
 			unset($_SESSION['accessToken']);
@@ -64,6 +70,9 @@ class RegisterController extends AbstractController {
 			// Sending request
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
+			
+			debug("CREATE AUTHENTIFICATION REQUEST");
+			debug_r($responsejSon);
 
 			if($responseObject->status != 200) {
 				$this->error = $responseObject->description;
@@ -84,11 +93,9 @@ class RegisterController extends AbstractController {
 			$this->confirmRegistration($_GET['accessToken']);
 		 
 		} else {
-			
 			$this->error = _("Internal error of registration");
 			$this->renderView("register");
 		}
-		
 		// Render the register view 
 		$this->renderView("register");
 		
@@ -109,6 +116,9 @@ class RegisterController extends AbstractController {
 		// Sending request
 		$responsejSon = $request->send();
 		$responseObject = json_decode($responsejSon);
+		
+		debug("CREATE AUTHENTIFICATION REQUEST");
+		debug_r($responsejSon);
 		
 		// In case of errors...
 		if($responseObject->status != 200) {

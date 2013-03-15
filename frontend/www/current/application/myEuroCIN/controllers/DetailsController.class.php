@@ -32,6 +32,11 @@ class DetailsController extends AuthenticatedController {
 		 
 		// Give this to the view
 		$this->result = $obj;
+		
+		// BACKWARD COMPATIBILITY: If validated is not setted, It is a 
+		// Publication from the old version of myEuroCIN, set validated to true
+		if(!isset($this->result->validated)) $this->result->validated="validated"; 
+			
 		// get author reputation
 		$request = new Request("ReputationRequestHandler", READ);
 		$request->addArgument("application",  APPLICATION_NAME);
@@ -68,11 +73,6 @@ class DetailsController extends AuthenticatedController {
 		$this->reputation["value_noOfRatings"] = $responseObject->dataObject->reputation->noOfRatings;
 		
 		$this->search_comment();
-		$this->search_apply();
-		
-		// Need publisher role (student, professer, or company) so
-		// get publisher details
-		// Get the user details
 		
 		try {
 			$datamapper = new DataMapper;
@@ -80,8 +80,16 @@ class DetailsController extends AuthenticatedController {
 			$this->publisher_profile = new myEuroCINProfile($details['profile']);
 			$this->publisher_profile->details = $datamapper->findById($this->publisher_profile);
 		} catch (Exception $e) {
-			$this->redirectTo("main");
+			
+			// BACKWARD COMPATIBILITY: It is an old publication, user that 
+			// published it has not got an ExtendedProfile
+			$this->result->old_publication = "true";	
+			//$this->redirectTo("main");
 		}
+		
+		// BACKWARD COMPATIBILITY: It is an old publication, user cannot modify it
+		if(!isset($this->result->type))
+			$this->result->old_publication = "true";
 				
 		// Render the view
 		$this->renderView("details");
@@ -101,19 +109,9 @@ class DetailsController extends AuthenticatedController {
 		$this->result_comment = $search_comments->find();
 	
 	}
-	
-	public function search_apply() {
-		$search_applies = new Apply();
-		$this->fillObjApply($search_applies);
-		$this->result_apply = $search_applies->find();
-	}
 
 	private function fillObjComment($obj) {
 		$obj->pred1 = 'comment&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
-	}
-	
-	private function fillObjApply($obj) {
-		$obj->pred1 = 'apply&'.$_SESSION['predicate'].'&'.$_SESSION['author'];
 	}
 }
 ?>

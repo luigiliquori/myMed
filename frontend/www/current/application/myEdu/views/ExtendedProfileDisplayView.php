@@ -9,15 +9,19 @@
 <div data-role="page" id="extendedprofiledisplayview">
 
 	<!-- Header bar -->
-<?  if($_GET['user'] != $_SESSION['user']->id) 
+<?  if($_GET['user'] != $_SESSION['user']->id) {
   		$title = _("Profile");
-  	else
+	} else {
   		$title = _("My profile");
+	}
 	// Check the previous usr for the back button, if it is a publication details
-  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
+  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate")) {
   	   	print_header_bar('back', "helpPopup", $title); 
-	else
+	} elseif(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+  		print_header_bar("back", false, $title);
+  	} else {
 		print_header_bar("?action=main", "helpPopup", $title);
+  	}
   	   ?>
 	
 	<!-- Page content -->
@@ -37,7 +41,7 @@
 							<img src="<?= $this->basicProfile['profilePicture'] ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 						</div>
 						<div class="ui-block-b">
-							<p><strong><?= $this->basicProfile['firstName']." ".$this->basicProfile['lastName'] ?></strong></p>
+							<p><strong><?= $this->basicProfile['name'] ?></strong></p>
 							<p><?= $this->basicProfile['birthday'] ?> </p>
 							<p>
 							<?  $lang="";
@@ -55,7 +59,7 @@
 							<img src="<?= $_SESSION['user']->profilePicture ?>" style="width: 80px; vertical-align: middle; padding-right: 10px;"/>
 						</div>
 						<div class="ui-block-b">
-							<p><strong><?= $_SESSION['user']->firstName." ".$_SESSION['user']->lastName ?></strong></p>
+							<p><strong><?= $_SESSION['user']->name ?></strong></p>
 							<p><?= $_SESSION['user']->birthday ?> </p>
 							<p><?
 								$lang= _("Langage not defined");
@@ -92,7 +96,8 @@
 						
 						case 'student':
 							echo empty($this->profile->details['studentnumber']) ? " " : "<p>". _("Student number").": "."<span>".$this->profile->details['studentnumber']."</span></p>";
-							echo empty($this->profile->details['faculty']) ? " " : "<p>". _("Faculty").": "."<span>".$this->profile->details['faculty']."</span></p>";							break;
+							echo empty($this->profile->details['faculty']) ? " " : "<p>". _("Faculty").": "."<span>".$this->profile->details['faculty']."</span></p>";							
+							break;
 						
 						case 'professor':
 							echo empty($this->profile->details['university']) ? " " : "<p>". _("University").": "."<span>".$this->profile->details['university']."</span></p>";
@@ -115,7 +120,7 @@
 				<br />
 				<? if(($this->profile->details['role']!='professor')): ?>
 				<p class="ui-li-aside">
-					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> <?= _("rates")?>
+					<?= _("reputation")?>: <?= $this->profile->reputation ?>% (<?= $this->nbrates ?> <?= _("rates")?>)
 				</p>
 				<br />
 				<?php endif; ?>
@@ -130,6 +135,12 @@
 			<br />
 			<!-- Edit profile-->
 			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="pencil" data-inline="true"><?= _('Edit my profile') ?></a>
+			
+			<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
+				<a type="button" href="?action=UpgradeAccount&method=migrate"  data-theme="g" data-icon="pencil" data-inline="true"><?= _('Create a myMed profile') ?></a>
+		 <? endif; ?>
+		 
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Cancel my profile') ?></a>
 			<!-- Pop up delete profile -->	

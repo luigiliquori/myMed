@@ -25,7 +25,7 @@ require_once("header.php");
 
 		<ul data-role="listview" data-mini="true">
 			<li data-role="list-divider"><?= _("About you") ?></li>
-			<li data-icon="picture"><a href="?action=profile&method=update"><?php if($_SESSION['user']->profilePicture != "") { ?>
+			<li data-icon="pencil"><a href="?action=profile&method=update"><?php if($_SESSION['user']->profilePicture != "") { ?>
 					<img class="ui-li-mymed" alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="60" height="60">
 				<?php } else { ?>
 					<img class="ui-li-mymed" alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="60" height="60">
@@ -33,36 +33,44 @@ require_once("header.php");
 				<?= $_SESSION['user']->name ?></a>
 			</li>
 
-			<li data-icon="refresh"><a href="?action=profile&method=update"><img class="ui-li-mymed" alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" width="50"
-				Style="margin-left: 5px; top: 5px;" /> Email
+			<li data-icon="pencil"><a href="?action=profile&method=update"><img class="ui-li-mymed" alt="eMail: " src="<?= APP_ROOT ?>/img/email_icon.png" width="50"
+				Style="margin-left: 5px; top: 5px;" /> <?= _("E-mail")?>
 				<p>
 					<?= $_SESSION['user']->email ?>
 				</p>
 				</a>
 			</li>
-			<li data-icon="refresh"><a href="?action=profile&method=update"><img class="ui-li-mymed" alt="Date de naissance: " src="<?= APP_ROOT ?>/img/birthday_icon.png" width="50"
-				Style="margin-left: 5px; top: 5px;" /> Date de naissance
+			<li data-icon="pencil"><a href="?action=profile&method=update"><img class="ui-li-mymed" alt="Date de naissance: " src="<?= APP_ROOT ?>/img/birthday_icon.png" width="50"
+				Style="margin-left: 5px; top: 5px;" /> <?= _("Date of birth")?>
 				<p>
 					<?= $_SESSION['user']->birthday ?>
 				</p>
 				</a>
 			</li>
-			<li data-icon="refresh"><a href="?action=profile&method=update"><img class="ui-li-mymed" alt="Langue: " src="<?= APP_ROOT ?>/img/<?= $_SESSION['user']->lang ?>_flag.png" width="50"
-				Style="margin-left: 5px; top: 5px;" /> Langue
+			<li data-icon="pencil"><a href="?action=profile&method=update"><img class="ui-li-mymed" alt="Langue: " src="<?= APP_ROOT ?>/img/<?= $_SESSION['user']->lang ?>_flag.png" width="50"
+				Style="margin-left: 5px; top: 5px;" /> <?= _("Language")?>
 				<p>
 					<?= $_SESSION['user']->lang ?>
 				</p>
 				</a>
 			</li>
+				<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
+				<li>
+				<p style="text-align: center">
+					<a type="button" href="?action=UpgradeAccount&method=migrate" data-icon="pencil" data-inline="true" data-theme="g"><?= _('Create a myMed profile') ?></a>
+				</p>
+				</li>
+		 <? endif; ?>
 
-			<li data-role="list-divider"><?= _("Your applications") ?></li>
+			<li data-role="list-divider"><?= _("Profile in your applications") ?></li>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>
 			<?php if ($status == "on") { ?>
-			<li><a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile" rel="external"> <img class="ui-li-mymed"
+			<li><a href="<?= APP_ROOT ?>/../<?= $applicationName ?>/index.php?action=extendedProfile&user=<?= $_SESSION['user']->id?>" rel="external"> <img class="ui-li-mymed"
 					alt="<?= $applicationName ?>" src="../../application/<?= $applicationName ?>/img/icon.png" width="50" Style="margin-left: 5px; top: 5px;" /> <?= $applicationName ?>
 					<div Style="position: relative; left: 0px;">
 						<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-						<?php if($i*20-20 < $_SESSION['reputation'][EXTENDED_PROFILE_PREFIX . $applicationName] ) { ?>
+						<?php if($i*20-20 < $_SESSION['reputation'][STORE_PREFIX . $applicationName] ) { ?>
 						<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="10" Style="left: <?= $i ?>0px;" />
 						<?php } else { ?>
 						<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="10" Style="left: <?= $i ?>0px;"/>

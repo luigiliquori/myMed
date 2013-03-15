@@ -65,20 +65,25 @@ static MyMedClient *instance=nil;
 
 -(NSString *)getHtml_pleaseWait
 {
-    return NSLocalizedString(@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">myEurope</h1><p>Please wait...</p></body></html>", nil);
+    return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><p>%@</p></body></html>",
+            NSLocalizedString(@"myEurope", nil),
+            NSLocalizedString(@"Please wait...", nil)];
 }
 -(NSString *)getHtml_noConnection;
 {
-    return NSLocalizedString(@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">myEurope</h1><p style=\"text-align:center\">No connection available.</p></body></html>", nil);
+    return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><p style=\"text-align:center\">%@<br/><br/><a href=\"%@\">%@</a></p></body></html>",
+            NSLocalizedString(@"myEurope", nil),
+            NSLocalizedString(@"Server down, or no connection available.", nil),
+            WEBAPP_URL,
+            NSLocalizedString(@"Reload", nil)];
    
 }
 
 
 -(NSString *)getHtml_empty;
 {
-    return NSLocalizedString(@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">myEurope</h1></body></html>", nil);
-    
-}
+    return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1></body></html>",
+            NSLocalizedString(@"myEurope", nil)];}
 
 -(void) loadUrl
 {

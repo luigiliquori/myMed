@@ -60,7 +60,7 @@
 									<? } ?>
 								<?php endif; ?>
 							</p>
-							<p style="display:inline; color: #2489CE; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->id.$item->publisherID] ?> rates </p>
+							<p style="display:inline; font-size:80%; margin-left:70px;"> <?php echo $this->noOfRatesMap[$item->id.$item->publisherID] ?> rates </p>
 						</p>
 					</a>
 				</li>

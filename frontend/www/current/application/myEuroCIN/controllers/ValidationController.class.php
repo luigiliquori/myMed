@@ -12,7 +12,7 @@ class ValidationController extends AuthenticatedController {
 	 * This will create a temporary Profile with the informations submited by POST.
 	 * @see IRequestHandler::handleRequest()
 	 */
-	public /*String*/ function handleRequest() { 
+	public /*String*/ function handleRequest() {
 
 		parent::handleRequest();
 		
@@ -32,6 +32,7 @@ class ValidationController extends AuthenticatedController {
 	private function search_all_validations(){
 		
 		$search_publication = new myEuroCINPublication();
+		$search_publication->type = "myEuroCIN";
 		$res = $search_publication->find();
 		$this->result = array();
 		
@@ -50,17 +51,28 @@ class ValidationController extends AuthenticatedController {
 		
 		$obj = new myEuroCINPublication();
 		
-		$obj->publisher = $_POST['publisher'];
+		// All required fields are filled, publish it
+		$obj = new myEuroCINPublication();
+		$obj->type = "myEuroCIN";    					// Type
+		$obj->publisher = $_POST['publisher'];    	// Publisher ID
 		$obj->publisherID = $_POST['publisher'];
-		$obj->id = $_POST['id'];
-		$obj->locality = $_POST['locality'];
-		$obj->language = $_POST['language'];
-		$obj->category = $_POST['category'];
-		$obj->begin = $_POST['begin'];
-		$obj->end 	= $_POST['date'];
-		$obj->title = $_POST['title'];
-		$obj->text = $_POST['text'];
+		$obj->Lingua = $_POST['Lingua'];				// locality
+		$obj->Nazione = $_POST['Nazione'];				// Language
+		$obj->begin = $_POST['begin'];				// begin
+		if($_POST['expire_date'] != "--")
+			$obj->expire_date = $_POST['expire_date'];	// Expiration date
+		$obj->data = $_POST['data'];					// Title
+		$obj->text 	= $_POST['text'];					// Publication text
+		if( $_POST['Arte_Cultura'] == 'on' ) $obj->Arte_Cultura = "on";
+		if( $_POST['Natura'] == 'on' ) $obj->Natura = "on";
+		if( $_POST['Tradizioni']  == 'on'  ) $obj->Tradizioni = "on";
+		if( $_POST['Enogastronomia'] == 'on'  ) $obj->Enogastronomia = "on";
+		if( $_POST['Benessere'] == 'on'  ) $obj->Benessere = "on";
+		if( $_POST['Storia'] == 'on' ) $obj->Storia = "on";
+		if( $_POST['Religione'] == 'on' ) $obj->Religione = "on";
+		if( $_POST['Escursioni_Sport'] == 'on' ) $obj->Escursioni_Sport = "on";
 		$obj->validated = "validated";
+		
 		
 		// sets the level of broadcasting in the Index Table
 		$level = 3;
@@ -78,14 +90,28 @@ class ValidationController extends AuthenticatedController {
 	/* Refuse a publication */
 	private function refuse(){
 		
-		$predicate = $_POST['predicate'];
-		$author = $_POST['author'];
+		$this->delete_Comments();
 		
-		$obj = new myEuroCINPublication($predicate);
-		
-		$obj->publisherID = $author;
-		$obj->getDetails();
-		
+		$obj = new myEuroCINPublication();
+		$obj->type = "myEuroCIN";    					// Type
+		$obj->publisher = $_POST['publisher']; 		   	// Publisher ID
+		$obj->publisherID = $_POST['publisher'];  	// Publisher ID
+		$obj->Lingua = $_POST['Lingua'];				// locality
+		$obj->Nazione = $_POST['Nazione'];				// Language
+		$obj->begin = $_POST['begin'];					// Begin
+		$obj->Nazione = $_POST['Nazione'];				// Language
+		if(isset($_POST['expire_date']) && $_POST['expire_date'] != "--")
+			$obj->expire_date = $_POST['expire_date'];	// Expiration date
+		$obj->data = $_POST['data'];					// Title
+		if( $_POST['Arte_Cultura'] == 'on' ) $obj->Arte_Cultura = "on";
+		if( $_POST['Natura'] == 'on' ) $obj->Natura = "on";
+		if( $_POST['Tradizioni']  == 'on'  ) $obj->Tradizioni = "on";
+		if( $_POST['Enogastronomia'] == 'on'  ) $obj->Enogastronomia = "on";
+		if( $_POST['Benessere'] == 'on'  ) $obj->Benessere = "on";
+		if( $_POST['Storia'] == 'on' ) $obj->Storia = "on";
+		if( $_POST['Religione'] == 'on' ) $obj->Religione = "on";
+		if( $_POST['Escursioni_Sport'] == 'on' ) $obj->Escursioni_Sport = "on";
+
 		$obj->delete();
 		
 		$msgMail = "";
@@ -97,9 +123,9 @@ class ValidationController extends AuthenticatedController {
 		$this->redirectTo("?action=Validation&method=show_all_validations");
 	}
 	
-	function delete_Applies(){
-		$search_by_userid = new Apply();
-		$search_by_userid->pred1 = 'apply&'.$_POST['predicate'].'&'.$_POST['author'];
+	function delete_Comments(){
+		$search_by_userid = new Comment();
+		$search_by_userid->pred1 = 'comment&'.$_POST['predicate'].'&'.$_POST['author'];
 		$result = $search_by_userid->find();
 	
 		foreach($result as $item) :

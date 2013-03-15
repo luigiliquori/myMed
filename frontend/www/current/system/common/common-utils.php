@@ -39,14 +39,15 @@ function insertUser($user, $accessToken, $is_guest=false) {
 	$request = new Requestv2("v2/SessionRequestHandler", UPDATE , array("user"=>$user->id, "accessToken"=>$accessToken));
 	$responsejSon = $request->send();
 	$responseObject = json_decode($responsejSon);
-
+	
 	if($responseObject->status != 200) {
 		$this->error = $responseObject->description;
 		return;
 	} else {
 		$_SESSION['accessToken'] = $responseObject->dataObject->accessToken; // in case was not set yet
 	}
-
+	
+	
 	$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($user)));
 	if ($is_guest) $request->addArgument("temporary", "");
 	$responsejSon = $request->send();
@@ -73,7 +74,7 @@ function insertUser($user, $accessToken, $is_guest=false) {
 // ---------------------------------------------------------------------
 
 function translate($word){
-	return $word;
+	return _($word);
 }
 
 
@@ -136,7 +137,8 @@ function tabs_default($activeTab, $tabs, $leftopts = false, $rightopts = false) 
 		<div data-role="navbar">
 			<ul>
 			<? foreach ($tabs as $i): ?>
-				<li><a href="<?= $i[0] ?>" data-icon="<?= $i[2] ?>"
+				<? // With $leftopts == 5 is added data-ajax="false" to links ?>
+				<li><a href="<?= $i[0] ?>" <?= ($leftopts == 6)? 'data-ajax="false"' : '' ?> data-icon="<?= $i[2] ?>"
 				<?= $activeTab == $i[0] ? 'class="ui-btn-down-c ui-state-persist"' : '' ?>> <?= _($i[1]) ?>
 				</a></li>
 			<? endforeach; ?>

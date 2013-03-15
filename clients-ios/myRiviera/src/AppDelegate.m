@@ -56,7 +56,7 @@
     }
     
     FirstScreenViewController *firstVC = [[[FirstScreenViewController alloc] initWithNibName:xibName bundle:nil] autorelease];
-    firstVC.tabBarItem.image = [UIImage imageNamed:@"gradhat"];
+    firstVC.tabBarItem.image = [UIImage imageNamed:@"sun"];
     firstVC.title = NSLocalizedString(@"myRiviera", nil);
     UINavigationController *firstNav = [[[UINavigationController alloc] initWithRootViewController:firstVC] autorelease];
     firstNav.navigationBar.tintColor = color;

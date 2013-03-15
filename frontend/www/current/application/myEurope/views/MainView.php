@@ -20,7 +20,7 @@
 		
 		<?php if ($_SESSION['user']->is_guest) { ?>
 				<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
-		<?php }else if(!$_SESSION['myEurope']){ ?>
+		<?php }else if(!isset($_SESSION['myEurope'])){ ?>
 				<p Style="text-align: center; font-style:italic;"><?= _("You have to create your extended profile to access all the menu options") ?></p>
 		<?php }else if ($_SESSION['myEurope']->permission ==0) { ?>
 				<p Style="text-align: center; font-style:italic;"><?= _("You have to wait the administrator validation to access all the menu options") ?></p>

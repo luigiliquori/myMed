@@ -11,7 +11,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	/**
 	 * HandleRequest
 	 */
-	public function handleRequest(){
+	public function handleRequest() {
 		
 		parent::handleRequest();
 		$this->mapper = new DataMapper;
@@ -38,8 +38,13 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 					// profile forward him to ExtendedProfileCreate View
 					if (!isset($_SESSION['myEuroCIN']))
 						$this->renderView("ExtendedProfileCreate");
-					else
-						$this->showUserProfile($_GET['user']);
+					else{
+						if($_GET['user'] != $_SESSION['user']->id) {
+							$this->showOtherProfile($_GET['user']);
+						}else{
+							$this->showUserProfile($_GET['user']);
+						}
+					}
 					break;
 			}		
 		}
@@ -57,6 +62,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileCreate");
 		}else{
 			debug("Default method");
+			$_GET['user'] = $_SESSION['user']->id;
 			$this->showUserProfile($_SESSION['user']->id);
 		}
 	}
@@ -67,25 +73,33 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 */
 	public function create() {
 			
-		// Check mandatory fields
+		/* Check mandatory fields
 		if (!$_POST['checkCondition']) {
 			$this->error = _("Please accept Terms & Conditions");
 			$this->renderView("ExtendedProfileCreate");
 		}
-		
+		*/
+		if (!$_POST['phone']) {
+			$this->error = _("Please provide a phone number");
+			$this->renderView("ExtendedProfileCreate");
+		}
+		if (!$_POST['desc']) {
+			$this->error = _("Description field can't be empty");
+			$this->renderView("ExtendedProfileCreate");
+		}
 		// Unset post vale that we don't need
 		unset($_POST['form']);
 		unset($_POST['checkCondition']);
 		
 		// Set id and description
-		$_POST['id'] = hash("md5", time().$_POST['name']);
+		$_POST['id'] = hash("md5", time()/*.$_POST['name']*/);
 		$_POST['desc'] = nl2br($_POST['desc']);
 	
 		// Create the new profile
 		$publish =  new RequestJson($this,
 						array("application"=>APPLICATION_NAME.":profiles",
 						"id"=>$_POST['id'], "data"=>$_POST,
-						"metadata"=>array("name"=>$_POST['name'])),
+						"metadata"=>array(/*"name"=>$_POST['name']*/)),
 						CREATE);
 		$publish->send();
 	
@@ -135,8 +149,28 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		// Update of the profile informations
 		$_POST['name'] = $_POST["firstName"] . " " . $_POST["lastName"];
 		$_POST['login'] = $_SESSION['user']->email;
+		$profile = array (
+				"id"=>$_POST['id'],
+				"email"=>$_POST['email'],
+				"firstName"=>$_POST['firstName'],
+				"lastName"=>$_POST['lastName'],
+				"name"=>$_POST['name'],
+				"login"=>$_POST['login'],
+				"birthday"=>$_POST['birthday'],
+				"profilePicture"=>$_POST['profilePicture'],
+				"lang"=> $_POST['lang']
+		);
+		unset($_POST['id']);
+		unset($_POST['firstName']);
+		unset($_POST['lastName']);
+		unset($_POST['name']);
+		unset($_POST['birthday']);
+		unset($_POST['profilePicture']);
+		unset($_POST['lang']);
+		unset($_POST['email']);
+		unset($_POST['login']);
 		
-		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($_POST)));
+		$request = new Requestv2("v2/ProfileRequestHandler", UPDATE, array("user"=>json_encode($profile)));
 		try {
 			$responsejSon = $request->send();
 			$responseObject = json_decode($responsejSon);
@@ -145,13 +179,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 				debug("ERROR2: ".$responseObject->description);
 				throw new Exception($responseObject->description);
 			} else{
-				$profile = array ("id"=>$_POST['id'], 
-								  "name"=>$_POST['name'],
-								  "firstName"=>$_POST['firstName'], 
-								  "lastName"=>$_POST['lastName'], 
-								  "birthday"=>$_POST['birthday'], 
-								  "profilePicture"=>$_POST['profilePicture'], 
-								  "lang"=> $_POST['lang']);
 				$_SESSION['user'] = (object) array_merge((array) $_SESSION['user'], $profile);
 			}
 			
@@ -161,9 +188,8 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$this->renderView("ExtendedProfileEdit");
 		}
 		
-		$_POST['id'] = $id;
-		
 		// Update of the organization profile informations
+		$_POST['id'] = $id;
 		$_POST['desc'] = nl2br($_POST['desc']);
 		$myrep = $_SESSION['myEuroCIN']->reputation; 
 		$users = $_SESSION['myEuroCIN']->users;
@@ -178,21 +204,6 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 			$publish->send();
 		}catch (Exception $e) {
 			debug("ERROR4: ".$e->getMessage());
-		}
-		
-		if ($_POST['name']!= $_SESSION['myEuroCIN']->details['name'] || 
-			$_POST['role']!=$_SESSION['myEuroCIN']->details['role']) { 
-			
-			//also update profiles indexes
-			$publish =  new RequestJson(
-							$this,
-							array("application"=>APPLICATION_NAME.":profiles", 
-							"id"=>$_POST['id'], 
-							"user"=>"noNotification", 
-							"metadata"=>array("role"=>$_POST['role'], 
-							"name"=>$_POST['name'])),
-							CREATE);
-			$publish->send();
 		}
 		
 		if (!empty($this->error)) {
@@ -215,7 +226,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Delete an Extended profile and all its releated publication 
 	 */
 	public function delete() {
-		
+		$this->delete_Comments($_SESSION['user']->id);
 		$this->deletePublications($_SESSION['user']->id); 
 		$this->deleteUser($_SESSION['user']->id);
 		
@@ -321,9 +332,21 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Show another user Extended profile
 	 */
 	function showOtherProfile($id) {
+		/* basic profile */
+		$request = new Requestv2("v2/ProfileRequestHandler", READ , array("userID"=>$id));
+		$responsejSon = $request->send();
+		$responseObject3 = json_decode($responsejSon);
 		
-		$this->profile = new myEuroCINProfile($id);
+		$this->basicProfile = (array) $responseObject3->dataObject->user;
 		
+		/*Extended profile */
+		$user = new User($id);
+		try {
+			$details = $this->mapper->findById($user);
+		} catch (Exception $e) {
+			$this->redirectTo("main");
+		}
+		$this->profile = new myEuroCINProfile($details['profile']);
 		try {
 			$this->profile->details = $this->mapper->findById($this->profile);
 		} catch (Exception $e) {
@@ -332,10 +355,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		
 		// Get reputation
 		$this->profile->parseProfile();
-		$this->getReputation($id);
-		$this->profile->reputation = $this->reputationMap[$id];
-		$this->nbrates = $this->noOfRatesMap[$id];
-	
+		if (!empty($details['profile'])){
+			$this->getReputation($id);
+			$this->profile->reputation = $this->reputationMap[$id];
+			$this->nbrates = $this->noOfRatesMap[$id];
+		}
 		$this->renderView("ExtendedProfileDisplay");
 	}
 	
@@ -395,16 +419,30 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	 * Delete user's publications 
 	 */
 	function deletePublications($id){
-		
 		$search_by_userid = new myEuroCINPublication();
 		$search_by_userid->publisher = $id;
 		$result = $search_by_userid->find();
 		
+		foreach($result as $publication) : // comments on each publications
+			$search_comments_publi = new Comment();
+			$search_comments_publi->pred1 = 'comment&'.$publication->getPredicateStr().'&'.$id;
+			$comments = $search_comments_publi->find();
+			foreach($comments as $comment){
+				$comment->delete();
+			}
+			$publication->delete();
+		endforeach;
+	}
+	
+	function delete_Comments($id){ // comments posted by the user
+		$search_by_userid = new Comment();
+		$search_by_userid->publisher = $id;
+		$search_by_userid->publisherID = $id;
+		$result = $search_by_userid->find();
+	
 		foreach($result as $item) :
 			$item->delete();
 		endforeach;
-		
-		//$this->forwardTo('extendedProfile', array("user"=>$_SESSION['user']->id));
 	}
 	
 	/**

@@ -2,7 +2,17 @@
 
 <div id="option" data-role="page">
 
-<? include("header-bar.php"); ?>
+	<!-- Header -->
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<? if(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) : ?>
+			<a data-rel="back" data-icon="arrow-l" data-ajax="false"/><?= _("Back")?></a>
+		<? else: ?>
+			<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Main menu")?></a>
+		<? endif ?>
+	
+		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Main menu")?></a>
+		<h1><?php echo APPLICATION_NAME." v1.0 alpha"?></h1>
+	</div>
 
 	<!-- CONTENT -->
 	<div data-role="content"
@@ -20,19 +30,21 @@
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="100">
 				<?php } ?>
 				<br />
+				<br />
 				<!-- <a onclick="capturePhoto();" type="button" data-theme="d">Prendre une photo</a>  -->
-				Prenom: <?= $_SESSION['user']->firstName ?><br />
-				Nom: <?= $_SESSION['user']->lastName ?><br />
-				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
-				eMail: <?= $_SESSION['user']->email ?><br />
+				<strong>Prenom: </strong><?= $_SESSION['user']->firstName ?><br />
+				<strong>Nom: </strong><?= $_SESSION['user']->lastName ?><br />
+				<strong>Date de naissance: </strong><?= $_SESSION['user']->birthday ?><br />
+				<strong>eMail: </strong><?= $_SESSION['user']->email ?><br />
 				<div data-role="controlgroup" data-type="horizontal">
-					<a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
-					<a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
+					<!--  <a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a> -->
+					<!-- <a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a> -->
 				</div>
 			</div>
 
 			<?php //include 'facebook.php'; ?>
 
+			<?php /*
 			<!-- COMMENT -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
 				data-content-theme="c">
@@ -66,9 +78,8 @@
 					
 					<input type="submit" value="Publier" />
 				</form>
-				
 			</div>
-
+			
 			<!-- HELP -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
 				data-content-theme="c" style="text-align: left;">
@@ -95,27 +106,12 @@
 					vos amis (acceptant la géolocalisation), disponibles dans la
 					recherche d'itinéraire par le bouton + du champs Arrivée.</p>
 			</div>
+			
+			*/ ?>
 
-			<!-- ABOUT -->
-			<div data-role="collapsible" data-collapsed="true" data-theme="d"
-				data-content-theme="c" style="text-align: center;">
-
-				<h3>A propos</h3>
-				<h2>myRiviera v1.0 beta</h2>
-				<?php include(MYMED_ROOT . '/system/views/logos.php'); ?>
-			</div>
 		</div>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="d">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="?action=main#Map" data-transition="none" data-back="true" data-icon="home">Carte</a></li>
-				<li><a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a></li>
-				<li><a href="?action=option" data-transition="none" data-icon="gear" class="ui-btn-active ui-state-persist">Option</a></li>
-			</ul>
-		</div>
-	</div>
 
 </div>
 

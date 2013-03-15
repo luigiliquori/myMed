@@ -40,7 +40,7 @@
 				    <div data-role="controlgroup" data-type="horizontal">
 				 	    <input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Connect") ?>" />
 						<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Connect with") ?></a>
-						<a href="#registerView" data-role="button" data-inline="true" data-mini="true" data-icon="pencil" data-iconpos="right"><?= _("Register") ?></a>	
+						<a href="?action=register&method=showRegisterView" data-role="button" data-inline="true" data-mini="true" data-icon="pencil" data-iconpos="right"><?= _("Register") ?></a>	
 					</div>
 			    </div>
 			</div>
@@ -63,6 +63,7 @@
 					<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
 					Twitter</a>
 				</li>
+				<!-- 
 				<li>
 					<a onclick="$('#openIdForm').submit();" title="OpenID">
 					<img class="ui-li-mymed" src="/system/img/social/openID_32.png" />
@@ -71,6 +72,7 @@
 					</form>
 					</a>
 				</li>
+				 -->
 				</ul>
 			</div>
 	
@@ -79,5 +81,3 @@
 	</div> <!-- END page content -->
 	
 </div> <!-- END page -->
-
-<? include("RegisterView.php"); ?>

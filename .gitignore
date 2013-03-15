@@ -12,6 +12,7 @@
 .buildpath
 
 .DS_Store
+xcuserdata
 
 *.lastmodified
 revision.location

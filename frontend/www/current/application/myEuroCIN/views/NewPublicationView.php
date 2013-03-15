@@ -27,25 +27,22 @@
 		<!-- Submit a new publication form -->
 		<form id="newpublicationform" action="index.php?action=publish&method=create" method="POST" data-ajax="false">
 		
-			<input type="hidden" id="area" name="area" value="" />
-			<input type="hidden" id="category" name="category" value="" />
-			<input type="hidden" id="organization" name="organization" value="" />
-			<input type="hidden" id="date" name="date" value="" />
+			<input type="hidden" id="expire_date" name="expire_date" value="" />
 	
 			<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 				<h3><?= _("How to publish") ?> ?</h3>
-				<?= _("<<<<< Some explanation goes here >>>>>")?>
+				<?= _("Create publication capsule text")?>
 				</p>
 			</div>
 			
 			<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d" data-mini="true">
 				<h3><?= _('Publish your project') ?> :</h3>
 				
-				<h3><?= _('Title') ?> : </h3>
-				<input id="textinputp3" class="postTitle" data-inline="true" name="title"
+				<h3><?= _('Title') ?><b>*</b> : </h3>
+				<input id="textinputp3" class="postTitle" data-inline="true" name="data"
 					placeholder="<?= _("Publication title goes here") ?>" value='' type="text" />
 				
-				<h3><?= _('Date of expiration') ?> :</h3>
+				<h3><?= _('Deadline') ?><b></b> :</h3>
 				<fieldset data-role="controlgroup" data-type="horizontal"> 
 					<select id="publish_day_content" name="expire_day" data-inline="true">
 						<option value=""><?= _("Day")?></option>
@@ -67,7 +64,7 @@
 					</select>
 				</fieldset>
 					
-				<h3><?= _('Enter a text description for your publication') ?> :</h3>
+				<h3><?= _('Description') ?><b>*</b> :</h3>
 				<textarea id="text" name="text"></textarea>
 				<script type="text/javascript">
 					// Init cle editor on pageinit
@@ -79,30 +76,32 @@
 				<br />
 				
 				<h3><?= _('Other information') ?> :</h3>
-					<select name="locality" id="locality" data-native-menu="false">
-					<option value=""> <?= _("Locality")?> </option>
+					<select name="Nazione" id="Nazione" data-native-menu="false">
+					<option value=""> <?= _("Locality")?><b>*</b> </option>
 					<? foreach (Categories::$localities as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
 					</select>
-					<select name="language" id="language" data-native-menu="false">
-						<option value=""> <?= _("Language")?> </option>
+					<select name="Lingua" id="Lingua" data-native-menu="false">
+						<option value=""> <?= _("Language")?><b>*</b> </option>
 					<? foreach (Categories::$languages as $k=>$v) :?>
 						<option value="<?= $k ?>"><?= $v ?></option>
 					<? endforeach ?>
-					</select>
-					<select name="category" id="category" data-native-menu="false">
-						<option value=""> <?= _("Category")?> </option>
+					</select><br />
+					<!-- Categories -->
+					<label for="categories"><strong><?= _("Categories") ?></strong></label>
+					<fieldset data-role="controlgroup" id="categories">
 					<? foreach (Categories::$categories as $k=>$v) :?>
-						<option value="<?= $k ?>"><?= $v ?></option>
-					<? endforeach ?>
-					</select>
-				
+					   	<input type="checkbox" name="<?= $k ?>" id="<?= $k ?>" class="custom" value="on">
+					   	<label for="<?= $k ?>"><?= $v ?></label>
+	   				<? endforeach ?>			   
+				    </fieldset>
+					<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			</div>
 			
 			<div style="text-align: center;">
 				<input type="submit" data-inline="true" data-icon="check" data-theme="g" value="<?=_('Publish') ?>" onclick="
-					$('#date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
+					$('#expire_date').val($('#publish_day_content').val() + '-' + $('#publish_month_content').val() + '-' +  $('#publish_year_content').val());					
 				"/>
 			</div>
 	
