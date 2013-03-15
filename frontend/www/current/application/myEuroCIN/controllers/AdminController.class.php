@@ -40,7 +40,7 @@ class AdminController extends ExtendedProfileRequired {
 						UPDATE);
 		$publish->send();
 		
-		$this->forwardTo("admin");
+		$this->redirectTo("?action=admin");
 	}
 	
 	/* Filter assocation basing on permissions */
@@ -71,7 +71,7 @@ class AdminController extends ExtendedProfileRequired {
 					_("Your association has been removed."));
 		$mailman->send();
 		
-		$this->forwardTo("admin");
+		$this->redirectTo("?action=admin");
 	}
 	
 	

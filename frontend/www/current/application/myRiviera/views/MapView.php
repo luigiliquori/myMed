@@ -3,7 +3,7 @@
 
 	<!-- Header -->
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Main menu")?></a>
+		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("back")?></a>
 		<h1><?php echo APPLICATION_NAME." v1.0 alpha"?></h1>
 	</div>
 

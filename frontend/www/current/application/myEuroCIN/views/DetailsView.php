@@ -98,7 +98,7 @@
 												echo '<input type="hidden" name="Religione" value="on" />' ?> 
 											<? if( isset($this->result->Escursioni_Sport) ) 
 												echo '<input type="hidden" name="Escursioni_Sport" value="on" />' ?> 
-					  											<input data-role="button" type="submit" data-theme="r" data-icon="ok" data-inline="true" value="<?= _('Delete') ?>" />
+					  						<input data-role="button" type="submit" data-theme="r" data-icon="ok" data-inline="true" value="<?= _('Delete') ?>" />
   										</form>
   										<a href="#" data-role="button" data-inline="true" data-mini="true" data-rel="back" data-direction="reverse"><?= _('Cancel') ?></a>
   						
@@ -150,7 +150,7 @@
 					<!-- TITLE -->
 					<h3><?= _("Title") ?>: <?= $this->result->getTitle(); ?></h3>
 					<p> <? if( isset($this->result->expire_date) ) echo '<strong>'._("Expire date: ").'</strong>'.$this->result->expire_date; ?> </p>
-					<p style="position: relative; margin-left: 30px;">
+					<p>
 						<b><?= _("Locality") ?></b>: <?= Categories::$localities[$this->result->Nazione] ?><br/>
 						<b><?= _("Language") ?></b>: <?= Categories::$languages[$this->result->Lingua] ?><br/>
 						<b><?= _("Categories") ?></b>: 
@@ -167,7 +167,7 @@
 					<br/>
 					
 					<!-- TEXT -->
-					<?= $this->result->text ?>
+					<b><?= _("Description")?></b>: <?= $this->result->text ?>
 				
 					<!-- CONTACT -->			
 					<p><b><?= _("Author")?></b> : 
@@ -192,7 +192,7 @@
 		    		<div>
 		    			<!-- Publication reputation -->
 		    			
-		    			<p style="display:inline;">Publication rating:</p>
+		    			<p style="display:inline;"><?= _("Publication reputation")?>:</p>
 							<?php
 							// Disable reputation stars if there are no votes yet 
 							if($this->reputation["value_noOfRatings"] == '0') : ?> 
@@ -209,7 +209,7 @@
 								<?php } ?>
 							<? } ?>
 					<?php endif; ?>
-						<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> rates </p>
+						<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> <?= _("rates")?> </p>
 						
 						<? /* can rate if logged in  */
 						 if(isset($_SESSION['myEuroCIN']) && $this->result->publisherID != $_SESSION['user']->id ){
@@ -242,7 +242,7 @@
 						</div>	
 						
 						<!-- Author reputation (only for students and companies) -->	
-						<p style="display:inline;">Author reputation:</p>
+						<p style="display:inline;"><?= _("Author reputation")?>:</p>
 						<?php
 							// Disable reputation stars if there are no votes yet 
 							if($this->reputation["author_noOfRatings"] == '0') : ?> 
@@ -258,7 +258,7 @@
 							 <?php } ?>
 							<? } ?>
 						<? endif; ?>
-						<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> rates</p>							
+						<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> <?= _("rates")?></p>							
 						<?php 
 							// A user cannot rate himself
 							if (isset($_SESSION['myEuroCIN']) && !($this->result->publisherID == $_SESSION['user']->id) && $this->result->validated!="waiting") {

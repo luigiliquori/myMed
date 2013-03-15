@@ -46,7 +46,7 @@
 								<? if( isset($item->Arte_Cultura) ) echo _("Art/Cultur "); ?> 
 								<? if( isset($item->Natura) ) echo _("Nature "); ?>
 								<? if( isset($item->Tradizioni) ) echo _("Traditions "); ?>
-								<? if( isset($item->Enogastronomia) ) echo _("Enogastronimy "); ?>
+								<? if( isset($item->Enogastronomia) ) echo _("Enogastronomy "); ?>
 								<? if( isset($item->Benessere) ) echo _("Wellness "); ?>
 								<? if( isset($item->Storia) ) echo _("History "); ?>
 								<? if( isset($item->Religione) ) echo _("Religion "); ?>

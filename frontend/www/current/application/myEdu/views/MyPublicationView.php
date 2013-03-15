@@ -55,6 +55,7 @@
 							<b><?= _("Category") ?></b>: <?= Categories::$categories[$item->category] ?><br/>
 							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->locality] ?><br/>
 							<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$item->organization] ?><br/><br/>
+							
 							<b>Publisher ID:</b><?= $item->publisherID ?><br/> 
 							<!-- Project reputation-->	
 							<p style="display:inline; margin-left: 30px;" > <b><?= _("Reputation")?>:</b> </p>  
