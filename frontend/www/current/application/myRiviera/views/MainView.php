@@ -29,7 +29,7 @@
 		<br/>
 		
 		<!-- App Main menu -->
-		 <? if ($_SESSION['user']->is_guest) { ?>
+		 <? if (!isset($_SESSION['user']) || $_SESSION['user']->is_guest) { ?>
 			<!-- User not authenticated - Sign in -->
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
 			<a href="index.php?action=login" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connect")?></a><br />
@@ -39,7 +39,7 @@
 	 	<br/>
 		<a href="?action=main#search" data-role="button" data-transition="none" data-icon="search" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?> ><?=_("Search")?></a>
 		<br/>
-		<a href="?action=option" data-role="button" data-transition="none" data-icon="gear" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?> ><?=_("Profile")?></a>
+		<a href="?action=option" data-role="button" data-transition="none" data-icon="gear" <?= (!isset($_SESSION['user']) || $_SESSION['user']->is_guest) ? " class='ui-disabled'" : "" ?> ><?=_("Profile")?></a>
 		<br/>
 		<!-- About dialog -->
 		<a href="?action=main#aboutView" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("Credits")?></a>
@@ -68,7 +68,7 @@
 				<p>Ce champ donne accès à votre profil myMed.</p>
 				<h2>Réseau social</h2>
 				<p>En vous connectant avec Facebook, vous chargerez les positions de
-					vos amis (acceptant la géolocalisation), disponibles dans la
+					vos amis (acceptant la géolocalisation),<br> disponibles dans la
 					recherche d'itinéraire par le bouton + du champs Arrivée.</p>
 		</div>
 	</div>	
