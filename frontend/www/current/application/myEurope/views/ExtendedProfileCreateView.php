@@ -3,8 +3,12 @@
 
 <div data-role="page" id="new" >
 	
-	<? $title = _("Create profile");
-	   print_header_bar("?action=main", "defaultHelpPopup", $title); ?>
+	<? 	$title = _("Create profile");
+		if(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+			print_header_bar("back", false, $title);
+		} else {
+	   		print_header_bar("?action=main", "defaultHelpPopup", $title); 
+		} ?>
 
 	<div data-role="content">
 		<? print_notification($this->success.$this->error);?>

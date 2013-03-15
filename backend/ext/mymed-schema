@@ -4,12 +4,19 @@
  * This file should be executed just for one node, when updating the cluster.
  *
  * Created by Milo Casagrande <milo.casagrande@inria.fr>, 2011
+ *
 */
 
 /* Create the 'Mymed' keyspace
  *
  * The 'RackUnawareStrategy' has been renamed into 'SimpleStrategy' from v0.7.
  * Also, the 'RackAwareStrategy' should have been renamed into 'NetworkTopologyStrategy'.
+ *
+ */
+/* create keyspace Mymed with replication_factor = 3 and placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy';
+*
+*create keyspace Mymed with strategy_options = [{DC1:3, DC2:3}] and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy'; 
+*create keyspace Mymed with strategy_options = [{DC1:1}] and placement_strategy ='org.apache.cassandra.locator.NetworkTopologyStrategy'; 
 */
 
 /*create keyspace Mymed with strategy_options = [{DC1:3, DC2:3}] and placement_strategy = 'org.apache.cassandra.locator.NetworkTopologyStrategy';*/

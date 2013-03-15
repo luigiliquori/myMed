@@ -8,7 +8,10 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	}
 	
 	function defaultMethod() {
-		debug("default method extendProfile");
+		
+		if (!isset($_SESSION['myEurope']))
+			$this->renderView("ExtendedProfileCreate");
+		
 		if (isset($_GET['user'])){
 			$this->showUserProfile($_GET['user']);
 		}

@@ -40,7 +40,7 @@ public class LocationService extends Service implements LocationListener{
 
 	private static final int TEN_SECONDS = 10000;	//Expiration time for location.
 
-	public static final int MINIMUM_FINE_ACCURACY = 5000;	//Minimum accuracy of the new location.
+	public static final int MINIMUM_FINE_ACCURACY = 15;	//Minimum accuracy of the new location.
 
 	/**Parameters used for broadcast intent.*/
 	public static final String LOCATION_ACTION = "com.mymed.android.myjam.intent.action.LOCATION_CHANGE";
@@ -150,8 +150,8 @@ public class LocationService extends Service implements LocationListener{
 //		public void run() {
 //			Location loc = new Location("FIXED_PROVIDER");
 //			loc.setAccuracy((float) 5.0);
-//			loc.setLatitude(43.615721); //Prova a Sophia-Antipolis
-//			loc.setLongitude(7.068511);
+//			loc.setLatitude(45.079529); //Prova a Sophia-Antipolis
+//			loc.setLongitude(7.675717);
 //			onLocationChanged(loc);
 //		}
 //	};

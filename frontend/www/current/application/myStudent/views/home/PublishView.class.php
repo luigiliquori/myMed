@@ -9,10 +9,15 @@ require_once '../../lib/dasp/request/Request.class.php';
  * @author lvanni
  *
  */
+<<<<<<< HEAD
 
 class PublishView extends MainView {
 
 
+=======
+class PublishView extends MainView {
+	
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 	/* --------------------------------------------------------- */
 	/* Attributes */
 	/* --------------------------------------------------------- */
@@ -40,26 +45,44 @@ class PublishView extends MainView {
 			<span><?= $_SESSION['dictionary'][LG]["pleaseLogin"] ?></span>
 			<?php return ?>
 		<?php } ?>
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 		<form  action="#PublishView" method="post" name="<?= APPLICATION_NAME ?>PublishForm" id="<?= APPLICATION_NAME ?>PublishForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->
 			<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>_ADMIN" />
 			<input type="hidden" name="method" value="publish" />
 			<input type="hidden" name="numberOfOntology" value="5" />
+<<<<<<< HEAD
 			<br />
 			<br />
 			<ul data-role="listview"  data-theme="c" data-divider-theme="b" >
 			<!-- Titolo -->
 			<li data-role="list-divider" data-theme='b'><?= $_SESSION['dictionary'][LG]["ontology0"] ?></li>
 			<br />
+=======
+			
+			<!-- Titolo -->
+			<span><?= $_SESSION['dictionary'][LG]["ontology0"] ?> :</span>
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 			<input type="text" name="data" value="" />
 			<?php $dataBean = new MDataBean("data", null, KEYWORD); ?>
 			<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">
 			<br />
+<<<<<<< HEAD
 
 				<!-- Area -->
 				<li data-role="list-divider" data-theme='b'><?= $_SESSION['dictionary'][LG]["ontology1"] ?></li>
 				<br />
 				<select name="Area">
+=======
+			
+				<!-- Area -->
+				<span><?= $_SESSION['dictionary'][LG]["ontology1"] ?> :</span>
+				<select name="Area">
+					<option value=""><?= $_SESSION['dictionary'][LG]["ontology1"] ?></option>
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 					<option value="Aerospaziale"><?= $_SESSION['dictionary'][LG]["Area"][0] ?></option>
 					<option value="Ambientale"><?= $_SESSION['dictionary'][LG]["Area"][1] ?></option>
 					<option value="Autoveicolo"><?= $_SESSION['dictionary'][LG]["Area"][2] ?></option>
@@ -82,9 +105,15 @@ class PublishView extends MainView {
 				<br />
 				
 				<!-- Categoria -->
+<<<<<<< HEAD
 				<li data-role="list-divider" data-theme='b'><?= $_SESSION['dictionary'][LG]["ontology2"] ?></li>
 				<br />
 				<select name="Categoria">
+=======
+				<span><?= $_SESSION['dictionary'][LG]["ontology2"] ?> :</span>
+				<select name="Categoria">
+					<option value=""><?= $_SESSION['dictionary'][LG]["ontology2"] ?></option>
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 					<option value="Stage"><?= $_SESSION['dictionary'][LG]["Categoria"][0] ?></option>
 					<option value="Job"><?= $_SESSION['dictionary'][LG]["Categoria"][1] ?></option>
 					<option value="Tesi"><?= $_SESSION['dictionary'][LG]["Categoria"][2] ?></option>
@@ -96,6 +125,7 @@ class PublishView extends MainView {
 				<br />
 			
 			<!-- TEXT -->
+<<<<<<< HEAD
 			<li data-role="list-divider" data-theme='b'><?= $_SESSION['dictionary'][LG]["ontology4"] ?></li>
 			<br />
 
@@ -106,10 +136,22 @@ class PublishView extends MainView {
 			<br />
 			</ul>
 
+=======
+			<span><?= $_SESSION['dictionary'][LG]["ontology4"] ?> :</span>
+			<textarea id="CLEeditor" name="text"></textarea>
+			<?php $dataBean = new MDataBean("text", null, TEXT); ?>
+			<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($dataBean)); ?>">
+			<br />
+			
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 			<!-- DATE  -->
 			<input type="hidden" name="begin" value="<?= date("d/m/Y") . " - " . date("H:i:s") ?>" />
 			<?php $date = new MDataBean("begin", null, DATE); ?>
 			<input type="hidden" name="ontology4" value="<?= urlencode(json_encode($date)); ?>">
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 			<center>
 			<a href="#" data-role="button" data-inline="true" onclick="document.<?= APPLICATION_NAME ?>PublishForm.submit()" ><?= $_SESSION['dictionary'][LG]["view3"] ?></a>
 			</center>
@@ -120,6 +162,7 @@ class PublishView extends MainView {
 	* Get the CONTENT for jQuery Mobile
 	*/
 	private /*String*/ function getResultContent() {
+<<<<<<< HEAD
 		$text=$_POST['text'];
 		$data=$_POST['data'];
 		?>
@@ -134,6 +177,12 @@ class PublishView extends MainView {
 			} else {
 				echo $this->handler->getError();
 			}
+=======
+		if($succes = $this->handler->getSuccess()) { 
+			echo $_SESSION['dictionary'][LG]["requestSent"];
+		} else {
+			echo $this->handler->getError();
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 		}
 	}
 	
@@ -142,12 +191,19 @@ class PublishView extends MainView {
 	 */
 	public /*String*/ function getContent() { 
 		echo '<div data-role="content" id="content" style="padding: 10px;" data-theme="c">';
+<<<<<<< HEAD
 		if(isset($_POST['method']) && $_POST['method'] == "publish" && $_SESSION['p']=="ok" && ($this->handler->getError() || $this->handler->getSuccess())) {
 			$_SESSION['p']="ko";
 			$this->getResultContent();
 		} else {
 			$this->getPublishContent();
 			$_SESSION['p']="ok";
+=======
+		if(isset($_POST['method']) && $_POST['method'] == "publish" && ($this->handler->getError() || $this->handler->getSuccess())) {
+			$this->getResultContent();
+		} else {
+			$this->getPublishContent();
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 		}
 		echo '</div>';
 	}

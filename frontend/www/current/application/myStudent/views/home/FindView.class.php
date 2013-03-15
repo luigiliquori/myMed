@@ -40,6 +40,7 @@ class FindView extends MainView {
 				<!-- Define the method to call -->
 				<input type="hidden" name="application" value="<?= APPLICATION_NAME ?>" />
 				<input type="hidden" name="method" value="find" />
+<<<<<<< HEAD
 				<input type="hidden" name="numberOfOntology" value="3" />
 				<br />
 				<br />
@@ -49,6 +50,13 @@ class FindView extends MainView {
 				<br />
 				<select name="Area">
 					<option value=></option>
+=======
+				<input type="hidden" name="numberOfOntology" value="4" />
+				
+				<!-- Area -->
+				<select name="Area">
+					<option value=""><?= $_SESSION['dictionary'][LG]["ontology1"] ?></option>
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 					<option value="Aerospaziale"><?= $_SESSION['dictionary'][LG]["Area"][0] ?></option>
 					<option value="Ambientale"><?= $_SESSION['dictionary'][LG]["Area"][1] ?></option>
 					<option value="Autoveicolo"><?= $_SESSION['dictionary'][LG]["Area"][2] ?></option>
@@ -68,12 +76,19 @@ class FindView extends MainView {
 				</select>
 				<?php $dataBean = new MDataBean("Area", null, KEYWORD); ?>
 				<input type="hidden" name="ontology1" value="<?= urlencode(json_encode($dataBean)); ?>">
+<<<<<<< HEAD
 				<br />
 				<li data-role="list-divider" data-theme='b'><?= $_SESSION['dictionary'][LG]["ontology2"] ?></li>
 				<br />
 				<!-- Categoria -->
 				<select name="Categoria">
 					<option value=></option>
+=======
+				
+				<!-- Categoria -->
+				<select name="Categoria">
+					<option value=""><?= $_SESSION['dictionary'][LG]["ontology2"] ?></option>
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 					<option value="Stage"><?= $_SESSION['dictionary'][LG]["Categoria"][0] ?></option>
 					<option value="Job"><?= $_SESSION['dictionary'][LG]["Categoria"][1] ?></option>
 					<option value="Tesi"><?= $_SESSION['dictionary'][LG]["Categoria"][2] ?></option>
@@ -81,6 +96,7 @@ class FindView extends MainView {
 				</select>
 				<?php $dataBean = new MDataBean("Categoria", null, KEYWORD); ?>
 				<input type="hidden" name="ontology2" value="<?= urlencode(json_encode($dataBean)); ?>">
+<<<<<<< HEAD
 				<br />
 				</ul>
 				<br />
@@ -89,6 +105,12 @@ class FindView extends MainView {
 					 <h3><?= $_SESSION['dictionary'][LG]["ontology0"] ?></h3>
 					<!-- Titolo -->
 					<input type="hidden" name="ontology0" value="">
+=======
+				
+				<div data-role="collapsible">
+					 <h3><?= $_SESSION['dictionary'][LG]["ontology0"] ?></h3>
+					<!-- Titolo -->
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 					<input type="search" name="data" value="" />
 					<?php $dataBean = new MDataBean("data", null, KEYWORD); ?>
 					<input type="hidden" name="ontology0" value="<?= urlencode(json_encode($dataBean)); ?>">

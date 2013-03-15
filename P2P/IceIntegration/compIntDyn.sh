@@ -1,0 +1,1 @@
+g++ -fPIC -I/usr/lib/jvm/java-6-openjdk/include/ -g -static -c JavaIceWrapper.cpp IceWrapper.cpp IceConnection.cpp MessageDispatcher.cpp PseudoTcpRx.cpp PseudoTcpTx.cpp Connection.cpp Message.cpp MovingBuffer.cpp PseudoTcpUtil.cpp  EventLogger.cpp -lboost_serialization -lboost_thread `pkg-config --cflags --libs libpjproject`

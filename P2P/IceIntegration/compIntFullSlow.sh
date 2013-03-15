@@ -1,0 +1,1 @@
+g++ -g -Wall -o iceInt -O0 -lgtest -lboost_thread -lboost_serialization main.cpp IceWrapper.cpp IceConnection.cpp MessageDispatcher.cpp PseudoTcpRx.cpp PseudoTcpTx.cpp Connection.cpp Message.cpp MovingBuffer.cpp PseudoTcpUtil.cpp  EventLogger.cpp  rsComm.o p2pConnApi.o  `pkg-config --cflags --libs libpjproject`

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 POLITO 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.model.data.myjam;
 import com.mymed.model.data.myjam.MyJamTypes.ReportType;
 import com.mymed.model.data.myjam.MyJamTypes.TrafficFlowType;
@@ -9,7 +24,7 @@ import com.mymed.model.data.myjam.MyJamTypes.TrafficFlowType;
  */
 public class MyJamTypeValidator {
 	
-	public static void validate(MFeedBackBean mFeedBackBean) throws WrongFormatException {
+	public static void validate(MFeedbackBean mFeedBackBean) throws WrongFormatException {
 		if (mFeedBackBean.getValue() == null)
 			throw new WrongFormatException(" Value not set. ");
 		if (mFeedBackBean.getValue() != 0 && mFeedBackBean.getValue() != 1)

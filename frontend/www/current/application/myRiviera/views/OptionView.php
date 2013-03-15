@@ -4,9 +4,14 @@
 
 	<!-- Header -->
 	<div data-role="header" data-theme="b" data-position="fixed">
+		<? if(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) : ?>
+			<a data-rel="back" data-icon="arrow-l" data-ajax="false"/><?= _("Back")?></a>
+		<? else: ?>
+			<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Main menu")?></a>
+		<? endif ?>
+	
 		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Main menu")?></a>
 		<h1><?php echo APPLICATION_NAME." v1.0 alpha"?></h1>
-		<a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a>
 	</div>
 
 	<!-- CONTENT -->
@@ -25,11 +30,12 @@
 					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="100">
 				<?php } ?>
 				<br />
+				<br />
 				<!-- <a onclick="capturePhoto();" type="button" data-theme="d">Prendre une photo</a>  -->
-				Prenom: <?= $_SESSION['user']->firstName ?><br />
-				Nom: <?= $_SESSION['user']->lastName ?><br />
-				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
-				eMail: <?= $_SESSION['user']->email ?><br />
+				<strong>Prenom: </strong><?= $_SESSION['user']->firstName ?><br />
+				<strong>Nom: </strong><?= $_SESSION['user']->lastName ?><br />
+				<strong>Date de naissance: </strong><?= $_SESSION['user']->birthday ?><br />
+				<strong>eMail: </strong><?= $_SESSION['user']->email ?><br />
 				<div data-role="controlgroup" data-type="horizontal">
 					<!--  <a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a> -->
 					<!-- <a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a> -->

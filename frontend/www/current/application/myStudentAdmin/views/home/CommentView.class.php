@@ -35,11 +35,18 @@ class CommentView extends MainView {
 	* Load all the article: French/Italiano
 	*/
 	private /*String*/ function getArticle() { ?>
+<<<<<<< HEAD
 		<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="b" >
 		<li data-role="list-divider" data-theme='b'>Pending</li>
 			<?php $i=0 ?>
 			<?php 
 			$request = new Request("FindRequestHandler", READ);
+=======
+		<ul data-role="listview" data-filter="true" data-theme="c" data-dividertheme="a" >
+				<?php $i=0 ?>
+				<?php 
+				$request = new Request("FindRequestHandler", READ);
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 		    	$request->addArgument("application", APPLICATION_NAME . "_ADMIN");
 		    	$request->addArgument("predicate", "commentGroup" .  APPLICATION_NAME);
 		    	$responsejSon = $request->send();
@@ -56,11 +63,15 @@ class CommentView extends MainView {
 							</form>
 							<a href="#" onclick="document.getCommentDetailForm<?= $i ?>.submit()">
 								<?= $controller->data ?>
+<<<<<<< HEAD
 								<span style="margin-right:10px;" class="ui-li-aside ui-link" ><?= $controller->publisherName ?></span>
+=======
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 							</a>
 						</li>
 						<?php $i++ ?>
 					<?php } ?>
+<<<<<<< HEAD
 				<?php }else{ ?>
 				<?php echo "<h3><center>Nessun commento in Pending</center></h3>";?>
 				<?php } ?>
@@ -91,6 +102,8 @@ class CommentView extends MainView {
 					<?php } ?>
 				<?php }else{ ?>
 				<?php echo "<h3><center>Nessun commento Validated</center></h3>";?>
+=======
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 				<?php } ?>
 			</ul>
 			<br/><br/>

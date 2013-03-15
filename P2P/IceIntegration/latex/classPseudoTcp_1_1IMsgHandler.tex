@@ -1,0 +1,38 @@
+\hypertarget{classPseudoTcp_1_1IMsgHandler}{
+\section{PseudoTcp::IMsgHandler Class Reference}
+\label{classPseudoTcp_1_1IMsgHandler}\index{PseudoTcp::IMsgHandler@{PseudoTcp::IMsgHandler}}
+}
+
+
+Interface for callback from \hyperlink{classPseudoTcp_1_1Connection}{Connection} with \hyperlink{classPseudoTcp_1_1Message}{Message}.  
+
+
+
+
+{\ttfamily \#include $<$IMsgHandler.hpp$>$}
+
+Inheritance diagram for PseudoTcp::IMsgHandler:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{classPseudoTcp_1_1IMsgHandler}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1IMsgHandler_a489ae29ae542515d53a21eaac9af03c0}{
+virtual void {\bfseries IncomingMessage} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)=0}
+\label{classPseudoTcp_1_1IMsgHandler_a489ae29ae542515d53a21eaac9af03c0}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Interface for callback from \hyperlink{classPseudoTcp_1_1Connection}{Connection} with \hyperlink{classPseudoTcp_1_1Message}{Message}. The \hyperlink{classPseudoTcp_1_1IMsgHandler}{IMsgHandler} interface serves implement a callback from the lower level \hyperlink{classPseudoTcp_1_1Connection}{Connection} to the higher level \hyperlink{classPseudoTcp_1_1MessageDispatcher}{MessageDispatcher} avoiding circular dependencies. 
+\begin{DoxyParams}{Parameters}
+\item[{\em msg}]The \hyperlink{classPseudoTcp_1_1Message}{Message} to handle. \end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+IMsgHandler.hpp\end{DoxyCompactItemize}
