@@ -265,7 +265,7 @@
     if (itm.url!=nil && itm.url.length>0) {
         webSiteMsg = NSLocalizedString(@"Open web site", nil);
     }
-        UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:itm.title delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Info", nil), webSiteMsg, nil];
+        UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:itm.title delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Info", nil), NSLocalizedString(@"Where?", nil),webSiteMsg, nil];
         [as showFromTabBar:self.tabBarController.tabBar];
         as.tag = indexPath.row;
         [as release];
@@ -283,6 +283,17 @@
     [as release];
 }
 
+-(void) openMaps :(Item *)itm
+{
+    //CLLocationCoordinate2D currentLocation = [self getCurrentLocation];
+    // this uses an address for the destination.  can use lat/long, too with %f,%f format
+    NSString* address = [NSString stringWithFormat:@"%@, France", itm.address];
+    NSString* url = [NSString stringWithFormat: @"http://maps.google.com/maps?daddr=%@",
+                 [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+}
+
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex==actionSheet.cancelButtonIndex) {
@@ -291,7 +302,7 @@
     if (buttonIndex==actionSheet.firstOtherButtonIndex) {
         Item *itm = [self.page.items objectAtIndex:actionSheet.tag];
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:itm.title
-                                                     message:itm.desc
+                                                     message:[NSString stringWithFormat:@"%@\n\n%@\n%@", itm.desc, itm.address, itm.url]
                                                     delegate:nil
                                            cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                            otherButtonTitles:nil];
@@ -299,6 +310,10 @@
         [av release]; 
 
     } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+1)) {
+        Item *itm = [self.page.items objectAtIndex:actionSheet.tag];
+        [self openMaps:itm];
+        
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+2)) {
         Item *itm = [self.page.items objectAtIndex:actionSheet.tag];
         if (itm.url!=nil) {
             NSString *surl = [NSString stringWithFormat:@"http://%@", itm.url];

@@ -204,8 +204,12 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        [[UIApplication sharedApplication] openURL:[request URL]];
-        return NO;
+        NSString *hst = request.URL.host;
+        //NSLog(@"[%d] Host:%@  Url:%@", navigationType, hst, request.URL.absoluteString);
+        if (![hst hasPrefix:@"www.mymed.fr"]) {
+            [[UIApplication sharedApplication] openURL:[request URL]];
+            return NO;
+        }
     }
     return YES;
 }
