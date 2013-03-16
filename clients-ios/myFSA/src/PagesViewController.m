@@ -288,9 +288,15 @@
     //CLLocationCoordinate2D currentLocation = [self getCurrentLocation];
     // this uses an address for the destination.  can use lat/long, too with %f,%f format
     NSString* address = [NSString stringWithFormat:@"%@, France", itm.address];
-    NSString* url = [NSString stringWithFormat: @"http://maps.google.com/maps?daddr=%@",
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"comgooglemaps://"]]) {
+        NSString* url = [NSString stringWithFormat: @"comgooglemaps://?q=%@",
+                         [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+    } else {
+        NSString* url = [NSString stringWithFormat: @"http://maps.google.com/maps?q=%@",
                  [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+    }
 }
 
 
