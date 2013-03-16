@@ -19,14 +19,16 @@
 	<!-- Header bar -->
   	<? 	$title = _("Profile");
   	  	// Check the previous usr for the back button, if it is a publication details
-  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate"))
+  	  	if(strpos($_SERVER['HTTP_REFERER'],"?action=details&predicate")) {
   	   		//print_header_bar($_SERVER['HTTP_REFERER'], "defaultHelpPopup", $title); 
   	   		print_header_bar('back', "defaultHelpPopup", $title); 
+  	  	} elseif(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+			print_header_bar("back", false, $title);
+		} else {
+	   		print_header_bar("?action=main", "defaultHelpPopup", $title); 
+		}?> 
+  	  	
 
-  	  	else
-  	   		print_header_bar("?action=main", "defaultHelpPopup", $title);
-  	   ?>
-	
 	<!-- Print profile type -->
 	<? if (isset($_SESSION['myEuroCIN']) && $_GET['user'] == $_SESSION['user']->id ){ 
 			if($_SESSION['myEuroCIN']->permission == 2){ ?>
@@ -94,28 +96,10 @@
 			<li>
 				<p>
 					<?=
-					//(empty($this->profile->details['email'])?" ": _("email").": <a href='mailto:".$this->profile->details['email']."' >".$this->profile->details['email']."</a><br/>").
 					(empty($this->profile->details['phone'])?" ":_("phone").": <a href='tel:".$this->profile->details['phone']."' >".$this->profile->details['phone']."</a><br/>").
 					(empty($this->profile->details['address'])?" ":_("address").": "."<span>".$this->profile->details['address']."</span><br/>")
 					?>
 				</p>
-				<!-- Role's fields -->
-				<?php 
-					/* Render role's fields
-					switch($this->profile->details['role']) {
-						
-						case 'Role_1':
-							echo empty($this->profile->details['role1field1']) ? " " : "<p>". _("Role 1 field 1").": "."<span>".$this->profile->details['role1field1']."</span></p>";
-							echo empty($this->profile->details['role1field2']) ? " " : "<p>". _("Role 1 field 2").": "."<span>".$this->profile->details['role1field2']."</span></p>";							break;
-						
-						case 'Role_2':
-							echo empty($this->profile->details['role2field1']) ? " " : "<p>". _("Role 2 field 1").": "."<span>".$this->profile->details['role2field1']."</span></p>";
-							echo empty($this->profile->details['role2field2']) ? " " : "<p>". _("Role 2 field 2").": "."<span>".$this->profile->details['role2field2']."</span></p>";
-							break;
-
-								
-					}*/
-				?>
 				<br/>
 				<p>
 					<?= _("Description")?>: <p style="margin-left:30px"><?= empty($this->profile->details['desc'])?" ":$this->profile->details['desc'] ?></p>
@@ -137,6 +121,12 @@
 			<br />
 			<!-- Edit profile-->
 			<a type="button" href="?action=ExtendedProfile&method=edit"  data-theme="d" data-icon="edit" data-inline="true"><?= _('Edit my profile') ?></a>
+			
+			<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
+				<a type="button" href="?action=UpgradeAccount&method=migrate"  data-theme="g" data-icon="pencil" data-inline="true"><?= _('Create a myMed profile') ?></a>
+		 <? endif; ?>
+		 
 			<!-- Delete profile-->
 			<a type="button" href="#popupDeleteProfile" data-theme="d" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete my profile') ?></a>
 			<!-- Pop up delete profile -->	

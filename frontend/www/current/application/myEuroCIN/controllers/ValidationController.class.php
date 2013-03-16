@@ -75,7 +75,7 @@ class ValidationController extends AuthenticatedController {
 		
 		
 		// sets the level of broadcasting in the Index Table
-		$level = 3;
+		$level = 1;
 		$obj->publish($level);
 		
 		$msgMail = "";

@@ -1,0 +1,48 @@
+\hypertarget{classPseudoTcp_1_1IConnection}{
+\section{PseudoTcp::IConnection Class Reference}
+\label{classPseudoTcp_1_1IConnection}\index{PseudoTcp::IConnection@{PseudoTcp::IConnection}}
+}
+Inheritance diagram for PseudoTcp::IConnection:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{classPseudoTcp_1_1IConnection}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1IConnection_ae3b2a63ff3d75130a9ea4e9197ff6eb2}{
+virtual void \hyperlink{classPseudoTcp_1_1IConnection_ae3b2a63ff3d75130a9ea4e9197ff6eb2}{SetMsgHandler} (\hyperlink{classPseudoTcp_1_1IMsgHandler}{IMsgHandler} $\ast$msgHandler)=0}
+\label{classPseudoTcp_1_1IConnection_ae3b2a63ff3d75130a9ea4e9197ff6eb2}
+
+\begin{DoxyCompactList}\small\item\em Property MsgHandler tells who to forward incoming messages to. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1IConnection_adcb33b73838a97b7abcc1b8fc4ed56a2}{
+virtual \hyperlink{classPseudoTcp_1_1IMsgHandler}{IMsgHandler} $\ast$ \hyperlink{classPseudoTcp_1_1IConnection_adcb33b73838a97b7abcc1b8fc4ed56a2}{GetMsgHandler} () const =0}
+\label{classPseudoTcp_1_1IConnection_adcb33b73838a97b7abcc1b8fc4ed56a2}
+
+\begin{DoxyCompactList}\small\item\em Property MsgHandler tells who to forward incoming messages to. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1IConnection_a82f7a2ca2784a9c3da5bdd022aec0f59}{
+virtual int \hyperlink{classPseudoTcp_1_1IConnection_a82f7a2ca2784a9c3da5bdd022aec0f59}{sendMessage} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)=0}
+\label{classPseudoTcp_1_1IConnection_a82f7a2ca2784a9c3da5bdd022aec0f59}
+
+\begin{DoxyCompactList}\small\item\em Send message to other half of connection. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1IConnection_afe96a0f5f39c83ec5b9367734529ec68}{
+virtual int \hyperlink{classPseudoTcp_1_1IConnection_afe96a0f5f39c83ec5b9367734529ec68}{incomingMessage} (\hyperlink{classPseudoTcp_1_1Message}{Message} msg)=0}
+\label{classPseudoTcp_1_1IConnection_afe96a0f5f39c83ec5b9367734529ec68}
+
+\begin{DoxyCompactList}\small\item\em a message arrives from other half of connection, notify MsgHandler \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1IConnection_adb019cbaaa9ac27a98764a7085a67e3f}{
+virtual int {\bfseries GetId} () const =0}
+\label{classPseudoTcp_1_1IConnection_adb019cbaaa9ac27a98764a7085a67e3f}
+
+\item 
+\hypertarget{classPseudoTcp_1_1IConnection_a5166f14753cd7cc5ca8e20e701812f0c}{
+virtual void \hyperlink{classPseudoTcp_1_1IConnection_a5166f14753cd7cc5ca8e20e701812f0c}{registerThread} ()=0}
+\label{classPseudoTcp_1_1IConnection_a5166f14753cd7cc5ca8e20e701812f0c}
+
+\begin{DoxyCompactList}\small\item\em Horrible hack, made necessary by exigencies of pjnat. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+IConnection.hpp\end{DoxyCompactItemize}

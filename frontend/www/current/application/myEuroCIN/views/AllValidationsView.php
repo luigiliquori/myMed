@@ -46,7 +46,7 @@
 								<? if( isset($item->Arte_Cultura) ) echo _("Art/Cultur "); ?> 
 								<? if( isset($item->Natura) ) echo _("Nature "); ?>
 								<? if( isset($item->Tradizioni) ) echo _("Traditions "); ?>
-								<? if( isset($item->Enogastronomia) ) echo _("Enogastronimy "); ?>
+								<? if( isset($item->Enogastronomia) ) echo _("Enogastronomy "); ?>
 								<? if( isset($item->Benessere) ) echo _("Wellness "); ?>
 								<? if( isset($item->Storia) ) echo _("History "); ?>
 								<? if( isset($item->Religione) ) echo _("Religion "); ?>
@@ -56,12 +56,12 @@
 						</div>
 						<div class="ui-block-b">
 							<div data-role="controlgroup" data-type="horizontal" style="float: right;">
-								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->begin ?>","<?= $item->expire_date ?>","<?= $item->data ?>", "<?= $item->Nazione ?>", "<?= $item->Lingua ?>", "<?= (isset($item->Arte_Cultura))?'on':'off' ?>", "<?= (isset($item->Natura))?'on':'off' ?>", "<?= (isset($item->Tradizioni))?'on':'off' ?>", "<?= (isset($item->Enogastronomia))?'on':'off' ?> ", "<?= (isset($item->Benessere))?'on':'off' ?>" , "<?= (isset($item->Storia))?'on':'off' ?>" , "<?= (isset($item->Religione))?'on':'off' ?>", "<?= (isset($item->Escursioni_Sport))?'on':'off' ?>", "<?= $item->getTitle() ?>", "<?= $item->text ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Validate') ?></a>		
-								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->publisher ?>","<?= $item->begin ?>","<?= $item->expire_date ?>","<?= $item->data ?>", "<?= $item->Nazione ?>", "<?= $item->Lingua ?>", "<?= (isset($item->Arte_Cultura))?'on':'off' ?>", "<?= (isset($item->Natura))?'on':'off' ?>", "<?= (isset($item->Tradizioni))?'on':'off' ?>", "<?= (isset($item->Enogastronomia))?'on':'off' ?> ", "<?= (isset($item->Benessere))?'on':'off' ?>" , "<?= (isset($item->Storia))?'on':'off' ?>" , "<?= (isset($item->Religione))?'on':'off' ?>", "<?= (isset($item->Escursioni_Sport))?'on':'off' ?>", "<?= $item->getTitle() ?>", "<?= $item->text ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Delete') ?></a>
+								<a type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->begin ?>","<?= $item->expire_date ?>","<?= $item->data ?>", "<?= $item->Nazione ?>", "<?= $item->Lingua ?>", "<?= (isset($item->Arte_Cultura))?'on':'off' ?>", "<?= (isset($item->Natura))?'on':'off' ?>", "<?= (isset($item->Tradizioni))?'on':'off' ?>", "<?= (isset($item->Enogastronomia))?'on':'off' ?>", "<?= (isset($item->Benessere))?'on':'off' ?>" , "<?= (isset($item->Storia))?'on':'off' ?>" , "<?= (isset($item->Religione))?'on':'off' ?>", "<?= (isset($item->Escursioni_Sport))?'on':'off' ?>", "<?= $item->getTitle() ?>", "<?= str_replace('"',"&#39;", $item->text) ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Validate') ?></a>		
+								<a type="button" href="#" onclick='generate_refuse_popup("<?= $item->publisher ?>","<?= $item->begin ?>","<?= $item->expire_date ?>","<?= $item->data ?>", "<?= $item->Nazione ?>", "<?= $item->Lingua ?>", "<?= (isset($item->Arte_Cultura))?'on':'off' ?>", "<?= (isset($item->Natura))?'on':'off' ?>", "<?= (isset($item->Tradizioni))?'on':'off' ?>", "<?= (isset($item->Enogastronomia))?'on':'off' ?>", "<?= (isset($item->Benessere))?'on':'off' ?>" , "<?= (isset($item->Storia))?'on':'off' ?>" , "<?= (isset($item->Religione))?'on':'off' ?>", "<?= (isset($item->Escursioni_Sport))?'on':'off' ?>", "<?= $item->getTitle() ?>", "<?= str_replace('"',"&#39;", $item->text) ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Delete') ?></a>
 							</div>
 						</div>
 						<script type="text/javascript">
-							function generate_accept_popup(publisher,begin,expire_date, data, Nazione, Lingua, Arte_Cultura, Natura, Tradizioni, Enogastronomia, Benessere, Storia, Religione, Escursioni_Sport, data, text){
+							function generate_accept_popup(publisher,begin,expire_date, data, Nazione, Lingua, Arte_Cultura, Natura, Tradizioni, Enogastronomia, Benessere, Storia, Religione, Escursioni_Sport, data, text) {
 								$("#popupAccept").html('<p style="font-size:85%;"><?= _("You can attach a message for the applier (or just click on Validate):") ?></p>\
 									<form action="?action=validation&method=accept" method="POST" data-ajax="false">\
 			 	    					<textarea id="msgMail" name="msgMail" style="height: 120px;" ></textarea>\

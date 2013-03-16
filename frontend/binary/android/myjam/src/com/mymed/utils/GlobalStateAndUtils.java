@@ -38,6 +38,7 @@ public class GlobalStateAndUtils {
 	private String login;
 	private String password;
 	private String userName;
+	private String accessToken;
 	
 	/** Singleton, cannot be instantiated. */
     private GlobalStateAndUtils(Context context){
@@ -47,7 +48,12 @@ public class GlobalStateAndUtils {
 		typeSeparator = mContext.getString(R.string.type_string_separator);
 		dateFormat = mContext.getString(R.string.date_format);
 		decNumberSeparator = mContext.getString(R.string.frac_number_separator);
-    	  
+    	accessToken = null;
+    	userId = null;
+    	password = null;
+    	userName = null;
+    	login = null;
+    	logged = false;
     }  
     
     public synchronized static GlobalStateAndUtils getInstance(Context context)  
@@ -63,6 +69,10 @@ public class GlobalStateAndUtils {
 	private final String typeSeparator;
 	private final String dateFormat;
 	private final String decNumberSeparator;
+	
+	public synchronized static void releaseResources(){
+		mInstance = null;
+	}
 	
 	
 	////////////////////////////////
@@ -220,5 +230,13 @@ public class GlobalStateAndUtils {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 }

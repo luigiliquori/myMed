@@ -1,0 +1,59 @@
+\hypertarget{classIceConnection}{
+\section{IceConnection Class Reference}
+\label{classIceConnection}\index{IceConnection@{IceConnection}}
+}
+Inheritance diagram for IceConnection:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{classIceConnection}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classIceConnection_ae55802559fd5a75ad33486343a94a558}{
+{\bfseries IceConnection} (\hyperlink{structP2pConnection}{P2pConnection} $\ast$conn)}
+\label{classIceConnection_ae55802559fd5a75ad33486343a94a558}
+
+\item 
+\hypertarget{classIceConnection_ae2d71cdc1d53c4a7c8e55c24e31a2975}{
+virtual void \hyperlink{classIceConnection_ae2d71cdc1d53c4a7c8e55c24e31a2975}{SetMsgHandler} (\hyperlink{classPseudoTcp_1_1IMsgHandler}{PseudoTcp::IMsgHandler} $\ast$msgHandler)}
+\label{classIceConnection_ae2d71cdc1d53c4a7c8e55c24e31a2975}
+
+\begin{DoxyCompactList}\small\item\em Property MsgHandler tells who to forward incoming messages to. \item\end{DoxyCompactList}\item 
+\hypertarget{classIceConnection_a7da6f8856993f364ffae69058f0f0ce9}{
+virtual \hyperlink{classPseudoTcp_1_1IMsgHandler}{PseudoTcp::IMsgHandler} $\ast$ \hyperlink{classIceConnection_a7da6f8856993f364ffae69058f0f0ce9}{GetMsgHandler} () const }
+\label{classIceConnection_a7da6f8856993f364ffae69058f0f0ce9}
+
+\begin{DoxyCompactList}\small\item\em Property MsgHandler tells who to forward incoming messages to. \item\end{DoxyCompactList}\item 
+\hypertarget{classIceConnection_a195847a0829721e04e506bb64e5f904e}{
+virtual int \hyperlink{classIceConnection_a195847a0829721e04e506bb64e5f904e}{sendMessage} (\hyperlink{classPseudoTcp_1_1Message}{PseudoTcp::Message} $\ast$msg)}
+\label{classIceConnection_a195847a0829721e04e506bb64e5f904e}
+
+\begin{DoxyCompactList}\small\item\em Send message to other half of connection. \item\end{DoxyCompactList}\item 
+\hypertarget{classIceConnection_a475f6891e8aaeb44aa95f52c4961073a}{
+virtual int \hyperlink{classIceConnection_a475f6891e8aaeb44aa95f52c4961073a}{incomingMessage} (\hyperlink{classPseudoTcp_1_1Message}{PseudoTcp::Message} msg)}
+\label{classIceConnection_a475f6891e8aaeb44aa95f52c4961073a}
+
+\begin{DoxyCompactList}\small\item\em a message arrives from other half of connection, notify MsgHandler \item\end{DoxyCompactList}\item 
+\hypertarget{classIceConnection_a9f105aee4fe5d2079021c0e076a8f8bc}{
+virtual int {\bfseries GetId} () const }
+\label{classIceConnection_a9f105aee4fe5d2079021c0e076a8f8bc}
+
+\item 
+\hypertarget{classIceConnection_a7397be107c4a18c0fe288ce59e99991a}{
+virtual void \hyperlink{classIceConnection_a7397be107c4a18c0fe288ce59e99991a}{registerThread} ()}
+\label{classIceConnection_a7397be107c4a18c0fe288ce59e99991a}
+
+\begin{DoxyCompactList}\small\item\em Horrible hack, made necessary by exigencies of pjnat. \item\end{DoxyCompactList}\item 
+\hypertarget{classIceConnection_ab8d85a088dce0a5637db693c2d7aeb6d}{
+int {\bfseries incomingRawMessage} (char $\ast$msg, int length)}
+\label{classIceConnection_ab8d85a088dce0a5637db693c2d7aeb6d}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+IceConnection.hpp\item 
+IceConnection.cpp\end{DoxyCompactItemize}

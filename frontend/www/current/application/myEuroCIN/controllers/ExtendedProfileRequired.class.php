@@ -27,6 +27,11 @@ class ExtendedProfileRequired extends GuestController {
 				// $this->setError($e->getMessage());
 			}
 			
+			// If the user is authenticated with a basic mymed profile
+			if ($_SESSION['user']->isguest == 0) {
+				$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
+			}
+			
 			// The user is found
 			if (isset($usr)) {
 				
@@ -50,7 +55,7 @@ class ExtendedProfileRequired extends GuestController {
 					// Set user Access Control Lists
 					if ($_SESSION['myEuroCIN']->permission <= 0){
 						// Guest
-						$_SESSION['acl'] = array('defaultMethod', 'read');
+						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 					} else if ($_SESSION['myEuroCIN']->permission == 1){
 						$_SESSION['acl'] = array('defaultMethod', 'read', 'delete', 'update', 'create');
 					} else {
@@ -59,6 +64,8 @@ class ExtendedProfileRequired extends GuestController {
 				}
 				
 			} // ENDIF isset($usr)
+			
+			
 			 
 		} // ENDIF !isset($_SESSION['myEuroCIN'], $_SESSION['myEuroCIN']->permission
 		

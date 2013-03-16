@@ -18,8 +18,11 @@
 	<link href="css/style.css" rel="stylesheet" />
 
 	
-	<script type="text/javascript" src="../../lib/jquery/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="../../lib/jquery/jquery.mobile-1.2.0.js"></script>
+	<!-- JQUERY  -->
+	<link rel="stylesheet" href="/lib/jquery/jquery.mobile-1.2.0.css" />
+	<script src="/lib/jquery/jquery-1.8.2.min.js"></script>
+	<script src="/lib/jquery/jquery.mobile-1.2.0.js"></script>
+	
 	<!-- APP JS -->
 	<script type="text/javascript" src="<?= APP_ROOT ?>/javascript/common.js"></script>
 	<script type="text/javascript" src="<?= APP_ROOT ?>/javascript/myRiviera.js"></script>

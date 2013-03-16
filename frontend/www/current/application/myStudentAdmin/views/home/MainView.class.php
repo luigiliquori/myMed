@@ -40,12 +40,20 @@ class MainView extends AbstractView {
 	public /*String*/ function getMenu() { ?>
 		<?php $articleView = $this->id == "ArticleView" ?>
 		<?php $commentView = $this->id == "CommentView" ?>
+<<<<<<< HEAD
+=======
+		<?php $subscribeView = $this->id == "SubscribeView" ?>
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 		<a href="?langue=IT"><img alt="it" src="img/IT_Flag.png" width="20" Style="position: absolute; left: 300px; top:10px;"></a>
 		<a href="?langue=IT"><img alt="fr" src="img/FR_Flag.png" width="20" Style="position: absolute; left: 300px; top:50px;"></a>
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#ArticleView" <?= $articleView ? "data-theme='b'" : "" ?>>Articolo</a></li>
 				<li><a href="#CommentView" <?= $commentView ? "data-theme='b'" : "" ?>>Commento</a></li>
+<<<<<<< HEAD
+=======
+				<li><a href="#SubscribeView" <?= $subscribeView ? "data-theme='b'" : "" ?>>Sottoscrivere</a></li>
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 			</ul>
 		</div><!-- /navbar -->
 	<?php }

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 POLITO 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.android.myjam.provider;
 
 import java.util.ArrayList;
@@ -82,6 +97,7 @@ public class MyJamProvider extends ContentProvider{
     private static final int USER_ID = 2;
     
     private static final int LOGIN = 3;
+    private static final int LOGIN_STATUS = 18;
     
     private static final int SEARCH = 4;
     private static final int SEARCH_SEARCH_ID = 5;
@@ -130,6 +146,7 @@ public class MyJamProvider extends ContentProvider{
                     + Login.PASSWORD + " TEXT NOT NULL,"
                     + Login.DATE + " INTEGER,"
                     + Login.LOGGED + " INTEGER,"
+                    + Login.ACCESS_TOKEN + " TEXT,"
                     + "UNIQUE (" + User.USER_ID + ") ON CONFLICT REPLACE)");
             
             db.execSQL("CREATE TABLE " + Tables.USERS_TABLE_NAME + " ("
@@ -377,6 +394,12 @@ public class MyJamProvider extends ContentProvider{
         case LOGIN:
         	qb.setTables(Tables.LOGIN_JOIN_USER);
         	break;
+        case LOGIN_STATUS:
+        	String status = Login.getStatus(uri);
+        	qb.setTables(Tables.LOGIN_JOIN_USER);
+        	if (status.equals(Login.LOGGED))
+        		qb.appendWhere("login.logged =\"" + 1+"\"");	//Returns only the logged users.
+        	break;
         case USER_ID:
         	id = User.getUserId(uri);
         	qb.setTables(Tables.USERS_TABLE_NAME);
@@ -536,6 +559,7 @@ public class MyJamProvider extends ContentProvider{
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "login", LOGIN);
+        sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "login/*", LOGIN_STATUS);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "users", USER);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "users/*", USER_ID);
         sUriMatcher.addURI(MyJamContract.CONTENT_AUTHORITY, "search", SEARCH);

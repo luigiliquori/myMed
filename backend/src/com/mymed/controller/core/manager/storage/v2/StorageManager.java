@@ -225,7 +225,7 @@ public class StorageManager extends
 		LOGGER.info("batch_mutate performed correctly");
 	}
   //@TODO factorize the two below and above
-    @Override public void insertSliceStr(
+   @Override public void insertSliceStr(
 			final String tableName,
 			final String primaryKey,
 			int ttl,

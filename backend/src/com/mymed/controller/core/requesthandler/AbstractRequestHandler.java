@@ -39,6 +39,7 @@ import com.mymed.controller.core.exception.AbstractMymedException;
 import com.mymed.controller.core.exception.IOBackEndException;
 import com.mymed.controller.core.exception.InternalBackEndException;
 import com.mymed.controller.core.manager.session.SessionManager;
+import com.mymed.controller.core.requesthandler.message.JsonMessage;
 import com.mymed.controller.core.requesthandler.message.JsonMessageOut;
 import com.mymed.properties.IProperties;
 import com.mymed.properties.PropType;
@@ -307,6 +308,17 @@ public abstract class AbstractRequestHandler extends HttpServlet {
         response.setStatus(message.getStatus());
 		responseText = callback + "(" + message.toString() + ");";
         printResponse(response);
+    }
+    
+    /**
+     * Print Server response for myJam
+     * @param message
+     * @param response
+     */
+    protected void printJSonResponse(final JsonMessage<Object> message, final HttpServletResponse response){
+    	response.setStatus(message.getStatus());
+    	responseText = message.toString();
+    	printResponse(response);
     }
 
     /**

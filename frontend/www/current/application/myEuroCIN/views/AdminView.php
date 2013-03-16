@@ -35,21 +35,26 @@
 				
 				<li>
 					<a href="?action=ExtendedProfile&method=show_user_profile&user=<?= urlencode($item->id) ?>"><span class="<?= $item->id==$_SESSION['user']->id?"ui-link":"" ?>"><?= $item->email ?></span></a>
-					<a href="#popupDeleteUser" data-theme="r" data-icon="delete" data-rel="popup" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _('Delete profile') ?></a>
+					<a href="#" onclick='delete_user_popup("<?= urlencode($item->id) ?>", "<?= $item->permission - 1 ?>", "<?= $item->email ?>");' data-theme="r" data-icon="delete" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _('Delete profile') ?></a>
 					<a rel="external" data-icon="sort-down" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>&email=<?= $item->email ?>" data-theme="g"><?= _("Make this account admin") ?></a>
-				
-					<!-- Pop up delete -->	
-					<div data-role="popup" id="popupDeleteUser" class="ui-content" Style="text-align: center; width: 18em;">
-						<p style="font-size:85%;"><? echo _("Are you sure you want to delete this account?") ?></p>
-						<fieldset class="ui-grid-a">
-							<div class="ui-block-a">
-								<a data-icon="ok" data-theme="g" href="?action=Admin&method=delete&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>&email=<?= $item->email ?>" data-inline="true" data-role="button"><?= _("Yes") ?></a>
-							</div>
-							<div class="ui-block-b">
-								<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
-							</div>
-						</fieldset>
-					</div>
+
+					<script type="text/javascript">
+						function delete_user_popup(id, perm, email){
+							$("#popupDelete").html('<p style="font-size:85%;"><?= _("Are you sure you want to delete this account?") ?></p>\
+								<fieldset class="ui-grid-a">\
+									<div class="ui-block-a">\
+										<a data-icon="ok" data-theme="g" href="?action=Admin&method=delete&id='+id+'&perm='+perm+'&email='+email+'" data-inline="true" data-role="button"><?= _("Yes") ?></a>\
+									</div>\
+									<div class="ui-block-b">\
+										<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>\
+									</div>\
+								</fieldset>\
+								');
+							$("#popupDelete").trigger('create');
+				 			$("#popupDelete").popup("open");
+						}
+					</script>
+					<div data-role="popup" id="popupDelete" class="ui-content" Style="text-align: center; width: 18em;"></div>
 				</li>
 			<? endforeach ?>
 				<li data-role="list-divider"><?= _("Admins") ?><span class="ui-li-count"><?= count($this->admins) ?></span></li>

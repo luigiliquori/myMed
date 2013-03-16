@@ -6,7 +6,7 @@ require_once("header.php");
 
 <div data-role="page">
 
-	<?php tab_bar_main("?action=store", 2); ?>
+	<?php tab_bar_main("?action=store", 5); ?>
 	<?php include 'notifications.php'; ?>
 	
 	
@@ -49,7 +49,7 @@ require_once("header.php");
 					<img style="float:left; margin:10px;" alt="<?= $_REQUEST["applicationStore"] ?>" src="../../application/<?= $_REQUEST["applicationStore"] ?>/img/icon.png" Style="position: absolute; width: 50px;"/>
 					<p style="margin:20px"> <br/>
 						<strong>Version:</strong> <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/version") ?></i><br/>
-						<strong>Mise à jour:</strong> <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i><br/><br/><br/>
+						<strong>Mise à jour:</strong> <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i><br/><br/><br/><br/><br/>
 						<i> <? include(MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description.php") ?></i>
 					</p>
 				</div>

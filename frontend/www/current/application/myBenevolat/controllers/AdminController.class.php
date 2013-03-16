@@ -134,7 +134,7 @@ class AdminController extends ExtendedProfileRequired {
 		$mailman->send();
 		
 		
-		$this->forwardTo("admin");
+		$this->redirectTo("?action=admin");
 	}
 	
 	/* Filter assocation basing on permissions */
@@ -159,6 +159,7 @@ class AdminController extends ExtendedProfileRequired {
 	/** Delete an association extended profile and its announcements */
 	public function delete() {
 		debug("delete");
+		debug($_GET['id']." ".$_GET['email']." ".$_GET['profiletype']);
 		
 		$this->deleteAnnouncements($_GET['id']);
 		$this->delete_Applies($_GET['id']);
@@ -168,7 +169,7 @@ class AdminController extends ExtendedProfileRequired {
 		$mailman = new EmailNotification($email,_("Your association has been removed"),_("Your association has been removed."));
 		$mailman->send();
 		
-		$this->forwardTo("admin");
+		$this->redirectTo("?action=admin");
 	}
 	
 	

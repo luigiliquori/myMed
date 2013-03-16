@@ -75,7 +75,7 @@
 				
 				<br />
 				
-				<h3><?= _('Other information') ?> :</h3>
+				<h3><?= _('Other criteria') ?> :</h3>
 					<select name="Nazione" id="Nazione" data-native-menu="false">
 					<option value=""> <?= _("Locality")?><b>*</b> </option>
 					<? foreach (Categories::$localities as $k=>$v) :?>
@@ -89,7 +89,7 @@
 					<? endforeach ?>
 					</select><br />
 					<!-- Categories -->
-					<label for="categories"><strong><?= _("Categories") ?></strong></label>
+					<label for="categories"><strong><?= _("Categories") ?> :</strong></label>
 					<fieldset data-role="controlgroup" id="categories">
 					<? foreach (Categories::$categories as $k=>$v) :?>
 					   	<input type="checkbox" name="<?= $k ?>" id="<?= $k ?>" class="custom" value="on">

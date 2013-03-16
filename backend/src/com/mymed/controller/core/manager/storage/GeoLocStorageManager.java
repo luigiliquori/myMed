@@ -55,6 +55,7 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
 
   private static final long A_THOUSAND = 1000L;
 
+
   private final CassandraWrapper wrapper;
 
   /**
@@ -207,6 +208,7 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
 
     insertExpiringColumn(tableName, primaryKey, null, columnName, value, timestamp, expiringTime);
   }
+  
 
   @Override
   public void insertSuperColumn(
@@ -248,6 +250,8 @@ public class GeoLocStorageManager extends StorageManager implements IGeoLocStora
     wrapper.insert(key, parent, column, consistencyOnWrite);
   }
 
+
+  
   @Override
   public Map<byte[], byte[]> selectAll(final String tableName, final String primaryKey) throws IOBackEndException,
       InternalBackEndException {

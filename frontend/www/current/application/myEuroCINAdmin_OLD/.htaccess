@@ -1,0 +1,5 @@
+AuthName "Page d'administration protégée"
+AuthType Basic
+AuthUserFile "/var/www/mymed/application/myEuroCINAdmin/.htpasswd"
+
+Require valid-user

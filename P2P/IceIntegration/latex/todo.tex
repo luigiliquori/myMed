@@ -1,0 +1,13 @@
+\label{todo__todo000001}
+\hypertarget{todo__todo000001}{}
+ 
+\begin{DoxyDescription}
+\item[Member \hyperlink{group__group1_gaa74cf86697d336a90508f375067e02ef}{PseudoTcp::Message::GetMsgsReceived}() ]: remove 
+\end{DoxyDescription}
+
+\label{todo__todo000002}
+\hypertarget{todo__todo000002}{}
+ 
+\begin{DoxyDescription}
+\item[Class \hyperlink{classutils_1_1MovingBuffer}{utils::MovingBuffer$<$ T $>$} ]: perhaps convert vector to deque. explain the implementation a bit. There are two parts to the structure. A buffer holds numbered items. An integer represents the first index of the buffer. This also implicitly tells us that the first (firstIndex -\/ 1) items have all arrived. The user will probably want to remove items as soon as the first gap is filled, that is why there is a popIfNotEmpty function. 
+\end{DoxyDescription}

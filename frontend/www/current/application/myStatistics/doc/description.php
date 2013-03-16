@@ -1,0 +1,1 @@
+<?= _("<b>MyStatistics</b> is an application that has the goal to display some statistics about the use of myMed platform") ?>

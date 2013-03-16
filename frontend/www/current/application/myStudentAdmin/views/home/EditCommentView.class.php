@@ -41,6 +41,7 @@ class EditCommentView extends MainView {
 		<?php foreach(json_decode($this->handler->getSuccess()) as $details) {
 			$values[$details->key] = urldecode($details->value);
 		} ?>
+<<<<<<< HEAD
 		
 		<!-- AUTHOR -->
 		
@@ -66,12 +67,18 @@ class EditCommentView extends MainView {
 		    <br />
 	
     	<?php }?>
+=======
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 	
 		<form action="#CommentView" method="post" name="EditCommentForm" id="EditCommentForm" enctype="multipart/form-data">
 			<!-- Define the method to call -->
 			<input type="hidden" id="EditCommentApplication" name="application" value="<?= APPLICATION_NAME ?>" />
 			<input type="hidden" id="EditCommentMethod" name="method" value="publish" />
+<<<<<<< HEAD
 			<input type="hidden" name="numberOfOntology" value="5" />
+=======
+			<input type="hidden" name="numberOfOntology" value="4" />
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 			
 			<!-- CommentGroup -->
 			<input type="hidden" name="commentGroup" value="<?= $values["commentGroup"] ?>" />
@@ -100,12 +107,18 @@ class EditCommentView extends MainView {
 			<input type="hidden" name="ontology3" value="<?= urlencode(json_encode($dataBean)); ?>">
 			<br />
 			
+<<<<<<< HEAD
 			<!-- PUBLISHER -->
 			<input type="hidden" name="publisher" value="<?= $_POST['user'] ?>" />
 			
 			<center>
 			<a href="#" data-role="button" onclick="document.EditCommentForm.submit()" data-theme="g" data-inline="true">Validate</a>
 			<a href="#" data-role="button" onclick="$('#EditCommentApplication').val('<?= APPLICATION_NAME ?>'); $('#EditCommentMethod').val('delete'); document.EditCommentForm.submit()" data-theme="r" data-inline="true">Reject</a>
+=======
+			<center>
+			<a href="#" data-role="button" onclick="document.EditCommentForm.submit()" data-theme="g" data-inline="true">Validate</a>
+			<a href="#" data-role="button" onclick="$('#EditCommentApplication').val('<?= APPLICATION_NAME ?>_ADMIN'); $('#EditCommentMethod').val('delete'); document.EditCommentForm.submit()" data-theme="r" data-inline="true">Reject</a>
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 			</center>
 		</form>
 	<?php }
