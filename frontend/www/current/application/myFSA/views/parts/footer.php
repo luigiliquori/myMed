@@ -16,10 +16,12 @@
 				<li><a data-ajax="false" href="?action=Localise" type="button" data-transition="slide" data-icon="info"><?= translate("Localize") ?></a></li>
 			 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest): ?>
 					<li><a href="?action=ExtendedProfile" data-icon="user" <?= isset($_GET['action']) && $_GET['action'] == "ExtendedProfile" ? 'data-theme="b"' : '' ?> ><?= translate("Profile") ?></a></li>
-			 <? endif; ?>	
-			 <? if (!isset($_SESSION['ExtendedProfile'])): ?>
-					<li><a href="?action=About" data-transition="none" data-icon="info" <?= isset($_GET['action']) && $_GET['action'] == "About" ? 'data-theme="b"' : '' ?>><?= _("About")?></a></li>
 			 <? endif; ?>
+	
+			 <? if (!isset($_SESSION['ExtendedProfile'])): ?>
+					<li><a href="?action=About" data-transition="none" data-icon="info" <?//= isset($_GET['action']) && $_GET['action'] == "About" ? 'data-theme="b"' : '' ?>><?= _("About")?></a></li>
+			 <? endif; ?>
+		
 			</ul>
 		</div>
 	</div>

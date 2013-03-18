@@ -31,7 +31,7 @@ class SearchController extends AuthenticatedController {
 	private function fillObj($obj) {
 		
 		//if isset pred2 && pred3 it means someone used searching advanced
-		if(isset($_POST['pred2'])&&isset($_POST['pred3'])){
+		if(isset($_POST['pred2']) && isset($_POST['pred3']) && (!empty($_POST['pred2']) || !empty($_POST['pred3']))){
 			
 			$obj->pred2 = $_POST['pred2'];
 			$obj->pred3 = $_POST['pred3'];			

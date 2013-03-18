@@ -10,7 +10,7 @@ require_once("header.php"); ?>
 <div data-role="page" id="login">
 	
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<h1 style="color: white;"><?= _("Transborder social network")?></h1>	
+		<h1 style="color: white;"><?= _("Sign in")?></h1>	
 	</div>
 	
 	<div data-role="content"  class="content">
@@ -107,6 +107,5 @@ require_once("header.php"); ?>
 		</div>
 	</div>
 	-->
-<? include("footer.php"); ?>
 	</div>
 </body>
