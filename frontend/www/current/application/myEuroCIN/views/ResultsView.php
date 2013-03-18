@@ -27,7 +27,7 @@
 				<li>
 					<!-- Print Publisher reputation -->
 					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
-						<h3><?= _("Title")?> : <?= $item->data ?></h3>
+						<h3><?= _("Title")?> : <?= $item->getTitle() ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->Nazione] ?><br/>

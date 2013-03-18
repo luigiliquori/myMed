@@ -35,6 +35,9 @@ require_once("header.php");
 			case "myRiviera":
 				$googleLink = "com.app.myriviera";
 				break;
+			case "myEuroCIN":
+				$googleLink ="com.app.myeurocin";
+				break;
 			default:
 				$googleLink = "No";
 				$appleLink = "No";
