@@ -367,7 +367,7 @@ msgstr "Pourquoi s'enregistrer ?"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/LoginView.php:14
 msgid "MyMemoryWhyRegister"
-msgstr "MyMemory nécessite un compte myMed afin de stocker en toute sécurité vos données confidentielles."
+msgstr "MyMemory nécessite un compte mymed afin de stocker en toute securité vos donnees confidentielles sur la plateforme cloud mymed"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/LoginView.php:22
 msgid "Login"
@@ -379,11 +379,11 @@ msgstr "S'inscrire"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileNeededView.php:3
 msgid "myMemory_presentation_text"
-msgstr "<p>Bienvenue sur l'application myMemory<br /> <br />myMemory offre une aide informatique aux patients affectés de la maladie d'Alzheimer</p>"
+msgstr "<p>Bienvenue sur l'application myMemory<br /> <br />myMemory offre une aide informatique aux patients affectés de troubles de la mémoire.</p>"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileNeededView.php:14
 msgid "complete your profile"
-msgstr "complete your profile"
+msgstr "Completez votre profil utilisateur"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileSudoDialogView.php:3
 msgid "ConfirmationNeeded"
@@ -457,23 +457,23 @@ msgstr "Aide"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:72
 msgid "MyMemory_HomeDesc"
-msgstr "Ecran de contrôle"
+msgstr "Ecran principal de l'application'"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:76
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:9
 msgid "GoingBack"
-msgstr "Amène-moi chez..."
+msgstr "Je vais en bus chez..."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:77
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:19
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:5
 msgid "NeedHelp"
-msgstr "Besoin d'aide"
+msgstr "Aide immédiate d'un Veilleur'"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:79
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/SocialView.php:16
 msgid "Profile"
-msgstr "Profil"
+msgstr "Mon profil personnel"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:82
 msgid "Autocall_active"
@@ -499,7 +499,7 @@ msgstr "Comment ça marche"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:98
 msgid "MyMemory_MainViewHelp"
-msgstr "<p>Le bouton \"Amène-moi chez ....\" vous permet de rentrer chez une personne avec les transports publiques en commun<br/> Le bouton \"Besoin d'aide\" appelle dans un ordre prédefini dans vore profil les personnes que vous aviez saisi et, en dernier ressort, le SAMU<br/> Le bouton \"Profil\" vous permet de saisir les données concernant vos aidants. </p>"
+msgstr "<h3>Écran principal de l'application :</h3><p>Il présente les boutons suivants : Je veux me rendre en transports en commun chez..... : Ce bouton visualise les « veilleurs » insérés dans le profil personnel : en cliquant sur un « veilleur » le calculateur d'itinéraires ceparou06 calcule le trajet le plus court de la position actuelle de l'utilisateur au domicile du veilleur sélectionné.</p><p>J'ai besoin de l’aide immediate d’un « veilleur »: ce bouton visualise les « veilleurs » insérés dans le profil personnel : en cliquant sur un « veilleur » un appel en mains libres est activé et en parallèle un mail/sms avec les coordonnees de latitude etlongitude de l’utilisateur lui est envoyée</p><p>Mon profil personnel: ce bouton visualise le profil personnel de l'utilisateur.</p>"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:8
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:45
@@ -516,7 +516,7 @@ msgstr "Retour"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:18
 msgid "MyMemory_GoingBackDesc"
-msgstr "Ecran de retour avec les transports en commun"
+msgstr "Ecran qui visualise les \"Veilleurs\" séléctionnables pour s'y rendre par transports en commun"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:26
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:63
@@ -530,7 +530,7 @@ msgstr "Domicile"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/GoingBackView.php:58
 msgid "MyMemory_GoingBackHelp"
-msgstr "<p>Choisissez l'endroit où vous voulez rentrer : le calculateur d'itineraire Equipage06 vous indiquera les horaires des bus à prendre</p>"
+msgstr "<p>Ecran qui visualise les \"veilleurs\" renseignés dans le profil personnel: en cliquant sur un \"veilleur\" le calculateur d'itinéraires ceparou06 calcule le trajet le plus court de la position actuelle de l'utilisateur au domicile du \"veilleur\" sélectionné</p>"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:44
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:103
@@ -543,31 +543,31 @@ msgstr "Modifier profil"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:53
 msgid "MyMemory_EditProfileStep1Desc"
-msgstr "Ecran d'edition du profil du patient 1/5"
+msgstr "Insérez votre domicile et autoévaluez votre niveau de mémoire."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:73
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:73
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:23
 msgid "DiseaseLevel"
-msgstr "Niveau de la maladie"
+msgstr "J'ai des problèmes de mémoire..."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:75
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:75
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:27
 msgid "DiseaseLevel1"
-msgstr "Léger"
+msgstr "rarement"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:78
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:78
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:30
 msgid "DiseaseLevel2"
-msgstr "Modéré"
+msgstr "Occasionnellement"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:81
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:81
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:33
 msgid "DiseaseLevel3"
-msgstr "Avancé"
+msgstr "Fréquement"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:86
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:143
@@ -583,17 +583,17 @@ msgstr "Suivant"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:95
 msgid "MyMemory_EditProfileStep1Help"
-msgstr "Editez votre domicile et le niveau de votre maladie"
+msgstr "Cet écran décrit votre profil dans le réseau MyMemory : insérez votre domicile (ex : 25 rue de Nancy 06000 Nice) et autoévaluez votre niveau de mémoire"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:112
 msgid "MyMemory_EditProfileStep2Desc"
-msgstr "Ecran d'edition du profil du patient 2/5"
+msgstr "Insérez le profil de votre premier \"Veilleur\" (personne qui veille sur vous)"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:121
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:121
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:39
 msgid "MyCaregiver"
-msgstr "Mon aide-soignant"
+msgstr "Veilleur"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:123
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:124
@@ -720,11 +720,11 @@ msgstr "Téléphone"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:152
 msgid "MyMemory_EditProfileStep2Help"
-msgstr "Editez les coordonnées de votre Aide-soignant"
+msgstr "Cette partie décrit votre profil dans le réseau MyMemory : insérez les coordonnées de votre \"Veilleur\" de référence."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:169
 msgid "MyMemory_EditProfileStep3Desc"
-msgstr "Ecran de édition du profil du patient 3/5"
+msgstr "Insérez le profil de votre médecin traitant"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:177
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:177
@@ -734,11 +734,11 @@ msgstr "Mon médecin"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:208
 msgid "MyMemory_EditProfileStep3Help"
-msgstr "Editez les coordonnées de votre medecin traitant"
+msgstr "Cette partie décrit votre profil dans le réseau MyMemory : insérez les coordonnées de votre medecin traitant"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:225
 msgid "MyMemory_EditProfileStep4Desc"
-msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
+msgstr "Insérez les coordonnées du deuxième et troisième \"Veilleur\""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:257
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:233
@@ -754,17 +754,17 @@ msgstr "Troisième personne à appeller"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:313
 msgid "MyMemory_EditProfileStep4Help"
-msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
+msgstr "MyMemory peut appeler en séquence jusqu’à 4 personnes qui veillent sur vous : insérez les coordonnées du deuxième et troisième \"Veilleur\""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:329
 msgid "MyMemory_EditProfileStep5Desc"
-msgstr "Ecran d'edition du profil du patient 5/5"
+msgstr "Insérez les 3 cercles de référence avec les respectives coordonnées mail et portable des responsables à contacter"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:338
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:347
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:94
 msgid "MyMemory_PerimeterHome"
-msgstr "Périmètre du domicile"
+msgstr "Périmètre autour du domicile"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:341
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:354
@@ -793,7 +793,7 @@ msgstr "Si la personne s'éloigne de "
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:351
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:360
 msgid "MyMemory_PerimeterNear"
-msgstr "Périmètre voisinage"
+msgstr "Parages du domicile"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:364
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:373
@@ -819,11 +819,11 @@ msgstr "Enregistrer"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileEditView.php:397
 msgid "MyMemory_EditProfileStep5Help"
-msgstr "Cette section n'est utilisée que si vous avez renseigné le niveau de la maladie comme étant \"avancé\".<br />Définissez les numéros de téléphones et le rayon des différents périmètres de surveillance. MyMemory vous avertira si le patient sort de ces zones."
+msgstr "MyMemory possède une puissante fonction -AutoCall- qui permet d'avertir par sms/mail les personnes qui veillent sur l'utilisateur  si ce dernier sort d'un périmètre circulaire déterminé, parametré dans cette page. À chaque cercle la fonction AutoCall attribue un responsable avec e-mail et numéro de portable. Si la modalité AutoCall est activée et si l'utilisateur s'éloigne, automatiquement alors un sms et un mail avec les coordonnées de latitude et longitude de l'utilisateur de myMemory est envoyé au responsable du périmètre. Ce dernier pourra visualiser sur un PC ou sur un smartphone utilisant Google Maps la position exacte de son \"Protégé\". Éloignements successifs déclencheront d'autres SMS et mails aux autres responsables de chaque périmètres."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:28
 msgid "MyMemory_NeedHelpDesc"
-msgstr "Ecran d'appel des aidants dans l'ordre établi"
+msgstr "myMemory envoye un email aux \"veilleurs\" sélectionnés dans l'ordre du profil personnel avec les coordonnées de latitude et longitude de l'utilisateur en difficulté"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:31
 msgid "StopNeedHelp"
@@ -839,15 +839,15 @@ msgstr "Parlez devant le micro SVP!"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:69
 msgid "MyMemory_Mailling"
-msgstr "myMemory envoie une alerte par e-mail aux aides soignants..."
+msgstr "myMemory envoie une alerte par e-mail aux veilleurs..."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:82
 msgid "MyMemory_MailSent"
-msgstr "Alertes par e-mail envoyées!"
+msgstr "Requetes d'aide envoyées par e-mail!"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/NeedHelpView.php:96
 msgid "MyMemory_NeedHelpHelp"
-msgstr "myMemory est en train d'appeler ou d'envoyer un SMS a vos aidants"
+msgstr "myMemory est en train d'appeler ou d'envoyer un SMS a vos \"Veilleurs\""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:44
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:103
@@ -860,40 +860,39 @@ msgstr "Création du profil"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:53
 msgid "MyMemory_CreateProfileStep1Desc"
-msgstr "Ecran de création du profil du patient 1/5"
+msgstr "Insérez votre domicile et autoévaluez votre niveau de mémoire."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:95
 msgid "MyMemory_CreateProfileStep1Help"
-msgstr "Insérez votre domicile et le niveau de votre maladie"
+msgstr "Cet écran décrit votre profil dans le réseau MyMemory : insérez votre domicile (ex : 25 rue de Nancy 06000 Nice) et autoévaluez votre niveau de mémoire"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:112
 msgid "MyMemory_CreateProfileStep2Desc"
-msgstr "Ecran de création du profil du patient 2/5"
+msgstr "Insérez le profil de votre premier \"Veilleur\" (personne qui veille sur vous)"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:152
 msgid "MyMemory_CreateProfileStep2Help"
-msgstr "Insérez les coordonnées de votre Aide-soignant"
+msgstr "Cette partie décrit votre profil dans le réseau MyMemory : insérez les coordonnées de votre \"Veilleur\" de référence."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:169
 msgid "MyMemory_CreateProfileStep3Desc"
-msgstr "Ecran de création du profil du patient 3/5"
+msgstr "Insérez le profil de votre médecin traitant"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:208
 msgid "MyMemory_CreateProfileStep3Help"
-msgstr "Insérez les coordonnées de votre médecin traitant"
+msgstr "Cette partie décrit votre profil dans le réseau MyMemory : insérez les coordonnées de votre medecin traitant"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:225
 msgid "MyMemory_CreateProfileStep4Desc"
-msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
+msgstr "Insérez les coordonnées du deuxième et troisième \"Veilleur\""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:288
-#, fuzzy
 msgid "MyMemory_CreateProfileStep4Help"
-msgstr "myMemory peut appeler pour vous jusqu’à 4 personnes en cas d'urgence.<br />La première personne appelée est votre aide-soignant, et la dernière le SAMU.Vous pouvez spécifier les 2 personnes à appeler entre les 2. Ceci n'est <strong>pas obligatoire.</strong>"
+msgstr "MyMemory peut appeler en séquence jusqu’à 4 personnes qui veillent sur vous : insérez les coordonnées du deuxième et troisième \"Veilleur\""
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:304
 msgid "MyMemory_CreateProfileStep5Desc"
-msgstr "Ecran de création du profile du patient 5/5"
+msgstr "Veuillez accepter les conditions d'utilisation de myMemory'"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:311
 msgid "myMemory_Agreement"
@@ -901,19 +900,19 @@ msgstr "Je comprend que cette application a besoin de connaître ma position en 
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:322
 msgid "MyMemory_CreateProfileStep5Help"
-msgstr "Il faut accepter les conditions d'usage ..."
+msgstr "MyMemory possède une puissante fonction -AutoCall- qui permet d'avertir par sms/mail les personnes qui veillent sur l'utilisateur  si ce dernier sort d'un périmètre circulaire déterminé, parametré dans cette page. À chaque cercle la fonction AutoCall attribue un responsable avec e-mail et numéro de portable. Si la modalité AutoCall est activée et si l'utilisateur s'éloigne, automatiquement alors un sms et un mail avec les coordonnées de latitude et longitude de l'utilisateur de myMemory est envoyé au responsable du périmètre. Ce dernier pourra visualiser sur un PC ou sur un smartphone utilisant Google Maps la position exacte de son \"Protégé\". Éloignements successifs déclencheront d'autres SMS et mails aux autres responsables de chaque périmètres."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:338
 msgid "MyMemory_CreateProfileStep6Desc"
-msgstr "Ecran de création du profil du patient 6/6"
+msgstr "Insérez les 3 cercles de référence avec les respectives coordonnées mail et portable des responsables à contacter"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileCreateView.php:406
 msgid "MyMemory_CreateProfileStep6Help"
-msgstr "Cette section n'est utilisée que si vous avez renseigné le niveau de la maladie comme étant \"avancé\".<br />Définissez les numéros de téléphones et le rayon des différents périmètres de surveillance. MyMemory vous avertira si le patient sort de ces zones."
+msgstr "yMemory possède une puissante fonction -AutoCall- qui permet d'avertir par sms/mail les personnes qui veillent sur l'utilisateur  si ce dernier sort d'un périmètre circulaire déterminé, parametré dans cette page. À chaque cercle la fonction AutoCall attribue un responsable avec e-mail et numéro de portable. Si la modalité AutoCall est activée et si l'utilisateur s'éloigne, automatiquement alors un sms et un mail avec les coordonnées de latitude et longitude de l'utilisateur de myMemory est envoyé au responsable du périmètre. Ce dernier pourra visualiser sur un PC ou sur un smartphone utilisant Google Maps la position exacte de son \"Protégé\". Éloignements successifs déclencheront d'autres SMS et mails aux autres responsables de chaque périmètres."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:13
 msgid "MyMemory_ViewProfileDesc"
-msgstr "Ecran du profil personnel"
+msgstr "Mon profil personnel"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:19
 msgid "MyInfos"
@@ -941,7 +940,7 @@ msgstr "Périmètre voisinage"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ExtendedProfileDisplayView.php:123
 msgid "MyMemory_DisplayProfileHelp"
-msgstr "Cet écran décrit votre profil étendu: il est très important car il permettra de noter toutes vos coordonnées et celle de vos aidants qui vous aideront le cas écheant : remplissez avec soin cette partie, merci."
+msgstr "Consultez vos informations personnelles, les coordonnées de votre \"Veilleur\" et de votre médecin traitant."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/ItineraireView.php:12
 msgid "RoadSheet"
