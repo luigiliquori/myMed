@@ -2,7 +2,7 @@
 <div data-role="page" id="ExtendedProfileView">
 	<!-- Header -->
 	<div data-role="header" data-position="inline">
-	 	<h1><?= _("NeedHelp"); ?></h1>
+	 	<h1><?= _("Profile"); ?></h1>
 		<a href="?action=main"  data-role="button" class="ui-btn-left" data-icon="back"><?= _("Back"); ?></a>
 		<a href="#displayProfileHelpPopup" data-role="button" data-theme="e" class="ui-btn-right" data-icon="info" data-rel="popup"><?= _("Help"); ?></a>
 	</div>

@@ -1,3 +1,15 @@
+/**
+*	And Luigi said : let all the text in the application be UPPERCASE
+*	Because, you know... Old people have trouble to see.
+*	And so I did. Making the whole website ugly as hell...
+*	RIP myMemory.
+*/
+body{
+	text-transform : uppercase !important;
+
+}
+
+
 .ui-page {
  	background : none;
  	background-color : black;
