@@ -1,59 +1,72 @@
-<? 
+<!-- ------------------ -->
+<!-- App Login View     -->
+<!-- ------------------ -->
 
-//
-// This view shows both the login and register forms, with two tabs
-//
-require_once("header.php"); ?>
+<? require_once("header.php"); ?>
 
-<div data-role="page" id="login">
+<div data-role="page" id="loginView" >
 
-	<div data-role="header" data-theme="b">
-		<div Style="text-align: center; position: relative; top: 15px;"> Réseau Social Transfrontalier </div>
-		<span class="ui-title"></span>
-		<? include("notifications.php"); ?>
-	</div>
+	<!-- Header bar -->
+	<? include "header-bar.php";
+	   $title = _("Connect");
+       print_header_bar("?action=main", false, $title); ?>
 	
-	<div data-role="content"  class="content">
+	<!-- Page content -->
+	<div data-role="content" class="content">
+		
+		<!-- Notification pop up -->
+		<? include_once 'notifications.php'; ?>
+		<? print_notification($this->success.$this->error);?>
 	
-		<div style="position: absolute; left: 50%; top: 90px;">
-			<img alt="title" src="img/icon.png" height="50"  style="position: relative; margin-left: -150px;" />
-		</div>
-		<div style="position: absolute; left: 50%; top: 73px;">
-			<h1 style="position: relative; left: -40px;"><?= APPLICATION_NAME ?></h1>
-		</div>
-	
-		<form action="?action=login" method="post" data-ajax="false" style="position: relative; top: 100px; height: 400px;">
-			<input type="hidden" name="signin" value="1" />
-		    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/><br />
-		    <input type="password" name="password" id="password" placeholder="Mot de passe"  data-theme="c"/><br />
- 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
-		</form>
-
-		<div style="position: relative; top: -100px;">
-			<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/alcotra.png" />
-			<br />
-			<i>"Ensemble par-delà les frontières"</i>
-			<br /><br />
-			<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/europe.jpg" />
+ 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true" style="margin:15px">
+			<h3><?= _("Why Register ?") ?></h3>
+			<p><?= _("By registering to myRiviera you will be able to ....") ?></p>
+			<p><?= _("Don't forget that you have the possibility to use your social network accounts to create your profile: see button")?> "<?= _("Connect with") ?>"</p>
 		</div>
 		
-	</div>
+		<form action="?action=login" method="post" data-ajax="false">
+			
+			<!-- Sign in with an account -->
+			<div data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true" style="margin:15px">	
+				<div data-role="collapsible" data-collapsed="false">
+					<h3><?= _("Connection") ?></h3>
+					<input type="hidden" name="signin" value="1" />
+					<div style="text-align: left;"><?= _("E-mail")?><b>*</b> :</div>
+					<input type="text" name="login" id="login" data-theme="c"/>
+				    <div style="text-align: left;"><?= _("Password")?><b>*</b> :</div>
+				    <input type="password" name="password" id="password" data-inline="true"  data-theme="c"/>  
+				    <p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
+				    <div data-role="controlgroup" data-type="horizontal">
+				 	    <input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Connect") ?>" />
+						<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Connect with") ?></a>
+						<a href="?action=register&method=showRegisterView" data-role="button" data-inline="true" data-mini="true" data-icon="pencil" data-iconpos="right"><?= _("Register") ?></a>	
+					</div>
+			    </div>
+			</div>
+			
+			<!-- Sign in with social network pop up -->
+			<div data-role="popup" id="signinPopup" class="ui-content" data-overlay-theme="e" data-theme="d">
+				<ul data-role="listview">
+					<li>
+						<a href='/lib/socialNetworkAPIs/google/examples/simple/oauth_try.php' title='Google OAuth' rel='external'>
+						<img class="ui-li-mymed" src="/system/img/social/google_32.png" />
+						Google</a>
+					</li>
+					<li>
+						<a href='/lib/socialNetworkAPIs/facebook/examples/oauth_try.php' title='Facebook OAuth' rel='external'>
+							<img class="ui-li-mymed" src="/system/img/social/facebook_32.png" />
+						Facebook</a>
+					</li>
+					<li>
+						<a href='/lib/socialNetworkAPIs/twitter/redirect.php' title='Twitter OAuth' rel='external'>
+						<img class="ui-li-mymed" src="/system/img/social/twitter_32.png" />
+						Twitter</a>
+					</li>
+				</ul>
+			</div>
 	
-				
-	<div data-role="footer" data-position="fixed" data-theme="d">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#login" data-transition="none" data-back="true" data-icon="home" class="ui-btn-active ui-state-persist">Connexion</a></li>
-				<li><a href="#register" data-transition="none" data-back="true" data-icon="grid">Inscription</a></li>
-				<li><a href="#about" data-transition="none" data-icon="info">A propos</a></li>
-			</ul>
-		</div>
-	</div>
-	
-</div>
-	
-<? require_once("RegisterView.php"); ?>
+		</form>
 
-<? require_once("AboutView.php"); ?>
-
-<? require_once("footer.php"); ?>
+	</div> <!-- END page content -->
+	
+</div> <!-- END page -->

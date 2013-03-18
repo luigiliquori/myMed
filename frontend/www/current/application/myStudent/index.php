@@ -33,10 +33,17 @@
 	// Default user -> Visitor
 	if(!USER_CONNECTED){
 		if(!isset($_SESSION['error'])){
+<<<<<<< HEAD
 			echo '<form action="#" method="post" name="signinForm" id="signinForm">';
 			echo '<input type="hidden" name="signin" value="visitor" />';
 			echo '</form>';
 			echo '<script type="text/javascript">document.signinForm.submit();</script>';
+=======
+			echo '<form action="#" method="post" name="singinForm" id="singinForm">';
+			echo '<input type="hidden" name="singin" value="visitor" />';
+			echo '</form>';
+			echo '<script type="text/javascript">document.singinForm.submit();</script>';
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 		} else {
 			echo '<script type="text/javascript">alert(\'Error during the login of the visitor user, please refresh the page and try again...\');</script>';
 			unset($_SESSION['error']);
@@ -53,7 +60,10 @@
 	require_once dirname(__FILE__).'/views/home/ProfileView.class.php';			new ProfileView($login, $inscription);
 	require_once dirname(__FILE__).'/views/home/UpdateProfileView.class.php';	new UpdateProfileView();
 	require_once dirname(__FILE__).'/views/home/InscriptionView.class.php';		new InscriptionView();
+<<<<<<< HEAD
 	require_once dirname(__FILE__).'/views/home/SubscribeView.class.php';		new SubscribeView($application);
+=======
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 	
 	// CLOSE THE HTML PAGE
 	$template->getFooter();

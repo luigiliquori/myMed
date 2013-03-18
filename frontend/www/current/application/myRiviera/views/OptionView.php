@@ -4,40 +4,61 @@
 
 	<!-- Header -->
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Main menu")?></a>
+		<? if(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) : ?>
+			<a data-rel="back" data-icon="arrow-l" data-ajax="false"/><?= _("Back")?></a>
+		<? else: ?>
+			<a href="?action=main" data-icon="arrow-l" data-ajax="false"/><?= _("Back")?></a>
+		<? endif ?>
+	
 		<h1><?php echo APPLICATION_NAME." v1.0 alpha"?></h1>
-		<a href="?action=main#search" data-transition="none" data-icon="search">Rechercher</a>
 	</div>
 
 	<!-- CONTENT -->
-	<div data-role="content"
-		style="font-size: 10pt; margin: 50px auto 0 auto; width: 90%;">
-		<!-- UPDATE POIs -->
-		<div data-role="collapsible-set" data-inset="true">
+	<div data-role="content">
+		<br><br>
+		<ul data-role="listview" data-divider-theme="c" data-inset="true" data-theme="d">
 
-			<!-- Profile -->
-			<div data-role="collapsible" data-collapsed="false" data-theme="d"
-				data-content-theme="c">
-				<h3>Profil</h3>
-				<?php if($_SESSION['user']->profilePicture != "") { ?>
-					<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="100">
-				<?php } else { ?>
-					<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="100">
-				<?php } ?>
-				<br />
-				<!-- <a onclick="capturePhoto();" type="button" data-theme="d">Prendre une photo</a>  -->
-				Prenom: <?= $_SESSION['user']->firstName ?><br />
-				Nom: <?= $_SESSION['user']->lastName ?><br />
-				Date de naissance: <?= $_SESSION['user']->birthday ?><br />
-				eMail: <?= $_SESSION['user']->email ?><br />
-				<div data-role="controlgroup" data-type="horizontal">
-					<!-- <a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a> -->
-					<!-- <a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a> -->
+			<!-- User details -->
+			<li data-role="list-divider"><?= _("User details") ?></li>	
+			
+			<li>
+				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
+					<div class="ui-block-a" style="width: 120px;">
+	 	 	 	 	<? if($_SESSION['user']->profilePicture != "") { ?>
+							<img alt="thumbnail" src="<?= $_SESSION['user']->profilePicture ?>" width="100">
+		 		 	<? } else { ?>
+							<img alt="thumbnail" src="http://graph.facebook.com//picture?type=large" width="100">
+		 		 	<? } ?>
+		 		 	</div>
+		 		 	<div class="ui-block-b" style="margin-top: 7px;margin-bottom:7px">
+						<!-- <a onclick="capturePhoto();" type="button" data-theme="d">Prendre une photo</a>  -->
+						<p><strong><?= $_SESSION['user']->name ?></strong><br></p>
+						<p><strong><?= _("Date of birth")?>: </strong><?= $_SESSION['user']->birthday ?></p>
+						<p><strong><?= _("E-mail")?>: </strong><?= $_SESSION['user']->email ?></p>
+						<!--<div data-role="controlgroup" data-type="horizontal">
+							  <a href="#inscription" data-role="button" data-inline="true" data-theme="b" data-icon="refresh">mise à jour</a>
+							  <a href="#login" onclick="document.disconnectForm.submit()" rel="external" data-role="button" data-theme="r">Deconnexion</a>
+						</div>-->
+					</div>
 				</div>
-			</div>
+			</li>
+		</ul>
+		<center>
+			<a type="button" href="?action=main"  data-theme="d" data-icon="home" data-inline="true"><?= _('Home') ?></a>
+		
+			<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
+				<a type="button" href="?action=UpgradeAccount&method=migrate"  data-theme="g" data-icon="pencil" data-inline="true"><?= _('Create a myMed profile') ?></a>
+		 <? endif; ?>
+		</center>
+	</div>
+</div>
 
-			<?php //include 'facebook.php'; ?>
+<? include("footer.php"); ?>
 
+<?php //include 'facebook.php'; ?>
+
+			<?php /*
 			<!-- COMMENT -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
 				data-content-theme="c">
@@ -71,9 +92,8 @@
 					
 					<input type="submit" value="Publier" />
 				</form>
-				
 			</div>
-
+			
 			<!-- HELP -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d"
 				data-content-theme="c" style="text-align: left;">
@@ -100,11 +120,6 @@
 					vos amis (acceptant la géolocalisation), disponibles dans la
 					recherche d'itinéraire par le bouton + du champs Arrivée.</p>
 			</div>
+			
+			*/ ?>
 
-		</div>
-	</div>
-	
-
-</div>
-
-<? include("footer.php"); ?>

@@ -10,47 +10,48 @@ require_once("header.php"); ?>
 <div data-role="page" id="login">
 	
 	<div data-role="header" data-theme="b" data-position="fixed">
-	
-	<h1 style="color: white;">Réseau Social Transfrontalier </h1>	
-	<span style="position: absolute;right: 3px;top: -3px;opacity: 0.6;">
-		<a class="social" style="background-position: -33px 0px;" href="https://plus.google.com/u/0/101253244628163302593/posts" title="myFSA on Google+"></a>
-		<a class="social" style="background-position: -66px 0px;" href="http://www.facebook.com/pages/MyFSA/122386814581009" title="myFSA on Facebook"></a>
-		<a class="social" style="background-position: 0px 0px;" href="https://twitter.com/my_europe" title="myFSA on Twitter"></a>
-	</span>
+		<h1 style="color: white;"><?= _("Transborder social network")?></h1>	
 	</div>
 	
 	<div data-role="content"  class="content">
+		<? include_once 'notifications.php'; ?>
+		<? print_notification($this->success.$this->error); ?>
 		<br>
 		<img alt="<?= APPLICATION_NAME ?>" src="img/icon.png" style="height: 50px; margin-top: -15px;" />
 		<h1 style="display: inline-block;vertical-align: 20%;"><?= APPLICATION_NAME ?></h1>
 		<br>
 	
 		<form action="?action=login" method="post" data-ajax="false">
-			<div data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true">	
+			<div data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true" style="margin: 15px;">	
 				<div data-role="collapsible" data-collapsed="false">
 					<h3><?= _("Connection") ?></h3>
 		
 					<input type="hidden" name="signin" value="1" />
 				    
 				    <div style="text-align: left;"><?= _("E-mail")?><b>*</b> :</div>
-				    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/>
+				    <input type="text" name="login" id="login" data-theme="c"/>
 				    
 				    <div style="text-align: left;"><?= _("Password")?><b>*</b> :</div>
-				    <input type="password" name="password" id="password" placeholder="Mot de passe"  data-theme="c"/>
-		 		    
-		 		    <input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Connect") ?>" />
+				    <input type="password" name="password" id="password" data-theme="c"/>
+		 		    <p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
+		 		    <div data-role="controlgroup" data-type="horizontal">
+		 		    	<input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Connect") ?>" />
+						<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Connect with") ?></a>			
+						<a href="?action=register&method=showRegisterView" data-role="button" data-inline="true" data-mini="true" data-icon="pencil" data-iconpos="right"><?= _("Register") ?></a>
+					</div>	
 				</div>
 			</div>
 		</form>
-		<div style="text-align: center">	
-			<form action="?action=login" method="post" data-ajax="false">
+		
+		<!-- <form action="?action=login" method="post" data-ajax="false">
 				<input type="hidden" name="signin" value="1" />
 			    <input type="hidden" name="login" id="login" value="guest_user@yopmail.com"/>
 			    <input type="hidden" name="password" id="password" value="1"/>
 	 		    <input type="submit" data-role="button" data-inline="true" data-mini="true" data-theme="g" data-icon="signin" value="<?= _("Guest")?>" />
-			</form><br>
-			<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true" data-icon="star"><?= _("Connect with") ?></a>			
-		</div>
+			</form>
+		 -->
+			
+		
 		</br>
 
 		<!-- Sign in with social network pop up -->
@@ -95,7 +96,7 @@ require_once("header.php"); ?>
 		
 	</div>
 	
-				
+	<!--			
 	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar" data-iconpos="left" >
 			<ul>
@@ -105,11 +106,7 @@ require_once("header.php"); ?>
 			</ul>
 		</div>
 	</div>
-	
-</div>
-	
-<? require_once("RegisterView.php"); ?>
-
-<? require_once("AboutView.php"); ?>
-
-<? require_once("footer.php"); ?>
+	-->
+<? include("footer.php"); ?>
+	</div>
+</body>

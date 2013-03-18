@@ -20,7 +20,7 @@
 	
 	/** define the backend's URL'*/
 	define('MOBILE_PARAMETER_SEPARATOR', '::');
-	define('BACKEND_URL', '@backendurl@');
+	define('BACKEND_URL', 'http://localhost:8080/backend/');
 	
 	//CITYWAY Keys
 	define('Cityway_URL', '@citywayurl@');

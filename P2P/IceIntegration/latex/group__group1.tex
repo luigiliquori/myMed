@@ -1,0 +1,97 @@
+\hypertarget{group__group1}{
+\section{Accessors}
+\label{group__group1}\index{Accessors@{Accessors}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group__group1_gaefd21c9f3d668b1e918bed1784afab84}{
+void \hyperlink{group__group1_gaefd21c9f3d668b1e918bed1784afab84}{PseudoTcp::Message::SetAck} (bool ack)}
+\label{group__group1_gaefd21c9f3d668b1e918bed1784afab84}
+
+\begin{DoxyCompactList}\small\item\em Set whether this \hyperlink{classPseudoTcp_1_1Message}{Message} contains an Ack. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga6b3b9a3bccbaa08efa0ebfdbf6222581}{
+bool \hyperlink{group__group1_ga6b3b9a3bccbaa08efa0ebfdbf6222581}{PseudoTcp::Message::IsAck} () const }
+\label{group__group1_ga6b3b9a3bccbaa08efa0ebfdbf6222581}
+
+\begin{DoxyCompactList}\small\item\em true if the \hyperlink{classPseudoTcp_1_1Message}{Message} is an Ack \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_gafdf542899b221aee3bbce73738d9b809}{
+void \hyperlink{group__group1_gafdf542899b221aee3bbce73738d9b809}{PseudoTcp::Message::SetNumber} (int number)}
+\label{group__group1_gafdf542899b221aee3bbce73738d9b809}
+
+\begin{DoxyCompactList}\small\item\em Number property is sequential numbering of Messages sent by a \hyperlink{classPseudoTcp_1_1PseudoTcpTx}{PseudoTcpTx}. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_gada70d38e0b9059de0d8f61fbda4adf30}{
+int \hyperlink{group__group1_gada70d38e0b9059de0d8f61fbda4adf30}{PseudoTcp::Message::GetNumber} () const }
+\label{group__group1_gada70d38e0b9059de0d8f61fbda4adf30}
+
+\begin{DoxyCompactList}\small\item\em Number property is sequential numbering of Messages sent by a \hyperlink{classPseudoTcp_1_1PseudoTcpTx}{PseudoTcpTx}. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga4fee4812147aa855109d0aed46a6030c}{
+void \hyperlink{group__group1_ga4fee4812147aa855109d0aed46a6030c}{PseudoTcp::Message::SetReqAck} (bool reqAck)}
+\label{group__group1_ga4fee4812147aa855109d0aed46a6030c}
+
+\begin{DoxyCompactList}\small\item\em ReqAck property determines whether this \hyperlink{classPseudoTcp_1_1Message}{Message} requests an ack. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_gae74d45f2834806fda6d72c44f651793c}{
+bool \hyperlink{group__group1_gae74d45f2834806fda6d72c44f651793c}{PseudoTcp::Message::IsReqAck} () const }
+\label{group__group1_gae74d45f2834806fda6d72c44f651793c}
+
+\begin{DoxyCompactList}\small\item\em ReqAck property determines whether this \hyperlink{classPseudoTcp_1_1Message}{Message} requests an ack. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga2c8aa429145e2bf950d0e1b4f25e5f1c}{
+void \hyperlink{group__group1_ga2c8aa429145e2bf950d0e1b4f25e5f1c}{PseudoTcp::Message::SetAckNumber} (int ackNumber)}
+\label{group__group1_ga2c8aa429145e2bf950d0e1b4f25e5f1c}
+
+\begin{DoxyCompactList}\small\item\em AckNumber property is the \hyperlink{classPseudoTcp_1_1Message}{Message} number of the message we are acking. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga5cb28e660d6cbed4a7bffbe6c2597cb9}{
+int \hyperlink{group__group1_ga5cb28e660d6cbed4a7bffbe6c2597cb9}{PseudoTcp::Message::GetAckNumber} () const }
+\label{group__group1_ga5cb28e660d6cbed4a7bffbe6c2597cb9}
+
+\begin{DoxyCompactList}\small\item\em AckNumber property is the \hyperlink{classPseudoTcp_1_1Message}{Message} number of the message we are acking. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga21fdfd49d1112874b860a10094f7dbe4}{
+void \hyperlink{group__group1_ga21fdfd49d1112874b860a10094f7dbe4}{PseudoTcp::Message::SetAckBase} (int ackBase)}
+\label{group__group1_ga21fdfd49d1112874b860a10094f7dbe4}
+
+\begin{DoxyCompactList}\small\item\em AckBase property represents the lowest missing \hyperlink{classPseudoTcp_1_1Message}{Message} number. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga18f1c004034b89226d9c29a16425e18f}{
+int \hyperlink{group__group1_ga18f1c004034b89226d9c29a16425e18f}{PseudoTcp::Message::GetAckBase} () const }
+\label{group__group1_ga18f1c004034b89226d9c29a16425e18f}
+
+\begin{DoxyCompactList}\small\item\em AckBase property represents the lowest missing \hyperlink{classPseudoTcp_1_1Message}{Message} number. \item\end{DoxyCompactList}\item 
+void \hyperlink{group__group1_ga8d775b77bb73f7db77e0f8fec82b9a26}{PseudoTcp::Message::SetLastSent} (double lastSent)
+\begin{DoxyCompactList}\small\item\em LastSent property is the time of the most recent attempted send of the \hyperlink{classPseudoTcp_1_1Message}{Message}. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_ga342f652745ccf8d643991905c3c4ac0a}{
+double \hyperlink{group__group1_ga342f652745ccf8d643991905c3c4ac0a}{PseudoTcp::Message::GetLastSent} () const }
+\label{group__group1_ga342f652745ccf8d643991905c3c4ac0a}
+
+\begin{DoxyCompactList}\small\item\em LastSent property is the time of the most recent attempted send of the \hyperlink{classPseudoTcp_1_1Message}{Message}. \item\end{DoxyCompactList}\item 
+std::bitset$<$ MSG\_\-WIN $>$ \hyperlink{group__group1_gaa74cf86697d336a90508f375067e02ef}{PseudoTcp::Message::GetMsgsReceived} ()
+\begin{DoxyCompactList}\small\item\em for debugging only. \item\end{DoxyCompactList}\item 
+\hypertarget{group__group1_gaaf86c7594534b605b19a0f7843c02e93}{
+void \hyperlink{group__group1_gaaf86c7594534b605b19a0f7843c02e93}{PseudoTcp::Message::SetMsgsReceived} (std::bitset$<$ MSG\_\-WIN $>$ msgsReceived)}
+\label{group__group1_gaaf86c7594534b605b19a0f7843c02e93}
+
+\begin{DoxyCompactList}\small\item\em each bit represents a \hyperlink{classPseudoTcp_1_1Message}{Message} in the window, 1 if received, 0 if not \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{group__group1_gaa74cf86697d336a90508f375067e02ef}{
+\index{group1@{group1}!GetMsgsReceived@{GetMsgsReceived}}
+\index{GetMsgsReceived@{GetMsgsReceived}!group1@{group1}}
+\subsubsection[{GetMsgsReceived}]{\setlength{\rightskip}{0pt plus 5cm}std::bitset$<$ MSG\_\-WIN $>$ PseudoTcp::Message::GetMsgsReceived ()\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{group__group1_gaa74cf86697d336a90508f375067e02ef}
+
+
+for debugging only. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000001}{Todo}]: remove \end{Desc}
+\hypertarget{group__group1_ga8d775b77bb73f7db77e0f8fec82b9a26}{
+\index{group1@{group1}!SetLastSent@{SetLastSent}}
+\index{SetLastSent@{SetLastSent}!group1@{group1}}
+\subsubsection[{SetLastSent}]{\setlength{\rightskip}{0pt plus 5cm}void PseudoTcp::Message::SetLastSent (double {\em lastSent})\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{group__group1_ga8d775b77bb73f7db77e0f8fec82b9a26}
+
+
+LastSent property is the time of the most recent attempted send of the \hyperlink{classPseudoTcp_1_1Message}{Message}. 
+
+Initialized to special value NEVER\_\-SENT \begin{DoxySeeAlso}{See also}
+\hyperlink{classPseudoTcp_1_1Message_a28f26b18c79f0081d076b4ff521cea37}{NEVER\_\-SENT} 
+\end{DoxySeeAlso}

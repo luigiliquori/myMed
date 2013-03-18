@@ -52,7 +52,7 @@ function tab_bar_login($activeTab) {
 				    
 				    <div style="text-align: left;"><?= _("Password")?><b>*</b> :</div>
 				    <input type="password" name="password" id="password" data-inline="true" data-theme="c"/>  
-		 		    
+		 		    <p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 		 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" data-mini="true" data-icon="signin" value="<?= _("Sign in") ?>" />
 					
 					<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true"><?= _("Sign in with") ?></a>

@@ -11,6 +11,8 @@
 		} elseif(strpos($_SERVER['HTTP_REFERER'],"?action=Admin") &&
 				 $_GET['user'] != $_SESSION['user']->id) {
 			print_header_bar("?action=Admin", false, $title);
+		} elseif(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+			print_header_bar("back", false, $title);
 		} else {
 			print_header_bar("?action=main", false, $title);
 		}

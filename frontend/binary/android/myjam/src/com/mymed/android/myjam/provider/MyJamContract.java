@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012 POLITO 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 package com.mymed.android.myjam.provider;
 
 import com.mymed.android.myjam.provider.MyJamProvider.Tables;
@@ -26,6 +41,8 @@ public final class MyJamContract {
     	String DATE = "date";
     	/** Login date */
     	String LOGGED = "logged";
+    	/** Access token  */
+    	String ACCESS_TOKEN = "access_token";
     }
     
     interface UserColumns {	
@@ -157,16 +174,41 @@ public final class MyJamContract {
     public static final class Login implements BaseColumns,LoginColumns {
         // This class cannot be instantiated
         private Login() {}
-
+        
+        /**
+         * STATUS
+         */
+        public static final String ALL = "all";
+        public static final String LOGGED = "logged";
+        
         /**
          * The content:// style URL for this table
          */
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOGIN).build();
-
+ 
         /**
          * The prefix to use when a qualified name is required.
          */
-        public static final String QUALIFIER = Tables.LOGIN_TABLE_NAME + ".";        
+        public static final String QUALIFIER = Tables.LOGIN_TABLE_NAME + ".";
+        
+        /**
+         * 
+         * @param status
+         * @return
+         */
+        public static Uri buildLoginStatusUri(String status) {
+        	if (status.equals(ALL) || status.equals(LOGGED))
+        		return CONTENT_URI.buildUpon().appendPath(status).build();
+        	else
+        		return CONTENT_URI.buildUpon().appendPath(ALL).build();
+        }
+
+        
+        public static String getStatus(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+        
+        public static final String LOGIN_STATUS_SELECTION = LOGGED+"=? ";
     }
 
     public static final class User implements BaseColumns,UserColumns {
@@ -260,7 +302,7 @@ public final class MyJamContract {
         /**
          * Selection used to update.
          */
-        public static final String REPORT_SELECTION = REPORT_ID+"=? ";
+        public static final String REPORT_SELECTION = REPORT_ID+"= ?";
         
     }
     
@@ -346,7 +388,7 @@ public final class MyJamContract {
          */
         public static final String STALE_ENTRIES_SELECTION = REPORT_ID +" NOT IN (SELECT "+ SearchResult.REPORT_ID + 
         		" FROM "+ Tables.SEARCH_RESULT_TABLE_NAME +") AND "+ USER_ID+ " NOT IN (SELECT "+ Login.USER_ID + 
-                		" FROM "+ Tables.LOGIN_TABLE_NAME +")";
+                		" FROM "+ Tables.LOGIN_TABLE_NAME + " WHERE "+Login.LOGGED+" = 1)";
         
         /**
          * Returns the reportId given the URI.

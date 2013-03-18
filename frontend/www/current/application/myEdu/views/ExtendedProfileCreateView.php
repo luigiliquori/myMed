@@ -10,8 +10,12 @@
 	<? require_once('Categories.class.php'); ?>  
   	 
 	<!-- Page header bar -->
-	<? $title = _("Create profile");
-	   print_header_bar("?action=main", "helpPopup", $title); ?>
+	<? 	$title = _("Create profile");
+		if(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+			print_header_bar("back", false, $title);
+		} else {
+	   		print_header_bar("?action=main", "helpPopup", $title); 
+		}?>
 	   
 	<!-- Notification pop up -->
 	<? include_once 'notifications.php'; ?>

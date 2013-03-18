@@ -328,6 +328,7 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->delete_Comments($_SESSION['user']->id);
 		$this->deletePublications($_SESSION['user']->id); 
 		$this->deleteUser($_SESSION['user']->id);
+		MyOpportunityManagementController::removeSubscription($_SESSION['user']->id);
 		
 		// Redirect to main view
 		$this->redirectTo("?action=main");

@@ -1,0 +1,78 @@
+\hypertarget{classPseudoTcp_1_1MessageDispatcher}{
+\section{PseudoTcp::MessageDispatcher Class Reference}
+\label{classPseudoTcp_1_1MessageDispatcher}\index{PseudoTcp::MessageDispatcher@{PseudoTcp::MessageDispatcher}}
+}
+
+
+Top level \hyperlink{namespacePseudoTcp}{PseudoTcp} object, which contains TX and TX parts.  
+
+
+
+
+{\ttfamily \#include $<$MessageDispatcher.hpp$>$}
+
+Inheritance diagram for PseudoTcp::MessageDispatcher:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{classPseudoTcp_1_1MessageDispatcher}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1MessageDispatcher_a91ef8930a0d28de5d284b1181ad42076}{
+{\bfseries MessageDispatcher} (\hyperlink{classPseudoTcp_1_1IConnection}{IConnection} $\ast$conn, int windowSize)}
+\label{classPseudoTcp_1_1MessageDispatcher_a91ef8930a0d28de5d284b1181ad42076}
+
+\item 
+\hypertarget{classPseudoTcp_1_1MessageDispatcher_a920a8bb42f0574728a7d672c1fa7cfe5}{
+void \hyperlink{classPseudoTcp_1_1MessageDispatcher_a920a8bb42f0574728a7d672c1fa7cfe5}{IncomingMessage} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)}
+\label{classPseudoTcp_1_1MessageDispatcher_a920a8bb42f0574728a7d672c1fa7cfe5}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{classPseudoTcp_1_1IMsgHandler}{IMsgHandler} interface3. \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1MessageDispatcher_a94b5e3d31894cc9151637e50daa7540d}{
+int \hyperlink{classPseudoTcp_1_1MessageDispatcher_a94b5e3d31894cc9151637e50daa7540d}{send} (\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$msg)}
+\label{classPseudoTcp_1_1MessageDispatcher_a94b5e3d31894cc9151637e50daa7540d}
+
+\begin{DoxyCompactList}\small\item\em facade for Tx \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1MessageDispatcher_a637a302fe06f9abba2cb32f2f9fa7081}{
+bool \hyperlink{classPseudoTcp_1_1MessageDispatcher_a637a302fe06f9abba2cb32f2f9fa7081}{allMessagesAcked} ()}
+\label{classPseudoTcp_1_1MessageDispatcher_a637a302fe06f9abba2cb32f2f9fa7081}
+
+\begin{DoxyCompactList}\small\item\em facade for Tx \item\end{DoxyCompactList}\item 
+\hypertarget{classPseudoTcp_1_1MessageDispatcher_a08b707e4f9c0528b39f1c1eb5b9a61ba}{
+\hyperlink{classPseudoTcp_1_1Message}{Message} $\ast$ {\bfseries getNextMessage} ()}
+\label{classPseudoTcp_1_1MessageDispatcher_a08b707e4f9c0528b39f1c1eb5b9a61ba}
+
+\item 
+\hypertarget{classPseudoTcp_1_1MessageDispatcher_a4b2636001000dc4400b3767c69f17e38}{
+void {\bfseries SetId} (int id)}
+\label{classPseudoTcp_1_1MessageDispatcher_a4b2636001000dc4400b3767c69f17e38}
+
+\item 
+\hypertarget{classPseudoTcp_1_1MessageDispatcher_a9f10aed4d1487c935012a8c0cb954add}{
+int {\bfseries GetId} () const }
+\label{classPseudoTcp_1_1MessageDispatcher_a9f10aed4d1487c935012a8c0cb954add}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPseudoTcp_1_1MessageDispatcher_adbc53f711c49498562b7a674451cd0ab}{
+std::ostream \& {\bfseries operator$<$$<$} (std::ostream \&o, \hyperlink{classPseudoTcp_1_1MessageDispatcher}{MessageDispatcher} const \&md)}
+\label{classPseudoTcp_1_1MessageDispatcher_adbc53f711c49498562b7a674451cd0ab}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Top level \hyperlink{namespacePseudoTcp}{PseudoTcp} object, which contains TX and TX parts. Has two primary purposes:
+\begin{DoxyEnumerate}
+\item Act as encapsulator and facade for \hyperlink{classPseudoTcp_1_1PseudoTcpTx}{PseudoTcpTx} and \hyperlink{classPseudoTcp_1_1PseudoTcpRx}{PseudoTcpRx}
+\item Handle incoming messages, sending them to RX (if payload) or TX (if ack info) as needed. 
+\end{DoxyEnumerate}
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+MessageDispatcher.hpp\item 
+MessageDispatcher.cpp\end{DoxyCompactItemize}

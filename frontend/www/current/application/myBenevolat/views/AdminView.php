@@ -34,7 +34,7 @@
 			<? foreach( $this->blocked as $i => $item ) : ?>
 				<li>
 					<a href="?action=ExtendedProfile&method=show_user_profile&user=<?= urlencode($item->id) ?>"><span class="<?= $item->id==$_SESSION['user']->id?"ui-link":"" ?>"><?= $item->email ?></span></a>
-		        	<a href="#popupDeleteUser" data-theme="r" data-icon="delete" data-rel="popup" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _('Delete association profile') ?></a>
+		        	<a href="#" onclick='delete_user_popup("<?= urlencode($item->id) ?>", "<?= $item->permission - 1 ?>", "<?= $item->email ?>", "<?= $item->profiletype ?>");' data-theme="r" data-icon="delete" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _('Delete association profile') ?></a>
 					<a rel="external" data-icon="check" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>&email=<?= $item->email ?>&promoted=true&profiletype=<?= $item->profiletype ?>" data-theme="g"><?= _("Validate association") ?></a>
 				</li>
 			<? endforeach ?>
@@ -45,20 +45,7 @@
 				<li>
 					<a href="?action=ExtendedProfile&method=show_user_profile&user=<?= urlencode($item->id) ?>"><span class="<?= $item->id==$_SESSION['user']->id?"ui-link":"" ?>"><?= $item->email ?></span></a>
 					
-					<a href="#popupDeleteUser" data-theme="r" data-icon="delete" data-rel="popup" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _('Delete association profile') ?></a>
-					
-					<!-- Pop up delete -->	
-					<div data-role="popup" id="popupDeleteUser" class="ui-content" Style="text-align: center; width: 18em;">
-						<p style="font-size:85%;"><? echo _("Are you sure you want to delete this association?") ?></p>
-						<fieldset class="ui-grid-a">
-							<div class="ui-block-a">
-								<a data-icon="ok" data-theme="g" href="?action=Admin&method=delete&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission - 1 ?>&email=<?= $item->email ?>&profiletype=<?= $item->profiletype ?>" data-inline="true" data-role="button"><?= _("Yes") ?></a>
-							</div>
-							<div class="ui-block-b">
-								<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
-							</div>
-						</fieldset>
-					</div>				
+					<a href="#" onclick='delete_user_popup("<?= urlencode($item->id) ?>", "<?= $item->permission - 1 ?>", "<?= $item->email ?>", "<?= $item->profiletype ?>");' data-theme="r" data-icon="delete" data-iconpos="notext" data-inline="true" data-role="button" style="position:absolute; top:0; right:42px;"><?= _('Delete association profile') ?></a>
 													
 					<a rel="external" data-icon="sort-down" href="?action=Admin&method=updatePermission&id=<?= urlencode($item->id) ?>&perm=<?= $item->permission + 1 ?>&email=<?= $item->email ?>&profiletype=<?= $item->profiletype ?>" data-theme="g"><?= _("Make this association admin") ?></a>
 				</li>
@@ -72,6 +59,24 @@
 				</li>
 			<? endforeach ?>
 			</ul>
+			
+			<script type="text/javascript">
+				function delete_user_popup(id, perm, email, profiletype){
+					$("#popupDelete").html('<p style="font-size:85%;"><?= _("Are you sure you want to delete this account?") ?></p>\
+						<fieldset class="ui-grid-a">\
+							<div class="ui-block-a">\
+								<a data-icon="ok" data-theme="g" href="?action=Admin&method=delete&id='+id+'&perm='+perm+'&email='+email+'&profiletype='+profiletype+'" data-inline="true" data-role="button"><?= _("Yes") ?></a>\
+							</div>\
+							<div class="ui-block-b">\
+								<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>\
+							</div>\
+						</fieldset>\
+						');
+					$("#popupDelete").trigger('create');
+		 			$("#popupDelete").popup("open");
+				}
+			</script>
+			<div data-role="popup" id="popupDelete" class="ui-content" Style="text-align: center; width: 18em;"></div>
 		</div>
 	</div>
 	

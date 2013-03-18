@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 AuthName "Restricted Access: insert credentials"
 AuthType Basic
 AuthUserFile "/local/mymed/build/mymed/application/myStudentAdmin/.htpasswd"
+=======
+AuthName "Page d'administration protégée"
+AuthType Basic
+AuthUserFile "/var/www/mymed/application/myEuroCINAdmin/.htpasswd"
+>>>>>>> 47afa5c5725a71eb2e2fbaac0726ec72919c747c
 
 Require valid-user

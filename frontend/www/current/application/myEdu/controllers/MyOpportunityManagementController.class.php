@@ -6,15 +6,13 @@
  */
 class MyOpportunityManagementController extends AuthenticatedController {
 	
-	
+	static $subscribetype= "subscriptionInfos";
 	
 	public /*String*/ function handleRequest() {
 		parent::handleRequest();
 	}
 	
 	function defaultMethod() {
-		
-		$this->subscribetype= "subscriptionInfos";
 		
 		if(isset($_POST['addSubscription'])){
 			$this->addSubscription();
@@ -60,7 +58,7 @@ class MyOpportunityManagementController extends AuthenticatedController {
 		
 		//publish a subscription object
 		$publishSubObject = new MyEduSubscriptionBean();
-		$publishSubObject->type = $this->subscribetype;
+		$publishSubObject->type = MyOpportunityManagementController::$subscribetype;
 		$publishSubObject->pubTitle = $pubTitle;
 		$publishSubObject->category = $cat;
 		$publishSubObject->organization = $organization;
@@ -75,7 +73,7 @@ class MyOpportunityManagementController extends AuthenticatedController {
 	/**
 	 * remove subscription
 	 */
-	function removeSubscription(){
+	/*function removeSubscription(){
 		//remove subscription
 		$request = new Request("SubscribeRequestHandler", DELETE);
 		$request->addArgument("application", APPLICATION_NAME);
@@ -95,6 +93,36 @@ class MyOpportunityManagementController extends AuthenticatedController {
 		$deleteObject->pubTitle = $_POST['publicationTitle'];
 		$deleteObject->delete();
 		$this->success = _("Subscription Deleted");
+	}*/
+	
+	function removeSubscription(){
+		MyOpportunityManagementController::removeSubscriptionStatic($_SESSION['user']->id,$_POST['predicate'],$_POST['publicationTitle']);
+		$this->success = _("Subscription Deleted");
+	}
+	
+	/**
+	 * remove subscription
+	 */
+	static function removeSubscriptionStatic($user,$predicate="none",$publicationTitle="none"){
+		//remove subscription
+		$request = new Request("SubscribeRequestHandler", DELETE);
+		$request->addArgument("application", APPLICATION_NAME);
+		$request->addArgument("userID", $user);
+		if(predicate != "none"){
+			$request->addArgument("predicate",$predicate);
+		}
+		$request->send();
+	
+		//remove subscription object
+		$deleteObject = new MyEduSubscriptionBean();
+		$deleteObject->type = MyOpportunityManagementController::$subscribetype;
+		$deleteObject->publisherID = $user;
+		$deleteObject->publisher = $user;
+		//error_log("LOGROM : pubTitle ". $object->pubTitle." type: ".$object->type);
+		if($publicationTitle != "none"){
+			$deleteObject->pubTitle = $publicationTitle;
+		}
+		$deleteObject->delete();
 	}
 	
 	/**
@@ -102,7 +130,7 @@ class MyOpportunityManagementController extends AuthenticatedController {
 	 */
 	function getSubscription(){
 		$findSub = new MyEduSubscriptionBean();
-		$findSub->type =$this->subscribetype ;
+		$findSub->type =MyOpportunityManagementController::$subscribetype;
 		$findSub->publisher = $_SESSION['user']->id;
 		$this->response = $findSub->find();
 	}

@@ -176,7 +176,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                     		}
                     	}
                         LOGGER.info("Trying to update user:\n {}", usr);
-                        profileManager.update(usr.get("id"), usr, temporary == null);
+                        profileManager.update(usr.get("id"), usr, temporary != null);
     
                         //message.addDataObject(JSON_PROFILE, userBean);
                         message.setDescription("User updated!");
