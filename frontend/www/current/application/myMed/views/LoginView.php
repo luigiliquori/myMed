@@ -107,9 +107,4 @@ function tab_bar_login($activeTab) {
 	
 </div>
 
-
-
-<!-- INCLUDE THE MAIN PAGE OF THE PROJECT -->
-<? include('mymed.php'); ?>
-
 <? include_once("footer.php"); ?>

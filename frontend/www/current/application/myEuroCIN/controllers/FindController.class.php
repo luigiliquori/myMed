@@ -25,7 +25,7 @@ class FindController extends AuthenticatedController{
 			$results = $search->find();
 			$this->filter_array($results);
 			
-			// Get reputations 	
+			// Get reputations
 			$this->getReputation($this->result);
 			$this->renderView("results");
 			

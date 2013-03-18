@@ -42,7 +42,13 @@ class MainController extends AuthenticatedController {
 	
 	public function handleRequest() {
 
-		parent::handleRequest();
+		
+		//parent::handleRequest();
+		// Check for user in session
+		if ( !isset($_SESSION['user']) ) {
+			// Redirect to the main view
+			$this->renderView("Splash");
+		}
 		
 		if (strpos($_SERVER["HTTP_USER_AGENT"], "MSIE") !== false) {
 			$this->setError(_("You are using Internet Explorer, the interface is not optimized for it,
