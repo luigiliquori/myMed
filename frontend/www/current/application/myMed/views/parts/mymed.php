@@ -15,7 +15,7 @@
 			<a href="#downloadPage">Download</a>
 			<a href="http://mymed2.sophia.inria.fr/wiki" data-ajax="false" target="blank">Wiki</a>
 			<a href="http://mymed2.sophia.inria.fr/developers" data-ajax="false" target="blank">Developers</a>
-			<a href="#login" data-transition="flip">Try</a>
+			<a href="?action=login" data-transition="flip">Try</a>
 		</div>
 		
 	</div>
