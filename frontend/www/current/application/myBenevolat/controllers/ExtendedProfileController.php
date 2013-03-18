@@ -304,6 +304,9 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 		$this->delete_Applies($_SESSION['user']->id);
 		$this->deleteUser($_SESSION['user']->id);
 		
+		//deleting subscription
+		MySubscriptionManagementController::removeSubscriptionStatic($_SESSION['user']->id);
+		
 		// Redirect to main view
 		$this->redirectTo("?action=main");
 	}
