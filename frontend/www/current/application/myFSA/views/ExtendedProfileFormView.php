@@ -4,7 +4,10 @@
 
 <div data-role="page" id="company" data-theme="b">	
 
-	<? include("header-bar.php") ?>
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<h1 style="color: white;"><?= _("Extended profile") ?></h1>
+		<a href="?action=main" data-inline="true" rel="external" data-role="button" data-icon="back"><?= _("Back")?></a>
+	</div>
 
 	<div data-role="content" style="padding: 0px;">
 		
@@ -16,7 +19,7 @@
 		</div>
 		
 		<form data-role="content" action="index.php?action=ExtendedProfile" method="post" data-ajax="false" data-theme='d'>
-			<select name="profileFilled" id="profileFilled" data-theme="e" data-native-menu="false" onChange="
+			<select name="profileFilled" id="profileFilled" data-theme="d" data-native-menu="false" onChange="
 					
 					switch ($('#profileFilled').val()) {
 						
@@ -73,7 +76,6 @@
 			<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 			<center><input type="submit" value="<?= _("Submit") ?>" data-theme="g" data-icon="ok" data-inline="true" /></center>
 		</form>
-	</div>
-<? include("footer.php"); ?>	
+	</div>	
 </div>
 </body>

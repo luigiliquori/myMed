@@ -9,7 +9,7 @@ $(document).ready(function() {
 function displayPosition(position) {
 
 	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
+	alert(latlng);
 	// create current position marker
 	new google.maps.Marker({
 		position : latlng,

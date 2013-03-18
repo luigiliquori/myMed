@@ -12,7 +12,7 @@ class ExtendedProfileController extends AbstractController
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*void*/ function handleRequest(){
-		if(!$_SESSION['ExtendedProfile'])
+		if(!isset($_SESSION['ExtendedProfile']))
 			$this->fetchExtendedProfile();
 		
 		if(isset($_POST['lang'])){ // UPDATE LANG
@@ -103,7 +103,7 @@ class ExtendedProfileController extends AbstractController
 			$this->renderView("ExtendedProfileForm");
 		else {
 			$_SESSION['ExtendedProfile'] = $extendedProfile;
-			$this->success = "Registration completed!";
+			$this->success = _("Registration completed!");
 			
 			$this->renderView("ExtendedProfileDisplay");
 		}

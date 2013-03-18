@@ -33,9 +33,9 @@
 
 	<!-- HEADER BAR-->
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<h1>myFSA</h1>
-		<a href="?action=main" data-inline="true" rel="external" data-role="button" data-icon="back">Back</a>
-		<a href="?action=localise#searchRoad" data-icon="search" data-iconpos="right" class="ui-btn-right" data-ajax="false">Get directions</a>
+		<h1><?= _("Localize")?></h1>
+		<a href="?action=main" data-inline="true" rel="external" data-role="button" data-icon="back"><?= _("Back")?></a>
+		<a href="?action=localise#searchRoad" data-icon="search" data-iconpos="right" class="ui-btn-right" data-ajax="false"><?= _("Get directions")?></a>
 	</div>
 
 	<!-- CONTENT -->

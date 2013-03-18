@@ -1244,6 +1244,9 @@ msgstr "Utilisez les paramètres de recherche pour trouver les publications int�
 msgid "Specify properties to retrieve related publications."
 msgstr "Spécifiez les propriétés pour récupérer les publications liées."
 
+msgid "Get directions"
+msgstr "Itinéraire"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyCandidatureView.php:44
 msgid "Publication name"
 msgstr "Nom de la publication"
@@ -1254,6 +1257,39 @@ msgstr "Réputation de la publication"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyCandidatureView.php:47
 msgid "Author email"
 msgstr "Email de l'auteur"
+
+msgid "Your photo here"
+msgstr "Votre photo ici"
+
+msgid "employer details"
+msgstr "Détails employé"
+
+msgid "company details"
+msgstr "Détails entreprise"
+
+msgid "Departure"
+msgstr "Départ"
+
+msgid "Departure date"
+msgstr "Date de départ"
+
+msgid "Search radius"
+msgstr "Rayon de recherche"
+
+msgid "meters"
+msgstr "mètres"
+
+msgid "Points of Interests"
+msgstr "Points d'intêrets"
+
+msgid "Type of journey"
+msgstr "Type de trajet"
+
+msgid "Arrival"
+msgstr "Arrivée"
+
+msgid "Advanced options"
+msgstr "Options avancées"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/MyCandidatureView.php:51
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/AllCandidaturesView.php:49
@@ -1429,11 +1465,20 @@ msgstr "bénévole"
 msgid "volunteer profile details"
 msgstr "Détails du profil bénévole"
 
+msgid "Get directions details"
+msgstr "Détails itinéraire"
+
 msgid "association profile details"
 msgstr "Détails du profil association"
 
+msgid "All the fields are mandatory"
+msgstr "Tous les champs sont obligatoires"
+
 msgid "Association name"
 msgstr "Nom de l'association"
+
+msgid "The aim of the social network <b>myFSA</b> (Fondation Sophia Antipolis), based on the meta-social network <b>myMed</b>, is to provide a solution to promote collaborations, meetings, exchanges and cross-fertilization between Sophia Antipolis stakeholders (academics, companies, entrepreneurs, students, associations) but also with external partners.<br>In addition, myFSA experiments a social network for information exchange:<br>best practices, knowledge, soft transportation assistance between users (workers and firms).<br>It helps the establishment of new entrants in the Science & Technology Park and it takes advantage of geolocation process of its members (not mandatory) to match contacts in terms of distance.<br>The social network also develops a system of e-reputation, owned by MyMed meta-network, that favors convergence and links between the best members (better rated)."
+msgstr "L'objectif du réseau social <b>myFSA</b> (Fondation Sophia Antipolis), qui s'appuie sur le méta-réseau social <b>myMed</b>, est d'apporter une solution pour favoriser les collaborations, les rencontres, les échanges et la fertilisation croisée entre les acteurs du parc de Sophia Antipolis mais aussi avec les partenaires extérieurs.<br>En outre, myFSA expérimente un réseau social d¹échange d¹informations : bonnes pratiques, savoirs, aide aux déplacements doux entre utilisateurs (travailleurs et entreprises) et aide à l'implantation des nouveaux venus dans la technopole.<br>myFSA tire avantage du procédé de géolocalisation de ses membres (non obligatoire) pour faire correspondre des contacts en fonction de la distance.<br>Le réseau social abrite également un système de e-reputation propriétaire au méta-réseau myMed qui privilégie la convergence et la mise en relation entre les membres les mieux « réputés »."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/views/ExtendedProfileCreateView.php:31
 msgid "An association"
@@ -2608,6 +2653,9 @@ msgstr "Bonjour, c'est votre première venue sur myEdu! Veuillez Créer votre pr
 msgid "Please create your extended profile:"
 msgstr "Veuillez créer votre profil étendu:"
 
+msgid "Registration completed!"
+msgstr "Enregistrement complet!"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myEdu/views/ExtendedProfileCreateView.php:89
 msgid "Select your category"
 msgstr "Sélectionner votre catégorie"
@@ -2824,6 +2872,9 @@ msgstr "Univ.de la Vallé d'Aoste"
 
 msgid "Enterprise"
 msgstr "Entreprise"
+
+msgid "Enterprises"
+msgstr "Entreprises"
 
 msgid "French Riviera"
 msgstr "Provence Alpes Côte d'Azur"

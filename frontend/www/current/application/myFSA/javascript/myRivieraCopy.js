@@ -647,7 +647,7 @@ function calcRouteByGoogle(printTrip) {
 								'desc' : content1 + '<br />' + content2
 						};
 
-						desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
+						desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-left: 20px;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
 

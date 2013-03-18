@@ -169,13 +169,14 @@ function calcRoute(json) {
 	// TODO CREATE SHOW TRIP FUNCTION!!
 	// use to force to drow the trip
 	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
+		myRivieraShowTrip($("#depart").val() || "Ma position", $("#arrivee").val());
 		calcRouteByCityway(result);
 	} else {
 		calcRouteByGoogle(true);
 		//alert("Erreur API Cityway");
 	}
 
-	refreshRoadMap = true;
+	/*refreshRoadMap = true;
 	//alert("changing page!");
 
 	
@@ -204,7 +205,7 @@ function calcRoute(json) {
 	});
 	if (result.ItineraryObj && result.ItineraryObj.Status.code == "0") {
 		myRivieraShowTrip($("#depart").val() || "Ma position", $("#arrivee").val());
-	}
+	}*/
 }
 
 function calcRouteByCityway(result) {
@@ -428,7 +429,7 @@ function calcRouteByGoogle(printTrip) {
 								'desc' : content1 + '<br />' + content2
 						};
 
-						desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
+						desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-left:15px;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
 
