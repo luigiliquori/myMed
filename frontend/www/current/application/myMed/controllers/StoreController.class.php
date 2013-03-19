@@ -91,6 +91,9 @@ class StoreController extends AuthenticatedController {
 				} catch (Exception $e) {
 					$this->setError("Une erreur interne est survenue, veuillez réessayer plus tard...");
 				}
+				
+				// Update reputation values
+				$this->updateAllAppsReputation();
 			}	
 			$this->renderView("storeSub");
 		}
@@ -98,5 +101,43 @@ class StoreController extends AuthenticatedController {
 		
 	}
 
+	
+	function updateAllAppsReputation() {
+		
+		foreach($_SESSION['applicationList'] as $app => $status){
+				
+			// Get the reputation of the user in each application
+			$request = new Request("ReputationRequestHandler", READ);
+			$request->addArgument("application",  APPLICATION_NAME);
+			$request->addArgument("producer",  $app);					// Reputation of data
+			$request->addArgument("consumer",  $_SESSION['user']->id);
+		
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+		
+			if (isset($responseObject->data->reputation)) {
+				$i=0;
+				$value = json_decode($responseObject->data->reputation);
+				$_SESSION['reputation'][EXTENDED_PROFILE_PREFIX . $app] = $value * 100;
+			} else {
+				$_SESSION['reputation'][EXTENDED_PROFILE_PREFIX . $app] = 100;
+			}
+				
+			// Get the reputation of the application
+			$request->addArgument("application",  APPLICATION_NAME);
+			$request->addArgument("producer",  $app);			// Reputation of data
+			$request->addArgument("consumer",  $_SESSION['user']->id);
+				
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+				
+			if (isset($responseObject->data->reputation)) {
+				$value = json_decode($responseObject->data->reputation);
+				$_SESSION['reputation'][STORE_PREFIX . $app] = $value * 100;
+			} else {
+				$_SESSION['reputation'][STORE_PREFIX . $app] = 100;
+			}
+		}
+	}
 }
 ?>
