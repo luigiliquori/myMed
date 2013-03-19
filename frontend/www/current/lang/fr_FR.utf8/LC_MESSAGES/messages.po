@@ -475,6 +475,9 @@ msgstr "Aide immédiate d'un Veilleur'"
 msgid "Profile"
 msgstr "Profil"
 
+msgid "Application reputation"
+msgstr "Réputation de l'application"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:82
 msgid "Autocall_active"
 msgstr "<<< Surveillance activée >>>"

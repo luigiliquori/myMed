@@ -84,7 +84,51 @@ require_once("header.php");
   					<a href="https://itunes.apple.com/fr/app/<?= $appleLink ?>" target="itunes_store"><img src="http://r.mzstatic.com/images/web/linkmaker/badge_appstore-lrg.gif" alt="myEurope - Luigi Liquori" style="border: 0;"/></a>
 					<?php }?>
 				</div>
-				<div style="position: relative; height:60px;"></div>
+				<div style="position: relative; height:50px;"></div>
+				
+			 <? if(!$_SESSION['user']->is_guest) :?>
+				<!-- SHARES -->
+				<div style="position: absolute; right: 24px;">
+					<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
+    				<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+				</div>
+				<div style="position: absolute; right: 95px;">
+					<g:plusone size="tall"></g:plusone>
+					<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
+				</div>
+				<div style="position: absolute; right: 150px; padding-top:40px;">
+					<script src='http://connect.facebook.net/en_US/all.js'></script>
+					<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $_REQUEST["applicationStore"] ?>', '<?= APPLICATION_NAME ?>')"><img src="mymed/img/facebookShare.png"/></a>	
+				</div>
+				<div id="fb-root"></div>
+			    <script>  
+					window.fbAsyncInit = function() {
+					    FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
+					  };
+				    function postToFeed(url, title, appname) {
+				    	FB.login(function(response) {
+				            if (response.authResponse) {
+				            	fbShare(url, title, appname);
+				            }
+				        }, {scope: 'publish_stream'});
+				    }
+				      
+				    var fbShare = function(url, title, appname) {
+					    alert(url);
+				    	FB.ui({
+					    	method: 'feed',
+					        display: "iframe",
+					        link: url,
+					        picture: 'http://www.mymed.fr/application/myMed/img/logo-mymed-250c.png',
+					        name: ("Presentation of "+title),
+					        caption: appname
+					        //description: desc
+				    	});
+					};
+			    </script>
+				<div style="height: 80px;"></div>
+	    		<!-- END SHARES -->
+	    	 <? endif;?>
 			</div>
 			
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
@@ -106,20 +150,19 @@ require_once("header.php");
 				<?php if(!$_SESSION['user']->is_guest) :?>
 				<br/>	
     			<div Style="position: relative; left: 0px;">
-    			<p style="display:inline; color: #2489CE;" >Application reputation: </p>
-		    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
-		    		<?php if($i*20-20 < $_SESSION['reputation'][STORE_PREFIX . $_REQUEST["applicationStore"]] ) { ?>
-		    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="15" Style="left: <?= $i ?>0px;" />
-		    		<?php } else { ?>
-		    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="15" Style="left: <?= $i ?>0px;"/>
-		    		<?php } ?>
-		    	<? } ?>
-		    	</div>		
-				<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupScoreApp" data-rel="popup" style="text-decoration:none;" ><?= _("Rate this app") ?></a>	
-				<br/>
+	    			<p style="display:inline;" ><?= _("Application reputation")?>: </p>
+			    	<?php for($i=1 ; $i <= 5 ; $i++) { ?>
+			    		<?php if($i*20-20 < $_SESSION['reputation'][STORE_PREFIX . $_REQUEST["applicationStore"]] ) { ?>
+			    			<img alt="rep" src="<?= APP_ROOT ?>/img/yellowStar.png" width="12" Style="left: <?= $i ?>0px;" />
+			    		<?php } else { ?>
+			    			<img alt="rep" src="<?= APP_ROOT ?>/img/grayStar.png" width="12" Style="left: <?= $i ?>0px;"/>
+			    		<?php } ?>
+			    	<? } ?>
+			    			
+					<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupScoreApp" data-rel="popup" style="text-decoration:none;" ><?= _("Rate this app") ?></a>	
+				</div>
 				
-				
-				<!-- Appolication reputation pop up -->
+				<!-- Application reputation pop up -->
 				<div data-role="popup" id="popupScoreApp" class="ui-content" Style="text-align: center; width: 18em;">
 					<?= _("Do you like this application ?") ?><br /><br />
 					<form id="form1" action="?action=store&applicationStore=<?= $_REQUEST["applicationStore"] ?>&reputation=1#storeSub" method="POST" data-ajax="false">
@@ -130,6 +173,12 @@ require_once("header.php");
 						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
 					</form>
 				</div>
+				
+				
+				
+				
+				
+				
 				<?php endif;?>	
 				
 			</div>
