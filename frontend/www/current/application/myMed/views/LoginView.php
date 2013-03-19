@@ -57,6 +57,8 @@ function tab_bar_login($activeTab) {
 					
 					<a href="#signinPopup" data-role="button" data-rel="popup" data-inline="true" data-mini="true"><?= _("Sign in with") ?></a>
 					<a href="?action=guest&method=read" rel="external" class="ui-btn-right" data-role="button" data-mini="true" data-theme="g"><?= _("Tour") ?></a>
+					<br/>
+					<a href="https://play.google.com/store/apps/details?id=com.app2.mymed"><img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" style="margin-top:5px;" /></a>
 				</div>
 			</div>
 		</form>
