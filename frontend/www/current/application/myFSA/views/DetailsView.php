@@ -44,7 +44,11 @@
 
 <div data-role="page" data-theme="b">
 
-<? include("header-bar.php"); ?>
+<div data-role="header" data-theme="b" data-position="fixed">
+	<h1 style="color: white;"><?= _("Details") ?></h1>
+	<a href="?action=Search" data-inline="true" rel="external" data-role="button" data-icon="back"><?= _("Back")?></a>
+	<? include_once "notifications.php"; ?>
+</div>
 	
 	<!-- stars rating -->
 <!-- rank: -->
@@ -68,8 +72,8 @@
 	<?php  $truncated = substr($this->result->publisherID, 6)?>
 	<!-- <div class="ui-grid-b">
 		<div class="ui-block-a"><b><?= translate('Author') ?>:</b></div> <div class="ui-block-b"> <?= $truncated ?></div>
-		<div class="ui-block-a"><b><?= translate('Cathegory') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred2'] ?></div>
-		<div class="ui-block-a"><b><?= translate('Tittle') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred3'] ?></div>-->
+		<div class="ui-block-a"><b><?= translate('Category') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred2'] ?></div>
+		<div class="ui-block-a"><b><?= translate('Title') ?>:</b></div> <div class="ui-block-b"><?= $_SESSION['pred3'] ?></div>-->
 		<!--  	<b>Wrapped1</b>:--> <?//= $this->result->wrapped1 ?>
 		<!-- 	<b>Wrapped2</b>: --><?//= $this->result->wrapped2 ?>
 	<!--  </div>-->
@@ -80,7 +84,7 @@
 		<br>
  		<b><?= translate('Author') ?>:</b> <?= $truncated ?>
  		<br>
- 		<b><?= translate('Category') ?>:</b> <?= $_SESSION['pred2'] ?>
+ 		<b><?= translate('Category') ?>:</b> <?= _($_SESSION['pred2']) ?>
 	 	
 	 	<div data-role="collapsible" data-content-theme="d">
 	 		<h3><?= translate('Comments') ?></h3>
@@ -108,7 +112,8 @@
 	 	</div>
 
 	</div>
-<? include("footer.php"); ?>
 </div>
+</body>
+
 
 

@@ -8,8 +8,8 @@
 	</div>
 	
 	<!-- CONTENT -->
-	<div data-role="content" style="padding: 0px; margin-top: 0px;">
-	
+	<div data-role="content">
+		<br>
 		<div id="itineraire">
 			<ul id="itineraireContent" data-role="listview" data-theme="c">
 			</ul>

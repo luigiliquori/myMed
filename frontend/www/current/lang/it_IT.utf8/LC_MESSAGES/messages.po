@@ -3394,8 +3394,14 @@ msgstr ""
 msgid "Description de l'annonce"
 msgstr "Descrizione"
 
+msgid "Get directions"
+msgstr "Ottieni indicazioni"
+
 msgid "description, comments"
 msgstr "inserisci una descrizione, un commento"
+
+msgid "The aim of the social network <b>myFSA</b> (Fondation Sophia Antipolis), based on the meta-social network <b>myMed</b>, is to provide a solution to promote collaborations, meetings, exchanges and cross-fertilization between Sophia Antipolis stakeholders (academics, companies, entrepreneurs, students, associations) but also with external partners.<br>In addition, myFSA experiments a social network for information exchange:<br>best practices, knowledge, soft transportation assistance between users (workers and firms).<br>It helps the establishment of new entrants in the Science & Technology Park and it takes advantage of geolocation process of its members (not mandatory) to match contacts in terms of distance.<br>The social network also develops a system of e-reputation, owned by MyMed meta-network, that favors convergence and links between the best members (better rated)."
+msgstr "L'obiettivo della rete sociale <b>myFSA</b> che si appoggia sulla meta-rete sociale <b>myMed</b>, è di permettere la sperimentazione di una Rete sociale di scambio di notizie, di best practices, di sapere, di aiuto in caso di evoluzione dei posti di lavoro tra membri, lavoratori ed imprese.<br>MyFSA aiuta 'insediamento dei nuovi arrivati sul territorio di Sophia Antipolis.<br>MyFSA si avvantaggerà del servizio di geolocalizzazione dei membri, non obbligatorio, per far corrispondere i contatti secondo la distanza e di un sistema di e-reputazione proprietario al meta-rete myMed per indicare i membri più « e-reputati »."
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/views/parts/AnnonceForm.php:27
 #, fuzzy
@@ -3411,58 +3417,6 @@ msgstr "Password non corrispondente"
 #, fuzzy
 msgid "Incorrect password"
 msgstr "Password errata"
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/NiceBenevolatAdminController.class.php:30
-msgid "Compte NiceBenevolat correctement activé"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:106
-msgid "Vous n'avez pas le droit d'accéder à ce profil"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:111
-msgid "Vous n'avez pas le droit de modifier ce profil"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:122
-msgid "L'email ne peut pas être vide."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:162
-msgid "Le mot de passe est vide"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:166
-msgid "Le mot de passe de confirmation est vide"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:170
-msgid "Le mot de passe et le mot de passe de confirmation sont différents"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:190
-msgid "Seul Nice Bénévolat peut créer de nouveaux utilisateurs"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:361
-msgid "Félicitation, votre profil a été créé. Allez voir vos mail pour l'activer."
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:365
-msgid "Profil correctement créé"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:475
-msgid "Vous n'avez pas les droits de valider cette association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:480
-msgid "Ceci n'est pas une association"
-msgstr ""
-
-#: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBen/controllers/ExtendedProfileController.php:495
-msgid "Association validée"
-msgstr ""
 
 #~ msgid "Tout / aucun"
 #~ msgstr "Tutto / nessuno"

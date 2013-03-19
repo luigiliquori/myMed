@@ -39,7 +39,7 @@ class MainController extends AuthenticatedController {
 		$_SESSION["launchpad"] = true;
 
 		// SUBSCRIBE
-		if($_POST['method'] == "subscribe") {
+		if(isset($_POST['method']) && $_POST['method'] == "subscribe") {
 			$subscribe = new Subscribe($this);
 			$subscribe->send();
 
@@ -127,7 +127,7 @@ class MainController extends AuthenticatedController {
 					}
 				}
 			} else {
-
+				debug("Add POI");
 				// ADD SINGLE POI
 				$request = new Request("POIRequestHandler", CREATE);
 				$request->addArgument("application", APPLICATION_NAME);

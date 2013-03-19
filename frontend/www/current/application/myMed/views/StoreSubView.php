@@ -96,8 +96,8 @@ require_once("header.php");
 					<!-- <img id="screenshot3" alt="<?= $_REQUEST["applicationStore"] ?>" src="<?= APP_ROOT . "/../" . $_REQUEST["applicationStore"] . "/doc/screenshot3.png" ?>" class="myScreenshot" />-->
 					<br /><br />
 					<div data-role="controlgroup" data-type="horizontal">
-						<a href="#" onclick="prevScreenshot()" data-role="button" data-icon="arrow-l" data-iconpos="notext"></a>
-						<a href="#" onclick="nextScreenshot()" data-role="button" data-icon="arrow-r" data-iconpos="notext"></a>
+						<a href="#" onclick="prevScreenshot()" data-role="button" data-icon="arrow-l" data-iconpos="left"> </a>
+						<a href="#" onclick="nextScreenshot()" data-role="button" data-icon="arrow-r" data-iconpos="right"> </a>
 					</div>
 				</center>
 				

@@ -1,14 +1,20 @@
-<? 
+<?
+
+/**
+ *  Main controller 
+ *  
+ */
 class MainController extends AuthenticatedController {
 	
-	public /*void*/ function handleRequest(){
+
+	public function handleRequest() {
 		
 		parent::handleRequest();
-		
-		if(!$_SESSION['ExtendedProfile'])
+			
+		if(!isset($_SESSION['ExtendedProfile']))
 			$this->fetchExtendedProfile();
-		
-		$this->renderView('main');				
+	
+		$this->renderView("main");
 	}
 	
 	public /*void*/ function fetchExtendedProfile(){

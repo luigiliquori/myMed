@@ -21,6 +21,7 @@ class PublishController extends AuthenticatedController {
 			if(!empty($_POST['pred2']) && !empty($_POST['pred3']) && !empty($_POST['data1'])){
 				$this->fillObj($obj);
 			}else{
+				$this->error = _("All the fields are mandatory");
 				$this->renderView("publish");
 			}
 			$obj->publish();
