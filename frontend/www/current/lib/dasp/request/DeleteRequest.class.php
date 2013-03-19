@@ -54,10 +54,15 @@ class DeleteRequest extends Request {
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
-	public /*void*/ function send() {
+	public /*void*/ function send($APPLICATION_NAME = APPLICATION_NAME) {
 
 		// Construct the requests
-		if ($this->namespace == null) {
+		
+		// Overrride_APPLICATION_NAME when the request
+		// is called from a different app from that published it
+		if($APPLICATION_NAME != APPLICATION_NAME) {
+			parent::addArgument("application", $APPLICATION_NAME);
+		} elseif($this->namespace == null) {
 			parent::addArgument("application", APPLICATION_NAME);
 		} else {
 			parent::addArgument("application", APPLICATION_NAME . ":$this->namespace");

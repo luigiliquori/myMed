@@ -103,6 +103,7 @@ require_once("header.php");
 				
 
 				<!-- APP REPUTATION -->
+				<?php if(!$_SESSION['user']->is_guest) :?>
 				<br/>	
     			<div Style="position: relative; left: 0px;">
     			<p style="display:inline; color: #2489CE;" >Application reputation: </p>
@@ -116,7 +117,8 @@ require_once("header.php");
 		    	</div>		
 				<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupScoreApp" data-rel="popup" style="text-decoration:none;" ><?= _("Rate this app") ?></a>	
 				<br/>
-					
+				
+				
 				<!-- Appolication reputation pop up -->
 				<div data-role="popup" id="popupScoreApp" class="ui-content" Style="text-align: center; width: 18em;">
 					<?= _("Do you like this application ?") ?><br /><br />
@@ -127,7 +129,8 @@ require_once("header.php");
 						<input type="range" name="reputationslider" id="reputationslider" value="3" min="1" max="5" data-mini="true" step="1"/>
 						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
 					</form>
-				</div>	
+				</div>
+				<?php endif;?>	
 				
 			</div>
 			<!-- <a id="desc"></a>
