@@ -12,8 +12,6 @@
 					</p>
 				</div>
 			</div>
-			
-			<? include("footer.php"); ?>
 	</div>
 </body>
 </html>

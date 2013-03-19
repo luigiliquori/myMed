@@ -21,7 +21,7 @@
 	</div>
 		
 	<!-- Page content -->
-	<div data-role="content">
+	<div data-role="content" data-theme="d">
 		<? include_once "notifications.php"; ?>
 		<? print_notification($this->success.$this->error); ?>
 		<!--  Register form -->
@@ -69,5 +69,4 @@
 </div> <!-- END Page -->
 </div>
 
-<? include("footer.php"); ?>
 </div>

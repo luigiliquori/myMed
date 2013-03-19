@@ -3,42 +3,48 @@
 
 <body>
 
-	<div data-role="page" id="Main" data-theme="b">
-		<? include("header-bar.php"); ?>
+<!-- Page view -->
+<div data-role="page" id="mainView" >
+
+
+	<!-- Header bar -->
+	<? include "header-bar.php" ?>
+
+	<!-- Page content --> 
+	<div data-role="content" >
+	
+		<!-- Notification pop up -->
+		<? include_once 'notifications.php'; ?>
+		<? //print_notification($this->success.$this->error); ?>
 			
-			<div data-role="content" class="content_text">
-				<?php
-				$xml=("http://www.sophia-antipolis.org/index.php?option=com_content&view=category&layout=blog&id=119&Itemid=3&lang=fr&format=feed&type=rss");
-	
-	
-				$xmlDoc = new DOMDocument();
-				$xmlDoc->load($xml);
-	
-				//get elements from "<channel>"
-				$channel=$xmlDoc->getElementsByTagName('channel')->item(0);
-				$channel_title = $channel->getElementsByTagName('title')->item(0)->childNodes->item(0)->nodeValue;
-				$channel_link = $channel->getElementsByTagName('link')->item(0)->childNodes->item(0)->nodeValue;
-	
-				//output elements from "<channel>"
-				echo("<p><a href='" . $channel_link. "'>" . $channel_title . "</a>");
-				echo("<br />");
-				echo("</p>");
-	
-				//get and output "<item>" elements
-				$x=$xmlDoc->getElementsByTagName('item');
-				for ($i=0; $i<=2; $i++)
-	  			{
-	  				$item_title=$x->item($i)->getElementsByTagName('title')->item(0)->childNodes->item(0)->nodeValue;
-	  				$item_link=$x->item($i)->getElementsByTagName('link')->item(0)->childNodes->item(0)->nodeValue;
-	  				$item_desc=$x->item($i)->getElementsByTagName('description')->item(0)->childNodes->item(0)->nodeValue;
-	
-	  				echo ("<p><a href='" . $item_link. "'>" . $item_title . "</a>");
-	  				echo ("<br />");
-	  				echo ($item_desc . "</p>");
-	  			}
-				?>
-			</div>
+		<!-- App description 
+		<br/>
+		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
+			<h3><?= _("Welcome") ?></h3>
+			<p><?= _("Main capsule text") ?></p>	
+		</div>
+		-->
+		<br/>
 		
-	<? include("footer.php"); ?>
+	 <? if(!isset($_SESSION['user']) || $_SESSION['user']->is_guest){ ?>
+			<!-- User not authenticated - Sign in -->
+			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
+			<a href="index.php?action=login" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connect")?></a><br />
+	  <? } ?>
+  		<a href="?action=Home" data-role="button" data-transition="none" data-icon="home"><?=_("Home")?></a>
+		<br>
+		<a href="?action=Search" data-role="button" data-transition="none" data-icon="search"><?=_("Search")?></a>
+		<br/>
+		<a href="?action=Publish" data-role="button" data-transition="none" data-icon="pencil" <?= (isset($_SESSION['ExtendedProfile']) && $_SESSION["profileFilled"] != "guest") ? "" : "class='ui-disabled' " ?> ><?=_("Publish")?></a>
+		<br/>
+		<a data-ajax="false" href="?action=Localise" type="button" data-transition="slide" data-icon="search"><?= _("Localize") ?></a>
+		<br/>
+		<a href="?action=ExtendedProfile" data-icon="user" data-role="button" <?= (isset($_SESSION['user']) && !$_SESSION['user']->is_guest)? "" : " class='ui-disabled'" ?>><?=_("Profile")?></a>
+		<br/>
+		<a href="?action=About" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("About")?></a>
+		<br/>
+		
+	</div>	
+	<!-- End page content -->
 	</div>
 </body>
