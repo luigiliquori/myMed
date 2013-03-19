@@ -5,8 +5,10 @@
 <? include("header-bar.php"); ?>
 
 	<div data-role="content" class="content">
-
-		<!--TEST -->
+		
+		<? include_once 'notifications.php'; ?>
+		<? print_notification($this->success.$this->error); ?>
+		
 		<div data-role="collapsible" data-theme="b" data-content-theme="c" data-collapsed="false" Style="text-align: left;">
 		    
 		    <h3>Afficher les points d'interêts</h3>
@@ -19,7 +21,7 @@
 		    Radius: <input id="marker_radius" type="text" value="" data-inline="true" /><br />
 		    Type:<select id="marker_type" >
 						<option value="Transports">Transports</option>
-						<option value="GARESSUD">Gares </option>
+						<option value="GARESSUD">Gares</option>
 						<option value="Santé">Santé</option>
 						<option value="MaisonsRetraites">Maisons de retraites</option>
 						<option value="TourismeCulture">Tourisme Culture</option>
@@ -59,7 +61,7 @@
 		<div data-role="collapsible" data-theme="b" data-content-theme="c" data-collapsed="true" Style="text-align: left;">
 			<h3>Ajouter points d'interêts</h3>
 			
-			<form action="#" method="post" name="addSinglePOI" id="addSinglePOI" enctype="multipart/form-data">
+			<form action="?action=main" method="post" name="addSinglePOI" id="addSinglePOI" enctype="multipart/form-data">
 				<input name="addPOI" type="hidden" value="1" />
 				<input name="action" type="hidden" value="main" />
 			 	Titre: <input name="title" type="text" value="" data-inline="true" /><br />
@@ -67,7 +69,7 @@
 			    Latitude: <input name="latitude" type="text" value="" data-inline="true" /><br />
 			    Type:<select name="type">
 						<option value="Transports">Transports</option>
-						<option value="GARESSUD">Gares </option>
+						<option value="GARESSUD">Gares</option>
 						<option value="Santé">Santé</option>
 						<option value="MaisonsRetraites">Maisons de retraites</option>
 						<option value="TourismeCulture">Tourisme Culture</option>

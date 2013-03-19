@@ -473,7 +473,7 @@ msgstr "Aide immédiate d'un Veilleur'"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:79
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/SocialView.php:16
 msgid "Profile"
-msgstr "Mon profil personnel"
+msgstr "Profil"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/MainView.php:82
 msgid "Autocall_active"
