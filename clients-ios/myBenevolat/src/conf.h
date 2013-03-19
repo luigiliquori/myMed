@@ -14,11 +14,11 @@
 #if defined(TESTING)
 
 #warning Testing enabled
-#define WEBAPP_URL    @"http://mymed22.sophia.inria.fr/myEdu/"
+#define WEBAPP_URL    @"http://mymed22.inria.fr/mybenevolat"
 
 #else
 
-#define WEBAPP_URL  @"http://www.mymed.fr/myEdu"
+#define WEBAPP_URL  @"http://mymed.fr/mybenevolat"
 
 #endif
 

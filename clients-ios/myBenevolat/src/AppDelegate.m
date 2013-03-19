@@ -40,7 +40,7 @@
 #ifdef TESTING
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif
-    [TestFlight takeOff:@"7695892d-e163-4d6d-9c7f-e82721ebefee"];
+    [TestFlight takeOff:@"0341e193-05e4-4e5d-a4dd-0659c1bc536e"];
 #endif
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
@@ -57,10 +57,10 @@
     
     FirstScreenViewController *firstVC = [[[FirstScreenViewController alloc] initWithNibName:xibName bundle:nil] autorelease];
     firstVC.tabBarItem.image = [UIImage imageNamed:@"gradhat"];
-    firstVC.title = NSLocalizedString(@"myMedTemplate", nil);
+    firstVC.title = NSLocalizedString(@"myBenevolat", nil);
     UINavigationController *firstNav = [[[UINavigationController alloc] initWithRootViewController:firstVC] autorelease];
     firstNav.navigationBar.tintColor = color;
-    firstNav.title = NSLocalizedString(@"myMedTemplate", nil);
+    firstNav.title = NSLocalizedString(@"myBenevolat", nil);
     
     
     HtmlViewController *mainVC = [[[HtmlViewController alloc] initWithNibName:@"HtmlViewController" bundle:nil] autorelease];
@@ -81,13 +81,13 @@
     helpVc.tabBarItem.image = [UIImage imageNamed:@"icohelp.png"];
     */
     
-    
+    /*
     ChecklistViewController *checkVc=[[[ChecklistViewController alloc] initWithNibName:@"ChecklistViewController" bundle:nil] autorelease];
     checkVc.title = NSLocalizedString(@"To do", nil);
     checkVc.tabBarItem.image = [UIImage imageNamed:@"checkmark.png"];
     UINavigationController *checkNav = [[[UINavigationController alloc] initWithRootViewController:checkVc] autorelease];
     checkNav.navigationBar.tintColor = color;
-    
+    */
     
     NavigationModel *navPages = [NavigationModel getInstance];
     PagesViewController *pagesVc=[[[PagesViewController alloc] initWithNibName:@"PagesViewController" bundle:nil] autorelease];
@@ -99,7 +99,7 @@
     pagesNav.tabBarItem.image = [UIImage imageNamed:@"univlist"];
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, checkNav, pagesNav, creditsVc,  nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, pagesNav, creditsVc,  nil];
     self.tabBarController.tabBar.tintColor = color;
     self.window.rootViewController = self.tabBarController;
 

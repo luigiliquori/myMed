@@ -74,9 +74,12 @@
 
     
     // Credits
+    
+    /*
     CreditsViewController *creditsVc = [[[CreditsViewController alloc] initWithNibName:@"CreditsViewController" bundle:nil] autorelease];
     creditsVc.title = NSLocalizedString(@"Credits", nil);
     creditsVc.tabBarItem.image = [UIImage imageNamed:@"icoinfo"];
+    */
     
     /*
     RemoteHtmlViewController *helpVc=[[[RemoteHtmlViewController alloc] initWithNibName:@"RemoteHtmlViewController" bundle:nil]  autorelease];
@@ -86,17 +89,17 @@
     helpVc.tabBarItem.image = [UIImage imageNamed:@"icohelp.png"];
     */
     
-    
+    /*
     ChecklistViewController *checkVc=[[[ChecklistViewController alloc] initWithNibName:@"ChecklistViewController" bundle:nil] autorelease];
     checkVc.title = NSLocalizedString(@"To do", nil);
     checkVc.tabBarItem.image = [UIImage imageNamed:@"checkmark.png"];
     UINavigationController *checkNav = [[[UINavigationController alloc] initWithRootViewController:checkVc] autorelease];
     checkNav.navigationBar.tintColor = color;
-    
+    */
     
     NavigationModel *navPages = [NavigationModel getInstance];
     PagesViewController *pagesVc=[[[PagesViewController alloc] initWithNibName:@"PagesViewController" bundle:nil] autorelease];
-    navPages.mainPage.title = NSLocalizedString(@"Companies", nil);
+    navPages.mainPage.title = NSLocalizedString(@"Companies in Sophia Antipolis", nil);
     pagesVc.page = [navPages mainPage];
     UINavigationController *pagesNav = [[[UINavigationController alloc] initWithRootViewController:pagesVc] autorelease];
     pagesNav.navigationBar.tintColor = color;
@@ -104,7 +107,7 @@
     pagesNav.tabBarItem.image = [UIImage imageNamed:@"case"];
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, checkNav, pagesNav, creditsVc,  nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, pagesNav,  nil];
     self.tabBarController.tabBar.tintColor = color;
     self.window.rootViewController = self.tabBarController;
 

@@ -65,13 +65,13 @@ static MyMedClient *instance=nil;
 
 -(NSString *)getHtml_pleaseWait
 {
-    return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><p>%@</p></body></html>",
+    return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><p style=\"text-align:center\">%@<br/><br/><br/><br/><img src='logo.png' width='120'/></p></body></html>",
             NSLocalizedString(@"myFSA", nil),
             NSLocalizedString(@"Please wait...", nil)];
 }
 -(NSString *)getHtml_noConnection;
 {
-    return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><p style=\"text-align:center\">%@<br/><br/><a href=\"%@\">%@</a></p></body></html>",
+    return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><p style=\"text-align:center;\">%@<br/><br/><a href=\"%@\">%@</a><br/><br/><br/><br/><img src='logo.png' width='120'/></p></body></html>",
             NSLocalizedString(@"myFSA", nil),
             NSLocalizedString(@"Server down, or no connection available.", nil),
             WEBAPP_URL,
@@ -81,7 +81,7 @@ static MyMedClient *instance=nil;
 
 -(NSString *)getHtml_empty;
 {
-    return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1></body></html>",
+    return [NSString  stringWithFormat:@"<html><style type='text/css'>body {background-image:url('background.jpg');background-size:cover;} </style><body><h1 style=\"text-align:center;color=GhostWhite\">%@</h1><br/><br/><br/><br/><p style=\"text-align:center\"><img src='logo.png' width='120'/></p></body></html>",
             NSLocalizedString(@"myFSA", nil)];
 }
 

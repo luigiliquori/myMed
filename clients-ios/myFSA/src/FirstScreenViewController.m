@@ -8,6 +8,7 @@
 
 #import "FirstScreenViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "CreditsViewController.h"
 
 @interface FirstScreenViewController ()
 -(IBAction)action_options:(id)sender;
@@ -66,7 +67,8 @@
                                                   delegate:self
                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                     destructiveButtonTitle:nil
-                                         otherButtonTitles:NSLocalizedString(@"Email about this app", nil), nil];
+                                         otherButtonTitles:NSLocalizedString(@"Suggest this app", nil),NSLocalizedString(@"Credits", nil), 
+                       NSLocalizedString(@"myMed web site", nil), NSLocalizedString(@"myMed Launchpad", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
 }
@@ -79,7 +81,7 @@
                                                     alloc] init];
         controller.mailComposeDelegate = self;
         [controller setSubject:NSLocalizedString(@"myFSA", nil)];
-        NSString *emailBody = @"<a href='https://itunes.apple.com/app/id605688918?ls=1&mt=8'>https://itunes.apple.com/us/app/myedu-mymed/id605688918</a>";
+        NSString *emailBody = @"<a href='https://itunes.apple.com/app/id605688918?ls=1&mt=8'>https://itunes.apple.com/app/id605688918</a>";
         [controller setMessageBody:emailBody isHTML:YES];
         //[controller setToRecipients:recipients];
         [self presentModalViewController:controller animated:YES];
@@ -104,7 +106,18 @@
     if (buttonIndex==actionSheet.firstOtherButtonIndex) {
         [self sendEmail];
         return;
-    }
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+1)) {
+        CreditsViewController *vc=[[CreditsViewController alloc] initWithNibName:@"CreditsViewController" bundle:nil];
+        [self presentViewController:vc animated:YES completion:nil];
+        [vc release];
+        return;
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+2)) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr"]];
+            return;
+        } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+3)) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr/?action=main&method=read"]];
+            return;
+        }
 }
 
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {

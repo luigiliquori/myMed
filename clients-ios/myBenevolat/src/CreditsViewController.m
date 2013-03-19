@@ -99,7 +99,7 @@ NSString *URLS_FOUNDERS[] = {
     }
     
     // Configure the cell...
-    cell.textLabel.text = [NSString stringWithFormat:@"myEurope 1.1"];
+    cell.textLabel.text = [NSString stringWithFormat:@"myMed - myBenevolat 1.0"];
     cell.textLabel.textColor = [UIColor grayColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
