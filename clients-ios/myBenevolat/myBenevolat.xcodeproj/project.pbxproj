@@ -43,6 +43,8 @@
 		6320CAA916BEE3C4001D193D /* topAndBottomRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 63425CBA16BEB31800F2E889 /* topAndBottomRowSelected.png */; };
 		6320CAAE16BEE3E2001D193D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6320CAAC16BEE3E2001D193D /* libTestFlight.a */; };
 		63425C5816BEB2AD00F2E889 /* mymedTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 63425C5616BEB2AD00F2E889 /* mymedTest.m */; };
+		634DF74016F8FA3800EFE297 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 634DF73E16F8FA3800EFE297 /* logo.png */; };
+		634DF74116F8FA3800EFE297 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 634DF73F16F8FA3800EFE297 /* logo@2x.png */; };
 		634E71B416B0BA0C00493E55 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA0A11683388E00258839 /* SenTestingKit.framework */; };
 		634E71B516B0BA0C00493E55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA07A1683388E00258839 /* UIKit.framework */; };
 		634E71B616B0BA0C00493E55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636AA07C1683388E00258839 /* Foundation.framework */; };
@@ -144,6 +146,8 @@
 		63425CDF16BEB32B00F2E889 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = src/en.lproj/first.html; sourceTree = SOURCE_ROOT; };
 		63425CE316BEB32B00F2E889 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = src/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		63425CE516BEB32C00F2E889 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = src/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		634DF73E16F8FA3800EFE297 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		634DF73F16F8FA3800EFE297 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		634E71B316B0BA0C00493E55 /* myBenevolatTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myBenevolatTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		636AA0761683388E00258839 /* myBenevolat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myBenevolat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		636AA07A1683388E00258839 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -281,6 +285,8 @@
 		63425C9916BEB31800F2E889 /* imgs */ = {
 			isa = PBXGroup;
 			children = (
+				634DF73E16F8FA3800EFE297 /* logo.png */,
+				634DF73F16F8FA3800EFE297 /* logo@2x.png */,
 				63D6C47116F23AB300FDF958 /* tabbaricons */,
 				63D6C45016F23AAB00FDF958 /* credits */,
 				639F662816C44F3600C753AF /* bottomrow.png */,
@@ -608,6 +614,8 @@
 				63D6C48B16F23AB300FDF958 /* icoinfo@2x.png in Resources */,
 				63D6C48C16F23AB300FDF958 /* univlist.png in Resources */,
 				63D6C48D16F23AB300FDF958 /* univlist@2x.png in Resources */,
+				634DF74016F8FA3800EFE297 /* logo.png in Resources */,
+				634DF74116F8FA3800EFE297 /* logo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
