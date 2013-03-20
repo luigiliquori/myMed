@@ -90,12 +90,12 @@ class MainController extends AuthenticatedController {
 		}
 		*/
 
-		foreach($_SESSION['applicationList'] as $app => $status){
+		foreach($_SESSION['applicationList'] as $app => $status) {
 			
 			// Get the reputation of the user in each application
 			$request = new Request("ReputationRequestHandler", READ);
-			$request->addArgument("application",  $app);
-			$request->addArgument("producer",  $_SESSION['user']->id);					// Reputation of data
+			$request->addArgument("application",  APPLICATION_NAME);
+			$request->addArgument("producer",  $app);					// Reputation of data
 			$request->addArgument("consumer",  $_SESSION['user']->id);
 				
 			$responsejSon = $request->send();

@@ -271,7 +271,7 @@ abstract class GenericDataBean {
 	 * Use the current instance as a search query and returns the list of matching elements as
 	 * an array of instances of the same class.
 	 */
-	public /* <CurrentClass>[]  */ function find($count = 100) {
+	public /* <CurrentClass>[]  */ function find($count = 100, $APPLICATION_NAME = APPLICATION_NAME) {
 
 		// Create a find request
 		$fr = new FindRequest(
@@ -279,9 +279,9 @@ abstract class GenericDataBean {
 				$this->getPredicates(),
 				null,
 				$this->NAMESPACE);
-
+		
 		// Get a list of result
-		$items = $fr->send($count);
+		$items = $fr->send($count, $APPLICATION_NAME);
 
 		$className = get_class($this);
 		$res = array();
@@ -349,12 +349,12 @@ abstract class GenericDataBean {
 	/**
 	 * Delete the entity
 	 */
-	public function delete() {
+	public function delete($APPLICATION_NAME = APPLICATION_NAME) {
 		$pr = new DeleteRequest(
 				$this->publisherID,
 				$this->getPredicates(),
 				$this->NAMESPACE);
-		$pr->send();
+		$pr->send($APPLICATION_NAME);
 	}
 
 	/**

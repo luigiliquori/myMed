@@ -14,6 +14,8 @@ if(!isset($_REQUEST["delete"])) {
 	session_start();
 	$responsejSon = $request->send();
 	session_write_close();
+	
+	echo $responsejSon;
 
 	// DELETE
 } else if($_REQUEST["delete"]) {
@@ -26,8 +28,9 @@ if(!isset($_REQUEST["delete"])) {
 	session_start();
 	$responsejSon = $request->send();
 	session_write_close();
+	echo $responsejSon;
 }
 
-echo $responsejSon;
+//echo $responsejSon;
 
 ?>

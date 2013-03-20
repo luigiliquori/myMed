@@ -57,12 +57,16 @@ class FindRequest extends Request {
 	/* --------------------------------------------------------- */
 	/* Public methods */
 	/* --------------------------------------------------------- */
-	public /*string*/ function send($count = 100) {
+	public /*string*/ function send($count = 100, $APPLICATION_NAME = APPLICATION_NAME) {
 
 		// Construct the requests
 		parent::addArgument("count", $count);
 		
-		if ($this->namespace == null) {
+		// Overrride_APPLICATION_NAME when the request 
+		// is called from a different app from that published it
+		if($APPLICATION_NAME != APPLICATION_NAME) {
+			parent::addArgument("application", $APPLICATION_NAME);
+		} elseif ($this->namespace == null) {
 			parent::addArgument("application", APPLICATION_NAME);
 		} else {
 			parent::addArgument("application", APPLICATION_NAME . ":$this->namespace");

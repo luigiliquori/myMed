@@ -5,7 +5,6 @@
 
 	<div data-role="header" data-theme="b">
 		<h1>Création d'un compte</h1>
-		<? include("notifications.php"); ?>
 	</div>
 
 	<div data-role="content">

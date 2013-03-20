@@ -189,7 +189,7 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 			boxText.innerHTML += '<hr />';
 		}
 		if(Email) {
-			boxText.innerHTML +=  '<a href="mailto:' + $.trim(Email) + '">Email</a>';
+			boxText.innerHTML +=  '<a href="mailto:' + $.trim(Email) + '">'+Email+'</a>';
 		}
 		if(Link){
 			boxText.innerHTML +=  '<a href="http://' + $.trim(Link.replace(/http:\/\//g, '')) + '" target="blank">Plus d\'infos</a>';
@@ -217,6 +217,13 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 
 	return marker;
 }
+
+function removeMarker(marker){
+	marker.ib.close();
+	marker.setMap(null);
+
+}
+
 
 /* --------------------------------------------------------- */
 /* Trip layer methods */

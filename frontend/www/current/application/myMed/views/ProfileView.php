@@ -54,7 +54,14 @@ require_once("header.php");
 				</p>
 				</a>
 			</li>
-				<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+
+			<li data-icon="delete" data-theme="r"><a href="#popupDeleteProfile" data-rel="popup"><img class="ui-li-mymed" alt="Delete profile " src="<?= APP_ROOT ?>/img/remove_user.png" width="50"
+				Style="margin-left: 5px; top: 5px;" /> 
+					<?= _("Delete my profile") ?>
+				</a>
+			</li>
+				
+		 <!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
 		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
 				<li>
 				<p style="text-align: center">
@@ -84,6 +91,23 @@ require_once("header.php");
 	    </ul>
 		
 		<br /><br />
+	</div>
+	
+	<!-- Pop up delete -->	
+	<div data-role="popup" id="popupDeleteProfile" class="ui-content" Style="text-align: center; width: 18em;">
+			<?php echo _("Are you sure you want to delete your myMed Profile ?"); ?> 
+			<br />
+			<fieldset class="ui-grid-a">
+				<div class="ui-block-a">
+					<form action="?action=profile&method=delete" method="POST" data-ajax="false">
+						<input type="hidden" name="author" value="" />
+						<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('Yes') ?>" />
+					</form>
+				</div>
+				<div class="ui-block-b">
+					<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
+				</div>
+			</fieldset>
 	</div>
 	
 </div>
