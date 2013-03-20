@@ -91,8 +91,9 @@ class PublishController extends ExtendedProfileRequired {
 				$obj->text 	= $_POST['text'];					// Publication text
 				
 				// sets the level of broadcasting in the Index Table
-				$level = 3;  
-				$obj->publish($level);
+				// $level = 3;  
+				// $obj->publish($level);
+				$obj->publish();
 	
 				$this->success = _("Your publication offer has been successfully published");
 	
