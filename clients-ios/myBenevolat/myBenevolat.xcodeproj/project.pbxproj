@@ -143,9 +143,6 @@
 		63425CB816BEB31800F2E889 /* topandbottomrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topandbottomrow.png; sourceTree = "<group>"; };
 		63425CB916BEB31800F2E889 /* topandbottomrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topandbottomrow@2x.png"; sourceTree = "<group>"; };
 		63425CBA16BEB31800F2E889 /* topAndBottomRowSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topAndBottomRowSelected.png; sourceTree = "<group>"; };
-		63425CDF16BEB32B00F2E889 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = src/en.lproj/first.html; sourceTree = SOURCE_ROOT; };
-		63425CE316BEB32B00F2E889 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = src/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
-		63425CE516BEB32C00F2E889 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = src/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		634DF73E16F8FA3800EFE297 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		634DF73F16F8FA3800EFE297 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		634E71B316B0BA0C00493E55 /* myBenevolatTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myBenevolatTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,9 +151,6 @@
 		636AA07C1683388E00258839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		636AA07E1683388E00258839 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		636AA0A11683388E00258839 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		637F463116C95DC500E2B330 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = it; path = it.lproj/first.html; sourceTree = "<group>"; };
-		637F463216C95DC500E2B330 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		637F463316C95DC500E2B330 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		637F463416C95DD100E2B330 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = fr; path = fr.lproj/first.html; sourceTree = "<group>"; };
 		637F463516C95DD100E2B330 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		637F463616C95DD100E2B330 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -669,8 +663,6 @@
 		63425CDE16BEB32B00F2E889 /* first.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				63425CDF16BEB32B00F2E889 /* en */,
-				637F463116C95DC500E2B330 /* it */,
 				637F463416C95DD100E2B330 /* fr */,
 			);
 			name = first.html;
@@ -679,8 +671,6 @@
 		63425CE216BEB32B00F2E889 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				63425CE316BEB32B00F2E889 /* en */,
-				637F463216C95DC500E2B330 /* it */,
 				637F463516C95DD100E2B330 /* fr */,
 			);
 			name = InfoPlist.strings;
@@ -689,8 +679,6 @@
 		63425CE416BEB32B00F2E889 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				63425CE516BEB32C00F2E889 /* en */,
-				637F463316C95DC500E2B330 /* it */,
 				637F463616C95DD100E2B330 /* fr */,
 			);
 			name = Localizable.strings;
