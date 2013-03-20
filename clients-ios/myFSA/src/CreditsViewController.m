@@ -30,7 +30,7 @@ NSString *URLS_FOUNDERS[] = {
 @implementation CreditsViewController
 
 @synthesize cellsCons=_cellsCons, cellFund=_cellFund;
-
+/*
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -39,7 +39,7 @@ NSString *URLS_FOUNDERS[] = {
     }
     return self;
 }
-
+*/
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -99,7 +99,7 @@ NSString *URLS_FOUNDERS[] = {
     }
     
     // Configure the cell...
-    cell.textLabel.text = [NSString stringWithFormat:@"myFSA 1.1"];
+    cell.textLabel.text = [NSString stringWithFormat:@"myMed - myFSA 1.0"];
     cell.textLabel.textColor = [UIColor grayColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -193,4 +193,10 @@ NSString *URLS_FOUNDERS[] = {
             break;
     }
 }
+
+-(IBAction)action_done:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

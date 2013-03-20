@@ -117,7 +117,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     //NSLog(@"*** Load failed: %@ (Is loading:%d)", self.url, webView.isLoading);
     //NSLog(@"***              %@", error.localizedDescription);
-    //NSString *s = [MyMedClient GetInstance].html_noConnection;
+    NSString *s = [MyMedClient GetInstance].html_noConnection;
     [self.webview loadHTMLString:s baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
     
 }
@@ -200,4 +200,17 @@
     self.receivedData = nil;
 }
 */
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        NSString *hst = request.URL.host;
+        //NSLog(@"[%d] Host:%@  Url:%@", navigationType, hst, request.URL.absoluteString);
+        if (![hst hasPrefix:@"www.mymed.fr"]) {
+            [[UIApplication sharedApplication] openURL:[request URL]];
+            return NO;
+        }
+    }
+    return YES;
+}
 @end
