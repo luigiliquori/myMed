@@ -99,21 +99,21 @@ class ProfileController extends AuthenticatedController {
 		
 		
 		// Delete myMed profile
-		//$request = new Requestv2("ProfileRequestHandler",
-		//						 DELETE,
-		//						 array("userID"=>$_SESSION['user']->id));
-		$request = new Request("ProfileRequestHandler", DELETE);
-		$request->addArgument("userID", $_SESSION['user']->id);
-		$request->addArgument("accessToken", $_SESSION['accessToken']);
+		$request = new Requestv2("v2/AuthenticationRequestHandler",
+								 DELETE);
+		$request->addArgument("login", str_replace("MYMED_", "", $_SESSION['user']->id)); 
+		$pass = hash("sha512", $_POST['password']);
+		$request->addArgument("password", $pass);
 		$responsejSon = $request->send();
 		$response = json_decode($responsejSon);
 		
-		if($responseObject2->status != 200) {
+		if($response->status != 200) {
 			$this->error = $response->description;
+			$this->renderView("profile");
+		} else {
+			// Logout
+			$this->forwardTo('logout');
 		}
-		
-		// Logout
-		$this->forwardTo('logout');
 		
 	}
 	
