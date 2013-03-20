@@ -28,7 +28,7 @@
 	 <? if ($_SESSION['user']->is_guest) { ?>
 			<!-- User not authenticated - Sign in -->
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
-			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connect")?></a><br />
+			<a href="index.php?action=extendedProfile" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connection")?></a><br />
 	 <? } ?>
   <?php if (!$_SESSION['user']->is_guest && !isset($_SESSION['myBenevolat'])) { ?>
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to create your extended profile to access other options") ?></p>

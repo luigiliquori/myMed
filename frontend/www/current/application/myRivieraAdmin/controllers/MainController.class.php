@@ -35,6 +35,11 @@ class MainController extends AuthenticatedController {
 
 		parent::handleRequest();
 
+		// If the user is a guest, forward to login
+		if (isset($_SESSION['user']) && $_SESSION['user']->is_guest) {
+			$this->forwardTo('login');
+		}
+		
 		// Set the flag
 		$_SESSION["launchpad"] = true;
 		

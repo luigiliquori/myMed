@@ -53,18 +53,18 @@
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
 			<div data-role="collapsible" data-collapsed="false">
-			<br />	
 			<h3><?= _("Description") ?></h3>
 				<div>
+				 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
 					<div style="position: absolute; right: 24px;">
 						<?
 						if(isset($_SESSION['myEuroCIN'])):	// UPDATE/DELETE
 							 if($_GET['author']==$_SESSION['user']->id && !isset($this->result->old_publication)){ ?> <!-- the user is the author of this publication: can update -->
-								<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
+								<a data-role="button" data-icon="pencil" data-mini="true" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
 						  <? }
 						  // It is not possible modify publication made with the old myEuroCIN
 						  	if(($this->result->publisherID==$_SESSION['user']->id || $_SESSION['myEuroCIN']->permission == '2') && !isset($this->result->old_publication) ){?>
-  								<a type="button" href="#popupDeleteAnnonce" data-theme="r" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
+  								<a type="button" data-mini="true" href="#popupDeleteAnnonce" data-theme="r" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
   										
   								<!-- Pop up delete -->	
   								<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
@@ -146,10 +146,11 @@
   						  <? }
 						endif;?>
 					</div>
-						
+				 <? endif; ?>	
+				 
 					<!-- TITLE -->
 					<h3><?= _("Title") ?>: <?= $this->result->getTitle(); ?></h3>
-					<p> <? if( isset($this->result->expire_date) ) echo '<strong>'._("Expire date: ").'</strong>'.$this->result->expire_date; ?> </p>
+					<p> <? if( isset($this->result->expire_date) ) echo '<strong>'._("Deadline").': </strong>'.$this->result->expire_date; ?> </p>
 					<p>
 						<b><?= _("Locality") ?></b>: <?= Categories::$localities[$this->result->Nazione] ?><br/>
 						<b><?= _("Language") ?></b>: <?= Categories::$languages[$this->result->Lingua] ?><br/>
@@ -163,8 +164,6 @@
 						<? if( isset($this->result->Religione) ) echo _("Religion "); ?>
 						<? if( isset($this->result->Escursioni_Sport) ) echo _("Sport "); ?>
 					</p>
-						
-					<br/>
 					
 					<!-- TEXT -->
 					<b><?= _("Description")?></b>: <?= $this->result->text ?>
@@ -284,7 +283,7 @@
 					</div> <!-- END Reputation -->
 					
 				<? //endif; ?>
-				
+			 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
 				<br/><br/>
 				<? if($this->result->validated!="waiting"): ?>
 					<!-- SHARE THIS -->
@@ -329,14 +328,14 @@
 					    	});
 						};
 				    </script>
-					
-					<div style="height: 80px;"></div>
 		    		<!-- END SHARE THIS -->
-				<? endif ?>
+				<? endif; ?>
+				<? endif; ?>
+				<div style="height: 80px;"></div>
 
 				<!-- Comments -->
 				<div data-role="collapsible" data-content-theme="d">
-	 				<? if($_SESSION['user']->is_guest){ ?>
+	 				<? if(!isset($_SESSION['user']) || (isset($_SESSION['user']) && $_SESSION['user']->is_guest)){?>
 						<h3><?= _('Comments: <i>You have to be logged in to comment!</i>') ?></h3>
 					<? }else{ ?>
 	 					<h3><?= _('Comments') ?> </h3>
@@ -356,7 +355,7 @@
 		 					
 		 				</div>
 					<? endforeach ?>
-		 			<? if(!$_SESSION['user']->is_guest && $this->result->validated!="waiting"){ ?>
+		 			<? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest && $this->result->validated!="waiting"){ ?>
 			 			<!-- adding new comments if logged -->
 			 			<form action="?action=comment" method="POST" data-ajax="false">
 			 				<textarea name="wrapped1"></textarea>

@@ -8,7 +8,7 @@
 
 
 	<!-- Header bar -->
-	<? $title = _("Connect");
+	<? $title = _("Connection");
        print_header_bar("?action=main", false, $title); ?>
 
        

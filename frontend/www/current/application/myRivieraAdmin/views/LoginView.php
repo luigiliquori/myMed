@@ -19,10 +19,21 @@ require_once("header.php"); ?>
 		<h1><?= APPLICATION_NAME ?></h1>
 	
 		<form action="?action=login" method="post" data-ajax="false">
-			<input type="hidden" name="signin" value="1" />
-		    <input type="text" name="login" id="login" placeholder="email"  data-theme="c"/><br />
-		    <input type="password" name="password" id="password" placeholder="Mot de passe"  data-theme="c"/><br />
- 		    <input type="submit" data-role="button" data-inline="true" data-theme="b" value="Connexion" />
+		
+			<!-- Sign in with an account -->
+			<div data-role="collapsible-set" data-theme="b" data-content-theme="d" data-mini="true">	
+				<div data-role="collapsible" data-collapsed="false">
+					<h3><?= _("Connection") ?></h3>
+					<input type="hidden" name="signin" value="1" />
+					<div style="text-align: left;"><?= _("E-mail")?><b>*</b> :</div>
+				    <input type="text" name="login" id="login" data-theme="c"/>
+				    
+				    <div style="text-align: left;"><?= _("Password")?><b>*</b> :</div>
+				    <input type="password" name="password" id="password" data-theme="c"/>
+				    <p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
+		 		    <input type="submit" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="signin" value="<?= _("Connect") ?>" />
+		 		</div>
+			</div>
 		</form>
 		<br /><br />
 		<img alt="Alcotra" src="<?= MYMED_URL_ROOT ?>/system/img/logos/alcotra.png" />
@@ -34,7 +45,7 @@ require_once("header.php"); ?>
 	</div>
 	
 				
-	<div data-role="footer" data-position="fixed" data-theme="a">
+	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#login" data-transition="none" data-back="true" data-icon="home" class="ui-btn-active ui-state-persist">Connexion</a></li>

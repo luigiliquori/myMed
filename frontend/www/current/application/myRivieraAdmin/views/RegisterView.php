@@ -47,7 +47,7 @@
 		</form>
 	</div>
 	
-	<div data-role="footer" data-position="fixed" data-theme="a">
+	<div data-role="footer" data-position="fixed" data-theme="d">
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#login" data-transition="none" data-back="true" data-icon="home">Connexion</a></li>

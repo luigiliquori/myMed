@@ -177,7 +177,6 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 				} 
 			}
 		}
-		boxText.innerHTML += '<p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
 		if(Address) {
 			boxText.innerHTML += '<p><b>Adresse</b> : ' + Address + '<br />';
 			if(Altitude) {
@@ -185,6 +184,9 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 			}
 			boxText.innerHTML +=  '</p>';
 		}
+		
+		boxText.innerHTML += '<p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
+		
 		if(Email || Link) {
 			boxText.innerHTML += '<hr />';
 		}

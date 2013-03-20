@@ -193,6 +193,15 @@ msgstr "Mot de passe (confirmation) "
 msgid "Update"
 msgstr "Actualiser"
 
+msgid "Last update"
+msgstr "Mise à jour"
+
+msgid "Install"
+msgstr "Installer"
+
+msgid "Uninstall"
+msgstr "Désinstaller"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:18
 msgid "Edit"
 msgstr "Modifier"
@@ -952,6 +961,9 @@ msgstr "Feuille de route"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/SocialView.php:15
 msgid "Homescreen"
 msgstr "Accueil"
+
+msgid "Screenshots"
+msgstr "Captures d'écran"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMemory/views/SocialView.php:17
 msgid "Social"

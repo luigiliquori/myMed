@@ -31,7 +31,6 @@ class UpdateReputationController extends DetailsController {
 				$request->addArgument("predicate",  $_GET['predicate']);
 				$request->addArgument("feedback",  "0.".$_GET['reputation']);
 
-// 				try {
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
 				
@@ -40,10 +39,8 @@ class UpdateReputationController extends DetailsController {
 				} else {
 					$this->success = _("Thank you for your contribution!");
 				}
-// 				} catch (Exception $e) {
-// 				$this->error = "Une erreur interne est survenue, veuillez réessayer plus tard...";
-// 				}
-			}	
+			}
+			$this->redirectTo("?action=details&predicate=".$_GET['predicate']."&author=".$_GET['author']);
 		}
 		
 		parent::handleRequest();

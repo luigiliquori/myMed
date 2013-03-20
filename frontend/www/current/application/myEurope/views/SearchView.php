@@ -66,7 +66,7 @@
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _("Themes") ?></b>: <?= Categories::$themes[$item->theme] ?><br/>
 							<b><?= _("Program") ?></b>: <?= Categories::$calls[$item->other] ?><br/><br/>
-							<b><?= _('Date of expiration') ?></b>: <?= $item->end ?><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/>
 						</p>
 						
 						<br/>

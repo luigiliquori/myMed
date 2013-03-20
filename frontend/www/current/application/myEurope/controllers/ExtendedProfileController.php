@@ -9,6 +9,11 @@ class ExtendedProfileController extends ExtendedProfileRequired {
 	
 	function defaultMethod() {
 		
+		// If the user is a guest, forward to login
+		if (isset($_SESSION['user']) && $_SESSION['user']->is_guest) {
+			$this->forwardTo('login');
+		}
+		
 		if (!isset($_SESSION['myEurope']))
 			$this->renderView("ExtendedProfileCreate");
 		

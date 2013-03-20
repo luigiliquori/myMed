@@ -12,13 +12,22 @@ define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
 define('EXTENDED_PROFILE_PREFIX' , 'extended_profile_');
 define('STORE_PREFIX' , 'store_');
 
-class StoreController extends AuthenticatedController {
+class StoreController extends AbstractController { // AuthenticatedController {
 
 	
 	public /*void*/ function handleRequest() {
 		
 		parent::handleRequest();
-
+		
+		/* Guest access provided */
+		/*if (!(isset($_SESSION['user']))) {
+			$id = rand(100000, 999999);
+			$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
+			$_SESSION['user'] = insertUser($user, null, true);
+			$_SESSION['acl'] = array('defaultMethod', 'read');
+			$_SESSION['user']->is_guest = 1;
+		}*/
+		
 		if(isset($_REQUEST['applicationStore'])) {
 				
 			// update the application status
