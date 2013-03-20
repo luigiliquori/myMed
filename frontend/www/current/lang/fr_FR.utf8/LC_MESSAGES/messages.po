@@ -202,6 +202,12 @@ msgstr "Installer"
 msgid "Uninstall"
 msgstr "Désinstaller"
 
+msgid "Installed"
+msgstr "Installée"
+
+msgid "Not installed"
+msgstr "Non installée"
+
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myMed/views/ProfileView.php:18
 msgid "Edit"
 msgstr "Modifier"
