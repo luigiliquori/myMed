@@ -22,7 +22,7 @@
 <div data-role="page" id="loginView" >
 
 	<!-- Header bar -->
-	<? $title = _("Connect");
+	<? $title = _("Connection");
        print_header_bar("?action=main", false, $title); ?>
 	
 	<!-- Page content -->

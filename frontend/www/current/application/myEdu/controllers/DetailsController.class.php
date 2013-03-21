@@ -16,7 +16,7 @@
  */
 ?>
 <? 
-class DetailsController extends AuthenticatedController {
+class DetailsController extends AbstractController { // AuthenticatedController {
 	
 	public $reputation = array();
 	
@@ -25,7 +25,7 @@ class DetailsController extends AuthenticatedController {
 		parent::handleRequest();
 		
 		/* Guest access provided */
-		if (!(isset($_SESSION['user'])) && $_SESSION['user']->is_guest) {
+		if (!(isset($_SESSION['user']))) {
 			$id = rand(100000, 999999);
 			$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
 			$_SESSION['user'] = insertUser($user, null, true);

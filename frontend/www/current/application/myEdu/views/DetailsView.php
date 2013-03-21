@@ -48,9 +48,10 @@
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
 			<div data-role="collapsible" data-collapsed="false">
-			<br />	
+
 			<h3><?= _("Description") ?></h3>
 				<div>
+				 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
 					<!-- APPLY -->
 					<div style="position: absolute; right: 24px;">
 						<?
@@ -84,14 +85,14 @@
 						 				<input type="hidden" name="currentappliers" value="<?= $this->result->currentappliers ?>" />
 						 				<input type="hidden" name="category" value="<?= $this->result->category ?>" />
 						 				<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
-										<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
+										<input type="submit" data-mini="true" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
 						 			</form>
 			 				 <? }
 							 }
 							 if($_GET['author']==$_SESSION['user']->id){ ?> <!-- the user is the author of this publication: can update -->
 								<div data-type="horizontal">
-									<a data-role="button" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
-						  			<a data-role="button" data-inline="true" href="#popupDeleteAnnonce" data-theme="r" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
+									<a data-role="button" data-icon="pencil" data-mini="true" data-inline="true" href="?action=publish&method=modify_publication&predicate=<?= $_GET['predicate'] ?>&author=<?= $_GET['author'] ?>"><?= _("Edit")?></a>
+						  			<a data-role="button" data-mini="true" data-inline="true" href="#popupDeleteAnnonce" data-theme="r" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
 						  			
 						  			<!-- Pop up delete -->	
 									<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
@@ -122,12 +123,27 @@
 						  <? }
 						endif;?>
 					</div>
-						
+				 <? endif; ?>	
 					<!-- TITLE -->
 					<h3><?= $this->result->title ?> :</h3>
 					
+					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?><br/>
+					<? $domain="Not defined";
+					foreach(Categories::$areas as $k=>$v) :
+						if(in_array($this->result->area, $v)){
+							$domain=$k;
+							break;
+						}
+					endforeach; ?>
+					<b><?= _("Topic") ?></b>: <?= _($this->result->area) ?><br/>
+					<b><?= _("Domain")?></b>: <?= _($domain) ?><br/>
+					<b><?= _("Category") ?></b>: <?= Categories::$categories[$this->result->category] ?><br/>
+					<b><?= _("Locality") ?></b>: <?= Categories::$localities[$this->result->locality] ?><br/>
+					<b><?= _("Organization") ?></b>: <?= Categories::$organizations[$this->result->organization] ?><br/><br/>
+					
+							
 					<!-- TEXT -->
-					<?= $this->result->text ?>
+					<b><?= _("Description")?></b>: <?= $this->result->text ?>
 				
 					<!-- CONTACT -->			
 					<p><b><?= _("Author")?></b> : 
@@ -145,8 +161,6 @@
 				</div>
 				
 				<!-- Reputation -->
-				<?php  // Only user with myEdu Basic/Extended profile can rate 
-				if(!$_SESSION['user']->is_guest) : ?>
 	    		<div>
 	    			<!-- Publication reputation -->
 	    			<p style="display:inline;"><?= _("Offer reputation")?>:</p>
@@ -168,13 +182,15 @@
 						<?php endif; ?>
 					<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> <?= _("rates")?> </p>
 					
-				 <? if ($this->result->publisherID != $_SESSION['user']->id) {
-		    			$date=strtotime(date('d-m-Y'));
-		    			$courseDate=strtotime($this->result->end);
-		    			if(($this->result->category=='Course' && $courseDate<$date) || $this->result->category!='Course'){ ?>	
-							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate offer") ?></a>
-					 <? }
-				 	} ?>
+				 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
+					 <? if ($this->result->publisherID != $_SESSION['user']->id) {
+			    			$date=strtotime(date('d-m-Y'));
+			    			$courseDate=strtotime($this->result->end);
+			    			if(($this->result->category=='Course' && $courseDate<$date) || $this->result->category!='Course'){ ?>	
+								<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate offer") ?></a>
+						 <? }
+					 	} 
+					endif; ?>
 					<br/>
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
@@ -192,7 +208,7 @@
 					</div>	
 					
 					<!-- Author reputation (only for students and companies) -->
-					<?php if($this->publisher_profile->details['role']!='professor'): ?>
+				 <? if($this->publisher_profile->details['role']!='professor'): ?>
 						<p style="display:inline;"><?= _("Author reputation")?>:</p>
 						<?php
 							// Disable reputation stars if there are no votes yet 
@@ -210,11 +226,11 @@
 							<? } ?>
 						<?php endif; ?>
 						<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> <?= _("rates")?></p>							
-						<?php 
-							// A user cannot rate himself
+					 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :
 							if ($this->result->publisherID != $_SESSION['user']->id) {
 								echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate author") .'</a>';
 							}
+						endif;
 						?>
 
 						<!-- Author REPUTATION pop up -->
@@ -234,10 +250,10 @@
 					<?php endif; ?>			
 				
 				</div> <!-- END Reputation -->
-				<?php endif; ?>
 				
-				<br/><br/>
 				
+			 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) : ?>
+			 	<br/><br/>
 				<!-- SHARE ON Twitter -->
 				<div style="position: absolute; right: 24px;">
 					<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
@@ -293,14 +309,14 @@
 				    	});
 					};
 			    </script>
- 
-				<div style="height: 80px;"></div>
-	    		<!-- END SHARE THIS -->
 				
-
+	    		<!-- END SHARE THIS -->
+			 <? endif; ?>
+				<div style="height: 80px;"></div>
+				
 				<!-- Comments -->
 				<div data-role="collapsible" data-content-theme="d">
-				<? if($_SESSION['user']->is_guest){ ?>
+				<? if(!isset($_SESSION['user'])  || (isset($_SESSION['user']) && $_SESSION['user']->is_guest)){ ?>
 					<h3><?= _('Comments: <i>You have to be logged in to comment!</i>') ?></h3>
 				<? }else{ ?>
 	 				<h3><?= _('Comments') ?> </h3>
@@ -313,21 +329,23 @@
 		 					<h3><?= $item->publisherName ?></h3>
 		 					<div class="ui-grid-a">
 		 						<!-- displaying photo of the user who added comment -->
-		 						<div class="ui-block-a"><img src="<?= $item->wrapped2 ?>" align=left alt="Your photo here" width="100px" height="100px"/></div>
+		 						<div class="ui-block-a">
+		 							<img src="<?= $item->wrapped2 ?>" align=left alt="Your photo here" width="100px" height="100px"/>
+		 						</div>
 		 						<!-- displaying text -->
 		 						<div class="ui-block-b"><?= $item->wrapped1 ?></div>
 		 					</div>
 		 					
 		 				</div>
 					<? endforeach ?>
-		 			<? if(!$_SESSION['user']->is_guest){ ?>
+		 			<? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) : ?>
 			 			<!-- adding new comments if logged -->
 			 			<form action="?action=comment" method="POST" data-ajax="false">
 			 				<textarea name="wrapped1"></textarea>
 			 				<input type="hidden" name="method" value="Comment" />
 							<input type="submit" value="<?= _('Comment') ?>" />
 			 			</form>
-	 				<? } ?>
+	 				<? endif; ?>
 	 			</div><br>
 	 			
 	 			<? if($_GET['author']==$_SESSION['user']->id){ ?>
@@ -421,7 +439,7 @@
 						<? endforeach ?>
 						</ul>
 					</div>
-			 <? } ?>
+			 	<? } ?>
 		</div>
 		
 	</div>

@@ -49,7 +49,7 @@
 		 <? if ($_SESSION['user']->is_guest) { ?>
 			<!-- User not authenticated - Sign in -->
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
-			<a href="index.php?action=login" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connect")?></a><br />
+			<a href="index.php?action=login" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connection")?></a><br />
 	 	<? } ?>
   
 	 	<a href="?action=main#Map" data-role="button" data-transition="none" data-back="true" data-icon="home" <?= $_SESSION['user']->is_guest ? " class='ui-disabled'" : "" ?> ><?=_("Map")?></a>
