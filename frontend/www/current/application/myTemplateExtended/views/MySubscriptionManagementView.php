@@ -51,16 +51,16 @@
 				<form action="index.php?action=mySubscriptionManagement" method="POST" data-ajax="false">
 						<input type="hidden" id="addSubscription" name="addSubscription" value="" />
 
-										<!-- subscription name -->
-	   				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
-	   					<div class="ui-block-a">
-	   						<input type="checkbox" onclick="toggleText(this, '#nameSub')" name="nameSubCheck" id="check-view-d"/> 
-	   						<label for="check-view-d"><?= _("Subscription name")?></label>
+					<!-- subscription name -->
+	   				<div class="ui-grid-a">
+						<div class="ui-block-a" style="margin-top: 15px; padding-right:20px; text-align:right">
+	   						<label for="nameSub"><?= _("Subscription name")?><b>*</b> : </label>
 	   					</div>
-	   					<div class="ui-block-b">
-							<input disabled type="text" name="nameSub" id="nameSub" value=""/>
+						<div class="ui-block-b">
+							<input type="text" name="nameSub" id="nameSub" value=""/>
 						</div>
 					</div>
+					<label><?= _("Select at least one criteria")?><b>*</b> : </label>
 		   			<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 						<div class="ui-block-a">
 							<input type="checkbox" name="categoryBox" id="check-view-e" onclick="toggle(this, '#find_category_content')"/> 
@@ -120,7 +120,7 @@
 								}
 							}
 						</script>
-				
+					<p><b>*</b>: <i><?= _("Mandatory fields")?></i></p>
 					<div style="text-align: center;">
 						<input type="submit" data-icon="plus" data-theme="g" value="<?=_('Subscribe') ?>"  data-iconpos="left" data-inline="true"/>
 					</div>

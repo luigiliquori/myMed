@@ -27,6 +27,8 @@
   		if(strpos($_SERVER['HTTP_REFERER'],"?action=find") &&
   		   !strpos($_SERVER['HTTP_REFERER'],"&search=true")) {
   			$_SESSION['detailsview_valid_referer'] = '?action=find&search=true';
+  		}else if(strpos($_SERVER['HTTP_REFERER'],"?action=publish&method=update")) {
+  			$_SESSION['detailsview_valid_referer'] = '?action=publish&method=show_user_publications';
   		} 
   		// Do not save back link if come from DetailsView, updateReputation popup, apply, comment
   		// or ModifyPublicationView
@@ -127,7 +129,16 @@
 					<!-- TITLE -->
 					<h3><?= $this->result->title ?> :</h3>
 					
-					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?><br/>
+					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?>
+				 <? if(!empty($this->result->end) && $this->result->end!="--"){
+				 		$date = strtotime(date('d-m-Y'));
+						$expiration_date = strtotime($this->result->end);
+						debug(strtotime(date('d-m-Y'))." ".strtotime($this->result->end));
+						if($date > $expiration_date){
+							echo _("<b style='color:red;margin-left:10px'>OFFER EXPIRED</b>");
+						}
+				 	} ?>
+					<br/>
 					<? $domain="Not defined";
 					foreach(Categories::$areas as $k=>$v) :
 						if(in_array($this->result->area, $v)){

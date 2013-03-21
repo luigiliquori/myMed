@@ -50,10 +50,14 @@ class MySubscriptionManagementController extends AuthenticatedController {
 	function addSubscription() {
 		
 		//retrieve variables
+		if(empty($_POST['nameSub'])){
+			$this->error = _("Subscription name field can't be empty");
+			$this->renderView("MySubscriptionManagement");
+		}
 		if(empty($_POST['Category']) && empty($_POST['organization']) && empty($_POST['Area'])) {
 			
 			$this->error = _("You have to choose at least one parameter");
-			$this->renderView("myOpportunityManagement");
+			$this->renderView("MySubscriptionManagement");
 		}
 		
 		$cat = $_POST['Category'];

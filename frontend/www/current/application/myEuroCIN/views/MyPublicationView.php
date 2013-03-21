@@ -62,6 +62,15 @@
 					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
 						<h3><?= _("Title")?> : <?= $title = $item->data; ?></h3>
 							<p style="position: relative; margin-left: 30px;">
+								<b><?= _('Deadline') ?></b>: <?= $item->expire_date ?>
+							 <? if(!empty($item->expire_date) && $item->expire_date!="--"){
+							 		$date = strtotime(date('d-m-Y'));
+									$expiration_date = strtotime($item->expire_date);
+									if($date > $expiration_date){
+										echo _("<b style='color:red;margin-left:10px'>PUBLICATION EXPIRED</b>");
+									}
+							 	} ?>
+								<br/><br/>
 								<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->Nazione] ?><br/>
 								<b><?= _("Language") ?></b>: <?= Categories::$languages[$item->Lingua] ?><br/>
 								<b><?= _("Categories") ?></b>: 

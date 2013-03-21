@@ -53,7 +53,7 @@ define('STORE_PREFIX' , 'store_');
 								    	</div>
 							    	</div>
 							    	<div class="ui-block-b" style="height:120px;">
-										<div style="display:table-cell;vertical-align:middle;height:120px;width: 35%">
+										<div style="height:120px;margin-top:50px">
 											<center><h2><?= $applicationName ?></h2></center>
 										</div>
 									</div>

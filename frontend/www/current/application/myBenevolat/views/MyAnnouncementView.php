@@ -65,7 +65,15 @@
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _('Publication date') ?></b>: <?= $item->begin ?><br/>
-							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?>
+						 <? if(!empty($item->end) && $item->end!="--"){
+						 		$date = strtotime(date('d-m-Y'));
+								$expiration_date = strtotime($item->end);
+								if($date > $expiration_date){
+									echo _("<b style='color:red;margin-left:10px'>ANNOUNCEMENT EXPIRED</b>");
+								}
+						 	} ?>
+							<br/><br/>
 							<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$item->typeMission] ?><br/>
 							<b><?= _("District") ?></b>: <?= Categories::$mobilite[$item->quartier] ?><br/>
 							<b><?= _("Skills") ?></b>: 

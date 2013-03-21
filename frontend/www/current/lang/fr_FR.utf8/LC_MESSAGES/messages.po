@@ -1712,6 +1712,9 @@ msgstr "votes"
 msgid "Waiting validation: "
 msgstr "En attente de validation: "
 
+msgid "Subscription deleted"
+msgstr "Souscription supprimée"
+
 msgid "You have to choose at least one parameter"
 msgstr "Vous devez choisir au moins un paramètre"
 
@@ -1769,6 +1772,21 @@ msgstr "Le champs texte doit être rempli"
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:71
 msgid "You have to choose at least 1 skill"
 msgstr "Vous devez choisir au moins 1 compétence"
+
+msgid "Select at least one criteria"
+msgstr "Sélectionnez au moins un critère"
+
+msgid "Subscription name field can't be empty"
+msgstr "Veuillez remplir le champs nom de la souscription"
+
+msgid "<b style='color:red;margin-left:10px'>OFFER EXPIRED</b>"
+msgstr "<b style='color:red;margin-left:10px'>OFFRE EXPIRÉE</b>"
+
+msgid "<b style='color:red;margin-left:10px'>PUBLICATION EXPIRED</b>"
+msgstr "<b style='color:red;margin-left:10px'>PUBLICATION EXPIRÉE</b>"
+
+msgid "<b style='color:red;margin-left:10px'>ANNOUNCEMENT EXPIRED</b>"
+msgstr "<b style='color:red;margin-left:10px'>ANNONCE EXPIRÉE</b>"
 
 #: /home/m3phistos/git/lognet-mymed/frontend/www/current/application/myBenevolat/controllers/PublishController.class.php:75
 msgid "You can choose 4 skills maximum"
