@@ -37,7 +37,7 @@ class MainController extends AuthenticatedController {
 
 		// Set the flag
 		$_SESSION["launchpad"] = true;
-
+		
 		// SUBSCRIBE
 		if(isset($_POST['method']) && $_POST['method'] == "subscribe") {
 			$subscribe = new Subscribe($this);
@@ -118,8 +118,10 @@ class MainController extends AuthenticatedController {
 							$request->addArgument("value", $value);
 							
 							try {
+								$this->success = "Poi created!";
 								$request->send();
 							} catch (Exception $e) {
+								$this->error = "Poi not created!";
 								debug("Err: Poi not insered!");
 							}
 								
@@ -150,7 +152,13 @@ class MainController extends AuthenticatedController {
 					'"idMedia" : "'. 	$_POST['IdMedia'].'"' . 
 				'}';
 				$request->addArgument("value", $value);
-				$request->send();
+				try {
+					$request->send();
+					$this->success = "Poi created!";
+				} catch (Exception $e) {
+					$this->error = "Poi not created!";
+					debug("Err: Poi not inserted!");
+				}
 			}
 		}
 

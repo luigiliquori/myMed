@@ -1,15 +1,18 @@
 var geocoder;
+var markersArray;
+var currentMarker;
 
 $(document).ready(function() {
 	// INITIALIZE DASP->MAP
 	setupDASPMap("myMap", displayPosition, displayError, false);
 	geocoder = new google.maps.Geocoder();
+	markersArray = new Array();
 });
 
 function displayPosition(position) {
 
 	var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	alert(latlng);
+
 	// create current position marker
 	new google.maps.Marker({
 		position : latlng,
@@ -35,7 +38,9 @@ function displayError(error) {
  * @param rad
  */
 function printMarkers(type, lon, lat, rad) {
-
+	currentMarker=null;
+	deleteOverlays();
+	
 	var params = {
 			'application': $("#applicationName").val(),
 			'type': type,
@@ -71,8 +76,10 @@ function printMarkers(type, lon, lat, rad) {
 						
 						// add marker
 						var marker = addMarker(new google.maps.LatLng(value.latitude, value.longitude), icon, value.title, description, null, false, id, adresse, email, link, idMedia, altitude);
+						markersArray.push(marker); 
 						google.maps.event.addListener(marker, "click", function(e) {
 							marker.ib.open(map, this);
+							currentMarker = marker;
 						});
 						
 					} catch (err) {
@@ -105,13 +112,24 @@ function deleteMarker(latitude, longitude, itemId, type) {
 		data: params,
 		dataType: "json",
 		success: function(data){
-			alert("POI deleted");
+			removeMarker(currentMarker);
+			alert("POI deleted!");
 		},
 		error: function(data){
 			alert("error: " + data);
 		}
 	});
 }
+
+function deleteOverlays() {
+	if (markersArray) {
+		for (i in markersArray) {
+			markersArray[i].setMap(null);
+		}
+		markersArray.length = 0;
+	}
+}
+
 
 /**
  * 

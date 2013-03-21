@@ -24,7 +24,7 @@ class ExtendedProfileController extends AbstractController
 			$_POST['profilePicture'] = $_SESSION['user']->profilePicture;
 				
 			$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($_POST)));
-				
+			
 			$responsejSon = $request->send();
 			$responseObject2 = json_decode($responsejSon);
 				

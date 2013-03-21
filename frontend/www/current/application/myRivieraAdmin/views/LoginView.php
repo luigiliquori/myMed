@@ -14,7 +14,8 @@ require_once("header.php"); ?>
 	</div>
 	
 	<div data-role="content"  class="content">
-	
+		<? print_notification($this->success.$this->error); ?>
+		
 		<h1><?= APPLICATION_NAME ?></h1>
 	
 		<form action="?action=login" method="post" data-ajax="false">
