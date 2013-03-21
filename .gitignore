@@ -2,6 +2,9 @@
 
 *.class
 *~
+*.rej
+*.orig
+*.new
 
 .project
 .settings
