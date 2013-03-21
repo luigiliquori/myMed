@@ -1,4 +1,21 @@
 <?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
+<?php
 
 require_once("header.php");
 
@@ -34,6 +51,7 @@ require_once("header.php");
 				break;
 			case "myRiviera":
 				$googleLink = "com.app.myriviera";
+				$appleLink ="/myriviera/id608828203";
 				break;
 			case "myEuroCIN":
 				$googleLink ="com.app.myeurocin";
@@ -51,20 +69,21 @@ require_once("header.php");
 				<div >
 					<img style="float:left; margin:10px;" alt="<?= $_REQUEST["applicationStore"] ?>" src="../../application/<?= $_REQUEST["applicationStore"] ?>/img/icon.png" Style="position: absolute; width: 50px;"/>
 					<p style="margin:20px"> <br/>
-						<strong>Version:</strong> <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/version") ?></i><br/>
-						<strong>Mise à jour:</strong> <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i><br/><br/><br/><br/><br/>
+						<strong><?= _("Version")?>:</strong> <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/version") ?></i><br/>
+						<strong><?= _("Last update")?>:</strong> <i> <?php include (MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/date") ?></i><br/><br/><br/><br/><br/>
 						<i> <? include(MYMED_ROOT . "/application/" . $_REQUEST["applicationStore"] . "/doc/description.php") ?></i>
 					</p>
 				</div>
-				
+			 
+			 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
 				<div style="position:absolute; right:30px; top: 140px;">
 					<a data-role="button" onClick="
 						<?php if($_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "off"): ?> 
-							toggleStatus('<?= $_GET['applicationStore'] ?>', 'on')" data-theme="g"> Install </a>
+							toggleStatus('<?= $_GET['applicationStore'] ?>', 'on')" data-theme="g"> <?= _("Install")?> </a>
 						<?php else: ?>	
-							toggleStatus('<?= $_GET['applicationStore'] ?>', 'off')" data-theme="r" > Uninstall </a>
+							toggleStatus('<?= $_GET['applicationStore'] ?>', 'off')" data-theme="r" > <?= _("Uninstall")?> </a>
 						<?php endif; ?>
-					
+					<? endif; ?>
 					
 					<?php /* ?>
 					<select data-role="slider" data-mini="true"
@@ -86,7 +105,7 @@ require_once("header.php");
 				</div>
 				<div style="position: relative; height:50px;"></div>
 				
-			 <? if(!$_SESSION['user']->is_guest) :?>
+			 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
 				<!-- SHARES -->
 				<div style="position: absolute; right: 24px;">
 					<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="my_Europe" data-url="<?= str_replace('@','%40','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])?>">Tweet</a>
@@ -132,7 +151,7 @@ require_once("header.php");
 			</div>
 			
 			<div data-role="collapsible" data-mini="true" data-theme="c" data-content-theme="d" data-collapsed="false">
-				<h3>Screenshots</h3>
+				<h3><?= _("Screenshots")?></h3>
 				
 				<center>
 					<img id="screenshot1" alt="<?= $_REQUEST["applicationStore"] ?>" src="<?= APP_ROOT . "/../" . $_REQUEST["applicationStore"] . "/doc/screenshot1.png" ?>" class="myScreenshot" Style="display: block;" />
@@ -147,7 +166,7 @@ require_once("header.php");
 				
 
 				<!-- APP REPUTATION -->
-				<?php if(!$_SESSION['user']->is_guest) :?>
+			 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
 				<br/>	
     			<div Style="position: relative; left: 0px;">
 	    			<p style="display:inline;" ><?= _("Application reputation")?>: </p>
@@ -173,13 +192,7 @@ require_once("header.php");
 						<input type="submit" value=<?= _("Send")?> data-mini="true" data-theme="g" onclick="$('#reputation').val($('#reputationslider').val()*2);">
 					</form>
 				</div>
-				
-				
-				
-				
-				
-				
-				<?php endif;?>	
+			 <? endif; ?>	
 				
 			</div>
 			<!-- <a id="desc"></a>

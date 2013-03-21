@@ -1,3 +1,20 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 <!-- --------------------------- -->
 <!--		MAIN PAGE			 -->
 <!-- --------------------------- -->
@@ -13,8 +30,8 @@
 		<div style="position: relative; top: 5px; left: 100px">
 			<a href="#mainPage"><b>Home</b></a>
 			<a href="#downloadPage">Download</a>
-			<a href="http://mymed2.sophia.inria.fr/wiki" data-ajax="false" target="blank">Wiki</a>
-			<a href="http://mymed2.sophia.inria.fr/developers" data-ajax="false" target="blank">Developers</a>
+			<a href="http://www.mymed.fr/wiki" data-ajax="false" target="blank">Wiki</a>
+			<a href="http://www.mymed.fr/developers" data-ajax="false" target="blank">Developers</a>
 			<a href="?action=login" data-transition="flip">Try</a>
 		</div>
 		

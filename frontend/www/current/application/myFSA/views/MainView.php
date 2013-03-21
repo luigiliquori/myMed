@@ -1,3 +1,20 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 <? include("header.php"); ?>
 </head>
 
@@ -29,10 +46,8 @@
 	 <? if(!isset($_SESSION['user']) || $_SESSION['user']->is_guest){ ?>
 			<!-- User not authenticated - Sign in -->
 			<p Style="text-align: center; font-style:italic;"><?= _("You have to login to access all the menu options") ?></p>
-			<a href="index.php?action=login" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connect")?></a><br />
+			<a href="index.php?action=login" data-icon="signin" data-role="button" data-ajax="false"><?=_("Connection")?></a><br />
 	  <? } ?>
-  		<a href="?action=Home" data-role="button" data-transition="none" data-icon="home"><?=_("Home")?></a>
-		<br>
 		<a href="?action=Search" data-role="button" data-transition="none" data-icon="search"><?=_("Search")?></a>
 		<br/>
 		<a href="?action=Publish" data-role="button" data-transition="none" data-icon="pencil" <?= (isset($_SESSION['ExtendedProfile']) && $_SESSION["profileFilled"] != "guest") ? "" : "class='ui-disabled' " ?> ><?=_("Publish")?></a>
@@ -41,7 +56,10 @@
 		<br/>
 		<a href="?action=ExtendedProfile" data-icon="user" data-role="button" <?= (isset($_SESSION['user']) && !$_SESSION['user']->is_guest)? "" : " class='ui-disabled'" ?>><?=_("Profile")?></a>
 		<br/>
-		<a href="?action=About" data-icon="info-sign" data-role="button" data-inline="true" style="position: absolute; right: 10px;"><?=_("About")?></a>
+		<p style="display:inline; position: absolute; right:10px">
+			<a href="?action=Home" data-role="button" data-inline="true" data-icon="home" ><?=_("Home")?></a>
+			<a href="?action=About" data-icon="info-sign" data-role="button" data-inline="true" ><?=_("About")?></a>
+		</p>
 		<br/>
 		
 	</div>	

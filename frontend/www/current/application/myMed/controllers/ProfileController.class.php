@@ -1,3 +1,20 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 <?php 
 
 define('EXTENDED_PROFILE_PREFIX' , 'extended_profile_');
@@ -99,21 +116,21 @@ class ProfileController extends AuthenticatedController {
 		
 		
 		// Delete myMed profile
-		//$request = new Requestv2("ProfileRequestHandler",
-		//						 DELETE,
-		//						 array("userID"=>$_SESSION['user']->id));
-		$request = new Request("ProfileRequestHandler", DELETE);
-		$request->addArgument("userID", $_SESSION['user']->id);
-		$request->addArgument("accessToken", $_SESSION['accessToken']);
+		$request = new Requestv2("v2/AuthenticationRequestHandler",
+								 DELETE);
+		$request->addArgument("login", str_replace("MYMED_", "", $_SESSION['user']->id)); 
+		$pass = hash("sha512", $_POST['password']);
+		$request->addArgument("password", $pass);
 		$responsejSon = $request->send();
 		$response = json_decode($responsejSon);
 		
-		if($responseObject2->status != 200) {
+		if($response->status != 200) {
 			$this->error = $response->description;
+			$this->renderView("profile");
+		} else {
+			// Logout
+			$this->forwardTo('logout');
 		}
-		
-		// Logout
-		$this->forwardTo('logout');
 		
 	}
 	
