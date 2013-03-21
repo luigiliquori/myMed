@@ -33,7 +33,7 @@ define('STORE_PREFIX' , 'store_');
 			<?php $column = "a"; ?>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) {  ?>
 					<div class="ui-block-<?= $column ?>">
-						<div class="ui-bar-c" style="height:120px; text-align: justify; overflow: hidden; ">
+						<div class="ui-bar-c" style="height:120px; /*text-align: justify; overflow: hidden;*/ ">
 							<a href="?action=store&applicationStore=<?= $applicationName ?>" rel="external" class="myIcon" style="text-decoration: none;">
 								
 								<div class="ui-grid-b" style="height:120px;">
@@ -50,23 +50,24 @@ define('STORE_PREFIX' , 'store_');
 									    	<? } ?>
 								    	</div>
 							    	</div>
-							    	<div class="ui-block-b">
-										<center style="margin-top:50px;">
-											<h2><?= $applicationName ?></h2>
-											
-										</center>
+							    	<div class="ui-block-b" style="height:120px;">
+										<div style="display:table-cell;vertical-align:middle;height:120px;width: 35%">
+											<center><h2><?= $applicationName ?></h2></center>
+										</div>
 									</div>
-									<div class="ui-block-c">
+									<div class="ui-block-c" style="height:120px;">
+										<div style="display:table-cell;vertical-align:bottom;height:120px;width: 279px;text-align:right;">
 							    	 <? if($_SESSION['applicationList'][$applicationName]=='on'): ?>
 											
-											<p style="color: green; font-size: 9pt; float:right; margin-top:50px;" >
+											<p style="color: green; font-size: 9pt;" >
 												<?= _("Installed")?>
 											</p>	
 											<?else:?>
-											<p style="color: gray; font-size: 9pt; float:right;  margin-top:50px;" >
+											<p style="color: gray; font-size: 9pt;" >
 												<?= _("Not installed")?>
 											</p>
 										<?endif?>
+										</div>
 									</div>
 								</div>
 							</a>
