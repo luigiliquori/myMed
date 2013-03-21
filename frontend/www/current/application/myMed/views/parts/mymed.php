@@ -30,8 +30,8 @@
 		<div style="position: relative; top: 5px; left: 100px">
 			<a href="#mainPage"><b>Home</b></a>
 			<a href="#downloadPage">Download</a>
-			<a href="http://mymed2.sophia.inria.fr/wiki" data-ajax="false" target="blank">Wiki</a>
-			<a href="http://mymed2.sophia.inria.fr/developers" data-ajax="false" target="blank">Developers</a>
+			<a href="http://www.mymed.fr/wiki" data-ajax="false" target="blank">Wiki</a>
+			<a href="http://www.mymed.fr/developers" data-ajax="false" target="blank">Developers</a>
 			<a href="?action=login" data-transition="flip">Try</a>
 		</div>
 		

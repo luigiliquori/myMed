@@ -51,6 +51,7 @@ require_once("header.php");
 				break;
 			case "myRiviera":
 				$googleLink = "com.app.myriviera";
+				$appleLink ="/myriviera/id608828203";
 				break;
 			case "myEuroCIN":
 				$googleLink ="com.app.myeurocin";
@@ -82,7 +83,7 @@ require_once("header.php");
 						<?php else: ?>	
 							toggleStatus('<?= $_GET['applicationStore'] ?>', 'off')" data-theme="r" > <?= _("Uninstall")?> </a>
 						<?php endif; ?>
-					
+					<? endif; ?>
 					
 					<?php /* ?>
 					<select data-role="slider" data-mini="true"
@@ -103,7 +104,6 @@ require_once("header.php");
 					<?php }?>
 				</div>
 				<div style="position: relative; height:50px;"></div>
-			 <? endif; ?>
 				
 			 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
 				<!-- SHARES -->
