@@ -196,7 +196,7 @@ public class ProfileRequestHandler extends AbstractRequestHandler {
                         LOGGER.info("User updated!");
                     }
                     break;
-                default :
+                default:
                     throw new InternalBackEndException("ProfileRequestHandler.doPost(" + code + ") not exist!");
             }
 

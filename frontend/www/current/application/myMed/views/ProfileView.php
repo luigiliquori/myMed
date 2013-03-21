@@ -36,7 +36,8 @@ require_once("header.php");
 	</div>
 	-->
 	<? endif; ?>
-	<? include 'notifications.php'; ?>
+	<? include 'notifications.php'; 
+	   print_notification($this->error);?>
 
 	<div data-role="content">
 
@@ -113,16 +114,15 @@ require_once("header.php");
 	<!-- Pop up delete -->	
 	<div data-role="popup" id="popupDeleteProfile" class="ui-content" Style="text-align: center; width: 18em;">
 			<?php echo _("Are you sure you want to delete your myMed Profile ?"); ?> 
-			<br />
-			<fieldset class="ui-grid-a">
-				<div class="ui-block-a">
+			<br /><br />
+			<fieldset class="ui-grid-a; center-wrapper">
+				<div class="ui-block-a; center-wrapper">
 					<form action="?action=profile&method=delete" method="POST" data-ajax="false">
-						<input type="hidden" name="author" value="" />
+						<label for="password"> <?= _("Password:") ?></label>
+     					<input type="password" name="password" id="password" value="" type="text">
 						<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('Yes') ?>" />
+						<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
 					</form>
-				</div>
-				<div class="ui-block-b">
-					<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
 				</div>
 			</fieldset>
 	</div>

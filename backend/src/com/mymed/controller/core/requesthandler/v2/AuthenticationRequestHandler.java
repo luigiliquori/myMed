@@ -159,7 +159,23 @@ public class AuthenticationRequestHandler extends AbstractRequestHandler {
 				}
 				break;
 			case DELETE:
-				throw new InternalBackEndException("not implemented yet...");
+				
+				// throw new InternalBackEndException("not implemented yet...");				
+				if (login == null) {
+					throw new InternalBackEndException("login argument missing!");
+				} else if (password == null) {
+					throw new InternalBackEndException("password argument missing!");
+				} else {
+					
+					String usrId = authenticationManager.readSimple(login, password);
+					
+					// Delete the user
+					authenticationManager.delete(login); 
+					LOGGER.info("User " + login + " deleted!");
+					
+				}
+				break;
+				
 			default:
 				throw new InternalBackEndException("AuthenticationRequestHandler("
 						+ code + ") not exist!");
