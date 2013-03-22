@@ -18,11 +18,14 @@
 <!-- ------------------ -->
 <!-- App Register View  -->
 <!-- ------------------ -->
+<?require_once("header.php");?>
 
 <div id="upgradeaccountView" data-role="page" >
 
 	<!-- Page Header -->
-	<? print_header_bar(true, false, "helpPopup"); ?>
+	<? require_once('header-bar.php');
+	   $title = _("Upgrade to myMed");
+	   print_header_bar("?action=profile", "helpPopup", $title); ?>
 	
 	<!-- Page content -->
 	<div data-role="content">

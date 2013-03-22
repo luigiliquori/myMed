@@ -104,7 +104,12 @@ class PublishController extends ExtendedProfileRequired {
 				}
 				$obj->organization = $_POST['organization'];	// Organization
 				$obj->end 	= $_POST['end'];					// Expiration date
-				$obj->title = $_POST['title'];					// Title
+				
+				$title = str_replace('"',"", $_POST['title']);
+				$title = str_replace('\'',"", $title);
+				$title = str_replace('’', "", $title);
+				
+				$obj->title = $title;					// Title
 				$obj->text 	= $_POST['text'];					// Publication text
 				
 				// sets the level of broadcasting in the Index Table

@@ -75,15 +75,16 @@ require_once("header.php");
 					</p>
 				</div>
 			 
-			 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
+			 
 				<div style="position:absolute; right:30px; top: 140px;">
-					<a data-role="button" onClick="
-						<?php if($_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "off"): ?> 
-							toggleStatus('<?= $_GET['applicationStore'] ?>', 'on')" data-theme="g"> <?= _("Install")?> </a>
-						<?php else: ?>	
-							toggleStatus('<?= $_GET['applicationStore'] ?>', 'off')" data-theme="r" > <?= _("Uninstall")?> </a>
-						<?php endif; ?>
-					<? endif; ?>
+				 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
+						<a data-role="button" onClick="
+							<?php if($_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "off"): ?> 
+								toggleStatus('<?= $_GET['applicationStore'] ?>', 'on')" data-theme="g"> <?= _("Install")?> </a>
+							<?php else: ?>	
+								toggleStatus('<?= $_GET['applicationStore'] ?>', 'off')" data-theme="r" > <?= _("Uninstall")?> </a>
+							<?php endif; ?>
+				 <? endif; ?>
 					
 					<?php /* ?>
 					<select data-role="slider" data-mini="true"
@@ -94,14 +95,14 @@ require_once("header.php");
 						<?= $_SESSION['applicationList'][$_REQUEST["applicationStore"]] == "on"  ? "selected='selected'" : "" ?>>On</option>
 					</select>
 					*/ ?>
-					<?php if($googleLink != "No"){?>
-					<a href="https://play.google.com/store/apps/details?id=<?= $googleLink ?>">
+				 <? if($googleLink != "No"){?>
+						<a href="https://play.google.com/store/apps/details?id=<?= $googleLink ?>">
   							<img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" /></a>
-  					<?php }
-  						if($appleLink !="No"){
+  				 <? }
+  					if($appleLink !="No"){
   					?>
-  					<a href="https://itunes.apple.com/fr/app/<?= $appleLink ?>" target="itunes_store"><img src="http://r.mzstatic.com/images/web/linkmaker/badge_appstore-lrg.gif" alt="myEurope - Luigi Liquori" style="border: 0;"/></a>
-					<?php }?>
+  						<a href="https://itunes.apple.com/fr/app/<?= $appleLink ?>" target="itunes_store"><img src="http://r.mzstatic.com/images/web/linkmaker/badge_appstore-lrg.gif" alt="myEurope - Luigi Liquori" style="border: 0;"/></a>
+				 <? }?>
 				</div>
 				<div style="position: relative; height:50px;"></div>
 				
@@ -121,9 +122,9 @@ require_once("header.php");
 				</div>
 				<div id="fb-root"></div>
 			    <script>  
-					window.fbAsyncInit = function() {
-					    FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
-					  };
+					
+					FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
+
 				    function postToFeed(url, title, appname) {
 				    	FB.login(function(response) {
 				            if (response.authResponse) {
@@ -133,7 +134,6 @@ require_once("header.php");
 				    }
 				      
 				    var fbShare = function(url, title, appname) {
-					    alert(url);
 				    	FB.ui({
 					    	method: 'feed',
 					        display: "iframe",
@@ -141,7 +141,6 @@ require_once("header.php");
 					        picture: 'http://www.mymed.fr/application/myMed/img/logo-mymed-250c.png',
 					        name: ("Presentation of "+title),
 					        caption: appname
-					        //description: desc
 				    	});
 					};
 			    </script>

@@ -72,7 +72,12 @@ class PublishController extends ExtendedProfileRequired {
 	
 		$obj->end 	= $_POST['date'];
 	
-		$obj->title = $_POST['title'];
+		
+		$title = str_replace('"',"", $_POST['title']);
+		$title = str_replace('\'',"", $title);
+		$title = str_replace('’', "", $title);
+
+		$obj->title = $title;
 		$obj->text 	= $_POST['text'];
 	}
 }

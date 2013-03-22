@@ -73,20 +73,17 @@ require_once("header.php");
 				</a>
 			</li>
 
-			<li data-icon="delete" data-theme="r"><a href="#popupDeleteProfile" data-rel="popup"><img class="ui-li-mymed" alt="Delete profile " src="<?= APP_ROOT ?>/img/remove_user.png" width="50"
-				Style="margin-left: 5px; top: 5px;" /> 
-					<?= _("Delete my profile") ?>
-				</a>
-			</li>
-				
-		 <!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
-		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
-				<li>
-				<p style="text-align: center">
+			<li>
+				<p style="text-align: right">
+				<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+				<? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
 					<a type="button" href="?action=UpgradeAccount&method=migrate" data-icon="pencil" data-inline="true" data-theme="g"><?= _('Create a myMed profile') ?></a>
+			 	<? endif; ?>
+				 	<a type="button" href="#popupDeleteProfile" data-rel="popup" data-theme="r" data-inline="true">
+						<img style="position:relative; margin-right: 3px;" class="ui-li-mymed" alt="Delete profile" align="left" src="<?= APP_ROOT ?>/img/remove_user.png" width="25px"/><?= _("Delete my profile") ?>
+					</a>
 				</p>
-				</li>
-		 <? endif; ?>
+			</li>
 
 			<li data-role="list-divider"><?= _("Profile in your applications") ?></li>
 			<?php foreach ($_SESSION['applicationList'] as $applicationName => $status) { ?>

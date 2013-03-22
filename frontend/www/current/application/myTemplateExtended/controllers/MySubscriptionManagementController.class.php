@@ -56,7 +56,7 @@ class MySubscriptionManagementController extends AuthenticatedController {
 		}
 		if(empty($_POST['Category']) && empty($_POST['organization']) && empty($_POST['Area'])) {
 			
-			$this->error = _("You have to choose at least one parameter");
+			$this->error = _("You have to choose at least one criteria");
 			$this->renderView("MySubscriptionManagement");
 		}
 		

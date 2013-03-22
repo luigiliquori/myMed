@@ -61,8 +61,6 @@
 			</li>
 		</ul>
 		<center>
-			<a type="button" href="?action=main"  data-theme="d" data-icon="home" data-inline="true"><?= _('Home') ?></a>
-		
 			<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
 		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
 				<a type="button" href="?action=UpgradeAccount&method=migrate"  data-theme="g" data-icon="pencil" data-inline="true"><?= _('Create a myMed profile') ?></a>
