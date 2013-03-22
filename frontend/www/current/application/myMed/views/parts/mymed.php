@@ -100,8 +100,8 @@
 		<div style="position: relative; top: 5px; left: 100px">
 			<a href="#mainPage">Home</a>
 			<a href="#downloadPage"><b>Download</b></a>
-			<a href="http://mymed2.sophia.inria.fr/wiki" data-ajax="false" target="blank">Wiki</a>
-			<a href="http://mymed2.sophia.inria.fr/developers" data-ajax="false" target="blank">Developers</a>
+			<a href="http://www.mymed.fr/wiki" data-ajax="false" target="blank">Wiki</a>
+			<a href="http://www.mymed.fr/developers" data-ajax="false" target="blank">Developers</a>
 			<a href="#login" data-transition="flip">Try</a>
 		</div>
 		
@@ -126,7 +126,7 @@
 		<p><tt>git clone git://scm.gforge.inria.fr/mymed/mymed.git</tt></p>
 		
 		<h3>After you get it</h3>
-		<p>See the <a href="http://mymed2.sophia.inria.fr/wiki" data-ajax="false" target="blank">installation guide</a> for further instructions.</p>
+		<p>See the <a href="http://www.mymed.fr/wiki" data-ajax="false" target="blank">installation guide</a> for further instructions.</p>
 		<p>And be sure to sign up for the <a href="https://lists.gforge.inria.fr/mailman/listinfo/mymed-develop" target="blank">mymed-develop mailing list</a>, 
 		where other myMed users and the myMed developers themselves all hang out to help each other.</p>
 		
