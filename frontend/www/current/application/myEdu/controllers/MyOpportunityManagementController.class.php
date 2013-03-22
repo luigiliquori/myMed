@@ -49,8 +49,12 @@ class MyOpportunityManagementController extends AuthenticatedController {
 	 */
 	function addSubscription(){
 		//retrieve variables
+		if(empty($_POST['nameSub'])){
+			$this->error = _("Subscription name field can't be empty");
+			$this->renderView("myOpportunityManagement");
+		}
 		if(empty($_POST['Category']) && empty($_POST['organization']) && empty($_POST['locality']) && empty($_POST['Area'])){
-			$this->error = _("You have to choose at least one parameter");
+			$this->error = _("You have to choose at least one criteria");
 			$this->renderView("myOpportunityManagement");
 		}
 		$cat = $_POST['Category'];
@@ -114,7 +118,7 @@ class MyOpportunityManagementController extends AuthenticatedController {
 	
 	function removeSubscription(){
 		MyOpportunityManagementController::removeSubscriptionStatic($_SESSION['user']->id,$_POST['predicate'],$_POST['publicationTitle']);
-		$this->success = _("Subscription Deleted");
+		$this->success = _("Subscription deleted");
 	}
 	
 	/**

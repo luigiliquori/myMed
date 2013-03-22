@@ -96,7 +96,12 @@ class PublishController extends ExtendedProfileRequired {
 				$obj->Nazione = $_POST['Nazione'];				// Language
 				if($_POST['expire_date'] != "--")
 					$obj->expire_date = $_POST['expire_date'];	// Expiration date
-				$obj->data = $_POST['data'];					// Title
+				
+				$title = str_replace('"',"", $_POST['data']);
+				$title = str_replace('\'',"", $title);
+				$title = str_replace('’', "", $title);
+				
+				$obj->data = $title;					// Title
 				$obj->text 	= $_POST['text'];					// Publication text
 				if( isset($_POST['Arte_Cultura']) ) $obj->Arte_Cultura = "on";
 				if( isset($_POST['Natura']) ) $obj->Natura = "on";

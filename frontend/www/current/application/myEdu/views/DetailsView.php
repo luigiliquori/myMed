@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 ?>
+<? require_once 'header.php';?>
+
 <div data-role="page">
   
 	<!-- Header bar -->
@@ -27,6 +29,8 @@
   		if(strpos($_SERVER['HTTP_REFERER'],"?action=find") &&
   		   !strpos($_SERVER['HTTP_REFERER'],"&search=true")) {
   			$_SESSION['detailsview_valid_referer'] = '?action=find&search=true';
+  		}else if(strpos($_SERVER['HTTP_REFERER'],"?action=publish&method=update")) {
+  			$_SESSION['detailsview_valid_referer'] = '?action=publish&method=show_user_publications';
   		} 
   		// Do not save back link if come from DetailsView, updateReputation popup, apply, comment
   		// or ModifyPublicationView
@@ -127,7 +131,16 @@
 					<!-- TITLE -->
 					<h3><?= $this->result->title ?> :</h3>
 					
-					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?><br/>
+					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?>
+				 <? if(!empty($this->result->end) && $this->result->end!="--"){
+				 		$date = strtotime(date('d-m-Y'));
+						$expiration_date = strtotime($this->result->end);
+						debug(strtotime(date('d-m-Y'))." ".strtotime($this->result->end));
+						if($date > $expiration_date){
+							echo _("<b style='color:red;margin-left:10px'>OFFER EXPIRED</b>");
+						}
+				 	} ?>
+					<br/>
 					<? $domain="Not defined";
 					foreach(Categories::$areas as $k=>$v) :
 						if(in_array($this->result->area, $v)){
@@ -271,10 +284,17 @@
 					<div class="fb-like" data-href="<?//= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>" data-layout="box_count" data-width="450" data-show-faces="true"></div>
 				</div>
 				-->
+				<?
+				$text = strip_tags($this->result->text, '<div>');
+				$text = str_replace('"',"", $text);
+				$text = str_replace('\'',"", $text);
+				$text = str_replace('’', "", $text);
+				$text = htmlspecialchars($text);
+				?>
 				<!-- SHARE ON Facebook WITH DESC TITLE IMG -->
 				<div style="position: absolute; right: 150px; padding-top:40px;">
 					<script src='http://connect.facebook.net/en_US/all.js'></script>
-					<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= str_replace('"',"&#39;", $this->result->text)?>', '<?= str_replace("MYMED_", "", $this->result->publisherID) ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
+					<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= Categories::$categories[$this->result->category].": ".$this->result->title ?>', '<?= $text ?>', '<?= str_replace("MYMED_", "", $this->result->publisherID) ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
 				</div>
 				
 				<!-- SHARE ACTIVITY ON Facebook
@@ -286,9 +306,8 @@
 				<!-- Facebook_APP_ID defined in system/config.php -->
 				<div id="fb-root"></div>
 			    <script>  
-					window.fbAsyncInit = function() {
-					    FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
-					  };
+					FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
+					  
 				    function postToFeed(url, title, desc, author, appname) {
 				    	FB.login(function(response) {
 				            if (response.authResponse) {
@@ -303,7 +322,7 @@
 					        display: "iframe",
 					        link: url,
 					        picture: 'http://www.mymed.fr/application/myMed/img/logo-mymed-250c.png',
-					        name: (title+" Author: "+author),
+					        name: title,
 					        caption: appname,
 					        description: desc
 				    	});
@@ -366,10 +385,17 @@
 									<div class="ui-block-b">
 										<?= _("Status") ?>: <b><?= _($item->accepted) ?></b>
 										<div data-role="controlgroup" data-type="horizontal" style="float: right;">
+											<?
+											$text = str_replace('"',"&#34;", $this->result->text);
+											$text = str_replace('\'',"&#39;", $text);
+											$text = str_replace('’', "&#39;", $text);
+											$text = htmlspecialchars($text);
+											
+											?>
 											<? if($item->accepted!='accepted'): ?>
-												<a style="float:left;" type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->pred3 ?>","<?= $item->author ?>","<?= $this->result->maxappliers ?>","<?= $this->result->currentappliers ?>","<?= $this->result->area ?>","<?= $this->result->category ?>","<?= $this->result->locality ?>","<?= $this->result->organization ?>","<?= $this->result->end ?>","<?= str_replace('"',"&#39;", $this->result->text) ?>","<?= $item->title ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a>
+												<a style="float:left;" type="button" href="#" onclick='generate_accept_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->pred3 ?>","<?= $item->author ?>","<?= $this->result->maxappliers ?>","<?= $this->result->currentappliers ?>","<?= $this->result->area ?>","<?= $this->result->category ?>","<?= $this->result->locality ?>","<?= $this->result->organization ?>","<?= $this->result->end ?>","<?= $text ?>","<?= $item->title ?>");' data-theme="g" data-inline="true" data-mini="true"><?= _('Accept') ?></a>
 											<? endif; ?>
-											<a style="float:left;" type="button" href="#" onclick='generate_refuse_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->pred3 ?>","<?= $item->author ?>","<?= $this->result->maxappliers ?>","<?= $this->result->currentappliers ?>","<?= $this->result->area ?>","<?= $this->result->category ?>","<?= $this->result->locality ?>","<?= $this->result->organization ?>","<?= $this->result->end ?>","<?= str_replace('"',"&#39;", $this->result->text) ?>","<?= $item->title ?>","<?= $item->accepted ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a>
+											<a style="float:left;" type="button" href="#" onclick='generate_refuse_popup("<?= $item->publisher ?>","<?= $item->pred1 ?>","<?= $item->pred2 ?>","<?= $item->pred3 ?>","<?= $item->author ?>","<?= $this->result->maxappliers ?>","<?= $this->result->currentappliers ?>","<?= $this->result->area ?>","<?= $this->result->category ?>","<?= $this->result->locality ?>","<?= $this->result->organization ?>","<?= $this->result->end ?>","<?= $text ?>","<?= $item->title ?>","<?= $item->accepted ?>");' data-theme="r" data-inline="true" data-mini="true"><?= _('Refuse') ?></a>
 										</div>
 										
 										<script type="text/javascript">

@@ -36,6 +36,8 @@
   		if(strpos($_SERVER['HTTP_REFERER'],"?action=find") &&
   		   !strpos($_SERVER['HTTP_REFERER'],"&search=true")) {
   			$_SESSION['detailsview_valid_referer'] = '?action=find&search=true';
+  		}else if(strpos($_SERVER['HTTP_REFERER'],"?action=publish&method=update")) {
+  			$_SESSION['detailsview_valid_referer'] = '?action=publish&method=show_user_announcements';
   		} 
   		// Do not save back link if come from DetailsView, updateReputation popup, apply
   		// or ModifyPublicationView
@@ -160,7 +162,15 @@
 					<h3><?= $this->result->title ?> :</h3>
 					
 					<b><?= _('Publication date') ?></b>: <?= $this->result->begin ?><br/>
-					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?><br/><br/>
+					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?>
+				 <? if(!empty($this->result->end) && $this->result->end!="--"){
+				 		$date = strtotime(date('d-m-Y'));
+						$expiration_date = strtotime($this->result->end);
+						if($date > $expiration_date){
+							echo _("<b style='color:red;margin-left:10px'>ANNOUNCEMENT EXPIRED</b>");
+						}
+				 	} ?>
+					<br/><br/>
 					<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$this->result->typeMission] ?><br/>
 					<b><?= _("District") ?></b>: <?= Categories::$mobilite[$this->result->quartier] ?><br/>
 					<b><?= _("Skills") ?></b>: 
@@ -312,19 +322,24 @@
 						<g:plusone size="tall"></g:plusone>
 						<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
 					</div>
-					
+					<?
+					$text = strip_tags($this->result->text, '<div>');
+					$text = str_replace('"',"", $text);
+					$text = str_replace('\'',"", $text);
+					$text = str_replace('’', "", $text);
+					$text = htmlspecialchars($text);
+					?>
 					<!-- SHARE ON Facebook WITH DESC TITLE IMG -->
 					<div style="position: absolute; right: 150px; padding-top:40px;">
 						<script src='http://connect.facebook.net/en_US/all.js'></script>
-						<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= str_replace('"',"&#39;", $this->result->text) ?>', '<?= $profile->details['associationname'] ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
+						<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= $text ?>', '<?= $profile->details['associationname'] ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
 					</div>
 					
 					<!-- Facebook_APP_ID defined in system/config.php -->
 					<div id="fb-root"></div>
 				    <script>  
-						window.fbAsyncInit = function() {
-						    FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
-						  };
+						FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
+
 					    function postToFeed(url, title, desc, author, appname) {
 					    	FB.login(function(response) {
 					            if (response.authResponse) {

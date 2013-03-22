@@ -97,6 +97,7 @@ class PublishController extends ExtendedProfileRequired {
 		    }else if(!empty($this->error) && $fromUpdate==true){
 		    	$this->redirectTo("?action=publish&method=modify_announcement&id=".$_POST['id']);
 		    }else{
+		    	debug("UPDATE ".$fromUpdate);
 				// All required fields are filled, publish it
 				$obj = new Annonce();
 				$obj->publisher = $_POST['publisher'];	// Publisher ID
@@ -109,7 +110,12 @@ class PublishController extends ExtendedProfileRequired {
 				if(isset($_POST['begin'])) $obj->begin = $_POST['begin'];
 				else $obj->begin = date(DATE_FORMAT);
 				$obj->end 	= $_POST['date'];					
-				$obj->title = $_POST['title'];					
+				
+				$title = str_replace('"',"", $_POST['title']);
+				$title = str_replace('\'',"", $title);
+				$title = str_replace('’', "", $title);
+				
+				$obj->title = $title;					
 				$obj->text = $_POST['text'];	
 				if(isset($_POST['promue'])) $obj->promue = $_POST['promue'];
 				else $obj->promue = "false";
@@ -138,11 +144,12 @@ class PublishController extends ExtendedProfileRequired {
 		$res = $request->find();
 		$oldAnn = $res[0];
 		$oldAnn->getDetails();
+		$oldAnn->delete(); //delete the old announcement
 		
 		$this->create(true); //create the new one
-		$oldAnn->delete(); //delete the old announcement
+		
 		$this->success = _("Announcement modified !");
-		$this->showUserAnnouncement();
+		$this->redirectTo("?action=publish&method=show_user_announcements");
 	}
 	
 	

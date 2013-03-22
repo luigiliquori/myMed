@@ -51,20 +51,19 @@
 				<form action="index.php?action=mySubscriptionManagement" method="POST" data-ajax="false">
 						<input type="hidden" id="addSubscription" name="addSubscription" value="" />
 
-										<!-- subscription name -->
-	   				<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
-	   					<div class="ui-block-a">
-	   						<input type="checkbox" onclick="toggleText(this, '#nameSub')" name="nameSubCheck" id="check-view-d"/> 
-	   						<label for="check-view-d"><?= _("Subscription name")?></label>
+					<!-- subscription name -->
+	   				<div class="ui-grid-a">
+						<div class="ui-block-a" style="margin-top: 15px; padding-left:20px;">
+	   						<b><?= _("Subscription name")?>* : </b>
 	   					</div>
-	   					<div class="ui-block-b">
-							<input disabled type="text" name="nameSub" id="nameSub" value=""/>
+						<div class="ui-block-b">
+							<input type="text" name="nameSub" id="nameSub" value=""/>
 						</div>
 					</div>
 		   			<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 						<div class="ui-block-a">
 							<input type="checkbox" name="categoryBox" id="check-view-e" onclick="toggle(this, '#find_category_content')"/> 
-							<label for="check-view-e"><?= _("Category")?></label>
+							<label for="check-view-e"><?= _("Category")?><b>**</b></label>
 						</div>
 						<div class="ui-block-b">
 							<select disabled name="Category" id="find_category_content" data-native-menu="false" data-overlay-theme="d">
@@ -78,7 +77,7 @@
 					<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">
 							<div class="ui-block-a">
 								<input type="checkbox" name="organizationBox" id="check-view-a" onclick="toggle(this, '#find_organization_content')"/> 
-								<label for="check-view-a"><?= _("Organization to address")?></label>
+								<label for="check-view-a"><?= _("Organization to address")?><b>**</b></label>
 							</div>
 							<div class="ui-block-b">
 								<select disabled name="organization" id="find_organization_content" data-native-menu="false" data-overlay-theme="d">
@@ -92,7 +91,7 @@
 						<div class="ui-grid-a" style="margin-top: 7px;margin-bottom:7px">	
 							<div class="ui-block-a">
 								<input type="checkbox" onclick="toggle(this, '#find_area_content')" name="areaBox" id="check-view-c"/> 
-								<label for="check-view-c"><?= _("Area")?></label>
+								<label for="check-view-c"><?= _("Area")?><b>**</b></label>
 							</div>
 							<div class="ui-block-b">
 								<select disabled name="Area" id="find_area_content" data-native-menu="false" data-overlay-theme="d">
@@ -120,7 +119,10 @@
 								}
 							}
 						</script>
-				
+					<p>
+						<b>*</b> : <i><?= _("Mandatory fields")?></i><br>
+						<b>**</b> : <i><?= _("Select at least one criteria")?></i>
+					</p>
 					<div style="text-align: center;">
 						<input type="submit" data-icon="plus" data-theme="g" value="<?=_('Subscribe') ?>"  data-iconpos="left" data-inline="true"/>
 					</div>
