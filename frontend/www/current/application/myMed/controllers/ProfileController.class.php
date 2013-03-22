@@ -147,6 +147,9 @@ class ProfileController extends AuthenticatedController {
 			}
 		}
 		
+		// Logout
+		$this->forwardTo('logout');
+		
 	}
 	
 	
