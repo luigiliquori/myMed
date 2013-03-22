@@ -109,18 +109,24 @@
 				<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'en';}</script>
 				</div>
 				
+				<?
+				$text = strip_tags($this->result->text, '<div>');
+				$text = str_replace('"',"", $text);
+				$text = str_replace('\'',"", $text);
+				$text = str_replace('’', "", $text);
+				$text = htmlspecialchars($text);
+				?>
 				<!-- SHARE ON Facebook WITH DESC TITLE IMG -->
 				<div style="position: absolute; right: 150px; padding-top:40px;">
 					<script src='http://connect.facebook.net/en_US/all.js'></script>
-					<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= str_replace('"',"&#39;", $this->result->text) ?>', '<?= str_replace("MYMED_", "", $this->result->publisherID) ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
+					<a href="javascript:postToFeed('<?= 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>','<?= $this->result->title ?>', '<?= $text ?>', '<?= str_replace("MYMED_", "", $this->result->publisherID) ?>', '<?= APPLICATION_NAME ?>')"><img src="img/facebookShare.png"/></a>	
 				</div>
 					
 				<!-- Facebook_APP_ID defined in system/config.php -->
 				<div id="fb-root"></div>
 			    <script>  
-					window.fbAsyncInit = function() {
-					    FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
-					  };
+					FB.init({appId: <?= Facebook_APP_ID?>, status: true, cookie: true, xfbml: true});
+
 				    function postToFeed(url, title, desc, author, appname) {
 				    	FB.login(function(response) {
 				            if (response.authResponse) {

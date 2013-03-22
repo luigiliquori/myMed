@@ -103,10 +103,17 @@ class PublishController extends AuthenticatedController {
 			$obj->end = "";
 			$obj->pred1 = "FSApublication";
 			$obj->pred2 = $_POST['pred2'];
-			$obj->pred3 = $_POST['pred3'];
 			
-			//main text
-			$obj->data1 = $_POST['data1'];
+			$title = str_replace('"',"", $_POST['pred3']);
+			$title = str_replace('\'',"", $title);
+			$title = str_replace('’', "", $title);
+			$obj->pred3 = $title;
+			
+			$desc = str_replace('"',"", $_POST['data1']);
+			$desc = str_replace('\'',"", $desc);
+			$desc = str_replace('’', "", $desc);
+			$obj->data1 = $desc;
+			
 			$obj->data3 = "";
 
 			$obj->wrapped1 ="";
@@ -114,7 +121,7 @@ class PublishController extends AuthenticatedController {
 			
 			$_SESSION['begin'] = $obj->begin;
 			$_SESSION['end'] = $obj->end;
-			$_SESSION['pred2'] = $obj->pred2;
+			$_SESSION['pred2'] = $obj->pred2;		
 			$_SESSION['pred3'] = $obj->pred3;
 			$_SESSION['data1'] = $obj->data1;
 			$_SESSION['data2'] = NULL;

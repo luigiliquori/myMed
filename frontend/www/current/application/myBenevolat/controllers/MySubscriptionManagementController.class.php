@@ -54,7 +54,7 @@ class MySubscriptionManagementController extends AuthenticatedController {
 			$this->renderView("mySubscriptionManagement");
 		}
 		if(empty($_POST['competence']) && empty($_POST['mobility']) && empty($_POST['mission'])){
-			$this->error = _("You have to choose at least one parameter");
+			$this->error = _("You have to choose at least one criteria");
 			$this->renderView("mySubscriptionManagement");
 		}
 		$competence = $_POST['competence'];

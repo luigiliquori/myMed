@@ -110,7 +110,12 @@ class PublishController extends ExtendedProfileRequired {
 				if(isset($_POST['begin'])) $obj->begin = $_POST['begin'];
 				else $obj->begin = date(DATE_FORMAT);
 				$obj->end 	= $_POST['date'];					
-				$obj->title = $_POST['title'];					
+				
+				$title = str_replace('"',"", $_POST['title']);
+				$title = str_replace('\'',"", $title);
+				$title = str_replace('’', "", $title);
+				
+				$obj->title = $title;					
 				$obj->text = $_POST['text'];	
 				if(isset($_POST['promue'])) $obj->promue = $_POST['promue'];
 				else $obj->promue = "false";

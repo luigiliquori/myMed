@@ -35,7 +35,7 @@
 		<!-- Collapsible description -->
 		<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="e" data-mini="true">
 			<h3><?= _("Manage your subscriptions") ?></h3>
-			<p><?= _("Set up parameters of your subscriptions.")?></p>
+			<p><?= _("Set up criteria of your subscriptions.")?></p>
 		</div>
 		<br />
 	</div>
@@ -209,6 +209,6 @@
 			<!-- Help popup -->
 			<div data-role="popup" id="helpPopup" data-transition="flip" data-theme="e" Style="padding: 10px;">
 				<a href="#" data-rel="back" data-role="button" data-theme="a"  data-iconpos="notext" class="ui-btn-right">Close</a>
-				<p> <?= _("Set up parameters of your subscriptions.") ?></p>
+				<p> <?= _("Set up criteria of your subscriptions.") ?></p>
 			</div>
 </div>

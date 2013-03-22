@@ -23,8 +23,12 @@
 
 <div data-role="header" data-theme="b" data-position="fixed">
 	<h1 style="color: white;"><?= _("Profile") ?></h1>
-	<a href="?action=main" data-inline="true" rel="external" data-role="button" data-icon="back"><?= _("Back")?></a>
-	<? include_once "notifications.php"; ?>
+ <? if(strpos($_SERVER['HTTP_REFERER'],"?action=profile")) {
+  		echo '<a href="#" data-rel="back" data-icon="arrow-l" >'. _("Back") . '</a>';
+  	}else{
+		echo '<a href="?action=main" data-inline="true" rel="external" data-role="button" data-icon="back">'. _("Back").'</a>';
+	}
+	include_once "notifications.php"; ?>
 </div>
 <div data-role="content">
 	<? print_notification($this->success.$this->error); ?>
