@@ -1,4 +1,21 @@
 <?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
+<?php
 
 require_once("header.php");
 
@@ -19,7 +36,8 @@ require_once("header.php");
 	</div>
 	-->
 	<? endif; ?>
-	<? include 'notifications.php'; ?>
+	<? include 'notifications.php'; 
+	   print_notification($this->error);?>
 
 	<div data-role="content">
 
@@ -54,7 +72,14 @@ require_once("header.php");
 				</p>
 				</a>
 			</li>
-				<!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
+
+			<li data-icon="delete" data-theme="r"><a href="#popupDeleteProfile" data-rel="popup"><img class="ui-li-mymed" alt="Delete profile " src="<?= APP_ROOT ?>/img/remove_user.png" width="50"
+				Style="margin-left: 5px; top: 5px;" /> 
+					<?= _("Delete my profile") ?>
+				</a>
+			</li>
+				
+		 <!-- Upgrade profile from facebook/google+ to myMed account. Impossible from twitter (no email) -->
 		 <? if(isset($_SESSION['userFromExternalAuth']) && (!isset($_SESSION['user']->login)) && $_SESSION['userFromExternalAuth']->socialNetworkName!="Twitter-OAuth"): ?>
 				<li>
 				<p style="text-align: center">
@@ -84,6 +109,22 @@ require_once("header.php");
 	    </ul>
 		
 		<br /><br />
+	</div>
+	
+	<!-- Pop up delete -->	
+	<div data-role="popup" id="popupDeleteProfile" class="ui-content" Style="text-align: center; width: 18em;">
+			<?php echo _("Are you sure you want to delete your myMed Profile ?"); ?> 
+			<br /><br />
+			<fieldset class="ui-grid-a; center-wrapper">
+				<div class="ui-block-a; center-wrapper">
+					<form action="?action=profile&method=delete" method="POST" data-ajax="false">
+						<label for="password"> <?= _("Password:") ?></label>
+     					<input type="password" name="password" id="password" value="" type="text">
+						<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('Yes') ?>" />
+						<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
+					</form>
+				</div>
+			</fieldset>
 	</div>
 	
 </div>

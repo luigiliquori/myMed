@@ -1,3 +1,20 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 <?php 
 
 /**
@@ -6,15 +23,13 @@
  */
 class MySubscriptionManagementController extends AuthenticatedController {
 	
-	
+	static $subscribetype= "subscriptionInfos";
 	
 	public /*String*/ function handleRequest() {
 		parent::handleRequest();
 	}
 	
 	function defaultMethod() {
-		
-		$this->subscribetype= "subscriptionInfos";
 		
 		if(isset($_POST['addSubscription'])){
 			$this->addSubscription();
@@ -58,7 +73,7 @@ class MySubscriptionManagementController extends AuthenticatedController {
 		
 		//publish a subscription object
 		$publishSubObject = new MyBenevolatSubscriptionBean();
-		$publishSubObject->type = $this->subscribetype;
+		$publishSubObject->type = MySubscriptionManagementController::$subscribetype;
 		$publishSubObject->pubTitle = $pubTitle;
 		$publishSubObject->competence = $competence;
 		$publishSubObject->mobility = $mobility;
@@ -72,7 +87,7 @@ class MySubscriptionManagementController extends AuthenticatedController {
 	/**
 	 * remove subscription
 	 */
-	function removeSubscription(){
+	/*function removeSubscription(){
 		//remove subscription
 		$request = new Request("SubscribeRequestHandler", DELETE);
 		$request->addArgument("application", APPLICATION_NAME);
@@ -92,6 +107,33 @@ class MySubscriptionManagementController extends AuthenticatedController {
 		$deleteObject->pubTitle = $_POST['publicationTitle'];
 		$deleteObject->delete();
 		$this->success = _("Subscription Deleted");
+	}*/
+	
+	function removeSubscription(){
+		MySubscriptionManagementController::removeSubscriptionStatic($_SESSION['user']->id,$_POST['predicate'],$_POST['publicationTitle']);
+		$this->success = _("Subscription Deleted");
+	}
+	
+	static function removeSubscriptionStatic($user,$predicate="none",$publicationTitle="none"){
+		//remove subscription
+		$request = new Request("SubscribeRequestHandler", DELETE);
+		$request->addArgument("application", APPLICATION_NAME);
+		$request->addArgument("userID", $user);
+		if(predicate != "none"){
+			$request->addArgument("predicate",$predicate);
+		}
+		$request->send();
+		
+		//remove subscription object
+		$deleteObject = new MyBenevolatSubscriptionBean();
+		$deleteObject->type = MySubscriptionManagementController::$subscribetype;
+		$deleteObject->publisherID = $user;
+		$deleteObject->publisher = $user;
+		//error_log("LOGROM : pubTitle ". $object->pubTitle." type: ".$object->type);
+		if($publicationTitle != "none"){
+			$deleteObject->pubTitle = $publicationTitle;
+		}
+		$deleteObject->delete();
 	}
 	
 	/**
@@ -99,7 +141,7 @@ class MySubscriptionManagementController extends AuthenticatedController {
 	 */
 	function getSubscription(){
 		$findSub = new MyBenevolatSubscriptionBean();
-		$findSub->type =$this->subscribetype ;
+		$findSub->type =MySubscriptionManagementController::$subscribetype ;
 		$findSub->publisher = $_SESSION['user']->id;
 		$this->response = $findSub->find();
 	}

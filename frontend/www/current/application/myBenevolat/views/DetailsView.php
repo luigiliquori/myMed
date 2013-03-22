@@ -1,3 +1,20 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 <!-- ------------------------ -->
 <!-- Details View             -->
 <!-- Show publication details -->
@@ -51,10 +68,11 @@
 		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 
 			<div data-role="collapsible" data-collapsed="false">
-			<br />	
+
 			<h3><?= _("Description") ?></h3>
 				<div>
-				 <? if(isset($_SESSION['myBenevolat'])): ?>
+				 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
+				 	<? if(isset($_SESSION['myBenevolat'])): ?>
 						<div style="position: absolute; right: 24px;">
 						
 							<!-- APPLY FOR VOLUNTEERS --> 
@@ -88,7 +106,7 @@
 							 				<input type="hidden" name="mission" value="<?= $this->result->typeMission ?>" />
 							 				<input type="hidden" name="author" value="<?= $this->result->publisherID ?>" />
 							 				<input type="hidden" name="id" value="<?= $this->result->id ?>" />
-											<input type="submit" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
+											<input type="submit" data-mini="true" data-inline="true" data-theme="g" value="<?= _('Apply') ?>" />
 							 			</form>
 				 				 <? }
 								}
@@ -97,10 +115,10 @@
 							 <!-- MODIFY / DELETE FOR THE OWNER (admin can delete too) -->
 							<div data-type="horizontal">
 						 	 <? if($this->result->publisherID==$_SESSION['user']->id): ?>
-									<a style="float: left" data-role="button" data-icon="pencil" data-inline="true" href="?action=publish&method=modify_announcement&id=<?= $_GET['id'] ?>"><?= _("Edit")?></a>
+									<a style="float: left" data-role="button" data-icon="pencil" data-mini="true" data-inline="true" href="?action=publish&method=modify_announcement&id=<?= $_GET['id'] ?>"><?= _("Edit")?></a>
 							 <? endif; 
 								if($this->result->publisherID==$_SESSION['user']->id || $_SESSION['myBenevolat']->permission == '2'){?> 
-									<a type="button" href="#popupDeleteAnnonce" data-theme="r" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
+									<a type="button" href="#popupDeleteAnnonce" data-theme="r" data-mini="true" data-rel="popup" data-icon="delete" data-inline="true"><?= _('Delete') ?></a>
 										
 									<!-- Pop up delete -->	
 									<div data-role="popup" id="popupDeleteAnnonce" class="ui-content" Style="text-align: center; width: 18em;">
@@ -135,13 +153,25 @@
 							  <? } ?>
 							</div>
 						</div>
+				 	<? endif; ?>
 				 <? endif; ?>
 					
 					<!-- TITLE -->
 					<h3><?= $this->result->title ?> :</h3>
 					
+					<b><?= _('Publication date') ?></b>: <?= $this->result->begin ?><br/>
+					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?><br/><br/>
+					<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$this->result->typeMission] ?><br/>
+					<b><?= _("District") ?></b>: <?= Categories::$mobilite[$this->result->quartier] ?><br/>
+					<b><?= _("Skills") ?></b>: 
+				 <? if(gettype($this->result->competences)=="string"){ ?> <!-- only 1 skill -> string and not array -->
+						<?= Categories::$competences[$this->result->competences]?><br/><br/>
+				 <? }else{ ?>
+						<? foreach($this->result->competences as $competences): echo Categories::$competences[$competences]." , "; endforeach;?><br/><br/>
+				 <? } ?> 
+					
 					<!-- TEXT -->
-					<?= $this->result->text ?><br>
+					<b><?= _("Description")?></b>: <?= $this->result->text ?><br>
 					
 				 <? if($this->result->publisherID==$_SESSION['user']->id){
 				 		$this->search_validated_apply();
@@ -192,21 +222,23 @@
 					endif; ?>
 					<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["value_noOfRatings"] ?> <?= _("rates")?> </p>
 					 
+				 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
 					 <? /* can rate if logged in and validated if association */
-					 if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association' && $_SESSION['myBenevolat']->permission == '1') || $_SESSION['myBenevolat']->permission == '2' || $_SESSION['myBenevolat']->details['type'] == 'volunteer')){
-						 $date=strtotime(date(DATE_FORMAT));
-						 $expired=false;
-						 if(!empty($this->result->end)  && $this->result->end!="--"){
-						 	$expDate=strtotime($this->result->end);
-						 	if($expDate < $date){
-						 		$expired=true;
-						 	}
-						 } 
-					 	/* can rate the announcement if the user is not the author and if the date has expired  */
-						if ($this->result->publisherID != $_SESSION['user']->id && ($expired==true || empty($this->result->end) || $this->result->end=="--") && $this->result->validated!="waiting") { ?>
-							<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate announcement") ?></a>	
-					 <? } 
-					 } ?>
+						if(isset($_SESSION['myBenevolat']) && (($_SESSION['myBenevolat']->details['type'] == 'association' && $_SESSION['myBenevolat']->permission == '1') || $_SESSION['myBenevolat']->permission == '2' || $_SESSION['myBenevolat']->details['type'] == 'volunteer')){
+							 $date=strtotime(date(DATE_FORMAT));
+							 $expired=false;
+							 if(!empty($this->result->end)  && $this->result->end!="--"){
+							 	$expDate=strtotime($this->result->end);
+							 	if($expDate < $date){
+							 		$expired=true;
+							 	}
+							 } 
+						 	/* can rate the announcement if the user is not the author and if the date has expired  */
+							if ($this->result->publisherID != $_SESSION['user']->id && ($expired==true || empty($this->result->end) || $this->result->end=="--") && $this->result->validated!="waiting") { ?>
+								<a data-role="button" data-inline="true" data-mini="true" data-icon="star" href="#popupReputationProject" data-rel="popup" style="text-decoration:none;" ><?= _("Rate announcement") ?></a>	
+						 <? } 
+						 }
+					endif; ?>
 					<br/>
 					<!-- Project reputation pop up -->
 					<div data-role="popup" id="popupReputationProject" class="ui-content" Style="text-align: center; width: 18em;">
@@ -242,14 +274,14 @@
 						<? } ?>
 					<?php endif; ?>
 					<p style="display:inline; font-size:80%;"> <?php echo $this->reputation["author_noOfRatings"] ?> <?= _("rates")?></p>							
-					<?php 
+				 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :
 						/* can rate if logged in and validated if association */
 					 	if(isset($_SESSION['myBenevolat']) && $this->result->validated!="waiting" && (($_SESSION['myBenevolat']->details['type'] == 'association' && $_SESSION['myBenevolat']->permission == '1') || $_SESSION['myBenevolat']->permission == '2' || $_SESSION['myBenevolat']->details['type'] == 'volunteer')){
 							if (!($this->result->publisherID == $_SESSION['user']->id)) {
 								echo '<a data-role="button" data-mini="true" data-inline="true" data-icon="star" href="#popupReputationAuthor" data-rel="popup" style="text-decoration:none;" > '. _("Rate association") .'</a>';
 							}
 						}
-					?>
+					endif; ?>
 
 					<!-- Author REPUTATION pop up -->
 					<div data-role="popup" id="popupReputationAuthor" class="ui-content" Style="text-align: center; width: 18em;">
@@ -267,7 +299,7 @@
 					<!-- END Author REPUTATION -->
 				</div> <!-- END Reputation -->
 
-				
+			 <? if(isset($_SESSION['user']) && !$_SESSION['user']->is_guest) :?>
 				<br/><br/>
 				<? if($this->result->validated!="waiting"): ?>
 					<!-- SHARE THIS -->
@@ -313,11 +345,10 @@
 					    	});
 						};
 				    </script>
-					
-					
-					<div style="height: 80px;"></div>
 		    		<!-- END SHARE THIS -->
 		    	<? endif; ?>
+		    <? endif; ?>
+		    <div style="height: 80px;"></div>
 			</div>
 		</div>
 	</div>

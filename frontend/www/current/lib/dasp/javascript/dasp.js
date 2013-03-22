@@ -177,7 +177,6 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 				} 
 			}
 		}
-		boxText.innerHTML += '<p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
 		if(Address) {
 			boxText.innerHTML += '<p><b>Adresse</b> : ' + Address + '<br />';
 			if(Altitude) {
@@ -185,11 +184,14 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 			}
 			boxText.innerHTML +=  '</p>';
 		}
+		
+		boxText.innerHTML += '<p style="text-align: justify; font-size: 12px;margin: 0;">' + description+ '</p>';
+		
 		if(Email || Link) {
 			boxText.innerHTML += '<hr />';
 		}
 		if(Email) {
-			boxText.innerHTML +=  '<a href="mailto:' + $.trim(Email) + '">Email</a>';
+			boxText.innerHTML +=  '<a href="mailto:' + $.trim(Email) + '">'+Email+'</a>';
 		}
 		if(Link){
 			boxText.innerHTML +=  '<a href="http://' + $.trim(Link.replace(/http:\/\//g, '')) + '" target="blank">Plus d\'infos</a>';
@@ -217,6 +219,13 @@ function addMarker(position, icon, title, description, animation, isDraggable, i
 
 	return marker;
 }
+
+function removeMarker(marker){
+	marker.ib.close();
+	marker.setMap(null);
+
+}
+
 
 /* --------------------------------------------------------- */
 /* Trip layer methods */

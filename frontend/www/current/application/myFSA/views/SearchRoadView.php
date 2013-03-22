@@ -1,11 +1,28 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 
 <div id="searchRoad" data-role="page">
 
 	<!-- HEADER BAR-->
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<h1>myFSA</h1>
-		<a href="?action=localise" data-inline="true" rel="external" data-role="button" data-icon="back">Back</a>
-		<a href="?action=localise#searchRoad" data-icon="search" data-iconpos="right" class="ui-btn-right" data-ajax="false">Get directions</a>
+		<h1><?= _("Get directions")?></h1>
+		<a href="?action=localise" data-inline="true" rel="external" data-role="button" data-icon="back"><?= _("Back")?></a>
+		<!--<a href="?action=localise#searchRoad" data-icon="search" data-iconpos="right" class="ui-btn-right" data-ajax="false"><?= _("Get directions")?></a>-->
 	</div>
 
 	<div id="Itin" style="margin-top: 50px;">
@@ -14,11 +31,11 @@
 
 			<!-- FROM -->
 			<div data-role="fieldcontain">
-				<label for="depart" ><?= _("Départ") ?>: </label>
+				<label for="depart" ><?= _("Departure") ?>: </label>
 				<input data-theme="d" id="depart">
 			</div>
 			<div data-role="fieldcontain">
-				<label for="arrivee" ><?= _("Arrivée") ?>: </label>
+				<label for="arrivee" ><?= _("Arrival") ?>: </label>
 				<input data-theme="d" id="arrivee">
 			</div>
 
@@ -46,47 +63,39 @@
 			<br />
 			<!-- SUBMIT - ToDO validate before submit-->
 			<div style="text-align: center;">
-				<a href="#Map" id="trouver" type="submit" onclick="validateIt();" data-inline="true" data-theme="e" data-role="button" data-icon="search">Rechercher</a>
+				<a href="#Map" id="trouver" type="submit" onclick="validateIt();" data-inline="true" data-theme="e" data-role="button" data-icon="search"><?= _("Search")?></a>
 			</div>
 			<a href="http://www.ceparou06.fr/" title="ceparou 06"><img alt="ceparou 06" src="<?= MYMED_URL_ROOT ?>system/img/logos/ceparou06.png" style="width:80px;float: right;margin-top: -40px;" /></a>
 			
 			<br />
 			<!-- Option Avancée -->
 			<div data-role="collapsible" data-collapsed="true" data-theme="d" data-content-theme="c">
-				<h3>Options Avancées</h3>
+				<h3><?= _("Advanced options")?></h3>
 				
-				<h3>Date de départ</h3>
+				<h3><?= _("Departure date")?></h3>
 				<input id="date" type="date" min="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d', time()+3600*24*365); ?>" value="<?= date('Y-m-d'); ?>" data-mini="true" style="width: 130px;display: inline-block;"/>
 				<span style="padding-left: 10px;">à:</span>
 				<input id="time" type="time" value="<?= date('H:i'); ?>" data-mini="true" style="width: 130px;display: inline-block;"/>
 				
-				<h3>Rayon de recherche</h3>
+				<h3><?= _("Search radius")?></h3>
 				<input type="range" id="slider-radius" value="500" min="100"
-				max="5000" data-highlight="true" /> <span style="display: inline;">mètres</span>
+				max="5000" data-highlight="true" /> <span style="display: inline;"><?= _("meters")?></span>
 				
-				<h3>Points d'interêts</h3>
-				<div id="myRivieraFilter" class="ui-grid-a">
-					<?php $i=0; ?>
-					<?php foreach ($this->filterList as $key => $value) { ?>
-						<?php if($i%2==0) { ?>
-							<div class="ui-block-a">
-						<?php }  else { ?>
-							<div class="ui-block-b">
+				<h3><?= _("Points of Interests")?></h3>
+				<div id="myRivieraFilter">
+				<?php foreach ($this->filterList as $key => $value) { ?>
+						<?php $filters = "" ?>
+						<?php foreach ($value as $filter) { ?>
+							<?php $filters .= $filter . "," ?>
 						<?php } ?>
-							<?php $filters = "" ?>
-							<?php foreach ($value as $filter) { ?>
-								<?php $filters .= $filter . "," ?>
-							<?php } ?>
-							<?php $trimKey = str_replace(' ', '', $key); ?>
-							<input type="hidden" id="<?= $trimKey . "Filters" ?>" value="<?= $filters ?>" />
-							<input type="checkbox" id="<?= $trimKey ?>" class="custom" checked="checked"/> 
-							<label for="<?= $trimKey ?>" style="font-size: 9pt;"><?= $key ?></label>
-						</div>
-						<?php $i++; ?>
-					<?php } ?>
+						<?php $trimKey = str_replace(' ', '', $key); ?>
+						<input type="hidden" id="<?= $trimKey . "Filters" ?>" value="<?= $filters ?>" />
+						<input type="checkbox" id="<?= $trimKey ?>" class="custom" checked="checked"/> 
+						<label for="<?= $trimKey ?>" style="font-size: 9pt;"><?= $key ?></label>	
+				<?php } ?>
 				</div>
 				
-				<h3>Type de Trajet</h3>
+				<h3><?= _("Type of journey")?></h3>
 				<div  id="cityway-search">
 					<fieldset data-role="controlgroup" >
 						<input type="radio" id="radio-choice1" name="radio-choice" value="fastest" checked="checked" />

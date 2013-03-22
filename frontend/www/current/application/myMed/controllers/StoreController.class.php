@@ -1,4 +1,21 @@
 <?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
+<?php
 
 
 /**
@@ -12,13 +29,22 @@ define('REPUTATION_PRED' , 'LAUNCHPAD_REP');
 define('EXTENDED_PROFILE_PREFIX' , 'extended_profile_');
 define('STORE_PREFIX' , 'store_');
 
-class StoreController extends AuthenticatedController {
+class StoreController extends AbstractController { // AuthenticatedController {
 
 	
 	public /*void*/ function handleRequest() {
 		
 		parent::handleRequest();
-
+		
+		/* Guest access provided */
+		/*if (!(isset($_SESSION['user']))) {
+			$id = rand(100000, 999999);
+			$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
+			$_SESSION['user'] = insertUser($user, null, true);
+			$_SESSION['acl'] = array('defaultMethod', 'read');
+			$_SESSION['user']->is_guest = 1;
+		}*/
+		
 		if(isset($_REQUEST['applicationStore'])) {
 				
 			// update the application status
@@ -91,6 +117,9 @@ class StoreController extends AuthenticatedController {
 				} catch (Exception $e) {
 					$this->setError("Une erreur interne est survenue, veuillez réessayer plus tard...");
 				}
+				
+				// Update reputation values
+				$this->updateAllAppsReputation();
 			}	
 			$this->renderView("storeSub");
 		}
@@ -98,5 +127,43 @@ class StoreController extends AuthenticatedController {
 		
 	}
 
+	
+	function updateAllAppsReputation() {
+		
+		foreach($_SESSION['applicationList'] as $app => $status){
+				
+			// Get the reputation of the user in each application
+			$request = new Request("ReputationRequestHandler", READ);
+			$request->addArgument("application",  APPLICATION_NAME);
+			$request->addArgument("producer",  $app);					// Reputation of data
+			$request->addArgument("consumer",  $_SESSION['user']->id);
+		
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+		
+			if (isset($responseObject->data->reputation)) {
+				$i=0;
+				$value = json_decode($responseObject->data->reputation);
+				$_SESSION['reputation'][EXTENDED_PROFILE_PREFIX . $app] = $value * 100;
+			} else {
+				$_SESSION['reputation'][EXTENDED_PROFILE_PREFIX . $app] = 100;
+			}
+				
+			// Get the reputation of the application
+			$request->addArgument("application",  APPLICATION_NAME);
+			$request->addArgument("producer",  $app);			// Reputation of data
+			$request->addArgument("consumer",  $_SESSION['user']->id);
+				
+			$responsejSon = $request->send();
+			$responseObject = json_decode($responsejSon);
+				
+			if (isset($responseObject->data->reputation)) {
+				$value = json_decode($responseObject->data->reputation);
+				$_SESSION['reputation'][STORE_PREFIX . $app] = $value * 100;
+			} else {
+				$_SESSION['reputation'][STORE_PREFIX . $app] = 100;
+			}
+		}
+	}
 }
 ?>

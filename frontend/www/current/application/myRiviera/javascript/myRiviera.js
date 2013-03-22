@@ -603,7 +603,7 @@ function calcRouteByCityway(result) {
 		content2 = (tripSegment.comment || '&nbsp;');
 		steps[i]['desc'] = content1 + '<br />' + content2;
 
-		desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
+		desc = $('<li><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><div class="ui-grid-a"><div class="ui-block-a" style="width: 50px;"><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /></div><div class="ui-block-b" style="display:inline-block;vertical-align: top;margin-top: 7px;"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></div></div></a></li>');
 
 		desc.appendTo($('#itineraireContent'));
 
@@ -689,7 +689,7 @@ function calcRouteByGoogle(printTrip) {
 
 					for ( var i = 0; i < result.routes[0].legs[0].steps.length; i++) {
 						if (i % 5 == 0) { // all 5 results we groupe
-							$('<li data-role="list-divider">Voiture</li>').appendTo($('#itineraireContent'));
+							$('<li style="padding-top:10px" data-role="list-divider">Voiture</li>').appendTo($('#itineraireContent'));
 						}
 
 						st = result.routes[0].legs[0].steps[i];
@@ -704,7 +704,7 @@ function calcRouteByGoogle(printTrip) {
 								'desc' : content1 + '<br />' + content2
 						};
 
-						desc = $('<li><img style="margin: 10px;display: inline-block;" alt="no picture" src="' + icon + '" /><a href="#Map" style="width: 100%;display:inline-block;vertical-align: top;margin-top: 5px;" onclick="updateMarkers('+ (i+1)+ ');"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></a><br /></li>');
+						desc = $('<li><a href="#Map" onclick="updateMarkers('+ (i+1)+ ');"><div class="ui-grid-a"><div class="ui-block-a" style="width: 50px;"><img style="margin: 20px;display: inline-block;" alt="no picture" src="' + icon + '" /></div><div class="ui-block-b" style="display:inline-block;vertical-align: top;margin-top: 7px;"><p style="white-space:normal;margin-right: 90px;">' + content1 + '<br />' + content2 + '</p></div></div></a></li>');
 						desc.appendTo($('#itineraireContent'));
 					}
 

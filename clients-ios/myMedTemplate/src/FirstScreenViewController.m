@@ -66,7 +66,8 @@
                                                   delegate:self
                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                     destructiveButtonTitle:nil
-                                         otherButtonTitles:NSLocalizedString(@"Email about this app", nil), nil];
+                                         otherButtonTitles:NSLocalizedString(@"Suggest this app", nil),
+                       NSLocalizedString(@"MyMed web site...", nil), NSLocalizedString(@"myMed Launchpad...", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
 }
@@ -78,8 +79,8 @@
         MFMailComposeViewController *controller = [[MFMailComposeViewController
                                                     alloc] init];
         controller.mailComposeDelegate = self;
-        [controller setSubject:NSLocalizedString(@"myMedTemplate", nil)];
-        NSString *emailBody = @"<a href='https://itunes.apple.com/app/id599496750?ls=1&mt=8'>https://itunes.apple.com/us/app/myedu-mymed/id599496750</a>";
+        [controller setSubject:NSLocalizedString(@"myRiviera", nil)];
+        NSString *emailBody = @"<a href='https://itunes.apple.com/app/id608828203?ls=1&mt=8'>https://itunes.apple.com/us/app/myedu-mymed/id608828203</a>";
         [controller setMessageBody:emailBody isHTML:YES];
         //[controller setToRecipients:recipients];
         [self presentModalViewController:controller animated:YES];
@@ -88,7 +89,7 @@
     else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
-                                                        message:@"Your device is not set up for     email." delegate:self
+                                                        message:@"Your device is not set up for email." delegate:self
                                               cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];   
         [alert release];
@@ -103,6 +104,12 @@
     
     if (buttonIndex==actionSheet.firstOtherButtonIndex) {
         [self sendEmail];
+        return;
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+1)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr"]];
+        return;
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+2)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr/?action=main&method=read"]];
         return;
     }
 }

@@ -1,5 +1,22 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 <? 
-class DetailsController extends ExtendedProfileRequired {
+class DetailsController extends GuestController{ //ExtendedProfileRequired {
 	
 	public $reputation = array();
 	
@@ -8,7 +25,7 @@ class DetailsController extends ExtendedProfileRequired {
 		parent::handleRequest();
 		
 		/* Guest access provided */
-		if (!(isset($_SESSION['user'])) && $_SESSION['user']->is_guest) {
+		if (!(isset($_SESSION['user']))) {
 			$id = rand(100000, 999999);
 			$user = (object) array('id'=>'MYMED_'.$id, 'name'=>'user'.$id);
 			$_SESSION['user'] = insertUser($user, null, true);

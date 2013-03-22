@@ -80,7 +80,7 @@
                                                     alloc] init];
         controller.mailComposeDelegate = self;
         [controller setSubject:NSLocalizedString(@"myRiviera", nil)];
-        NSString *emailBody = @"<a href='https://itunes.apple.com/app/id608828203?ls=1&mt=8'>https://itunes.apple.com/us/app/myedu-mymed/id608828203</a>";
+        NSString *emailBody = @"<a href='https://itunes.apple.com/app/id608828203?ls=1&mt=8'>https://itunes.apple.com/app/id608828203</a>";
         [controller setMessageBody:emailBody isHTML:YES];
         //[controller setToRecipients:recipients];
         [self presentModalViewController:controller animated:YES];

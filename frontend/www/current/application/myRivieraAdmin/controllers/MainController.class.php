@@ -1,3 +1,20 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 <?
 
 define('EXTENDED_PROFILE_PREFIX' , '_extended');
@@ -35,11 +52,16 @@ class MainController extends AuthenticatedController {
 
 		parent::handleRequest();
 
+		// If the user is a guest, forward to login
+		if (isset($_SESSION['user']) && $_SESSION['user']->is_guest) {
+			$this->forwardTo('login');
+		}
+		
 		// Set the flag
 		$_SESSION["launchpad"] = true;
-
+		
 		// SUBSCRIBE
-		if($_POST['method'] == "subscribe") {
+		if(isset($_POST['method']) && $_POST['method'] == "subscribe") {
 			$subscribe = new Subscribe($this);
 			$subscribe->send();
 
@@ -118,8 +140,10 @@ class MainController extends AuthenticatedController {
 							$request->addArgument("value", $value);
 							
 							try {
+								$this->success = "Poi created!";
 								$request->send();
 							} catch (Exception $e) {
+								$this->error = "Poi not created!";
 								debug("Err: Poi not insered!");
 							}
 								
@@ -127,7 +151,7 @@ class MainController extends AuthenticatedController {
 					}
 				}
 			} else {
-
+				debug("Add POI");
 				// ADD SINGLE POI
 				$request = new Request("POIRequestHandler", CREATE);
 				$request->addArgument("application", APPLICATION_NAME);
@@ -150,7 +174,13 @@ class MainController extends AuthenticatedController {
 					'"idMedia" : "'. 	$_POST['IdMedia'].'"' . 
 				'}';
 				$request->addArgument("value", $value);
-				$request->send();
+				try {
+					$request->send();
+					$this->success = "Poi created!";
+				} catch (Exception $e) {
+					$this->error = "Poi not created!";
+					debug("Err: Poi not inserted!");
+				}
 			}
 		}
 

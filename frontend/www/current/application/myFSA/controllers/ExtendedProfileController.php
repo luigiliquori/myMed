@@ -1,4 +1,21 @@
 <?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
+<?php
 
 /**
  *This class extends the default myMed user profile, common to every applications, with a profile specific
@@ -12,7 +29,7 @@ class ExtendedProfileController extends AbstractController
 	 * @see IRequestHandler::handleRequest()
 	 */
 	public /*void*/ function handleRequest(){
-		if(!$_SESSION['ExtendedProfile'])
+		if(!isset($_SESSION['ExtendedProfile']))
 			$this->fetchExtendedProfile();
 		
 		if(isset($_POST['lang'])){ // UPDATE LANG
@@ -24,7 +41,7 @@ class ExtendedProfileController extends AbstractController
 			$_POST['profilePicture'] = $_SESSION['user']->profilePicture;
 				
 			$request = new Requestv2("v2/ProfileRequestHandler", UPDATE , array("user"=>json_encode($_POST)));
-				
+			
 			$responsejSon = $request->send();
 			$responseObject2 = json_decode($responsejSon);
 				
@@ -103,7 +120,7 @@ class ExtendedProfileController extends AbstractController
 			$this->renderView("ExtendedProfileForm");
 		else {
 			$_SESSION['ExtendedProfile'] = $extendedProfile;
-			$this->success = "Registration completed!";
+			$this->success = _("Registration completed!");
 			
 			$this->renderView("ExtendedProfileDisplay");
 		}

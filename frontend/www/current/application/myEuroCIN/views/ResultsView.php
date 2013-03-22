@@ -1,3 +1,20 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 <!-- ------------------- -->
 <!-- ResultsView         -->
 <!-- Show search results -->
@@ -27,7 +44,7 @@
 				<li>
 					<!-- Print Publisher reputation -->
 					<a data-ajax="false" href="?action=details&predicate=<?= $item->getPredicateStr() ?>&author=<?= $item->publisherID ?>">		
-						<h3><?= _("Title")?> : <?= $item->data ?></h3>
+						<h3><?= _("Title")?> : <?= $item->getTitle() ?></h3>
 						
 						<p style="position: relative; margin-left: 30px;">
 							<b><?= _("Locality") ?></b>: <?= Categories::$localities[$item->Nazione] ?><br/>

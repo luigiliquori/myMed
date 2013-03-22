@@ -1,28 +1,47 @@
-<? if (!empty($this->error)): ?>
-	<div  
-		data-role="navbar" 
-		data-theme="e"
-		class="ui-bar ui-bar-e error-box" >
-	
-		<p>
-		<img alt="Warning: " src="<?= APP_ROOT ?>/img/warning-icon.png" class="ui-li-icon" />
-		<span Style="position: relative; top: -10px;"><?= $this->error ?></span>
-		<a href=".error-box" data-action="close" data-role="button" >ok</a>
-		</p>
-		
-	</div>
-<? endif ?>
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
+<?php
 
-<? if (!empty($this->success)): ?>
-	<div 
-		data-role="navbar"
-		data-theme="e"
-		class="ui-bar ui-bar-e error-box" >
+/**
+ * Display a notification pop up for errors or success
+ * 
+ */
+
+function print_notification($message) {
+
+	if($message != "") {
+		echo '<div data-role="popup" id="notificationPopup" data-transition="flip" data-theme="e" class="ui-content"><p>' . $message . ' </p></div>';
+		echo '
+		<script type="text/javascript">
+			var first_pageshow = true;
+			$(document).on("pageshow", function() {
+				if(first_pageshow) {
+				  	// Go back in the history has problem in Chrome. 
+				  	// Do not return back in the history when the pop up disappear.
+				  	$( "#notificationPopup" ).popup({ history: false });
+		    		$( "#notificationPopup" ).popup("open");
+		    		first_pageshow = false;
+	    		}
+	     	});
 		
-		<p>
-		<span Style="position: relative; top: -10px;"><?= $this->success ?></span>
-		<a href=".error-box" data-action="close" data-role="button" >ok</a>
-		</p>
-			
-	</div>
-<? endif ?>
+		 </script>
+		 ';
+	}  
+}
+
+?>

@@ -1,3 +1,20 @@
+<?php
+/*
+ * Copyright 2013 INRIA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+?>
 <?
 
 define('EXTENDED_PROFILE_PREFIX' , 'extended_profile_');
@@ -42,7 +59,13 @@ class MainController extends AuthenticatedController {
 	
 	public function handleRequest() {
 
-		parent::handleRequest();
+		
+		//parent::handleRequest();
+		// Check for user in session
+		if ( !isset($_SESSION['user']) ) {
+			// Redirect to the main view
+			$this->renderView("Splash");
+		}
 		
 		if (strpos($_SERVER["HTTP_USER_AGENT"], "MSIE") !== false) {
 			$this->setError(_("You are using Internet Explorer, the interface is not optimized for it,
@@ -84,12 +107,12 @@ class MainController extends AuthenticatedController {
 		}
 		*/
 
-		foreach($_SESSION['applicationList'] as $app => $status){
+		foreach($_SESSION['applicationList'] as $app => $status) {
 			
 			// Get the reputation of the user in each application
 			$request = new Request("ReputationRequestHandler", READ);
-			$request->addArgument("application",  $app);
-			$request->addArgument("producer",  $_SESSION['user']->id);					// Reputation of data
+			$request->addArgument("application",  APPLICATION_NAME);
+			$request->addArgument("producer",  $app);					// Reputation of data
 			$request->addArgument("consumer",  $_SESSION['user']->id);
 				
 			$responsejSon = $request->send();
