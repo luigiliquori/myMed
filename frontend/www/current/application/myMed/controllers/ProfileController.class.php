@@ -101,6 +101,7 @@ class ProfileController extends AuthenticatedController {
 	/** Delete a user profile */
 	public function delete() {
 		
+		// Delete Applications' Extended Profiles
 		// myEurope
 		$this->deleteMyEuropeProfile($_SESSION['user']->id);
 		// myRiviera
@@ -114,23 +115,40 @@ class ProfileController extends AuthenticatedController {
 		// myBenevolat
 		$this->deleteMyBenevolatProfile($_SESSION['user']->id);
 		
+		// Delete the profile
+		$request = new Requestv2("v2/ProfileRequestHandler",
+				DELETE,
+				array("userID"=>$id));
 		
-		// Delete myMed profile
-		$request = new Requestv2("v2/AuthenticationRequestHandler",
-								 DELETE);
-		$request->addArgument("login", str_replace("MYMED_", "", $_SESSION['user']->id)); 
-		$pass = hash("sha512", $_POST['password']);
-		$request->addArgument("password", $pass);
 		$responsejSon = $request->send();
-		$response = json_decode($responsejSon);
+		$responseObject2 = json_decode($responsejSon);
 		
-		if($response->status != 200) {
-			$this->error = $response->description;
-			$this->renderView("profile");
-		} else {
-			// Logout
-			$this->forwardTo('logout');
+		if($responseObject2->status != 200) {
+			$this->error = $responseObject2->description;
 		}
+		
+		// Delete myMed userid and password
+		if(!isset($_SESSION['userFromExternalAuth'])) {
+			
+			$request = new Requestv2("v2/AuthenticationRequestHandler",
+									 DELETE);
+			$request->addArgument("login", str_replace("MYMED_", "", $_SESSION['user']->id)); 
+			$pass = hash("sha512", $_POST['password']);
+			$request->addArgument("password", $pass);
+			$responsejSon = $request->send();
+			$response = json_decode($responsejSon);
+			
+			if($response->status != 200) {
+				$this->error = $response->description;
+				$this->renderView("profile");
+			} else {
+				// Logout
+				$this->forwardTo('logout');
+			}
+		}
+		
+		// Logout
+		$this->forwardTo('logout');
 		
 	}
 	
