@@ -128,7 +128,7 @@ class ProfileController extends AuthenticatedController {
 		}
 		
 		// Delete myMed userid and password
-		if(!isset($_SESSION['userFromExternalAuth'])) {
+		if(isset($_SESSION['user']->login)) {
 			
 			$request = new Requestv2("v2/AuthenticationRequestHandler",
 									 DELETE);

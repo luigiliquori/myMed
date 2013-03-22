@@ -74,15 +74,12 @@ class UpgradeAccountController extends AbstractController {
 			} else {
 				$request = new Requestv2("v2/SessionRequestHandler", DELETE);
 				
-				$request->addArgument("accessToken", $_SESSION['accessToken']);
+				$request->addArgument("accessToken", $token);
 				$request->addArgument("socialNetwork", $_SESSION['user']->socialNetworkName);
 				
 				$responsejSon = $request->send();
 				$responseObject = json_decode($responsejSon);
 					
-				if($responseObject->status != 200) {
-					$this->error = $responseObject->description;
-				}
 				session_destroy();
 				
 				$this->success = _("An email has been sent to you!");
