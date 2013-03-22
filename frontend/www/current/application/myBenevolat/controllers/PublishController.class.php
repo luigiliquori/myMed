@@ -97,6 +97,7 @@ class PublishController extends ExtendedProfileRequired {
 		    }else if(!empty($this->error) && $fromUpdate==true){
 		    	$this->redirectTo("?action=publish&method=modify_announcement&id=".$_POST['id']);
 		    }else{
+		    	debug("UPDATE ".$fromUpdate);
 				// All required fields are filled, publish it
 				$obj = new Annonce();
 				$obj->publisher = $_POST['publisher'];	// Publisher ID
@@ -138,11 +139,12 @@ class PublishController extends ExtendedProfileRequired {
 		$res = $request->find();
 		$oldAnn = $res[0];
 		$oldAnn->getDetails();
+		$oldAnn->delete(); //delete the old announcement
 		
 		$this->create(true); //create the new one
-		$oldAnn->delete(); //delete the old announcement
+		
 		$this->success = _("Announcement modified !");
-		$this->showUserAnnouncement();
+		$this->redirectTo("?action=publish&method=show_user_announcements");
 	}
 	
 	

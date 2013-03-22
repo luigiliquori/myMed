@@ -36,6 +36,8 @@
   		if(strpos($_SERVER['HTTP_REFERER'],"?action=find") &&
   		   !strpos($_SERVER['HTTP_REFERER'],"&search=true")) {
   			$_SESSION['detailsview_valid_referer'] = '?action=find&search=true';
+  		}else if(strpos($_SERVER['HTTP_REFERER'],"?action=publish&method=update")) {
+  			$_SESSION['detailsview_valid_referer'] = '?action=publish&method=show_user_announcements';
   		} 
   		// Do not save back link if come from DetailsView, updateReputation popup, apply
   		// or ModifyPublicationView
@@ -160,7 +162,15 @@
 					<h3><?= $this->result->title ?> :</h3>
 					
 					<b><?= _('Publication date') ?></b>: <?= $this->result->begin ?><br/>
-					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?><br/><br/>
+					<b><?= _('Deadline') ?></b>: <?= $this->result->end ?>
+				 <? if(!empty($this->result->end) && $this->result->end!="--"){
+				 		$date = strtotime(date('d-m-Y'));
+						$expiration_date = strtotime($this->result->end);
+						if($date > $expiration_date){
+							echo _("<b style='color:red;margin-left:10px'>ANNOUNCEMENT EXPIRED</b>");
+						}
+				 	} ?>
+					<br/><br/>
 					<b><?= _("Mission type") ?></b>: <?= Categories::$missions[$this->result->typeMission] ?><br/>
 					<b><?= _("District") ?></b>: <?= Categories::$mobilite[$this->result->quartier] ?><br/>
 					<b><?= _("Skills") ?></b>: 

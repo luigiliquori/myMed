@@ -42,7 +42,7 @@
 				<h3><?= _('Search a project') ?> :</h3>
 			
 	   				<fieldset data-role="controlgroup">
-						<select id="search_theme_content" id="call">
+						<select id="search_theme_content" id="call" data-native-menu="false" data-overlay-theme="d">
 						<option value=""><?= _("Themes") ?></option>
 						<? foreach (Categories::$themes as $k=>$v): ?>
 							<option value="<?= $k ?>">
@@ -51,7 +51,7 @@
 							<? endforeach; ?>
 						</select>
 						
-						<select id="search_other_content" id="call">
+						<select id="search_other_content" id="call" data-native-menu="false" data-overlay-theme="d">
 							<option value=""><?= _("Program") ?></option>
 							<? foreach (Categories::$calls as $k=>$v): ?>
 								<option value="<?= $k ?>">

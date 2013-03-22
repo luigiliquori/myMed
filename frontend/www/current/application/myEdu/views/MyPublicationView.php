@@ -59,7 +59,16 @@
 						<h3><?= _("Title")?> : <?= $item->title ?></h3>
 						<!-- Publication fields-->
 						<p style="position: relative; margin-left: 30px;">
-							<b><?= _('Deadline') ?></b>: <?= $item->end ?><br/><br/>
+							<b><?= _('Deadline') ?></b>: <?= $item->end ?>
+						 <? if(!empty($item->end) && $item->end!="--"){
+						 		$date = strtotime(date('d-m-Y'));
+								$expiration_date = strtotime($item->end);
+								debug(strtotime(date('d-m-Y'))." ".strtotime($item->end));
+								if($date > $expiration_date){
+									echo _("<b style='color:red;margin-left:10px'>OFFER EXPIRED</b>");
+								}
+						 	} ?>
+							<br/><br/>
 						 <? $domain="Not Defined";
 							foreach(Categories::$areas as $k=>$v) :
 								if(in_array($item->area, $v)){
