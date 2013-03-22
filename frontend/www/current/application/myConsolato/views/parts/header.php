@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">  
+=======
 <?php
 /*
  * Copyright 2013 INRIA
@@ -18,53 +22,37 @@
 <? include_once('view-utils.php'); ?>
 <!doctype html>
 <html lang="fr" <? if (defined("DEMO")) print 'manifest="cache.manifest"' ?>> 
+>>>>>>> d8a4eb3f6e991e1bfcbc86fad94103367dd84a0e
 
 <head> 
 
-	<title><?= empty($TITLE) ? "MyConsolato" : $TITLE ?></title> 
+	<title><?= empty($TITLE) ? APPLICATION_NAME : $TITLE ?></title> 
 			
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	
-	<!-- JQUERY  -->
-	<link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.1.0.min.css" />
-	<script src="../../lib/jquery/jquery-1.7.2.min.js"></script>
-	<script src="../../lib/jquery/jquery.mobile-1.1.0.min.js"></script>
-	
 	<!--  Extra icons for jquery -->
-	<link rel="stylesheet" href="../../lib/jquery/extra-icons/jqm-icon-pack-2.0-original.css" />
+	<link rel="stylesheet" href="/lib/jquery/jqm-icon-pack-2.1.2-fa.css" />
 	
-	<!-- DateBox -->
-	<script src="../../lib/jquery/datebox/jqm-datebox-1.1.0.core.min.js"></script>
-	<script src="../../lib/jquery/datebox/jqm-datebox-1.1.0.comp.datebox.min.js"></script>
-	<script src="../../lib/jquery/datebox/jquery.mobile.datebox.i18n.fr.utf8.js"></script>
-	<link href="../../lib/jquery/datebox/jqm-datebox-1.1.0.min.css" rel="stylesheet" />
+	<!-- JQUERY  -->
+	<link rel="stylesheet" href="/lib/jquery/jquery.mobile-1.2.0.css" />
+	<script src="/lib/jquery/jquery-1.8.2.min.js"></script>
+	<script src="/lib/jquery/jquery.mobile-1.2.0.js"></script>
 	
-	<!-- Keyfilter  -->
-	<script src="../../lib/jquery/jquery.keyfilter.js" ></script>
+	<!-- Cleeditor -->
+	<link rel="stylesheet" type="text/css" href="jquery/CLEeditor/jquery.cleditor.css" />
+    <script type="text/javascript" src="jquery/CLEeditor/jquery.cleditor.min.js"></script>
+    <script type="text/javascript" src="jquery/CLEeditor/startCLE.js"> </script>
 	
-	<!--  SimpleDialog -->
-	<script src="../../lib/jquery/simpledialog/jquery.mobile.simpledialog2.min.js"></script>
-	<link href="../../lib/jquery/simpledialog/jquery.mobile.simpledialog.min.css" rel="stylesheet" />
+	<!-- APP css -->
+	<link href="css/style.css" rel="stylesheet" />
 	
-	<!-- Localization -->
-	<script type="text/javascript">
-		msg={};
-		msg.FORM_ERROR = "<?= _("Il y a des erreurs dans le formulaire, merci de les corriger.") ?>";
-	</script>
-	
-	<!-- CLE editor -->
-	<link rel="stylesheet" type="text/css" href="../../lib/jquery/CLEeditor/jquery.cleditor.css" />
-	<script type="text/javascript" src="../../lib/jquery/CLEeditor/jquery.cleditor.min.js"></script>
+	<!-- MYMED css -->
+	<link href="/system/css/common.css" rel="stylesheet" />	
 	
 	<!-- APP JS -->
 	<script src="javascript/app.js"></script>
 	
-	<!-- MYMED css -->
-	<!-- <link href="../myMed/css/style.css" rel="stylesheet" /> -->
-	
-	<!-- APP css -->
-	<link href="css/style.css" rel="stylesheet" />
 	
 	<!-- Google Analytics -->
 	<script type="text/javascript">
@@ -78,19 +66,10 @@
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
 	</script>
-			
+	
+	
 	</head>
 		
-<body>
-
-<? // ================== Switch to active tab on load ==========================================?>
-<? if (!empty($TAB)) :?>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$.mobile.changePage("#<?= $TAB ?>", {transition:"none"})
-		});
-	</script>
-<? endif ?>
-
+<body onload="hideLoadingBar()">
 
 

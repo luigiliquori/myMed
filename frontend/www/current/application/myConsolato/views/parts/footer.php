@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+
+=======
 <?php
 /*
  * Copyright 2013 INRIA
@@ -39,5 +42,6 @@
 				</a></li>
 			</ul>
 		</div>
+>>>>>>> d8a4eb3f6e991e1bfcbc86fad94103367dd84a0e
 	</body>
 </html>
