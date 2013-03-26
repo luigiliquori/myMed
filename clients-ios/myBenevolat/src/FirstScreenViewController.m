@@ -36,7 +36,7 @@
     [[self.webview layer] setCornerRadius:10];
     [self.webview setClipsToBounds:YES];
     
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(action_options:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(action_options:)];
 
 }
 - (void)viewDidUnload
@@ -70,7 +70,6 @@
                                          otherButtonTitles:NSLocalizedString(@"Suggest this app", nil),
                        NSLocalizedString(@"MyMed web site...", nil), NSLocalizedString(@"myMed Launchpad...", nil), NSLocalizedString(@"Credits", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
-    [as release];
 }
 
 
@@ -85,7 +84,6 @@
         [controller setMessageBody:emailBody isHTML:YES];
         //[controller setToRecipients:recipients];
         [self presentModalViewController:controller animated:YES];
-        [controller release];
     }
     else
     {
@@ -93,7 +91,6 @@
                                                         message:@"Your device is not set up for email." delegate:self
                                               cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];   
-        [alert release];
     } 
 }
 
@@ -115,7 +112,6 @@
     } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+3)) {
         CreditsViewController *vc = [[CreditsViewController alloc] initWithNibName:@"CreditsViewController" bundle:nil];
         [self presentViewController:vc animated:YES completion:nil];
-        [vc release];
         return;
     }
 }

@@ -35,7 +35,7 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     if (self.page.url!=nil) {
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(action_options:)] autorelease];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(action_options:)];
     }
 
     NSAssert(self.page!=nil, @"self.page is nil");
@@ -87,7 +87,7 @@
     static NSString *CellIdentifier = @"CellTxt";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.textLabel.font = [UIFont systemFontOfSize:12];
         cell.textLabel.numberOfLines = 5;
     }
@@ -100,15 +100,15 @@
     static NSString *CellIdentifier = @"CellItem";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryNone;
         //cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.backgroundColor = [UIColor clearColor];
         
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
         
-        cell.backgroundView = [[[UIImageView alloc] init] autorelease];
-        cell.selectedBackgroundView = [[[UIImageView alloc] init] autorelease];
+        cell.backgroundView = [[UIImageView alloc] init];
+        cell.selectedBackgroundView = [[UIImageView alloc] init];
     }
     
     // Configure the cell...
@@ -167,9 +167,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         if (p.subtitle!=nil) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:CellIdentifier] autorelease];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:CellIdentifier];
         } else {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:CellIdentifier] autorelease];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:CellIdentifier];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         //cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -177,8 +177,8 @@
         
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
         
-        cell.backgroundView = [[[UIImageView alloc] init] autorelease];
-        cell.selectedBackgroundView = [[[UIImageView alloc] init] autorelease];
+        cell.backgroundView = [[UIImageView alloc] init];
+        cell.selectedBackgroundView = [[UIImageView alloc] init];
     }
     
     // Configure the cell...
@@ -264,7 +264,6 @@
     PagesViewController *vc = [[PagesViewController alloc] initWithNibName:@"PagesViewController" bundle:nil];
     vc.page = p;
     [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
 }
 
 
@@ -272,7 +271,6 @@
 {
     UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:self.page.title delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Open web site", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
-    [as release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

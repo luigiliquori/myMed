@@ -9,7 +9,7 @@
 #import "ChecklistViewController.h"
 
 @interface ListItem: NSObject<NSCoding>
-@property (atomic, retain) NSString *name;
+@property (atomic, strong) NSString *name;
 @property (atomic) BOOL checked;
 
 @end
@@ -24,11 +24,6 @@
         self.checked = [coder decodeBoolForKey:@"kchkd"];
     }
     return self;
-}
--(void) dealloc
-{
-    self.name = nil;
-    [super dealloc];
 }
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:self.name forKey:@"kname"];
@@ -69,7 +64,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     //self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(action_add:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(action_add:)];
     
     list = [[NSMutableArray alloc]init];
     
@@ -89,7 +84,6 @@
 
 - (void)viewDidUnload
 {
-    [list release];
     list = nil;
     [super viewDidUnload];
 }
@@ -117,7 +111,7 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -189,7 +183,6 @@
                                        otherButtonTitles:NSLocalizedString(@"Ok", nil), nil];
     av.alertViewStyle = UIAlertViewStylePlainTextInput;
     [av show];
-    [av release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -198,7 +191,7 @@
         return;
     }
     
-    ListItem *itm = [[[ListItem alloc] init] autorelease];
+    ListItem *itm = [[ListItem alloc] init];
     itm.name = [alertView textFieldAtIndex:0].text;
     [list addObject:itm];
     [self.tableView reloadData];
@@ -229,7 +222,6 @@
     NSString *archivePath = [NSString stringWithFormat:@"%@/checklist.dat", [searchPaths objectAtIndex:0]];
     [data writeToFile:archivePath atomically:YES];
     //NSLog(@"Saving in %@: %d", archivePath, result);
-    [archiver release];
 }
 
 
@@ -251,7 +243,6 @@
         //NSLog(@"%@: %d", li.name, li.checked);
     }
     [unarchiver finishDecoding];
-    [unarchiver release];
     [self.tableView reloadData];
 }
 @end

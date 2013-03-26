@@ -18,7 +18,7 @@ static NavigationModel *instance = nil;
     NSMutableArray *pagesStack;
 }
 
-@property (nonatomic, retain) NSMutableString *currentStringValue;
+@property (nonatomic, strong) NSMutableString *currentStringValue;
 @end
 
 
@@ -51,17 +51,11 @@ static NavigationModel *instance = nil;
 
 - (void)dealloc
 {
-    [pagesStack release];
     pagesStack = nil;
-    [_mainPage release];
-    _mainPage = nil;
-    self.currentStringValue = nil;
     if (parser) {
-        [parser release];
         parser = nil;
     }
 
-    [super dealloc];
 }
 
 - (void)parseXMLFile:(NSString *)pathToFile {
@@ -69,9 +63,6 @@ static NavigationModel *instance = nil;
     [pagesStack addObject:_mainPage];
     
     NSURL *xmlURL = [NSURL fileURLWithPath:pathToFile];
-    if (parser) {
-        [parser release];
-    }
     
     parser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
     [parser setDelegate:self];
@@ -95,7 +86,6 @@ static NavigationModel *instance = nil;
         [pagesStack addObject:pag];
         
         //NSLog(@"%@ [%@]", pag.title, pag.subtitle);
-        [pag release];
         return;
     } else if ( [elementName isEqualToString:@"item"] ) {
         Item *itm = [[Item alloc] init];
@@ -103,7 +93,6 @@ static NavigationModel *instance = nil;
         itm.subtitle = [attributeDict objectForKey:@"subtitle"];
         itm.url = [attributeDict objectForKey:@"url"];
         [parentPage.items addObject:itm];
-        [itm release];
         return;
     }
     

@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface HtmlViewController : UIViewController<UIWebViewDelegate>
-@property (nonatomic,retain) IBOutlet UIWebView *webview;
-@property (nonatomic,retain) IBOutlet UIImageView *bgImageView;
+@property (nonatomic,strong) IBOutlet UIWebView *webview;
+@property (nonatomic,strong) IBOutlet UIImageView *bgImageView;
 
-@property (nonatomic,retain) NSString *javascript;
+@property (nonatomic,strong) NSString *javascript;
 @property (nonatomic, readonly) BOOL isReady;
 
 @property (nonatomic) BOOL enableLoadRequest;

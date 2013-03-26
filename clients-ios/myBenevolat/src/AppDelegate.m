@@ -22,12 +22,6 @@
 @synthesize tabBarController=_tabBarController;
 
 
-- (void)dealloc
-{
-    self.window = nil;
-    self.tabBarController = nil;
-    [super dealloc];
-}
 
 -(void) preloadData
 {
@@ -43,7 +37,7 @@
     [TestFlight takeOff:@"0341e193-05e4-4e5d-a4dd-0659c1bc536e"];
 #endif
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     // Main
     UIColor *color = [UIColor colorWithRed:0.1 green:0.4 blue:0.65 alpha:1.0];
@@ -55,15 +49,15 @@
         xibName = @"FirstScreenViewControllerIPad";
     }
     
-    FirstScreenViewController *firstVC = [[[FirstScreenViewController alloc] initWithNibName:xibName bundle:nil] autorelease];
+    FirstScreenViewController *firstVC = [[FirstScreenViewController alloc] initWithNibName:xibName bundle:nil];
     firstVC.tabBarItem.image = [UIImage imageNamed:@"star"];
     firstVC.title = NSLocalizedString(@"myBenevolat", nil);
-    UINavigationController *firstNav = [[[UINavigationController alloc] initWithRootViewController:firstVC] autorelease];
+    UINavigationController *firstNav = [[UINavigationController alloc] initWithRootViewController:firstVC];
     firstNav.navigationBar.tintColor = color;
     firstNav.title = NSLocalizedString(@"myBenevolat", nil);
     
     
-    HtmlViewController *mainVC = [[[HtmlViewController alloc] initWithNibName:@"HtmlViewController" bundle:nil] autorelease];
+    HtmlViewController *mainVC = [[HtmlViewController alloc] initWithNibName:@"HtmlViewController" bundle:nil];
     mainVC.title = NSLocalizedString(@"Social Network", nil);
     mainVC.tabBarItem.image = [UIImage imageNamed:@"group"];
 
@@ -99,7 +93,7 @@
     pagesNav.tabBarItem.image = [UIImage imageNamed:@"univlist"];
     */
     
-    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+    self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:firstNav, mainVC, nil];
     self.tabBarController.tabBar.tintColor = color;
     self.window.rootViewController = self.tabBarController;

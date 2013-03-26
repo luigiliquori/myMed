@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface Item : NSObject
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *subtitle;
-@property (nonatomic, retain) NSString *url;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *subtitle;
+@property (nonatomic, strong) NSString *url;
 
 @end

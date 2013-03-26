@@ -10,6 +10,6 @@
 #import "Page.h"
 
 @interface PagesViewController : UITableViewController<UIActionSheetDelegate>
-@property (nonatomic, retain) Page *page;
+@property (nonatomic, strong) Page *page;
 
 @end

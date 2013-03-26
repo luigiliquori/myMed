@@ -33,12 +33,6 @@
 
 -(void) dealloc
 {
-    self.text     = nil;
     self.parent   = nil;
-    [_items release];
-    _items = nil;
-    [_subPages release];
-    _subPages = nil;
-    [super dealloc];
 }
 @end

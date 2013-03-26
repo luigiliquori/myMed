@@ -13,6 +13,6 @@
 
 @property (nonatomic, readonly) NSMutableArray *subPages;
 @property (nonatomic, readonly) NSMutableArray *items;
-@property (nonatomic, retain) NSString *text;
-@property (nonatomic, assign) Page *parent;
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, weak) Page *parent;
 @end

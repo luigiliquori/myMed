@@ -11,5 +11,5 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @interface FirstScreenViewController : UIViewController<UIWebViewDelegate,UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
-@property (nonatomic, retain) IBOutlet UIWebView *webview;
+@property (nonatomic, strong) IBOutlet UIWebView *webview;
 @end

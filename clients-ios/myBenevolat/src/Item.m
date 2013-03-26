@@ -11,12 +11,4 @@
 @implementation Item
 @synthesize title=_title, url=_url, subtitle=_subtitle;
 
--(void) dealloc
-{
-    self.title    = nil;
-    self.subtitle = nil;
-    self.url      = nil;
-
-    [super dealloc];
-}
 @end
