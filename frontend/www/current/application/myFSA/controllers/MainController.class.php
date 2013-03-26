@@ -27,7 +27,7 @@ class MainController extends AuthenticatedController {
 	public function handleRequest() {
 		
 		parent::handleRequest();
-			
+		
 		if(!isset($_SESSION['ExtendedProfile']))
 			$this->fetchExtendedProfile();
 	

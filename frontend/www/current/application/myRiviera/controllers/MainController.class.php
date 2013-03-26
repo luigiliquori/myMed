@@ -34,7 +34,11 @@ class MainController extends AuthenticatedController {
 		"Company" => array("Company")
 	);
 	
+	
+	
 	public function handleRequest() {
+		parent::handleRequest();
+		
 		$this->renderView("main");
 	}
 	
