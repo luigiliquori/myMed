@@ -8,6 +8,7 @@
 
 #import "FirstScreenViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "CreditsViewController.h"
 
 @interface FirstScreenViewController ()
 -(IBAction)action_options:(id)sender;
@@ -67,7 +68,7 @@
                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                     destructiveButtonTitle:nil
                                          otherButtonTitles:NSLocalizedString(@"Suggest this app", nil),
-                       NSLocalizedString(@"MyMed web site...", nil), NSLocalizedString(@"myMed Launchpad...", nil), nil];
+                       NSLocalizedString(@"MyMed web site...", nil), NSLocalizedString(@"myMed Launchpad...", nil), NSLocalizedString(@"Credits", nil), nil];
     [as showFromBarButtonItem:sender animated:YES];
     [as release];
 }
@@ -110,6 +111,11 @@
         return;
     } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+2)) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mymed.fr/?action=main&method=read"]];
+        return;
+    } else if (buttonIndex==(actionSheet.firstOtherButtonIndex+3)) {
+        CreditsViewController *vc = [[CreditsViewController alloc] initWithNibName:@"CreditsViewController" bundle:nil];
+        [self presentViewController:vc animated:YES completion:nil];
+        [vc release];
         return;
     }
 }
