@@ -115,8 +115,11 @@ require_once("header.php");
 			<fieldset class="ui-grid-a; center-wrapper">
 				<div class="ui-block-a; center-wrapper">
 					<form action="?action=profile&method=delete" method="POST" data-ajax="false">
-						<label for="password"> <?= _("Password:") ?></label>
-     					<input type="password" name="password" id="password" value="" type="text">
+						<?php if(isset($_SESSION['user']->login)): ?> 
+							<label for="password"> <?= _("Password:") ?></label>
+							<input type="password" name="password" id="password" value="" type="text">
+						<? endif; ?>
+     					
 						<input data-role="button" type="submit" data-theme="g" data-icon="ok" data-inline="true" value="<?= _('Yes') ?>" />
 						<a href="#" data-role="button" data-icon="delete" data-inline="true" data-theme="r" data-rel="back" data-direction="reverse"><?= _('No') ?></a>
 					</form>
