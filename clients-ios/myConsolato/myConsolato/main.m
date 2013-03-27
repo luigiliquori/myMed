@@ -2,8 +2,8 @@
 //  main.m
 //  myConsolato
 //
-//  Created by Emilio on 14/01/13.
-//  Copyright (c) 2013 Escogitare. All rights reserved.
+//  Created by Emilio on 27/03/13.
+//  Copyright (c) 2013 myMed. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

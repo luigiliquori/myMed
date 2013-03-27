@@ -2,18 +2,16 @@
 //  AppDelegate.h
 //  myConsolato
 //
-//  Created by Emilio on 14/01/13.
-//  Copyright (c) 2013 Escogitare. All rights reserved.
+//  Created by Emilio on 27/03/13.
+//  Copyright (c) 2013 myMed. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@class ViewController;
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) ViewController *viewController;
+@property (strong, nonatomic) UITabBarController *tabBarController;
 
 @end

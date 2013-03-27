@@ -2,39 +2,33 @@
 //  AppDelegate.m
 //  myConsolato
 //
-//  Created by Emilio on 14/01/13.
-//  Copyright (c) 2013 Escogitare. All rights reserved.
+//  Created by Emilio on 27/03/13.
+//  Copyright (c) 2013 myMed. All rights reserved.
 //
 
 #import "AppDelegate.h"
 
-#import "ViewController.h"
+#import "FirstViewController.h"
+
+#import "SecondViewController.h"
 
 @implementation AppDelegate
 
-- (void)dealloc
-{
-    [_window release];
-    [_viewController release];
-    [super dealloc];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#if TARGET_OS_IPHONE
-
-#ifdef TESTING
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-#endif
-    [TestFlight takeOff:@"4eaeffd8-5a71-44bf-b2be-64d44a4431cc"];
-#endif
-    
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-    self.window.rootViewController = nav;
-    [nav release];
+    UIViewController *viewController1, *viewController2;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPhone" bundle:nil];
+        viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPhone" bundle:nil];
+    } else {
+        viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPad" bundle:nil];
+        viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPad" bundle:nil];
+    }
+    self.tabBarController = [[UITabBarController alloc] init];
+    self.tabBarController.viewControllers = @[viewController1, viewController2];
+    self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -65,5 +59,19 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+/*
+// Optional UITabBarControllerDelegate method.
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+}
+*/
+
+/*
+// Optional UITabBarControllerDelegate method.
+- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
+{
+}
+*/
 
 @end
