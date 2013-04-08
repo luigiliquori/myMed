@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6329D1351712F9730005F0B3 /* FormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6329D1331712F9730005F0B3 /* FormsViewController.m */; };
+		6329D1361712F9730005F0B3 /* FormsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6329D1341712F9730005F0B3 /* FormsViewController.xib */; };
+		6329D13A1712F98D0005F0B3 /* AppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6329D1381712F98D0005F0B3 /* AppointmentViewController.m */; };
+		6329D13B1712F98D0005F0B3 /* AppointmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6329D1391712F98D0005F0B3 /* AppointmentViewController.xib */; };
+		6329D13F1712F9AD0005F0B3 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6329D13D1712F9AD0005F0B3 /* ContactsViewController.m */; };
+		6329D1401712F9AD0005F0B3 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6329D13E1712F9AD0005F0B3 /* ContactsViewController.xib */; };
+		6329D14F1712FB5B0005F0B3 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D1431712FB5B0005F0B3 /* calendar.png */; };
+		6329D1501712FB5B0005F0B3 /* calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D1441712FB5B0005F0B3 /* calendar@2x.png */; };
+		6329D1511712FB5B0005F0B3 /* case.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D1451712FB5B0005F0B3 /* case.png */; };
+		6329D1521712FB5B0005F0B3 /* case@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D1461712FB5B0005F0B3 /* case@2x.png */; };
+		6329D1531712FB5B0005F0B3 /* copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D1471712FB5B0005F0B3 /* copy.png */; };
+		6329D1541712FB5B0005F0B3 /* copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D1481712FB5B0005F0B3 /* copy@2x.png */; };
+		6329D1551712FB5B0005F0B3 /* document.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D1491712FB5B0005F0B3 /* document.png */; };
+		6329D1561712FB5B0005F0B3 /* document@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D14A1712FB5B0005F0B3 /* document@2x.png */; };
+		6329D1571712FB5B0005F0B3 /* mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D14B1712FB5B0005F0B3 /* mail.png */; };
+		6329D1581712FB5B0005F0B3 /* mail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D14C1712FB5B0005F0B3 /* mail@2x.png */; };
+		6329D1591712FB5B0005F0B3 /* newspaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D14D1712FB5B0005F0B3 /* newspaper.png */; };
+		6329D15A1712FB5B0005F0B3 /* newspaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6329D14E1712FB5B0005F0B3 /* newspaper@2x.png */; };
 		63D32B76170325DE00ECA33E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D32B75170325DE00ECA33E /* UIKit.framework */; };
 		63D32B78170325DE00ECA33E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D32B77170325DE00ECA33E /* Foundation.framework */; };
 		63D32B7A170325DE00ECA33E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D32B79170325DE00ECA33E /* CoreGraphics.framework */; };
@@ -16,19 +34,34 @@
 		63D32B88170325DE00ECA33E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B87170325DE00ECA33E /* Default.png */; };
 		63D32B8A170325DE00ECA33E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B89170325DE00ECA33E /* Default@2x.png */; };
 		63D32B8C170325DE00ECA33E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B8B170325DE00ECA33E /* Default-568h@2x.png */; };
-		63D32B8F170325DE00ECA33E /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D32B8E170325DE00ECA33E /* FirstViewController.m */; };
-		63D32B91170325DE00ECA33E /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B90170325DE00ECA33E /* first.png */; };
-		63D32B93170325DE00ECA33E /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B92170325DE00ECA33E /* first@2x.png */; };
-		63D32B96170325DE00ECA33E /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D32B95170325DE00ECA33E /* SecondViewController.m */; };
-		63D32B98170325DE00ECA33E /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B97170325DE00ECA33E /* second.png */; };
-		63D32B9A170325DE00ECA33E /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B99170325DE00ECA33E /* second@2x.png */; };
-		63D32B9D170325DE00ECA33E /* FirstViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B9B170325DE00ECA33E /* FirstViewController_iPhone.xib */; };
-		63D32BA0170325DE00ECA33E /* FirstViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B9E170325DE00ECA33E /* FirstViewController_iPad.xib */; };
-		63D32BA3170325DE00ECA33E /* SecondViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D32BA1170325DE00ECA33E /* SecondViewController_iPhone.xib */; };
-		63D32BA6170325DE00ECA33E /* SecondViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D32BA4170325DE00ECA33E /* SecondViewController_iPad.xib */; };
+		63D32B8F170325DE00ECA33E /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D32B8E170325DE00ECA33E /* NewsViewController.m */; };
+		63D32B96170325DE00ECA33E /* ServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D32B95170325DE00ECA33E /* ServicesViewController.m */; };
+		63D32B9D170325DE00ECA33E /* NewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D32B9B170325DE00ECA33E /* NewsViewController.xib */; };
+		63D32BA3170325DE00ECA33E /* ServicesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D32BA1170325DE00ECA33E /* ServicesViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6329D1321712F9730005F0B3 /* FormsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormsViewController.h; sourceTree = "<group>"; };
+		6329D1331712F9730005F0B3 /* FormsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormsViewController.m; sourceTree = "<group>"; };
+		6329D1341712F9730005F0B3 /* FormsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormsViewController.xib; sourceTree = "<group>"; };
+		6329D1371712F98D0005F0B3 /* AppointmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentViewController.h; sourceTree = "<group>"; };
+		6329D1381712F98D0005F0B3 /* AppointmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentViewController.m; sourceTree = "<group>"; };
+		6329D1391712F98D0005F0B3 /* AppointmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppointmentViewController.xib; sourceTree = "<group>"; };
+		6329D13C1712F9AD0005F0B3 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
+		6329D13D1712F9AD0005F0B3 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
+		6329D13E1712F9AD0005F0B3 /* ContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
+		6329D1431712FB5B0005F0B3 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
+		6329D1441712FB5B0005F0B3 /* calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar@2x.png"; sourceTree = "<group>"; };
+		6329D1451712FB5B0005F0B3 /* case.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = case.png; sourceTree = "<group>"; };
+		6329D1461712FB5B0005F0B3 /* case@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case@2x.png"; sourceTree = "<group>"; };
+		6329D1471712FB5B0005F0B3 /* copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = copy.png; sourceTree = "<group>"; };
+		6329D1481712FB5B0005F0B3 /* copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copy@2x.png"; sourceTree = "<group>"; };
+		6329D1491712FB5B0005F0B3 /* document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = document.png; sourceTree = "<group>"; };
+		6329D14A1712FB5B0005F0B3 /* document@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "document@2x.png"; sourceTree = "<group>"; };
+		6329D14B1712FB5B0005F0B3 /* mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail.png; sourceTree = "<group>"; };
+		6329D14C1712FB5B0005F0B3 /* mail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mail@2x.png"; sourceTree = "<group>"; };
+		6329D14D1712FB5B0005F0B3 /* newspaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newspaper.png; sourceTree = "<group>"; };
+		6329D14E1712FB5B0005F0B3 /* newspaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "newspaper@2x.png"; sourceTree = "<group>"; };
 		63D32B72170325DE00ECA33E /* myConsolato.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myConsolato.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D32B75170325DE00ECA33E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		63D32B77170325DE00ECA33E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -42,18 +75,12 @@
 		63D32B87170325DE00ECA33E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		63D32B89170325DE00ECA33E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		63D32B8B170325DE00ECA33E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		63D32B8D170325DE00ECA33E /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		63D32B8E170325DE00ECA33E /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		63D32B90170325DE00ECA33E /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		63D32B92170325DE00ECA33E /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		63D32B94170325DE00ECA33E /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		63D32B95170325DE00ECA33E /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		63D32B97170325DE00ECA33E /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		63D32B99170325DE00ECA33E /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
-		63D32B9C170325DE00ECA33E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController_iPhone.xib; sourceTree = "<group>"; };
-		63D32B9F170325DE00ECA33E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController_iPad.xib; sourceTree = "<group>"; };
-		63D32BA2170325DE00ECA33E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController_iPhone.xib; sourceTree = "<group>"; };
-		63D32BA5170325DE00ECA33E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController_iPad.xib; sourceTree = "<group>"; };
+		63D32B8D170325DE00ECA33E /* NewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
+		63D32B8E170325DE00ECA33E /* NewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
+		63D32B94170325DE00ECA33E /* ServicesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServicesViewController.h; sourceTree = "<group>"; };
+		63D32B95170325DE00ECA33E /* ServicesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServicesViewController.m; sourceTree = "<group>"; };
+		63D32B9C170325DE00ECA33E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NewsViewController.xib; sourceTree = "<group>"; };
+		63D32BA2170325DE00ECA33E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ServicesViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +97,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6329D1421712FB5B0005F0B3 /* imgs */ = {
+			isa = PBXGroup;
+			children = (
+				6329D1431712FB5B0005F0B3 /* calendar.png */,
+				6329D1441712FB5B0005F0B3 /* calendar@2x.png */,
+				6329D1451712FB5B0005F0B3 /* case.png */,
+				6329D1461712FB5B0005F0B3 /* case@2x.png */,
+				6329D1471712FB5B0005F0B3 /* copy.png */,
+				6329D1481712FB5B0005F0B3 /* copy@2x.png */,
+				6329D1491712FB5B0005F0B3 /* document.png */,
+				6329D14A1712FB5B0005F0B3 /* document@2x.png */,
+				6329D14B1712FB5B0005F0B3 /* mail.png */,
+				6329D14C1712FB5B0005F0B3 /* mail@2x.png */,
+				6329D14D1712FB5B0005F0B3 /* newspaper.png */,
+				6329D14E1712FB5B0005F0B3 /* newspaper@2x.png */,
+			);
+			path = imgs;
+			sourceTree = SOURCE_ROOT;
+		};
 		63D32B69170325DE00ECA33E = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +146,7 @@
 		63D32B7B170325DE00ECA33E /* myConsolato */ = {
 			isa = PBXGroup;
 			children = (
+				6329D1421712FB5B0005F0B3 /* imgs */,
 				63D32BB0170326B600ECA33E /* contacts */,
 				63D32BAF170326A200ECA33E /* appointment */,
 				63D32BAE1703269100ECA33E /* forms */,
@@ -107,18 +154,6 @@
 				63D32BAC1703267E00ECA33E /* news */,
 				63D32B84170325DE00ECA33E /* AppDelegate.h */,
 				63D32B85170325DE00ECA33E /* AppDelegate.m */,
-				63D32B8D170325DE00ECA33E /* FirstViewController.h */,
-				63D32B8E170325DE00ECA33E /* FirstViewController.m */,
-				63D32B90170325DE00ECA33E /* first.png */,
-				63D32B92170325DE00ECA33E /* first@2x.png */,
-				63D32B94170325DE00ECA33E /* SecondViewController.h */,
-				63D32B95170325DE00ECA33E /* SecondViewController.m */,
-				63D32B97170325DE00ECA33E /* second.png */,
-				63D32B99170325DE00ECA33E /* second@2x.png */,
-				63D32B9B170325DE00ECA33E /* FirstViewController_iPhone.xib */,
-				63D32B9E170325DE00ECA33E /* FirstViewController_iPad.xib */,
-				63D32BA1170325DE00ECA33E /* SecondViewController_iPhone.xib */,
-				63D32BA4170325DE00ECA33E /* SecondViewController_iPad.xib */,
 				63D32B7C170325DE00ECA33E /* Supporting Files */,
 			);
 			path = myConsolato;
@@ -141,6 +176,9 @@
 		63D32BAC1703267E00ECA33E /* news */ = {
 			isa = PBXGroup;
 			children = (
+				63D32B8D170325DE00ECA33E /* NewsViewController.h */,
+				63D32B8E170325DE00ECA33E /* NewsViewController.m */,
+				63D32B9B170325DE00ECA33E /* NewsViewController.xib */,
 			);
 			name = news;
 			sourceTree = "<group>";
@@ -148,6 +186,9 @@
 		63D32BAD1703268800ECA33E /* services */ = {
 			isa = PBXGroup;
 			children = (
+				63D32B94170325DE00ECA33E /* ServicesViewController.h */,
+				63D32B95170325DE00ECA33E /* ServicesViewController.m */,
+				63D32BA1170325DE00ECA33E /* ServicesViewController.xib */,
 			);
 			name = services;
 			sourceTree = "<group>";
@@ -155,6 +196,9 @@
 		63D32BAE1703269100ECA33E /* forms */ = {
 			isa = PBXGroup;
 			children = (
+				6329D1321712F9730005F0B3 /* FormsViewController.h */,
+				6329D1331712F9730005F0B3 /* FormsViewController.m */,
+				6329D1341712F9730005F0B3 /* FormsViewController.xib */,
 			);
 			name = forms;
 			sourceTree = "<group>";
@@ -162,6 +206,9 @@
 		63D32BAF170326A200ECA33E /* appointment */ = {
 			isa = PBXGroup;
 			children = (
+				6329D1371712F98D0005F0B3 /* AppointmentViewController.h */,
+				6329D1381712F98D0005F0B3 /* AppointmentViewController.m */,
+				6329D1391712F98D0005F0B3 /* AppointmentViewController.xib */,
 			);
 			name = appointment;
 			sourceTree = "<group>";
@@ -169,6 +216,9 @@
 		63D32BB0170326B600ECA33E /* contacts */ = {
 			isa = PBXGroup;
 			children = (
+				6329D13C1712F9AD0005F0B3 /* ContactsViewController.h */,
+				6329D13D1712F9AD0005F0B3 /* ContactsViewController.m */,
+				6329D13E1712F9AD0005F0B3 /* ContactsViewController.xib */,
 			);
 			name = contacts;
 			sourceTree = "<group>";
@@ -228,14 +278,23 @@
 				63D32B88170325DE00ECA33E /* Default.png in Resources */,
 				63D32B8A170325DE00ECA33E /* Default@2x.png in Resources */,
 				63D32B8C170325DE00ECA33E /* Default-568h@2x.png in Resources */,
-				63D32B91170325DE00ECA33E /* first.png in Resources */,
-				63D32B93170325DE00ECA33E /* first@2x.png in Resources */,
-				63D32B98170325DE00ECA33E /* second.png in Resources */,
-				63D32B9A170325DE00ECA33E /* second@2x.png in Resources */,
-				63D32B9D170325DE00ECA33E /* FirstViewController_iPhone.xib in Resources */,
-				63D32BA0170325DE00ECA33E /* FirstViewController_iPad.xib in Resources */,
-				63D32BA3170325DE00ECA33E /* SecondViewController_iPhone.xib in Resources */,
-				63D32BA6170325DE00ECA33E /* SecondViewController_iPad.xib in Resources */,
+				63D32B9D170325DE00ECA33E /* NewsViewController.xib in Resources */,
+				63D32BA3170325DE00ECA33E /* ServicesViewController.xib in Resources */,
+				6329D1361712F9730005F0B3 /* FormsViewController.xib in Resources */,
+				6329D13B1712F98D0005F0B3 /* AppointmentViewController.xib in Resources */,
+				6329D1401712F9AD0005F0B3 /* ContactsViewController.xib in Resources */,
+				6329D14F1712FB5B0005F0B3 /* calendar.png in Resources */,
+				6329D1501712FB5B0005F0B3 /* calendar@2x.png in Resources */,
+				6329D1511712FB5B0005F0B3 /* case.png in Resources */,
+				6329D1521712FB5B0005F0B3 /* case@2x.png in Resources */,
+				6329D1531712FB5B0005F0B3 /* copy.png in Resources */,
+				6329D1541712FB5B0005F0B3 /* copy@2x.png in Resources */,
+				6329D1551712FB5B0005F0B3 /* document.png in Resources */,
+				6329D1561712FB5B0005F0B3 /* document@2x.png in Resources */,
+				6329D1571712FB5B0005F0B3 /* mail.png in Resources */,
+				6329D1581712FB5B0005F0B3 /* mail@2x.png in Resources */,
+				6329D1591712FB5B0005F0B3 /* newspaper.png in Resources */,
+				6329D15A1712FB5B0005F0B3 /* newspaper@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,8 +307,11 @@
 			files = (
 				63D32B82170325DE00ECA33E /* main.m in Sources */,
 				63D32B86170325DE00ECA33E /* AppDelegate.m in Sources */,
-				63D32B8F170325DE00ECA33E /* FirstViewController.m in Sources */,
-				63D32B96170325DE00ECA33E /* SecondViewController.m in Sources */,
+				63D32B8F170325DE00ECA33E /* NewsViewController.m in Sources */,
+				63D32B96170325DE00ECA33E /* ServicesViewController.m in Sources */,
+				6329D1351712F9730005F0B3 /* FormsViewController.m in Sources */,
+				6329D13A1712F98D0005F0B3 /* AppointmentViewController.m in Sources */,
+				6329D13F1712F9AD0005F0B3 /* ContactsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,36 +326,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		63D32B9B170325DE00ECA33E /* FirstViewController_iPhone.xib */ = {
+		63D32B9B170325DE00ECA33E /* NewsViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				63D32B9C170325DE00ECA33E /* en */,
 			);
-			name = FirstViewController_iPhone.xib;
+			name = NewsViewController.xib;
 			sourceTree = "<group>";
 		};
-		63D32B9E170325DE00ECA33E /* FirstViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				63D32B9F170325DE00ECA33E /* en */,
-			);
-			name = FirstViewController_iPad.xib;
-			sourceTree = "<group>";
-		};
-		63D32BA1170325DE00ECA33E /* SecondViewController_iPhone.xib */ = {
+		63D32BA1170325DE00ECA33E /* ServicesViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				63D32BA2170325DE00ECA33E /* en */,
 			);
-			name = SecondViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		63D32BA4170325DE00ECA33E /* SecondViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				63D32BA5170325DE00ECA33E /* en */,
-			);
-			name = SecondViewController_iPad.xib;
+			name = ServicesViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -400,6 +446,7 @@
 				63D32BAB170325DE00ECA33E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

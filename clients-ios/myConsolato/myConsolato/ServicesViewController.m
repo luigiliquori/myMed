@@ -6,20 +6,20 @@
 //  Copyright (c) 2013 myMed. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "ServicesViewController.h"
 
-@interface SecondViewController ()
+@interface ServicesViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation ServicesViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Second", @"Second");
-        self.tabBarItem.image = [UIImage imageNamed:@"second"];
+        self.title = NSLocalizedString(@"Servizi",nil);
+        self.tabBarItem.image = [UIImage imageNamed:@"case"];
     }
     return self;
 }

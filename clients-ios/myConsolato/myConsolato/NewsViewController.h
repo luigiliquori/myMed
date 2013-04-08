@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface NewsViewController : UIViewController<UIWebViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
 
 @end

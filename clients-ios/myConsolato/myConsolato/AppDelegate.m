@@ -8,26 +8,29 @@
 
 #import "AppDelegate.h"
 
-#import "FirstViewController.h"
-
-#import "SecondViewController.h"
+#import "ContactsViewController.h"
+#import "AppointmentViewController.h"
+#import "FormsViewController.h"
+#import "ServicesViewController.h"
+#import "NewsViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     // Override point for customization after application launch.
-    UIViewController *viewController1, *viewController2;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPhone" bundle:nil];
-        viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPhone" bundle:nil];
-    } else {
-        viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPad" bundle:nil];
-        viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPad" bundle:nil];
-    }
+    UIViewController *viewControllerNews, *viewControllerServices, *viewControllerForms, *viewControllerAppointment, *viewControllerContacts;
+    viewControllerNews = [[NewsViewController alloc] initWithNibName:@"NewsViewController" bundle:nil];
+    viewControllerServices = [[ServicesViewController alloc] initWithNibName:@"ServicesViewController" bundle:nil];
+    viewControllerForms = [[FormsViewController alloc] initWithNibName:@"FormsViewController" bundle:nil];
+    viewControllerAppointment = [[AppointmentViewController alloc] initWithNibName:@"AppointmentViewController" bundle:nil];
+    viewControllerContacts = [[ContactsViewController alloc] initWithNibName:@"ContactsViewController" bundle:nil];
+    //if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[viewController1, viewController2];
+    self.tabBarController.viewControllers = @[viewControllerNews, viewControllerServices, viewControllerForms, viewControllerAppointment, viewControllerContacts];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
